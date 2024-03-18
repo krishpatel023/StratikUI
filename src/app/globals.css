@@ -55,10 +55,18 @@
   }
 }
 
-.search-bar::-webkit-scrollbar {
-  width: 4px; /* width of the entire scrollbar */
+.scrollbar-vertical::-webkit-scrollbar {
+  width: 8px; /* width of the entire scrollbar */
 }
-.search-bar::-webkit-scrollbar-thumb {
-  background-color: var(--primary); /* color of the scroll thumb */
+.scrollbar-vertical::-webkit-scrollbar-thumb {
+  background-color: var(--primary-foreground); /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+}
+
+.scrollbar-horizontal::-webkit-scrollbar {
+  height: 6px; /* width of the entire scrollbar */
+}
+.scrollbar-horizontal::-webkit-scrollbar-thumb {
+  background-color: var(--primary-foreground); /* color of the scroll thumb */
   border-radius: 20px; /* roundness of the scroll thumb */
 }

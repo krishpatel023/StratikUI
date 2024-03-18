@@ -1,17 +1,4 @@
-import { DataDescription, ImplementationNode } from "@/utils/constants";
-import { useEffect } from "react";
-
-function Button_1() {
-  return (
-    <>
-      <button className="bg-blue-600 rounded text-white py-1 px-4">
-        Click
-      </button>
-    </>
-  );
-}
-
-const ButtonCode: string = `"use client";
+"use client";
 import { DataDescription } from "@/utils/constants";
 import { Icons } from "@/utils/icons";
 import { DEFAULT_MODE } from "@/utils/utils";
@@ -59,7 +46,7 @@ export default function Component({ data }: { data: DataDescription }) {
                 <button className="h-12 w-10 rounded border-[1px] border-border flex justify-center items-center">
                   <Icons.tablet className="w-[1.25rem] h-6 text-black" />
                 </button>
-                <button className="h-12 w-10 rounded border-[1px] border-border flex justify-center items-center">
+                <button className="h-12 w-10 rounded border-[1px] border-primary flex justify-center items-center">
                   <Icons.desktop className="w-6 h-6" />
                 </button>
               </div>
@@ -76,7 +63,7 @@ export default function Component({ data }: { data: DataDescription }) {
               )}
             </div>
           </div>
-          <div className="w-[90%] flex flex-col py-4 gap-4 rounded-xl mx-auto items-start">
+          <div className="w-[90%] flex flex-col py-4 gap-4 rounded-xl mx-auto items-start mb-4">
             <button
               className="text-accent flex justify-center items-center gap-2 text-center"
               onClick={() => setActive(!active)}
@@ -92,12 +79,10 @@ export default function Component({ data }: { data: DataDescription }) {
               )}
             </button>
           </div>
-          <div className="w-[90%] flex flex-col py-4 gap-4 mx-auto">
-            <Implementation
-              implementation={data.implementation}
-              active={active}
-            />
-          </div>
+          <Implementation
+            implementation={data.implementation}
+            active={active}
+          />
         </>
       ) : (
         router.push("/")
@@ -105,31 +90,3 @@ export default function Component({ data }: { data: DataDescription }) {
     </>
   );
 }
-`;
-
-const Implementation: ImplementationNode[] = [
-  {
-    type: "technology_used",
-    title: "Technology Used",
-    content: ["tailwind-css", "framer-motion"],
-  },
-  {
-    type: "code",
-    title: "Code",
-    content: ButtonCode,
-  },
-  {
-    type: "bash",
-    title: "Code",
-    content: "npm i -D @headlessui/react",
-  },
-];
-
-const ButtonData_1: DataDescription = {
-  name: "Default Button",
-  description: "This is a default button",
-  implementation: Implementation,
-  component: Button_1(),
-  version_included: "0.0.1",
-};
-export default ButtonData_1;
