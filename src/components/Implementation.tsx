@@ -29,7 +29,7 @@ export default function Implementation({
         implementation.map((item, i) => (
           <div key={i} className="flex gap-4 w-[90%] mx-auto mt-6">
             <div className="w-6">
-              <p className="text-accent h-6 w-6 text-center bg-blue-100 rounded-full border-[1px] border-accent">
+              <p className="text-accent h-6 w-6 mt-1 text-center bg-blue-100 rounded-full border-[1px] border-accent">
                 {i + 1}
               </p>
               {implementation.length - 1 > i && (
@@ -205,13 +205,13 @@ function Bash({ codestring }: { codestring: string }) {
 
 function Inspiration({ data }: { data: InspirationObject }) {
   return (
-    <div className="w-full bg-red-500 flex justify-start gap-2">
+    <div className="w-full flex justify-start items-center gap-2">
       <h1 className="text-lg font-medium text-textPrimary">{data.message}</h1>
       <a
         href={data.link}
         target="_blank"
         rel="nofollow"
-        className="text-accent"
+        className="text-accent flex gap-2 items-center justify-center font-semibold text-lg"
       >
         {data.name}
         <Icons.arrow className="rotate-45" />

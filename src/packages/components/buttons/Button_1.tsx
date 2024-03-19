@@ -123,6 +123,15 @@ const Implementation: ImplementationNode[] = [
     title: "Code",
     content: "npm i -D @headlessui/react",
   },
+  {
+    type: "inspiration",
+    title: "Code",
+    content: {
+      name: "Aceternity UI",
+      link: "https://aceternity-ui.vercel.app/",
+      message: "This component is inspired from ",
+    },
+  },
 ];
 
 const ButtonData_1: DataDescription = {
