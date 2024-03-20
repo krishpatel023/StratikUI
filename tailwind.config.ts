@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: "class",
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -23,10 +24,9 @@ const config: Config = {
         textSecondary: "var(--text-secondary)",
         textComplementary: "var(--text-complementary)",
 
-        error: "red-500",
-        alert: "orange-500",
-        success: "green-500",
-        info: "blue-500",
+        error: "var(--error)",
+        alert: "(--var-alert)",
+        success: "var(--success)",
 
         border: "var(--border)",
       },

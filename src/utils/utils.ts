@@ -2,4 +2,4 @@
 export const CURRENT_VERSION = "0.0.1";
 
 // Default Mode of the page false -> light, true -> dark
-export const DEFAULT_MODE = false;
+export const DEFAULT_MODE = true;

@@ -30,7 +30,7 @@ export default function Component({ data }: { data: DataDescription }) {
               <div>
                 <button
                   onClick={() => setMode(!mode)}
-                  className="h-12 w-10 rounded border-[1px] border-border flex justify-center items-center"
+                  className="h-12 w-10 rounded border-[1px] border-border flex justify-center items-center text-textPrimary"
                 >
                   {mode ? (
                     <Icons.moon className="w-6 h-6" />
@@ -40,13 +40,13 @@ export default function Component({ data }: { data: DataDescription }) {
                 </button>
               </div>
               <div className="flex justify-center gap-4 items-center">
-                <button className="h-12 w-10 rounded border-[1px] border-border flex justify-center items-center">
+                <button className="h-12 w-10 rounded border-[1px] border-border flex justify-center items-center text-textPrimary">
                   <Icons.mobile className="w-6 h-6" />
                 </button>
-                <button className="h-12 w-10 rounded border-[1px] border-border flex justify-center items-center">
-                  <Icons.tablet className="w-[1.25rem] h-6 text-black" />
+                <button className="h-12 w-10 rounded border-[1px] border-border flex justify-center items-center text-textPrimary">
+                  <Icons.tablet className="w-[1.25rem] h-6" />
                 </button>
-                <button className="h-12 w-10 rounded border-[1px] border-primary flex justify-center items-center">
+                <button className="h-12 w-10 rounded border-[1px] border-primary flex justify-center items-center text-textPrimary">
                   <Icons.desktop className="w-6 h-6" />
                 </button>
               </div>

@@ -1,20 +1,22 @@
 "use client";
+import { useTheme } from "@/hooks/Theme";
 import { Icons } from "@/utils/icons";
 import { CURRENT_VERSION } from "@/utils/utils";
 import Link from "next/link";
 
 const Header = () => {
+  const { theme, toggleTheme } = useTheme();
   return (
     <>
       <div className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 flex justify-between h-16 px-8">
         <div className="flex h-full min-w-[10rem] items-center justify-center">
           <Link
             href="/"
-            className="flex h-full items-center justify-center gap-2 font-semibold text-xl"
+            className="flex h-full items-center justify-center gap-2 font-semibold text-xl text-textPrimary"
           >
             <Icons.logo className="h-6" />
             Stratik / UI
-            <span className="ml-4 flex justify-center items-center text-center px-3 py-[2px] rounded-full text-blue-800 bg-blue-100 border-2 border-blue-600 text-xs font-normal">
+            <span className="ml-4 flex justify-center items-center text-center px-3 py-[2px] rounded-full text-accent bg-accent/80 border-2 border-accent text-xs font-normal">
               v {CURRENT_VERSION}
             </span>
           </Link>
@@ -48,14 +50,26 @@ const Header = () => {
             <a
               href="https://github.com/krishpatel023/Atlantic-UI"
               target="_blank"
-              className="w-8 h-10 flex justify-center items-center rounded hover:bg-secondary"
+              className="w-8 h-10 flex justify-center items-center rounded hover:bg-secondary text-textPrimary"
             >
               <Icons.twitter className="w-6 h-4" />
             </a>
 
-            <button className="w-8 h-10 flex justify-center items-center rounded hover:bg-secondary">
-              <Icons.sun className="w-6 h-6" />
-            </button>
+            {theme ? (
+              <button
+                className="w-8 h-10 flex justify-center items-center rounded hover:bg-secondary text-textPrimary"
+                onClick={() => toggleTheme()}
+              >
+                <Icons.moon className="w-6 h-6" />
+              </button>
+            ) : (
+              <button
+                className="w-8 h-10 flex justify-center items-center rounded hover:bg-secondary text-textPrimary"
+                onClick={() => toggleTheme()}
+              >
+                <Icons.sun className="w-6 h-6" />
+              </button>
+            )}
           </div>
         </div>
       </div>

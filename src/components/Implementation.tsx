@@ -29,7 +29,7 @@ export default function Implementation({
         implementation.map((item, i) => (
           <div key={i} className="flex gap-4 w-[90%] mx-auto mt-6">
             <div className="w-6">
-              <p className="text-accent h-6 w-6 mt-1 text-center bg-blue-100 rounded-full border-[1px] border-accent">
+              <p className="text-accent h-6 w-6 mt-1 text-center bg-accentLight rounded-full border-[1px] border-accent">
                 {i + 1}
               </p>
               {implementation.length - 1 > i && (
@@ -84,7 +84,7 @@ const Technology_Used = ({ techUsed }: { techUsed: TechnologiesUsed[] }) => {
               <a
                 href={TechData[item].link}
                 target="_blank"
-                className="flex justify-start items-center gap-2 text-sm"
+                className="flex justify-start items-center gap-2 text-sm text-textPrimary"
                 rel="nofollow"
               >
                 {TechData[item].logo}
@@ -144,11 +144,11 @@ function CodeBlock({ codestring }: { codestring: string }) {
           </button>
         )}
         <div
-          className={`absolute w-full h-full flex justify-center pt-52 z-100 bg-gradient-to-b from-gray-900/40 to-slate-50/20 top-0 ${expanded ? "hidden" : ""}`}
+          className={`absolute w-full h-full flex justify-center pt-52 z-100 bg-gradient-to-b from-gray-900/40 to-slate-50/10 top-0 ${expanded ? "hidden" : ""}`}
         >
           <button
             onClick={handleExpand}
-            className="px-4 h-10 border-2 border-accent rounded bg-accent text-textComplementary"
+            className="px-4 h-10 border-2 border-accent rounded bg-accent dark:bg-secondary dark:text-textPrimary dark:border-secondary text-textComplementary"
           >
             Expand
           </button>

@@ -24,11 +24,11 @@ export default function Sidebar(params: { params: { data: FileData[] } }) {
                 item?.content?.map((item: FileData, j: number) => (
                   <div className="w-full px-6 text-wrap" key={j}>
                     <h1
-                      className={` font-normal text-sm capitalize  mt-3 flex justify-start items-center gap-2  ${splitParams[3] === item.name ? "text-accent ml-2" : "text-textSecondary hover:text-accent hover:cursor-pointer hover:ml-2 transition-all ease-linear duration-150"}`}
+                      className={` font-normal text-sm capitalize  mt-3 flex justify-start items-center gap-4  ${splitParams[3] === item.name ? "text-accent ml-2" : "text-textSecondary hover:text-accent hover:cursor-pointer hover:ml-2 transition-all ease-linear duration-150"}`}
                     >
                       {item.name}
                       {item.version && versionCheck(item.version) && (
-                        <div className="bg-success px-2 text-xs font-light text-green-900 bg-green-100 rounded-full border-2 border-green-500">
+                        <div className="px-2 text-xs font-light text-success bg-success/30 rounded-full border-2 border-success">
                           New
                         </div>
                       )}

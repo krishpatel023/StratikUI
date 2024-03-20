@@ -1,10 +1,14 @@
-import Image from "next/image";
+"use client";
+import { useTheme } from "@/hooks/Theme";
 import Link from "next/link";
 
 export default function Home() {
+  const { theme, toggleTheme } = useTheme();
   return (
     <div>
-      <div className="w-full h-[calc(100vh-4rem)] flex justify-center items-center bg-[url('../assets/HomepageBackground.svg')] bg-no-repeat	bg-center	">
+      <div
+        className={`w-full h-[calc(100vh-4rem)] flex justify-center items-center ${theme ? "bg-[url('../assets/HomepageBackgroundDark.svg')]" : "bg-[url('../assets/HomepageBackground.svg')]"} bg-no-repeat	bg-center`}
+      >
         <div className="flex flex-col justify-center items-center text-center gap-6">
           <h1 className="text-5xl font-bold text-textPrimary w-1/2">
             Make the websites in lightspeed using Stratik UI
