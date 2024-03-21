@@ -127,7 +127,7 @@ function CodeBlock({ codestring }: { codestring: string }) {
           style={atomDark}
           customStyle={{ width: "100" }}
           showLineNumbers
-          className={`scrollbar-horizontal w-full ${expanded ? "h-full" : "h-80"}`}
+          className={`scrollbar-horizontal scrollbar-vertical w-full ${expanded ? "h-full" : "h-80"}`}
         >
           {codestring}
         </SyntaxHighlighter>
@@ -137,7 +137,7 @@ function CodeBlock({ codestring }: { codestring: string }) {
           </button>
         ) : (
           <button
-            className="absolute right-4 top-6 rounded border-[1px] border-textComplementary  p-2 text-textComplementary"
+            className="absolute right-4 top-6 rounded border-[1px] border-white  p-2 text-white"
             onClick={handleCopy}
           >
             <Icons.copy />
@@ -182,7 +182,7 @@ function Bash({ codestring }: { codestring: string }) {
           style={atomDark}
           customStyle={{ width: "100", height: "100" }}
           wrapLongLines
-          className={"scrollbar-horizontal"}
+          className={"scrollbar-horizontal scrollbar-vertical"}
         >
           {codestring}
         </SyntaxHighlighter>
@@ -192,7 +192,7 @@ function Bash({ codestring }: { codestring: string }) {
           </button>
         ) : (
           <button
-            className="absolute right-4 top-3 rounded border-[1px] border-textComplementary  p-2 text-textComplementary"
+            className="absolute right-4 top-3 rounded border-[1px] border-white  p-2 text-white"
             onClick={handleCopy}
           >
             <Icons.copy />

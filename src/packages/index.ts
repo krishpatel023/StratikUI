@@ -26,6 +26,7 @@ export const readDirectory = (): FileData[] => {
               content: [],
               type: "class",
               version: "0.0.0",
+              display: false,
             };
           }
         }
@@ -59,7 +60,12 @@ export const readDirectory = (): FileData[] => {
           try {
             const content = require(`${new_path}`).default;
             if (content) {
-              returnData = { name: file, content: content, type: "basic" };
+              returnData = {
+                name: file,
+                content: content,
+                type: "basic",
+                display: content.display,
+              };
               // Version Check To display the NEW is Sidebar.
               const version_check = versionCheck(
                 content.version_included,
@@ -68,6 +74,7 @@ export const readDirectory = (): FileData[] => {
               if (version_check) {
                 parentObj.version = content.version_included;
               }
+              if (content.display === true) parentObj.display = true;
             }
           } catch (error) {}
         }
@@ -75,8 +82,10 @@ export const readDirectory = (): FileData[] => {
 
       // Adding the return data to the parentObj's content.
       if (returnData) {
-        if (Array.isArray(parentObj.content))
+        if (Array.isArray(parentObj.content)) {
           parentObj.content.push(returnData);
+          if (returnData.display === true) parentObj.display = true;
+        }
       }
     });
     // After all the children are iterated and we have the parentObj updated then we return it.
@@ -96,6 +105,7 @@ export const readDirectory = (): FileData[] => {
     name: "components",
     content: [],
     type: "category",
+    display: false,
   });
 
   // Iterating through primitives
@@ -108,6 +118,7 @@ export const readDirectory = (): FileData[] => {
     name: "primitives",
     content: [],
     type: "category",
+    display: false,
   });
 
   // Adding components and primitives to files

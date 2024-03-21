@@ -6,6 +6,7 @@ export interface DataDescription {
   implementation: ImplementationNode[];
   component: React.JSX.Element;
   version_included: string;
+  display: boolean;
 }
 export type TechnologiesUsed = "tailwind-css" | "framer-motion";
 export type InspirationObject = {
@@ -24,4 +25,5 @@ export interface FileData {
   content: FileData[] | DataDescription;
   type: "category" | "class" | "basic";
   version?: string;
+  display: boolean;
 }

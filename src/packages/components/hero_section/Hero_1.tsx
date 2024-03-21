@@ -120,5 +120,6 @@ const HeroData_1: DataDescription = {
   implementation: Implementation,
   component: Hero_1(),
   version_included: "0.0.0",
+  display: true,
 };
 export default HeroData_1;

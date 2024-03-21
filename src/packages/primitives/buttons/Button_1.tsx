@@ -140,5 +140,6 @@ const ButtonData_1: DataDescription = {
   implementation: Implementation,
   component: Button_1(),
   version_included: "0.0.1",
+  display: true,
 };
 export default ButtonData_1;
