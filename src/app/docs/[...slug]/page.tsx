@@ -9,15 +9,15 @@ export default function Components({ params }: { params: { slug: string } }) {
 
   if (params.slug.length > 2) {
     redirect("/404");
-  } else if ("components" === params.slug[0]) {
+  } else if ("primitives" === params.slug[0]) {
     return (
       <>
-        {Array.isArray(data[0].content) &&
-          data[0].content.map((item: FileData, index: number) => {
-            return (
-              <Fragment key={index}>
-                {item.name === params.slug[1] ? (
-                  <>
+        {Array.isArray(data[0].content) && (
+          <>
+            {data[0].content.map((item: FileData, index: number) => {
+              if (item.name === params.slug[1]) {
+                return (
+                  <Fragment key={index}>
                     {Array.isArray(item.content) &&
                       item.content.map((item: FileData, i: number) => (
                         <Fragment key={i}>
@@ -26,47 +26,47 @@ export default function Components({ params }: { params: { slug: string } }) {
                           )}
                         </Fragment>
                       ))}
-                  </>
-                ) : (
-                  <>
-                    {Array.isArray(data[0].content) &&
-                      index === data[0].content.length - 1 &&
-                      redirect("/404")}
-                  </>
-                )}
-              </Fragment>
-            );
-          })}
+                  </Fragment>
+                );
+              }
+              return null;
+            })}
+            {data[0].content.every(
+              (item: FileData) => item.name !== params.slug[1]
+            ) && redirect("/404")}
+          </>
+        )}
       </>
     );
-  } else if ("primitives" === params.slug[0]) {
-    <>
-      {Array.isArray(data[1].content) &&
-        data[1].content.map((item: FileData, index: number) => {
-          return (
-            <Fragment key={index}>
-              {item.name === params.slug[1] ? (
-                <>
-                  {Array.isArray(item.content) &&
-                    item.content.map((item: FileData, i: number) => (
-                      <Fragment key={i}>
-                        {!Array.isArray(item.content) && (
-                          <Component data={item.content} />
-                        )}
-                      </Fragment>
-                    ))}
-                </>
-              ) : (
-                <>
-                  {Array.isArray(data[1].content) &&
-                    index === data[1].content.length - 1 &&
-                    redirect("/404")}
-                </>
-              )}
-            </Fragment>
-          );
-        })}
-    </>;
+  } else if ("components" === params.slug[0]) {
+    return (
+      <>
+        {Array.isArray(data[1].content) && (
+          <>
+            {data[1].content.map((item: FileData, index: number) => {
+              if (item.name === params.slug[1]) {
+                return (
+                  <Fragment key={index}>
+                    {Array.isArray(item.content) &&
+                      item.content.map((item: FileData, i: number) => (
+                        <Fragment key={i}>
+                          {!Array.isArray(item.content) && (
+                            <Component data={item.content} />
+                          )}
+                        </Fragment>
+                      ))}
+                  </Fragment>
+                );
+              }
+              return null;
+            })}
+            {data[1].content.every(
+              (item: FileData) => item.name !== params.slug[1]
+            ) && redirect("/404")}
+          </>
+        )}
+      </>
+    );
   } else {
     redirect("/404");
   }

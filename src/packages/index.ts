@@ -6,8 +6,9 @@ import { versionCheck } from "@/scripts/VersionCheck";
 
 export const readDirectory = (): FileData[] => {
   //It is a reccursive function which will go throught the directory and if found any then it will add it as per the type(Folder or File)
-  function walkSync(dir: string, parentObj: FileData): FileData | null {
+  function walkSync(dir: string, parentObjMain: FileData): FileData | null {
     let returnData: FileData | null = null;
+    let parentObj: FileData = parentObjMain;
     const dirNames = dir.split(path.sep);
 
     const filesInDirectory = fs.readdirSync(dir);
@@ -21,10 +22,10 @@ export const readDirectory = (): FileData[] => {
         if (parentObj.type === "category") {
           if (Array.isArray(parentObj.content)) {
             returnData = {
-              name: file.split(".")[0],
+              name: file.split(".")[0].replace(/_/g, "-"),
               content: [],
               type: "class",
-              version: "0",
+              version: "0.0.0",
             };
           }
         }
@@ -32,26 +33,8 @@ export const readDirectory = (): FileData[] => {
         if (returnData) {
           const childData = walkSync(filePath, returnData);
           if (childData) {
-            if (Array.isArray(returnData.content)) {
-              // This will update the version so that any new components added in that class will be updated here with the highest version so that it can be checked at other place and if they are of latest version, 'NEW" tag can be added to them ( Mainly for the Sidebar)
-              if (
-                childData.type === "basic" &&
-                !Array.isArray(childData.content)
-              ) {
-                const version_check = versionCheck(
-                  childData.content.version_included,
-                  returnData.version
-                );
-                if (version_check) {
-                  returnData = {
-                    ...returnData,
-                    version: childData.content.version_included,
-                  };
-                }
-              }
-            }
-            if (Array.isArray(returnData.content)) {
-              returnData.content.push(childData);
+            if (Array.isArray(parentObj.content)) {
+              returnData = childData;
             }
           }
         }
@@ -77,6 +60,14 @@ export const readDirectory = (): FileData[] => {
             const content = require(`${new_path}`).default;
             if (content) {
               returnData = { name: file, content: content, type: "basic" };
+              // Version Check To display the NEW is Sidebar.
+              const version_check = versionCheck(
+                content.version_included,
+                parentObj.version
+              );
+              if (version_check) {
+                parentObj.version = content.version_included;
+              }
             }
           } catch (error) {}
         }
@@ -121,7 +112,7 @@ export const readDirectory = (): FileData[] => {
 
   // Adding components and primitives to files
   if (componentData && primitiveData) {
-    files = [componentData, primitiveData];
+    files = [primitiveData, componentData];
   }
   // Returning an FileData[]
   return files;

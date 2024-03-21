@@ -6,11 +6,11 @@ export const versionCheck = (
 ) => {
   const version1_array = version1.split(".");
   const version2_array = version2.split(".");
-
+  var flag = true;
   for (let i = 0; i < version1_array.length; i++) {
-    if (parseInt(version1_array[i]) >= parseInt(version2_array[i])) {
-      return true;
+    if (parseInt(version1_array[i]) < parseInt(version2_array[i])) {
+      flag = false;
     }
   }
-  return false;
+  return flag;
 };
