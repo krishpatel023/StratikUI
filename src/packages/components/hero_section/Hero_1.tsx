@@ -2,7 +2,27 @@ import { useEffect } from "react";
 import { DataDescription, ImplementationNode } from "@/utils/constants";
 
 function Hero_1() {
-  return <div className="bg-blue-600 rounded text-white py-1 px-4">Click</div>;
+  return (
+    <div
+      className={`w-full h-[calc(100vh-4rem)] flex flex-col justify-center items-center bg-background`}
+    >
+      <div className="flex flex-col justify-center items-center text-center gap-6">
+        <h1 className="text-5xl font-bold text-textPrimary w-[90%] @lg:w-1/2 @lg:text-red-500">
+          Make the websites in lightspeed using Stratik UI
+        </h1>
+        <span className="text-2xl font-medium text-textSecondary w-[90%] @lg:w-3/4">
+          Beautifully designed components that you can copy and paste into your
+          apps. Accessible. Customizable. Developer Friendly.
+        </span>
+        <a
+          className="w-32 h-10 rounded-md bg-primary hover:bg-primaryHover text-textComplementary text-center flex justify-center items-center "
+          href="/components"
+        >
+          Get Started
+        </a>
+      </div>
+    </div>
+  );
 }
 
 const ButtonCode: string = `"use client";

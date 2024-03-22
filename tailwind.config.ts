@@ -31,6 +31,11 @@ const config: Config = {
         border: "var(--border)",
       },
     },
+    containers: {
+      sm: "420px",
+      md: "720px",
+      lg: "800px",
+    },
   },
   plugins: [require("@tailwindcss/container-queries")],
 };
