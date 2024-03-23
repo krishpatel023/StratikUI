@@ -1,16 +1,17 @@
 import { useEffect } from "react";
 import { DataDescription, ImplementationNode } from "@/utils/constants";
+import StringCleaner from "@/scripts/StringCleaner";
 
 function Hero_1() {
   return (
     <div
-      className={`w-full h-[calc(100vh-4rem)] flex flex-col justify-center items-center bg-background`}
+      className={`w-full h-[calc(100vh-4rem)] flex flex-col justify-center items-center bg-s_background`}
     >
       <div className="flex flex-col justify-center items-center text-center gap-6">
-        <h1 className="text-5xl font-bold text-textPrimary w-[90%] @lg:w-1/2 @lg:text-red-500">
+        <h1 className="text-5xl font-bold  w-[90%] @lg:w-1/2 @lg:text-red-500 text-green-400 ">
           Make the websites in lightspeed using Stratik UI
         </h1>
-        <span className="text-2xl font-medium text-textSecondary w-[90%] @lg:w-3/4">
+        <span className="text-2xl font-medium w-[90%] @lg:w-3/4 text-s_accent">
           Beautifully designed components that you can copy and paste into your
           apps. Accessible. Customizable. Developer Friendly.
         </span>
@@ -25,101 +26,29 @@ function Hero_1() {
   );
 }
 
-const ButtonCode: string = `"use client";
-import { DataDescription } from "@/utils/constants";
-import { Icons } from "@/utils/icons";
-import { DEFAULT_MODE } from "@/utils/utils";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import Implementation from "./Implementation";
-
-export default function Component({ data }: { data: DataDescription }) {
-  const [mode, setMode] = useState<boolean>(DEFAULT_MODE);
-  const [active, setActive] = useState<boolean>(false);
-  const [screen, setScreen] = useState<"sm" | "md" | "lg">("sm");
-
-  const router = useRouter();
-
+const ButtonCode: string = StringCleaner(`function Hero_1() {
   return (
-    <>
-      {data ? (
-        <>
-          <div className="w-[90%] flex flex-col py-4 gap-4 rounded-xl mx-auto">
-            <h1 className="text-xl font-medium text-textPrimary">
-              {data.name}
-            </h1>
-            <p className="text-textSecondary font-normal text-base">
-              {data.description}
-            </p>
-          </div>
-          <div className="w-[90%] flex flex-col items-center border-[1px] border-border pt-4 gap-4 rounded-xl mx-auto">
-            <div className="w-[95%] h-12 flex justify-between items-center ">
-              <div>
-                <button
-                  onClick={() => setMode(!mode)}
-                  className="h-12 w-10 rounded border-[1px] border-border flex justify-center items-center"
-                >
-                  {mode ? (
-                    <Icons.moon className="w-6 h-6" />
-                  ) : (
-                    <Icons.sun className="w-6 h-6" />
-                  )}
-                </button>
-              </div>
-              <div className="flex justify-center gap-4 items-center">
-                <button className="h-12 w-10 rounded border-[1px] border-border flex justify-center items-center">
-                  <Icons.mobile className="w-6 h-6" />
-                </button>
-                <button className="h-12 w-10 rounded border-[1px] border-border flex justify-center items-center">
-                  <Icons.tablet className="w-[1.25rem] h-6 text-black" />
-                </button>
-                <button className="h-12 w-10 rounded border-[1px] border-border flex justify-center items-center">
-                  <Icons.desktop className="w-6 h-6" />
-                </button>
-              </div>
-            </div>
-            <div className="w-full py-10 border-t-[1px] border-border relative">
-              {/* EDITOR */}
-              <div className="h-full flex justify-center items-center">
-                {data.component}
-              </div>
-              {mode ? (
-                <div className="bg-slate-950 -z-10 absolute bottom-0 left-0 right-0 top-0 rounded-b-xl bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]"></div>
-              ) : (
-                <div className="absolute inset-0 -z-10 rounded-b-xl h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div>
-              )}
-            </div>
-          </div>
-          <div className="w-[90%] flex flex-col py-4 gap-4 rounded-xl mx-auto items-start">
-            <button
-              className="text-accent flex justify-center items-center gap-2 text-center"
-              onClick={() => setActive(!active)}
-            >
-              {active ? (
-                <>
-                  <Icons.arrow className="-rotate-90" /> Hide Implementation
-                </>
-              ) : (
-                <>
-                  See Implementation <Icons.arrow className="rotate-90" />
-                </>
-              )}
-            </button>
-          </div>
-          <div className="w-[90%] flex flex-col py-4 gap-4 mx-auto">
-            <Implementation
-              implementation={data.implementation}
-              active={active}
-            />
-          </div>
-        </>
-      ) : (
-        router.push("/")
-      )}
-    </>
+    <div
+      className={\`w-full h-[calc(100vh-4rem)] flex flex-col justify-center items-center bg-s_background\`}
+    >
+      <div className="flex flex-col justify-center items-center text-center gap-6 border-s_border">
+        <h1 className="text-5xl font-bold  w-[90%] @lg:w-1/2 @lg:text-red-500 text-green-400 ">
+          Make the websites in lightspeed using Stratik UI
+        </h1>
+        <span className="text-2xl font-medium w-[90%] @lg:w-3/4 text-s_accent darkComponent:text-s_accent">
+          Beautifully designed components that you can copy and paste into your
+          apps. Accessible. Customizable. Developer Friendly.
+        </span>
+        <a
+          className="w-32 h-10 rounded-md bg-primary hover:bg-primaryHover text-textComplementary text-center flex justify-center items-center "
+          href="/components"
+        >
+          Get Started
+        </a>
+      </div>
+    </div>
   );
-}
-`;
+}`);
 
 const Implementation: ImplementationNode[] = [
   {

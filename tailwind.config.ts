@@ -25,10 +25,29 @@ const config: Config = {
         textComplementary: "var(--text-complementary)",
 
         error: "var(--error)",
-        alert: "(--var-alert)",
+        alert: "var(--alert)",
         success: "var(--success)",
 
         border: "var(--border)",
+
+        //Components
+        s_background: "var(--s_background)",
+        s_foreground: "var(--s_foreground)",
+        s_accent: "var(--s_accent)",
+        s_accentLight: "var(--s_accent-light)",
+        s_primary: "var(--s_primary)",
+        s_primaryLight: "var(--s_primary-foreground)",
+        s_secondary: "var(--s_secondary)",
+
+        s_textPrimary: "var(--s_text-primary)",
+        s_textSecondary: "var(--s_text-secondary)",
+        s_textComplementary: "var(--s_text-complementary)",
+
+        s_error: "var(--s_error)",
+        s_alert: "var(--s_alert)",
+        s_success: "var(--s_success)",
+
+        s_border: "var(--s_border)",
       },
     },
     containers: {

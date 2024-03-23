@@ -1,3 +1,4 @@
+import { DEFAULT_MODE } from "@/utils/utils";
 import React, { useRef, useState, useEffect } from "react";
 
 interface ResizableContainerProps {
@@ -72,7 +73,8 @@ const ResizableContainer: React.FC<ResizableContainerProps> = ({
     <div ref={containerRef} className="flex max-h-[800px]">
       <div
         style={{ width: `${containerWidth}px` }}
-        className="border-2 border-border rounded-lg @container py-1 max-h-[800px] overflow-y-auto scrollbar-horizontal scrollbar-vertical"
+        className={`border-2 border-border rounded-lg @container py-1 max-h-[800px] overflow-y-auto scrollbar-horizontal scrollbar-vertical ${DEFAULT_MODE ? "darkComponent" : null}`}
+        id="container"
       >
         {children}
       </div>

@@ -44,11 +44,12 @@ export default function Component({ data }: { data: DataDescription }) {
   }, []);
 
   useEffect(() => {
-    if (sizeRef.current) {
-      console.log("Window width:", windowWidth);
-      console.log("Div width:", divWidth);
+    if (!mode) {
+      document.getElementById("container")?.classList.remove("darkComponent");
+    } else {
+      document.getElementById("container")?.classList.add("darkComponent");
     }
-  }, [windowWidth]);
+  }, [mode]);
 
   return (
     <>
