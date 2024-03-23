@@ -7,9 +7,10 @@ import { usePathname, useRouter } from "next/navigation";
 import Implementation from "./Implementation";
 import ResizableContainer from "./Resizable";
 import { useTheme } from "@/hooks/Theme";
-
+import { v4 } from "uuid";
 export default function Component({ data }: { data: DataDescription }) {
   const { theme } = useTheme();
+  const [componentUUID, setComponentUUID] = useState<string>();
   const [mode, setMode] = useState<boolean>(DEFAULT_MODE);
   const [active, setActive] = useState<boolean>(false);
   const [screen, setScreen] = useState<"sm" | "md" | "lg">("sm");
@@ -23,6 +24,7 @@ export default function Component({ data }: { data: DataDescription }) {
   const [divWidth, setDivWidth] = useState<number>(0);
 
   useEffect(() => {
+    setComponentUUID(v4());
     const handleResize = () => {
       if (sizeRef.current) {
         setDivWidth(sizeRef.current.offsetWidth);
@@ -49,12 +51,12 @@ export default function Component({ data }: { data: DataDescription }) {
     if (!mode) {
       document.getElementById("container")?.classList.remove("darkComponent");
       document
-        .getElementById("primitiveContainer")
+        .getElementById(`primitiveContainer${componentUUID}`)
         ?.classList.remove("darkComponent");
     } else {
       document.getElementById("container")?.classList.add("darkComponent");
       document
-        .getElementById("primitiveContainer")
+        .getElementById(`primitiveContainer${componentUUID}`)
         ?.classList.add("darkComponent");
     }
   }, [mode]);
@@ -63,7 +65,7 @@ export default function Component({ data }: { data: DataDescription }) {
     <>
       {data ? (
         <>
-          <div className="w-[90%] flex flex-col py-4 gap-4 rounded-xl mx-auto">
+          <div className="w-[90%] flex flex-col py-4 gap-4 rounded-xl mx-auto mt-10">
             <h1 className="text-xl font-medium text-textPrimary">
               {data.name}
             </h1>
@@ -115,7 +117,7 @@ export default function Component({ data }: { data: DataDescription }) {
                   {/* EDITOR */}
                   <div
                     className={`mx-auto ${DEFAULT_MODE ? "darkComponent" : ""}`}
-                    id="primitiveContainer"
+                    id={`primitiveContainer${componentUUID}`}
                   >
                     {data.component}
                   </div>
