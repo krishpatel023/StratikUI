@@ -13,6 +13,7 @@ import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import jsx from "react-syntax-highlighter/dist/esm/languages/prism/jsx";
 import bash from "react-syntax-highlighter/dist/esm/languages/prism/bash";
+import StringCleaner from "@/scripts/StringCleaner";
 
 //------------------
 export default function Implementation({
@@ -129,7 +130,7 @@ function CodeBlock({ codestring }: { codestring: string }) {
           showLineNumbers
           className={`scrollbar-horizontal scrollbar-vertical w-full ${expanded ? "h-full" : "h-80"}`}
         >
-          {codestring}
+          {StringCleaner(codestring)}
         </SyntaxHighlighter>
         {btnClick ? (
           <button className="absolute right-4 top-6 rounded border-[1px] border-green-400  p-2 text-green-400">

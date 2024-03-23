@@ -6,8 +6,10 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Implementation from "./Implementation";
 import ResizableContainer from "./Resizable";
+import { useTheme } from "@/hooks/Theme";
 
 export default function Component({ data }: { data: DataDescription }) {
+  const { theme } = useTheme();
   const [mode, setMode] = useState<boolean>(DEFAULT_MODE);
   const [active, setActive] = useState<boolean>(false);
   const [screen, setScreen] = useState<"sm" | "md" | "lg">("sm");
@@ -46,8 +48,14 @@ export default function Component({ data }: { data: DataDescription }) {
   useEffect(() => {
     if (!mode) {
       document.getElementById("container")?.classList.remove("darkComponent");
+      document
+        .getElementById("primitiveContainer")
+        ?.classList.remove("darkComponent");
     } else {
       document.getElementById("container")?.classList.add("darkComponent");
+      document
+        .getElementById("primitiveContainer")
+        ?.classList.add("darkComponent");
     }
   }, [mode]);
 
@@ -79,7 +87,7 @@ export default function Component({ data }: { data: DataDescription }) {
                       )}
                     </button>
                   </div>
-                  <div className="flex justify-center gap-4 items-center">
+                  {/* <div className="flex justify-center gap-4 items-center">
                     <button
                       className={`h-12 w-10 rounded border-[1px] ${screen === "sm" ? "border-primary" : "border-border"} flex justify-center items-center text-textPrimary`}
                       onClick={() => setScreen("sm")}
@@ -98,23 +106,24 @@ export default function Component({ data }: { data: DataDescription }) {
                     >
                       <Icons.desktop className="w-6 h-6" />
                     </button>
-                  </div>
+                  </div> */}
                 </div>
                 <div
-                  className="w-full py-10 border-t-[1px] border-border relative"
-                  ref={sizeRef}
+                  className="w-full py-10 border-t-[1px] border-border relative flex justify-center items-center"
+                  // ref={sizeRef}
                 >
                   {/* EDITOR */}
                   <div
-                    className={`h-full mx-auto bg-secondary @container ${screen === "sm" && "w-[420px] h-[860px] overflow-y-auto scrollbar-vertical"} ${screen === "md" && "w-[720px] h-[860px] overflow-y-auto scrollbar-vertical"} ${screen === "lg" && "min-w-[920px] h-[860px] overflow-y-auto scrollbar-vertical"}`}
+                    className={`mx-auto ${DEFAULT_MODE ? "darkComponent" : ""}`}
+                    id="primitiveContainer"
                   >
                     {data.component}
                   </div>
                   {/* BACKGROUND */}
-                  {mode ? (
+                  {theme ? (
                     <div className="bg-slate-950 -z-10 absolute bottom-0 left-0 right-0 top-0 rounded-b-xl bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]"></div>
                   ) : (
-                    <div className="absolute inset-0 -z-10 rounded-b-xl h-full w-full bg-white bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+                    <div className="bg-blue-100/60 -z-10 absolute bottom-0 left-0 right-0 top-0 rounded-b-xl bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]"></div>
                   )}
                 </div>
               </div>
