@@ -4,7 +4,7 @@ function Button({
   text,
   isDisable,
 }: {
-  icon: any;
+  icon?: any;
   text: string;
   isDisable: boolean;
 }) {
@@ -14,7 +14,7 @@ function Button({
         className="bg-s_accent rounded text-s_textComplementary py-2 px-4 flex gap-4 justify-center items-center disabled:hover:cursor-not-allowed"
         disabled={isDisable}
       >
-        {icon}
+        {icon ? icon : null}
         <span>{text}</span>
       </button>
     </>
@@ -71,7 +71,7 @@ function Button({
         className="bg-s_accent rounded text-s_textComplementary py-2 px-4 flex gap-4 justify-center items-center disabled:hover:cursor-not-allowed"
         disabled={isDisable}
       >
-        {icon}
+        {icon?icon:null}
         <span>{text}</span>
       </button>
     </>

@@ -1,9 +1,9 @@
 import { DataDescription, ImplementationNode } from "@/utils/constants";
-function Button({ icon, text }: { icon: any; text: string }) {
+function Button({ icon, text }: { icon?: any; text: string }) {
   return (
     <>
       <button className="bg-s_accent rounded text-s_textComplementary py-2 px-4 flex gap-4 justify-center items-center">
-        {icon}
+        {icon ? icon : null}
         <span>{text}</span>
       </button>
     </>
@@ -51,7 +51,7 @@ function Button({ icon, text }) {
     return (
         <>
         <button className="bg-s_accent rounded text-s_textComplementary py-2 px-4 flex gap-4 justify-center items-center">
-            {icon}
+            {icon?icon:null}
             <span>{text}</span>
         </button>
         </>
