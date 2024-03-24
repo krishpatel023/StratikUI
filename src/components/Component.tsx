@@ -8,6 +8,7 @@ import Implementation from "./Implementation";
 import ResizableContainer from "./Resizable";
 import { useTheme } from "@/hooks/Theme";
 import { v4 } from "uuid";
+import { versionCheck } from "@/scripts/VersionCheck";
 export default function Component({ data }: { data: DataDescription }) {
   const { theme } = useTheme();
   const [componentUUID, setComponentUUID] = useState<string>();
@@ -23,6 +24,9 @@ export default function Component({ data }: { data: DataDescription }) {
   const [windowWidth, setWindowWidth] = useState<number>();
   const [divWidth, setDivWidth] = useState<number>(0);
 
+  useEffect(() => {
+    setMode(theme);
+  }, [theme]);
   useEffect(() => {
     setComponentUUID(v4());
     const handleResize = () => {
@@ -66,6 +70,11 @@ export default function Component({ data }: { data: DataDescription }) {
       {data ? (
         <>
           <div className="w-[90%] flex flex-col py-4 gap-4 rounded-xl mx-auto mt-10">
+            {versionCheck(data.version_included) ? (
+              <div className="max-w-12 text-center text-xs font-light text-success bg-success/30 rounded-full border-2 border-success">
+                New
+              </div>
+            ) : null}
             <h1 className="text-xl font-medium text-textPrimary">
               {data.name}
             </h1>
@@ -122,10 +131,22 @@ export default function Component({ data }: { data: DataDescription }) {
                     {data.component}
                   </div>
                   {/* BACKGROUND */}
-                  {theme ? (
-                    <div className="bg-slate-950 -z-10 absolute bottom-0 left-0 right-0 top-0 rounded-b-xl bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+                  {mode ? (
+                    <>
+                      {theme ? (
+                        <div className="bg-slate-950 -z-10 absolute bottom-0 left-0 right-0 top-0 rounded-b-xl bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+                      ) : (
+                        <div className="bg-[#090e23] -z-10 absolute bottom-0 left-0 right-0 top-0 rounded-b-xl"></div>
+                      )}
+                    </>
                   ) : (
-                    <div className="bg-blue-100/60 -z-10 absolute bottom-0 left-0 right-0 top-0 rounded-b-xl bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+                    <>
+                      {theme ? (
+                        <div className="bg-[#ececec] -z-10 absolute bottom-0 left-0 right-0 top-0 rounded-b-xl"></div>
+                      ) : (
+                        <div className="bg-blue-100/40 -z-10 absolute bottom-0 left-0 right-0 top-0 rounded-b-xl "></div>
+                      )}
+                    </>
                   )}
                 </div>
               </div>
