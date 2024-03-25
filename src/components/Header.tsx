@@ -1,9 +1,9 @@
 "use client";
 import { useTheme } from "@/hooks/Theme";
 import { Icons } from "@/utils/icons";
+import { Logo } from "@/utils/logo";
 import { CURRENT_VERSION } from "@/utils/utils";
 import Link from "next/link";
-
 const Header = () => {
   const { theme, toggleTheme } = useTheme();
   return (
@@ -12,9 +12,13 @@ const Header = () => {
         <div className="flex h-full min-w-[10rem] items-center justify-center">
           <Link
             href="/"
-            className="flex h-full items-center justify-center gap-2 font-semibold text-xl text-textPrimary"
+            className="flex h-full items-center justify-center gap-1 font-semibold text-2xl text-textPrimary"
           >
-            <Icons.logo className="h-6" />
+            {theme ? (
+              <Logo.dark className="h-16 w-16" />
+            ) : (
+              <Logo.light className="h-16 w-16" />
+            )}
             Stratik / UI
             <span className="ml-4 flex justify-center items-center text-center px-3 py-[2px] rounded-full text-accent bg-accent/80 border-2 border-accent text-xs font-normal">
               v {CURRENT_VERSION}

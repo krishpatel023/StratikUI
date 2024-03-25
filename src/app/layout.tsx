@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 //FOR COMPONENTS
 import "./components.css";
-
 import Header from "@/components/Header";
 import { Providers } from "./provider";
 import { DEFAULT_MODE } from "@/utils/utils";
@@ -14,6 +13,9 @@ export const metadata: Metadata = {
   title: "Stratik UI",
   description:
     "Beautifully designed components that you can copy and paste into your apps. Accessible. Customizable. Developer Friendly.",
+  icons: {
+    icon: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
