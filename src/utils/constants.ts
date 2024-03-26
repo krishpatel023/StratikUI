@@ -27,3 +27,5 @@ export interface FileData {
   version?: string;
   display: boolean;
 }
+
+export type IconProps = React.HTMLAttributes<SVGElement>;

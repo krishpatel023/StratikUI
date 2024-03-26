@@ -125,8 +125,9 @@ export default function Component({ data }: { data: DataDescription }) {
                 >
                   {/* EDITOR */}
                   <div
-                    className={`mx-auto ${DEFAULT_MODE ? "darkComponent" : ""}`}
+                    className={`group mx-auto ${DEFAULT_MODE ? "darkComponent" : ""}`}
                     id={`primitiveContainer${componentUUID}`}
+                    data-darkcomponent={mode ? "dark" : "light"}
                   >
                     {data.component}
                   </div>
@@ -154,8 +155,9 @@ export default function Component({ data }: { data: DataDescription }) {
           )}
           {splitParams[2] === "components" && (
             <div
-              className="w-[90%] flex flex-col items-center pt-4 gap-4 rounded-xl mx-auto"
+              className="group/container w-[90%] flex flex-col items-center pt-4 gap-4 rounded-xl mx-auto"
               ref={sizeRef}
+              data-darkcomponent={mode ? "dark" : "light"}
             >
               <div className="w-full h-12 flex justify-between items-center ">
                 <div>
