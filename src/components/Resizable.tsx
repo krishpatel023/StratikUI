@@ -47,6 +47,7 @@ const ResizableContainer: React.FC<ResizableContainerProps> = ({
 
     const handleMouseUp = () => {
       setIsDragging(false);
+      SelectionStatus(true);
     };
 
     if (isDragging) {
@@ -66,14 +67,21 @@ const ResizableContainer: React.FC<ResizableContainerProps> = ({
 
     if (!container || !handle) return;
 
+    SelectionStatus(false);
     setIsDragging(true);
+  };
+
+  const SelectionStatus = (value: boolean) => {
+    document.body.onselectstart = document.body.onselectstart = function () {
+      return value;
+    };
   };
 
   return (
     <div ref={containerRef} className="flex max-h-[800px]">
       <div
         style={{ width: `${containerWidth}px` }}
-        className={`border-2 border-border rounded-lg @container py-1 max-h-[800px] overflow-y-auto scrollbar-horizontal scrollbar-vertical ${DEFAULT_MODE ? "darkComponent" : null}`}
+        className={`border-2 border-border rounded-lg @container max-h-[800px] overflow-y-auto scrollbar-horizontal scrollbar-vertical ${DEFAULT_MODE ? "darkComponent" : null}`}
         id="container"
       >
         {children}
