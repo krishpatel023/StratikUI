@@ -1,6 +1,6 @@
 import type { Config } from "tailwindcss";
 const config: Config = {
-  darkMode: ["selector", '[data-mode="darkComponent"]'],
+  darkMode: "selector",
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -48,9 +48,6 @@ const config: Config = {
 
         s_border: "var(--s_border)",
       },
-    },
-    data: {
-      dark: 'darkcomponent~="dark"',
     },
     containers: {
       sm: "420px",

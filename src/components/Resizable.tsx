@@ -81,8 +81,7 @@ const ResizableContainer: React.FC<ResizableContainerProps> = ({
     <div ref={containerRef} className="flex max-h-[800px]">
       <div
         style={{ width: `${containerWidth}px` }}
-        className={`border-2 border-border rounded-lg @container max-h-[800px] overflow-y-auto scrollbar-horizontal scrollbar-vertical ${DEFAULT_MODE ? "darkComponent" : null}`}
-        id="container"
+        className={`border-2 border-border rounded-lg @container max-h-[800px] overflow-y-auto scrollbar-horizontal scrollbar-vertical`}
       >
         {children}
       </div>

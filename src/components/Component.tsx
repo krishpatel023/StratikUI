@@ -2,7 +2,7 @@
 import { DataDescription } from "@/utils/constants";
 import { Icons } from "@/utils/icons";
 import { DEFAULT_MODE } from "@/utils/utils";
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Implementation from "./Implementation";
 import ResizableContainer from "./Resizable";
@@ -10,9 +10,9 @@ import { useTheme } from "@/hooks/Theme";
 import { v4 } from "uuid";
 import { versionCheck } from "@/scripts/VersionCheck";
 export default function Component({ data }: { data: DataDescription }) {
-  const { theme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const [componentUUID, setComponentUUID] = useState<string>();
-  const [mode, setMode] = useState<boolean>(DEFAULT_MODE);
+  // const [mode, setMode] = useState<boolean>(DEFAULT_MODE);
   const [active, setActive] = useState<boolean>(false);
   const [screen, setScreen] = useState<"sm" | "md" | "lg">("sm");
 
@@ -24,9 +24,9 @@ export default function Component({ data }: { data: DataDescription }) {
   const [windowWidth, setWindowWidth] = useState<number>();
   const [divWidth, setDivWidth] = useState<number>(0);
 
-  useEffect(() => {
-    setMode(theme);
-  }, [theme]);
+  // useEffect(() => {
+  //   setMode(theme);
+  // }, [theme]);
   useEffect(() => {
     setComponentUUID(v4());
     const handleResize = () => {
@@ -52,23 +52,30 @@ export default function Component({ data }: { data: DataDescription }) {
   }, []);
 
   useEffect(() => {
-    if (!mode) {
-      document.getElementById("container")?.classList.remove("darkComponent");
+    if (!theme) {
       document
-        .getElementById(`primitiveContainer${componentUUID}`)
+        .getElementById(`container${componentUUID}`)
         ?.classList.remove("darkComponent");
+      // document
+      //   .getElementById(`componentContainer${componentUUID}`)
+      //   ?.classList.remove("darkComponent");
     } else {
-      document.getElementById("container")?.classList.add("darkComponent");
       document
-        .getElementById(`primitiveContainer${componentUUID}`)
+        .getElementById(`container${componentUUID}`)
         ?.classList.add("darkComponent");
+      // document
+      //   .getElementById(`componentContainer${componentUUID}`)
+      //   ?.classList.add("darkComponent");
     }
-  }, [mode]);
+  }, [theme]);
 
   return (
     <>
       {data ? (
-        <>
+        <div
+          className={`w-full ${DEFAULT_MODE ? "darkComponent" : ""}`}
+          id={`container${componentUUID}`}
+        >
           <div className="w-[90%] flex flex-col py-4 gap-4 rounded-xl mx-auto mt-10">
             {versionCheck(data.version_included) ? (
               <div className="max-w-12 text-center text-xs font-light text-success bg-success/30 rounded-full border-2 border-success">
@@ -88,10 +95,10 @@ export default function Component({ data }: { data: DataDescription }) {
                 <div className="w-[95%] h-12 flex justify-between items-center ">
                   <div>
                     <button
-                      onClick={() => setMode(!mode)}
+                      onClick={() => setTheme(!theme)}
                       className="h-12 w-10 rounded border-[1px] border-border flex justify-center items-center text-textPrimary"
                     >
-                      {mode ? (
+                      {theme ? (
                         <Icons.moon className="w-6 h-6" />
                       ) : (
                         <Icons.sun className="w-6 h-6" />
@@ -125,29 +132,16 @@ export default function Component({ data }: { data: DataDescription }) {
                 >
                   {/* EDITOR */}
                   <div
-                    className={`group mx-auto ${DEFAULT_MODE ? "darkComponent" : ""}`}
-                    id={`primitiveContainer${componentUUID}`}
-                    data-darkcomponent={mode ? "dark" : "light"}
+                    className={`mx-auto`}
+                    // data-darkcomponent={mode ? "dark" : "light"}
                   >
                     {data.component}
                   </div>
                   {/* BACKGROUND */}
-                  {mode ? (
-                    <>
-                      {theme ? (
-                        <div className="bg-slate-950 -z-10 absolute bottom-0 left-0 right-0 top-0 rounded-b-xl bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]"></div>
-                      ) : (
-                        <div className="bg-[#090e23] -z-10 absolute bottom-0 left-0 right-0 top-0 rounded-b-xl"></div>
-                      )}
-                    </>
+                  {theme ? (
+                    <div className="bg-slate-950 -z-10 absolute bottom-0 left-0 right-0 top-0 rounded-b-xl bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]"></div>
                   ) : (
-                    <>
-                      {theme ? (
-                        <div className="bg-[#ececec] -z-10 absolute bottom-0 left-0 right-0 top-0 rounded-b-xl"></div>
-                      ) : (
-                        <div className="bg-blue-100/40 -z-10 absolute bottom-0 left-0 right-0 top-0 rounded-b-xl "></div>
-                      )}
-                    </>
+                    <div className="bg-blue-100/40 -z-10 absolute bottom-0 left-0 right-0 top-0 rounded-b-xl "></div>
                   )}
                 </div>
               </div>
@@ -155,17 +149,16 @@ export default function Component({ data }: { data: DataDescription }) {
           )}
           {splitParams[2] === "components" && (
             <div
-              className="group/container w-[90%] flex flex-col items-center pt-4 gap-4 rounded-xl mx-auto"
+              className={`w-[90%] flex flex-col items-center pt-4 gap-4 rounded-xl mx-auto`}
               ref={sizeRef}
-              data-darkcomponent={mode ? "dark" : "light"}
             >
               <div className="w-full h-12 flex justify-between items-center ">
                 <div>
                   <button
-                    onClick={() => setMode(!mode)}
+                    onClick={() => setTheme(!theme)}
                     className="h-10 px-4 rounded border-[1px] border-border flex justify-center items-center gap-4 text-center text-textPrimary"
                   >
-                    {mode ? (
+                    {theme ? (
                       <>
                         <Icons.moon className="w-6 h-6" /> Dark
                       </>
@@ -208,7 +201,7 @@ export default function Component({ data }: { data: DataDescription }) {
             implementation={data.implementation}
             active={active}
           />
-        </>
+        </div>
       ) : (
         router.push("/")
       )}
