@@ -8,7 +8,7 @@ export interface DataDescription {
   version_included: string;
   display: boolean;
 }
-export type TechnologiesUsed = "tailwind-css" | "framer-motion";
+export type TechnologiesUsed = "tailwind-css" | "framer-motion" | "twMerge";
 export type InspirationObject = {
   name: string;
   link: string;

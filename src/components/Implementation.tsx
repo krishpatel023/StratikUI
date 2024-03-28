@@ -74,6 +74,11 @@ const Technology_Used = ({ techUsed }: { techUsed: TechnologiesUsed[] }) => {
       link: "https://www.framer.com/motion/",
       logo: <Icons.framerMotion className="w-4 h-4" />,
     },
+    twMerge: {
+      name: "Tailwind Merge",
+      link: "https://github.com/dcastil/tailwind-merge",
+      logo: <Icons.twMerge className="w-8 h-8" />,
+    },
   };
   return (
     <div>

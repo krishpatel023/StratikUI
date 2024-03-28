@@ -86,6 +86,8 @@ export const readDirectory = (): FileData[] => {
           parentObj.content.push(returnData);
           if (returnData.display === true) parentObj.display = true;
         }
+        // So that if another file is a helper file than the return data is re-initialized and can be used in other files.
+        returnData = null;
       }
     });
     // After all the children are iterated and we have the parentObj updated then we return it.
