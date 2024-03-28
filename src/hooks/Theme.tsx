@@ -25,8 +25,20 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     if (theme) {
       document.getElementById("theme-toggle")?.classList.add("dark");
+      const containers = document.getElementsByClassName(
+        `container-theme-handler`
+      );
+      for (let i = 0; i < containers.length; i++) {
+        containers[i].classList.add("darkComponent");
+      }
     } else {
       document.getElementById("theme-toggle")?.classList.remove("dark");
+      const containers = document.getElementsByClassName(
+        `container-theme-handler`
+      );
+      for (let i = 0; i < containers.length; i++) {
+        containers[i].classList.remove("darkComponent");
+      }
     }
   }, [theme]);
 

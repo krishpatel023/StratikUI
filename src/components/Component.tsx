@@ -53,27 +53,33 @@ export default function Component({ data }: { data: DataDescription }) {
 
   useEffect(() => {
     if (!theme) {
-      document
-        .getElementById(`container${componentUUID}`)
-        ?.classList.remove("darkComponent");
+      // document.getElementById(`container`)?.classList.remove("darkComponent");
       // document
       //   .getElementById(`componentContainer${componentUUID}`)
       //   ?.classList.remove("darkComponent");
-    } else {
-      document
-        .getElementById(`container${componentUUID}`)
-        ?.classList.add("darkComponent");
-      // document
-      //   .getElementById(`componentContainer${componentUUID}`)
-      //   ?.classList.add("darkComponent");
+      const containers = document.getElementsByClassName(
+        `container-theme-handler`
+      );
+      for (let i = 0; i < containers.length; i++) {
+        containers[i].classList.remove("darkComponent");
+      }
     }
-  }, [theme]);
+    if (theme) {
+      const containers = document.getElementsByClassName(
+        `container-theme-handler`
+      );
+      for (let i = 0; i < containers.length; i++) {
+        containers[i].classList.add("darkComponent");
+      }
+    }
+    console.log(theme, document.getElementById);
+  }, []);
 
   return (
     <>
       {data ? (
         <div
-          className={`w-full ${DEFAULT_MODE ? "darkComponent" : ""}`}
+          className={`w-full container-theme-handler`}
           id={`container${componentUUID}`}
         >
           <div className="w-[90%] flex flex-col py-4 gap-4 rounded-xl mx-auto mt-10">
