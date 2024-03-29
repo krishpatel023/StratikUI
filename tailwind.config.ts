@@ -48,6 +48,22 @@ const config: Config = {
 
         s_border: "var(--s_border)",
       },
+      animation: {
+        // For @/packages/components/logo-carousel/Carousel_1.tsx
+        "infinite-scroll-left": "infinite-scroll-left 50s linear infinite",
+        "infinite-scroll-right": "infinite-scroll-right 50s linear infinite",
+      },
+      keyframes: {
+        // For @/packages/components/logo-carousel/Carousel_1.tsx
+        "infinite-scroll-left": {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-100%)" },
+        },
+        "infinite-scroll-right": {
+          from: { transform: "translateX(-100%)" },
+          to: { transform: "translateX(0%)" },
+        },
+      },
     },
     containers: {
       sm: "420px",
