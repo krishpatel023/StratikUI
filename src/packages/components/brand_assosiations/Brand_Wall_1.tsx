@@ -10,7 +10,10 @@ function BrandWall() {
       <div className="w-full h-[40rem] overflow-hidden relative">
         <div className="z-10 w-full flex flex-wrap justify-center items-center gap-8 @md:gap-28 px-20">
           {LogoModified.map((item, i) => (
-            <div className="p-4 rounded-lg flex justify-center items-center bg-gray-200/10 border-2 border-border mx-auto">
+            <div
+              key={i}
+              className="p-4 rounded-lg flex justify-center items-center bg-gray-200/10 border-2 border-border mx-auto"
+            >
               <item.logo className={`w-16 h-16 text-s_primary`} />
             </div>
           ))}
@@ -270,7 +273,7 @@ const Code: string = `function BrandWall() {
       <div className="w-full h-[40rem] overflow-hidden relative">
         <div className="z-10 w-full flex flex-wrap justify-center items-center gap-8 @md:gap-28 px-20">
           {LogoModified.map((item, i) => (
-            <div className="p-4 rounded-lg flex justify-center items-center bg-gray-200/10 border-2 border-border mx-auto">
+            <div key={i} className="p-4 rounded-lg flex justify-center items-center bg-gray-200/10 border-2 border-border mx-auto">
               <item.logo className={\`w-16 h-16 text-s_primary\`} />
             </div>
           ))}
