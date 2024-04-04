@@ -79,7 +79,7 @@ export default function Component({ data }: { data: DataDescription }) {
     <>
       {data ? (
         <div
-          className={`w-full container-theme-handler`}
+          className={`w-full container-theme-handler ${theme ? "darkComponent" : ""}`}
           id={`container${componentUUID}`}
         >
           <div className="w-[90%] flex flex-col py-4 gap-4 rounded-xl mx-auto mt-10">
