@@ -62,8 +62,8 @@ const Card = ({
     <div className="w-80 rounded-xl border-2 border-blue-300 px-8 py-6">
       <MyLogo className="w-8 h-8" />
       <p className="font-medium text-s_textSecondary mt-6">
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos
-        harum esse libero con."
+        {`"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos
+            harum esse libero con."`}
       </p>
       <h1 className="text-xl font-semibold text-s_textPrimary mt-6">{Name}</h1>
       <h2 className="font-medium text-s_textSecondary">{Position}</h2>

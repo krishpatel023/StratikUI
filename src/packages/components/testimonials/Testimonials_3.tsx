@@ -25,10 +25,10 @@ function Testimonial() {
         <div className="@md:col-span-2 rounded-xl border-2  border-slate-400 px-8 py-6 bg-gradient-to-b bg-slate-400/10 hover:scale-105 hover:cursor-pointer transition-all duration-300">
           <MyLogo className="w-8 h-8" />
           <p className="font-medium text-s_textSecondary mt-6">
-            "Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+            {`"Lorem ipsum, dolor sit amet consectetur adipisicing elit.
             Dignissimos harum esse libero con Lorem ipsum dolor, sit amet
             consectetur adipisicing elit. Aperiam, debitis Lorem ipsum dolor sit
-            amet consectetur adipisicing elit. Facere, explicabo.."
+            amet consectetur adipisicing elit. Facere, explicabo.."`}
           </p>
           <h1 className="text-xl font-semibold text-s_textPrimary mt-6">
             Hello
@@ -63,8 +63,8 @@ const Card = ({
     <div className="rounded-xl border-2 border-slate-400 px-8 py-6 bg-gradient-to-b bg-slate-400/10 hover:scale-105 hover:cursor-pointer transition-all duration-300">
       <MyLogo className="w-8 h-8" />
       <p className="font-medium text-s_textSecondary mt-6">
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos
-        harum esse libero con."
+        {`"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos
+        harum esse libero con."`}
       </p>
       <h1 className="text-xl font-semibold text-s_textPrimary mt-6">{Name}</h1>
       <h2 className="font-medium text-s_textSecondary">{Position}</h2>
