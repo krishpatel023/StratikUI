@@ -68,7 +68,7 @@ const config: Config = {
     containers: {
       sm: "420px",
       md: "720px",
-      lg: "800px",
+      lg: "900px",
     },
   },
   plugins: [require("@tailwindcss/container-queries")],
