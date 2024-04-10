@@ -41,7 +41,7 @@ export const readDirectory = (): FileData[] => {
         }
       } else {
         // Case where it is a file.
-        if (filePath.endsWith(".tsx")) {
+        if (filePath.endsWith(".tsx") && !filePath.includes("Helper")) {
           // Process to get the relative path.
           const relative_path = filePath.split(path.sep);
           var flag = false;
