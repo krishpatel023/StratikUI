@@ -1,15 +1,40 @@
 "use client";
+import useClickOutside from "@/hooks/ClickOutside";
 import { useTheme } from "@/hooks/Theme";
 import { Icons } from "@/utils/icons";
 import { Logo } from "@/utils/logo";
 import { CURRENT_VERSION } from "@/utils/utils";
 import Link from "next/link";
-const Header = () => {
+import { useEffect, useRef, useState } from "react";
+import { twMerge } from "tailwind-merge";
+
+export const Header = () => {
   const { theme, toggleTheme } = useTheme();
+  // const [blockScroll, allowScroll] = useScrollBlock();
+
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+  useClickOutside(ref, () => {
+    if (open) setOpen(false);
+  });
+
+  // useEffect(() => {
+  //   if (open) {
+  //     blockScroll();
+  //   } else {
+  //     allowScroll();
+  //   }
+  // }, [open]);
+
   return (
-    <>
-      <div className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 flex justify-between h-16 px-8">
-        <div className="flex h-full min-w-[10rem] items-center justify-center">
+    <div
+      className={`w-full sticky top-0 z-50  ${open ? "bg-background" : "bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"}`}
+      ref={ref}
+    >
+      <div
+        className={`w-full h-16 flex justify-between px-2 sm:px-6 md:px-10 items-center ${open ? "" : "border-b border-border/40"}`}
+      >
+        <div className="flex h-full min-w-[10rem] items-center justify-start sm:justify-center ">
           <Link
             href="/"
             className="flex h-full items-center justify-center gap-1 font-semibold text-2xl text-textPrimary"
@@ -19,40 +44,23 @@ const Header = () => {
             ) : (
               <Logo.light className="h-16 w-16" />
             )}
-            Stratik / UI
-            <span className="ml-4 flex justify-center items-center text-center px-3 py-[2px] rounded-full text-accent bg-accent/80 border-2 border-accent text-xs font-normal">
+            <span className="hidden sm:block">Stratik / UI</span>
+            <span className="ml-4 justify-center items-center text-center px-3 py-[2px] rounded-full text-accent bg-accent/80 border-2 border-accent text-xs font-normal hidden sm:flex">
               v {CURRENT_VERSION}
             </span>
           </Link>
         </div>
-        <div className="flex h-full items-center gap-8">
-          <Link
-            href="/components"
-            className="text-textSecondary hover:text-textPrimary"
+        <div className="flex gap-6 items-center">
+          <span
+            className={
+              open ? "hidden" : "h-full items-center gap-6 hidden md:flex"
+            }
           >
-            Components
-          </Link>
-          <Link
-            href="/premitives"
-            className="text-textSecondary hover:text-textPrimary"
-          >
-            Premitives
-          </Link>
-          <Link
-            href="/feedback"
-            className="text-textSecondary hover:text-textPrimary"
-          >
-            Feedback
-          </Link>
-          {/* <Link
-          href="/docs"
-          className="text-textSecondary hover:text-textPrimary"
-        >
-          Templates
-        </Link> */}
+            <LinkSection />
+          </span>
           <div className="flex justify-center items-center gap-4">
             <a
-              href="https://github.com/krishpatel023/Atlantic-UI"
+              href="https://github.com/krishpatel023/StratikUI"
               target="_blank"
               className="w-8 h-10 flex justify-center items-center rounded hover:bg-secondary text-textPrimary"
             >
@@ -75,10 +83,51 @@ const Header = () => {
               </button>
             )}
           </div>
+          <button
+            className="w-10 h-10 md:hidden hover:bg-secondary rounded flex justify-center items-center relative text-textPrimary"
+            onClick={() => {
+              setOpen(!open);
+            }}
+          >
+            {open ? (
+              <Icons.cross className="h-6 w-6" />
+            ) : (
+              <Icons.bars className="h-6 w-6" />
+            )}
+          </button>
         </div>
       </div>
+      {open ? (
+        <div className="absolute bg-background min-h-80 w-full top-16 left-0 flex flex-col justify-center border-b-2 border-textSecondary px-6  h-full items-center gap-6">
+          <LinkSection />
+        </div>
+      ) : null}
+    </div>
+  );
+};
+export default Header;
+
+const LinkSection = () => {
+  return (
+    <>
+      <Link
+        href="/components"
+        className="text-textSecondary hover:text-textPrimary"
+      >
+        Components
+      </Link>
+      <Link
+        href="/premitives"
+        className="text-textSecondary hover:text-textPrimary"
+      >
+        Premitives
+      </Link>
+      <Link
+        href="/feedback"
+        className="text-textSecondary hover:text-textPrimary"
+      >
+        Feedback
+      </Link>
     </>
   );
 };
-
-export default Header;
