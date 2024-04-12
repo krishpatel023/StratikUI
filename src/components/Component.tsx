@@ -2,13 +2,14 @@
 import { DataDescription } from "@/utils/constants";
 import { Icons } from "@/utils/icons";
 import { DEFAULT_MODE } from "@/utils/utils";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, Suspense, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Implementation from "./Implementation";
 import ResizableContainer from "./Resizable";
 import { useTheme } from "@/hooks/Theme";
 import { v4 } from "uuid";
 import { versionCheck } from "@/scripts/VersionCheck";
+import { Skeleton } from "./ui/Skeleton";
 export default function Component({ data }: { data: DataDescription }) {
   const { theme, setTheme } = useTheme();
   const [componentUUID, setComponentUUID] = useState<string>();
@@ -177,14 +178,23 @@ export default function Component({ data }: { data: DataDescription }) {
                 </div>
               </div>
               {divWidth && divWidth !== 0 ? (
-                <ResizableContainer
-                  maxWidth={divWidth - 15}
-                  minWidth={400}
-                  initialWidth={0}
-                >
-                  {data.component}
-                </ResizableContainer>
-              ) : null}
+                <>
+                  <ResizableContainer
+                    maxWidth={divWidth - 15}
+                    minWidth={400}
+                    initialWidth={0}
+                  >
+                    {data.component}
+                  </ResizableContainer>
+                </>
+              ) : (
+                <div className="flex w-full min-h-[800px]">
+                  <Skeleton className="min-h-full min-w-[calc(100%-1rem)] rounded-lg" />
+                  <div className="w-4 flex justify-center items-center cursor-col-resize z-10">
+                    <div className="min-h-8 bg-primary rounded-full min-w-[0.25rem]"></div>
+                  </div>
+                </div>
+              )}
             </div>
           )}
           <div className="w-[90%] flex flex-col py-4 gap-4 rounded-xl mx-auto items-start mb-4">
