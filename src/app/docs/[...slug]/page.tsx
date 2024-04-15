@@ -16,7 +16,8 @@ export default function Components({ params }: { params: { slug: string } }) {
         {Array.isArray(data[0].content) && (
           <>
             {data[0].content.map((item: FileData, index: number) => {
-              if (item.name === params.slug[1]) {
+              const name = params.slug[1].split("#")[0];
+              if (item.name === name) {
                 if (item.display === false) notFound();
                 return (
                   <Fragment key={index}>
@@ -47,7 +48,8 @@ export default function Components({ params }: { params: { slug: string } }) {
         {Array.isArray(data[1].content) && (
           <>
             {data[1].content.map((item: FileData, index: number) => {
-              if (item.name === params.slug[1]) {
+              const name = params.slug[1].split("#")[0];
+              if (item.name === name) {
                 if (item.display === false) notFound();
                 return (
                   <Fragment key={index}>

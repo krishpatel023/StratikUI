@@ -2,34 +2,33 @@
 import { DataDescription } from "@/utils/constants";
 import { Icons } from "@/utils/icons";
 import { DEFAULT_MODE } from "@/utils/utils";
-import { Fragment, Suspense, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Implementation from "./Implementation";
 import ResizableContainer from "./Resizable";
 import { useTheme } from "@/hooks/Theme";
-import { v4 } from "uuid";
 import { versionCheck } from "@/scripts/VersionCheck";
 import { Skeleton } from "./ui/Skeleton";
+import { twMerge } from "tailwind-merge";
+import Link from "next/link";
+
 export default function Component({ data }: { data: DataDescription }) {
   const { theme, setTheme } = useTheme();
-  const [componentUUID, setComponentUUID] = useState<string>();
   // const [mode, setMode] = useState<boolean>(DEFAULT_MODE);
   const [active, setActive] = useState<boolean>(false);
   const [screen, setScreen] = useState<"sm" | "md" | "lg">("sm");
 
   const router = useRouter();
   const param = usePathname();
-  var splitParams = param?.split("/");
+  const tempSplit = param?.split("/");
+  const pageType = tempSplit[2].split("#")[0];
+  const pageName = tempSplit[2].split("#")[1];
 
   const sizeRef = useRef<HTMLDivElement>(null);
   const [windowWidth, setWindowWidth] = useState<number>();
   const [divWidth, setDivWidth] = useState<number>(0);
 
-  // useEffect(() => {
-  //   setMode(theme);
-  // }, [theme]);
   useEffect(() => {
-    setComponentUUID(v4());
     const handleResize = () => {
       if (sizeRef.current) {
         setDivWidth(sizeRef.current.offsetWidth);
@@ -52,36 +51,17 @@ export default function Component({ data }: { data: DataDescription }) {
     }
   }, []);
 
-  useEffect(() => {
-    if (!theme) {
-      // document.getElementById(`container`)?.classList.remove("darkComponent");
-      // document
-      //   .getElementById(`componentContainer${componentUUID}`)
-      //   ?.classList.remove("darkComponent");
-      const containers = document.getElementsByClassName(
-        `container-theme-handler`
-      );
-      for (let i = 0; i < containers.length; i++) {
-        containers[i].classList.remove("darkComponent");
-      }
-    }
-    if (theme) {
-      const containers = document.getElementsByClassName(
-        `container-theme-handler`
-      );
-      for (let i = 0; i < containers.length; i++) {
-        containers[i].classList.add("darkComponent");
-      }
-    }
-    console.log(theme, document.getElementById);
-  }, []);
+  const convertToDashed = (str: string) => {
+    const convertToArray = str.toLowerCase().split(" ");
+    return convertToArray.join("-");
+  };
 
   return (
     <>
       {data ? (
         <div
-          className={`w-full container-theme-handler ${theme ? "darkComponent" : ""}`}
-          id={`container${componentUUID}`}
+          className={`w-full container-theme-handler mt-10 ${theme ? "darkComponent" : ""}`}
+          id={convertToDashed(data.name)}
         >
           <div className="w-[90%] flex flex-col py-4 gap-4 rounded-xl mx-auto mt-10">
             {versionCheck(data.version_included) ? (
@@ -89,14 +69,25 @@ export default function Component({ data }: { data: DataDescription }) {
                 New
               </div>
             ) : null}
-            <h1 className="text-xl font-medium text-textPrimary">
+            <Link
+              href={`#${convertToDashed(data.name)}`}
+              className="text-xl font-medium text-textPrimary group/hashtag flex gap-2 relative transition-all duration-300 ease-linear"
+            >
               {data.name}
-            </h1>
+              <span
+                className={twMerge(
+                  "text-gray-800 dark:text-gray-200 hidden absolute top-[0.125rem] -left-8",
+                  "group-hover/hashtag:inline-block"
+                )}
+              >
+                <Icons.link className="w-6 h-6" />
+              </span>
+            </Link>
             <p className="text-textSecondary font-normal text-base">
               {data.description}
             </p>
           </div>
-          {splitParams[2] === "primitives" && (
+          {pageType === "primitives" && (
             <>
               <div className="w-[90%] flex flex-col items-center border-[1px] border-border pt-4 gap-4 rounded-xl mx-auto">
                 <div className="w-[95%] h-12 flex justify-between items-center ">
@@ -154,7 +145,7 @@ export default function Component({ data }: { data: DataDescription }) {
               </div>
             </>
           )}
-          {splitParams[2] === "components" && (
+          {pageType === "components" && (
             <div
               className={`w-[90%] flex flex-col items-center pt-4 gap-4 rounded-xl mx-auto`}
               ref={sizeRef}
@@ -224,3 +215,20 @@ export default function Component({ data }: { data: DataDescription }) {
     </>
   );
 }
+
+const LinkHashtag = ({ className }: { className?: string }) => {
+  const convertToDashed = (str: string) => {
+    const convertToArray = str.toLowerCase().split(" ");
+    return convertToArray.join("-");
+  };
+  return (
+    <span
+      className={twMerge(
+        "text-gray-800 dark:text-gray-200 hidden absolute top-[0.125rem] -left-8",
+        className
+      )}
+    >
+      <Icons.link className="w-6 h-6" />
+    </span>
+  );
+};
