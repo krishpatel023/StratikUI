@@ -63,32 +63,32 @@ export default function Component({ data }: { data: DataDescription }) {
           className={`w-full container-theme-handler mt-10 ${theme ? "darkComponent" : ""}`}
           id={convertToDashed(data.name)}
         >
-          <div className="w-[90%] flex flex-col py-4 gap-4 rounded-xl mx-auto mt-10">
-            {versionCheck(data.version_included) ? (
-              <div className="max-w-12 text-center text-xs font-light text-success bg-success/30 rounded-full border-2 border-success">
-                New
-              </div>
-            ) : null}
-            <Link
-              href={`#${convertToDashed(data.name)}`}
-              className="text-xl font-medium text-textPrimary group/hashtag flex gap-2 relative transition-all duration-300 ease-linear"
-            >
-              {data.name}
-              <span
-                className={twMerge(
-                  "text-gray-800 dark:text-gray-200 hidden absolute top-[0.125rem] -left-8",
-                  "group-hover/hashtag:inline-block"
-                )}
-              >
-                <Icons.link className="w-6 h-6" />
-              </span>
-            </Link>
-            <p className="text-textSecondary font-normal text-base">
-              {data.description}
-            </p>
-          </div>
           {pageType === "primitives" && (
             <>
+              <div className="w-[90%] flex flex-col py-4 gap-4 rounded-xl mx-auto mt-10">
+                {versionCheck(data.version_included) ? (
+                  <div className="max-w-12 text-center text-xs font-light text-success bg-success/30 rounded-full border-2 border-success">
+                    New
+                  </div>
+                ) : null}
+                <Link
+                  href={`#${convertToDashed(data.name)}`}
+                  className="text-xl font-medium text-textPrimary group/hashtag flex gap-2 relative transition-all duration-300 ease-linear"
+                >
+                  {data.name}
+                  <span
+                    className={twMerge(
+                      "text-gray-800 dark:text-gray-200 hidden absolute top-[0.125rem] -left-8",
+                      "group-hover/hashtag:inline-block"
+                    )}
+                  >
+                    <Icons.link className="w-6 h-6" />
+                  </span>
+                </Link>
+                <p className="text-textSecondary font-normal text-base">
+                  {data.description}
+                </p>
+              </div>
               <div className="w-[90%] flex flex-col items-center border-[1px] border-border pt-4 gap-4 rounded-xl mx-auto">
                 <div className="w-[95%] h-12 flex justify-between items-center ">
                   <div>
@@ -143,71 +143,75 @@ export default function Component({ data }: { data: DataDescription }) {
                   )}
                 </div>
               </div>
+              <Implementation
+                implementation={data.implementation}
+                active={active}
+              />
             </>
           )}
           {pageType === "components" && (
-            <div
-              className={`w-[90%] flex flex-col items-center pt-4 gap-4 rounded-xl mx-auto`}
-              ref={sizeRef}
-            >
-              <div className="w-full h-12 flex justify-between items-center ">
-                <div>
-                  <button
-                    onClick={() => setTheme(!theme)}
-                    className="h-10 px-4 rounded border-[1px] border-border flex justify-center items-center gap-4 text-center text-textPrimary"
-                  >
-                    {theme ? (
-                      <>
-                        <Icons.moon className="w-6 h-6" /> Dark
-                      </>
-                    ) : (
-                      <>
-                        <Icons.sun className="w-6 h-6" /> Light
-                      </>
-                    )}
-                  </button>
-                </div>
-              </div>
-              {divWidth && divWidth !== 0 ? (
-                <>
-                  <ResizableContainer
-                    maxWidth={divWidth - 15}
-                    minWidth={400}
-                    initialWidth={0}
-                  >
-                    {data.component}
-                  </ResizableContainer>
-                </>
-              ) : (
-                <div className="flex w-full min-h-[800px]">
-                  <Skeleton className="min-h-full min-w-[calc(100%-1rem)] rounded-lg" />
-                  <div className="w-4 flex justify-center items-center cursor-col-resize z-10">
-                    <div className="min-h-8 bg-primary rounded-full min-w-[0.25rem]"></div>
+            <>
+              <div className="w-[90%] flex flex-col py-4 gap-4 rounded-xl mx-auto mt-10">
+                {versionCheck(data.version_included) ? (
+                  <div className="max-w-12 text-center text-xs font-light text-success bg-success/30 rounded-full border-2 border-success">
+                    New
                   </div>
-                </div>
-              )}
-            </div>
+                ) : null}
+                <Link
+                  href={`#${convertToDashed(data.name)}`}
+                  className="text-xl font-medium text-textPrimary group/hashtag flex gap-2 relative transition-all duration-300 ease-linear"
+                >
+                  {data.name}
+                  <span
+                    className={twMerge(
+                      "text-gray-800 dark:text-gray-200 hidden absolute top-[0.125rem] -left-8",
+                      "group-hover/hashtag:inline-block"
+                    )}
+                  >
+                    <Icons.link className="w-6 h-6" />
+                  </span>
+                </Link>
+                <p className="text-textSecondary font-normal text-base">
+                  {data.description}
+                </p>
+              </div>
+              <div
+                className={`w-[90%] flex flex-col items-center pt-4 gap-4 rounded-xl mx-auto`}
+                ref={sizeRef}
+              >
+                <ComponentHeader
+                  theme={theme}
+                  setTheme={setTheme}
+                  active={active}
+                  setActive={setActive}
+                />
+                {divWidth && divWidth !== 0 ? (
+                  <>
+                    {active ? null : (
+                      <ResizableContainer
+                        maxWidth={divWidth - 15}
+                        minWidth={400}
+                        initialWidth={0}
+                      >
+                        {data.component}
+                      </ResizableContainer>
+                    )}
+                  </>
+                ) : (
+                  <div className="flex w-full min-h-[800px]">
+                    <Skeleton className="min-h-full min-w-[calc(100%-1rem)] rounded-lg" />
+                    <div className="w-4 flex justify-center items-center cursor-col-resize z-10">
+                      <div className="min-h-8 bg-primary rounded-full min-w-[0.25rem]"></div>
+                    </div>
+                  </div>
+                )}
+              </div>
+              <Implementation
+                implementation={data.implementation}
+                active={active}
+              />
+            </>
           )}
-          <div className="w-[90%] flex flex-col py-4 gap-4 rounded-xl mx-auto items-start mb-4">
-            <button
-              className="text-accent flex justify-center items-center gap-2 text-center"
-              onClick={() => setActive(!active)}
-            >
-              {active ? (
-                <>
-                  <Icons.arrow className="-rotate-90" /> Hide Implementation
-                </>
-              ) : (
-                <>
-                  See Implementation <Icons.arrow className="rotate-90" />
-                </>
-              )}
-            </button>
-          </div>
-          <Implementation
-            implementation={data.implementation}
-            active={active}
-          />
         </div>
       ) : (
         router.push("/")
@@ -230,5 +234,56 @@ const LinkHashtag = ({ className }: { className?: string }) => {
     >
       <Icons.link className="w-6 h-6" />
     </span>
+  );
+};
+
+const ComponentHeader = ({
+  theme,
+  setTheme,
+  active,
+  setActive,
+}: {
+  theme: boolean;
+  setTheme: (theme: boolean) => void;
+  active: boolean;
+  setActive: (active: boolean) => void;
+}) => {
+  return (
+    <div className="w-[calc(100%-1rem)] mr-4 h-12 flex justify-between items-center ">
+      <div className="py-1 px-1 flex gap-1 bg-secondary rounded text-textPrimary">
+        <button
+          className={
+            active === false ? "bg-background px-2 py-1 rounded" : "px-2 py-1"
+          }
+          onClick={() => setActive(false)}
+        >
+          Preview
+        </button>
+        <button
+          className={
+            active === true ? "bg-background px-2 py-1 rounded" : "px-2 py-1"
+          }
+          onClick={() => setActive(true)}
+        >
+          Code
+        </button>{" "}
+      </div>
+      <div>
+        <button
+          onClick={() => setTheme(!theme)}
+          className="h-10 px-4 rounded border-[1px] border-border flex justify-center items-center gap-4 text-center text-textPrimary"
+        >
+          {theme ? (
+            <>
+              <Icons.moon className="w-6 h-6" /> Dark
+            </>
+          ) : (
+            <>
+              <Icons.sun className="w-6 h-6" /> Light
+            </>
+          )}
+        </button>
+      </div>
+    </div>
   );
 };

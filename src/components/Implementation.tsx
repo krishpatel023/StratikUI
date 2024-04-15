@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  Code,
   ImplementationNode,
   InspirationObject,
   TechnologiesUsed,
@@ -15,6 +16,15 @@ import jsx from "react-syntax-highlighter/dist/esm/languages/prism/jsx";
 import bash from "react-syntax-highlighter/dist/esm/languages/prism/bash";
 import StringCleaner from "@/scripts/StringCleaner";
 
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/Select";
 //------------------
 export default function Implementation({
   implementation,
@@ -38,23 +48,18 @@ export default function Implementation({
               )}
             </div>
             <div className="w-[calc(100%-2.5rem)]">
-              {item.type === "technology_used" &&
-                Array.isArray(item.content) && (
-                  <Technology_Used techUsed={item.content} />
-                )}
-              {item.type === "code" && typeof item.content === "string" && (
-                <CodeBlock codestring={item.content} />
+              {item.type === "technology_used" && (
+                <Technology_Used techUsed={item.content} />
               )}
-              {item.type === "bash" &&
+              {item.type === "code" && <CodeDisplay codeArray={item.content} />}
+              {/* {item.type === "bash" &&
                 typeof item.content === "string" &&
                 !Array.isArray(item.content) && (
                   <Bash codestring={item.content} />
-                )}
-              {item.type === "inspiration" &&
-                typeof item.content !== "string" &&
-                !Array.isArray(item.content) && (
-                  <Inspiration data={item.content as InspirationObject} />
-                )}
+                )} */}
+              {item.type === "inspiration" && (
+                <Inspiration data={item.content as InspirationObject} />
+              )}
             </div>
           </div>
         ))}
@@ -106,10 +111,35 @@ const Technology_Used = ({ techUsed }: { techUsed: TechnologiesUsed[] }) => {
 function CodeBlock({ codestring }: { codestring: string }) {
   SyntaxHighlighter.registerLanguage("jsx", jsx);
 
+  return (
+    <div className="w-full">
+      <SyntaxHighlighter
+        language="jsx"
+        style={atomDark}
+        customStyle={{
+          width: "100",
+          backgroundColor: "transparent",
+          borderRadius: "0px",
+        }}
+        showLineNumbers
+        className={`scrollbar-horizontal scrollbar-vertical w-full h-full`}
+      >
+        {StringCleaner(codestring)}
+      </SyntaxHighlighter>
+    </div>
+  );
+}
+
+const CodeDisplay = ({ codeArray }: { codeArray: Code[] }) => {
+  const [activeCode, setActiveCode] = useState<number>(0);
+  const [activeLanguage, setActiveLanguage] = useState<number>(0);
+
   const [btnClick, setBtnClick] = useState(false);
   const handleCopy = () => {
-    if (!codestring) return;
-    navigator.clipboard.writeText(codestring);
+    if (!codeArray[activeCode].content[activeLanguage].code) return;
+    navigator.clipboard.writeText(
+      codeArray[activeCode].content[activeLanguage].code
+    );
     setBtnClick(true);
     const time = setTimeout(handleCopyBtn, 1000);
   };
@@ -117,52 +147,98 @@ function CodeBlock({ codestring }: { codestring: string }) {
   function handleCopyBtn() {
     setBtnClick(false);
   }
+  // useEffect(() => {
+  //   const index = getPreferenced("tsx");
+  //   console.log("index", index);
 
-  //Expansion
-  const [expanded, setExpanded] = useState(false);
-  const handleExpand = () => {
-    setExpanded(!expanded);
-  };
+  //   setActiveLanguage(index);
+  // }, [activeCode]);
+
+  // const getPreferenced = (pref: string) => {
+  //   const index = activeCode ? activeCode : 0;
+  //   // if (index === 0) return null;
+  //   for (let i = 0; i < codeArray[index].content.length; i++) {
+  //     if (pref === codeArray[index].content[i].language) {
+  //       return i;
+  //     }
+  //   }
+  //   return 0;
+  // };
 
   return (
-    <div className="w-full">
-      <h1 className="text-lg font-medium text-textPrimary">Code Block</h1>
-      <div className="w-full relative">
-        <SyntaxHighlighter
-          language="jsx"
-          style={atomDark}
-          customStyle={{ width: "100" }}
-          showLineNumbers
-          className={`scrollbar-horizontal scrollbar-vertical w-full ${expanded ? "h-full" : "h-80"}`}
-        >
-          {StringCleaner(codestring)}
-        </SyntaxHighlighter>
-        {btnClick ? (
-          <button className="absolute right-4 top-6 rounded border-[1px] border-green-400  p-2 text-green-400">
-            <Icons.tick />
-          </button>
-        ) : (
-          <button
-            className="absolute right-4 top-6 rounded border-[1px] border-white  p-2 text-white"
-            onClick={handleCopy}
-          >
-            <Icons.copy />
-          </button>
-        )}
-        <div
-          className={`absolute w-full h-full flex justify-center pt-52 z-100 bg-gradient-to-b from-gray-900/40 to-slate-50/10 top-0 ${expanded ? "hidden" : ""}`}
-        >
-          <button
-            onClick={handleExpand}
-            className="px-4 h-10 border-2 border-accent rounded bg-accent dark:bg-secondary dark:text-textPrimary dark:border-secondary text-textComplementary"
-          >
-            Expand
-          </button>
+    <>
+      {activeCode >= 0 && activeLanguage >= 0 ? (
+        <div className="w-full border-[1px] border-border rounded text-textPrimary p-0">
+          {/* TASKBAR */}
+          <div className="w-full h-6 flex justify-between items-center mt-2">
+            {/* BUTTONS */}
+
+            <div className="h-full flex gap-4 px-4">
+              {codeArray?.map((item, i) => (
+                <div className="" key={i}>
+                  <button className="text-sm" onClick={() => setActiveCode(i)}>
+                    {item.name}
+                  </button>
+                  <div
+                    className={`min-w-full min-h-[0.125rem] rounded-t-md ${activeCode === i ? "bg-accent" : ""}`}
+                  ></div>
+                </div>
+              ))}
+            </div>
+            {/* <div>
+
+          </div> */}
+            {/* OPERATOR */}
+            <div className="px-4 flex gap-4">
+              <Select>
+                <SelectTrigger className="h-6 gap-2 border-none">
+                  <SelectValue
+                    placeholder={
+                      codeArray[activeCode].content[activeLanguage].language
+                    }
+                  />
+                </SelectTrigger>
+                <SelectContent className="bg-background text-textPrimary">
+                  <SelectGroup>
+                    <SelectLabel>Language</SelectLabel>
+                    {codeArray[activeCode].content.map((item, i) => (
+                      <SelectItem
+                        key={i}
+                        value={item.language}
+                        onClick={() => setActiveLanguage(i)}
+                      >
+                        {item.language}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+
+              {btnClick ? (
+                <button className="rounded text-green-400 px-2">
+                  <Icons.tick className="w-4 h-4" />
+                </button>
+              ) : (
+                <button
+                  className="rounded  text-textPrimary text-sm px-2"
+                  onClick={handleCopy}
+                >
+                  <Icons.copy className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+          </div>
+          {/* CONTENT */}
+          <div className="w-full">
+            <CodeBlock
+              codestring={codeArray[activeCode].content[activeLanguage].code}
+            />
+          </div>
         </div>
-      </div>
-    </div>
+      ) : null}
+    </>
   );
-}
+};
 
 function Bash({ codestring }: { codestring: string }) {
   SyntaxHighlighter.registerLanguage("bash", bash);

@@ -15,11 +15,11 @@ const Logo: LogoProps[] = [
         xmlns="http://www.w3.org/2000/svg"
         {...props}
       >
-        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
         <g
           id="SVGRepo_tracerCarrier"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         ></g>
         <g id="SVGRepo_iconCarrier">
           <path d="M380.844 297.529c.787 84.752 74.349 112.955 75.164 113.314-.622 1.988-11.754 40.191-38.756 79.652-23.343 34.117-47.568 68.107-85.731 68.811-37.499.691-49.557-22.236-92.429-22.236-42.859 0-56.256 21.533-91.753 22.928-36.837 1.395-64.889-36.891-88.424-70.883-48.093-69.53-84.846-196.475-35.496-282.165 24.516-42.554 68.328-69.501 115.882-70.192 36.173-.69 70.315 24.336 92.429 24.336 22.1 0 63.59-30.096 107.208-25.676 18.26.76 69.517 7.376 102.429 55.552-2.652 1.644-61.159 35.704-60.523 106.559M310.369 89.418C329.926 65.745 343.089 32.79 339.498 0 311.308 1.133 277.22 18.785 257 42.445c-18.121 20.952-33.991 54.487-29.709 86.628 31.421 2.431 63.52-15.967 83.078-39.655"></path>
@@ -36,11 +36,11 @@ const Logo: LogoProps[] = [
         fill="currentColor"
         {...props}
       >
-        <g id="SVGRepo_bgCarrier" stroke-width="0" {...props}></g>
+        <g id="SVGRepo_bgCarrier" strokeWidth="0" {...props}></g>
         <g
           id="SVGRepo_tracerCarrier"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         ></g>
         <g id="SVGRepo_iconCarrier">
           {" "}
@@ -62,11 +62,11 @@ const Logo: LogoProps[] = [
         fill="#000000"
         {...props}
       >
-        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
         <g
           id="SVGRepo_tracerCarrier"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         ></g>
         <g id="SVGRepo_iconCarrier">
           <path
@@ -98,20 +98,20 @@ const Logo: LogoProps[] = [
         fill="#000000"
         {...props}
       >
-        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
         <g
           id="SVGRepo_tracerCarrier"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         ></g>
         <g id="SVGRepo_iconCarrier">
           {" "}
           <linearGradient id="a" x1="50%" x2="50%" y1="0%" y2="100.001%">
             {" "}
-            <stop offset="0" stop-color="#00b2ff"></stop>{" "}
-            <stop offset="1" stop-color="#006aff"></stop>{" "}
+            <stop offset="0" stopColor="#00b2ff"></stop>{" "}
+            <stop offset="1" stopColor="#006aff"></stop>{" "}
           </linearGradient>{" "}
-          <g fill="none" fill-rule="evenodd">
+          <g fill="none" fillRule="evenodd">
             {" "}
             <path
               d="M250 50.201c-112.676 0-200 82.452-200 193.81 0 58.25 23.903 108.582 62.817 143.356 3.26 2.935 5.231 6.995 5.392 11.377l1.087 35.537c.362 11.337 12.072 18.694 22.455 14.151l39.678-17.487a15.974 15.974 0 0 1 10.664-.804c18.229 5.025 37.666 7.678 57.907 7.678 112.676 0 200-82.452 200-193.809S362.676 50.201 250 50.201z"
@@ -141,11 +141,11 @@ const Logo: LogoProps[] = [
         fill="#000000"
         {...props}
       >
-        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
         <g
           id="SVGRepo_tracerCarrier"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         ></g>
         <g id="SVGRepo_iconCarrier">
           {" "}
@@ -167,11 +167,11 @@ const Logo: LogoProps[] = [
         fill="#000000"
         {...props}
       >
-        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
         <g
           id="SVGRepo_tracerCarrier"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         ></g>
         <g id="SVGRepo_iconCarrier">
           <path
@@ -187,20 +187,20 @@ const Logo: LogoProps[] = [
     logo: (props: IconProps) => (
       <svg
         viewBox="-2.45 0 2452.5 2452.5"
-        enable-background="new 0 0 2447.6 2452.5"
+        enableBackground="new 0 0 2447.6 2452.5"
         xmlns="http://www.w3.org/2000/svg"
         fill="#000000"
         {...props}
       >
-        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
         <g
           id="SVGRepo_tracerCarrier"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         ></g>
         <g id="SVGRepo_iconCarrier">
           {" "}
-          <g clip-rule="evenodd" fill-rule="evenodd">
+          <g clipRule="evenodd" fillRule="evenodd">
             {" "}
             <path
               d="m897.4 0c-135.3.1-244.8 109.9-244.7 245.2-.1 135.3 109.5 245.1 244.8 245.2h244.8v-245.1c.1-135.3-109.5-245.1-244.9-245.3.1 0 .1 0 0 0m0 654h-652.6c-135.3.1-244.9 109.9-244.8 245.2-.2 135.3 109.4 245.1 244.7 245.3h652.7c135.3-.1 244.9-109.9 244.8-245.2.1-135.4-109.5-245.2-244.8-245.3z"
