@@ -7,14 +7,10 @@ import {
   TechnologiesUsed,
 } from "@/utils/constants";
 import { Icons } from "@/utils/icons";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 
-// -----------------
-import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
-import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
-import jsx from "react-syntax-highlighter/dist/esm/languages/prism/jsx";
-import bash from "react-syntax-highlighter/dist/esm/languages/prism/bash";
 import StringCleaner from "@/scripts/StringCleaner";
+import CodeHighlight from "./ui/CodeHighlight";
 
 import {
   Select,
@@ -25,8 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/Select";
-import CodeHighlight from "./ui/CodeHighlight";
-//------------------
+
 export default function Implementation({
   implementation,
   active,
@@ -96,28 +91,6 @@ const Technology_Used = ({ techUsed }: { techUsed: TechnologiesUsed[] }) => {
     </div>
   );
 };
-
-function CodeBlock({ codestring }: { codestring: string }) {
-  SyntaxHighlighter.registerLanguage("jsx", jsx);
-
-  return (
-    <div className="w-full">
-      <SyntaxHighlighter
-        language="jsx"
-        style={atomDark}
-        customStyle={{
-          width: "100",
-          backgroundColor: "transparent",
-          borderRadius: "0px",
-        }}
-        showLineNumbers
-        className={`scrollbar-horizontal scrollbar-vertical w-full h-full`}
-      >
-        {StringCleaner(codestring)}
-      </SyntaxHighlighter>
-    </div>
-  );
-}
 
 const CodeDisplay = ({
   codeArray,
@@ -247,7 +220,9 @@ const CodeDisplay = ({
           {/* CONTENT */}
           <div className="w-full">
             <CodeHighlight
-              code={codeArray[activeCode].content[activeLanguage].code}
+              code={StringCleaner(
+                codeArray[activeCode].content[activeLanguage].code
+              )}
               lang={codeArray[activeCode].content[activeLanguage].language}
               withCounter={withCounter}
             />
@@ -257,51 +232,6 @@ const CodeDisplay = ({
     </>
   );
 };
-
-function Bash({ codestring }: { codestring: string }) {
-  SyntaxHighlighter.registerLanguage("bash", bash);
-
-  const [btnClick, setBtnClick] = useState(false);
-  const handleCopy = () => {
-    if (!codestring) return;
-    navigator.clipboard.writeText(codestring);
-    setBtnClick(true);
-    const time = setTimeout(handleCopyBtn, 1000);
-  };
-
-  function handleCopyBtn() {
-    setBtnClick(false);
-  }
-
-  return (
-    <div className="w-full">
-      <h1 className="text-lg font-medium text-textPrimary">Install</h1>
-      <div className="relative w-full">
-        <SyntaxHighlighter
-          language="bash"
-          style={atomDark}
-          customStyle={{ width: "100", height: "100" }}
-          wrapLongLines
-          className={"scrollbar-horizontal scrollbar-vertical"}
-        >
-          {codestring}
-        </SyntaxHighlighter>
-        {btnClick ? (
-          <button className="absolute right-4 top-4 rounded border-[1px] border-green-400  p-2 text-green-400">
-            <Icons.tick />
-          </button>
-        ) : (
-          <button
-            className="absolute right-4 top-3 rounded border-[1px] border-white  p-2 text-white"
-            onClick={handleCopy}
-          >
-            <Icons.copy />
-          </button>
-        )}
-      </div>
-    </div>
-  );
-}
 
 function Inspiration({ data }: { data: InspirationObject }) {
   return (
