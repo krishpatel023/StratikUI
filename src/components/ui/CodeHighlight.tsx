@@ -7,6 +7,7 @@ import {
 } from "@shikijs/transformers";
 import type { BundledLanguage, BundledTheme } from "shiki";
 import { useEffect, useState } from "react";
+import { Skeleton } from "./Skeleton";
 
 type Props = {
   code: string;
@@ -40,12 +41,24 @@ export default function CodeHighlight({
       transformers: [transformerNotationHighlight(), transformerNotationDiff()],
     });
   }
+
+  //Total Lines
+  //const lines = (String(code).match(/\n/g) || "").length + 1;
+
   return (
-    <div className="w-full mx-auto overflow-hidden">
-      <div
-        className={`${withCounter ? "with-counter" : ""} text-sm [&>pre]:overflow-x-auto  dark:[&>pre]:!bg-neutral-900 [&>pre]:!bg-slate-100  [&>pre]:py-3 [&>pre]:pl-4 [&>pre]:pr-5 [&>pre]:leading-snug [&_code]:block [&_code]:w-fit [&_code]:min-w-full`}
-        dangerouslySetInnerHTML={{ __html: html }}
-      ></div>
-    </div>
+    <>
+      {html ? (
+        <div className="w-full mx-auto overflow-hidden">
+          <div
+            className={`${withCounter ? "with-counter" : ""} text-sm [&>pre]:overflow-x-auto  dark:[&>pre]:!bg-neutral-900 [&>pre]:!bg-slate-100  [&>pre]:py-3 [&>pre]:pl-4 [&>pre]:pr-5 [&>pre]:leading-snug [&_code]:block [&_code]:w-fit [&_code]:min-w-full`}
+            dangerouslySetInnerHTML={{ __html: html }}
+          ></div>
+        </div>
+      ) : (
+        <Skeleton
+          className={`w-full ${withCounter ? "min-h-60" : "min-h-10"}`}
+        />
+      )}
+    </>
   );
 }
