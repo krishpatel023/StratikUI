@@ -137,7 +137,7 @@ const Implementation: ImplementationNode[] = [
             language: "jsx",
           },
           {
-            code: Code,
+            code: BackgroundString,
             language: "tsx",
           },
         ],
@@ -148,6 +148,20 @@ const Implementation: ImplementationNode[] = [
           {
             code: BackgroundString,
             language: "tsx",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    type: "bash",
+    content: [
+      {
+        name: "Installation",
+        content: [
+          {
+            code: "npm install @brandwall/brandwall",
+            language: "bash",
           },
         ],
       },

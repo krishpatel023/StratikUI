@@ -1,3 +1,4 @@
+import { BundledLanguage } from "shiki/bundle/web";
 import { URL } from "url";
 
 export interface DataDescription {
@@ -12,7 +13,7 @@ export type TechnologiesUsed = "tailwind-css" | "framer-motion" | "twMerge";
 
 export type CodeBlock = {
   code: string;
-  language: string;
+  language: BundledLanguage;
 };
 export type Code = {
   name: string;

@@ -176,7 +176,7 @@ export default function Component({ data }: { data: DataDescription }) {
                 </p>
               </div>
               <div
-                className={`w-[90%] flex flex-col items-center pt-4 gap-4 rounded-xl mx-auto`}
+                className={`w-[90%] flex flex-col items-center justify-center pt-4 gap-4 rounded-xl mx-auto`}
                 ref={sizeRef}
               >
                 <ComponentHeader
@@ -205,11 +205,11 @@ export default function Component({ data }: { data: DataDescription }) {
                     </div>
                   </div>
                 )}
+                <Implementation
+                  implementation={data.implementation}
+                  active={active}
+                />
               </div>
-              <Implementation
-                implementation={data.implementation}
-                active={active}
-              />
             </>
           )}
         </div>
@@ -219,23 +219,6 @@ export default function Component({ data }: { data: DataDescription }) {
     </>
   );
 }
-
-const LinkHashtag = ({ className }: { className?: string }) => {
-  const convertToDashed = (str: string) => {
-    const convertToArray = str.toLowerCase().split(" ");
-    return convertToArray.join("-");
-  };
-  return (
-    <span
-      className={twMerge(
-        "text-gray-800 dark:text-gray-200 hidden absolute top-[0.125rem] -left-8",
-        className
-      )}
-    >
-      <Icons.link className="w-6 h-6" />
-    </span>
-  );
-};
 
 const ComponentHeader = ({
   theme,
@@ -249,7 +232,9 @@ const ComponentHeader = ({
   setActive: (active: boolean) => void;
 }) => {
   return (
-    <div className="w-[calc(100%-1rem)] mr-4 h-12 flex justify-between items-center ">
+    <div
+      className={` ${active ? "w-full" : "w-[calc(100%-1rem)] mr-4"} h-12 flex justify-between items-center `}
+    >
       <div className="py-1 px-1 flex gap-1 bg-secondary rounded text-textPrimary">
         <button
           className={
@@ -268,22 +253,20 @@ const ComponentHeader = ({
           Code
         </button>{" "}
       </div>
-      <div>
-        <button
-          onClick={() => setTheme(!theme)}
-          className="h-10 px-4 rounded border-[1px] border-border flex justify-center items-center gap-4 text-center text-textPrimary"
-        >
+      <button
+        onClick={() => setTheme(!theme)}
+        className="h-10 w-10 bg-secondary p-1 rounded-md flex justify-center items-center gap-4 text-center text-textPrimary"
+      >
+        <div className="bg-background hover:bg-secondary w-full h-full flex justify-center items-center rounded-md">
           {theme ? (
-            <>
-              <Icons.moon className="w-6 h-6" /> Dark
-            </>
+            <Icons.moon className="w-6 h-6" />
           ) : (
             <>
-              <Icons.sun className="w-6 h-6" /> Light
+              <Icons.sun className="w-6 h-6" />
             </>
           )}
-        </button>
-      </div>
+        </div>
+      </button>
     </div>
   );
 };

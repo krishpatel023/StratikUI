@@ -25,6 +25,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/Select";
+import CodeHighlight from "./ui/CodeHighlight";
 //------------------
 export default function Implementation({
   implementation,
@@ -38,29 +39,17 @@ export default function Implementation({
       {implementation &&
         active &&
         implementation.map((item, i) => (
-          <div key={i} className="flex gap-4 w-[90%] mx-auto mt-6">
-            <div className="w-6">
-              <p className="text-accent h-6 w-6 mt-1 text-center bg-accentLight rounded-full border-[1px] border-accent">
-                {i + 1}
-              </p>
-              {implementation.length - 1 > i && (
-                <div className="w-[1px] h-[calc(100%)] bg-accent mx-auto opacity-60"></div>
-              )}
-            </div>
-            <div className="w-[calc(100%-2.5rem)]">
-              {item.type === "technology_used" && (
-                <Technology_Used techUsed={item.content} />
-              )}
-              {item.type === "code" && <CodeDisplay codeArray={item.content} />}
-              {/* {item.type === "bash" &&
-                typeof item.content === "string" &&
-                !Array.isArray(item.content) && (
-                  <Bash codestring={item.content} />
-                )} */}
-              {item.type === "inspiration" && (
-                <Inspiration data={item.content as InspirationObject} />
-              )}
-            </div>
+          <div key={i} className="flex gap-4 w-full mx-auto mt-6">
+            {item.type === "technology_used" && (
+              <Technology_Used techUsed={item.content} />
+            )}
+            {item.type === "code" && <CodeDisplay codeArray={item.content} />}
+            {item.type === "bash" && (
+              <CodeDisplay codeArray={item.content} withCounter={false} />
+            )}
+            {item.type === "inspiration" && (
+              <Inspiration data={item.content as InspirationObject} />
+            )}
           </div>
         ))}
     </>
@@ -130,7 +119,13 @@ function CodeBlock({ codestring }: { codestring: string }) {
   );
 }
 
-const CodeDisplay = ({ codeArray }: { codeArray: Code[] }) => {
+const CodeDisplay = ({
+  codeArray,
+  withCounter = true,
+}: {
+  codeArray: Code[];
+  withCounter?: boolean;
+}) => {
   const [activeCode, setActiveCode] = useState<number>(0);
   const [activeLanguage, setActiveLanguage] = useState<number>(0);
 
@@ -148,10 +143,10 @@ const CodeDisplay = ({ codeArray }: { codeArray: Code[] }) => {
     setBtnClick(false);
   }
   // useEffect(() => {
-  //   const index = getPreferenced("tsx");
-  //   console.log("index", index);
+  //   // const index = getPreferenced("tsx");
+  //   // console.log("index", index);
 
-  //   setActiveLanguage(index);
+  //   setActiveLanguage(0);
   // }, [activeCode]);
 
   // const getPreferenced = (pref: string) => {
@@ -168,29 +163,54 @@ const CodeDisplay = ({ codeArray }: { codeArray: Code[] }) => {
   return (
     <>
       {activeCode >= 0 && activeLanguage >= 0 ? (
-        <div className="w-full border-[1px] border-border rounded text-textPrimary p-0">
+        <div className="w-full border-[2px] border-slate-100 dark:border-neutral-900 rounded text-textPrimary p-0">
           {/* TASKBAR */}
-          <div className="w-full h-6 flex justify-between items-center mt-2">
+          <div className="w-full h-8 flex justify-between items-center mt-2">
             {/* BUTTONS */}
 
-            <div className="h-full flex gap-4 px-4">
+            <div className="hidden md:flex gap-2 px-4 h-full">
               {codeArray?.map((item, i) => (
-                <div className="" key={i}>
-                  <button className="text-sm" onClick={() => setActiveCode(i)}>
-                    {item.name}
-                  </button>
-                  <div
-                    className={`min-w-full min-h-[0.125rem] rounded-t-md ${activeCode === i ? "bg-accent" : ""}`}
-                  ></div>
-                </div>
+                <button
+                  key={i}
+                  className={
+                    activeCode === i
+                      ? "text-sm h-full px-4 py-1 rounded-t-md dark:bg-neutral-900 bg-slate-100 border-t-2 border-x-2 dark:border-neutral-800 border-slate-200"
+                      : "text-sm h-full px-4 py-1"
+                  }
+                  onClick={() => setActiveCode(i)}
+                >
+                  {item.name}
+                </button>
               ))}
             </div>
-            {/* <div>
-
-          </div> */}
+            <div className="block md:hidden h-full">
+              <Select
+                onValueChange={(e) => {
+                  setActiveCode(parseInt(e));
+                }}
+              >
+                <SelectTrigger className="h-6 gap-2 border-none">
+                  <SelectValue placeholder={codeArray[activeCode].name} />
+                </SelectTrigger>
+                <SelectContent className="bg-background text-textPrimary">
+                  <SelectGroup>
+                    <SelectLabel>File</SelectLabel>
+                    {codeArray?.map((item, i) => (
+                      <SelectItem key={i} value={`${i}`}>
+                        {item.name}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
             {/* OPERATOR */}
-            <div className="px-4 flex gap-4">
-              <Select>
+            <div className="px-2 sm:px-4 flex pb-2 gap-1">
+              <Select
+                onValueChange={(e) => {
+                  setActiveLanguage(parseInt(e));
+                }}
+              >
                 <SelectTrigger className="h-6 gap-2 border-none">
                   <SelectValue
                     placeholder={
@@ -202,11 +222,7 @@ const CodeDisplay = ({ codeArray }: { codeArray: Code[] }) => {
                   <SelectGroup>
                     <SelectLabel>Language</SelectLabel>
                     {codeArray[activeCode].content.map((item, i) => (
-                      <SelectItem
-                        key={i}
-                        value={item.language}
-                        onClick={() => setActiveLanguage(i)}
-                      >
+                      <SelectItem key={i} value={`${i}`}>
                         {item.language}
                       </SelectItem>
                     ))}
@@ -230,8 +246,10 @@ const CodeDisplay = ({ codeArray }: { codeArray: Code[] }) => {
           </div>
           {/* CONTENT */}
           <div className="w-full">
-            <CodeBlock
-              codestring={codeArray[activeCode].content[activeLanguage].code}
+            <CodeHighlight
+              code={codeArray[activeCode].content[activeLanguage].code}
+              lang={codeArray[activeCode].content[activeLanguage].language}
+              withCounter={withCounter}
             />
           </div>
         </div>
