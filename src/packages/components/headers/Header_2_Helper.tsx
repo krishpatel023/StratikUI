@@ -1,32 +1,22 @@
 "use client";
 
-import useClickOutside from "@/hooks/ClickOutside";
-import {
-  DataDescription,
-  IconProps,
-  ImplementationNode,
-} from "@/utils/constants";
-import { useState, useRef } from "react";
+import { IconProps } from "@/utils/constants";
+import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 export const Header = () => {
   const [open, setOpen] = useState(false);
-  const ref = useRef(null);
-  useClickOutside(ref, () => {
-    if (open) setOpen(false);
-  });
   return (
-    <div className="w-full h-16  flex justify-between px-6 @md:px-10 items-center shadow shadow-s_textSecondary relative ">
+    <div className="w-full h-16  flex justify-between px-6 @md:px-10 items-center shadow shadow-s_textSecondary relative bg-s_background">
       <a href="#" className="text-s_textPrimary font-semibold text-lg">
         LOGO
       </a>
       <div className="flex gap-6 items-center ">
         <span
-          ref={ref}
           className={twMerge(
             "h-full items-center gap-6 hidden @md:flex",
             open
-              ? "bg-s_background absolute min-h-80 w-full top-16 left-0 flex flex-col justify-center shadow shadow-s_textSecondary px-6"
+              ? "bg-s_background absolute h-[calc(94.5dvh-4rem)] w-full top-16 left-0 flex flex-col justify-center shadow shadow-s_textSecondary px-6"
               : ""
           )}
         >
@@ -67,7 +57,7 @@ export const Header = () => {
   );
 };
 
-export const Bars = (props) => (
+export const Bars = (props: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="1em"
@@ -84,7 +74,7 @@ export const Bars = (props) => (
   </svg>
 );
 
-export const Cross = (props) => (
+export const Cross = (props: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="1em"

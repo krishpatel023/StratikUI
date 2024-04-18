@@ -5,11 +5,11 @@ import {
 } from "@/utils/constants";
 import Image from "next/image";
 // import Earth from "@/assets/Images/GlowingEarth.jpg";
-import Earth from "@/assets/Images/Image_1.jpg";
-import { Carousel } from "@/packages/components/hero_section/Hero_4_Helper";
+import Logo from "@/assets/Images/Image_2.jpg";
+import { Background, BackgroundString } from "@/packages/helper/Background";
 function Testimonial() {
   return (
-    <div className={`w-full h-[30rem] flex  justify-center items-center `}>
+    <div className="w-full min-h-[30rem] flex  justify-center items-center">
       <div className="w-[90%] @md:w-3/4 flex flex-col gap-10 justify-center items-center text-center">
         <p className="text-base font-medium text-s_textPrimary text-wrap">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Est in ipsa
@@ -19,17 +19,17 @@ function Testimonial() {
           aspernatur nihil, deserunt vitae accusantium! Nulla, ullam quia.
           Provident nam consectetur quasi.
         </p>
-        <div className="flex gap-4">
-          <Star className="text-s_accent w-6 h-6" />
-          <Star className="text-s_accent w-6 h-6" />
-          <Star className="text-s_accent  w-6 h-6" />
-          <Star className="text-s_accent  w-6 h-6" />
-          <Star className="text-s_accent  w-6 h-6" />
+        <div className="flex gap-4 text-blue-500 ">
+          <Star className="w-6 h-6" />
+          <Star className="w-6 h-6" />
+          <Star className="w-6 h-6" />
+          <Star className="w-6 h-6" />
+          <Star className="w-6 h-6" />
         </div>
 
         <div className="flex gap-4 items-center">
           <Image
-            src={Earth}
+            src={Logo}
             alt="hero"
             className="w-12 h-12 rounded-full object-cover"
           />
@@ -45,14 +45,9 @@ function Testimonial() {
       </div>
 
       <div
-        className={`w-full h-full absolute left-0 top-0 -z-10 overflow-hidden dark:hidden`}
+        className={`w-full h-full absolute left-0 top-0 -z-10 overflow-hidden`}
       >
-        <BackgroundLight className={"w-full h-full object-fill"} />
-      </div>
-      <div
-        className={`w-full h-full absolute left-0 top-0 -z-10 overflow-hidden hidden dark:block `}
-      >
-        <BackgroundDark className={"w-full h-full object-fill"} />
+        <Background />
       </div>
     </div>
   );
@@ -73,6 +68,38 @@ export const Star = (props: IconProps) => (
   </svg>
 );
 
+const StarStringTsx = `export const Star = (props: IconProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1em"
+    height="1em"
+    viewBox="0 0 24 24"
+    {...props}
+  >
+    <path
+      fill="currentColor"
+      d="M17.562 21.56a1.003 1.003 0 0 1-.465-.115L12 18.765l-5.097 2.68a1 1 0 0 1-1.451-1.054l.973-5.676l-4.123-4.02a1 1 0 0 1 .554-1.705l5.699-.828l2.548-5.164a1.042 1.042 0 0 1 1.794 0l2.548 5.164l5.699.828a1 1 0 0 1 .554 1.706l-4.123 4.019l.973 5.676a1 1 0 0 1-.986 1.169Z"
+    ></path>
+  </svg>
+);
+`;
+
+const StarStringJsx = `export const Star = (props) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1em"
+    height="1em"
+    viewBox="0 0 24 24"
+    {...props}
+  >
+    <path
+      fill="currentColor"
+      d="M17.562 21.56a1.003 1.003 0 0 1-.465-.115L12 18.765l-5.097 2.68a1 1 0 0 1-1.451-1.054l.973-5.676l-4.123-4.02a1 1 0 0 1 .554-1.705l5.699-.828l2.548-5.164a1.042 1.042 0 0 1 1.794 0l2.548 5.164l5.699.828a1 1 0 0 1 .554 1.706l-4.123 4.019l.973 5.676a1 1 0 0 1-.986 1.169Z"
+    ></path>
+  </svg>
+);
+`;
+
 export const Quotes = (props: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -88,53 +115,24 @@ export const Quotes = (props: IconProps) => (
   </svg>
 );
 
-const BackgroundLight = ({
-  props,
-  className,
-}: {
-  props?: IconProps;
-  className?: string;
-}) => {
-  return (
-    <div className="absolute top-0 -z-10 h-full w-full bg-white">
-      <div className="absolute bottom-auto left-auto right-0 top-0 h-[500px] w-[500px] -translate-x-[30%] translate-y-[20%] rounded-full bg-[rgba(173,109,244,0.5)] opacity-50 blur-[80px]"></div>
-    </div>
-  );
-};
-
-const BackgroundDark = ({
-  props,
-  className,
-}: {
-  props?: IconProps;
-  className?: string;
-}) => {
-  return (
-    <div className="relative h-full w-full bg-slate-950">
-      <div className="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_500px_at_50%_200px,#3e3e3e,transparent)]"></div>
-    </div>
-  );
-};
 const Code: string = `function Testimonial() {
   return (
-    <div
-      className={\`w-full h-[30rem] flex  justify-center items-center\`}
-    >
+    <div className="w-full h-[30rem] flex  justify-center items-center">
       <div className="w-[90%] @md:w-3/4 flex flex-col gap-10 justify-center items-center text-center">
         <p className="text-base font-medium text-s_textPrimary text-wrap">
-          " Lorem ipsum dolor sit amet consectetur adipisicing elit. Est in ipsa
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Est in ipsa
           rem tempora perferendis. Reprehenderit sed provident ducimus dolores
           voluptatem unde dolorum nisi dolorem quia commodi ex odit officia
           perspiciatis et sequi eius laudantium nulla magnam blanditiis eligendi
           aspernatur nihil, deserunt vitae accusantium! Nulla, ullam quia.
-          Provident nam consectetur quasi. "
+          Provident nam consectetur quasi.
         </p>
-        <div className="flex gap-4">
-          <Star className="text-s_accent w-6 h-6" />
-          <Star className="text-s_accent w-6 h-6" />
-          <Star className="text-s_accent  w-6 h-6" />
-          <Star className="text-s_accent  w-6 h-6" />
-          <Star className="text-s_accent  w-6 h-6" />
+        <div className="flex gap-4 text-blue-500 ">
+          <Star className="w-6 h-6" />
+          <Star className="w-6 h-6" />
+          <Star className="w-6 h-6" />
+          <Star className="w-6 h-6" />
+          <Star className="w-6 h-6" />
         </div>
 
         <div className="flex gap-4 items-center">
@@ -154,78 +152,61 @@ const Code: string = `function Testimonial() {
         </div>
       </div>
 
-      <div
-        className={\`w-full h-full absolute left-0 top-0 -z-10 overflow-hidden dark:hidden\`}
-      >
-        <BackgroundLight className={"w-full h-full object-fill"} />
-      </div>
-      <div
-        className={\`w-full h-full absolute left-0 top-0 -z-10 overflow-hidden hidden dark:block \`}
-      >
-        <BackgroundDark className={"w-full h-full object-fill"} />
+      <div className="w-full h-full absolute left-0 top-0 -z-10 overflow-hidden">
+        <Background />
       </div>
     </div>
   );
 }`;
 
-const BackgroundString: string = `export const Star = (props: IconProps) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 24 24"
-    {...props}
-  >
-    <path
-      fill="currentColor"
-      d="M17.562 21.56a1.003 1.003 0 0 1-.465-.115L12 18.765l-5.097 2.68a1 1 0 0 1-1.451-1.054l.973-5.676l-4.123-4.02a1 1 0 0 1 .554-1.705l5.699-.828l2.548-5.164a1.042 1.042 0 0 1 1.794 0l2.548 5.164l5.699.828a1 1 0 0 1 .554 1.706l-4.123 4.019l.973 5.676a1 1 0 0 1-.986 1.169Z"
-    ></path>
-  </svg>
-);
-
-const BackgroundLight = ({
-  props,
-  className,
-}: {
-  props?: IconProps;
-  className?: string;
-}) => {
-  return (
-    <div className="absolute top-0 -z-10 h-full w-full bg-white">
-      <div className="absolute bottom-auto left-auto right-0 top-0 h-[500px] w-[500px] -translate-x-[30%] translate-y-[20%] rounded-full bg-[rgba(173,109,244,0.5)] opacity-50 blur-[80px]"></div>
-    </div>
-  );
-};
-
-const BackgroundDark = ({
-  props,
-  className,
-}: {
-  props?: IconProps;
-  className?: string;
-}) => {
-  return (
-    <div className="relative h-full w-full bg-slate-950">
-      <div className="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_500px_at_50%_200px,#3e3e3e,transparent)]"></div>
-    </div>
-  );
-};`;
-
 const Implementation: ImplementationNode[] = [
   {
     type: "technology_used",
-    title: "Technology Used",
     content: ["tailwind-css"],
   },
   {
     type: "code",
-    title: "Code",
-    content: Code,
-  },
-  {
-    type: "code",
-    title: "Background Used in Code",
-    content: BackgroundString,
+    content: [
+      {
+        name: "Testimonial",
+        content: [
+          {
+            language: "tsx",
+            code: Code,
+          },
+          {
+            language: "jsx",
+            code: Code,
+          },
+        ],
+      },
+      {
+        name: "Background",
+        content: [
+          {
+            language: "tsx",
+            code: BackgroundString,
+          },
+          {
+            language: "jsx",
+            code: BackgroundString,
+          },
+        ],
+      },
+      {
+        name: "Star Icon",
+        content: [
+          {
+            language: "tsx",
+            code: StarStringTsx,
+          },
+          {
+            language: "jsx",
+            code: StarStringJsx,
+          },
+        ],
+      },
+    ],
   },
 ];
 

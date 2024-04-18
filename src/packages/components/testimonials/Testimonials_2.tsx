@@ -3,8 +3,8 @@ import {
   IconProps,
   ImplementationNode,
 } from "@/utils/constants";
-import Logo from "@/packages/helper/Logo";
-function ComponentName() {
+import Logo, { LogoStringJsx, LogoStringTsx } from "@/packages/helper/Logo";
+function Testimonial() {
   return (
     <div className="w-full h-[60rem] overflow-hidden flex justify-center items-center gap-10 text-s_textPrimary">
       <div className="flex flex-col gap-10">
@@ -76,7 +76,7 @@ const EmptyCard = () => {
     <div className="min-w-80 min-h-80 rounded-xl border-2 border-blue-200 dark:border-blue-300/20 border-dashed"></div>
   );
 };
-const Code: string = `function ComponentName() {
+const Code: string = `function Testimonial() {
   return (
     <div className="w-full h-[60rem] overflow-hidden flex justify-center items-center gap-10 text-s_textPrimary">
       <div className="flex flex-col gap-10">
@@ -117,23 +117,44 @@ const Code: string = `function ComponentName() {
       </div>
     </div>
   );
-}
+}`;
 
-const Card = ({
+const CardsStringTsx = `const Card = ({
   Name,
   Position,
 }: {
   Name: string;
   Position: string;
 }) => {
-
   return (
     <div className="w-80 rounded-xl border-2 border-blue-300 px-8 py-6">
-      //As you like
-      <Logo className="w-8 h-8" />
+      <MyLogo className="w-8 h-8" />
       <p className="font-medium text-s_textSecondary mt-6">
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos
-        harum esse libero con."
+        {\`"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos
+            harum esse libero con."\`}
+      </p>
+      <h1 className="text-xl font-semibold text-s_textPrimary mt-6">{Name}</h1>
+      <h2 className="font-medium text-s_textSecondary">{Position}</h2>
+    </div>
+  );
+};
+
+const EmptyCard = () => {
+  return (
+    <div className="min-w-80 min-h-80 rounded-xl border-2 border-blue-200 dark:border-blue-300/20 border-dashed"></div>
+  );
+};`;
+
+const CardsStringJsx = `const Card = ({
+  Name,
+  Position,
+}) => {
+  return (
+    <div className="w-80 rounded-xl border-2 border-blue-300 px-8 py-6">
+      <MyLogo className="w-8 h-8" />
+      <p className="font-medium text-s_textSecondary mt-6">
+        {\`"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos
+            harum esse libero con."\`}
       </p>
       <h1 className="text-xl font-semibold text-s_textPrimary mt-6">{Name}</h1>
       <h2 className="font-medium text-s_textSecondary">{Position}</h2>
@@ -150,21 +171,60 @@ const EmptyCard = () => {
 const Implementation: ImplementationNode[] = [
   {
     type: "technology_used",
-    title: "Technology Used",
     content: ["tailwind-css"],
   },
   {
     type: "code",
-    title: "Code",
-    content: Code,
+    content: [
+      {
+        name: "Testimonial",
+        content: [
+          {
+            code: Code,
+            language: "tsx",
+          },
+          {
+            code: Code,
+            language: "jsx",
+          },
+        ],
+      },
+      {
+        name: "Cards",
+        content: [
+          {
+            code: CardsStringTsx,
+            language: "tsx",
+          },
+          {
+            code: CardsStringJsx,
+            language: "jsx",
+          },
+        ],
+      },
+      {
+        name: "Logo",
+        content: [
+          {
+            code: LogoStringTsx,
+            language: "tsx",
+          },
+          {
+            code: LogoStringJsx,
+            language: "jsx",
+          },
+        ],
+      },
+    ],
   },
 ];
 
 const Data: DataDescription = {
-  name: "Testimonial Section",
-  description: "This is a default testimonial section",
+  name: "Testimonial Section with Cards",
+  description:
+    "This is a testimonial section which can be used for displaying tweets for the products.",
   implementation: Implementation,
-  component: ComponentName(),
+  component: Testimonial(),
   version_included: "0.0.3",
   display: true,
 };
