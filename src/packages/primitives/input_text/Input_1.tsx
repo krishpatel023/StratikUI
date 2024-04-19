@@ -1,66 +1,97 @@
+import ArrowHeading from "@/components/ui/ArrowHeading";
 import { DataDescription, ImplementationNode } from "@/utils/constants";
+import { twMerge } from "tailwind-merge";
 function InputText({
   placeholder,
-  props,
+  state = "default",
 }: {
   placeholder: string;
-  props?: any;
+  state?: "default" | "error" | "success" | "disabled";
 }) {
   return (
     <input
       type="text"
-      className="w-full bg-transparent text-s_textPrimary py-2 px-4 rounded-md border-[1px] border-s_primary focus:border-s_accent focus:outline-none focus:ring-2"
-      //ADD FOR DISABLED
-      // className="disabled:cursor-not-allowed"
-
-      //ADD FOR ERROR
-      // className="border-s_error focus:border-s_error focus:ring-red-400/90"
-
-      //ADD FOR SUCCESS
-      // className="border-s_success focus:border-s_success focus:ring-green-400/90"
+      className={twMerge(
+        "w-full bg-transparent text-s_textPrimary py-2 px-4 rounded-md border-[1px] border-s_primary focus:border-s_accent focus:outline-none focus:ring-2",
+        state === "disabled" && "disabled:cursor-not-allowed",
+        state === "error" &&
+          "border-s_error focus:border-s_error focus:ring-red-400/90",
+        state === "success" &&
+          "border-s_success focus:border-s_success focus:ring-green-400/90"
+      )}
+      {...(state === "disabled" && { disabled: true })}
       placeholder={placeholder}
-      {...props}
     />
   );
 }
 
 function Demo() {
   return (
-    <div className="w-80">
+    <div className="w-80 flex flex-col gap-4">
+      <ArrowHeading text="Default" />
       <InputText placeholder="Something..." />
+      <ArrowHeading text="Error" />
+      <InputText placeholder="Something..." state="error" />
+      <ArrowHeading text="Success" />
+      <InputText placeholder="Something..." state="success" />
+      <ArrowHeading text="Disabled" />
+      <InputText placeholder="Something..." state="disabled" />
     </div>
   );
 }
 
-const ButtonCode: string = `function Demo() {
+const DemoString: string = `function Demo() {
   return (
-    <div>
+    <div className="w-80 flex flex-col gap-4">
       <InputText placeholder="Something..." />
+      <InputText placeholder="Something..." state="error" />
+      <InputText placeholder="Something..." state="success" />
+      <InputText placeholder="Something..." state="disabled" />
     </div>
   );
-}
-// --------------------------------------------------------------
-// THIS IS THE BUTTON LOGIC (IF WANT THE RAW COMPONENT COPY THIS)
-// --------------------------------------------------------------
+}`;
 
-function InputText({
+const ButtonCodeTsx: string = `function InputText({
   placeholder,
-  props,
+  state = "default",
+}: {
+  placeholder: string;
+  state?: "default" | "error" | "success" | "disabled";
 }) {
   return (
     <input
       type="text"
-      className="w-full bg-transparent text-s_textPrimary py-2 px-4 rounded-md border-[1px] border-s_primary focus:border-s_accent focus:outline-none focus:ring-2"
-      //ADD FOR DISABLED
-      // className="disabled:cursor-not-allowed"
-
-      //ADD FOR ERROR
-      // className="border-s_error focus:border-s_error focus:ring-red-400/90"
-
-      //ADD FOR SUCCESS
-      // className="border-s_success focus:border-s_success focus:ring-green-400/90"
+      className={twMerge(
+        "w-full bg-transparent text-s_textPrimary py-2 px-4 rounded-md border-[1px] border-s_primary focus:border-s_accent focus:outline-none focus:ring-2",
+        state === "disabled" && "disabled:cursor-not-allowed",
+        state === "error" &&
+          "border-s_error focus:border-s_error focus:ring-red-400/90",
+        state === "success" &&
+          "border-s_success focus:border-s_success focus:ring-green-400/90"
+      )}
+      {...(state === "disabled" && { disabled: true })}
       placeholder={placeholder}
-      {...props}
+    />
+  );
+}`;
+
+const ButtonCodeJsx = `function InputText({
+  placeholder,
+  state = "default",
+}) {
+  return (
+    <input
+      type="text"
+      className={twMerge(
+        "w-full bg-transparent text-s_textPrimary py-2 px-4 rounded-md border-[1px] border-s_primary focus:border-s_accent focus:outline-none focus:ring-2",
+        state === "disabled" && "disabled:cursor-not-allowed",
+        state === "error" &&
+          "border-s_error focus:border-s_error focus:ring-red-400/90",
+        state === "success" &&
+          "border-s_success focus:border-s_success focus:ring-green-400/90"
+      )}
+      {...(state === "disabled" && { disabled: true })}
+      placeholder={placeholder}
     />
   );
 }`;
@@ -68,13 +99,38 @@ function InputText({
 const Implementation: ImplementationNode[] = [
   {
     type: "technology_used",
-    title: "Technology Used",
-    content: ["tailwind-css"],
+    content: ["tailwind-css", "twMerge"],
   },
   {
     type: "code",
-    title: "Code",
-    content: ButtonCode,
+    content: [
+      {
+        name: "InputText",
+        content: [
+          {
+            language: "tsx",
+            code: ButtonCodeTsx,
+          },
+          {
+            language: "jsx",
+            code: ButtonCodeJsx,
+          },
+        ],
+      },
+      {
+        name: "Implementation",
+        content: [
+          {
+            language: "tsx",
+            code: DemoString,
+          },
+          {
+            language: "jsx",
+            code: DemoString,
+          },
+        ],
+      },
+    ],
   },
 ];
 

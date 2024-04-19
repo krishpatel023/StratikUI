@@ -89,50 +89,25 @@ export default function Component({ data }: { data: DataDescription }) {
                   {data.description}
                 </p>
               </div>
-              <div className="w-[90%] flex flex-col items-center border-[1px] border-border pt-4 gap-4 rounded-xl mx-auto">
-                <div className="w-[95%] h-12 flex justify-between items-center ">
-                  <div>
-                    <button
-                      onClick={() => setTheme(!theme)}
-                      className="h-12 w-10 rounded border-[1px] border-border flex justify-center items-center text-textPrimary"
-                    >
-                      {theme ? (
-                        <Icons.moon className="w-6 h-6" />
-                      ) : (
-                        <Icons.sun className="w-6 h-6" />
-                      )}
-                    </button>
-                  </div>
-                  {/* <div className="flex justify-center gap-4 items-center">
-                    <button
-                      className={`h-12 w-10 rounded border-[1px] ${screen === "sm" ? "border-primary" : "border-border"} flex justify-center items-center text-textPrimary`}
-                      onClick={() => setScreen("sm")}
-                    >
-                      <Icons.mobile className="w-6 h-6" />
-                    </button>
-                    <button
-                      className={`h-12 w-10 rounded border-[1px] ${screen === "md" ? "border-primary" : "border-border"} flex justify-center items-center text-textPrimary  `}
-                      onClick={() => setScreen("md")}
-                    >
-                      <Icons.tablet className="w-[1.25rem] h-6" />
-                    </button>
-                    <button
-                      className={`h-12 w-10 rounded border-[1px] ${screen === "lg" ? "border-primary" : "border-border"} flex justify-center items-center text-textPrimary`}
-                      onClick={() => setScreen("lg")}
-                    >
-                      <Icons.desktop className="w-6 h-6" />
-                    </button>
-                  </div> */}
+              <div className="w-[90%] mx-auto">
+                <ComponentHeaderPrimitive
+                  theme={theme}
+                  setTheme={setTheme}
+                  active={active}
+                  setActive={setActive}
+                />
+              </div>
+              {active ? (
+                <div className="w-[90%] mx-auto">
+                  <Implementation
+                    implementation={data.implementation}
+                    active={active}
+                  />
                 </div>
-                <div
-                  className="w-full py-10 border-t-[1px] border-border relative flex justify-center items-center"
-                  // ref={sizeRef}
-                >
+              ) : (
+                <div className="w-[90%] border-[1px] border-border mt-6 rounded-xl mx-auto relative ">
                   {/* EDITOR */}
-                  <div
-                    className={`mx-auto`}
-                    // data-darkcomponent={mode ? "dark" : "light"}
-                  >
+                  <div className="w-full overflow-x-auto py-10 flex justify-center @container">
                     {data.component}
                   </div>
                   {/* BACKGROUND */}
@@ -142,11 +117,7 @@ export default function Component({ data }: { data: DataDescription }) {
                     <div className="bg-blue-100/40 -z-10 absolute bottom-0 left-0 right-0 top-0 rounded-b-xl "></div>
                   )}
                 </div>
-              </div>
-              <Implementation
-                implementation={data.implementation}
-                active={active}
-              />
+              )}
             </>
           )}
           {pageType === "components" && (
@@ -235,6 +206,55 @@ const ComponentHeader = ({
     <div
       className={` ${active ? "w-full" : "w-[calc(100%-1rem)] mr-4"} h-12 flex justify-between items-center `}
     >
+      <div className="py-1 px-1 flex gap-1 bg-secondary rounded text-textPrimary">
+        <button
+          className={
+            active === false ? "bg-background px-2 py-1 rounded" : "px-2 py-1"
+          }
+          onClick={() => setActive(false)}
+        >
+          Preview
+        </button>
+        <button
+          className={
+            active === true ? "bg-background px-2 py-1 rounded" : "px-2 py-1"
+          }
+          onClick={() => setActive(true)}
+        >
+          Code
+        </button>{" "}
+      </div>
+      <button
+        onClick={() => setTheme(!theme)}
+        className="h-10 w-10 bg-secondary p-1 rounded-md flex justify-center items-center gap-4 text-center text-textPrimary"
+      >
+        <div className="bg-background hover:bg-secondary w-full h-full flex justify-center items-center rounded-md">
+          {theme ? (
+            <Icons.moon className="w-6 h-6" />
+          ) : (
+            <>
+              <Icons.sun className="w-6 h-6" />
+            </>
+          )}
+        </div>
+      </button>
+    </div>
+  );
+};
+
+const ComponentHeaderPrimitive = ({
+  theme,
+  setTheme,
+  active,
+  setActive,
+}: {
+  theme: boolean;
+  setTheme: (theme: boolean) => void;
+  active: boolean;
+  setActive: (active: boolean) => void;
+}) => {
+  return (
+    <div className="w-full h-12 flex justify-between items-center">
       <div className="py-1 px-1 flex gap-1 bg-secondary rounded text-textPrimary">
         <button
           className={

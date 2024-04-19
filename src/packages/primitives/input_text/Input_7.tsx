@@ -1,12 +1,16 @@
+import ArrowHeading from "@/components/ui/ArrowHeading";
 import { DataDescription, ImplementationNode } from "@/utils/constants";
+import { twMerge } from "tailwind-merge";
 function InputText({
   label,
   placeholder,
   props,
+  state = "default",
 }: {
   label: string;
   placeholder: string;
   props?: any;
+  state?: "default" | "error" | "success" | "disabled";
 }) {
   // Don't change the formating. ONLY CHANGE THE COLOR !!!
   const darkBackground = "peer-focus:dark:bg-slate-950";
@@ -17,15 +21,15 @@ function InputText({
       <div className="relative text-s_primary">
         <input
           type="text"
-          className="peer placeholder:text-transparent focus:placeholder:text-s_textSecondary my-1 w-full bg-transparent bg-opacity-30 text-s_textPrimary  py-2 pr-10 pl-4 rounded-md border-[1px] border-s_primary focus:border-s_accent focus:outline-none focus:ring-2 shadow-sm"
-          //ADD FOR DISABLED
-          // className="disabled:cursor-not-allowed"
-
-          //ADD FOR ERROR
-          // className="border-s_error focus:border-s_error focus:ring-red-400/90"
-
-          //ADD FOR SUCCESS
-          // className="border-s_success focus:border-s_success focus:ring-green-400/90"
+          className={twMerge(
+            "peer placeholder:text-transparent focus:placeholder:text-s_textSecondary my-1 w-full bg-transparent bg-opacity-30 text-s_textPrimary  py-2 pr-10 pl-4 rounded-md border-[1px] border-s_primary focus:border-s_accent focus:outline-none focus:ring-2 shadow-sm",
+            state === "disabled" && "disabled:cursor-not-allowed",
+            state === "error" &&
+              "border-s_error focus:border-s_error focus:ring-red-400/90",
+            state === "success" &&
+              "border-s_success focus:border-s_success focus:ring-green-400/90"
+          )}
+          {...(state === "disabled" && { disabled: true })}
           placeholder={placeholder}
           {...props}
         />
@@ -43,21 +47,57 @@ function InputText({
 function Demo() {
   return (
     <div className="w-80">
+      <ArrowHeading text="Default" className="mb-2" />
+
       <InputText placeholder="you@example.com" label="Email" />
+      <ArrowHeading text="Error" className="mb-2 mt-6" />
+      <InputText placeholder="you@example.com" label="Email" state="error" />
+      <ArrowHeading text="Success" className="mb-2 mt-6" />
+
+      <InputText placeholder="you@example.com" label="Email" state="success" />
+      <ArrowHeading text="Disabled" className="mb-2 mt-6" />
+
+      <InputText placeholder="you@example.com" label="Email" state="disabled" />
     </div>
   );
 }
 
-const ButtonCode: string = `function InputText({
+const DemoString = `function Demo() {
+  return (
+    <div className="w-80">
+      <InputText 
+        placeholder="you@example.com" 
+        label="Email" />
+      <InputText
+        placeholder="you@example.com"
+        label="Email"
+        state="error"
+      />
+      <InputText
+        placeholder="you@example.com"
+        label="Email"
+        state="success"
+      />
+      <InputText
+        placeholder="you@example.com"
+        label="Email"
+        state="disabled"
+      />
+    </div>
+  );
+}`;
+
+const ButtonCodeTsx: string = `function InputText({
   label,
   placeholder,
   props,
+  state = "default",
 }: {
   label: string;
   placeholder: string;
   props?: any;
+  state?: "default" | "error" | "success" | "disabled";
 }) {
-
   // Don't change the formating. ONLY CHANGE THE COLOR !!!
   const darkBackground = "peer-focus:dark:bg-slate-950";
   const lightBackground = "peer-focus:bg-[#f1f7ff]";
@@ -67,15 +107,52 @@ const ButtonCode: string = `function InputText({
       <div className="relative text-s_primary">
         <input
           type="text"
-          className="peer placeholder:text-transparent focus:placeholder:text-s_textSecondary my-1 w-full bg-transparent bg-opacity-30 text-s_textPrimary  py-2 pr-10 pl-4 rounded-md border-[1px] border-s_primary focus:border-s_accent focus:outline-none focus:ring-2 shadow-sm"
-          //ADD FOR DISABLED
-          // className="disabled:cursor-not-allowed"
+          className={twMerge(
+            "peer placeholder:text-transparent focus:placeholder:text-s_textSecondary my-1 w-full bg-transparent bg-opacity-30 text-s_textPrimary  py-2 pr-10 pl-4 rounded-md border-[1px] border-s_primary focus:border-s_accent focus:outline-none focus:ring-2 shadow-sm",
+            state === "disabled" && "disabled:cursor-not-allowed",
+            state === "error" &&
+              "border-s_error focus:border-s_error focus:ring-red-400/90",
+            state === "success" &&
+              "border-s_success focus:border-s_success focus:ring-green-400/90"
+          )}
+          {...(state === "disabled" && { disabled: true })}
+          placeholder={placeholder}
+          {...props}
+        />
 
-          //ADD FOR ERROR
-          // className="border-s_error focus:border-s_error focus:ring-red-400/90"
+        <label
+          className={\`peer-focus:base absolute left-2  z-10  transform px-2 text-xs text-s_textSecondary transition-all duration-300 peer-placeholder-shown:translate-y-[0.90rem] peer-placeholder-shown:text-sm peer-focus:-translate-y-1 \${darkBackground} \${lightBackground} peer-focus:text-xs peer-disabled:bg-transparent\`}
+        >
+          {label}
+        </label>
+      </div>
+    </div>
+  );
+}`;
+const ButtonCodeJsx: string = `function InputText({
+  label,
+  placeholder,
+  props,
+  state = "default",
+}) {
+  // Don't change the formating. ONLY CHANGE THE COLOR !!!
+  const darkBackground = "peer-focus:dark:bg-slate-950";
+  const lightBackground = "peer-focus:bg-[#f1f7ff]";
 
-          //ADD FOR SUCCESS
-          // className="border-s_success focus:border-s_success focus:ring-green-400/90"
+  return (
+    <div>
+      <div className="relative text-s_primary">
+        <input
+          type="text"
+          className={twMerge(
+            "peer placeholder:text-transparent focus:placeholder:text-s_textSecondary my-1 w-full bg-transparent bg-opacity-30 text-s_textPrimary  py-2 pr-10 pl-4 rounded-md border-[1px] border-s_primary focus:border-s_accent focus:outline-none focus:ring-2 shadow-sm",
+            state === "disabled" && "disabled:cursor-not-allowed",
+            state === "error" &&
+              "border-s_error focus:border-s_error focus:ring-red-400/90",
+            state === "success" &&
+              "border-s_success focus:border-s_success focus:ring-green-400/90"
+          )}
+          {...(state === "disabled" && { disabled: true })}
           placeholder={placeholder}
           {...props}
         />
@@ -90,29 +167,41 @@ const ButtonCode: string = `function InputText({
   );
 }`;
 
-const DemoStr: string = `function Demo() {
-  return (
-    <div className="w-80">
-      <InputText placeholder="you@example.com" label="Email" />
-    </div>
-  );
-}`;
-
 const Implementation: ImplementationNode[] = [
   {
     type: "technology_used",
-    title: "Technology Used",
-    content: ["tailwind-css"],
+    content: ["tailwind-css", "twMerge"],
   },
   {
     type: "code",
-    title: "Code",
-    content: ButtonCode,
-  },
-  {
-    type: "code",
-    title: "Usage",
-    content: DemoStr,
+    content: [
+      {
+        name: "InputText",
+        content: [
+          {
+            language: "tsx",
+            code: ButtonCodeTsx,
+          },
+          {
+            language: "jsx",
+            code: ButtonCodeJsx,
+          },
+        ],
+      },
+      {
+        name: "Implementation",
+        content: [
+          {
+            language: "tsx",
+            code: DemoString,
+          },
+          {
+            language: "jsx",
+            code: DemoString,
+          },
+        ],
+      },
+    ],
   },
 ];
 

@@ -8,17 +8,17 @@ import { twMerge } from "tailwind-merge";
 
 function Demo() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col items-center w-full">
       <ArrowHeading text="Button (Default Background)" className="mb-4" />
       <GradientBackground>
-        <button className="px-6 py-3 text-s_textPrimary rounded-lg bg-s_background">
+        <button className="px-6 py-3 text-s_textPrimary rounded-lg bg-s_background max-w-80 @md:max-w-[30rem]">
           Visit the latest collection now. | Developed With Tailwind
         </button>
       </GradientBackground>
 
       <ArrowHeading text="Div" className="mb-4 mt-10" />
       <GradientBackground className="from-pink-500 to-purple-500">
-        <div className="px-6 py-3 text-s_textPrimary rounded-lg bg-s_background flex justify-evenly items-center gap-6">
+        <div className="px-6 py-3 text-s_textPrimary rounded-lg bg-s_background flex justify-evenly items-center gap-6 max-w-80 @md:max-w-[30rem]">
           <TailwindcssIcon className="w-20 h-20" />
           <div className="w-[20rem]">
             <h1>
@@ -33,8 +33,18 @@ function Demo() {
       </GradientBackground>
 
       <ArrowHeading text="Button with Solo Color" className="mb-4 mt-10" />
-      <GradientBackground className="from-blue-500 to-blue-500">
-        <button className="px-6 py-3 text-s_textPrimary rounded-lg bg-s_background">
+      <GradientBackground className="from-blue-500 to-blue-500 ">
+        <button className="px-6 py-3 text-s_textPrimary rounded-lg bg-s_background max-w-80 @md:max-w-[30rem]">
+          Visit the latest collection now. | Developed With Tailwind
+        </button>
+      </GradientBackground>
+
+      <ArrowHeading
+        text="Button with Solo Color And Tranparent Border Effect"
+        className="mb-4 mt-10"
+      />
+      <GradientBackground className="from-gray-600/30 to-gray-500/10 border-gray-300/10 border-[1px]">
+        <button className="px-6 py-3 text-s_textPrimary rounded-lg bg-s_background max-w-80 @md:max-w-[30rem] border-gray-200/30 border-[1px]">
           Visit the latest collection now. | Developed With Tailwind
         </button>
       </GradientBackground>
@@ -85,21 +95,53 @@ const TailwindcssIcon = (props: IconProps) => (
   </svg>
 );
 
-const ButtonCode: string = `function gradientBackground({
+const CodeTsx: string = `function GradientBackground({
   children,
   className,
+  borderSize = 0.25,
 }: {
   children: React.ReactNode;
   className?: string;
+  borderSize?: number;
 }) {
   return (
     <div className="relative group/gradient_bg">
       {children}
       <div
         className={twMerge(
-          "absolute -z-[5] -inset-0.5 bg-gradient-to-r from-blue-600 to-red-600 rounded-lg blur opacity-75 group-hover/gradient_bg:opacity-100 duration-200 transition-all",
+          "absolute bg-gradient-to-r  from-blue-500 to-red-500 -z-[5] rounded-xl",
           className
         )}
+        style={{
+          top: \`-\${borderSize}rem\`,
+          left: \`-\${borderSize}rem\`,
+          minHeight: \`calc(100% + \${2 * borderSize}rem)\`,
+          minWidth: \`calc(100% + \${2 * borderSize}rem)\`,
+        }}
+      ></div>
+    </div>
+  );
+}`;
+
+const CodeJsx: string = `function GradientBackground({
+  children,
+  className,
+  borderSize = 0.25,
+}) {
+  return (
+    <div className="relative group/gradient_bg">
+      {children}
+      <div
+        className={twMerge(
+          "absolute bg-gradient-to-r  from-blue-500 to-red-500 -z-[5] rounded-xl",
+          className
+        )}
+        style={{
+          top: \`-\${borderSize}rem\`,
+          left: \`-\${borderSize}rem\`,
+          minHeight: \`calc(100% + \${2 * borderSize}rem)\`,
+          minWidth: \`calc(100% + \${2 * borderSize}rem)\`,
+        }}
       ></div>
     </div>
   );
@@ -107,17 +149,17 @@ const ButtonCode: string = `function gradientBackground({
 
 const demoString: string = `function Demo() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col items-center w-full">
       <ArrowHeading text="Button (Default Background)" className="mb-4" />
-      <gradientBackground>
-        <button className="px-6 py-3 text-s_textPrimary rounded-lg bg-s_background">
+      <GradientBackground>
+        <button className="px-6 py-3 text-s_textPrimary rounded-lg bg-s_background max-w-80 @md:max-w-[30rem]">
           Visit the latest collection now. | Developed With Tailwind
         </button>
-      </gradientBackground>
+      </GradientBackground>
 
       <ArrowHeading text="Div" className="mb-4 mt-10" />
-      <gradientBackground className="from-pink-500 to-purple-500">
-        <div className="px-6 py-3 text-s_textPrimary rounded-lg bg-s_background flex justify-evenly items-center gap-6">
+      <GradientBackground className="from-pink-500 to-purple-500">
+        <div className="px-6 py-3 text-s_textPrimary rounded-lg bg-s_background flex justify-evenly items-center gap-6 max-w-80 @md:max-w-[30rem]">
           <TailwindcssIcon className="w-20 h-20" />
           <div className="w-[20rem]">
             <h1>
@@ -129,14 +171,24 @@ const demoString: string = `function Demo() {
             </button>
           </div>
         </div>
-      </gradientBackground>
+      </GradientBackground>
 
       <ArrowHeading text="Button with Solo Color" className="mb-4 mt-10" />
-      <gradientBackground className="from-blue-500 to-blue-500">
-        <button className="px-6 py-3 text-s_textPrimary rounded-lg bg-s_background">
+      <GradientBackground className="from-blue-500 to-blue-500 ">
+        <button className="px-6 py-3 text-s_textPrimary rounded-lg bg-s_background max-w-80 @md:max-w-[30rem]">
           Visit the latest collection now. | Developed With Tailwind
         </button>
-      </gradientBackground>
+      </GradientBackground>
+
+      <ArrowHeading
+        text="Button with Solo Color And Tranparent Border Effect"
+        className="mb-4 mt-10"
+      />
+      <GradientBackground className="from-gray-600/30 to-gray-500/10 border-gray-300/10 border-[1px]">
+        <button className="px-6 py-3 text-s_textPrimary rounded-lg bg-s_background max-w-80 @md:max-w-[30rem] border-gray-200/30 border-[1px]">
+          Visit the latest collection now. | Developed With Tailwind
+        </button>
+      </GradientBackground>
     </div>
   );
 }`;
@@ -144,18 +196,38 @@ const demoString: string = `function Demo() {
 const Implementation: ImplementationNode[] = [
   {
     type: "technology_used",
-    title: "Technology Used",
     content: ["tailwind-css", "twMerge"],
   },
   {
     type: "code",
-    title: "Code",
-    content: ButtonCode,
-  },
-  {
-    type: "code",
-    title: "Code",
-    content: demoString,
+    content: [
+      {
+        name: "Container",
+        content: [
+          {
+            language: "tsx",
+            code: CodeTsx,
+          },
+          {
+            language: "jsx",
+            code: CodeJsx,
+          },
+        ],
+      },
+      {
+        name: "Implementation",
+        content: [
+          {
+            language: "tsx",
+            code: demoString,
+          },
+          {
+            language: "jsx",
+            code: demoString,
+          },
+        ],
+      },
+    ],
   },
 ];
 
