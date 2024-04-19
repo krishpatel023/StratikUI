@@ -1,126 +1,88 @@
 import { DataDescription, ImplementationNode } from "@/utils/constants";
-function Button({
-  icon,
-  text,
-  isDisable,
-}: {
-  icon?: any;
-  text: string;
-  isDisable: boolean;
-}) {
-  return (
-    <>
-      <button
-        className="bg-s_accent rounded text-s_textComplementary py-2 px-4 flex gap-4 justify-center items-center disabled:hover:cursor-not-allowed"
-        disabled={isDisable}
-      >
-        {icon ? icon : null}
-        <span>{text}</span>
-      </button>
-    </>
-  );
-}
 
 function Demo() {
   return (
     <div>
-      <Button icon={<IonHome />} text="Disabled Button" isDisable={true} />
+      <Button />
     </div>
   );
 }
-// Icons from https://iconbuddy.app/
-// Do check them out
-export const IonHome = (props: { props?: any }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 512 512"
-    {...props}
-  >
-    <path
-      fill="currentColor"
-      d="M261.56 101.28a8 8 0 0 0-11.06 0L66.4 277.15a8 8 0 0 0-2.47 5.79L63.9 448a32 32 0 0 0 32 32H192a16 16 0 0 0 16-16V328a8 8 0 0 1 8-8h80a8 8 0 0 1 8 8v136a16 16 0 0 0 16 16h96.06a32 32 0 0 0 32-32V282.94a8 8 0 0 0-2.47-5.79Z"
-    ></path>
-    <path
-      fill="currentColor"
-      d="m490.91 244.15l-74.8-71.56V64a16 16 0 0 0-16-16h-48a16 16 0 0 0-16 16v32l-57.92-55.38C272.77 35.14 264.71 32 256 32c-8.68 0-16.72 3.14-22.14 8.63l-212.7 203.5c-6.22 6-7 15.87-1.34 22.37A16 16 0 0 0 43 267.56L250.5 69.28a8 8 0 0 1 11.06 0l207.52 198.28a16 16 0 0 0 22.59-.44c6.14-6.36 5.63-16.86-.76-22.97Z"
-    ></path>
-  </svg>
-);
 
-const ButtonCode: string = `function Demo() {
+function Button() {
+  return (
+    <div className="relative w-40 h-10 group">
+      <button className="absolute w-full h-full bg-s_secondary z-20 group-hover:top-1 group-hover:left-1 rounded text-s_textPrimary font-medium">
+        Click
+      </button>
+      <div className="absolute top-1 left-1 bg-s_primary  w-full h-full z-0 rounded"></div>
+    </div>
+  );
+}
+
+const ButtonCode: string = `function Button() {
+  return (
+    <div className="relative w-40 h-10 group">
+      <button className="absolute w-full h-full bg-s_secondary z-20 group-hover:top-1 group-hover:left-1 rounded text-s_textPrimary font-medium">
+        Click
+      </button>
+      <div className="absolute top-1 left-1 bg-s_primary  w-full h-full z-0 rounded"></div>
+    </div>
+  );
+}`;
+
+const demoString: string = `function Demo() {
   return (
     <div>
-      <Button icon={<IonHome />} text="Disabled Button" isDisable={true} />
+      <Button />
     </div>
   );
-}
-// --------------------------------------------------------------
-// THIS IS THE BUTTON LOGIC (IF WANT THE RAW COMPONENT COPY THIS)
-// --------------------------------------------------------------
-
-function Button({
-  icon,
-  text,
-  isDisable,
-}) {
-  return (
-    <>
-      <button
-        className="bg-s_accent rounded text-s_textComplementary py-2 px-4 flex gap-4 justify-center items-center disabled:hover:cursor-not-allowed"
-        disabled={isDisable}
-      >
-        {icon?icon:null}
-        <span>{text}</span>
-      </button>
-    </>
-  );
-}
-
-
-
-// Icons from https://iconbuddy.app/
-// Do check them out
-export const IonHome = (props: { props?: any }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 512 512"
-    {...props}
-  >
-    <path
-      fill="currentColor"
-      d="M261.56 101.28a8 8 0 0 0-11.06 0L66.4 277.15a8 8 0 0 0-2.47 5.79L63.9 448a32 32 0 0 0 32 32H192a16 16 0 0 0 16-16V328a8 8 0 0 1 8-8h80a8 8 0 0 1 8 8v136a16 16 0 0 0 16 16h96.06a32 32 0 0 0 32-32V282.94a8 8 0 0 0-2.47-5.79Z"
-    ></path>
-    <path
-      fill="currentColor"
-      d="m490.91 244.15l-74.8-71.56V64a16 16 0 0 0-16-16h-48a16 16 0 0 0-16 16v32l-57.92-55.38C272.77 35.14 264.71 32 256 32c-8.68 0-16.72 3.14-22.14 8.63l-212.7 203.5c-6.22 6-7 15.87-1.34 22.37A16 16 0 0 0 43 267.56L250.5 69.28a8 8 0 0 1 11.06 0l207.52 198.28a16 16 0 0 0 22.59-.44c6.14-6.36 5.63-16.86-.76-22.97Z"
-    ></path>
-  </svg>
-);`;
+}`;
 
 const Implementation: ImplementationNode[] = [
   {
     type: "technology_used",
-    title: "Technology Used",
     content: ["tailwind-css"],
   },
   {
     type: "code",
-    title: "Code",
-    content: ButtonCode,
+    content: [
+      {
+        name: "Button",
+        content: [
+          {
+            language: "tsx",
+            code: ButtonCode,
+          },
+          {
+            language: "jsx",
+            code: ButtonCode,
+          },
+        ],
+      },
+      {
+        name: "Implementation",
+        content: [
+          {
+            language: "tsx",
+            code: demoString,
+          },
+          {
+            language: "jsx",
+            code: demoString,
+          },
+        ],
+      },
+    ],
   },
 ];
 
 const ButtonData_1: DataDescription = {
-  name: "Disabled Button with Icon",
+  name: "Animated Button with Tailwind CSS",
   description:
-    "This is a disabledbutton with Icon option. The Icon can be passed as a prop and if not passed it will act as a default button",
+    "This is an animated button that can be used on catchy locations. You can also replace the button with other buttons from the library.",
   implementation: Implementation,
   component: Demo(),
-  version_included: "0.0.1",
+  version_included: "0.0.3",
   display: true,
 };
 export default ButtonData_1;

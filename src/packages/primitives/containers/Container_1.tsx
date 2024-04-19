@@ -8,17 +8,17 @@ import { twMerge } from "tailwind-merge";
 
 function Demo() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col items-center w-full">
       <ArrowHeading text="Button (Default Background)" className="mb-4" />
       <GradientBackground>
-        <button className="px-6 py-3 text-s_textPrimary rounded-lg bg-s_background">
+        <button className="px-6 py-3 text-s_textPrimary rounded-lg bg-s_background max-w-80 @md:max-w-[30rem]">
           Visit the latest collection now. | Developed With Tailwind
         </button>
       </GradientBackground>
 
       <ArrowHeading text="Div" className="mb-4 mt-10" />
       <GradientBackground className="from-pink-500 to-purple-500">
-        <div className="px-6 py-3 text-s_textPrimary rounded-lg bg-s_background flex justify-evenly items-center gap-6">
+        <div className="px-6 py-3 text-s_textPrimary rounded-lg bg-s_background flex justify-evenly items-center gap-6 max-w-80 @md:max-w-[30rem]">
           <TailwindcssIcon className="w-20 h-20" />
           <div className="w-[20rem]">
             <h1>
@@ -33,8 +33,8 @@ function Demo() {
       </GradientBackground>
 
       <ArrowHeading text="Button with Solo Color" className="mb-4 mt-10" />
-      <GradientBackground className="from-blue-500 to-blue-500">
-        <button className="px-6 py-3 text-s_textPrimary rounded-lg bg-s_background">
+      <GradientBackground className="from-blue-500 to-blue-500 ">
+        <button className="px-6 py-3 text-s_textPrimary rounded-lg bg-s_background max-w-80 @md:max-w-[30rem]">
           Visit the latest collection now. | Developed With Tailwind
         </button>
       </GradientBackground>
@@ -50,7 +50,7 @@ function GradientBackground({
   className?: string;
 }) {
   return (
-    <div className="relative group/gradient_bg">
+    <div className="relative group/gradient_bg w-max">
       {children}
       <div
         className={twMerge(
@@ -77,12 +77,29 @@ const TailwindcssIcon = (props: IconProps) => (
   </svg>
 );
 
-const ButtonCode: string = `function gradientBackground({
+const CodeTsx: string = `function GradientBackground({
   children,
   className,
 }: {
   children: React.ReactNode;
   className?: string;
+}) {
+  return (
+    <div className="relative group/gradient_bg">
+      {children}
+      <div
+        className={twMerge(
+          "absolute -z-[5] -inset-0.5 bg-gradient-to-r from-blue-600 to-red-600 rounded-lg blur opacity-75 group-hover/gradient_bg:opacity-100 duration-200 transition-all",
+          className
+        )}
+      ></div>
+    </div>
+  );
+}`;
+
+const CodeJsx: string = `function GradientBackground({
+  children,
+  className,
 }) {
   return (
     <div className="relative group/gradient_bg">
@@ -136,18 +153,38 @@ const demoString: string = `function Demo() {
 const Implementation: ImplementationNode[] = [
   {
     type: "technology_used",
-    title: "Technology Used",
     content: ["tailwind-css", "twMerge"],
   },
   {
     type: "code",
-    title: "Code",
-    content: ButtonCode,
-  },
-  {
-    type: "code",
-    title: "Code",
-    content: demoString,
+    content: [
+      {
+        name: "Container",
+        content: [
+          {
+            language: "tsx",
+            code: CodeTsx,
+          },
+          {
+            language: "jsx",
+            code: CodeJsx,
+          },
+        ],
+      },
+      {
+        name: "Implementation",
+        content: [
+          {
+            language: "tsx",
+            code: demoString,
+          },
+          {
+            language: "jsx",
+            code: demoString,
+          },
+        ],
+      },
+    ],
   },
 ];
 

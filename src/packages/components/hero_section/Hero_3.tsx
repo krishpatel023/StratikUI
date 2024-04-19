@@ -6,12 +6,11 @@ import {
 import Image from "next/image";
 // import Earth from "@/assets/Images/GlowingEarth.jpg";
 import Earth from "@/assets/Images/Earth.png";
+import { Background, BackgroundString } from "@/packages/helper/Background";
 
 function Hero() {
   return (
-    <div
-      className={`w-full h-screen overflow-hidden flex flex-col @md:flex-row gap-10 @md:gap-0 justify-center items-center  relative`}
-    >
+    <div className="w-full h-screen overflow-hidden flex flex-col @md:flex-row gap-10 @md:gap-0 justify-center items-center  relative">
       <div className="flex flex-col justify-center items-center text-center gap-8 z-10">
         <button className="text-s_textPrimary flex gap-2 border-2 border-s_accent rounded-full @lg:px-6 px-4 py-1 ">
           View all the latest components.
@@ -39,52 +38,14 @@ function Hero() {
           className="w-full absolute top-[70%] @md:top-[60%] @lg:top-[50%]"
         />
       </div>
-      <div
-        className={`w-full h-full absolute left-0 top-0 -z-10 overflow-hidden dark:hidden`}
-      >
-        <BackgroundLight className={"w-full h-full object-fill"} />
-      </div>
-      <div
-        className={`w-full h-full absolute left-0 top-0 -z-10 overflow-hidden hidden dark:block `}
-      >
-        <BackgroundDark className={"w-full h-full object-fill"} />
-      </div>
+      <Background />
     </div>
   );
 }
 
-const BackgroundLight = ({
-  props,
-  className,
-}: {
-  props?: IconProps;
-  className?: string;
-}) => {
-  return (
-    <div className="absolute top-0 -z-10 h-full w-full bg-white">
-      <div className="absolute bottom-auto left-auto right-0 top-0 h-[500px] w-[500px] -translate-x-[30%] translate-y-[20%] rounded-full bg-[rgba(173,109,244,0.5)] opacity-50 blur-[80px]"></div>
-    </div>
-  );
-};
-
-const BackgroundDark = ({
-  props,
-  className,
-}: {
-  props?: IconProps;
-  className?: string;
-}) => {
-  return (
-    <div className="relative h-full w-full bg-slate-950">
-      <div className="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_500px_at_50%_200px,#3e3e3e,transparent)]"></div>
-    </div>
-  );
-};
 const Code: string = `function Hero() {
   return (
-    <div
-      className={\`w-full h-screen overflow-hidden flex flex-col @md:flex-row gap-10 @md:gap-0 justify-center items-center  relative\`}
-    >
+    <div className="w-full h-screen overflow-hidden flex flex-col @md:flex-row gap-10 @md:gap-0 justify-center items-center  relative">
       <div className="flex flex-col justify-center items-center text-center gap-8 z-10">
         <button className="text-s_textPrimary flex gap-2 border-2 border-s_accent rounded-full @lg:px-6 px-4 py-1 ">
           View all the latest components.
@@ -112,69 +73,53 @@ const Code: string = `function Hero() {
           className="w-full absolute top-[70%] @md:top-[60%] @lg:top-[50%]"
         />
       </div>
-      <div
-        className={\`w-full h-full absolute left-0 top-0 -z-10 overflow-hidden dark:hidden\`}
-      >
-        <BackgroundLight className={"w-full h-full object-fill"} />
-      </div>
-      <div
-        className={\`w-full h-full absolute left-0 top-0 -z-10 overflow-hidden hidden dark:block \`}
-      >
-        <BackgroundDark className={"w-full h-full object-fill"} />
-      </div>
+      <Background />
     </div>
   );
 }`;
 
-const BackgroundString: string = `const BackgroundLight = ({
-    props,
-    className,
-  }: {
-    props?: IconProps;
-    className?: string;
-  }) => {
-    return (
-      <div className="absolute top-0 -z-10 h-full w-full bg-white">
-        <div className="absolute bottom-auto left-auto right-0 top-0 h-[500px] w-[500px] -translate-x-[30%] translate-y-[20%] rounded-full bg-[rgba(173,109,244,0.5)] opacity-50 blur-[80px]"></div>
-      </div>
-    );
-  };
-  
-  const BackgroundDark = ({
-    props,
-    className,
-  }: {
-    props?: IconProps;
-    className?: string;
-  }) => {
-    return (
-      <div className="relative h-full w-full bg-slate-950">
-        <div className="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_500px_at_50%_200px,#3e3e3e,transparent)]"></div>
-      </div>
-    );
-  };`;
-
 const Implementation: ImplementationNode[] = [
   {
     type: "technology_used",
-    title: "Technology Used",
     content: ["tailwind-css"],
   },
+
   {
     type: "code",
-    title: "Code",
-    content: Code,
-  },
-  {
-    type: "code",
-    title: "Background Used in Code",
-    content: BackgroundString,
+    content: [
+      {
+        name: "Hero",
+        content: [
+          {
+            code: Code,
+            language: "tsx",
+          },
+          {
+            code: Code,
+            language: "jsx",
+          },
+        ],
+      },
+      {
+        name: "Background",
+        content: [
+          {
+            code: BackgroundString,
+            language: "tsx",
+          },
+          {
+            code: BackgroundString,
+            language: "jsx",
+          },
+        ],
+      },
+    ],
   },
 ];
 
 const HeroData: DataDescription = {
-  name: "Hero Section",
-  description: "This is a default hero section",
+  name: "Hero section with a globe image.",
+  description: "This is a hero section with a globe for aesthetic purpose.",
   implementation: Implementation,
   component: Hero(),
   version_included: "0.0.2",

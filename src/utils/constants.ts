@@ -1,3 +1,4 @@
+import { BundledLanguage } from "shiki/bundle/web";
 import { URL } from "url";
 
 export interface DataDescription {
@@ -9,16 +10,38 @@ export interface DataDescription {
   display: boolean;
 }
 export type TechnologiesUsed = "tailwind-css" | "framer-motion" | "twMerge";
+
+export type CodeBlock = {
+  code: string;
+  language: BundledLanguage;
+};
+export type Code = {
+  name: string;
+  content: CodeBlock[];
+};
+
 export type InspirationObject = {
   name: string;
   link: string;
   message: string;
 };
-export interface ImplementationNode {
-  type: "bash" | "code" | "technology_used" | "inspiration";
-  title: string;
-  content: string | TechnologiesUsed[] | URL | InspirationObject;
-}
+export type ImplementationNode =
+  | {
+      type: "code";
+      content: Code[];
+    }
+  | {
+      type: "inspiration";
+      content: InspirationObject;
+    }
+  | {
+      type: "technology_used";
+      content: TechnologiesUsed[];
+    }
+  | {
+      type: "bash";
+      content: Code[];
+    };
 
 export interface FileData {
   name: string;

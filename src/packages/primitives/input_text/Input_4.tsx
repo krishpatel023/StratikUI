@@ -1,29 +1,32 @@
 import { DataDescription, ImplementationNode } from "@/utils/constants";
+import { twMerge } from "tailwind-merge";
 function InputText({
   label,
   placeholder,
   props,
   helper,
+  state = "default",
 }: {
   label: string;
   placeholder: string;
   props?: any;
   helper?: string;
+  state?: "default" | "error" | "success" | "disabled";
 }) {
   return (
     <div>
       <span className="text-s_textPrimary font-medium text-sm">{label}</span>
       <input
         type="text"
-        className="my-1 w-full bg-transparent bg-opacity-30 text-s_textPrimary placeholder:text-s_textSecondary py-2 px-4 rounded-md border-[1px] border-s_primary focus:border-s_accent focus:outline-none focus:ring-2 shadow-sm"
-        //ADD FOR DISABLED
-        // className="disabled:cursor-not-allowed"
-
-        //ADD FOR ERROR
-        // className="border-s_error focus:border-s_error focus:ring-red-400/90"
-
-        //ADD FOR SUCCESS
-        // className="border-s_success focus:border-s_success focus:ring-green-400/90"
+        className={twMerge(
+          "my-1 w-full bg-transparent bg-opacity-30 text-s_textPrimary placeholder:text-s_textSecondary py-2 px-4 rounded-md border-[1px] border-s_primary focus:border-s_accent focus:outline-none focus:ring-2 shadow-sm",
+          state === "disabled" && "disabled:cursor-not-allowed",
+          state === "error" &&
+            "border-s_error focus:border-s_error focus:ring-red-400/90",
+          state === "success" &&
+            "border-s_success focus:border-s_success focus:ring-green-400/90"
+        )}
+        {...(state === "disabled" && { disabled: true })}
         placeholder={placeholder}
         {...props}
       />
@@ -46,7 +49,7 @@ function Demo() {
   );
 }
 
-const ButtonCode: string = `function Demo() {
+const DemoString: string = `function Demo() {
   return (
     <div className="w-80">
       <InputText
@@ -56,31 +59,66 @@ const ButtonCode: string = `function Demo() {
       />
     </div>
   );
-}
-// --------------------------------------------------------------
-// THIS IS THE BUTTON LOGIC (IF WANT THE RAW COMPONENT COPY THIS)
-// --------------------------------------------------------------
+}`;
 
-function InputText({
+const ButtonCodeJsx: string = `function InputText({
   label,
   placeholder,
   props,
   helper,
+  state = "default",
 }) {
   return (
     <div>
       <span className="text-s_textPrimary font-medium text-sm">{label}</span>
       <input
         type="text"
-        className="my-1 w-full bg-transparent bg-opacity-30 text-s_textPrimary placeholder:text-s_textSecondary py-2 px-4 rounded-md border-[1px] border-s_primary focus:border-s_accent focus:outline-none focus:ring-2 shadow-sm"
-        //ADD FOR DISABLED
-        // className="disabled:cursor-not-allowed"
+        className={twMerge(
+          "my-1 w-full bg-transparent bg-opacity-30 text-s_textPrimary placeholder:text-s_textSecondary py-2 px-4 rounded-md border-[1px] border-s_primary focus:border-s_accent focus:outline-none focus:ring-2 shadow-sm",
+          state === "disabled" && "disabled:cursor-not-allowed",
+          state === "error" &&
+            "border-s_error focus:border-s_error focus:ring-red-400/90",
+          state === "success" &&
+            "border-s_success focus:border-s_success focus:ring-green-400/90"
+        )}
+        {...(state === "disabled" && { disabled: true })}
+        placeholder={placeholder}
+        {...props}
+      />
+      <span className="text-s_textSecondary font-normal text-sm">
+        {helper ? helper : ""}
+      </span>
+    </div>
+  );
+}`;
 
-        //ADD FOR ERROR
-        // className="border-s_error focus:border-s_error focus:ring-red-400/90"
-
-        //ADD FOR SUCCESS
-        // className="border-s_success focus:border-s_success focus:ring-green-400/90"
+const ButtonCodeTsx = `function InputText({
+  label,
+  placeholder,
+  props,
+  helper,
+  state = "default",
+}: {
+  label: string;
+  placeholder: string;
+  props?: any;
+  helper?: string;
+  state?: "default" | "error" | "success" | "disabled";
+}) {
+  return (
+    <div>
+      <span className="text-s_textPrimary font-medium text-sm">{label}</span>
+      <input
+        type="text"
+        className={twMerge(
+          "my-1 w-full bg-transparent bg-opacity-30 text-s_textPrimary placeholder:text-s_textSecondary py-2 px-4 rounded-md border-[1px] border-s_primary focus:border-s_accent focus:outline-none focus:ring-2 shadow-sm",
+          state === "disabled" && "disabled:cursor-not-allowed",
+          state === "error" &&
+            "border-s_error focus:border-s_error focus:ring-red-400/90",
+          state === "success" &&
+            "border-s_success focus:border-s_success focus:ring-green-400/90"
+        )}
+        {...(state === "disabled" && { disabled: true })}
         placeholder={placeholder}
         {...props}
       />
@@ -94,13 +132,38 @@ function InputText({
 const Implementation: ImplementationNode[] = [
   {
     type: "technology_used",
-    title: "Technology Used",
-    content: ["tailwind-css"],
+    content: ["tailwind-css", "twMerge"],
   },
   {
     type: "code",
-    title: "Code",
-    content: ButtonCode,
+    content: [
+      {
+        name: "InputText",
+        content: [
+          {
+            language: "tsx",
+            code: ButtonCodeTsx,
+          },
+          {
+            language: "jsx",
+            code: ButtonCodeJsx,
+          },
+        ],
+      },
+      {
+        name: "Implementation",
+        content: [
+          {
+            language: "tsx",
+            code: DemoString,
+          },
+          {
+            language: "jsx",
+            code: DemoString,
+          },
+        ],
+      },
+    ],
   },
 ];
 
