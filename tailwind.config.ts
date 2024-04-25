@@ -52,7 +52,7 @@ const config: Config = {
         // For @/packages/components/logo-carousel/Carousel_1.tsx
         "infinite-scroll-left": "infinite-scroll-left 50s linear infinite",
         "infinite-scroll-right": "infinite-scroll-right 50s linear infinite",
-        // For @/packages/components/logo-carousel/Container_4.tsx
+        // For @/packages/components/containers/Container_4.tsx
         "border-spin-clockwise": "border-spin-clockwise 7s linear infinite",
         "border-spin-anticlockwise":
           "border-spin-anticlockwise 7s linear infinite",
@@ -67,7 +67,7 @@ const config: Config = {
           from: { transform: "translateX(-100%)" },
           to: { transform: "translateX(0%)" },
         },
-        // For @/packages/components/logo-carousel/Container_4.tsx
+        // For @/packages/components/containers/Container_4.tsx
         "border-spin-clockwise": {
           "100%": {
             transform: "rotate(360deg)",
