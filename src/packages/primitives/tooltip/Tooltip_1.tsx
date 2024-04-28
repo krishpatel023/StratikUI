@@ -41,7 +41,6 @@ function TooltipContent({
         direction === "right" && "left-[110%] top-0 items-center",
         className
       )}
-      aria-side={direction}
     >
       <div className="w-max h-max px-4 py-3 text-sm text-s_textSecondary text-center font-semibold shadow-md rounded-md bg-s_background border-[1px] border-neutral-200 dark:border-neutral-800">
         {children}
@@ -73,7 +72,7 @@ function Demo() {
         <TooltipContent direction="right">
           <h1>
             This is a tooltip message to demonstrate it can deal with long text
-            messages easily. Let's make this message a little bit longer.
+            messages easily. Making this message a little bit longer.
           </h1>
         </TooltipContent>
       </TooltipWrapper>
@@ -98,7 +97,7 @@ function Demo() {
         <TooltipContent direction="bottom">
           <h1>
             This is a tooltip message to demonstrate it can deal with long text
-            messages easily. Let's make this message a little bit longer.
+            messages easily. Making this message a little bit longer.
           </h1>
         </TooltipContent>
       </TooltipWrapper>
@@ -146,7 +145,6 @@ function TooltipContent({
         direction === "right" && "left-[110%] top-0 items-center",
         className
       )}
-      aria-side={direction}
     >
       <div className="w-max h-max px-4 py-3 text-sm text-s_textSecondary text-center font-semibold shadow-md rounded-md bg-s_background border-[1px] border-neutral-200 dark:border-neutral-800">
         {children}
@@ -183,7 +181,6 @@ function TooltipContent({
         direction === "right" && "left-[110%] top-0 items-center",
         className
       )}
-      aria-side={direction}
     >
       <div className="w-max h-max px-4 py-3 text-sm text-s_textSecondary text-center font-semibold shadow-md rounded-md bg-s_background border-[1px] border-neutral-200 dark:border-neutral-800">
         {children}
@@ -215,7 +212,7 @@ const DemoString: string = `function Demo() {
         <TooltipContent direction="right">
           <h1>
             This is a tooltip message to demonstrate it can deal with long text
-            messages easily. Let's make this message a little bit longer.
+            messages easily. Making this message a little bit longer.
           </h1>
         </TooltipContent>
       </TooltipWrapper>
@@ -240,7 +237,7 @@ const DemoString: string = `function Demo() {
         <TooltipContent direction="bottom">
           <h1>
             This is a tooltip message to demonstrate it can deal with long text
-            messages easily. Let's make this message a little bit longer.
+            messages easily. Making this message a little bit longer.
           </h1>
         </TooltipContent>
       </TooltipWrapper>
