@@ -56,6 +56,9 @@ const config: Config = {
         "border-spin-clockwise": "border-spin-clockwise 7s linear infinite",
         "border-spin-anticlockwise":
           "border-spin-anticlockwise 7s linear infinite",
+        // For @/packages/primitive/toast/Toast_1.tsx
+        toastEntryRight: "toastEntryRight 0.2s linear",
+        toastEntryLeft: "toastEntryLeft 0.2s linear",
       },
       keyframes: {
         // For @/packages/components/logo-carousel/Carousel_1.tsx
@@ -76,6 +79,23 @@ const config: Config = {
         "border-spin-anticlockwise": {
           "100%": {
             transform: "rotate(-360deg)",
+          },
+        },
+        // For @/packages/primitive/toast/Toast_1.tsx
+        toastEntryRight: {
+          "0%": {
+            transform: "translateX(100%)",
+          },
+          "100%": {
+            transform: "translateX(0%)",
+          },
+        },
+        toastEntryLeft: {
+          "0%": {
+            transform: "translateX(-100%)",
+          },
+          "100%": {
+            transform: "translateX(0%)",
           },
         },
       },

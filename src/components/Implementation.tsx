@@ -68,6 +68,11 @@ const Technology_Used = ({ techUsed }: { techUsed: TechnologiesUsed[] }) => {
       link: "https://github.com/dcastil/tailwind-merge",
       logo: <Icons.twMerge className="w-8 h-8" />,
     },
+    uuid: {
+      name: "UUID",
+      link: "https://www.npmjs.com/package/uuid",
+      logo: <h1 className="font-bold text-accent text-lg">UUID</h1>,
+    },
   };
   return (
     <div>

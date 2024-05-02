@@ -9,7 +9,11 @@ export interface DataDescription {
   version_included: string;
   display: boolean;
 }
-export type TechnologiesUsed = "tailwind-css" | "framer-motion" | "twMerge";
+export type TechnologiesUsed =
+  | "tailwind-css"
+  | "framer-motion"
+  | "twMerge"
+  | "uuid";
 
 export type CodeBlock = {
   code: string;
