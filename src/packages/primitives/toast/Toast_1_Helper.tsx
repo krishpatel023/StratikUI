@@ -222,25 +222,25 @@ export const ToastImplementation = () => {
       </span>
       <div className="w-full flex justify-center gap-6">
         <button
-          className="bg-neutral-800 border-2 border-neutral-700 rounded py-2 px-4 text-textPrimary"
+          className="bg-neutral-800 border-2 border-neutral-700 rounded py-2 px-4 text-white"
           onClick={() => setDirection("top-right")}
         >
           Top-Right
         </button>
         <button
-          className="bg-neutral-800 border-2 border-neutral-700 rounded py-2 px-4 text-textPrimary"
+          className="bg-neutral-800 border-2 border-neutral-700 rounded py-2 px-4 text-white"
           onClick={() => setDirection("bottom-right")}
         >
           Bottom-Right
         </button>
         <button
-          className="bg-neutral-800 border-2 border-neutral-700 rounded py-2 px-4 text-textPrimary"
+          className="bg-neutral-800 border-2 border-neutral-700 rounded py-2 px-4 text-white"
           onClick={() => setDirection("top-left")}
         >
           Top-Left
         </button>
         <button
-          className="bg-neutral-800 border-2 border-neutral-700 rounded py-2 px-4 text-textPrimary"
+          className="bg-neutral-800 border-2 border-neutral-700 rounded py-2 px-4 text-white"
           onClick={() => setDirection("bottom-left")}
         >
           Bottom-Left
@@ -252,13 +252,13 @@ export const ToastImplementation = () => {
       </span>
       <div className="w-full flex justify-center gap-6">
         <button
-          className="bg-neutral-800 border-2 border-neutral-700 rounded py-2 px-4 text-textPrimary"
+          className="bg-neutral-800 border-2 border-neutral-700 rounded py-2 px-4 text-white"
           onClick={() => setCreateStack(true)}
         >
           True - Stack All
         </button>
         <button
-          className="bg-neutral-800 border-2 border-neutral-700 rounded py-2 px-4 text-textPrimary"
+          className="bg-neutral-800 border-2 border-neutral-700 rounded py-2 px-4 text-white"
           onClick={() => setCreateStack(false)}
         >
           False - Keep Individual
@@ -270,25 +270,25 @@ export const ToastImplementation = () => {
       </span>
       <div className="w-full flex justify-center gap-6">
         <button
-          className="bg-neutral-800 border-2 border-neutral-700 rounded py-2 px-4 text-textPrimary"
+          className="bg-neutral-800 border-2 border-neutral-700 rounded py-2 px-4 text-white"
           onClick={() => setState("success")}
         >
           Success
         </button>
         <button
-          className="bg-neutral-800 border-2 border-neutral-700 rounded py-2 px-4 text-textPrimary"
+          className="bg-neutral-800 border-2 border-neutral-700 rounded py-2 px-4 text-white"
           onClick={() => setState("error")}
         >
           Error
         </button>
         <button
-          className="bg-neutral-800 border-2 border-neutral-700 rounded py-2 px-4 text-textPrimary"
+          className="bg-neutral-800 border-2 border-neutral-700 rounded py-2 px-4 text-white"
           onClick={() => setState("warning")}
         >
           Warning
         </button>
         <button
-          className="bg-neutral-800 border-2 border-neutral-700 rounded py-2 px-4 text-textPrimary"
+          className="bg-neutral-800 border-2 border-neutral-700 rounded py-2 px-4 text-white"
           onClick={() => setState("info")}
         >
           Info
@@ -300,13 +300,13 @@ export const ToastImplementation = () => {
       </span>
       <div className="w-full flex justify-center gap-6">
         <button
-          className="bg-neutral-800 border-2 border-neutral-700 rounded py-2 px-4 text-textPrimary"
+          className="bg-neutral-800 border-2 border-neutral-700 rounded py-2 px-4 text-white"
           onClick={() => setCloseType("manual")}
         >
           Manual
         </button>
         <button
-          className="bg-neutral-800 border-2 border-neutral-700 rounded py-2 px-4 text-textPrimary"
+          className="bg-neutral-800 border-2 border-neutral-700 rounded py-2 px-4 text-white"
           onClick={() => setCloseType("timeout")}
         >
           Timeout
@@ -314,7 +314,7 @@ export const ToastImplementation = () => {
       </div>
 
       <button
-        className="w-80 bg-neutral-800 border-2 border-neutral-700 rounded py-2 px-4 text-textPrimary"
+        className="w-80 bg-neutral-800 border-2 border-neutral-700 rounded py-2 px-4 text-white"
         onClick={() => createToasts()}
       >
         Create Toast
