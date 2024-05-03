@@ -40,15 +40,12 @@ const ToastStyling = ({ toastId }: { toastId: string }) => {
       {toast && (
         <div
           className={twMerge(
-            "min-w-80 min-h-full rounded-md text-textPrimary flex justify-between items-center font-semibold border-2 gap-6 py-2 px-4 shadow-md",
-            toast.state === "success" &&
-              "dark:bg-white bg-neutral-800 text-green-500 dark:text-green-900 ",
-            toast.state === "error" &&
-              "dark:bg-white bg-neutral-800 text-red-500 dark:text-red-900 ",
+            "min-w-80 min-h-full rounded-md text-textPrimary flex justify-between items-center font-semibold border-2 border-neutral-200 dark:border-neutral-700 gap-6 py-2 px-4 shadow-md bg-white dark:bg-neutral-800",
+            toast.state === "success" && "dark:text-green-500 text-green-900 ",
+            toast.state === "error" && "dark:text-red-500 text-red-900 ",
             toast.state === "warning" &&
-              "dark:bg-white bg-neutral-800 text-yellow-500 dark:text-yellow-700 ",
-            toast.state === "info" &&
-              "dark:bg-white bg-neutral-800 text-blue-500 dark:text-blue-900 "
+              "dark:text-yellow-500 text-yellow-700 ",
+            toast.state === "info" && "dark:text-blue-500 text-blue-900 "
           )}
         >
           <span className="flex items-center gap-3">
@@ -80,15 +77,12 @@ const ToastStylingTsx = `const ToastStyling = ({ toastId }: { toastId: string })
       {toast && (
         <div
           className={twMerge(
-            "min-w-80 min-h-full rounded-md text-textPrimary flex justify-between items-center font-semibold border-2 gap-6 py-2 px-4 shadow-md",
-            toast.state === "success" &&
-              "dark:bg-white bg-neutral-800 text-green-500 dark:text-green-900 ",
-            toast.state === "error" &&
-              "dark:bg-white bg-neutral-800 text-red-500 dark:text-red-900 ",
+            "min-w-80 min-h-full rounded-md text-textPrimary flex justify-between items-center font-semibold border-2 border-neutral-200 dark:border-neutral-700 gap-6 py-2 px-4 shadow-md bg-white dark:bg-neutral-800",
+            toast.state === "success" && "dark:text-green-500 text-green-900 ",
+            toast.state === "error" && "dark:text-red-500 text-red-900 ",
             toast.state === "warning" &&
-              "dark:bg-white bg-neutral-800 text-yellow-500 dark:text-yellow-700 ",
-            toast.state === "info" &&
-              "dark:bg-white bg-neutral-800 text-blue-500 dark:text-blue-900 "
+              "dark:text-yellow-500 text-yellow-700 ",
+            toast.state === "info" && "dark:text-blue-500 text-blue-900 "
           )}
         >
           <span className="flex items-center gap-3">
@@ -234,15 +228,12 @@ const ToastStylingJsx = `const ToastStyling = ({ toastId }) => {
       {toast && (
         <div
           className={twMerge(
-            "min-w-80 min-h-full rounded-md text-textPrimary flex justify-between items-center font-semibold border-2 gap-6 py-2 px-4 shadow-md",
-            toast.state === "success" &&
-              "dark:bg-white bg-neutral-800 text-green-500 dark:text-green-900 ",
-            toast.state === "error" &&
-              "dark:bg-white bg-neutral-800 text-red-500 dark:text-red-900 ",
+            "min-w-80 min-h-full rounded-md text-textPrimary flex justify-between items-center font-semibold border-2 border-neutral-200 dark:border-neutral-700 gap-6 py-2 px-4 shadow-md bg-white dark:bg-neutral-800",
+            toast.state === "success" && "dark:text-green-500 text-green-900 ",
+            toast.state === "error" && "dark:text-red-500 text-red-900 ",
             toast.state === "warning" &&
-              "dark:bg-white bg-neutral-800 text-yellow-500 dark:text-yellow-700 ",
-            toast.state === "info" &&
-              "dark:bg-white bg-neutral-800 text-blue-500 dark:text-blue-900 "
+              "dark:text-yellow-500 text-yellow-700 ",
+            toast.state === "info" && "dark:text-blue-500 text-blue-900 "
           )}
         >
           <span className="flex items-center gap-3">
@@ -513,7 +504,7 @@ const Implementation: ImplementationNode[] = [
 ];
 
 const Data: DataDescription = {
-  name: "Toast with Border",
+  name: "Toast withot dedicated background",
   description:
     "This is just the styling component changes of the toast. You can copy the entire code above and replace that styling with the code in the current component.",
   implementation: Implementation,
