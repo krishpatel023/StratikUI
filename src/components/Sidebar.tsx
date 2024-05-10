@@ -6,6 +6,7 @@ import { FileData } from "@/utils/constants";
 import { Icons } from "@/utils/icons";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import { Fragment, useRef, useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 export default function Sidebar(params: { params: { data: FileData[] } }) {
   const param = usePathname();
@@ -20,7 +21,7 @@ export default function Sidebar(params: { params: { data: FileData[] } }) {
   return (
     <>
       <div
-        className={`w-[18rem] fixed overflow-y-auto h-full border-r-2 border-border scrollbar-vertical transition-all duration-300 ease-linear z-[9999] bg-background ${active ? "left-0" : "-left-[18rem]"}`}
+        className={`w-[18rem] fixed h-[calc(100dvh-3.5rem)] overflow-y-auto border-r-2 border-border scrollbar-vertical transition-all duration-300 ease-linear z-[9999] bg-background ${active ? "left-0" : "-left-[18rem]"}`}
         ref={ref}
       >
         {params.params.data.map((item: FileData, i: number) => (
@@ -69,13 +70,13 @@ export default function Sidebar(params: { params: { data: FileData[] } }) {
               )}
           </Fragment>
         ))}
+        <div className="min-w-full min-h-8"></div>
       </div>
       <div
-        className={
-          active
-            ? "hidden"
-            : "h-full fixed text-textPrimary w-6 flex justify-center items-center left-0 transition-all duration-200 ease-linear z-[9999]"
-        }
+        className={twMerge(
+          "h-full fixed text-textPrimary w-6 flex justify-center items-center left-0 transition-all ease-linear z-[9999]",
+          active && "hidden"
+        )}
       >
         <button
           className="w-6 h-16 border-r-2 border-t-2 border-b-2 border-border rounded-r-lg text-center bg-background"
