@@ -59,6 +59,8 @@ const config: Config = {
         // For @/packages/primitive/toast/Toast_1.tsx
         toastEntryRight: "toastEntryRight 0.2s linear",
         toastEntryLeft: "toastEntryLeft 0.2s linear",
+        // For @/packages/primitive/button/Button_6.tsx
+        buttonGrow: "buttonGrow 0.4s linear",
       },
       keyframes: {
         // For @/packages/components/logo-carousel/Carousel_1.tsx
@@ -96,6 +98,22 @@ const config: Config = {
           },
           "100%": {
             transform: "translateX(0%)",
+          },
+        },
+
+        // For @/packages/primitive/button/Button_6.tsx
+        buttonGrow: {
+          "0%": {
+            transform: "scale(0)",
+            opacity: "1",
+          },
+          "50%": {
+            transform: "scale(0.5)",
+            opacity: "0.5",
+          },
+          "100%": {
+            transform: "scale(1)",
+            opacity: "0",
           },
         },
       },
