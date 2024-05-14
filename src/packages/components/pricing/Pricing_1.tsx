@@ -51,8 +51,8 @@ export function Pricing() {
           )}
           <HighlighterItem
             className={twMerge(
-              "rounded-lg w-80 h-[27rem]",
-              data.popular && "border-2 border-s_foreground"
+              " w-80 h-[27rem]",
+              data.popular && " bg-neutral-900 dark:bg-white"
             )}
           >
             <div className="text-s_textPrimary px-8 py-6 w-full h-full flex flex-col justify-between">
