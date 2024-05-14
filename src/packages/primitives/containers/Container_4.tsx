@@ -14,16 +14,16 @@ function Container({
   children?: React.ReactNode;
 }) {
   return (
-    <div className="h-60 w-60 p-[2px] relative overflow-hidden rounded-2xl bg-neutral-300 dark:bg-slate-800 -z-10">
+    <div className="p-[2px] relative overflow-hidden rounded-2xl bg-neutral-200 dark:bg-neutral-800 -z-10">
       <span
         className={twMerge(
           "bg-[conic-gradient(var(--tw-gradient-stops))] absolute left-[-25%] top-[-25%] min-h-[150%] min-w-[150%] animate-border-spin-anticlockwise -z-[5]",
           direction === "clockwise"
-            ? "from-transparent via-transparent to-blue-600 dark:to-purple-600 animate-border-spin-clockwise"
-            : "from-blue-600 dark:from-purple-600 via-transparent to-transparent animate-border-spin-anticlockwise"
+            ? "from-transparent via-transparent to-blue-600/70 dark:to-blue-400/30 animate-border-spin-clockwise"
+            : "from-blue-600/70 dark:from-blue-400/30 via-transparent to-transparent animate-border-spin-anticlockwise"
         )}
       ></span>
-      <div className="min-w-full min-h-full z-20 rounded-[inherit] bg-neutral-100 dark:bg-slate-800">
+      <div className="min-w-full min-h-full z-20 rounded-[inherit] bg-white dark:bg-neutral-950">
         {children}
       </div>
     </div>
@@ -59,7 +59,7 @@ const CodeJsx = `function Container({
   direction = "clockwise",
 }) {
   return (
-    <div className="h-60 w-60 p-[2px] relative overflow-hidden rounded-2xl bg-neutral-300 dark:bg-slate-800 -z-10">
+    <div className="h-60 w-60 p-[2px] relative overflow-hidden rounded-2xl bg-neutral-100 dark:bg-slate-800 -z-10">
       <span
         className={twMerge(
           "bg-[conic-gradient(var(--tw-gradient-stops))] absolute left-[-25%] top-[-25%] min-h-[150%] min-w-[150%] animate-border-spin-anticlockwise -z-[5]",
@@ -79,7 +79,7 @@ const Demo = () => {
   return (
     <div>
       <Container direction="clockwise">
-        <div className="w-full h-full flex justify-center items-center text-center">
+        <div className="w-60 h-60 flex justify-center items-center text-center">
           <h1 className="text-2xl font-semibold text-s_textSecondary">
             This is a rotating border container
           </h1>
@@ -236,7 +236,7 @@ const Data: DataDescription = {
   description: "Use this with buttons, divs, etc.",
   implementation: Implementation,
   component: Demo(),
-  version_included: "0.0.3",
+  version_included: "0.1.3",
   display: true,
 };
 export default Data;
