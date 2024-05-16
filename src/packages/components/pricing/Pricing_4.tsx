@@ -37,58 +37,50 @@ export function Pricing() {
   return (
     <div className="flex flex-col @lg:flex-row justify-center items-end gap-10">
       {PricingData.map((data, index) => (
-        <div key={index} className="w-max relative">
-          {/* {data.popular && (
-            <div className="absolute -top-4 text-s_textPrimary w-full flex justify-center items-center z-50">
-              <h1 className="px-4 py-1 text-sm font-semibold rounded-full bg-s_foreground text-s_textComplementary">
-                Most Popular
-              </h1>
-            </div>
-          )} */}
-          <div
-            className={twMerge(
-              "rounded-lg w-80 h-[27rem] text-black dark:text-white bg-white dark:bg-neutral-900/60 border border-neutral-300 dark:border-neutral-600",
-              data.popular &&
-                "bg-blue-600 dark:bg-blue-600 text-white h-[30rem] border-none "
-            )}
-          >
-            <div className="px-8 py-6 w-full h-full flex flex-col justify-between">
-              <div>
-                <h1 className="text-3xl font-medium mb-2">{data.name}</h1>
-                <h2 className="text-md mb-4">{data.description}</h2>
-                <div
-                  className={twMerge(
-                    "w-full h-[1px] bg-neutral-300 dark:bg-neutral-700",
-                    data.popular && "dark:bg-neutral-300"
-                  )}
-                ></div>
-                <h1 className="text-4xl font-medium mb-8 mt-6">
-                  $ {data.price} <span className="text-base">/ Month</span>
-                </h1>
-                <span className="flex flex-col gap-2">
-                  {data.features.map((feature, j) => (
-                    <span
-                      className="flex justify-start items-center gap-2"
-                      key={j}
-                    >
-                      <Check /> {feature}
-                    </span>
-                  ))}
-                </span>
-              </div>
-              <Button
+        <div
+          className={twMerge(
+            "rounded-lg w-80 h-[27rem] text-black dark:text-white bg-white dark:bg-neutral-900/60 border border-neutral-300 dark:border-neutral-600 shadow",
+            data.popular &&
+              "bg-blue-600 dark:bg-blue-600 text-white h-[30rem] border-none shadow-blue-800"
+          )}
+          key={index}
+        >
+          <div className="px-8 py-6 w-full h-full flex flex-col justify-between">
+            <div>
+              <h1 className="text-3xl font-medium mb-2">{data.name}</h1>
+              <h2 className="text-md mb-4">{data.description}</h2>
+              <div
                 className={twMerge(
-                  "w-full mt-auto px-4 py-2 font-medium text-black dark:text-white bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-md relative z-[100]",
-                  data.popular && "dark:bg-white dark:text-black"
-                )}
-                clickedClassName={twMerge(
-                  "bg-neutral-100 dark:bg-neutral-700",
+                  "w-full h-[1px] bg-neutral-300 dark:bg-neutral-700",
                   data.popular && "dark:bg-neutral-300"
                 )}
-              >
-                Get Started
-              </Button>
+              ></div>
+              <h1 className="text-4xl font-medium mb-8 mt-6">
+                $ {data.price} <span className="text-base">/ Month</span>
+              </h1>
+              <span className="flex flex-col gap-2">
+                {data.features.map((feature, j) => (
+                  <span
+                    className="flex justify-start items-center gap-2"
+                    key={j}
+                  >
+                    <Check /> {feature}
+                  </span>
+                ))}
+              </span>
             </div>
+            <Button
+              className={twMerge(
+                "w-full mt-auto px-4 py-2 font-medium text-black dark:text-white bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-md relative z-[100]",
+                data.popular && "dark:bg-white dark:text-black"
+              )}
+              clickedClassName={twMerge(
+                "bg-neutral-100 dark:bg-neutral-700",
+                data.popular && "dark:bg-neutral-300"
+              )}
+            >
+              Get Started
+            </Button>
           </div>
         </div>
       ))}
