@@ -8,11 +8,15 @@ export function PasswordToggle({
   placeholder,
   props,
   state = "default",
+  errorMessage = "",
+  className = "",
 }: {
   label: string;
   placeholder: string;
   props?: any;
   state?: "default" | "error" | "success" | "disabled";
+  errorMessage?: string;
+  className?: string;
 }) {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   return (
@@ -42,6 +46,7 @@ export function PasswordToggle({
           type={showPassword ? "text" : "password"}
           className={twMerge(
             "my-1 w-full bg-transparent bg-opacity-30 text-s_textPrimary placeholder:text-s_textSecondary py-2 pr-10 pl-4 rounded-md border-[1px] border-s_primary focus:border-s_accent focus:outline-none focus:ring-2 shadow-sm",
+            className,
             state === "disabled" && "disabled:cursor-not-allowed",
             state === "error" &&
               "border-s_error focus:border-s_error focus:ring-red-400/90",
@@ -53,6 +58,9 @@ export function PasswordToggle({
           {...props}
         />
       </div>
+      {errorMessage === "" ? null : (
+        <span className="text-red-500 text-sm">{errorMessage}</span>
+      )}
     </div>
   );
 }

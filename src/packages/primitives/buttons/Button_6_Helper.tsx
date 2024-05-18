@@ -12,10 +12,12 @@ export function Button({
   children,
   clickedClassName,
   className,
+  textClassName,
 }: {
   children: React.ReactNode;
   clickedClassName?: string;
   className?: string;
+  textClassName?: string;
 }) {
   const [circle, setCircle] = useState<CircleProps | null>(null);
 
@@ -61,7 +63,9 @@ export function Button({
       data-clicked={circle ? "true" : "false"}
       ref={buttonRef}
     >
-      <span className="z-10 relative">{children}</span>
+      <span className="z-10 relative">
+        <span className={textClassName}>{children}</span>
+      </span>
       {circle && (
         <div
           className={twMerge(
