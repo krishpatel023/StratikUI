@@ -61,6 +61,10 @@ const config: Config = {
         toastEntryLeft: "toastEntryLeft 0.2s linear",
         // For @/packages/primitive/button/Button_6.tsx
         buttonGrow: "buttonGrow 0.4s linear",
+
+        // For @/packages/primitive/stepper/Stepper_1.tsx
+        stepperGrow: "stepperGrow 0.4s linear",
+        stepperShrink: "stepperShrink 0.4s linear",
       },
       keyframes: {
         // For @/packages/components/logo-carousel/Carousel_1.tsx
@@ -114,6 +118,23 @@ const config: Config = {
           "100%": {
             transform: "scale(1)",
             opacity: "0",
+          },
+        },
+        // For @/packages/primitive/stepper/Stepper_1.tsx
+        stepperGrow: {
+          "0%": {
+            transform: "translateX(-100%)",
+          },
+          "100%": {
+            transform: "translateX(0%)",
+          },
+        },
+        stepperShrink: {
+          "0%": {
+            transform: "translateX(0%)",
+          },
+          "100%": {
+            transform: "translateX(-100%)",
           },
         },
       },
