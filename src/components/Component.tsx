@@ -105,16 +105,26 @@ export default function Component({ data }: { data: DataDescription }) {
                   />
                 </div>
               ) : (
-                <div className="w-[90%] border-[1px] border-border mt-6 rounded-xl mx-auto relative ">
+                <div className="w-[90%] border-[1px] border-neutral-300 dark:border-neutral-800  mt-6 rounded-xl mx-auto relative overflow-hidden">
                   {/* EDITOR */}
                   <div className="w-full overflow-x-auto py-10 flex justify-center @container">
                     {data.component}
                   </div>
                   {/* BACKGROUND */}
                   {theme ? (
-                    <div className="bg-slate-950 -z-10 absolute bottom-0 left-0 right-0 top-0 rounded-b-xl bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+                    <>
+                      {/* // <div className="bg-slate-950 -z-10 absolute bottom-0 left-0 right-0 top-0 rounded-b-xl bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px]"></div>
+                    <div className="rounded-xl w-full h-full overflow-hidden absolute inset-0 -z-10 size-full bg-black bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]">
+                      <div className="absolute my-auto -left-[98%] -z-10 size-full rounded-full bg-blue-300 opacity-20 blur-[100px]" />
+                      <div className="absolute my-auto -right-[98%] -z-10 size-full rounded-full bg-blue-300 opacity-20 blur-[100px]" />
+                    </div> */}
+                    </>
                   ) : (
-                    <div className="bg-blue-100/40 -z-10 absolute bottom-0 left-0 right-0 top-0 rounded-b-xl "></div>
+                    // <div className="bg-blue-100/40 -z-10 absolute bottom-0 left-0 right-0 top-0 rounded-b-xl "></div>
+                    <div className="rounded-xl w-full h-full overflow-hidden absolute inset-0 -z-10 size-full bg-white ">
+                      {/* <div className="absolute my-auto -left-[90%] -z-10 size-full rounded-full bg-sky-300 opacity-20 blur-[100px]" />
+                      <div className="absolute my-auto -right-[90%] -z-10 size-full rounded-full bg-sky-300 opacity-20 blur-[100px]" /> */}
+                    </div>
                   )}
                 </div>
               )}
