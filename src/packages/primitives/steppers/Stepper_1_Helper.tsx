@@ -17,7 +17,7 @@ type StepperWrapperProps = {
 
 export const StepperWrapper = ({ currentStep, steps }: StepperWrapperProps) => {
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-0 @sm:gap-2">
       {steps.map((step, index) => (
         <StepperIndividual
           key={index}
@@ -46,30 +46,35 @@ const StepperIndividual = ({
   totalSteps: number;
 }) => {
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center @sm:gap-2">
       <div className="text-black dark:text-white flex flex-col gap-2 items-center justify-center">
         <div
           className={twMerge(
-            "w-12 h-12 rounded-full flex items-center justify-center border-[3px] text-2xl font-semibold transition-all delay-300",
+            "w-8 h-8 @sm:w-12 @sm:h-12 rounded-full flex items-center justify-center border-[3px] text-lg @sm:text-2xl font-semibold transition-all delay-300",
             currentActive === rank && "border-blue-600 text-blue-600",
             currentActive > rank && "bg-blue-700 border-blue-700",
-            currentActive < rank && "border-neutral-600 text-neutral-600"
+            currentActive < rank &&
+              "border-neutral-500 text-neutral-500 dark:border-neutral-600 dark:text-neutral-600"
           )}
         >
-          {currentActive > rank ? <Check className="w-8 h-8" /> : rank + 1}
+          {currentActive > rank ? (
+            <Check className="w-6 h-6 text-white" />
+          ) : (
+            rank + 1
+          )}
         </div>
         <div
           className={twMerge(
-            "w-20 h-[1px] rounded-full flex justify-center",
+            "font-semibold",
             currentActive >= rank && "text-black dark:text-white",
-            currentActive < rank && "text-neutral-900 dark:text-neutral-400"
+            currentActive < rank && "text-neutral-700 dark:text-neutral-400"
           )}
         >
           {name}
         </div>
       </div>
       {rank >= 0 && rank < totalSteps - 1 && (
-        <div className="h-[2px] bg-neutral-700 w-20 mt-6 overflow-hidden">
+        <div className="h-[2px] rounded-full bg-neutral-500 dark:bg-neutral-700 w-6 @sm:w-12 @md:w-20 mt-4 @sm:mt-6 overflow-hidden">
           {currentActive >= rank + 1 && (
             <div className="h-full w-full bg-blue-600 animate-stepperGrow"></div>
           )}

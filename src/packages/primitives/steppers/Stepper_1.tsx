@@ -1,10 +1,6 @@
 import { DataDescription, ImplementationNode } from "@/utils/constants";
 import { ImplementStepper } from "./Stepper_1_Helper";
 
-function ComponentName() {
-  return <div></div>;
-}
-
 function Demo() {
   return (
     <div className="w-full min-h-40 flex justify-center items-center">
@@ -48,11 +44,11 @@ const Implementation: ImplementationNode[] = [
 ];
 
 const Data: DataDescription = {
-  name: "Component Name",
+  name: "Default Stepper",
   description: "Component Description",
   implementation: Implementation,
   component: <Demo />,
-  version_included: "0.0.1",
+  version_included: "0.1.1",
   display: true,
 };
 
