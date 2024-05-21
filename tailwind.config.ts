@@ -64,7 +64,7 @@ const config: Config = {
 
         // For @/packages/primitive/stepper/Stepper_1.tsx
         stepperGrow: "stepperGrow 0.4s linear",
-        stepperShrink: "stepperShrink 0.4s linear",
+        stepperGrowVertical: "stepperGrowVertical 0.4s linear",
       },
       keyframes: {
         // For @/packages/components/logo-carousel/Carousel_1.tsx
@@ -129,12 +129,12 @@ const config: Config = {
             transform: "translateX(0%)",
           },
         },
-        stepperShrink: {
+        stepperGrowVertical: {
           "0%": {
-            transform: "translateX(0%)",
+            transform: "translateY(-100%)",
           },
           "100%": {
-            transform: "translateX(-100%)",
+            transform: "translateY(0%)",
           },
         },
       },
