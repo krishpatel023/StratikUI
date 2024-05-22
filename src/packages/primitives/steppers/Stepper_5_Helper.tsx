@@ -48,7 +48,7 @@ const StepperIndividual = ({
   return (
     <div
       className={twMerge(
-        "flex gap-4 min-w-80 w-full rounded-lg py-3 px-4 bg-transparent border border-neutral-400 dark:border-neutral-700",
+        "flex gap-4 min-w-80 w-full rounded-lg py-3 px-4 bg-transparent border border-neutral-300 dark:border-neutral-800/80",
         currentActive == rank &&
           "bg-neutral-800 dark:bg-neutral-900 border-neutral-700 "
       )}
@@ -56,23 +56,33 @@ const StepperIndividual = ({
       <div className=" flex flex-col gap-1 items-center justify-center">
         <div
           className={twMerge(
-            "w-8 h-8 @md:w-12 @md:h-12 rounded-full flex items-center justify-center border-[3px] text-lg @md:text-2xl font-semibold transition-all duration-300",
-            currentActive === rank && "border-blue-600 text-blue-600",
-            currentActive > rank && "bg-blue-700 border-blue-700 text-white",
+            "w-8 h-8 @md:w-10 @md:h-10 rounded-full flex items-center justify-center border-[3px] text-lg @md:text-md font-semibold transition-all duration-300",
+            currentActive === rank && "border-blue-500 text-blue-500",
+            currentActive > rank &&
+              "bg-blue-600 border-blue-600 dark:bg-blue-700 dark:border-blue-700 text-white",
             currentActive < rank && "border-neutral-500 text-neutral-500"
           )}
         >
-          {currentActive > rank ? <Check className="w-6 h-6" /> : rank + 1}
+          {currentActive > rank ? <Check className="w-8 h-8" /> : rank + 1}
         </div>
       </div>
       <div
         className={twMerge(
-          "font-semibold transition-all duration-300 text-black dark:text-white",
+          "font-semibold transition-all duration-300  text-black dark:text-white",
           currentActive == rank && " text-white dark:text-white"
         )}
       >
         {name}
-        {description && <p className="text-sm">{description}</p>}
+        {description && (
+          <p
+            className={twMerge(
+              "text-sm font-medium text-neutral-600 dark:text-neutral-500",
+              currentActive == rank && "text-neutral-200 dark:text-neutral-400"
+            )}
+          >
+            {description}
+          </p>
+        )}
       </div>
     </div>
   );
@@ -83,14 +93,12 @@ export const Check = (props: IconProps) => (
     xmlns="http://www.w3.org/2000/svg"
     width="1em"
     height="1em"
-    viewBox="0 0 16 16"
+    viewBox="0 0 24 24"
     {...props}
   >
     <path
       fill="currentColor"
-      fillRule="evenodd"
-      d="M13.488 3.43a.75.75 0 0 1 .081 1.058l-6 7a.75.75 0 0 1-1.1.042l-3.5-3.5A.75.75 0 0 1 4.03 6.97l2.928 2.927l5.473-6.385a.75.75 0 0 1 1.057-.081Z"
-      clipRule="evenodd"
+      d="M18.71 7.21a1 1 0 0 0-1.42 0l-7.45 7.46l-3.13-3.14A1 1 0 1 0 5.29 13l3.84 3.84a1 1 0 0 0 1.42 0l8.16-8.16a1 1 0 0 0 0-1.47Z"
     ></path>
   </svg>
 );

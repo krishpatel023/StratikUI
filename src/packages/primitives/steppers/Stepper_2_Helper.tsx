@@ -58,7 +58,7 @@ const StepperIndividual = ({
           )}
         >
           {currentActive > rank ? (
-            <Check className="w-6 h-6 text-white" />
+            <Check className="w-8 h-8 text-white" />
           ) : (
             rank + 1
           )}
@@ -89,14 +89,12 @@ export const Check = (props: IconProps) => (
     xmlns="http://www.w3.org/2000/svg"
     width="1em"
     height="1em"
-    viewBox="0 0 16 16"
+    viewBox="0 0 24 24"
     {...props}
   >
     <path
       fill="currentColor"
-      fillRule="evenodd"
-      d="M13.488 3.43a.75.75 0 0 1 .081 1.058l-6 7a.75.75 0 0 1-1.1.042l-3.5-3.5A.75.75 0 0 1 4.03 6.97l2.928 2.927l5.473-6.385a.75.75 0 0 1 1.057-.081Z"
-      clipRule="evenodd"
+      d="M18.71 7.21a1 1 0 0 0-1.42 0l-7.45 7.46l-3.13-3.14A1 1 0 1 0 5.29 13l3.84 3.84a1 1 0 0 0 1.42 0l8.16-8.16a1 1 0 0 0 0-1.47Z"
     ></path>
   </svg>
 );
