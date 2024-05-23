@@ -11,7 +11,7 @@ import useProcess from "@/packages/hooks/code/useProcess";
 export const FileUpload_1 = () => {
   const allowedFileTypes = ["image/png", "image/jpeg", "image/jpg"];
   const inputRef = useRef<HTMLInputElement>(null);
-  const fileSizeLimit = 2 * 1024 * 1024;
+  const fileSizeLimit = 5 * 1024 * 1024;
 
   const {
     handleDragOver,

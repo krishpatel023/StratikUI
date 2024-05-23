@@ -1,10 +1,6 @@
 import { DataDescription, ImplementationNode } from "@/utils/constants";
 import { FileUpload_1 } from "./File_Upload_1_Helper";
 
-function ComponentName() {
-  return <div></div>;
-}
-
 function Demo() {
   return (
     <div className="w-full flex justify-center items-center">
