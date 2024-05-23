@@ -5,6 +5,8 @@ import useFileUpload from "../../hooks/code/useFileUpload";
 import Image from "next/image";
 import { IconProps } from "@/utils/constants";
 import { Button } from "../buttons/Button_6_Helper";
+import useDelay from "@/packages/hooks/code/useDelay";
+import useProcess from "@/packages/hooks/code/useProcess";
 
 export const FileUpload_1 = () => {
   const allowedFileTypes = ["image/png", "image/jpeg", "image/jpg"];
@@ -54,10 +56,15 @@ const FileUploadUI = ({
   handleRemoveFile: (index: number) => void;
   handleRemoveAllFiles: () => void;
 }) => {
-  const UploadItems = () => {
-    if (files.length > 0) {
-      handleRemoveAllFiles();
-    }
+  const { delay } = useDelay();
+  const { isProcessing, executeProcess } = useProcess();
+  const UploadItems = async () => {
+    executeProcess(async () => {
+      await delay(1500);
+      if (files.length > 0) {
+        handleRemoveAllFiles();
+      }
+    });
   };
   return (
     <div className="w-[20rem] @md:w-[25rem] rounded-lg flex flex-col gap-6 px-4 py-4 bg-neutral-100 dark:bg-neutral-900">
@@ -91,17 +98,50 @@ const FileUploadUI = ({
         ))}
       </div>
       <Button
-        className="w-full mt-auto px-4 py-2 border rounded-lg relative z-[100] bg-blue-600 border-blue-700 text-white dark:bg-blue-800 dark:border-blue-950"
+        className="w-full mt-auto px-4 py-2 border rounded-lg relative z-[100] bg-blue-600 border-blue-700 text-white dark:bg-blue-800 dark:border-blue-950 flex justify-center items-center"
         clickedClassName="bg-blue-300 dark:bg-blue-400"
         onClick={UploadItems}
         disabled={files.length === 0}
       >
-        Upload
+        {isProcessing ? <Loader className="w-6 h-6 animate-spin" /> : "Upload"}
       </Button>
     </div>
   );
 };
 
+const Loader = (props: IconProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1em"
+    height="1em"
+    viewBox="0 0 24 24"
+    {...props}
+  >
+    <path
+      fill="none"
+      stroke="currentColor"
+      strokeDasharray="15"
+      strokeDashoffset="15"
+      strokeLinecap="round"
+      strokeWidth="2"
+      d="M12 3C16.9706 3 21 7.02944 21 12"
+    >
+      <animate
+        fill="freeze"
+        attributeName="stroke-dashoffset"
+        dur="0.3s"
+        values="15;0"
+      ></animate>
+      <animateTransform
+        attributeName="transform"
+        dur="1.5s"
+        repeatCount="indefinite"
+        type="rotate"
+        values="0 12 12;360 12 12"
+      ></animateTransform>
+    </path>
+  </svg>
+);
 const DocumentIcon = (props: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
