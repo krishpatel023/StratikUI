@@ -13,15 +13,20 @@ export function Button({
   clickedClassName,
   className,
   textClassName,
+  onClick,
+  disabled,
 }: {
   children: React.ReactNode;
   clickedClassName?: string;
   className?: string;
   textClassName?: string;
+  onClick?: () => void;
+  disabled?: boolean;
 }) {
   const [circle, setCircle] = useState<CircleProps | null>(null);
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (onClick) onClick();
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
@@ -57,9 +62,10 @@ export function Button({
     <button
       className={twMerge(
         "relative focus:outline-none overflow-hidden data-[clicked=true]:scale-[0.98]",
-        className
+        className,
+        disabled && "cursor-not-allowed opacity-50"
       )}
-      onClick={handleClick}
+      onClick={!disabled ? handleClick : () => {}}
       data-clicked={circle ? "true" : "false"}
       ref={buttonRef}
     >
