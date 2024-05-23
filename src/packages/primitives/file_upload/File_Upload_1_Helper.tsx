@@ -11,16 +11,19 @@ import useProcess from "@/packages/hooks/code/useProcess";
 export const FileUpload_1 = () => {
   const allowedFileTypes = ["image/png", "image/jpeg", "image/jpg"];
   const inputRef = useRef<HTMLInputElement>(null);
+  const fileSizeLimit = 2 * 1024 * 1024;
+
   const {
     handleDragOver,
     handleDragLeave,
     handleDrop,
     handleFileUpload,
     files,
+    error,
     openFileInput,
     handleRemoveFile,
     handleRemoveAllFiles,
-  } = useFileUpload({ allowedFileTypes, inputRef });
+  } = useFileUpload({ allowedFileTypes, inputRef, fileSizeLimit });
 
   return (
     <div
@@ -40,6 +43,8 @@ export const FileUpload_1 = () => {
         files={files}
         handleRemoveFile={handleRemoveFile}
         handleRemoveAllFiles={handleRemoveAllFiles}
+        error={error}
+        fileSizeLimit={fileSizeLimit}
       />
     </div>
   );
@@ -50,11 +55,15 @@ const FileUploadUI = ({
   files,
   handleRemoveFile,
   handleRemoveAllFiles,
+  error,
+  fileSizeLimit,
 }: {
   openFileInput: () => void;
   files: File[];
   handleRemoveFile: (index: number) => void;
   handleRemoveAllFiles: () => void;
+  error: string | null;
+  fileSizeLimit: number;
 }) => {
   const { delay } = useDelay();
   const { isProcessing, executeProcess } = useProcess();
@@ -74,6 +83,19 @@ const FileUploadUI = ({
           Browse
         </button>
       </div>
+      <div className="flex justify-end -mt-4">
+        {fileSizeLimit && (
+          <p className="text-neutral-500 text-center text-sm">
+            File size limit: {fileSizeLimit / 1024 / 1024} MB
+          </p>
+        )}
+      </div>
+      {error && (
+        <p className="text-red-500 text-center flex justify-center items-center gap-2">
+          <ErrorIcon className="w-4 h-4" />
+          {error}
+        </p>
+      )}
       <div className="w-full text-white flex flex-col gap-4">
         {files.length === 0 ? (
           <p className="text-neutral-700 dark:text-neutral-400 font-medium ">
@@ -108,6 +130,22 @@ const FileUploadUI = ({
     </div>
   );
 };
+
+export const ErrorIcon = (props: IconProps) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="1em"
+    height="1em"
+    viewBox="0 0 24 24"
+    {...props}
+  >
+    <path fill="currentColor" d="M11.001 10h2v5h-2zM11 16h2v2h-2z"></path>
+    <path
+      fill="currentColor"
+      d="M13.768 4.2C13.42 3.545 12.742 3.138 12 3.138s-1.42.407-1.768 1.063L2.894 18.064a1.986 1.986 0 0 0 .054 1.968A1.984 1.984 0 0 0 4.661 21h14.678c.708 0 1.349-.362 1.714-.968a1.989 1.989 0 0 0 .054-1.968L13.768 4.2zM4.661 19L12 5.137L19.344 19H4.661z"
+    ></path>
+  </svg>
+);
 
 const Loader = (props: IconProps) => (
   <svg
