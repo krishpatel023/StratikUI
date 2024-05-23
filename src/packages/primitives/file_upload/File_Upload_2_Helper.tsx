@@ -108,7 +108,10 @@ const FileUploadUI = ({
           </p>
         )}
         {files.map((file, index) => (
-          <div className="w-full flex items-center gap-4 px-4 py-3 bg-neutral-500 dark:bg-neutral-800 min-h-20 rounded-lg">
+          <div
+            className="w-full flex items-center gap-4 px-4 py-3 bg-neutral-500 dark:bg-neutral-800 min-h-20 rounded-lg"
+            key={index}
+          >
             <DocumentIcon className="w-10 h-10" />
             <div className="w-full">
               <div
