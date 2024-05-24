@@ -1,29 +1,34 @@
 "use client";
 import useClickOutside from "@/hooks/ClickOutside";
+import { useInternalState } from "@/hooks/useInternalState";
 import { versionCheck } from "@/scripts/VersionCheck";
 // import { versionCheck } from "@/packages";
 import { FileData } from "@/utils/constants";
 import { Icons } from "@/utils/icons";
-import { useParams, usePathname, useRouter } from "next/navigation";
-import { Fragment, useRef, useState } from "react";
-import { twMerge } from "tailwind-merge";
+import { usePathname, useRouter } from "next/navigation";
+import { Fragment, useRef } from "react";
 
 export default function Sidebar(params: { params: { data: FileData[] } }) {
   const param = usePathname();
   var splitParams = param?.split("/");
   const router = useRouter();
 
-  const [active, setActive] = useState<boolean>(false);
+  const { sidebar, setSidebar } = useInternalState();
   const ref = useRef(null);
   useClickOutside(ref, () => {
-    if (active) setActive(false);
+    if (sidebar) setSidebar(false);
   });
   return (
     <>
       <div
-        className={`w-[18rem] fixed h-[calc(100dvh-3.5rem)] overflow-y-auto border-r-2 border-border scrollbar-vertical transition-all duration-300 ease-linear z-[9999] bg-background ${active ? "left-0" : "-left-[18rem]"}`}
+        className={`w-[18rem] fixed h-full top-0 overflow-y-auto border-r-2 border-border scrollbar-vertical transition-all duration-300 ease-linear z-[9999] bg-background ${sidebar ? "left-0" : "-left-[18rem]"}`}
         ref={ref}
       >
+        <div className="w-full flex justify-end items-center mt-4 px-4">
+          <button onClick={() => setSidebar(false)}>
+            <Icons.cross className="w-6 h-6 text-black dark:text-white" />
+          </button>
+        </div>
         {params.params.data.map((item: FileData, i: number) => (
           <Fragment key={i}>
             {Array.isArray(item.content) &&
@@ -45,7 +50,7 @@ export default function Sidebar(params: { params: { data: FileData[] } }) {
                             <button
                               className="w-full pl-4 text-wrap"
                               onClick={() => {
-                                // setActive(false);
+                                setSidebar(false);
                                 router.push(
                                   `/docs/${item.name}/${subitem.name} `
                                 );
@@ -71,19 +76,6 @@ export default function Sidebar(params: { params: { data: FileData[] } }) {
           </Fragment>
         ))}
         <div className="min-w-full min-h-8"></div>
-      </div>
-      <div
-        className={twMerge(
-          "h-full fixed text-textPrimary w-6 flex justify-center items-center left-0 transition-all ease-linear z-[9999]",
-          active && "hidden"
-        )}
-      >
-        <button
-          className="w-6 h-16 border-r-2 border-t-2 border-b-2 border-border rounded-r-lg text-center bg-background"
-          onClick={() => setActive(!active)}
-        >
-          <Icons.chevron className="w-6 h-6" />
-        </button>
       </div>
     </>
   );

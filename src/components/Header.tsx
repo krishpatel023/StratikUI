@@ -1,30 +1,31 @@
 "use client";
 import useClickOutside from "@/hooks/ClickOutside";
 import { useTheme } from "@/hooks/Theme";
+import { useInternalState } from "@/hooks/useInternalState";
+import { IconProps } from "@/utils/constants";
 import { Icons } from "@/utils/icons";
 import { Logo } from "@/utils/logo";
 import { CURRENT_VERSION } from "@/utils/utils";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { twMerge } from "tailwind-merge";
 
 export const Header = () => {
   const { theme, toggleTheme } = useTheme();
-  // const [blockScroll, allowScroll] = useScrollBlock();
-
+  const [inDocs, setInDocs] = useState(false);
+  const { sidebar, setSidebar } = useInternalState();
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
+  const url = usePathname();
+
   useClickOutside(ref, () => {
     if (open) setOpen(false);
   });
 
-  // useEffect(() => {
-  //   if (open) {
-  //     blockScroll();
-  //   } else {
-  //     allowScroll();
-  //   }
-  // }, [open]);
+  useEffect(() => {
+    if (url.includes("/docs")) setInDocs(true);
+    else setInDocs(false);
+  }, [url]);
 
   return (
     <div
@@ -35,6 +36,16 @@ export const Header = () => {
         className={`w-full h-16 flex justify-between px-2 sm:px-6 md:px-10 items-center ${open ? "" : "border-b border-border/40"}`}
       >
         <div className="flex h-full min-w-[10rem] items-center justify-start sm:justify-center ">
+          {inDocs && (
+            <button
+              className="w-10 h-10 rounded flex justify-center items-center dark:text-white border dark:border-neutral-700 hover:bg-neutral-200/30 dark:hover:bg-neutral-700/30 ml-2 md:ml-0"
+              onClick={() => {
+                setSidebar(!sidebar);
+              }}
+            >
+              <Icons.bars className="h-6 w-6" />
+            </button>
+          )}
           <Link
             href="/"
             className="flex h-full items-center justify-center gap-1 font-semibold text-2xl text-textPrimary"
@@ -83,18 +94,20 @@ export const Header = () => {
               </button>
             )}
           </div>
-          <button
-            className="w-10 h-10 md:hidden hover:bg-secondary rounded flex justify-center items-center relative text-textPrimary"
-            onClick={() => {
-              setOpen(!open);
-            }}
-          >
-            {open ? (
-              <Icons.cross className="h-6 w-6" />
-            ) : (
-              <Icons.bars className="h-6 w-6" />
-            )}
-          </button>
+          {!inDocs && (
+            <button
+              className="w-10 h-10 md:hidden hover:bg-secondary rounded flex justify-center items-center relative text-textPrimary"
+              onClick={() => {
+                setOpen(!open);
+              }}
+            >
+              {open ? (
+                <Icons.cross className="h-6 w-6" />
+              ) : (
+                <Icons.bars className="h-6 w-6" />
+              )}
+            </button>
+          )}
         </div>
       </div>
       {open ? (
