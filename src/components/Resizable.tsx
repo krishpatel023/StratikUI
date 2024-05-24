@@ -50,14 +50,46 @@ const ResizableContainer: React.FC<ResizableContainerProps> = ({
       SelectionStatus(true);
     };
 
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!isDragging) return;
+
+      const container = containerRef.current;
+      const handle = handleRef.current;
+
+      if (!container || !handle) return;
+
+      const containerRect = container.getBoundingClientRect();
+      const handleRect = handle.getBoundingClientRect();
+
+      let newWidth = e.touches[0].clientX - containerRect.left;
+      // let newWidth = e.clientX - containerRect.left;
+
+      // Limit the container width to maxWidth
+      newWidth = Math.min(newWidth, maxWidth);
+
+      // Ensure the container width doesn't go below minWidth
+      newWidth = Math.max(newWidth, minWidth);
+
+      setContainerWidth(newWidth);
+    };
+
+    const handleTouchUp = () => {
+      setIsDragging(false);
+      SelectionStatus(true);
+    };
+
     if (isDragging) {
       document.addEventListener("mousemove", handleMouseMove);
       document.addEventListener("mouseup", handleMouseUp);
+      document.addEventListener("touchmove", handleTouchMove);
+      document.addEventListener("touchend", handleTouchUp);
     }
 
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseup", handleMouseUp);
+      document.addEventListener("touchmove", handleTouchMove);
+      document.addEventListener("touchend", handleTouchUp);
     };
   }, [isDragging, maxWidth, minWidth]);
 
