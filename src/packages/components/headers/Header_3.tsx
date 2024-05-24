@@ -1,10 +1,4 @@
-import {
-  Header,
-  HeaderStringJsx,
-  HeaderStringTsx,
-  LogoStringJsx,
-  LogoStringTsx,
-} from "@/packages/components/headers/Header_3_Helper";
+import { Header } from "@/packages/components/headers/Header_3_Helper";
 
 import {
   DataDescription,
@@ -12,13 +6,14 @@ import {
   ImplementationNode,
 } from "@/utils/constants";
 import React from "react";
+import { Hero } from "../hero_section/Hero_4";
 
 function Demo() {
   return (
     <div className="w-full">
       <Header />
-      <div className="min-h-[80rem] w-full text-center flex justify-center items-center">
-        <h1 className="text-2xl text-s_textPrimary">Content</h1>
+      <div className="min-h-[80rem] w-full">
+        <Hero />
       </div>
     </div>
   );
@@ -43,16 +38,16 @@ const Implementation: ImplementationNode[] = [
   {
     type: "code",
     content: [
-      {
-        name: "Header",
-        content: [
-          { language: "tsx", code: HeaderStringTsx },
-          {
-            language: "jsx",
-            code: HeaderStringJsx,
-          },
-        ],
-      },
+      // {
+      //   name: "Header",
+      //   content: [
+      //     { language: "tsx", code: HeaderStringTsx },
+      //     {
+      //       language: "jsx",
+      //       code: HeaderStringJsx,
+      //     },
+      //   ],
+      // },
       {
         name: "Implementation",
         content: [
@@ -66,19 +61,19 @@ const Implementation: ImplementationNode[] = [
           },
         ],
       },
-      {
-        name: "Logo",
-        content: [
-          {
-            language: "tsx",
-            code: LogoStringTsx,
-          },
-          {
-            language: "jsx",
-            code: LogoStringJsx,
-          },
-        ],
-      },
+      // {
+      //   name: "Logo",
+      //   content: [
+      //     {
+      //       language: "tsx",
+      //       code: LogoStringTsx,
+      //     },
+      //     {
+      //       language: "jsx",
+      //       code: LogoStringJsx,
+      //     },
+      //   ],
+      // },
     ],
   },
 ];
@@ -88,7 +83,7 @@ const HeroData: DataDescription = {
   description: "This is a responsive header with animated Links and Button",
   implementation: Implementation,
   component: Demo(),
-  version_included: "0.0.2",
+  version_included: "0.1.2",
   display: true,
 };
 export default HeroData;

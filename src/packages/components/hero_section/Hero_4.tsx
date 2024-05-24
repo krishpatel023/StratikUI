@@ -7,7 +7,7 @@ import {
 } from "@/packages/components/hero_section/Hero_4_Helper";
 import { Background, BackgroundString } from "@/packages/helper/Background";
 import { LogoStringJsx, LogoStringTsx } from "@/packages/helper/Logo";
-function Hero() {
+export function Hero() {
   return (
     <div className="w-full min-h-screen overflow-hidden flex flex-col @md:flex-row gap-10 @md:gap-0 justify-center items-center  relative">
       <div className="w-full my-24 flex flex-col justify-center items-center text-center gap-8 z-10">
