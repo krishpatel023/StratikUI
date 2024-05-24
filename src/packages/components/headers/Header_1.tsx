@@ -1,17 +1,6 @@
-import {
-  Header,
-  HeaderStringJsx,
-  HeaderStringTsx,
-  useClickOutsideStringJsx,
-  useClickOutsideStringTsx,
-} from "@/packages/components/headers/Header_1_Helper";
+import { Header } from "@/packages/components/headers/Header_1_Helper";
 
-import {
-  DataDescription,
-  IconProps,
-  ImplementationNode,
-} from "@/utils/constants";
-import React from "react";
+import { DataDescription, ImplementationNode } from "@/utils/constants";
 
 function Demo() {
   return (
@@ -112,52 +101,52 @@ const Implementation: ImplementationNode[] = [
       {
         name: "Header",
         content: [
-          { language: "tsx", code: HeaderStringTsx },
-          {
-            language: "jsx",
-            code: HeaderStringJsx,
-          },
-        ],
-      },
-      {
-        name: "Implementation",
-        content: [
-          {
-            language: "tsx",
-            code: UsageString,
-          },
+          { language: "tsx", code: UsageString },
           {
             language: "jsx",
             code: UsageString,
           },
         ],
       },
-      {
-        name: "UseClickOutsideHook",
-        content: [
-          {
-            language: "tsx",
-            code: useClickOutsideStringTsx,
-          },
-          {
-            language: "jsx",
-            code: useClickOutsideStringJsx,
-          },
-        ],
-      },
-      {
-        name: "Logo",
-        content: [
-          {
-            language: "tsx",
-            code: LogoStringTsx,
-          },
-          {
-            language: "jsx",
-            code: LogoStringJsx,
-          },
-        ],
-      },
+      // {
+      //   name: "Implementation",
+      //   content: [
+      //     {
+      //       language: "tsx",
+      //       code: UsageString,
+      //     },
+      //     {
+      //       language: "jsx",
+      //       code: UsageString,
+      //     },
+      //   ],
+      // },
+      // {
+      //   name: "UseClickOutsideHook",
+      //   content: [
+      //     {
+      //       language: "tsx",
+      //       code: useClickOutsideStringTsx,
+      //     },
+      //     {
+      //       language: "jsx",
+      //       code: useClickOutsideStringJsx,
+      //     },
+      //   ],
+      // },
+      // {
+      //   name: "Logo",
+      //   content: [
+      //     {
+      //       language: "tsx",
+      //       code: LogoStringTsx,
+      //     },
+      //     {
+      //       language: "jsx",
+      //       code: LogoStringJsx,
+      //     },
+      //   ],
+      // },
     ],
   },
 ];
@@ -168,7 +157,7 @@ const HeroData: DataDescription = {
     "This is a default header section with half screen slider. It also has click outside hook to close the header when clicked outside.",
   implementation: Implementation,
   component: Demo(),
-  version_included: "0.0.2",
+  version_included: "0.1.2",
   display: true,
 };
 export default HeroData;
