@@ -1,63 +1,247 @@
 "use client";
 
 import { IconProps } from "@/utils/constants";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
+import { HeaderDrawer } from "./Header_Drawer_Helper";
+import { motion } from "framer-motion";
 
 export const Header = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
+
+  const navHeadings = [
+    {
+      title: "Home",
+      link: "#",
+      content: null,
+    },
+    {
+      title: "Pricing",
+      link: "#",
+      content: null,
+    },
+    {
+      title: "Products",
+      content: (
+        <div>
+          <h4 className="font-semibold text-sm mb-4">Categories</h4>
+          <ul className="text-sm text-neutral-950 dark:text-neutral-300 flex flex-col gap-2">
+            <li className="hover:text-blue-500 hover:cursor-pointer">
+              Electronics
+            </li>
+            <li className="hover:text-blue-500 hover:cursor-pointer">
+              Clothing
+            </li>
+            <li className="hover:text-blue-500 hover:cursor-pointer">Books</li>
+          </ul>
+        </div>
+      ),
+    },
+    {
+      title: "Services",
+      content: (
+        <div>
+          <h4 className="font-semibold text-sm mb-4">Our Services</h4>
+          <ul className="text-sm text-neutral-950 dark:text-neutral-300 flex flex-col gap-2">
+            <li className="hover:text-blue-500 hover:cursor-pointer">
+              Web Development
+            </li>
+            <li className="hover:text-blue-500 hover:cursor-pointer">
+              Mobile App Development
+            </li>
+            <li className="hover:text-blue-500 hover:cursor-pointer">
+              IT Consulting
+            </li>
+          </ul>
+        </div>
+      ),
+    },
+    {
+      title: "About",
+      content: (
+        <div>
+          <h4 className="font-semibold text-sm mb-4">About Our Company</h4>
+          <p className="text-sm text-neutral-950 dark:text-neutral-300">
+            We are a leading provider of innovative solutions for businesses of
+            all sizes. Our team of experts has years of experience in nothing{" "}
+            {":)"}
+          </p>
+        </div>
+      ),
+    },
+  ];
+
   return (
-    <div className="w-full h-16  flex justify-between px-6 @md:px-10 items-center shadow shadow-s_textSecondary relative bg-s_background">
-      <a href="#" className="text-s_textPrimary font-semibold text-lg">
-        LOGO
-      </a>
-      <div className="flex gap-6 items-center ">
-        <span
-          className={twMerge(
-            "h-full items-center gap-6 hidden @md:flex",
-            open
-              ? "bg-s_background absolute h-[calc(94.5dvh-4rem)] w-full top-16 left-0 flex flex-col justify-center shadow shadow-s_textSecondary px-6"
-              : ""
-          )}
-        >
-          {" "}
+    <>
+      <HeaderDrawer
+        open={open}
+        setOpen={setOpen}
+        className="bg-white border-b dark:bg-neutral-950 dark:text-white dark:border-neutral-200"
+      >
+        {navHeadings.map((heading) => (
           <a
+            key={heading.title}
             href="#"
             className="text-s_textPrimary hover:text-s_accent font-medium"
           >
-            Page 1
+            {heading.title}
           </a>
-          <a
-            href="#"
-            className="text-s_textPrimary hover:text-s_accent font-medium"
-          >
-            Page 2
-          </a>{" "}
-          <a
-            href="#"
-            className="text-s_textPrimary hover:text-s_accent font-medium"
-          >
-            Page 3
-          </a>
-          <button className="bg-s_primary text-s_textComplementary w-full @md:w-auto py-2 @md:px-4 rounded hover:bg-s_primaryLight hover:shadow-md hover:shadow-blue-500">
+        ))}
+      </HeaderDrawer>
+      <div className="w-full h-16  flex justify-between px-6 @md:px-10 items-center bg-neutral-50/20 dark:bg-neutral-950">
+        <a href="#" className="text-s_textPrimary font-semibold text-lg">
+          LOGO
+        </a>
+        <NavbarGroup headings={navHeadings} />
+        <GradientBackground>
+          <button className="relative z-10 bg-white text-black dark:bg-black dark:text-white py-2 @md:px-4 rounded-lg hidden @md:block">
             Get Started
           </button>
-        </span>
-
+        </GradientBackground>
         <button
           className="w-10 h-10 @md:hidden hover:bg-s_secondary rounded flex justify-center items-center relative text-s_textPrimary"
           onClick={() => {
-            setOpen(!open);
+            setOpen(true);
           }}
         >
-          {open ? <Cross className="h-6 w-6" /> : <Bars className="h-6 w-6" />}
+          <Bars className="h-6 w-6" />
         </button>
       </div>
+    </>
+  );
+};
+
+const NavbarGroup = ({
+  headings,
+}: {
+  headings: { title: string; content: React.ReactNode | null; link?: string }[];
+}) => {
+  const [open, setOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [prevActiveIndex, setPrevActiveIndex] = useState<number | null>(null);
+
+  const nullRef = useRef(null);
+  const nullArray = new Array(headings.length).fill(nullRef);
+  const dropdownRefs = useRef<(HTMLElement | null)[]>(nullArray);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  const [shiftX, setShiftX] = useState(0);
+  const [prevShiftX, setPrevShiftX] = useState(0);
+
+  const changePosition = () => {
+    if (
+      open &&
+      activeIndex &&
+      containerRef &&
+      containerRef.current &&
+      dropdownRefs.current[activeIndex]
+    ) {
+      const outerBoxLength = containerRef.current.getBoundingClientRect();
+      const innerBoxLength =
+        dropdownRefs.current[activeIndex]?.getBoundingClientRect();
+      if (!innerBoxLength) return;
+
+      const val =
+        innerBoxLength.left + innerBoxLength.width / 2 - outerBoxLength.left;
+
+      setShiftX(val);
+      if (!prevShiftX) setPrevShiftX(val);
+    }
+  };
+
+  useEffect(() => {
+    setPrevShiftX(shiftX);
+    changePosition();
+    if (!activeIndex) setPrevShiftX(0);
+  }, [activeIndex]);
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative h-full transition-all duration-300 hidden @md:block"
+      onMouseLeave={() => {
+        setActiveIndex(null);
+        setPrevActiveIndex(null);
+        setOpen(false);
+      }}
+    >
+      {/* NAV LINKS */}
+      <div className="h-full flex justify-center items-center gap-4">
+        {headings.map(({ title, link }, index) => (
+          <a
+            key={index}
+            {...(link ? { href: link } : {})}
+            onMouseEnter={() => {
+              setPrevActiveIndex(activeIndex);
+              setActiveIndex(index);
+              setOpen(true);
+            }}
+            ref={(ref) => (dropdownRefs.current[index] = ref)}
+            className="text-black dark:text-white hover:text-blue-500 font-medium"
+          >
+            {title}
+          </a>
+        ))}
+      </div>
+      {/* ANIMATED MENU */}
+      {open &&
+      activeIndex &&
+      headings[activeIndex]?.content &&
+      shiftX !== 0 &&
+      prevShiftX !== 0 ? (
+        <motion.div
+          className="absolute top-full left-0"
+          initial={{ x: prevShiftX }}
+          animate={{
+            x: shiftX,
+            transition: prevActiveIndex
+              ? { type: "spring", stiffness: 300, damping: 30 }
+              : { duration: 0.5, ease: "easeInOut" },
+          }}
+        >
+          <NavbarDropDown content={headings[activeIndex]?.content} />
+        </motion.div>
+      ) : null}
     </div>
   );
 };
 
-export const Bars = (props: IconProps) => (
+const NavbarDropDown = ({ content }: { content: React.ReactNode }) => {
+  return (
+    <>
+      {content && (
+        <div
+          className="px-6 py-4 rounded-lg bg-neutral-100 text-black border-neutral-400 dark:bg-neutral-950 dark:text-white border dark:border-neutral-700"
+          style={{ transform: `translateX(-50%)` }}
+        >
+          {content}
+        </div>
+      )}
+    </>
+  );
+};
+
+function GradientBackground({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className="relative group/gradient_bg w-max">
+      {children}
+      <div
+        className={twMerge(
+          "absolute z-0 -inset-0.5 bg-gradient-to-r from-blue-600 to-red-600 rounded-lg blur opacity-75 group-hover/gradient_bg:opacity-100 duration-200 transition-all",
+          className
+        )}
+      ></div>
+    </div>
+  );
+}
+
+const Bars = (props: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="1em"
@@ -70,21 +254,6 @@ export const Bars = (props: IconProps) => (
       fillRule="evenodd"
       d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75H12a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z"
       clipRule="evenodd"
-    ></path>
-  </svg>
-);
-
-export const Cross = (props: IconProps) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 32 32"
-    {...props}
-  >
-    <path
-      fill="currentColor"
-      d="M7.219 5.781L5.78 7.22L14.563 16L5.78 24.781l1.44 1.439L16 17.437l8.781 8.782l1.438-1.438L17.437 16l8.782-8.781L24.78 5.78L16 14.563z"
     ></path>
   </svg>
 );

@@ -254,7 +254,7 @@ const HeroData: DataDescription = {
   description: "This is a responsive header section with full screen slider.",
   implementation: Implementation,
   component: Demo(),
-  version_included: "0.0.2",
+  version_included: "0.1.2",
   display: true,
 };
 export default HeroData;
