@@ -6,6 +6,7 @@ import { animate, useAnimate } from "framer-motion";
 import { useState, useRef } from "react";
 import { twMerge } from "tailwind-merge";
 import { HeaderDrawer } from "./Header_Drawer_Helper";
+import { ContainerGlassEffect } from "@/packages/primitives/containers/Container_6";
 
 export const Header = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -31,7 +32,7 @@ export const Header = () => {
   return (
     <>
       {/* ANIMATED ONE FOR LARGE SCREEN */}
-      <div className="translate-x-1/2 w-[45rem] bg-neutral-100/65 dark:bg-neutral-900/65 backdrop-blur supports-[backdrop-filter]:bg-neutral-100/70 dark:supports-[backdrop-filter]:bg-neutral-900/60 hidden @md:flex h-16 px-10 border border-neutral-400 dark:border-neutral-700 rounded-full  sticky top-10 items-center gap-16 justify-evenly z-50">
+      <ContainerGlassEffect className="translate-x-1/2 w-[45rem]  hidden @md:flex h-16 px-10 border border-neutral-400 dark:border-neutral-700 rounded-full  sticky top-10 items-center gap-16 justify-evenly">
         <a href="#" className="text-s_textPrimary">
           LOGO
         </a>
@@ -41,7 +42,7 @@ export const Header = () => {
           })}
         </div>
         <AnimatedButton />
-      </div>
+      </ContainerGlassEffect>
       {/* SMALL SCREEN */}
       <HeaderDrawer
         open={open}

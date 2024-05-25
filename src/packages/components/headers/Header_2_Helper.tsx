@@ -4,7 +4,7 @@ import { IconProps } from "@/utils/constants";
 import { useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { HeaderDrawer } from "./Header_Drawer_Helper";
-import { motion } from "framer-motion";
+import { NavbarGroup } from "@/packages/primitives/header_blocks/Header_Continuous_Dropdown_Animated_Helper";
 
 export const Header = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -92,7 +92,7 @@ export const Header = () => {
         <a href="#" className="text-s_textPrimary font-semibold text-lg">
           LOGO
         </a>
-        <NavbarGroup headings={navHeadings} />
+        <NavbarGroup headings={navHeadings} className="hidden @md:block" />
         <GradientBackground>
           <button className="relative z-10 bg-white text-black dark:bg-black dark:text-white py-2 @md:px-4 rounded-lg hidden @md:block">
             Get Started
@@ -107,116 +107,6 @@ export const Header = () => {
           <Bars className="h-6 w-6" />
         </button>
       </div>
-    </>
-  );
-};
-
-const NavbarGroup = ({
-  headings,
-}: {
-  headings: { title: string; content: React.ReactNode | null; link?: string }[];
-}) => {
-  const [open, setOpen] = useState(false);
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const [prevActiveIndex, setPrevActiveIndex] = useState<number | null>(null);
-
-  const nullRef = useRef(null);
-  const nullArray = new Array(headings.length).fill(nullRef);
-  const dropdownRefs = useRef<(HTMLElement | null)[]>(nullArray);
-  const containerRef = useRef<HTMLDivElement | null>(null);
-
-  const [shiftX, setShiftX] = useState(0);
-  const [prevShiftX, setPrevShiftX] = useState(0);
-
-  const changePosition = () => {
-    if (
-      open &&
-      activeIndex &&
-      containerRef &&
-      containerRef.current &&
-      dropdownRefs.current[activeIndex]
-    ) {
-      const outerBoxLength = containerRef.current.getBoundingClientRect();
-      const innerBoxLength =
-        dropdownRefs.current[activeIndex]?.getBoundingClientRect();
-      if (!innerBoxLength) return;
-
-      const val =
-        innerBoxLength.left + innerBoxLength.width / 2 - outerBoxLength.left;
-
-      setShiftX(val);
-      if (!prevShiftX) setPrevShiftX(val);
-    }
-  };
-
-  useEffect(() => {
-    setPrevShiftX(shiftX);
-    changePosition();
-    if (!activeIndex) setPrevShiftX(0);
-  }, [activeIndex]);
-
-  return (
-    <div
-      ref={containerRef}
-      className="relative h-full transition-all duration-300 hidden @md:block"
-      onMouseLeave={() => {
-        setActiveIndex(null);
-        setPrevActiveIndex(null);
-        setOpen(false);
-      }}
-    >
-      {/* NAV LINKS */}
-      <div className="h-full flex justify-center items-center gap-4">
-        {headings.map(({ title, link }, index) => (
-          <a
-            key={index}
-            {...(link ? { href: link } : {})}
-            onMouseEnter={() => {
-              setPrevActiveIndex(activeIndex);
-              setActiveIndex(index);
-              setOpen(true);
-            }}
-            ref={(ref) => (dropdownRefs.current[index] = ref)}
-            className="text-black dark:text-white hover:text-blue-500 font-medium"
-          >
-            {title}
-          </a>
-        ))}
-      </div>
-      {/* ANIMATED MENU */}
-      {open &&
-      activeIndex &&
-      headings[activeIndex]?.content &&
-      shiftX !== 0 &&
-      prevShiftX !== 0 ? (
-        <motion.div
-          className="absolute top-full left-0"
-          initial={{ x: prevShiftX }}
-          animate={{
-            x: shiftX,
-            transition: prevActiveIndex
-              ? { type: "spring", stiffness: 300, damping: 30 }
-              : { duration: 0.5, ease: "easeInOut" },
-          }}
-        >
-          <NavbarDropDown content={headings[activeIndex]?.content} />
-        </motion.div>
-      ) : null}
-    </div>
-  );
-};
-
-const NavbarDropDown = ({ content }: { content: React.ReactNode }) => {
-  return (
-    <>
-      {content && (
-        <div
-          className="px-6 py-4 rounded-lg bg-neutral-100 text-black border-neutral-400 dark:bg-neutral-950 dark:text-white border dark:border-neutral-700"
-          style={{ transform: `translateX(-50%)` }}
-        >
-          {content}
-        </div>
-      )}
     </>
   );
 };
