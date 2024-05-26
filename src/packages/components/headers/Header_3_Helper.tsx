@@ -32,7 +32,7 @@ export const Header = () => {
   return (
     <>
       {/* ANIMATED ONE FOR LARGE SCREEN */}
-      <ContainerGlassEffect className="translate-x-1/2 w-[45rem]  hidden @md:flex h-16 px-10 border border-neutral-400 dark:border-neutral-700 rounded-full  sticky top-10 items-center gap-16 justify-evenly">
+      <ContainerGlassEffect className="w-[45rem] mx-auto hidden @md:flex h-16 px-10 border border-neutral-400 dark:border-neutral-700 rounded-full  sticky top-10 items-center gap-16 justify-evenly">
         <a href="#" className="text-s_textPrimary">
           LOGO
         </a>
