@@ -50,13 +50,13 @@ export default function CodeHighlight({
       {html ? (
         <div className="w-full mx-auto overflow-hidden">
           <div
-            className={`${withCounter ? "with-counter" : ""} text-sm [&>pre]:overflow-x-auto  dark:[&>pre]:!bg-neutral-900 [&>pre]:!bg-slate-100  [&>pre]:py-3 [&>pre]:pl-4 [&>pre]:pr-5 [&>pre]:leading-snug [&_code]:block [&_code]:w-fit [&_code]:min-w-full`}
+            className={`${withCounter ? "with-counter" : ""} text-sm [&>pre]:overflow-x-auto  dark:[&>pre]:!bg-neutral-900/70 [&>pre]:!bg-gray-50  [&>pre]:py-3 [&>pre]:pl-4 [&>pre]:pr-5 [&>pre]:leading-snug [&_code]:block [&_code]:w-fit [&_code]:min-w-full`}
             dangerouslySetInnerHTML={{ __html: html }}
           ></div>
         </div>
       ) : (
         <Skeleton
-          className={`w-full ${withCounter ? "min-h-60" : "min-h-10"}`}
+          className={`w-full bg-slate-50 dark:bg-neutral-950 ${withCounter ? "min-h-60" : "min-h-10"}`}
         />
       )}
     </>
