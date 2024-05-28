@@ -39,7 +39,7 @@ export default useClickOutside;
 
 const CodeJsx: string = `import { useEffect, RefObject } from "react";
 
-const useClickOutside = (ref: RefObject<HTMLElement>, handler: () => void) => {
+const useClickOutside = (ref, handler) => {
   useEffect(() => {
     const listener = (event) => {
       if (
