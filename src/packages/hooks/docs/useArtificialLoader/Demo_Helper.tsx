@@ -44,25 +44,24 @@ export const Loader = () => {
 };
 
 export const DemoStrTsx = `export const Loader = () => {
-  const { isLoading, progress, startLoader, stopLoader } =
-    useArtificialLoader();
+  const { isLoading, progress, startLoader, stopLoader } = useArtificialLoader(); // [!code highlight]
 
   const handleStart = () => {
-    startLoader({
-      duration: 2000,
-      updateCount: 100,
-    });
+    startLoader({// [!code highlight]
+      duration: 2000,// [!code highlight]
+      updateCount: 100,// [!code highlight]
+    });// [!code highlight]
   };
 
   const handleStop = () => {
-    stopLoader();
+    stopLoader(); // [!code highlight]
   };
   return (
     <>
       <div className="w-80 flex justify-between items-center">
         <div className="w-[80%] h-2 rounded-full bg-neutral-700/10 dark:bg-neutral-800/80">
           <div
-            style={{ width: \`\${progress}%\` }}
+            style={{ width: \`\${progress}%\` }} // [!code highlight]
             className="min-h-full bg-blue-600 dark:bg-blue-700 rounded-full transition-all duration-300"
           ></div>
         </div>
@@ -85,25 +84,24 @@ export const DemoStrTsx = `export const Loader = () => {
 `;
 
 export const DemoStrJsx = `export const Loader = () => {
-  const { isLoading, progress, startLoader, stopLoader } =
-    useArtificialLoader();
+  const { isLoading, progress, startLoader, stopLoader } = useArtificialLoader(); // [!code highlight]
 
   const handleStart = () => {
-    startLoader({
-      duration: 2000,
-      updateCount: 100,
-    });
+    startLoader({ // [!code highlight]
+      duration: 2000, // [!code highlight]
+      updateCount: 100, // [!code highlight]
+    }); // [!code highlight]
   };
 
   const handleStop = () => {
-    stopLoader();
+    stopLoader(); // [!code highlight]
   };
   return (
     <>
       <div className="w-80 flex justify-between items-center">
         <div className="w-[80%] h-2 rounded-full bg-neutral-700/10 dark:bg-neutral-800/80">
           <div
-            style={{ width: \`\${progress}%\` }}
+            style={{ width: \`\${progress}%\` }} // [!code highlight]
             className="min-h-full bg-blue-600 dark:bg-blue-700 rounded-full transition-all duration-300"
           ></div>
         </div>

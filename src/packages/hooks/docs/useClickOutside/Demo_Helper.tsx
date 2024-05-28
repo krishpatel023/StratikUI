@@ -89,8 +89,8 @@ function Modal({
   className?: string;
   blurBg?: boolean;
 }) {
-  const ref = useRef(null);
-  useClickOutside(ref, () => setActive(false));
+  const ref = useRef(null); // [!code highlight]  
+  useClickOutside(ref, () => setActive(false)); // [!code highlight]
 
   return (
     <>
@@ -103,7 +103,7 @@ function Modal({
           )}
         >
           <div
-            ref={ref}
+            ref={ref} // [!code highlight]
             className={twMerge(
               "hidden absolute rounded-md px-6 py-6 border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-950 text-black dark:text-white",
               active && "flex flex-col",
@@ -151,8 +151,8 @@ function Modal({
   className,
   blurBg = true,
 }) {
-  const ref = useRef(null);
-  useClickOutside(ref, () => setActive(false));
+  const ref = useRef(null); // [!code highlight]
+  useClickOutside(ref, () => setActive(false)); // [!code highlight]
 
   return (
     <>
@@ -165,7 +165,7 @@ function Modal({
           )}
         >
           <div
-            ref={ref}
+            ref={ref} // [!code highlight]
             className={twMerge(
               "hidden absolute rounded-md px-6 py-6 border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-950 text-black dark:text-white",
               active && "flex flex-col",
