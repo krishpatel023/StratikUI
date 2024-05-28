@@ -1,9 +1,17 @@
 "use client";
-import { useEffect } from "react";
+import { RefObject, useEffect, useState } from "react";
 
-export default function useDisableScroll(isModalOpen: boolean, idTag?: string) {
+export default function useDisableScroll(
+  isModalOpen: boolean,
+  reference?: string | RefObject<HTMLElement>
+) {
+  const [item, setItem] = useState<HTMLElement | null>(null);
   useEffect(() => {
-    const item = idTag ? document.getElementById(idTag) : document.body;
+    if (reference && typeof reference === "string")
+      setItem(document.getElementById(reference));
+    else if (reference && typeof reference === "object")
+      setItem(reference.current);
+    else setItem(document.body);
 
     if (!item) return;
     item.style.overflow = isModalOpen ? "hidden" : "auto";
@@ -13,5 +21,5 @@ export default function useDisableScroll(isModalOpen: boolean, idTag?: string) {
         item.style.overflow = "auto";
       }
     };
-  }, [isModalOpen, idTag]);
+  }, [isModalOpen, reference]);
 }

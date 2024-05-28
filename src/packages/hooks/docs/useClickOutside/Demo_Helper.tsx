@@ -59,8 +59,8 @@ export const ModalImplementation = () => {
     <div className="min-h-[35rem] flex justify-center items-center">
       <Modal active={active} setActive={setActive} className="max-w-[30rem]">
         <h1>
-          First click inside the modal to check that it wo'nt close. Now, click
-          outside the modal to close and see how the hook works.
+          First click inside the modal to check that it {"won't"} close. Now,
+          click outside the modal to close and see how the hook works.
         </h1>
       </Modal>
       <Button onClick={() => setActive(true)}>Open Modal</Button>
