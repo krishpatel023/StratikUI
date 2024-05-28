@@ -123,9 +123,19 @@ export const readDirectory = (): FileData[] => {
     display: false,
   });
 
-  // Adding components and primitives to files
-  if (componentData && primitiveData) {
-    files = [primitiveData, componentData];
+  // Iterating through hooks
+  const hooksDirectory = path.join(process.cwd(), "src/packages/hooks/docs");
+  // This will return the input object only but with updated content field
+  const hookData = walkSync(hooksDirectory, {
+    name: "hooks",
+    content: [],
+    type: "category",
+    display: false,
+  });
+
+  // Adding components, primitives and hooks to files
+  if (componentData && primitiveData && hookData) {
+    files = [primitiveData, componentData, hookData];
   }
   // Returning an FileData[]
   return files;
