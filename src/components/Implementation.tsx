@@ -4,6 +4,7 @@ import {
   Code,
   ImplementationNode,
   InspirationObject,
+  PropertiesObject,
   TechnologiesUsed,
 } from "@/utils/constants";
 import { Icons } from "@/utils/icons";
@@ -21,6 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/Select";
+import { twMerge } from "tailwind-merge";
 
 export default function Implementation({
   implementation,
@@ -44,6 +46,9 @@ export default function Implementation({
             )}
             {item.type === "inspiration" && (
               <Inspiration data={item.content as InspirationObject} />
+            )}
+            {item.type === "properties" && (
+              <Properties data={item.content as PropertiesObject} />
             )}
           </div>
         ))}
@@ -141,7 +146,7 @@ const CodeDisplay = ({
   return (
     <>
       {activeCode >= 0 && activeLanguage >= 0 ? (
-        <div className="w-full border-[2px] border-slate-100 dark:border-neutral-900 rounded text-textPrimary p-0">
+        <div className="w-full border-[2px] border-slate-100 dark:border-neutral-900/70 rounded-lg text-textPrimary p-0">
           {/* TASKBAR */}
           <div className="w-full h-8 flex justify-between items-center mt-2">
             {/* BUTTONS */}
@@ -152,7 +157,7 @@ const CodeDisplay = ({
                   key={i}
                   className={
                     activeCode === i
-                      ? "text-sm h-full px-4 py-1 rounded-t-md dark:bg-neutral-900 bg-slate-100 border-t-2 border-x-2 dark:border-neutral-800 border-slate-200"
+                      ? "text-sm h-full px-4 py-1 rounded-t-md dark:bg-neutral-900/70 bg-gray-50 border-t-2 border-x-2 dark:border-neutral-900 border-slate-100"
                       : "text-sm h-full px-4 py-1"
                   }
                   onClick={() => setActiveCode(i)}
@@ -251,6 +256,59 @@ function Inspiration({ data }: { data: InspirationObject }) {
         {data.name}
         <Icons.arrow className="rotate-45" />
       </a>
+    </div>
+  );
+}
+
+function Properties({ data }: { data: PropertiesObject }) {
+  return (
+    <div className="w-full flex flex-col justify-start items-center gap-2 mt-10">
+      <h1 className="text-xl font-medium text-textPrimary w-full mb-6">
+        {data.name}
+      </h1>
+      {/* Table */}
+      <div className="w-full overflow-x-auto scrollbar-horizontal">
+        <div className="w-full min-w-[800px] p-[1px] border border-slate-100 dark:border-none bg-gray-50 dark:bg-neutral-900/70 rounded-xl overflow-hidden">
+          <table className="w-full">
+            <colgroup>
+              {data.dimensions.map((item, i) => (
+                <col key={i} style={{ width: `${item}%` }} />
+              ))}
+            </colgroup>
+            <tbody>
+              {data.data.map((item, i) => (
+                <tr key={i}>
+                  <Fragment key={i}>
+                    {item.map((item, j) => (
+                      <td
+                        key={j}
+                        className={twMerge(
+                          "py-3 text-sm dark:text-neutral-300 bg-white dark:bg-black px-4 break-words",
+                          "border border-gray-50 dark:border-neutral-900/70",
+                          i === 0 &&
+                            "bg-transparent dark:bg-transparent font-semibold border-none",
+                          i === 0 && j === 0 && "rounded-tl-3xl",
+                          i === 0 &&
+                            j === data.dimensions.length - 1 &&
+                            "rounded-tr-xl",
+                          i === data.data.length - 1 &&
+                            j === 0 &&
+                            "rounded-bl-xl ",
+                          i === data.data.length - 1 &&
+                            j === data.dimensions.length - 1 &&
+                            "rounded-br-xl"
+                        )}
+                      >
+                        {item}
+                      </td>
+                    ))}
+                  </Fragment>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }
