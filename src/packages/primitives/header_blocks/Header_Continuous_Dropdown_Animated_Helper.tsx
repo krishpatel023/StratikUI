@@ -55,7 +55,7 @@ export const NavbarGroup = ({
     setPrevShiftX(shiftX);
     changePosition();
     if (!activeIndex) setPrevShiftX(0);
-  }, [activeIndex]);
+  }, [activeIndex]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div

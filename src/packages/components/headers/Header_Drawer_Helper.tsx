@@ -26,7 +26,7 @@ export const HeaderDrawer = ({
 
   useEffect(() => {
     console.log(ref.current);
-  }, [ref.current, open]);
+  }, [ref.current, open]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <div ref={ref}>
       <div

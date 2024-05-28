@@ -37,7 +37,7 @@ const useScrollToTop = (
     return () => {
       window.removeEventListener("scroll", toggleVisibility);
     };
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return [isVisible, scrollToTop] as const;
 };

@@ -29,7 +29,7 @@ export default function CodeHighlight({
     };
 
     callFunc();
-  }, [code]);
+  }, [code]); // eslint-disable-line react-hooks/exhaustive-deps
 
   async function getHtml() {
     return await codeToHtml(code, {

@@ -68,7 +68,7 @@ export const HighlightGroup: React.FC<HighlightGroupProps> = ({
 
   useEffect(() => {
     onMouseMove();
-  }, [mousePosition]);
+  }, [mousePosition]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     initContainer();

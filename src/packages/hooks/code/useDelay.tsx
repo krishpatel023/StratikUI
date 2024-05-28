@@ -24,7 +24,7 @@ const useDelay = (): UseDelayReturn => {
     return () => {
       clearDelay();
     };
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const delay = async (
     time: number,

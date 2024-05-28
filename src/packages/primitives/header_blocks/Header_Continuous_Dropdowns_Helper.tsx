@@ -48,7 +48,7 @@ export const NavbarGroup = ({
 
   useEffect(() => {
     changePosition();
-  }, [activeIndex]);
+  }, [activeIndex]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div

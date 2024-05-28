@@ -56,7 +56,7 @@ function Toast({
   useEffect(() => {
     const index = calculateHirarchy(toastId);
     setHirarchy(index);
-  }, [toasts]);
+  }, [toasts]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const directionDependentPositioning: {
     [key: string]: {

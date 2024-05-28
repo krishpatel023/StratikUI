@@ -159,7 +159,8 @@ const FileLoader = () => {
       duration: 2000,
       updateCount: 100,
     });
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <div className="w-full flex justify-between items-center">
       <div className="w-[80%] h-[4px] rounded-full bg-neutral-700/10 dark:bg-neutral-800/80">

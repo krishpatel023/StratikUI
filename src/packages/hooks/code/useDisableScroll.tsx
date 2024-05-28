@@ -21,5 +21,5 @@ export default function useDisableScroll(
         item.style.overflow = "auto";
       }
     };
-  }, [isModalOpen, reference]);
+  }, [isModalOpen, reference]); // eslint-disable-line react-hooks/exhaustive-deps
 }

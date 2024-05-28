@@ -128,7 +128,7 @@ export const KeyListener: React.FC<KeyListenerProps> = ({
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [handleKeyDown]);
+  }, [handleKeyDown]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return <>{children}</>;
 };
