@@ -5,7 +5,7 @@ export interface DataDescription {
   name: string;
   description: string;
   implementation: ImplementationNode[];
-  component: React.JSX.Element;
+  component: React.JSX.Element | null;
   version_included: string;
   display: boolean;
 }
@@ -19,6 +19,7 @@ export type CodeBlock = {
   code: string;
   language: BundledLanguage;
 };
+
 export type Code = {
   name: string;
   content: CodeBlock[];
@@ -29,6 +30,14 @@ export type InspirationObject = {
   link: string;
   message: string;
 };
+
+export type PropertiesObject = {
+  name: string;
+  description?: string;
+  dimensions: number[];
+  data: string[][];
+};
+
 export type ImplementationNode =
   | {
       type: "code";
@@ -45,6 +54,10 @@ export type ImplementationNode =
   | {
       type: "bash";
       content: Code[];
+    }
+  | {
+      type: "properties";
+      content: PropertiesObject;
     };
 
 export interface FileData {
