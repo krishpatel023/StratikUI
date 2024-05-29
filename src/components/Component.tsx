@@ -11,6 +11,8 @@ import { versionCheck } from "@/scripts/VersionCheck";
 import { Skeleton } from "./ui/Skeleton";
 import { twMerge } from "tailwind-merge";
 import Link from "next/link";
+import useHash from "@/hooks/useHash";
+import useScrollToSection from "@/hooks/useScrollToSection";
 
 export default function Component({ data }: { data: DataDescription }) {
   const { theme, setTheme } = useTheme();
@@ -55,6 +57,14 @@ export default function Component({ data }: { data: DataDescription }) {
     const convertToArray = str.toLowerCase().split(" ");
     return convertToArray.join("-");
   };
+
+  // Reading the hashed version
+  const hash = useHash();
+  const scrollToSection = useScrollToSection();
+
+  useEffect(() => {
+    if (hash) scrollToSection(hash);
+  }, [hash]);
 
   return (
     <>
