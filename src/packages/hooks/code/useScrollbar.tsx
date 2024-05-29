@@ -1,46 +1,52 @@
 "use client";
+import { useState, useEffect, useCallback } from "react";
 
-import { useState, useEffect, useCallback, useRef } from "react";
-
-const useScrollbar = (elementId: string) => {
+const useScrollbar = (
+  elementIdOrRef?: string | React.RefObject<HTMLElement>
+) => {
   const [scrollPosition, setScrollPosition] = useState({ x: 0, y: 0 });
-
   const [directionX, setDirectionX] = useState<boolean | null>(null);
   const [directionY, setDirectionY] = useState<boolean | null>(null);
 
-  const elementRef = useRef<HTMLElement | null>(null);
-
   const handleScroll = useCallback(() => {
-    const element = elementRef.current;
-
+    const element = getElement();
     if (element) {
-      const xpos = element.scrollLeft;
-      const ypos = element.scrollTop;
-
+      const xpos = parseFloat(window.scrollX.toFixed(2));
+      const ypos = parseFloat(window.scrollY.toFixed(2));
       const prevXpos = scrollPosition.x;
       const prevYpos = scrollPosition.y;
-
       if (prevXpos <= xpos) setDirectionX(true);
       else setDirectionX(false);
-
       if (prevYpos <= ypos) setDirectionY(true);
       else setDirectionY(false);
-
       setScrollPosition({ x: xpos, y: ypos });
     }
   }, [scrollPosition]);
 
-  useEffect(() => {
-    const element = document.getElementById(elementId);
+  const getElement = () => {
+    if (elementIdOrRef && typeof elementIdOrRef === "string")
+      return document.getElementById(elementIdOrRef);
+    else if (elementIdOrRef && typeof elementIdOrRef === "object")
+      return elementIdOrRef.current;
+    else return document.documentElement || document.body;
+  };
 
-    if (element) {
-      elementRef.current = element;
+  useEffect(() => {
+    const element = getElement();
+    const handleScrollEvent = () => handleScroll();
+
+    if (element === document.documentElement || element === document.body) {
+      window.addEventListener("scroll", handleScrollEvent, { passive: true });
+      return () => {
+        window.removeEventListener("scroll", handleScrollEvent);
+      };
+    } else if (element) {
       element.addEventListener("scroll", handleScroll, { passive: true });
       return () => {
         element.removeEventListener("scroll", handleScroll);
       };
     }
-  }, [elementId, handleScroll]);
+  }, [handleScroll]);
 
   return { scrollPosition, directionX, directionY };
 };
