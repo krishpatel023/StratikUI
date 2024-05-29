@@ -57,7 +57,7 @@ export default function Sidebar(params: { params: { data: FileData[] } }) {
                               }}
                             >
                               <h1
-                                className={` font-normal text-sm capitalize  mt-3 flex justify-start items-center flex-wrap gap-4  ${splitParams[3] === subitem.name ? "text-accent" : "text-textSecondary hover:text-accent hover:cursor-pointer hover:ml-2 transition-all ease-linear duration-150"}`}
+                                className={` font-normal text-sm ${item.name !== "hooks" && "capitalize"}  mt-3 flex justify-start items-center flex-wrap gap-4  ${splitParams[3] === subitem.name ? "text-accent" : "text-textSecondary hover:text-accent hover:cursor-pointer hover:ml-2 transition-all ease-linear duration-150"}`}
                               >
                                 {subitem.name.replace(/-/g, " ")}
                                 {subitem.version && isNew && (
