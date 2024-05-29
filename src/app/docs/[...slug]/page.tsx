@@ -1,8 +1,18 @@
 import Component from "@/components/Component";
-import { StorageData } from "@/packages/index";
+import { StorageData, staticPaths } from "@/packages/index";
 import { FileData } from "@/utils/constants";
 import { notFound } from "next/navigation";
 import { Fragment } from "react";
+
+export async function generateStaticParams() {
+  const data = staticPaths;
+
+  return data.map((slug) => {
+    return {
+      slug: slug.split("/"),
+    };
+  });
+}
 
 export default function Components({ params }: { params: { slug: string } }) {
   const data: FileData[] = StorageData;

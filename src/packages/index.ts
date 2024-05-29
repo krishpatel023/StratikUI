@@ -143,3 +143,31 @@ export const readDirectory = (): FileData[] => {
 
 // Adding the return vaule here so that it can be used at multiple places
 export const StorageData: FileData[] = readDirectory();
+
+const extractIndividual = (parent: string, subData: FileData[]) => {
+  let returnData: string[] = [];
+
+  subData.map((item) => {
+    if (item.display) return returnData.push(`${parent}/${item.name}`);
+  });
+
+  return returnData;
+};
+const processData = () => {
+  const primitives = extractIndividual(
+    "primitives",
+    StorageData[0].content as FileData[]
+  );
+  const components = extractIndividual(
+    "components",
+    StorageData[1].content as FileData[]
+  );
+  const hooks = extractIndividual(
+    "hooks",
+    StorageData[2].content as FileData[]
+  );
+
+  return [...primitives, ...components, ...hooks];
+};
+
+export const staticPaths = processData();
