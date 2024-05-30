@@ -3,3 +3,8 @@ export const CURRENT_VERSION = "0.1.0";
 
 // Default Mode of the page false -> light, true -> dark
 export const DEFAULT_MODE = true;
+
+export const convertToDashed = (str: string) => {
+  const convertToArray = str.toLowerCase().split(" ");
+  return convertToArray.join("-");
+};
