@@ -10,9 +10,9 @@ export default function Layout({
   const data: FileData[] = StorageData;
   return (
     <>
-      <div className="w-full flex justify-end relative">
+      <div className="w-full flex justify-center relative">
         <Sidebar params={{ data: data }} />
-        <div className="w-[calc(100%)]">{children}</div>
+        <div className="w-[90%] pt-10">{children}</div>
       </div>
     </>
   );
