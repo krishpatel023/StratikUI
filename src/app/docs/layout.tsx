@@ -12,7 +12,7 @@ export default function Layout({
     <>
       <div className="w-full flex justify-center relative">
         <Sidebar params={{ data: data }} />
-        <div className="w-[90%] pt-10">{children}</div>
+        <div className="w-[90%]">{children}</div>
       </div>
     </>
   );
