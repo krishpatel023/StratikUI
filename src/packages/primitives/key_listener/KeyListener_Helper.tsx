@@ -1,6 +1,7 @@
 "use client";
 import { IconProps } from "@/utils/constants";
 import React, { useEffect, useCallback } from "react";
+import { twMerge } from "tailwind-merge";
 
 export type Key =
   | "Control"
@@ -113,9 +114,25 @@ export const KeyListener: React.FC<KeyListenerProps> = ({
         event.code === "End" && "End",
         event.code === "PageUp" && "PageUp",
         event.code === "PageDown" && "PageDown",
+        event.code === "ArrowUp" && "Up",
+        event.code === "ArrowDown" && "Down",
+        event.code === "ArrowLeft" && "Left",
+        event.code === "ArrowRight" && "Right",
+        event.code === "CapsLock" && "CapsLock",
+        event.code === "Enter" && "Enter",
       ].filter(Boolean) as Key[];
 
+      // console.log(
+      //   "pressedKeys",
+      //   pressedKeys,
+      //   event.code,
+      //   keys,
+      //   pressedKeys.join("+") === keys.join("+")
+      // );
+
       if (pressedKeys.join("+") === keys.join("+")) {
+        console.log("FIRED");
+
         onKeyDown(event);
       }
     },
@@ -206,13 +223,22 @@ const Icons: IconsProps = {
   9: "9",
 };
 
-export function KeyListenerDisplay({ keys }: { keys: Key[] }) {
+export function KeyListenerDisplay({
+  keys,
+  className,
+}: {
+  keys: Key[];
+  className?: string;
+}) {
   return (
     <div className="flex gap-2">
       {keys.map((key, index) => (
         <div
           key={index}
-          className="w-max text-xs rounded py-1 px-2 border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-950 text-black dark:text-white"
+          className={twMerge(
+            "w-max text-xs rounded py-1 px-2 border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-950 text-black dark:text-white",
+            className
+          )}
         >
           {Icons[key] || key}
         </div>
