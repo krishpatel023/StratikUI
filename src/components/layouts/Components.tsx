@@ -12,8 +12,25 @@ import { Skeleton } from "../ui/Skeleton";
 
 import dynamic from "next/dynamic";
 
-const Implementation = dynamic(() => import("../Implementation"));
-const ResizableContainer = dynamic(() => import("../Resizable"));
+const ResizableContainer = dynamic(() => import("../Resizable"), {
+  loading: () => (
+    <div className="flex w-full min-h-[800px]">
+      <Skeleton className="min-h-full min-w-[calc(100%-1rem)] rounded-lg" />
+      <div className="w-4 flex justify-center items-center cursor-col-resize z-10">
+        <div className="min-h-8 bg-primary rounded-full min-w-[0.25rem]"></div>
+      </div>
+    </div>
+  ),
+  ssr: false,
+});
+const Implementation = dynamic(() => import("../Implementation"), {
+  loading: () => (
+    <div className="flex w-full min-h-[800px]">
+      <Skeleton className="min-h-full min-w-full rounded-lg" />
+    </div>
+  ),
+  ssr: false,
+});
 
 export default function ComponentsLayout({ data }: { data: DataDescription }) {
   const { theme, setTheme } = useTheme();
@@ -22,14 +39,12 @@ export default function ComponentsLayout({ data }: { data: DataDescription }) {
   const router = useRouter();
 
   const sizeRef = useRef<HTMLDivElement>(null);
-  const [windowWidth, setWindowWidth] = useState<number>();
-  const [divWidth, setDivWidth] = useState<number>(0);
+  const [divWidth, setDivWidth] = useState<number | null>();
 
   useEffect(() => {
     const handleResize = () => {
       if (sizeRef.current) {
         setDivWidth(sizeRef.current.offsetWidth);
-        setWindowWidth(window.innerWidth);
       }
     };
 
@@ -42,7 +57,6 @@ export default function ComponentsLayout({ data }: { data: DataDescription }) {
   }, []);
 
   useEffect(() => {
-    setWindowWidth(window.innerWidth);
     if (sizeRef.current) {
       setDivWidth(sizeRef.current.offsetWidth);
     }
@@ -89,7 +103,7 @@ export default function ComponentsLayout({ data }: { data: DataDescription }) {
               active={active}
               setActive={setActive}
             />
-            {divWidth && divWidth !== 0 ? (
+            {divWidth ? (
               <>
                 {active ? null : (
                   <ResizableContainer

@@ -110,9 +110,14 @@ const ResizableContainer: React.FC<ResizableContainerProps> = ({
   };
 
   return (
-    <div ref={containerRef} className="flex max-h-[800px]">
+    <div
+      ref={containerRef}
+      className="flex justify-center max-h-[800px] w-full "
+    >
       <div
-        style={{ width: `${containerWidth}px` }}
+        style={{
+          width: `${containerWidth ? containerWidth + "px" : "100%"}`,
+        }}
         className={`border-2 border-border rounded-lg @container max-h-[800px] overflow-y-auto scrollbar-horizontal scrollbar-vertical`}
       >
         {children}
