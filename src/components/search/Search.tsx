@@ -73,6 +73,7 @@ export function CommandPaletteImplementation({
       external: false,
     },
   ];
+
   const itemLimit = handleSocial.length + results.length;
   const [focus, setFocus] = useState<number | null>(null);
 
@@ -89,7 +90,7 @@ export function CommandPaletteImplementation({
   const handleFocusReset = () => {
     setFocus(null);
     setQuery("");
-    // setSearchbar(false);
+    setSearchbar(false);
   };
 
   const handleEnter = () => {
@@ -121,13 +122,25 @@ export function CommandPaletteImplementation({
         keys={["Esc"]}
       />
       <div className="w-full h-full flex flex-col">
-        <input
-          type="text"
-          className="my-1 w-full bg-transparent text-black dark:text-white py-2 px-4 rounded-md  border-none focus:outline-none"
-          placeholder="Search"
-          ref={inputRef}
-          onChange={(e) => setQuery(e.target.value)}
-        />
+        <div className="w-full flex justify-between">
+          <input
+            type="text"
+            className="my-1 w-full bg-transparent text-black dark:text-white py-2 px-4 rounded-md  border-none focus:outline-none"
+            placeholder="Search"
+            value={query}
+            ref={inputRef}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+          <button
+            onClick={() => {
+              setQuery("");
+              inputRef.current?.focus();
+            }}
+            className={query === "" ? "hidden" : "block"}
+          >
+            <Icons.backspace className="w-5 h-5 mr-3" />
+          </button>
+        </div>
         <div className="min-w-full border-[0.5px] border-neutral-200 dark:border-neutral-800"></div>
         <div className="w-full h-[23rem] px-2 overflow-y-auto scrollbar-vertical py-2">
           {results.map((item, index) => {
@@ -160,7 +173,7 @@ export function CommandPaletteImplementation({
             );
           })}
         </div>
-        <div className="w-full h-8 bg-white dark:bg-neutral-950 flex justify-end items-center gap-4 pr-4 rounded-[inherit]">
+        <div className="hidden md:flex w-full h-8 bg-white dark:bg-neutral-950 justify-end items-center gap-4 pr-4 rounded-[inherit]">
           <div className="flex gap-2 items-center text-neutral-700 dark:text-neutral-200 text-sm">
             <KeyListenerDisplay
               keys={["Enter"]}
@@ -277,13 +290,13 @@ const Item = ({
   return (
     <button
       className={twMerge(
-        "w-full h-16 px-2 @md:px-4 rounded-md flex justify-between items-center gap-6 text-base dark:focus:bg-neutral-900  group transition-all duration-300 ease-linear outline-none data-[focus=true]:bg-neutral-100 data-[focus=true]:dark:bg-neutral-900"
+        "w-full h-16 px-2 md:px-4 rounded-md flex justify-between items-center text-start gap-6 text-base dark:focus:bg-neutral-900  group transition-all duration-300 ease-linear outline-none data-[focus=true]:bg-neutral-100 data-[focus=true]:dark:bg-neutral-900"
       )}
       ref={ref}
       aria-label={placeholder}
       data-focus={focus === id}
       onMouseEnter={() => setFocus(id)}
-      // onMouseLeave={() => setFocus(null)}
+      onMouseLeave={() => setFocus(null)}
       onClick={handleEnter}
     >
       <span className="ml-2 flex justify-start items-center gap-6">
@@ -296,11 +309,11 @@ const Item = ({
         {category === "Bug" && <Icons.bug className="w-4 h-4" />}
       </span>
       <span className="w-full ml-2 flex flex-col items-start  overflow-hidden">
-        <span className="text-base">{placeholder}</span>
+        <span className="text-sm md:text-base text-nowrap">{placeholder}</span>
         {(category === "components" ||
           category === "primitives" ||
           category === "hooks") && (
-          <span className="text-sm capitalize text-neutrral-800 dark:text-neutral-200">
+          <span className="hidden sm:block text-sm capitalize text-neutrral-800 dark:text-neutral-200">
             {category}
           </span>
         )}
@@ -454,6 +467,35 @@ const Icons = {
     >
       <path
         d="M19 14h2a1 1 0 0 0 0-2h-2v-1a5.15 5.15 0 0 0-.21-1.36A5 5 0 0 0 22 5a1 1 0 0 0-2 0a3 3 0 0 1-2.14 2.87A5 5 0 0 0 16 6.4a2.58 2.58 0 0 0 0-.4a4 4 0 0 0-8 0a2.58 2.58 0 0 0 0 .4a5 5 0 0 0-1.9 1.47A3 3 0 0 1 4 5a1 1 0 0 0-2 0a5 5 0 0 0 3.21 4.64A5.15 5.15 0 0 0 5 11v1H3a1 1 0 0 0 0 2h2v1a7 7 0 0 0 .14 1.38A5 5 0 0 0 2 21a1 1 0 0 0 2 0a3 3 0 0 1 1.81-2.74a7 7 0 0 0 12.38 0A3 3 0 0 1 20 21a1 1 0 0 0 2 0a5 5 0 0 0-3.14-4.62A7 7 0 0 0 19 15Zm-8 5.9A5 5 0 0 1 7 15v-4a3 3 0 0 1 3-3h1ZM10 6a2 2 0 0 1 4 0Zm7 9a5 5 0 0 1-4 4.9V8h1a3 3 0 0 1 3 3Z"
+        fill="currentColor"
+      />
+    </svg>
+  ),
+  close: (props: IconProps) => (
+    <svg
+      height="200"
+      width="200"
+      viewBox="0 0 16 16"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M4.28 3.22a.75.75 0 0 0-1.06 1.06L6.94 8l-3.72 3.72a.75.75 0 1 0 1.06 1.06L8 9.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L9.06 8l3.72-3.72a.75.75 0 0 0-1.06-1.06L8 6.94L4.28 3.22Z"
+        fill="currentColor"
+        fillRule="evenodd"
+      />
+    </svg>
+  ),
+  backspace: (props: IconProps) => (
+    <svg
+      height="200"
+      width="200"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M19.5 5h-10c-1.266 0-2.834.807-3.57 1.837L3.32 10.49l-1.199 1.679c-.121.175-.122.492.003.664l1.188 1.664l2.619 3.667C6.666 19.193 8.233 20 9.5 20h10c1.379 0 2.5-1.122 2.5-2.5v-10C22 6.122 20.879 5 19.5 5zm-2.293 9.793a.999.999 0 1 1-1.414 1.414L13.5 13.914l-2.293 2.293a.997.997 0 0 1-1.414 0a.999.999 0 0 1 0-1.414l2.293-2.293l-2.293-2.293a.999.999 0 1 1 1.414-1.414l2.293 2.293l2.293-2.293a.999.999 0 1 1 1.414 1.414L14.914 12.5l2.293 2.293z"
         fill="currentColor"
       />
     </svg>
