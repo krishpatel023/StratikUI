@@ -5,7 +5,10 @@ import { notFound } from "next/navigation";
 import { Fragment } from "react";
 
 export async function generateStaticParams() {
-  return processData("primitives");
+  const data = processData("primitives");
+  return data.map((val) => ({
+    categoryName: val,
+  }));
 }
 
 export default function Page({ params }: { params: { categoryName: string } }) {
