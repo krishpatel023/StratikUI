@@ -14,12 +14,17 @@ export default function useDisableScroll(
     else setItem(document.body);
 
     if (!item) return;
-    item.style.overflow = isModalOpen ? "hidden" : "auto";
+
+    const handleScroll = () => {
+      item.style.overflow = isModalOpen ? "hidden" : "auto";
+    };
+
+    handleScroll();
 
     return () => {
       if (item) {
         item.style.overflow = "auto";
       }
     };
-  }, [isModalOpen, reference]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [isModalOpen, reference]);
 }
