@@ -148,26 +148,39 @@ const extractIndividual = (parent: string, subData: FileData[]) => {
   let returnData: string[] = [];
 
   subData.map((item) => {
-    if (item.display) return returnData.push(`${parent}/${item.name}`);
+    if (item.display) return returnData.push(`${item.name}`);
   });
 
   return returnData;
 };
-const processData = () => {
-  const primitives = extractIndividual(
-    "primitives",
-    StorageData[0].content as FileData[]
-  );
-  const components = extractIndividual(
-    "components",
-    StorageData[1].content as FileData[]
-  );
-  const hooks = extractIndividual(
-    "hooks",
-    StorageData[2].content as FileData[]
-  );
 
-  return [...primitives, ...components, ...hooks];
-};
+export function processData(
+  category: "primitives" | "components" | "hooks"
+): string[] {
+  if (category === "primitives") {
+    const primitives = extractIndividual(
+      "primitives",
+      StorageData[0].content as FileData[]
+    );
+    return primitives;
+  }
 
-export const staticPaths = processData();
+  if (category === "components") {
+    const components = extractIndividual(
+      "components",
+      StorageData[1].content as FileData[]
+    );
+    return components;
+  }
+
+  if (category === "hooks") {
+    const hooks = extractIndividual(
+      "hooks",
+      StorageData[2].content as FileData[]
+    );
+    return hooks;
+  }
+  return [];
+}
+
+// export const staticPaths = processData();
