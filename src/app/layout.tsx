@@ -6,6 +6,7 @@ import "./components.css";
 import Header from "@/components/Header";
 import { Providers } from "./provider";
 import { DEFAULT_MODE } from "@/utils/utils";
+import { flattenData } from "@/components/search/FlattenData";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const data = flattenData();
   return (
     <html lang="en">
       <body
@@ -30,7 +32,7 @@ export default function RootLayout({
         id="theme-toggle"
       >
         <Providers>
-          <Header />
+          <Header data={data} />
           {children}
         </Providers>
       </body>
