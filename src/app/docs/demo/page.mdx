@@ -1,16 +1,101 @@
-# Welcome to my MDX page!
- 
-This is some **bold** and _italics_ text.
- 
-This is a list in markdown:
- 
-- One
-- Two
-- Three
+import { CodeBlock } from "@/components/mdx/Code";
+import {ResizableDisplay} from "@/components/mdx/ResizableDisplay"
+import {HeaderDefault} from "@/components/mdx/HeaderToggle";
+import {Header} from "@/packages/components/headers/Header_5_Helper";
+import {Implementation} from "@/components/mdx/Implementation";
 
-```js
-console.log("Hello");
+# Hooks Trial
+## The useClickOutside hook detects clicks outside a specified element and triggers a callback function. It accepts two parameters: a reference to the target element and a callback function to execute when a click outside the element is detected. This hook is useful for handling interactions like closing dropdowns or modals when a user clicks outside of them.
+
+<HeaderDefault id="hooks-trial"/> 
+<ResizableDisplay id="hooks-trial">
+<div className="min-h-[40rem] w-full">
+<Header />
+</div>
+</ResizableDisplay>
+
+<Implementation id="hooks-trial">
+<CodeBlock> 
+
+```tsx|useClickOutside
+import { useEffect, RefObject } from "react";
+
+const useClickOutside = (ref: RefObject<HTMLElement>, handler: () => void) => {
+  useEffect(() => {
+    const listener = (event: MouseEvent) => {
+      if (
+        !ref.current ||
+        ref.current.contains(event.target ? (event.target as Node) : null)
+      ) {
+        return;
+      }
+      handler();
+    };
+    const listenerTouch = (event: TouchEvent) => {
+      if (
+        !ref.current ||
+        ref.current.contains(event.target ? (event.target as Node) : null)
+      ) {
+        return;
+      }
+      handler();
+    };
+
+    document.addEventListener("mousedown", listener);
+    document.addEventListener("touchstart", listenerTouch);
+
+    return () => {
+      document.removeEventListener("mousedown", listener);
+      document.removeEventListener("touchstart", listenerTouch);
+    };
+  }, [ref, handler]);
+};
+
+export default useClickOutside;
+```
+```jsx|useClickOutside
+import { useEffect, RefObject } from "react";
+
+const useClickOutside = (ref, handler) => {
+  useEffect(() => {
+    const listener = (event) => {
+      if (
+        !ref.current ||
+        ref.current.contains(event.target ? (event.target) : null)
+      ) {
+        return;
+      }
+      handler();
+    };
+    const listenerTouch = (event) => {
+      if (
+        !ref.current ||
+        ref.current.contains(event.target ? (event.target) : null)
+      ) {
+        return;
+      }
+      handler();
+    };
+
+    document.addEventListener("mousedown", listener);
+    document.addEventListener("touchstart", listenerTouch);
+
+    return () => {
+      document.removeEventListener("mousedown", listener);
+      document.removeEventListener("touchstart", listenerTouch);
+    };
+  }, [ref, handler]);
+};
+
+export default useClickOutside;
 ```
 
-Checkout my React component:
- 
+</CodeBlock>
+
+
+| Property | Type      | Description |
+|----------|-----------|-------------|
+| ref      | RefObject | The reference to the target element. This is the element that the hook monitors for outside clicks. |
+| handler  | () => void| The callback function to execute when a click outside the element is detected. This function contains the logic to run in response to the outside click, such as hiding the element or performing other state updates. |
+
+</Implementation>
