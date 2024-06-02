@@ -4,7 +4,17 @@ import { Icons } from "@/utils/icons";
 import { convertToDashed } from "@/utils/utils";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
-import Implementation from "../Implementation";
+import { Skeleton } from "../ui/Skeleton";
+import dynamic from "next/dynamic";
+
+const Implementation = dynamic(() => import("../Implementation"), {
+  loading: () => (
+    <div className="flex w-full min-h-[800px]">
+      <Skeleton className="min-h-full min-w-full rounded-lg" />
+    </div>
+  ),
+  ssr: false,
+});
 
 export default function HooksLayout({ data }: { data: DataDescription }) {
   return (
