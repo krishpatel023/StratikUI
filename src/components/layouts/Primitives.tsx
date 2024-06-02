@@ -9,8 +9,16 @@ import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 import dynamic from "next/dynamic";
+import { Skeleton } from "../ui/Skeleton";
 
-const Implementation = dynamic(() => import("../Implementation"));
+const Implementation = dynamic(() => import("../Implementation"), {
+  loading: () => (
+    <div className="flex w-full min-h-[800px]">
+      <Skeleton className="min-h-full min-w-full rounded-lg" />
+    </div>
+  ),
+  ssr: false,
+});
 
 export default function PrimitivesLayout({ data }: { data: DataDescription }) {
   const { theme, setTheme } = useTheme();
