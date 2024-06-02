@@ -31,12 +31,13 @@ export default function PrimitivesLayout({ data }: { data: DataDescription }) {
             ) : null}
             <Link
               href={`#${convertToDashed(data.name)}`}
-              className="text-xl font-medium text-textPrimary group/hashtag flex gap-2 relative transition-all duration-300 ease-linear"
+              className="text-xl font-medium text-black dark:text-gray-200 group/hashtag flex gap-2 relative transition-all duration-300 ease-linear"
+              aria-label="Get component specific link"
             >
               {data.name}
               <span
                 className={twMerge(
-                  "text-gray-800 dark:text-gray-200 hidden absolute top-[0.125rem] -left-8",
+                  "text-black dark:text-gray-200 hidden absolute top-[0.125rem] -left-8",
                   "group-hover/hashtag:inline-block"
                 )}
               >
@@ -91,6 +92,7 @@ const ComponentHeaderPrimitive = ({
             active === false ? "bg-background px-2 py-1 rounded" : "px-2 py-1"
           }
           onClick={() => setActive(false)}
+          aria-label="Preview Component"
         >
           Preview
         </button>
@@ -99,13 +101,15 @@ const ComponentHeaderPrimitive = ({
             active === true ? "bg-background px-2 py-1 rounded" : "px-2 py-1"
           }
           onClick={() => setActive(true)}
+          aria-label="Preview Code"
         >
           Code
-        </button>{" "}
+        </button>
       </div>
       <button
         onClick={() => setTheme(!theme)}
         className="h-10 w-10 bg-secondary p-1 rounded-md flex justify-center items-center gap-4 text-center text-textPrimary"
+        aria-label="Toggle Theme"
       >
         <div className="bg-background hover:bg-secondary w-full h-full flex justify-center items-center rounded-md">
           {theme ? (

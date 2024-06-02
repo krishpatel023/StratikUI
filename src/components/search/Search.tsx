@@ -130,6 +130,7 @@ export function CommandPaletteImplementation({
             value={query}
             ref={inputRef}
             onChange={(e) => setQuery(e.target.value)}
+            aria-label="Searchbar input"
           />
           <button
             onClick={() => {
@@ -137,6 +138,7 @@ export function CommandPaletteImplementation({
               inputRef.current?.focus();
             }}
             className={query === "" ? "hidden" : "block"}
+            aria-label="Clear searchbar input"
           >
             <Icons.backspace className="w-5 h-5 mr-3" />
           </button>

@@ -47,12 +47,14 @@ function IconInput({
           placeholder={placeholder}
           {...props}
           onFocus={() => setSearchbar(true)}
+          aria-label="Search"
         />
       </div>
       <div className="md:hidden h-full flex items-center justify-center">
         <button
           className="text-neutral-800 dark:text-neutral-200"
           onClick={() => setSearchbar(true)}
+          aria-label="Search"
         >
           <Search className="w-5 h-5" />
         </button>

@@ -51,6 +51,7 @@ export const Header = ({ data }: { data: FlattenedItem[] }) => {
               onClick={() => {
                 setSidebar(!sidebar);
               }}
+              aria-label="Open Sidebar"
             >
               <Icons.bars className="h-6 w-6" />
             </button>
@@ -58,6 +59,7 @@ export const Header = ({ data }: { data: FlattenedItem[] }) => {
           <Link
             href="/"
             className="flex h-full items-center justify-center gap-1 font-semibold text-2xl text-textPrimary"
+            aria-label="Home"
           >
             {theme ? (
               <Logo.dark className="h-16 w-16" />
@@ -79,6 +81,8 @@ export const Header = ({ data }: { data: FlattenedItem[] }) => {
               href="https://github.com/krishpatel023/StratikUI"
               target="_blank"
               className="w-8 h-10 flex justify-center items-center rounded hover:bg-secondary text-textPrimary"
+              rel="noreferrer"
+              aria-label="Twitter Account Link"
             >
               <Icons.twitter className="w-6 h-4" />
             </a>
@@ -86,6 +90,7 @@ export const Header = ({ data }: { data: FlattenedItem[] }) => {
             <button
               className="w-8 h-10 flex justify-center items-center rounded hover:bg-secondary text-textPrimary"
               onClick={() => toggleTheme()}
+              aria-label="Toggle Theme"
             >
               {theme ? (
                 <Icons.moon className="w-6 h-6" />

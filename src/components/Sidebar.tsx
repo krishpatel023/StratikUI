@@ -1,8 +1,8 @@
 "use client";
+
 import useClickOutside from "@/hooks/ClickOutside";
 import { useInternalState } from "@/hooks/useInternalState";
 import { versionCheck } from "@/scripts/VersionCheck";
-// import { versionCheck } from "@/packages";
 import { FileData } from "@/utils/constants";
 import { Icons } from "@/utils/icons";
 import { usePathname, useRouter } from "next/navigation";
@@ -25,7 +25,7 @@ export default function Sidebar(params: { params: { data: FileData[] } }) {
         ref={ref}
       >
         <div className="w-full flex justify-end items-center mt-4 px-4">
-          <button onClick={() => setSidebar(false)}>
+          <button onClick={() => setSidebar(false)} aria-label="Close Sidebar">
             <Icons.cross className="w-6 h-6 text-black dark:text-white" />
           </button>
         </div>
@@ -55,6 +55,7 @@ export default function Sidebar(params: { params: { data: FileData[] } }) {
                                   `/docs/${item.name}/${subitem.name} `
                                 );
                               }}
+                              aria-label={`Go to ${subitem.name}'s documentaion`}
                             >
                               <h1
                                 className={` font-normal text-sm ${item.name !== "hooks" && "capitalize"}  mt-3 flex justify-start items-center flex-wrap gap-4  ${splitParams[3] === subitem.name ? "text-accent" : "text-textSecondary hover:text-accent hover:cursor-pointer hover:ml-2 transition-all ease-linear duration-150"}`}

@@ -7,8 +7,6 @@ import { twMerge } from "tailwind-merge";
 import Implementation from "../Implementation";
 
 export default function HooksLayout({ data }: { data: DataDescription }) {
-  //   const { theme, setTheme } = useTheme();
-
   return (
     <>
       {data && (
@@ -25,12 +23,13 @@ export default function HooksLayout({ data }: { data: DataDescription }) {
               ) : null}
               <Link
                 href={`#${convertToDashed(data.name)}`}
-                className="text-xl font-medium text-textPrimary group/hashtag flex gap-2 relative transition-all duration-300 ease-linear"
+                className="text-xl font-medium text-black dark:text-gray-200 group/hashtag flex gap-2 relative transition-all duration-300 ease-linear"
+                aria-label="Get component specific link"
               >
                 {data.name}
                 <span
                   className={twMerge(
-                    "text-gray-800 dark:text-gray-200 hidden absolute top-[0.125rem] -left-8",
+                    "text-black dark:text-gray-200 hidden absolute top-[0.125rem] -left-8",
                     "group-hover/hashtag:inline-block"
                   )}
                 >

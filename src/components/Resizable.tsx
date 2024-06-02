@@ -126,6 +126,7 @@ const ResizableContainer: React.FC<ResizableContainerProps> = ({
         ref={handleRef}
         onMouseDown={handleMouseDown}
         className="w-4 flex justify-center items-center cursor-col-resize z-10"
+        aria-label="Resize Drawer"
       >
         <div className="min-h-8 bg-primary rounded-full min-w-[0.25rem]"></div>
       </div>

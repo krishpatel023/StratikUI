@@ -161,6 +161,8 @@ const CodeDisplay = ({
                       : "text-sm h-full px-4 py-1"
                   }
                   onClick={() => setActiveCode(i)}
+                  type="button"
+                  aria-label={item.name}
                 >
                   {item.name}
                 </button>
@@ -214,15 +216,16 @@ const CodeDisplay = ({
               </Select>
 
               {btnClick ? (
-                <button className="rounded text-green-400 px-2">
+                <button className="rounded text-green-400 px-2 w-8">
                   <Icons.tick className="w-4 h-4" />
                 </button>
               ) : (
                 <button
-                  className="rounded  text-textPrimary text-sm px-2"
+                  className="rounded  text-textPrimary text-sm px-2 w-8"
                   onClick={handleCopy}
+                  aria-label="Copy code"
                 >
-                  <Icons.copy className="w-4 h-4" />
+                  <Icons.copy className="w-5 h-5" />
                 </button>
               )}
             </div>
@@ -252,6 +255,7 @@ function Inspiration({ data }: { data: InspirationObject }) {
         target="_blank"
         rel="nofollow"
         className="text-accent flex gap-2 items-center justify-center font-semibold text-lg"
+        aria-label="Link to the inspiration"
       >
         {data.name}
         <Icons.arrow className="rotate-45" />
