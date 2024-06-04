@@ -499,9 +499,9 @@ const Implementation: ImplementationNode[] = [
 ];
 
 const Data: DataDescription = {
-  name: "useProcess",
+  name: "useResizable",
   description:
-    "The useProcess hook is a custom React hook that provides a way to manage asynchronous processes in a React component. It returns an object with two properties: isProcessing and executeProcess. This hook is designed to help track the state of an asynchronous process and make subtle UI actions accordingly. By knowing whether a certain process is being executed or not, you can update the UI to provide a better user experience, such as displaying loading indicators, disabling buttons, etc.",
+    "This hook is used to handle the resizing of an element. It can be used in multiple ways, such as pairing it with our Helper Function to make the entire implementation easy or else can be used as a standalone hook. It also has callback functions that can be used to show different messages to the user based on the current state of the hook.",
   implementation: Implementation,
   component: <ResizeExample1 />,
   version_included: "0.1.1",

@@ -122,17 +122,8 @@ export const KeyListener: React.FC<KeyListenerProps> = ({
         event.code === "Enter" && "Enter",
       ].filter(Boolean) as Key[];
 
-      // console.log(
-      //   "pressedKeys",
-      //   pressedKeys,
-      //   event.code,
-      //   keys,
-      //   pressedKeys.join("+") === keys.join("+")
-      // );
-
       if (pressedKeys.join("+") === keys.join("+")) {
-        console.log("FIRED");
-
+        event.preventDefault();
         onKeyDown(event);
       }
     },
