@@ -14,6 +14,8 @@ export function Modal({
   position = "center",
   className,
   blurBg = true,
+  closeOnOutsideClick = true,
+  disableScroll = true,
 }: {
   children: React.ReactNode;
   active: boolean;
@@ -28,11 +30,15 @@ export function Modal({
     | "bottom-center";
   className?: string;
   blurBg?: boolean;
+  closeOnOutsideClick?: boolean;
+  disableScroll?: boolean;
 }) {
   const ref = useRef(null);
-  useClickOutside(ref, () => setActive(false));
+  useClickOutside(ref, () => {
+    if (closeOnOutsideClick) setActive(false);
+  });
 
-  useDisableScroll(active);
+  useDisableScroll(active && disableScroll);
 
   return (
     <>
