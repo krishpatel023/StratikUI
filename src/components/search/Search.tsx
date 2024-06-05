@@ -95,7 +95,7 @@ export function CommandPaletteImplementation({
 
   const handleEnter = () => {
     if (!focus) return;
-    if (focus > results.length) {
+    if (focus >= results.length) {
       const link = handleSocial[focus - results.length].link;
       if (handleSocial[focus - results.length].external)
         window.open(link, "_blank", "noopener,noreferrer");
