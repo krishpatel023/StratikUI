@@ -10,18 +10,18 @@ export const Logo = {
       fill="#000000"
       {...props}
     >
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       ></g>
       <g id="SVGRepo_iconCarrier">
         <rect width="512" height="512" rx="15%" fill="#ff5a5f"></rect>
         <path
           fill="none"
           stroke="#ffffff"
-          stroke-width="23"
+          strokeWidth="23"
           d="M255 84c-29 0-41 24-41 24-36 66-68 133-101 203 0 0-26 51 15 84 57 45 110-22 127-39s48-56 48-100c0 0-1-44-48-44s-49 44-49 44c0 41 32 83 49 100 17 18 71 85 129 39 36-29 13-84 13-84-31-68-67-143-100-203 0 0-10-24-42-24z"
         ></path>
       </g>
@@ -34,7 +34,7 @@ export const Logo = {
       fill="none"
       {...props}
     >
-      <g id="SVGRepo_bgCarrier" stroke-width="0">
+      <g id="SVGRepo_bgCarrier" strokeWidth="0">
         <rect
           x="-1.6"
           y="-1.6"
@@ -47,8 +47,8 @@ export const Logo = {
       </g>
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       ></g>
       <g id="SVGRepo_iconCarrier">
         <path
@@ -67,7 +67,7 @@ export const Logo = {
       fill="#000000"
       {...props}
     >
-      <g id="SVGRepo_bgCarrier" stroke-width="0">
+      <g id="SVGRepo_bgCarrier" strokeWidth="0">
         <rect
           x="-4.8"
           y="-4.8"
@@ -80,8 +80,8 @@ export const Logo = {
       </g>
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       ></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
@@ -90,9 +90,9 @@ export const Logo = {
         <g
           id="Icons"
           stroke="none"
-          stroke-width="1"
+          strokeWidth="1"
           fill="none"
-          fill-rule="evenodd"
+          fillRule="evenodd"
         >
           {" "}
           <g
@@ -141,7 +141,7 @@ export const Logo = {
     >
       <g
         id="SVGRepo_bgCarrier"
-        stroke-width="0"
+        strokeWidth="0"
         transform="translate(0,0), scale(1)"
       >
         <rect
@@ -156,10 +156,10 @@ export const Logo = {
       </g>
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
         stroke="#CCCCCC"
-        stroke-width="0.184"
+        strokeWidth="0.184"
       ></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
@@ -168,9 +168,9 @@ export const Logo = {
         <g
           id="Icons"
           stroke="none"
-          stroke-width="1"
+          strokeWidth="1"
           fill="none"
-          fill-rule="evenodd"
+          fillRule="evenodd"
         >
           {" "}
           <g
@@ -247,11 +247,11 @@ export const Logo = {
       fill="#000000"
       {...props}
     >
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       ></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
@@ -260,9 +260,9 @@ export const Logo = {
         <g
           id="Icons"
           stroke="none"
-          stroke-width="1"
+          strokeWidth="1"
           fill="none"
-          fill-rule="evenodd"
+          fillRule="evenodd"
         >
           {" "}
           <g
@@ -291,11 +291,11 @@ export const Logo = {
       fill="#000000"
       {...props}
     >
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       ></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
@@ -304,9 +304,9 @@ export const Logo = {
         <g
           id="Icons"
           stroke="none"
-          stroke-width="1"
+          strokeWidth="1"
           fill="none"
-          fill-rule="evenodd"
+          fillRule="evenodd"
         >
           {" "}
           <g
@@ -338,18 +338,18 @@ export const LogoStringTsx = `const Logo = {
       fill="#000000"
       {...props}
     >
-      <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       ></g>
       <g id="SVGRepo_iconCarrier">
         <rect width="512" height="512" rx="15%" fill="#ff5a5f"></rect>
         <path
           fill="none"
           stroke="#ffffff"
-          stroke-width="23"
+          strokeWidth="23"
           d="M255 84c-29 0-41 24-41 24-36 66-68 133-101 203 0 0-26 51 15 84 57 45 110-22 127-39s48-56 48-100c0 0-1-44-48-44s-49 44-49 44c0 41 32 83 49 100 17 18 71 85 129 39 36-29 13-84 13-84-31-68-67-143-100-203 0 0-10-24-42-24z"
         ></path>
       </g>
@@ -368,18 +368,18 @@ export const LogoStringJsx = `const Logo ={
         fill="#000000"
         {...props}
       >
-        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
         <g
           id="SVGRepo_tracerCarrier"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         ></g>
         <g id="SVGRepo_iconCarrier">
           <rect width="512" height="512" rx="15%" fill="#ff5a5f"></rect>
           <path
             fill="none"
             stroke="#ffffff"
-            stroke-width="23"
+            strokeWidth="23"
             d="M255 84c-29 0-41 24-41 24-36 66-68 133-101 203 0 0-26 51 15 84 57 45 110-22 127-39s48-56 48-100c0 0-1-44-48-44s-49 44-49 44c0 41 32 83 49 100 17 18 71 85 129 39 36-29 13-84 13-84-31-68-67-143-100-203 0 0-10-24-42-24z"
           ></path>
         </g>
