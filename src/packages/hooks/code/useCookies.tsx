@@ -33,7 +33,6 @@ const useCookies = () => {
     const storedPreferences = localStorage.getItem("cookiePreferences");
     if (storedPreferences) {
       setCookiePreferences(JSON.parse(storedPreferences));
-      console.log("CALLED", JSON.parse(storedPreferences));
     }
   };
   const handlePrefUpdate = (pref: CookiePreferences) => {
@@ -88,21 +87,23 @@ const useCookies = () => {
     });
   };
 
-  const saveCookie = (
+  const setCookie = (
     name: string,
     value: string,
-    days: number,
+    time: number,
     category: CookieCategory,
-    options: CookieOptions = {}
+    options: CookieOptions = {
+      path: "/",
+    }
   ) => {
     if (cookiePreferences[category]) {
       const date = new Date();
-      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+      const timeCalaculated = date.setTime(date.getTime() + time * 1000);
       const expires = `expires=${date.toUTCString()}`;
       const cookieOptions = Object.entries(options)
         .map(([key, value]) => `${key}=${value}`)
         .join(";");
-      document.cookie = `${name}=${value};${expires};path=/;${category};${cookieOptions}`;
+      document.cookie = `${name}=${value};${expires};path=${options.path};${category};${cookieOptions}`;
     }
   };
 
@@ -114,26 +115,26 @@ const useCookies = () => {
     options: CookieOptions = {}
   ) => {
     if (cookiePreferences[category]) {
-      removeCookie(category, name);
-      saveCookie(name, value, days, category, options);
+      removeCookie(name, category);
+      setCookie(name, value, days, category, options);
     }
   };
 
-  const removeCookie = (category: CookieCategory, name: string) => {
+  const removeCookie = (name: string, category: CookieCategory) => {
     if (cookiePreferences[category]) {
-      const cookiesForCategory = document.cookie
-        .split(";")
-        .filter((cookie) => cookie.includes(category));
+      const cookiesForCategory = document.cookie.split(";");
+
       cookiesForCategory.forEach((cookie) => {
         const cookieName = cookie.split("=")[0].trim();
         if (cookieName === name) {
-          document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;${category}`;
+          const expires = `expires=Thu, 01 Jan 1970 00:00:00 UTC`;
+          document.cookie = `${cookieName}=; ${expires}; path=/; ${category}`;
         }
       });
     }
   };
 
-  const readCookie = (name: string): string | null => {
+  const getCookie = (name: string): string | null => {
     const encodedName = encodeURIComponent(name);
     const cookies = document.cookie.split(";");
     for (let i = 0; i < cookies.length; i++) {
@@ -145,7 +146,7 @@ const useCookies = () => {
     return null;
   };
 
-  const readAllCookies = (): { [key: string]: string } => {
+  const getAllCookies = (): { [key: string]: string } => {
     const cookies: { [key: string]: string } = {};
     const cookiesArray = document.cookie.split(";");
     for (let i = 0; i < cookiesArray.length; i++) {
@@ -163,11 +164,11 @@ const useCookies = () => {
     resetCookiePreferences,
     acceptAllCookiePreferences,
     rejectAllCookiePreferences,
-    saveCookie,
+    setCookie,
     editCookie,
     removeCookie,
-    readCookie,
-    readAllCookies,
+    getCookie,
+    getAllCookies,
   };
 };
 
