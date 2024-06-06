@@ -1,16 +1,8 @@
 "use client";
-import React, { useEffect, useState, RefObject } from "react";
+import { RefObject, useEffect, useState } from "react";
 
-const useScrollToTop = (
-  elementByRef?: RefObject<HTMLElement | null>,
-  threshold = 300,
-  elementById?: string
-) => {
+const useScrollTo = (threshold = 300) => {
   const [isVisible, setIsVisible] = useState(false);
-
-  const element = elementById
-    ? document.getElementById(elementById)
-    : elementByRef?.current;
 
   const toggleVisibility = () => {
     if (window.scrollY > threshold) {
@@ -20,10 +12,19 @@ const useScrollToTop = (
     }
   };
 
-  const scrollToTop = () => {
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+  const scroll = (element: RefObject<HTMLElement | null> | string | null) => {
+    let targetElem = null;
+
+    if (typeof element === "string")
+      targetElem = document.getElementById(element);
+    else if (typeof element === "object") targetElem = element?.current;
+    else targetElem = null;
+
+    if (targetElem) {
+      // Scroll to element
+      targetElem.scrollIntoView({ behavior: "smooth" });
     } else {
+      // Scroll to top
       window.scrollTo({
         top: 0,
         behavior: "smooth",
@@ -39,7 +40,7 @@ const useScrollToTop = (
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return [isVisible, scrollToTop] as const;
+  return { isVisible, scroll };
 };
 
-export default useScrollToTop;
+export default useScrollTo;
