@@ -8,3 +8,11 @@ export const convertToDashed = (str: string) => {
   const convertToArray = str.toLowerCase().split(" ");
   return convertToArray.join("-");
 };
+
+export const Links = {
+  personal: {
+    github: "https://github.com/krishpatel023",
+    twitter: "https://x.com/krish__23",
+    linkedin: "https://www.linkedin.com/in/krish-patel-7824231ba",
+  },
+};
