@@ -9,6 +9,21 @@ html {
   .text-balance {
     text-wrap: balance;
   }
+  /* FOR HOPEPAGE */
+  .HomepageEffect {
+    --container-border-initial: theme(colors.neutral.400/00);
+    --container-border-active: theme(colors.sky.700);
+    --container-gradient-color: theme(colors.sky.600/70);
+    --container-border-size: 0.25rem;
+    --container-background: theme(colors.white);
+    --size: 300px;
+  }
+  .dark .HomepageEffect {
+    --container-border-initial: theme(colors.neutral.900/00);
+    --container-border-active: theme(colors.white/30);
+    --container-gradient-color: theme(colors.neutral.500/10);
+    --container-background: theme(colors.black);
+  }
 
   /* FOR @packages/primitives/containers/Container_3_Helper.tsx */
 
@@ -27,6 +42,36 @@ html {
     --container-background: theme(colors.neutral.900);
   }
   /* ------------------------------------------------------------ */
+
+  .svgEffect {
+    --container-rad: 0.75rem;
+    --container-border-size: 2px;
+    --container-border-initial: #ddd;
+    --container-gradient-color: rgba(255, 255, 255, 0.5);
+    --container-border-active: #ff6347;
+
+    position: relative;
+    overflow: visible;
+    width: 100px; /* Adjust as needed */
+    height: 100px; /* Adjust as needed */
+    padding: var(--container-border-size);
+    background: var(--container-border-initial);
+    border-radius: var(--container-rad);
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.5s;
+  }
+
+  /* Hover effect */
+  .svgEffect:hover {
+    opacity: 0.2;
+  }
+
+  /* Gradient application inside the SVG */
+  .svgEffect .dynamicGradient {
+    fill: url(#dynamicGradient);
+    transition: fill 0.5s;
+  }
 }
 @layer base {
   :root {
