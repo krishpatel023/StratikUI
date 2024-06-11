@@ -9,7 +9,7 @@ export const HeaderResizable = ({ id }: { id: string }) => {
   const [active, setActive] = useState<boolean>(false);
 
   const toggleActive = (state: boolean) => {
-    const display = document.getElementById(`${id}-display`);
+    const display = document.getElementById(`${id}-preview`);
     const implementation = document.getElementById(`${id}-implementation`);
 
     if (!display || !implementation) return;
@@ -71,7 +71,7 @@ export const HeaderDefault = ({ id }: { id: string }) => {
   const [active, setActive] = useState<boolean>(false);
 
   const toggleActive = (state: boolean) => {
-    const display = document.getElementById(`${id}-display`);
+    const display = document.getElementById(`${id}-preview`);
     const implementation = document.getElementById(`${id}-implementation`);
 
     if (!display || !implementation) return;
