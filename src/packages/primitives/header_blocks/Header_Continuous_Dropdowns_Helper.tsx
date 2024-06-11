@@ -1,7 +1,7 @@
 "use client";
 
 import { IconProps } from "@/utils/constants";
-import { useEffect, useRef, useState } from "react";
+import { LegacyRef, useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 export const NavbarGroup = ({
@@ -69,7 +69,7 @@ export const NavbarGroup = ({
               setActiveIndex(index);
               setOpen(true);
             }}
-            ref={(ref) => (dropdownRefs.current[index] = ref)}
+            ref={dropdownRefs.current[index] as LegacyRef<HTMLAnchorElement>}
             className={twMerge(
               "h-full text-black dark:text-white hover:text-blue-500 font-medium flex justify-center items-center",
               linkClassName

@@ -7,6 +7,7 @@ import React, {
   useState,
   Dispatch,
   SetStateAction,
+  LegacyRef,
 } from "react";
 
 interface OTPInputProps {
@@ -123,7 +124,7 @@ export const OTPInput: React.FC<OTPInputProps> = ({
                 key={position}
                 type="text"
                 maxLength={1}
-                ref={(el) => (inputRefs.current[position] = el)}
+                ref={inputRefs.current[position] as LegacyRef<HTMLInputElement>}
                 onChange={(e) => handleChange(e, position)}
                 onKeyDown={(e) => handleKeyDown(e, position)}
                 onPaste={handlePaste}

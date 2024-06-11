@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { LegacyRef, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { twMerge } from "tailwind-merge";
 import { IconProps } from "@/utils/constants";
@@ -24,7 +24,7 @@ export const NavbarGroup = ({
 
   const nullRef = useRef(null);
   const nullArray = new Array(headings.length).fill(nullRef);
-  const dropdownRefs = useRef<(HTMLElement | null)[]>(nullArray);
+  const dropdownRefs = useRef<(HTMLAnchorElement | null)[]>(nullArray);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const [shiftX, setShiftX] = useState(0);
@@ -81,7 +81,7 @@ export const NavbarGroup = ({
               setActiveIndex(index);
               setOpen(true);
             }}
-            ref={(ref) => (dropdownRefs.current[index] = ref)}
+            ref={dropdownRefs.current[index] as LegacyRef<HTMLAnchorElement>}
             className={twMerge(
               "h-full text-black dark:text-white hover:text-blue-500 font-medium flex justify-center items-center",
               linkClassName
