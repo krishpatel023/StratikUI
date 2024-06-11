@@ -1,0 +1,95 @@
+{/* TO CHECK HOW IT'S WORKING IN UI GO TO '/contributing/template' */}
+
+import { Implementation, Preview, HeaderDefault, Display, TechnologyUsed } from "@/components/mdx/MDXServerImports"
+import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
+import { genId } from "@/utils/helper";
+
+export const generatedId = genId("component");
+
+export const Data = { 
+    title: "Title",
+    tags: [],
+    description: "Description",
+    version_included: "0.2.0",
+    id: generatedId,
+    display: true
+}
+
+{/* Automatically Handled when you change the above Fields */}
+# {Data.title}
+### {Data.description}
+
+<HeaderDefault id={Data.id}/> 
+
+{/* EVERYTHING THAT YOU WILL DISPLAY IN PREVIEW SECTION WILL INSIDE THE FOLLOWING WRAPPER */}
+<Preview id={Data.id}> 
+{/* FOR COMPONENTS */}
+<ResizableDisplay>
+    {/* YOUR SPECIFIC COMPONENT THAT YOU WILL IMPORT FROM PACKAGES */}
+</ResizableDisplay>
+
+{/* FOR PRIMITIVES */}
+<Display>
+    {/* YOUR SPECIFIC COMPONENT THAT YOU WILL IMPORT FROM PACKAGES */}
+</Display>
+</Preview>
+
+{/* EVERYTHING THAT YOU WILL DISPLAY IN CODE SECTION WILL INSIDE THE FOLLOWING WRAPPER */}
+<Implementation id={Data.id}>
+
+
+{/* CHOOSE FROM ANY OF THE FOLLOWING. WHATEVER YOU USE */}
+{/* NOTE : TO ADD ANY MORE PLEASE CHANGE THE TYPE SAFETY IN "@/components/mdx/TechnologyUsed.tsx" */}
+<TechnologyUsed technologies={[ "tailwind-css" , "framer-motion", "twMerge", "uuid", "cuid2" , "react-aria" ]}/>
+
+{/* ALL CODEBLOCKS SHOULD BE WRAPPED INSIDE <CodeBlock> ... </CodeBlock> */}
+<CodeBlock> 
+{/* FOLLOW NAMING lang|FileName that you want to give 
+    NOTE : - SIMILAR FILE NAMES WILL AUTOMAtICALLY HANDLED -> FOR TSX/JSX AVAILIBILITY
+        - PROVIDE IN BOTH THE FORMATS 
+*/}
+```tsx|Name1
+console.log("NAME-1-TSX");
+```
+```jsx|Name1
+console.log("NAME-1-JSX");
+```
+
+{/* THIS WILL BE IN DIFFERENT TAB AS NAME IS DIFFERENT. IT WILL ALSO BE HANDLED AUTOMATICALLY */}
+```tsx|Name2
+console.log("NAME-2-TSX");
+```
+```jsx|Name2
+console.log("NAME-2-JSX");
+```
+</CodeBlock>
+
+
+{/* IF YOU WAN'T TO WRITE ANY SPECIAL MESSAGE -> LINK TO OFFICIAL DOC'S, DESIGN INSPIRATION, ETC. PLEASE MENTION IT LIKE THIS */}
+{/* NOTE : STRICTLY MENTION ANY MAJOR LIBRARY USED OR THE DESIGN IS VERY SIMILAR TO ANY OUT THERE */}
+This is an example message where I am linking the [React Aria Doc's](https://react-spectrum.adobe.com/react-aria/)
+
+## Button Props
+
+| Prop Name    | Type                                     | Description                                            |
+| ------------ | -----------------------------------------| ------------------------------------------------------ |
+| `label`      | `string`                                 | The text displayed on the button.                      |
+| `onClick`    | `function`                               | Callback function triggered when the button is clicked.|
+| `disabled`   | `boolean`                                | If `true`, the button is disabled and unclickable.     |
+| `variant`    | `'primary' \| 'secondary' \| 'tertiary'` | The visual style of the button.                        |
+| `size`       | `'small' \| 'medium' \| 'large'`         | The size of the button.                                |
+| `icon`       | `ReactNode`                              | Optional icon to display alongside the button label.   |
+
+{/* 
+
+JUST AN EXAMPLE ELEMENT FOR ABOVE TABLE
+
+<MDXComponents.Button 
+  label="Example" 
+  onClick={() => alert('Button clicked!')} 
+  variant="primary" 
+  size="medium" 
+/> 
+*/}
+
+</Implementation>

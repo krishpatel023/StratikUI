@@ -1,0 +1,69 @@
+{/* -------------------------------------------------------------------------- */}
+{/* Same as template.mdx but without the explaination for instant copy and use */}
+{/* -------------------------------------------------------------------------- */}
+
+import { Implementation, Preview, HeaderDefault, Display, TechnologyUsed } from "@/components/mdx/MDXServerImports"
+import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
+
+import { genId } from "@/utils/helper";
+
+export const generatedId = genId("component");
+
+export const Data = {
+    title: "Title",
+    tags: [],
+    description: "Description",
+    version_included: "0.2.0",
+    id: generatedId,
+    display: true
+}
+
+# {Data.title}
+### {Data.description}
+
+<HeaderDefault id={Data.id}/> 
+
+<Preview id={Data.id}> 
+
+<ResizableDisplay>
+    {/* YOUR SPECIFIC COMPONENT THAT YOU WILL IMPORT FROM PACKAGES */}
+</ResizableDisplay>
+
+{/* FOR PRIMITIVES */}
+<Display>
+    {/* YOUR SPECIFIC COMPONENT THAT YOU WILL IMPORT FROM PACKAGES */}
+</Display>
+</Preview>
+
+<Implementation id={Data.id}>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "framer-motion", "twMerge", "uuid", "cuid2" , "react-aria" ]}/>
+
+<CodeBlock> 
+```tsx|Name1
+console.log("NAME-1-TSX");
+```
+```jsx|Name1
+console.log("NAME-1-JSX");
+```
+
+```tsx|Name2
+console.log("NAME-2-TSX");
+```
+```jsx|Name2
+console.log("NAME-2-JSX");
+```
+</CodeBlock>
+
+
+This is an example message where I am linking the [React Aria Doc's](https://react-spectrum.adobe.com/react-aria/)
+
+## Table Heading
+
+| Prop Name    | Type           | Description       |
+| ------------ | ---------------| ------------------|
+|              |                |                   |
+
+
+</Implementation>
