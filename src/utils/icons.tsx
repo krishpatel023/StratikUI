@@ -194,6 +194,21 @@ export const Icons = {
       />
     </svg>
   ),
+  reactAria: (props: IconProps) => (
+    <svg
+      height="200"
+      width="200"
+      viewBox="0 0 20 20"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M20 1v18.001L12.607 1H20ZM7.399 1L0 19.001V1h7.399Zm2.604 6.265L14.713 19h-3.086l-1.41-3.419H6.77l3.233-8.316Z"
+        fill="currentColor"
+        fillRule="evenodd"
+      />
+    </svg>
+  ),
   tick: (props: IconProps) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
