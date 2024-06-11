@@ -8,6 +8,7 @@ declare module "*.mdx" {
     description: string;
     version_included: string;
     id: string;
+    display: boolean;
   };
   const MDXComponent: ComponentType;
   export default MDXComponent;
