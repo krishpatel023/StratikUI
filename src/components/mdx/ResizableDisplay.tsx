@@ -6,10 +6,8 @@ import { Skeleton } from "../ui/Skeleton";
 
 export const ResizableDisplay = ({
   children,
-  id,
 }: {
   children: React.ReactNode;
-  id: string;
 }) => {
   const sizeRef = useRef<HTMLDivElement>(null);
   const [windowWidth, setWindowWidth] = useState<number>();
@@ -41,7 +39,6 @@ export const ResizableDisplay = ({
     <div
       className={`w-full flex flex-col items-center justify-center pt-4 gap-4 rounded-xl mx-auto`}
       ref={sizeRef}
-      id={`${id}-display`}
     >
       {divWidth && divWidth !== 0 ? (
         <ResizableContainer
