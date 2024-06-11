@@ -1,12 +1,13 @@
-import { StorageData } from "@/packages";
+import { StorageData } from "@/docs";
 import { FileData } from "@/utils/constants";
 
 type Content = {
   name: string;
   description: string;
-  // tags: string[];
+  tags: string[];
   version_included: string;
   display: boolean;
+  id: string;
 };
 
 type ComponentItem = {
@@ -16,23 +17,16 @@ type ComponentItem = {
   display: boolean;
 };
 
-type CategoryItem = {
-  name: string;
-  content: (ComponentItem | CategoryItem)[];
-  type: string;
-  version?: string;
-  display: boolean;
-};
-
 export type FlattenedItem = {
   group: string;
   category: string;
   hash: string;
   name: string;
-  // tags: string[];
+  tags: string[];
   description: string;
   version_included: string;
   display: boolean;
+  id: string;
 };
 
 export const flattenData = (): FlattenedItem[] => {
@@ -49,18 +43,21 @@ export const flattenData = (): FlattenedItem[] => {
         processItem(childItem, parentClass || item.name, item.name)
       );
     } else if (item.content && typeof item.content === "object") {
-      const { name, description, tags, version_included, display } =
+      const { name, description, tags, version_included, id, display } =
         item.content;
-      result.push({
-        group: parentClass || "",
-        category: parentCategory || "",
-        hash: name.toLowerCase().replace(/\s+/g, "-"),
-        name,
-        //   tags,
-        description,
-        version_included,
-        display: item.display,
-      });
+      if (display) {
+        result.push({
+          group: parentClass || "",
+          category: parentCategory || "",
+          hash: name.toLowerCase().replace(/\s+/g, "-"),
+          name,
+          tags,
+          description,
+          version_included,
+          display,
+          id,
+        });
+      }
     }
   };
 
