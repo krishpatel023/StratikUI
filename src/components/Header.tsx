@@ -7,7 +7,7 @@ import { CURRENT_VERSION } from "@/utils/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { FlattenedItem } from "./search/FlattenData";
+import { FlattenedItem } from "../scripts/FlattenData";
 import { SearchField } from "./search/SearchField";
 import dynamic from "next/dynamic";
 import useHash from "@/hooks/useHash";

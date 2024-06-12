@@ -1,4 +1,4 @@
-import { StorageData } from "@/docs";
+import { StorageData } from "@/content/index";
 import { FileData } from "@/utils/constants";
 
 type Content = {

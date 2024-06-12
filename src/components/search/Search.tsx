@@ -20,7 +20,7 @@ import { IconProps } from "@/utils/constants";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { FlattenedItem } from "./FlattenData";
+import { FlattenedItem } from "../../scripts/FlattenData";
 import dynamic from "next/dynamic";
 
 // WRAPPER COMPONENT

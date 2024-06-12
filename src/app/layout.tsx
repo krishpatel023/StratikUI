@@ -4,7 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import { Providers } from "./provider";
 import { DEFAULT_MODE } from "@/utils/utils";
-import { flattenData } from "@/components/search/FlattenData";
+import { flattenData } from "@/scripts/FlattenData";
 
 const inter = Inter({ subsets: ["latin"] });
 
