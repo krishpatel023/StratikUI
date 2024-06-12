@@ -1,44 +1,40 @@
-{/* -------------------------------------------------------------------------- */}
-{/* Same as template.mdx but without the explaination for instant copy and use */}
-{/* -------------------------------------------------------------------------- */}
-
 import { Implementation, Preview, HeaderDefault, Display, TechnologyUsed } from "@/components/mdx/MDXServerImports"
 import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
 
 import { genId } from "@/utils/helper";
 
+{/* // import { DefaultInputComponent } from "@/packages/primitives/input-text/Input_1"; */}
+
 export const generatedId = genId("component");
 
-export const Data = {
-    title: "Title",
-    tags: [],
-    description: "Description",
-    version_included: "0.2.0",
-    id: generatedId,
-    display: true
-}
 
-# {Data.title}
+export const Data = {
+  name: "Default Text Input",
+  description:
+    "This is a default text input built with tailwind css and twMerge. It is accessible by default.",
+  version_included: "0.2.1",
+  tags: [],
+  id: generatedId,
+  display: true,
+};
+
+# {Data.name}
 ### {Data.description}
 
 <HeaderDefault id={Data.id}/> 
 
 <Preview id={Data.id}> 
 
-<ResizableDisplay>
-    {/* YOUR SPECIFIC COMPONENT THAT YOU WILL IMPORT FROM PACKAGES */}
-</ResizableDisplay>
-
 {/* FOR PRIMITIVES */}
 <Display>
-    {/* YOUR SPECIFIC COMPONENT THAT YOU WILL IMPORT FROM PACKAGES */}
+    {/* <DefaultInputComponent/> */}
 </Display>
 </Preview>
 
 <Implementation id={Data.id}>
 
 
-<TechnologyUsed technologies={[ "tailwind-css" , "framer-motion", "twMerge", "uuid", "cuid2" , "react-aria" ]}/>
+<TechnologyUsed technologies={[ "tailwind-css" , "react-aria" ]}/>
 
 <CodeBlock> 
 ```tsx|Name1
@@ -57,7 +53,7 @@ console.log("NAME-2-JSX");
 </CodeBlock>
 
 
-This is an example message where I am linking the [React Aria Doc's](https://react-spectrum.adobe.com/react-aria/)
+Checkout the default documentation of [React Aria Input](https://react-spectrum.adobe.com/react-aria/)
 
 ## Table Heading
 

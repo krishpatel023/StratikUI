@@ -5,9 +5,15 @@
 import * as fs from "fs";
 import * as path from "path";
 
-import { FileData, DataDescription } from "../utils/constants";
 import { versionCheck } from "@/scripts/VersionCheck";
+import { FileData } from "../utils/constants";
 
+const FOLDER_TO_INCLUDE = ["primitives", "components", "hooks"];
+const directoryPath = (folderName: string) => {
+  return path.join(process.cwd(), "src/content/docs" + path.sep + folderName);
+};
+
+// Read the directory
 export const readDirectory = (): FileData[] => {
   //It is a reccursive function which will go throught the directory and if found any then it will add it as per the type(Folder or File)
   function walkSync(dir: string, parentObjMain: FileData): FileData | null {
@@ -56,7 +62,7 @@ export const readDirectory = (): FileData[] => {
             }
             if (relative_path[i] === "docs") {
               flag = true;
-              new_path = ".";
+              new_path = "./docs";
             }
           }
 
@@ -104,85 +110,19 @@ export const readDirectory = (): FileData[] => {
   // Main function
   var files: FileData[] = [];
 
-  // Iterating through components
-  const componentDirectory = path.join(process.cwd(), "src/docs/components");
-  // This will return the input object only but with updated content field
-  const componentData = walkSync(componentDirectory, {
-    name: "components",
-    content: [],
-    type: "category",
-    display: false,
-  });
-
-  // Iterating through primitives
-  const primitivesDirectory = path.join(process.cwd(), "src/docs/primitives");
-  // This will return the input object only but with updated content field
-  const primitiveData = walkSync(primitivesDirectory, {
-    name: "primitives",
-    content: [],
-    type: "category",
-    display: false,
-  });
-
-  // Iterating through hooks
-  const hooksDirectory = path.join(process.cwd(), "src/docs/hooks");
-  // This will return the input object only but with updated content field
-  const hookData = walkSync(hooksDirectory, {
-    name: "hooks",
-    content: [],
-    type: "category",
-    display: false,
-  });
-
-  // Adding components, primitives and hooks to files
-  if (componentData && primitiveData && hookData) {
-    files = [primitiveData, componentData, hookData];
+  for (let i = 0; i < FOLDER_TO_INCLUDE.length; i++) {
+    const dirPath = directoryPath(FOLDER_TO_INCLUDE[i]);
+    const data = walkSync(dirPath, {
+      name: FOLDER_TO_INCLUDE[i],
+      content: [],
+      type: "category",
+      display: false,
+    });
+    if (data) files.push(data);
   }
-  // Returning an FileData[]
+
   return files;
 };
 
 // Adding the return vaule here so that it can be used at multiple places
 export const StorageData: FileData[] = readDirectory();
-
-// Extracting Individual Data FOR getStaticProps
-const extractIndividual = (parent: string, subData: FileData[]) => {
-  let returnData: string[] = [];
-
-  subData.map((item) => {
-    if (item.display) return returnData.push(`${item.name}`);
-  });
-
-  return returnData;
-};
-
-export function processData(
-  category: "primitives" | "components" | "hooks"
-): string[] {
-  if (category === "primitives") {
-    const primitives = extractIndividual(
-      "primitives",
-      StorageData[0].content as FileData[]
-    );
-    return primitives;
-  }
-
-  if (category === "components") {
-    const components = extractIndividual(
-      "components",
-      StorageData[1].content as FileData[]
-    );
-    return components;
-  }
-
-  if (category === "hooks") {
-    const hooks = extractIndividual(
-      "hooks",
-      StorageData[2].content as FileData[]
-    );
-    return hooks;
-  }
-  return [];
-}
-
-// export const staticPaths = processData();

@@ -7,7 +7,7 @@ import { genId } from "@/utils/helper";
 export const generatedId = genId("component");
 
 export const Data = { 
-    title: "Title",
+    name: "Title",
     tags: [],
     description: "Description",
     version_included: "0.2.0",
@@ -16,7 +16,7 @@ export const Data = {
 }
 
 {/* Automatically Handled when you change the above Fields */}
-# {Data.title}
+# {Data.name}
 ### {Data.description}
 
 <HeaderDefault id={Data.id}/> 
