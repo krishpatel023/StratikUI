@@ -3,7 +3,7 @@ declare module "*.mdx" {
   import { ComponentType } from "react";
 
   export const Data: {
-    title: string;
+    name: string;
     tags: string[];
     description: string;
     version_included: string;
