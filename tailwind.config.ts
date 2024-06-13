@@ -145,6 +145,9 @@ const config: Config = {
       lg: "900px",
     },
   },
-  plugins: [require("@tailwindcss/container-queries")],
+  plugins: [
+    require("@tailwindcss/container-queries"),
+    require("tailwindcss-react-aria-components"),
+  ],
 };
 export default config;
