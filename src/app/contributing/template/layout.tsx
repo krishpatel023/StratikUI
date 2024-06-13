@@ -1,4 +1,4 @@
-import { StorageData } from "@/docs";
+import { StorageData } from "@/content/index";
 import { FileData } from "@/utils/constants";
 import dynamic from "next/dynamic";
 
