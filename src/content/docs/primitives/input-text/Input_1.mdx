@@ -1,0 +1,177 @@
+import { Implementation, Preview, HeaderDefault, Display, TechnologyUsed } from "@/components/mdx/MDXServerImports"
+import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
+
+import { genId } from "@/utils/helper";
+
+import { DefaultInputComponent } from "@/packages/primitives/input_text/Input_1";
+
+export const generatedId = genId("component");
+
+
+export const Data = {
+  name: "Default Text Input",
+  description:
+    "This is a default text input built using react-aria and is styled using tailwind css and twMerge. It is accessible by default.",
+  version_included: "0.2.1",
+  tags: [],
+  id: generatedId,
+  display: true,
+};
+
+# {Data.name}
+### {Data.description}
+
+<HeaderDefault id={Data.id}/> 
+
+<Preview id={Data.id}> 
+<Display>
+    <DefaultInputComponent/> 
+</Display>
+</Preview>
+
+<Implementation id={Data.id}>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "react-aria" ]}/>
+
+<CodeBlock> 
+```tsx|Input
+"use client";
+
+import {
+  FieldError,
+  Input,
+  InputProps,
+  Label,
+  LabelProps,
+  TextField,
+  TextFieldProps,
+} from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+
+export function Field({ name, type, isRequired, ...props }: TextFieldProps) {
+  return (
+    <TextField
+      name={name}
+      type={type}
+      isRequired={isRequired}
+      className={twMerge("flex flex-col", props.className as string)}
+      {...props}
+    >
+      {props.children}
+    </TextField>
+  );
+}
+
+export function InputLabel({ children, ...props }: LabelProps) {
+  return (
+    <Label
+      className={twMerge(
+        "text-black dark:text-neutral-300 text-sm font-medium",
+        props.className as string
+      )}
+    >
+      {children}
+    </Label>
+  );
+}
+
+export function InputField({ ...props }: InputProps) {
+  return (
+    <Input
+      className={twMerge(
+        "w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 mt-1",
+        "text-black placeholder:text-neutral-500 border-neutral-200  hover:border-neutral-300 focus:border-blue-600",
+        "dark:text-white dark:placeholder:text-neutral-300 dark:border-neutral-800 dark:hover:border-neutral-700 dark:focus:ring-blue-500 dark:focus:border-blue-900",
+        props.className as string
+      )}
+      {...props}
+    />
+  );
+}
+```
+```jsx|Input
+"use client";
+
+import {
+  FieldError,
+  Input,
+  Label,
+  TextField,
+} from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+
+export function Field({ name, type, isRequired, ...props }: TextFieldProps) {
+  return (
+    <TextField
+      name={name}
+      type={type}
+      isRequired={isRequired}
+      className={twMerge("flex flex-col", props.className)}
+      {...props}
+    >
+      {props.children}
+    </TextField>
+  );
+}
+
+export function InputLabel({ children, ...props }) {
+  return (
+    <Label
+      className={twMerge(
+        "text-black dark:text-neutral-300 text-sm font-medium",
+        props.className
+      )}
+    >
+      {children}
+    </Label>
+  );
+}
+
+export function InputField({ ...props }) {
+  return (
+    <Input
+      className={twMerge(
+        "w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 mt-1",
+        "text-black placeholder:text-neutral-500 border-neutral-200  hover:border-neutral-300 focus:border-blue-600",
+        "dark:text-white dark:placeholder:text-neutral-300 dark:border-neutral-800 dark:hover:border-neutral-700 dark:focus:ring-blue-500 dark:focus:border-blue-900",
+        props.className
+      )}
+      {...props}
+    />
+  );
+}
+```
+
+```tsx|Implementation
+export const DefaultInputComponent = () => {
+  return (
+    <div className="w-full flex justify-center">
+      <Field name="Name" type="text" className="w-80">
+        <InputLabel>Name</InputLabel>
+        <InputField placeholder="Name" />
+        <FieldError />
+      </Field>
+    </div>
+  );
+};
+```
+```jsx|Implementation
+export const DefaultInputComponent = () => {
+  return (
+    <div className="w-full flex justify-center">
+      <Field name="Name" type="text" className="w-80">
+        <InputLabel>Name</InputLabel>
+        <InputField placeholder="Name" />
+        <FieldError />
+      </Field>
+    </div>
+  );
+};
+```
+</CodeBlock>
+
+
+Checkout the default documentation of [React Aria Input](https://react-spectrum.adobe.com/react-aria/TextField.html)
+
+</Implementation>
