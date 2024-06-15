@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} scrollbar-vertical bg-background ${DEFAULT_MODE ? "dark" : null}`}
+        className={`${inter.className} scrollbar-vertical bg-white dark:bg-black ${DEFAULT_MODE ? "dark" : null}`}
         id="theme-toggle"
       >
         <Providers>

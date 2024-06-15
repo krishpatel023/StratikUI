@@ -47,11 +47,11 @@ export function InputField({ state = "default", ...props }: ItemPropsExtended) {
       className={twMerge(
         twJoin(
           "w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 mt-1",
-          "text-black placeholder:text-neutral-500 border-neutral-200  hover:border-neutral-300 focus:border-blue-600",
-          "dark:text-white dark:placeholder:text-neutral-300 dark:border-neutral-800 dark:hover:border-neutral-700 dark:focus:ring-blue-500 dark:focus:border-blue-900",
-          "disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-neutral-200 disabled:dark:hover:border-neutral-800",
-          "data-[state=error]:border-red-400 data-[state=error]:hover:border-red-600 data-[state=error]:focus:ring-red-300 data-[state=error]:focus:border-red-500 dark:data-[state=error]:border-red-600 dark:data-[state=error]:hover:border-red-500 dark:data-[state=error]:focus:border-red-900 dark:data-[state=error]:focus:ring-red-500",
-          "data-[state=success]:border-green-500 data-[state=success]:hover:border-green-600 data-[state=success]:focus:ring-green-300 data-[state=success]:focus:border-green-600 dark:data-[state=success]:border-green-800 dark:data-[state=success]:hover:border-green-600 dark:data-[state=success]:focus:border-green-900 dark:data-[state=success]:focus:ring-green-700"
+          "text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
+          // "dark:text-white dark:placeholder:text-neutral-300 dark:border-neutral-800 dark:hover:border-neutral-700 dark:focus:ring-blue-500 dark:focus:border-blue-900",
+          "disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
+          "data-[state=error]:border-error data-[state=error]:hover:border-error-secondary data-[state=error]:focus:ring-error-secondary data-[state=error]:focus:border-error",
+          "data-[state=success]:border-success data-[state=success]:hover:border-success-secondary data-[state=success]:focus:ring-success-secondary data-[state=success]:focus:border-success"
         ),
         props.className as string
       )}

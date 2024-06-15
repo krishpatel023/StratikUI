@@ -10,43 +10,61 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        //Website
         background: "var(--background)",
         foreground: "var(--foreground)",
-        accent: "var(--accent)",
-        accentLight: "var(--accent-light)",
-        primary: "var(--primary)",
-        primaryLight: "var(--primary-foreground)",
-        secondary: "var(--secondary)",
 
-        textPrimary: "var(--text-primary)",
-        textSecondary: "var(--text-secondary)",
-        textComplementary: "var(--text-complementary)",
+        primary: {
+          DEFAULT: "var(--primary)",
+          foreground: "var(--primary-foreground)",
+        },
 
-        error: "var(--error)",
-        alert: "var(--alert)",
-        success: "var(--success)",
+        secondary: {
+          DEFUALT: "var(--secondary)",
+          foreground: "var(--secondary-foreground)",
+        },
 
-        border: "var(--border)",
+        accent: {
+          DEFAULT: "var(--accent)",
+          foreground: "var(--accent-foreground)",
+          secondary: {
+            DEFAULT: "var(--accent-secondary)",
+            foreground: "var(--accent-secondary-foreground)",
+          },
+        },
 
-        //Components
-        s_background: "var(--s_background)",
-        s_foreground: "var(--s_foreground)",
-        s_accent: "var(--s_accent)",
-        s_accentLight: "var(--s_accent-light)",
-        s_primary: "var(--s_primary)",
-        s_primaryLight: "var(--s_primary-foreground)",
-        s_secondary: "var(--s_secondary)",
+        outline: {
+          DEFAULT: "var(--outline)",
+          secondary: "var(--outline-secondary)",
+        },
 
-        s_textPrimary: "var(--s_text-primary)",
-        s_textSecondary: "var(--s_text-secondary)",
-        s_textComplementary: "var(--s_text-complementary)",
+        success: {
+          DEFAULT: "var(--success)",
+          secondary: "var(--success-secondary)",
+          foreground: "var(--success-foreground)",
+        },
 
-        s_error: "var(--s_error)",
-        s_alert: "var(--s_alert)",
-        s_success: "var(--s_success)",
+        alert: {
+          DEFAULT: "var(--alert)",
+          secondary: "var(--alert-secondary)",
+          foreground: "var(--alert-foreground)",
+        },
 
-        s_border: "var(--s_border)",
+        error: {
+          DEFAULT: "var(--error)",
+          secondary: "var(--error-secondary)",
+          foreground: "var(--error-foreground)",
+        },
+
+        muted: {
+          DEFAULT: "var(--muted)",
+          secondary: "var(--muted-secondary)",
+          foreground: "var(--muted-foreground)",
+        },
+      },
+      borderRadius: {
+        lg: `var(--radius)`,
+        md: `calc(var(--radius) - 2px)`,
+        sm: "calc(var(--radius) - 4px)",
       },
       animation: {
         // For @/packages/components/logo-carousel/Carousel_1.tsx
