@@ -12,7 +12,7 @@ export default function ArrowHeading({
     <>
       <h1
         className={twMerge(
-          "text-s_textPrimary flex gap-2 items-center",
+          "text-foreground flex gap-2 items-center",
           className
         )}
       >

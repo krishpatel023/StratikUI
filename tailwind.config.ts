@@ -19,7 +19,7 @@ const config: Config = {
         },
 
         secondary: {
-          DEFUALT: "var(--secondary)",
+          DEFAULT: "var(--secondary)",
           foreground: "var(--secondary-foreground)",
         },
 

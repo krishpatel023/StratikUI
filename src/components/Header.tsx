@@ -58,7 +58,7 @@ export const Header = ({ data }: { data: FlattenedItem[] }) => {
           )}
           <Link
             href="/"
-            className="flex h-full items-center justify-center gap-1 font-semibold text-2xl text-textPrimary"
+            className="flex h-full items-center justify-center gap-1 font-semibold text-2xl text-foreground"
             aria-label="Home"
           >
             {theme ? (
@@ -67,9 +67,9 @@ export const Header = ({ data }: { data: FlattenedItem[] }) => {
               <Logo.light className="h-16 w-16" />
             )}
             <span className="hidden sm:block ">Stratik / UI</span>
-            <span className="ml-4 justify-center items-center text-center px-3 py-[2px] rounded-full text-accent bg-accent/80 border-2 border-accent text-xs font-normal hidden lg:flex">
+            {/* <span className="ml-4 justify-center items-center text-center px-3 py-[2px] rounded-full text-accent bg-accent/80 border-2 border-accent text-xs font-normal hidden lg:flex">
               v {CURRENT_VERSION}
-            </span>
+            </span> */}
           </Link>
         </div>
         <div className="flex gap-6 items-center">
@@ -80,7 +80,7 @@ export const Header = ({ data }: { data: FlattenedItem[] }) => {
             <a
               href="https://github.com/krishpatel023/StratikUI"
               target="_blank"
-              className="w-8 h-10 flex justify-center items-center rounded hover:bg-secondary text-textPrimary"
+              className="w-8 h-10 flex justify-center items-center rounded hover:bg-secondary text-foreground"
               rel="noreferrer"
               aria-label="Twitter Account Link"
             >
@@ -88,7 +88,7 @@ export const Header = ({ data }: { data: FlattenedItem[] }) => {
             </a>
 
             <button
-              className="w-8 h-10 flex justify-center items-center rounded hover:bg-secondary text-textPrimary"
+              className="w-8 h-10 flex justify-center items-center rounded hover:bg-secondary text-foreground"
               onClick={() => toggleTheme()}
               aria-label="Toggle Theme"
             >

@@ -95,7 +95,7 @@ const CodeDisplay = ({
   return (
     <>
       {activeCode >= 0 && activeLanguage >= 0 ? (
-        <div className="w-full border-[2px] border-slate-100 dark:border-neutral-900/70 rounded-lg text-textPrimary p-0">
+        <div className="w-full border-[2px] border-slate-100 dark:border-neutral-900/70 rounded-lg text-foreground p-0">
           {/* TASKBAR */}
           <div className="w-full h-8 flex justify-between items-center mt-2">
             {/* BUTTONS */}
@@ -124,7 +124,7 @@ const CodeDisplay = ({
                 <SelectTrigger className="h-6 gap-2 border-none">
                   <SelectValue placeholder={codeArray[activeCode].name} />
                 </SelectTrigger>
-                <SelectContent className="bg-background text-textPrimary">
+                <SelectContent className="bg-background text-foreground">
                   <SelectGroup>
                     <SelectLabel>File</SelectLabel>
                     {codeArray?.map((item, i) => (
@@ -163,7 +163,7 @@ const CodeDisplay = ({
               </Select>
 
               {btnClick ? (
-                <button className="rounded text-green-400 px-2">
+                <button className="rounded   text-green-700 dark:text-green-400 px-2">
                   <Icons.tick className="w-4 h-4" />
                 </button>
               ) : (

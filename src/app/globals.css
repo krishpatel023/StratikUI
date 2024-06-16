@@ -16,8 +16,8 @@ html {
     --primary: #171717;
     --primary-foreground: #theme(colors.neutral.800);
 
-    --secondary: theme(colors.neutral.200);
-    --secondary-foreground: theme(colors.neutral.500);
+    --secondary: theme(colors.neutral.100);
+    --secondary-foreground: theme(colors.black);
 
     --accent: theme(colors.blue.600);
     --accent-foreground: theme(colors.white);
@@ -51,8 +51,8 @@ html {
     --primary: #171717;
     --primary-foreground: #e6e6e6;
 
-    --secondary: theme(colors.neutral.200);
-    --secondary-foreground: theme(colors.neutral.500);
+    --secondary: theme(colors.neutral.800);
+    --secondary-foreground: theme(colors.white);
 
     --accent: theme(colors.blue.600);
     --accent-foreground: theme(colors.white);

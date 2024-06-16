@@ -30,7 +30,7 @@ export const HeaderResizable = ({ id }: { id: string }) => {
     <div
       className={` ${active ? "w-full" : "w-[calc(100%-1rem)] mr-4"} h-12 mt-6 flex justify-between items-center `}
     >
-      <div className="py-1 px-1 flex gap-1 bg-secondary rounded text-textPrimary">
+      <div className="py-1 px-1 flex gap-1 bg-secondary text-secondary-foreground rounded text-textPrimary">
         <button
           className={
             active === false ? "bg-background px-2 py-1 rounded" : "px-2 py-1"
@@ -50,7 +50,7 @@ export const HeaderResizable = ({ id }: { id: string }) => {
       </div>
       <button
         onClick={() => setTheme(!theme)}
-        className="h-10 w-10 bg-secondary p-1 rounded-md flex justify-center items-center gap-4 text-center text-textPrimary"
+        className="h-10 w-10 bg-secondary p-1 rounded-md flex justify-center items-center gap-4 text-center text-foreground"
       >
         <div className="bg-background hover:bg-secondary w-full h-full flex justify-center items-center rounded-md">
           {theme ? (
@@ -87,7 +87,7 @@ export const HeaderDefault = ({ id }: { id: string }) => {
   };
   return (
     <div className="w-full h-12 mt-6 flex justify-between items-center">
-      <div className="py-1 px-1 flex gap-1 bg-secondary rounded text-textPrimary">
+      <div className="py-1 px-1 flex gap-1 bg-secondary text-secondary-foreground rounded text-textPrimary">
         <button
           className={
             active === false ? "bg-background px-2 py-1 rounded" : "px-2 py-1"
@@ -107,7 +107,7 @@ export const HeaderDefault = ({ id }: { id: string }) => {
       </div>
       <button
         onClick={() => setTheme(!theme)}
-        className="h-10 w-10 bg-secondary p-1 rounded-md flex justify-center items-center gap-4 text-center text-textPrimary"
+        className="h-10 w-10 bg-secondary p-1 rounded-md flex justify-center items-center gap-4 text-center text-foreground"
       >
         <div className="bg-background hover:bg-secondary w-full h-full flex justify-center items-center rounded-md">
           {theme ? (

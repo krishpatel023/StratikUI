@@ -53,7 +53,7 @@ export const TechnologyUsed = ({
   };
   return (
     <div>
-      <h1 className="text-lg font-medium text-textPrimary">Technology Used</h1>
+      <h1 className="text-lg font-medium text-foreground">Technology Used</h1>
       <div className="flex justify-start gap-8 mt-2 flex-wrap">
         {technologies &&
           technologies.map((item, i) => (
@@ -61,7 +61,7 @@ export const TechnologyUsed = ({
               <a
                 href={TechData[item].link}
                 target="_blank"
-                className="flex justify-start items-center gap-2 text-sm text-textPrimary"
+                className="flex justify-start items-center gap-2 text-sm text-foreground"
                 rel="nofollow"
               >
                 {TechData[item].logo}

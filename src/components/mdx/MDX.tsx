@@ -81,7 +81,7 @@ export const H1 = ({ children }: { children: React.ReactNode }) => {
   return (
     <Link
       href={`#${convertToDashed(children as string)}`}
-      className="text-xl font-medium text-textPrimary group/hashtag flex gap-2 relative transition-all duration-300 ease-linear mt-10"
+      className="text-xl font-medium text-foreground group/hashtag flex gap-2 relative transition-all duration-300 ease-linear mt-16"
     >
       {children}
       <span
