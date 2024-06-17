@@ -5,6 +5,8 @@ import { HeaderDefault } from "./HeaderToggle";
 
 import { TechnologyUsed } from "./TechnologyUsed";
 import { Preview } from "./Preview";
+import { Wrapper } from "@/components/mdx/Wrappers";
+
 export {
   Implementation,
   Preview,
@@ -12,4 +14,5 @@ export {
   HeaderDefault,
   Display,
   TechnologyUsed,
+  Wrapper,
 };
