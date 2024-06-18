@@ -1,7 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 export default function useClipboard() {
   const copy = async (text: string, callback?: () => void) => {
     try {

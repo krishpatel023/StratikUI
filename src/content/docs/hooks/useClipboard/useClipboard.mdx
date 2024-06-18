@@ -1,7 +1,28 @@
-import { DataDescription, ImplementationNode } from "@/utils/constants";
-import Helper from "./Helper";
+import { Implementation, Preview, HeaderDefault, Display, TechnologyUsed, Wrapper } from "@/components/mdx/MDXServerImports"
+import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
 
-const CodeTsx: string = `import { useEffect, useState } from "react";
+import { genId } from "@/utils/helper";
+import { Helper } from "@/packages/hooks/useClipboard/Demo.tsx"
+
+export const generatedId = genId("component");
+
+export const Data = {
+    name: "useClipboard",
+    tags: [],
+    description: "The useClipboard hook makes it easy to use clipboard with its two functions: copy and read.",
+    version_included: "0.2.0",
+    id: generatedId,
+    display: true
+}
+
+<Wrapper>
+
+# {Data.name}
+### {Data.description}
+
+<CodeBlock> 
+```tsx|useClipboard
+"use client";
 
 export default function useClipboard() {
   const copy = async (text: string, callback?: () => void) => {
@@ -26,9 +47,10 @@ export default function useClipboard() {
     copy,
     read,
   };
-}`;
-
-const CodeJsx: string = `import { useEffect, useState } from "react";
+}
+```
+```jsx|useClipboard
+"use client";
 
 export default function useClipboard() {
   const copy = async (text, callback) => {
@@ -53,9 +75,14 @@ export default function useClipboard() {
     copy,
     read,
   };
-}`;
+}
+```
 
-const String = `import { useState } from "react";
+```tsx|Implementation
+"use client";
+
+import { useState } from "react";
+import useClipboard from "./useClipboard";
 
 export default function Helper() {
   const { copy, read } = useClipboard();
@@ -82,38 +109,45 @@ export default function Helper() {
       <p>{value}</p>
     </div>
   );
-}`;
+}
+```
+```jsx|Implementation
+"use client";
 
-const Implementation: ImplementationNode[] = [
-  {
-    type: "code",
-    content: [
-      {
-        name: "useClipboard",
-        content: [
-          { language: "tsx", code: CodeTsx },
-          { language: "jsx", code: CodeJsx },
-        ],
-      },
-      {
-        name: "Implementation",
-        content: [
-          { language: "tsx", code: String },
-          { language: "jsx", code: String },
-        ],
-      },
-    ],
-  },
-];
+import { useState } from "react";
+import useClipboard from "./useClipboard";
 
-const Data: DataDescription = {
-  name: "useClipboard",
-  description:
-    "The useClipboard hook makes it easy to use clipboard with its two functions: copy and read.",
-  implementation: Implementation,
-  component: <Helper />,
-  version_included: "0.1.1",
-  display: true,
-};
+export default function Helper() {
+  const { copy, read } = useClipboard();
 
-export default Data;
+  const [value, setValue] = useState("Hello, World!");
+
+  const handleCopy = () => {
+    copy("Hello, World!");
+  };
+
+  const handleRead = async () => {
+    const text = await read();
+    if (text) setValue(text);
+  };
+
+  return (
+    <div className="dark:text-white flex flex-col justify-center items-center gap-8 px-8">
+      <div className="flex gap-4">
+        <Button onClick={handleCopy}>Copy</Button>
+        <Button onClick={handleRead}>Read</Button>
+      </div>
+
+      <h1 className="text-2xl underline">Coppied Value</h1>
+      <p>{value}</p>
+    </div>
+  );
+}
+```
+</CodeBlock>
+
+
+<Display>
+    <Helper/>
+</Display>
+</Wrapper>

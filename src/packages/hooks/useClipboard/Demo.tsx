@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import useClipboard from "../../code/useClipboard";
+import useClipboard from "./useClipboard";
 import { Button } from "@/packages/ui/Button";
 
-export default function Helper() {
+export function Helper() {
   const { copy, read } = useClipboard();
 
   const [value, setValue] = useState("Hello, World!");
