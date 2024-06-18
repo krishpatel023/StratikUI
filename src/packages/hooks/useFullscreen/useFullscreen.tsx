@@ -20,7 +20,10 @@ export const useFullscreen = () => {
   }, []);
 
   const exitFullscreen = useCallback(() => {
-    if (document.exitFullscreen) {
+    console.log("isFullscreen", isFullscreen);
+
+    if (isFullscreen === false) return;
+    if (document && document.exitFullscreen) {
       document.exitFullscreen();
     }
     // This is for Safari
@@ -32,6 +35,8 @@ export const useFullscreen = () => {
       (document as any).msExitFullscreen();
     }
   }, []);
+
+  console.log(isFullscreen);
 
   const handleFullscreenChange = useCallback(() => {
     setIsFullscreen(!!document.fullscreenElement);

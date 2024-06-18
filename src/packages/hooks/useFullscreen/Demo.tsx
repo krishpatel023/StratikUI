@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useRef } from "react";
-import { useFullscreen } from "../../code/useFullscreen";
+import { useFullscreen } from "./useFullscreen";
 import { Button } from "@/packages/ui/Button";
 
-const FullscreenDemo: React.FC = () => {
+export const Demo: React.FC = () => {
   const { isFullscreen, requestFullscreen, exitFullscreen } = useFullscreen();
   const elementRef = useRef<HTMLDivElement>(null);
 
@@ -30,5 +30,3 @@ const FullscreenDemo: React.FC = () => {
     </div>
   );
 };
-
-export default FullscreenDemo;
