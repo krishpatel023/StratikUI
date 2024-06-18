@@ -1,5 +1,5 @@
 import { DataDescription, ImplementationNode } from "@/utils/constants";
-import { Helper, HelperString } from "./Helper";
+import { Helper, HelperString } from "./Demo";
 
 const CodeTsx: string = `import { useState, useEffect } from "react";
 
