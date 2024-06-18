@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/packages/ui/Button";
-import useCookies from "../../code/useCookies";
+import useCookies from "./useCookies";
 import { useState } from "react";
 import { Input } from "@/packages/ui/Input";
 
