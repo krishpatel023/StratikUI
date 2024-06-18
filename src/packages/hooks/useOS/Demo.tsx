@@ -2,9 +2,9 @@
 
 // Usage example in a component:
 import React from "react";
-import { useOS } from "../../code/useOS";
+import { useOS } from "./useOS";
 
-const OSComponent: React.FC = () => {
+export const Demo: React.FC = () => {
   const os = useOS();
 
   return (
@@ -13,5 +13,3 @@ const OSComponent: React.FC = () => {
     </div>
   );
 };
-
-export default OSComponent;

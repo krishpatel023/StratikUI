@@ -1,7 +1,30 @@
-import { DataDescription, ImplementationNode } from "@/utils/constants";
-import OSComponent from "./Helper";
+import { Implementation, Preview, HeaderDefault, Display, TechnologyUsed, Wrapper } from "@/components/mdx/MDXServerImports"
+import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
+import {Demo} from "@/packages/hooks/useOS/Demo.tsx"
+import { genId } from "@/utils/helper";
 
-const CodeTsx: string = `import { useState, useEffect } from "react";
+export const generatedId = genId("component");
+
+export const Data = {
+    name: "useOS",
+    tags: [],
+    description: "Use the useOS hook to get the operating system of the user.",
+    version_included: "0.2.0",
+    id: generatedId,
+    display: true
+}
+
+<Wrapper>
+
+# {Data.name}
+### {Data.description}
+
+<CodeBlock> 
+
+```tsx|useOS
+"use client";
+
+import { useState, useEffect } from "react";
 
 export type OS = "Windows" | "MacOS" | "Linux" | "Android" | "iOS" | "Unknown";
 
@@ -34,17 +57,21 @@ export const useOS = (): OS => {
   }, []);
 
   return os;
-};`;
+};
+```
 
-const CodeJsx: string = `import { useState, useEffect } from "react";
+```jsx|useOS
+"use client";
 
-export const useOS = () => {
+import { useState, useEffect } from "react";
+
+export const useOS = (): OS => {
   const [os, setOS] = useState("Unknown");
 
   useEffect(() => {
     const userAgent = window.navigator.userAgent;
 
-    const detectOS = (): OS => {
+    const detectOS = () => {
       if (/Windows/i.test(userAgent)) {
         return "Windows";
       }
@@ -67,11 +94,16 @@ export const useOS = () => {
   }, []);
 
   return os;
-};`;
+};
+```
 
-const Example = `import React from "react";
+```tsx|Implementation
+"use client";
 
-const OSComponent = () => {
+import React from "react";
+import { useOS } from "./useOS";
+
+export const Demo: React.FC = () => {
   const os = useOS();
 
   return (
@@ -80,38 +112,29 @@ const OSComponent = () => {
     </div>
   );
 };
+```
+```jsx|Implementation
+"use client";
 
-export default OSComponent;`;
+import React from "react";
+import { useOS } from "./useOS";
 
-const Implementation: ImplementationNode[] = [
-  {
-    type: "code",
-    content: [
-      {
-        name: "useDelay",
-        content: [
-          { language: "tsx", code: CodeTsx },
-          { language: "jsx", code: CodeJsx },
-        ],
-      },
-      {
-        name: "Implementation",
-        content: [
-          { language: "tsx", code: Example },
-          { language: "jsx", code: Example },
-        ],
-      },
-    ],
-  },
-];
+export const Demo = () => {
+  const os = useOS();
 
-const Data: DataDescription = {
-  name: "useOS",
-  description: "Use the useOS hook to get the operating system of the user.",
-  implementation: Implementation,
-  component: <OSComponent />,
-  version_included: "0.1.1",
-  display: true,
+  return (
+    <div className="w-full h-80 flex flex-col justify-center items-center dark:text-white">
+      <p>Your operating system is: {os}</p>
+    </div>
+  );
 };
+```
+</CodeBlock>
 
-export default Data;
+
+
+
+<Display>
+    <Demo/>
+</Display>
+</Wrapper>
