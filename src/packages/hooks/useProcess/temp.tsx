@@ -1,5 +1,5 @@
 import { DataDescription, ImplementationNode } from "@/utils/constants";
-import { Demo, DemoStringJsx, DemoStringTsx } from "./Helper";
+import { Demo, DemoStringJsx, DemoStringTsx } from "./Demo";
 
 const CodeTsx: string = `import { useCallback, useState } from "react";
 
