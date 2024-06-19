@@ -40,7 +40,7 @@ export const BLOCK_QUOTE = ({
 }: React.HTMLAttributes<HTMLElement>) => {
   return (
     <blockquote
-      className={twMerge("mt-6 border-l-2 pl-6 italic", className)}
+      className={twMerge("border-l-2 pl-6 italic", className)}
       {...props}
     />
   );
@@ -81,7 +81,7 @@ export const H1 = ({ children }: { children: React.ReactNode }) => {
   return (
     <Link
       href={`#${convertToDashed(children as string)}`}
-      className="text-xl font-medium text-foreground group/hashtag flex gap-2 relative transition-all duration-300 ease-linear mt-16"
+      className="text-xl font-medium text-foreground group/hashtag flex gap-2 relative transition-all duration-300 ease-linear"
     >
       {children}
       <span
@@ -98,7 +98,7 @@ export const H1 = ({ children }: { children: React.ReactNode }) => {
 
 export const H2 = ({ children }: { children: React.ReactNode }) => {
   return (
-    <p className="text-neutral-800 dark:text-neutral-200 font-semibold text-lg mt-4">
+    <p className="text-neutral-800 dark:text-neutral-200 font-semibold text-lg">
       {children}
     </p>
   );
@@ -106,7 +106,7 @@ export const H2 = ({ children }: { children: React.ReactNode }) => {
 
 export const H3 = ({ children }: { children: React.ReactNode }) => {
   return (
-    <p className="text-neutral-800 dark:text-neutral-400 font-normal text-base mt-4">
+    <p className="text-neutral-800 dark:text-neutral-400 font-normal text-base">
       {children}
     </p>
   );
@@ -123,7 +123,7 @@ export const TEXT = ({ ...props }) => {
 export const BACKTICK = ({ ...props }) => {
   return (
     <code
-      className="py-1 px-2 mx-1 bg-neutral-200 text-neutral-800 dark:bg-neutral-900 dark:text-neutral-300 rounded-lg"
+      className="py-1 px-2 bg-neutral-200 text-neutral-800 dark:bg-neutral-900 dark:text-neutral-300 rounded-lg"
       {...props}
     />
   );
