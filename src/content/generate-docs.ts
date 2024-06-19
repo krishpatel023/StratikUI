@@ -29,6 +29,9 @@ function log({
       break;
   }
 }
+function capitalize(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
 
 function generateMDX(
   folderName: string,
@@ -40,13 +43,13 @@ function generateMDX(
     const imports = mdxFiles.map((file: string) => {
       const componentName = path.basename(file, ".mdx");
       const relativePath = `@/content/docs/${folderName}/${subFolderName}/${file.split(".mdx")[0]}`;
-      return `import ${componentName} from '${relativePath}.mdx'`;
+      return `import ${capitalize(componentName)} from '${relativePath}.mdx'`;
     });
 
     // Generate the components
     const components = mdxFiles.map((file: string) => {
       const componentName = path.basename(file, ".mdx");
-      return `<${componentName} />`;
+      return `<${capitalize(componentName)} />`;
     });
 
     // Generate the content - combine imports and components
