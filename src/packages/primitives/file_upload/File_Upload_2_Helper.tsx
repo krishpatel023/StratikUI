@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import useFileUpload from "../../hooks/code/useFileUpload";
+import useFileUpload from "../../hooks/useFileUpload/useFileUpload";
 import Image from "next/image";
 import { IconProps } from "@/utils/constants";
 import { Button } from "../buttons/Button_6_Helper";
-import useDelay from "@/packages/hooks/code/useDelay";
-import useProcess from "@/packages/hooks/code/useProcess";
-import useArtificialLoader from "@/packages/hooks/code/useArtificialLoader";
+import useDelay from "@/packages/hooks/useDelay/useDelay";
+import useProcess from "@/packages/hooks/useProcess/useProcess";
+import useArtificialLoader from "@/packages/hooks/useArtificialLoader/useArtificialLoader";
 
 export const FileUpload_2 = () => {
   const allowedFileTypes = ["image/png", "image/jpeg", "image/jpg"];

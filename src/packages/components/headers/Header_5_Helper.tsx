@@ -10,8 +10,8 @@ import {
   KeyListener,
   KeyListenerDisplay,
 } from "@/packages/primitives/key_listener/KeyListener_Helper";
-import useClickOutside from "@/packages/hooks/code/useClickOutside";
-import useDisableScroll from "@/packages/hooks/code/useDisableScroll";
+import useClickOutside from "@/packages/hooks/useClickOutside/useClickOutside";
+import useDisableScroll from "@/packages/hooks/useDisableScroll/useDisableScroll";
 import { ContainerGlassEffect } from "@/packages/primitives/containers/Container_6";
 
 export const Header = () => {

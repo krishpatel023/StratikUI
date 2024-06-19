@@ -1,10 +1,10 @@
 "use client";
 
-import useDelay from "@/packages/hooks/code/useDelay";
-import useProcess from "@/packages/hooks/code/useProcess";
+import useDelay from "@/packages/hooks/useDelay/useDelay";
+import useProcess from "@/packages/hooks/useProcess/useProcess";
 import { IconProps } from "@/utils/constants";
 import { useRef } from "react";
-import useFileUpload from "../../hooks/code/useFileUpload";
+import useFileUpload from "../../hooks/useFileUpload/useFileUpload";
 import { Button } from "../buttons/Button_6_Helper";
 
 export const FileUpload_1 = () => {

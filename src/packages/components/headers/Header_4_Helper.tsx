@@ -1,14 +1,12 @@
 "use client";
 
-import useClickOutside from "@/hooks/ClickOutside";
-import { IconProps } from "@/utils/constants";
-import { animate, useAnimate } from "framer-motion";
-import { useState, useRef, useEffect } from "react";
-import { twMerge } from "tailwind-merge";
-import { HeaderDrawer } from "./Header_Drawer_Helper";
+import useScrollbar from "@/packages/hooks/useScrollbar/useScrollbar";
 import { ContainerGlassEffect } from "@/packages/primitives/containers/Container_6";
 import { NavbarGroup } from "@/packages/primitives/header_blocks/Header_Continuous_Dropdown_Animated_Helper";
-import useScrollbar from "@/packages/hooks/code/useScrollbar";
+import { IconProps } from "@/utils/constants";
+import { useState } from "react";
+import { twMerge } from "tailwind-merge";
+import { HeaderDrawer } from "./Header_Drawer_Helper";
 
 export const Header = () => {
   const [open, setOpen] = useState<boolean>(false);

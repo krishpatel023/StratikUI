@@ -5,10 +5,6 @@ import {
   ResizeExample2,
 } from "./Resizable_2_Helper";
 import { HelperFunctionsJsx, HelperFunctionsTsx } from "./Resizable_Helper";
-import {
-  useResizableCodeJsx,
-  useResizableCodeTsx,
-} from "@/packages/hooks/docs/useResizable/useResizable";
 
 function Demo() {
   return (
@@ -40,13 +36,13 @@ const Implementation: ImplementationNode[] = [
           { language: "jsx", code: HelperFunctionsJsx },
         ],
       },
-      {
-        name: "useResizable",
-        content: [
-          { language: "tsx", code: useResizableCodeTsx },
-          { language: "jsx", code: useResizableCodeJsx },
-        ],
-      },
+      // {
+      //   name: "useResizable",
+      //   content: [
+      //     { language: "tsx", code: useResizableCodeTsx },
+      //     { language: "jsx", code: useResizableCodeJsx },
+      //   ],
+      // },
     ],
   },
 ];

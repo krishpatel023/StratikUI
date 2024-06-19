@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { ResizableContainer, ResizeBoundingElement } from "./Resizable_Helper";
-import useResizable from "@/packages/hooks/code/useResizable";
+import useResizable from "@/packages/hooks/useResizable/useResizable";
 import ArrowHeading from "@/components/ui/ArrowHeading";
 
 export function ResizeExample1() {

@@ -102,7 +102,7 @@ const Handle = ({
               onMouseDown={(e) => handleResize(e, direction)}
               onTouchStart={(e) => handleResize(e, direction)}
             >
-              <div className="min-h-8 bg-primary rounded-full min-w-[0.25rem]"></div>
+              <div className="min-h-8 bg-secondary-foreground rounded-full min-w-[0.25rem]"></div>
             </div>
           )}
           {(direction === "top" || direction === "bottom") && (
@@ -112,7 +112,7 @@ const Handle = ({
               onMouseDown={(e) => handleResize(e, direction)}
               onTouchStart={(e) => handleResize(e, direction)}
             >
-              <div className="min-w-8 bg-primary rounded-full min-h-[0.25rem]"></div>
+              <div className="min-w-8 bg-secondary-foreground rounded-full min-h-[0.25rem]"></div>
             </div>
           )}
         </>

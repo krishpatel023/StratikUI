@@ -1,10 +1,6 @@
 import { DataDescription, ImplementationNode } from "@/utils/constants";
 import { ExampleJsx, ExampleTsx, ResizeExample1 } from "./Resizable_1_Helper";
 import { HelperFunctionsJsx, HelperFunctionsTsx } from "./Resizable_Helper";
-import {
-  useResizableCodeJsx,
-  useResizableCodeTsx,
-} from "@/packages/hooks/docs/useResizable/useResizable";
 
 function Demo() {
   return (
@@ -36,13 +32,13 @@ const Implementation: ImplementationNode[] = [
           { language: "jsx", code: HelperFunctionsJsx },
         ],
       },
-      {
-        name: "useResizable",
-        content: [
-          { language: "tsx", code: useResizableCodeTsx },
-          { language: "jsx", code: useResizableCodeJsx },
-        ],
-      },
+      // {
+      //   name: "useResizable",
+      //   content: [
+      //     { language: "tsx", code: useResizableCodeTsx },
+      //     { language: "jsx", code: useResizableCodeJsx },
+      //   ],
+      // },
     ],
   },
 ];

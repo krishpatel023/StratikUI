@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { ResizableContainer, ResizeBoundingElement } from "./Resizable_Helper";
 import useResizable, {
   ResizableOptions,
-} from "@/packages/hooks/code/useResizable";
+} from "@/packages/hooks/useResizable/useResizable";
 
 export function ResizeExample2() {
   const containerRef = useRef<HTMLDivElement>(null);

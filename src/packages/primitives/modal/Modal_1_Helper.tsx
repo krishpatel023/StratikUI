@@ -5,7 +5,7 @@ import { Button } from "@/packages/ui/Button";
 import { useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { ContainerGlassEffect } from "../containers/Container_6";
-import useDisableScroll from "@/packages/hooks/code/useDisableScroll";
+import useDisableScroll from "@/packages/hooks/useDisableScroll/useDisableScroll";
 
 export function Modal({
   children,

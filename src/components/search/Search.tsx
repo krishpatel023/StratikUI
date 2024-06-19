@@ -2,8 +2,8 @@
 
 import { useInternalState } from "@/hooks/useInternalState";
 import { useSearch } from "@/hooks/useSearch";
-import useClickOutside from "@/packages/hooks/code/useClickOutside";
-import useDisableScroll from "@/packages/hooks/code/useDisableScroll";
+import useClickOutside from "@/packages/hooks/useClickOutside/useClickOutside";
+import useDisableScroll from "@/packages/hooks/useDisableScroll/useDisableScroll";
 // import { ContainerGlassEffect } from "@/packages/primitives/containers/Container_6";
 
 const ContainerGlassEffect = dynamic(() =>
