@@ -21,7 +21,7 @@ export default function Sidebar(params: { params: { data: FileData[] } }) {
   return (
     <>
       <div
-        className={`w-[18rem] fixed h-full top-0 overflow-y-auto border-r-2 border-border scrollbar-vertical transition-all duration-300 ease-linear z-[9999] bg-background ${sidebar ? "left-0" : "-left-[18rem]"}`}
+        className={`w-[18rem] fixed h-full top-0 overflow-y-auto border-r-2 border-r-outline scrollbar-vertical transition-all duration-300 ease-linear z-[9999] bg-background ${sidebar ? "left-0" : "-left-[18rem]"}`}
         ref={ref}
       >
         <div className="w-full flex justify-end items-center mt-4 px-4">
@@ -35,7 +35,7 @@ export default function Sidebar(params: { params: { data: FileData[] } }) {
               item.content.length > 0 &&
               item.display && (
                 <div className="w-full pl-6 mt-6">
-                  <h1 className="text-textPrimary font-semibold text-base capitalize">
+                  <h1 className="text-foreground font-semibold text-base capitalize">
                     {item.name}
                   </h1>
 
@@ -58,11 +58,11 @@ export default function Sidebar(params: { params: { data: FileData[] } }) {
                               aria-label={`Go to ${subitem.name}'s documentaion`}
                             >
                               <h1
-                                className={` font-normal text-sm ${item.name !== "hooks" && "capitalize"}  mt-3 flex justify-start items-center flex-wrap gap-4  ${splitParams[3] === subitem.name ? "text-accent" : "text-textSecondary hover:text-accent hover:cursor-pointer hover:ml-2 transition-all ease-linear duration-150"}`}
+                                className={` font-normal text-sm ${item.name !== "hooks" && "capitalize"}  mt-3 flex justify-start items-center flex-wrap gap-4  ${splitParams[3] === subitem.name ? "text-accent-secondary" : "text-neutral-600 dark:text-neutral-400   hover:text-accent-secondary hover:cursor-pointer hover:ml-2 transition-all ease-linear duration-150"}`}
                               >
                                 {subitem.name.replace(/-/g, " ")}
                                 {subitem.version && isNew && (
-                                  <div className="px-2 text-xs font-light text-success bg-success/30 rounded-full border-2 border-success">
+                                  <div className="px-2 text-xs font-light text-success dark:text-success-secondary bg-success/30 rounded-full border-2 border-success-secondary">
                                     New
                                   </div>
                                 )}

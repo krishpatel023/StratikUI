@@ -21,10 +21,10 @@ html {
 
     --accent: theme(colors.blue.600);
     --accent-foreground: theme(colors.white);
-    --accent-secondary: theme(colors.blue.400);
+    --accent-secondary: theme(colors.blue.500);
     --accent-secondary-foreground: theme(colors.white);
 
-    --outline: theme(colors.neutral.800);
+    --outline: theme(colors.neutral.200);
     --outline-secondary: theme(colors.neutral.500);
 
     --success: theme(colors.green.500);
