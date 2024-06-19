@@ -1,0 +1,46 @@
+import { Implementation, Preview, HeaderDefault, Display, TechnologyUsed, Wrapper } from "@/components/mdx/MDXServerImports"
+import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
+
+import { genId } from "@/utils/helper";
+
+export const generatedId = genId("component");
+
+export const Data = {
+    name: "",
+    tags: [],
+    description: "",
+    version_included: "0.2.0",
+    id: generatedId,
+    display: true
+}
+
+<Wrapper>
+
+# {Data.name}
+### {Data.description}
+
+<CodeBlock> 
+
+```tsx|Name
+
+```
+
+```jsx|Name
+
+```
+
+```tsx|Implementation
+
+```
+```jsx|Implementation
+
+```
+</CodeBlock>
+
+
+
+
+<Display>
+    {/* <Helper/> */}
+</Display>
+</Wrapper>
