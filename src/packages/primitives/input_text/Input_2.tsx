@@ -3,6 +3,7 @@
 import ArrowHeading from "@/components/ui/ArrowHeading";
 import {
   FieldError,
+  FieldErrorProps,
   Input,
   InputProps,
   Label,
@@ -33,13 +34,20 @@ export function InputLabel({ className, ...props }: LabelProps) {
     </Label>
   );
 }
+export function InputError({ className, ...props }: FieldErrorProps) {
+  return (
+    <FieldError className={twMerge("text-error", className as string)}>
+      {props.children}
+    </FieldError>
+  );
+}
 
 export function InputBox({ className, ...props }: InputProps) {
   return (
     <Input
       className={twMerge(
         twJoin(
-          "w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 mt-1",
+          "w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 my-1",
           "text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
           "disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
           "invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error"
@@ -77,7 +85,7 @@ export function InputField({
     >
       <InputLabel>{label}</InputLabel>
       <InputBox {...props} />
-      <FieldError />
+      <InputError>Error Message </InputError>
     </Field>
   );
 }
