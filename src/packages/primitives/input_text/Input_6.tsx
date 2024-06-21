@@ -1,324 +1,152 @@
-import ArrowHeading from "@/components/ui/ArrowHeading";
+"use client";
+
+import { IconProps } from "@/utils/constants";
+import { useState } from "react";
 import {
-  DataDescription,
-  IconProps,
-  ImplementationNode,
-} from "@/utils/constants";
-import { twMerge } from "tailwind-merge";
-function InputText({
-  label,
-  placeholder,
-  props,
-  icon,
-  state = "default",
-}: {
-  label: string;
-  placeholder: string;
-  props?: any;
-  icon?: any;
-  state?: "default" | "error" | "success" | "disabled";
-}) {
+  Button,
+  FieldError,
+  FieldErrorProps,
+  Input,
+  InputProps,
+  Label,
+  LabelProps,
+  TextField,
+  TextFieldProps,
+} from "react-aria-components";
+import { twJoin, twMerge } from "tailwind-merge";
+
+export function Field({ className, ...props }: TextFieldProps) {
   return (
-    <div>
-      <span className="text-s_textPrimary font-medium text-sm">{label}</span>
-      <div
-        className={twMerge(
-          "relative text-s_primary",
-          state === "error" && "text-s_error",
-          state === "success" && "text-s_success"
-        )}
-      >
-        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2.5">
-          {icon ? icon : null}
-        </div>
-        <input
-          type="text"
-          className={twMerge(
-            "my-1 w-full bg-transparent bg-opacity-30 text-s_textPrimary placeholder:text-s_textSecondary py-2 pr-10 pl-4 rounded-md border-[1px] border-s_primary focus:border-s_accent focus:outline-none focus:ring-2 shadow-sm",
-            state === "disabled" && "disabled:cursor-not-allowed",
-            state === "error" &&
-              "border-s_error focus:border-s_error focus:ring-red-400/90",
-            state === "success" &&
-              "border-s_success focus:border-s_success focus:ring-green-400/90"
+    <TextField
+      className={twMerge("flex flex-col", className as string)}
+      {...props}
+    />
+  );
+}
+
+export function InputLabel({ className, ...props }: LabelProps) {
+  return (
+    <Label
+      className={twMerge(
+        "text-foreground text-sm font-medium",
+        className as string
+      )}
+    >
+      {props.children}
+    </Label>
+  );
+}
+export function InputError({ className, ...props }: FieldErrorProps) {
+  return (
+    <FieldError className={twMerge("text-error", className as string)}>
+      {props.children}
+    </FieldError>
+  );
+}
+
+export function InputBox({ className, ...props }: InputProps) {
+  return (
+    <Input
+      className={twMerge(
+        twJoin(
+          "w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 my-1",
+          "text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
+          "disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
+          "invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error"
+        ),
+        className as string
+      )}
+      {...props}
+    />
+  );
+}
+
+export interface InputFieldProps extends InputProps {
+  state?: "default" | "isInvalid" | "isDisabled";
+  label?: string;
+  isRequired?: boolean;
+  isReadOnly?: boolean;
+}
+
+export function InputField({
+  state = "default",
+  label,
+  isRequired,
+  isReadOnly,
+  className,
+  ...props
+}: InputFieldProps) {
+  const [active, setActive] = useState(false);
+
+  return (
+    <Field
+      name={props.name}
+      type={props.type}
+      className="w-80"
+      isInvalid={state === "isInvalid"}
+      isDisabled={state === "isDisabled"}
+      isReadOnly={isReadOnly}
+      isRequired={isRequired}
+    >
+      <InputLabel>{label}</InputLabel>
+      <div className="relative">
+        <Button
+          className="disabled:pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-foreground h-2/3 my-auto"
+          onPress={() => setActive(!active)}
+        >
+          {active ? (
+            <Icon.PasswordVisible className="w-4 h-4" />
+          ) : (
+            <Icon.PasswordHidden className="w-4 h-4" />
           )}
-          {...(state === "disabled" && { disabled: true })}
-          placeholder={placeholder}
+        </Button>
+        <InputBox
+          className={twMerge("pr-12 z-0", className as string)}
           {...props}
+          type={active ? "text" : "password"}
         />
       </div>
-    </div>
+      <InputError>Error Message </InputError>
+    </Field>
   );
 }
 
-function Demo() {
+export const InputWithPasswordToggle = () => {
   return (
-    <div className="w-80">
-      <ArrowHeading text="Default" className="mb-2" />
-
-      <InputText placeholder="you@example.com" label="Email" icon={<Icon />} />
-      <ArrowHeading text="Error" className="mb-2 mt-6" />
-      <InputText
-        placeholder="you@example.com"
-        label="Email"
-        icon={<Icon />}
-        state="error"
-      />
-      <ArrowHeading text="Success" className="mb-2 mt-6" />
-
-      <InputText
-        placeholder="you@example.com"
-        label="Email"
-        icon={<Icon />}
-        state="success"
-      />
-      <ArrowHeading text="Disabled" className="mb-2 mt-6" />
-
-      <InputText
-        placeholder="you@example.com"
-        label="Email"
-        icon={<Icon />}
-        state="disabled"
-      />
+    <div className="w-full flex flex-col items-center gap-6">
+      <InputField name="Password" placeholder="Password" label="Password" />
     </div>
   );
-}
-export const Icon = (props: { props?: IconProps }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1.2em"
-    height="1.2em"
-    viewBox="0 0 1024 1024"
-    {...props}
-  >
-    <path
-      fill="currentColor"
-      d="M512 0C229.232 0 0 229.232 0 512c0 282.784 229.232 512 512 512c282.784 0 512.017-229.216 512.017-512C1024.017 229.232 794.785 0 512 0zm0 961.008c-247.024 0-448-201.984-448-449.01c0-247.024 200.976-448 448-448s448.017 200.977 448.017 448S759.025 961.009 512 961.009zm-47.056-160.529h80.512v-81.248h-80.512zm46.112-576.944c-46.88 0-85.503 12.64-115.839 37.889c-30.336 25.263-45.088 75.855-44.336 117.775l1.184 2.336h73.44c0-25.008 8.336-60.944 25.008-73.84c16.656-12.88 36.848-19.328 60.56-19.328c27.328 0 48.336 7.424 63.073 22.271c14.72 14.848 22.063 36.08 22.063 63.664c0 23.184-5.44 42.976-16.368 59.376c-10.96 16.4-29.328 39.841-55.088 70.322c-26.576 23.967-42.992 43.231-49.232 57.807c-6.256 14.592-9.504 40.768-9.744 78.512h76.96c0-23.68 1.503-41.136 4.496-52.336c2.975-11.184 11.504-23.823 25.568-37.888c30.224-29.152 54.496-57.664 72.88-85.551c18.336-27.857 27.52-58.593 27.52-92.193c0-46.88-14.176-83.408-42.577-109.568c-28.416-26.176-68.272-39.248-119.568-39.248z"
-    ></path>
-  </svg>
-);
-
-const DemoStringTsx = `function Demo() {
-  return (
-    <div className="w-80">
-      <ArrowHeading text="Default" className="mb-2" />
-
-      <InputText placeholder="you@example.com" label="Email" icon={<Icon />} />
-      <ArrowHeading text="Error" className="mb-2 mt-6" />
-      <InputText
-        placeholder="you@example.com"
-        label="Email"
-        icon={<Icon />}
-        state="error"
-      />
-      <ArrowHeading text="Success" className="mb-2 mt-6" />
-
-      <InputText
-        placeholder="you@example.com"
-        label="Email"
-        icon={<Icon />}
-        state="success"
-      />
-      <ArrowHeading text="Disabled" className="mb-2 mt-6" />
-
-      <InputText
-        placeholder="you@example.com"
-        label="Email"
-        icon={<Icon />}
-        state="disabled"
-      />
-    </div>
-  );
-}
-export const Icon = (props: { props?: IconProps }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1.2em"
-    height="1.2em"
-    viewBox="0 0 1024 1024"
-    {...props}
-  >
-    <path
-      fill="currentColor"
-      d="M512 0C229.232 0 0 229.232 0 512c0 282.784 229.232 512 512 512c282.784 0 512.017-229.216 512.017-512C1024.017 229.232 794.785 0 512 0zm0 961.008c-247.024 0-448-201.984-448-449.01c0-247.024 200.976-448 448-448s448.017 200.977 448.017 448S759.025 961.009 512 961.009zm-47.056-160.529h80.512v-81.248h-80.512zm46.112-576.944c-46.88 0-85.503 12.64-115.839 37.889c-30.336 25.263-45.088 75.855-44.336 117.775l1.184 2.336h73.44c0-25.008 8.336-60.944 25.008-73.84c16.656-12.88 36.848-19.328 60.56-19.328c27.328 0 48.336 7.424 63.073 22.271c14.72 14.848 22.063 36.08 22.063 63.664c0 23.184-5.44 42.976-16.368 59.376c-10.96 16.4-29.328 39.841-55.088 70.322c-26.576 23.967-42.992 43.231-49.232 57.807c-6.256 14.592-9.504 40.768-9.744 78.512h76.96c0-23.68 1.503-41.136 4.496-52.336c2.975-11.184 11.504-23.823 25.568-37.888c30.224-29.152 54.496-57.664 72.88-85.551c18.336-27.857 27.52-58.593 27.52-92.193c0-46.88-14.176-83.408-42.577-109.568c-28.416-26.176-68.272-39.248-119.568-39.248z"
-    ></path>
-  </svg>
-);`;
-
-const DemoStringJsx = `function Demo() {
-  return (
-    <div className="w-80">
-      <ArrowHeading text="Default" className="mb-2" />
-
-      <InputText placeholder="you@example.com" label="Email" icon={<Icon />} />
-      <ArrowHeading text="Error" className="mb-2 mt-6" />
-      <InputText
-        placeholder="you@example.com"
-        label="Email"
-        icon={<Icon />}
-        state="error"
-      />
-      <ArrowHeading text="Success" className="mb-2 mt-6" />
-
-      <InputText
-        placeholder="you@example.com"
-        label="Email"
-        icon={<Icon />}
-        state="success"
-      />
-      <ArrowHeading text="Disabled" className="mb-2 mt-6" />
-
-      <InputText
-        placeholder="you@example.com"
-        label="Email"
-        icon={<Icon />}
-        state="disabled"
-      />
-    </div>
-  );
-}
-export const Icon = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1.2em"
-    height="1.2em"
-    viewBox="0 0 1024 1024"
-    {...props}
-  >
-    <path
-      fill="currentColor"
-      d="M512 0C229.232 0 0 229.232 0 512c0 282.784 229.232 512 512 512c282.784 0 512.017-229.216 512.017-512C1024.017 229.232 794.785 0 512 0zm0 961.008c-247.024 0-448-201.984-448-449.01c0-247.024 200.976-448 448-448s448.017 200.977 448.017 448S759.025 961.009 512 961.009zm-47.056-160.529h80.512v-81.248h-80.512zm46.112-576.944c-46.88 0-85.503 12.64-115.839 37.889c-30.336 25.263-45.088 75.855-44.336 117.775l1.184 2.336h73.44c0-25.008 8.336-60.944 25.008-73.84c16.656-12.88 36.848-19.328 60.56-19.328c27.328 0 48.336 7.424 63.073 22.271c14.72 14.848 22.063 36.08 22.063 63.664c0 23.184-5.44 42.976-16.368 59.376c-10.96 16.4-29.328 39.841-55.088 70.322c-26.576 23.967-42.992 43.231-49.232 57.807c-6.256 14.592-9.504 40.768-9.744 78.512h76.96c0-23.68 1.503-41.136 4.496-52.336c2.975-11.184 11.504-23.823 25.568-37.888c30.224-29.152 54.496-57.664 72.88-85.551c18.336-27.857 27.52-58.593 27.52-92.193c0-46.88-14.176-83.408-42.577-109.568c-28.416-26.176-68.272-39.248-119.568-39.248z"
-    ></path>
-  </svg>
-);
-`;
-const ButtonCodeTsx: string = `function InputText({
-  label,
-  placeholder,
-  props,
-  icon,
-  state = "default",
-}: {
-  label: string;
-  placeholder: string;
-  props?: any;
-  icon?: any;
-  state?: "default" | "error" | "success" | "disabled";
-}) {
-  return (
-    <div>
-      <span className="text-s_textPrimary font-medium text-sm">{label}</span>
-      <div
-        className={twMerge(
-          "relative text-s_primary",
-          state === "error" && "text-s_error",
-          state === "success" && "text-s_success"
-        )}
-      >
-        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2.5">
-          {icon ? icon : null}
-        </div>
-        <input
-          type="text"
-          className={twMerge(
-            "my-1 w-full bg-transparent bg-opacity-30 text-s_textPrimary placeholder:text-s_textSecondary py-2 pr-10 pl-4 rounded-md border-[1px] border-s_primary focus:border-s_accent focus:outline-none focus:ring-2 shadow-sm",
-            state === "disabled" && "disabled:cursor-not-allowed",
-            state === "error" &&
-              "border-s_error focus:border-s_error focus:ring-red-400/90",
-            state === "success" &&
-              "border-s_success focus:border-s_success focus:ring-green-400/90"
-          )}
-          {...(state === "disabled" && { disabled: true })}
-          placeholder={placeholder}
-          {...props}
-        />
-      </div>
-    </div>
-  );
-}`;
-
-const ButtonCodeJsx = `function InputText({
-  label,
-  placeholder,
-  props,
-  icon,
-  state = "default",
-}) {
-  return (
-    <div>
-      <span className="text-s_textPrimary font-medium text-sm">{label}</span>
-      <div
-        className={twMerge(
-          "relative text-s_primary",
-          state === "error" && "text-s_error",
-          state === "success" && "text-s_success"
-        )}
-      >
-        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2.5">
-          {icon ? icon : null}
-        </div>
-        <input
-          type="text"
-          className={twMerge(
-            "my-1 w-full bg-transparent bg-opacity-30 text-s_textPrimary placeholder:text-s_textSecondary py-2 pr-10 pl-4 rounded-md border-[1px] border-s_primary focus:border-s_accent focus:outline-none focus:ring-2 shadow-sm",
-            state === "disabled" && "disabled:cursor-not-allowed",
-            state === "error" &&
-              "border-s_error focus:border-s_error focus:ring-red-400/90",
-            state === "success" &&
-              "border-s_success focus:border-s_success focus:ring-green-400/90"
-          )}
-          {...(state === "disabled" && { disabled: true })}
-          placeholder={placeholder}
-          {...props}
-        />
-      </div>
-    </div>
-  );
-}`;
-
-const Implementation: ImplementationNode[] = [
-  {
-    type: "technology_used",
-    content: ["tailwind-css", "twMerge"],
-  },
-  {
-    type: "code",
-    content: [
-      {
-        name: "InputText",
-        content: [
-          {
-            language: "tsx",
-            code: ButtonCodeTsx,
-          },
-          {
-            language: "jsx",
-            code: ButtonCodeJsx,
-          },
-        ],
-      },
-      {
-        name: "Implementation",
-        content: [
-          {
-            language: "tsx",
-            code: DemoStringTsx,
-          },
-          {
-            language: "jsx",
-            code: DemoStringJsx,
-          },
-        ],
-      },
-    ],
-  },
-];
-
-const Data: DataDescription = {
-  name: "Text Input with Right Icon",
-  description: "This is a text input with label and Right Icon",
-  implementation: Implementation,
-  component: Demo(),
-  version_included: "0.0.1",
-  display: true,
 };
-export default Data;
+
+const Icon = {
+  PasswordVisible: (props: IconProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 16 16"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M15.98 7.873c.013.03.02.064.02.098v.06a.24.24 0 0 1-.02.097C15.952 8.188 13.291 14 8 14S.047 8.188.02 8.128A.24.24 0 0 1 0 8.03v-.059c0-.034.007-.068.02-.098C.048 7.813 2.709 2 8 2s7.953 5.813 7.98 5.873m-1.37-.424a12.097 12.097 0 0 0-1.385-1.862C11.739 3.956 9.999 3 8 3c-2 0-3.74.956-5.225 2.587a12.098 12.098 0 0 0-1.701 2.414a12.095 12.095 0 0 0 1.7 2.413C4.26 12.043 6.002 13 8 13s3.74-.956 5.225-2.587A12.097 12.097 0 0 0 14.926 8c-.08-.15-.189-.343-.315-.551M8 4.75A3.253 3.253 0 0 1 11.25 8A3.254 3.254 0 0 1 8 11.25A3.253 3.253 0 0 1 4.75 8A3.252 3.252 0 0 1 8 4.75m0 1C6.76 5.75 5.75 6.76 5.75 8S6.76 10.25 8 10.25S10.25 9.24 10.25 8S9.24 5.75 8 5.75m0 1.5a.75.75 0 1 0 0 1.5a.75.75 0 0 0 0-1.5"
+      ></path>
+    </svg>
+  ),
+  PasswordHidden: (props: IconProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 16 16"
+      {...props}
+    >
+      <g fill="currentColor">
+        <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288c-.335.48-.83 1.12-1.465 1.755c-.165.165-.337.328-.517.486l.708.709z"></path>
+        <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299l.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"></path>
+        <path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884l-12-12l.708-.708l12 12l-.708.708z"></path>
+      </g>
+    </svg>
+  ),
+};
