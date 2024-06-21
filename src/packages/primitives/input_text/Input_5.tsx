@@ -70,6 +70,7 @@ export function InputField({
   label,
   isRequired,
   isReadOnly,
+  className,
   ...props
 }: InputFieldProps) {
   return (
@@ -85,7 +86,10 @@ export function InputField({
       <div className="relative">
         <InputBox
           {...props}
-          className="peer placeholder:text-transparent focus:placeholder:text-foreground"
+          className={twMerge(
+            "peer placeholder:text-transparent focus:placeholder:text-foreground",
+            className as string
+          )}
         />
         <InputLabel className=" absolute left-2  z-10  transform px-2 text-sm transition-all duration-300 peer-placeholder-shown:translate-y-[0.90rem] peer-focus:-translate-y-1 bg-background peer-focus:text-xs peer-disabled:bg-transparent peer-f">
           {label}
