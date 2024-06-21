@@ -1,0 +1,263 @@
+import { Implementation, Preview, HeaderDefault, Display, TechnologyUsed , Wrapper } from "@/components/mdx/MDXServerImports"
+import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
+import {InputWithFloatingLabel} from "@/packages/primitives/input_text/Input_5.tsx"
+import { genId } from "@/utils/helper";
+
+export const generatedId = genId("component");
+
+export const Data = {
+    name: "Floating Label Animation in Input Fields",
+    tags: [],
+    description: "A floating label input component enhances form usability by animating the label to float above the input field when the field gains focus or contains text. The animation provides a smooth, modern interaction experience for users.",
+    version_included: "0.2.0",
+    id: generatedId,
+    display: true
+}
+
+<Wrapper>
+# {Data.name}
+### {Data.description}
+
+<HeaderDefault id={Data.id}/> 
+
+<Preview id={Data.id}> 
+
+<Display>
+    <InputWithFloatingLabel/>
+</Display>
+</Preview>
+
+<Implementation id={Data.id}>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge", "react-aria" ]}/>
+
+<CodeBlock> 
+```tsx|Input
+"use client";
+
+import {
+  FieldError,
+  FieldErrorProps,
+  Input,
+  InputProps,
+  Label,
+  LabelProps,
+  TextField,
+  TextFieldProps,
+} from "react-aria-components";
+import { twJoin, twMerge } from "tailwind-merge";
+
+export function Field({ className, ...props }: TextFieldProps) {
+  return (
+    <TextField
+      className={twMerge("flex flex-col", className as string)}
+      {...props}
+    />
+  );
+}
+
+export function InputLabel({ className, ...props }: LabelProps) {
+  return (
+    <Label
+      className={twMerge(
+        "text-foreground text-sm font-medium",
+        className as string
+      )}
+    >
+      {props.children}
+    </Label>
+  );
+}
+export function InputError({ className, ...props }: FieldErrorProps) {
+  return (
+    <FieldError className={twMerge("text-error", className as string)}>
+      {props.children}
+    </FieldError>
+  );
+}
+
+export function InputBox({ className, ...props }: InputProps) {
+  return (
+    <Input
+      className={twMerge(
+        twJoin(
+          "w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 my-1",
+          "text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
+          "disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
+          "invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error"
+        ),
+        className as string
+      )}
+      {...props}
+    />
+  );
+}
+
+export interface InputFieldProps extends InputProps {
+  state?: "default" | "isInvalid" | "isDisabled";
+  label?: string;
+  isRequired?: boolean;
+  isReadOnly?: boolean;
+}
+
+export function InputField({
+  state = "default",
+  label,
+  isRequired,
+  isReadOnly,
+  ...props
+}: InputFieldProps) {
+  return (
+    <Field
+      name={props.name}
+      type={props.type}
+      className="w-80"
+      isInvalid={state === "isInvalid"}
+      isDisabled={state === "isDisabled"}
+      isReadOnly={isReadOnly}
+      isRequired={isRequired}
+    >
+      <div className="relative">
+        <InputBox
+          {...props}
+          className="peer placeholder:text-transparent focus:placeholder:text-foreground"
+        />
+        <InputLabel className=" absolute left-2  z-10  transform px-2 text-sm transition-all duration-300 peer-placeholder-shown:translate-y-[0.90rem] peer-focus:-translate-y-1 bg-background peer-focus:text-xs peer-disabled:bg-transparent peer-f">
+          {label}
+        </InputLabel>
+        <InputError>Error Message </InputError>
+      </div>
+    </Field>
+  );
+}
+```
+```jsx|Input
+"use client";
+
+import {
+  FieldError,
+  FieldErrorProps,
+  Input,
+  InputProps,
+  Label,
+  LabelProps,
+  TextField,
+  TextFieldProps,
+} from "react-aria-components";
+import { twJoin, twMerge } from "tailwind-merge";
+
+export function Field({ className, ...props }) {
+  return (
+    <TextField
+      className={twMerge("flex flex-col", className)}
+      {...props}
+    />
+  );
+}
+
+export function InputLabel({ className, ...props }) {
+  return (
+    <Label
+      className={twMerge(
+        "text-foreground text-sm font-medium",
+        className
+      )}
+    >
+      {props.children}
+    </Label>
+  );
+}
+
+export function InputError({ className, ...props }) {
+  return (
+    <FieldError className={twMerge("text-error", className)}>
+      {props.children}
+    </FieldError>
+  );
+}
+
+export function InputBox({ className, ...props }) {
+  return (
+    <Input
+      className={twMerge(
+        twJoin(
+          "w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 my-1",
+          "text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
+          "disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
+          "invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error"
+        ),
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
+export function InputField({
+  state = "default",
+  label,
+  isRequired,
+  isReadOnly,
+  ...props
+}) {
+  return (
+    <Field
+      name={props.name}
+      type={props.type}
+      className="w-80"
+      isInvalid={state === "isInvalid"}
+      isDisabled={state === "isDisabled"}
+      isReadOnly={isReadOnly}
+      isRequired={isRequired}
+    >
+      <div className="relative">
+        <InputBox
+          {...props}
+          className="peer placeholder:text-transparent focus:placeholder:text-foreground"
+        />
+        <InputLabel className=" absolute left-2  z-10  transform px-2 text-sm transition-all duration-300 peer-placeholder-shown:translate-y-[0.90rem] peer-focus:-translate-y-1 bg-background peer-focus:text-xs peer-disabled:bg-transparent peer-f">
+          {label}
+        </InputLabel>
+        <InputError>Error Message </InputError>
+      </div>
+    </Field>
+  );
+}
+```
+
+```tsx|Implementation
+export const InputWithFloatingLabel = () => {
+  return (
+    <div className="w-full flex flex-col items-center gap-6">
+      <InputField
+        name="Name"
+        type="text"
+        placeholder="Enter your name"
+        label="Name"
+      />
+    </div>
+  );
+};
+```
+```jsx|Implementation
+export const InputWithFloatingLabel = () => {
+  return (
+    <div className="w-full flex flex-col items-center gap-6">
+      <InputField
+        name="Name"
+        type="text"
+        placeholder="Enter your name"
+        label="Name"
+      />
+    </div>
+  );
+};
+```
+</CodeBlock>
+
+
+Checkout the default documentation of [React Aria Input](https://react-spectrum.adobe.com/react-aria/TextField.html)
+
+</Implementation>
+</Wrapper>
