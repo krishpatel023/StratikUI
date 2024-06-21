@@ -34,9 +34,12 @@ export const CodeBlock = ({ children }: { children: ReactNode }) => {
         result.push(codeBlocksByName[name]);
       }
 
-      const code = (
+      const codeDestructor = (
         children as { props: { children: string } }
-      ).props.children.replace(/\\n$/, "");
+      ).props.children?.replace(/\\n$/, "");
+
+      const code = codeDestructor ? codeDestructor : "";
+
       const lang = language.split("|")[0] as BundledLanguage;
       codeBlocksByName[name].content.push({ language: lang, code });
     });
