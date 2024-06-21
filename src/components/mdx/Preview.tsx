@@ -6,7 +6,7 @@ export const Preview = ({
   id: string;
 }) => {
   return (
-    <div id={`${id}-preview`} className="w-full flex-col gap-10 mt-6 mb-10">
+    <div id={`${id}-preview`} className="w-full flex-col gap-10">
       {children}
     </div>
   );

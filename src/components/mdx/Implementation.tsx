@@ -6,10 +6,7 @@ export const Implementation = ({
   id: string;
 }) => {
   return (
-    <div
-      id={`${id}-implementation`}
-      className="w-full hidden flex-col gap-10 mt-6 mb-10"
-    >
+    <div id={`${id}-implementation`} className="w-full hidden flex-col gap-10">
       {children}
     </div>
   );
