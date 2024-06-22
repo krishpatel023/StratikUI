@@ -1,26 +1,25 @@
 {/* TO CHECK HOW IT'S WORKING IN UI GO TO '/contributing/template' */}
 
-import { Implementation, Preview, HeaderDefault, Display, TechnologyUsed } from "@/components/mdx/MDXServerImports"
+import { Implementation, Preview, Display, TechnologyUsed, Wrapper } from "@/components/mdx/MDXServerImports"
 import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
-import { genId } from "@/utils/helper";
-
-export const generatedId = genId("component");
 
 export const Data = { 
     name: "Title",
     tags: [],
     description: "Description",
     version_included: "0.2.0",
-    id: generatedId,
     display: true
 }
 
-{/* Automatically Handled when you change the above Fields */}
-# {Data.name}
-### {Data.description}
+{/* 
+NOTE: Please reed the following details carefully
 
-<HeaderDefault id={Data.id}/> 
+- Anything you write will go inside this. IMPORTS ALSO
+- Anything outside it will be removed in AUTOGENERATION 
 
+*/}
+
+<Wrapper>
 {/* EVERYTHING THAT YOU WILL DISPLAY IN PREVIEW SECTION WILL INSIDE THE FOLLOWING WRAPPER */}
 <Preview id={Data.id}> 
 {/* FOR COMPONENTS */}
@@ -93,3 +92,4 @@ JUST AN EXAMPLE ELEMENT FOR ABOVE TABLE
 */}
 
 </Implementation>
+</Wrapper>

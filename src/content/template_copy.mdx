@@ -2,26 +2,27 @@
 {/* Same as template.mdx but without the explaination for instant copy and use */}
 {/* -------------------------------------------------------------------------- */}
 
-import { Implementation, Preview, HeaderDefault, Display, TechnologyUsed } from "@/components/mdx/MDXServerImports"
+import { Implementation, Preview, Display, TechnologyUsed, Wrapper } from "@/components/mdx/MDXServerImports"
 import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
 
-import { genId } from "@/utils/helper";
-
-export const generatedId = genId("component");
 
 export const Data = {
     name: "Title",
     tags: [],
     description: "Description",
     version_included: "0.2.0",
-    id: generatedId,
     display: true
 }
 
-# {Data.name}
-### {Data.description}
+{/* 
+NOTE: Please reed the following details carefully
 
-<HeaderDefault id={Data.id}/> 
+- Anything you write will go inside this. IMPORTS ALSO
+- Anything outside it will be removed in AUTOGENERATION 
+
+*/}
+
+<Wrapper>
 
 <Preview id={Data.id}> 
 
@@ -33,6 +34,7 @@ export const Data = {
 <Display>
     {/* YOUR SPECIFIC COMPONENT THAT YOU WILL IMPORT FROM PACKAGES */}
 </Display>
+
 </Preview>
 
 <Implementation id={Data.id}>
@@ -67,3 +69,5 @@ This is an example message where I am linking the [React Aria Doc's](https://rea
 
 
 </Implementation>
+
+</Wrapper>
