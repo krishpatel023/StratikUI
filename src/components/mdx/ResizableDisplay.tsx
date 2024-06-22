@@ -37,7 +37,7 @@ export const ResizableDisplay = ({
   }, []);
   return (
     <div
-      className={`w-full flex flex-col items-center justify-center pt-4 gap-4 rounded-xl mx-auto`}
+      className={`w-[calc(100%+1rem)] flex flex-col items-center justify-center pt-4 gap-4 rounded-xl mx-auto`}
       ref={sizeRef}
     >
       {divWidth && divWidth !== 0 ? (
