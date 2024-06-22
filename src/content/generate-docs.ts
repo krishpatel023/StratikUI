@@ -1,6 +1,10 @@
 import fs from "fs";
 import path from "path";
 
+// Include filepaths here that should not be generated
+const DO_NOT_GENERATE: string[] = [];
+
+// Directories
 const contentDir = path.join(process.cwd(), "src", "content", "docs");
 const targetDir = path.join(
   process.cwd(),
@@ -10,6 +14,11 @@ const targetDir = path.join(
   "(generatedDocs)"
 );
 
+// Initial/Default string
+const INITIAL_STRING = `import { Implementation, Preview, Header, Display, TechnologyUsed, Wrapper } from "@/components/mdx/MDXServerImports"
+import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"\n`;
+
+// Helper functions
 function log({
   state = "default",
   message,
@@ -29,8 +38,102 @@ function log({
       break;
   }
 }
+
 function capitalize(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+// It reads the files, processes them and generates the text for the page
+// Will take in the the path of the file and will return the new string
+
+function generatePageText(filePath: string) {
+  try {
+    let newString: string = "";
+    const relativePath = filePath
+      .split("StratikUI")[1]
+      .slice(1)
+      .replace(/\\/g, "/");
+
+    // Check if file is not to be generated : If in DO_NOT_GENERATE than skip
+    const isPermitted = !DO_NOT_GENERATE.includes(filePath);
+    if (!isPermitted) return "";
+
+    // Flag to give the dir of the source file (i.e. from where it was generated)
+    const GENERATED_TEXT = `\n\n{/*\n// ------------------------------------------------------------------------------------\n//\tThe text below is generated from ${relativePath}\n// ------------------------------------------------------------------------------------\n*/}\n\n`;
+
+    // Get category from path
+    const category = filePath.split(`docs${path.sep}`)[1].split(path.sep)[0];
+
+    // Header string according to category
+    let HeaderString = "";
+    if (category === "components" || category === "primitives")
+      HeaderString = `\n<Header />\n`;
+    else HeaderString = "";
+
+    // READ FILE
+    const data = fs.readFileSync(filePath, "utf8");
+
+    // Extract the things between <Wrapper> tag
+    const WrapperExtract = data.split("<Wrapper>")[1];
+
+    if (!WrapperExtract)
+      log({
+        state: "error",
+        message: `Wrapper tag not found in ${relativePath}`,
+      });
+
+    const REGEX = {
+      DataObjectRegex: /export\s+const\s+Data\s*=\s*\{[^}]*\}/,
+      name: /name\s*:\s*(["'`])(.+?)\1/,
+      description: /description\s*:\s*(["'`])(.+?)\1/,
+      display: /display\s*:\s*(true|false)/,
+    };
+
+    // Extract the data object
+    const matchedData = data.match(REGEX.DataObjectRegex);
+    const DataObject = matchedData ? matchedData[0] : "";
+
+    if (DataObject) {
+      const NameMatched = DataObject.match(REGEX.name);
+      const DescriptionMatched = DataObject.match(REGEX.description);
+      const DisplayMatched = DataObject.match(REGEX.display);
+
+      if (!NameMatched || !DescriptionMatched || !DisplayMatched) {
+        log({
+          state: "error",
+          message: `Failed to extract the data from ${relativePath}`,
+        });
+        return "";
+      }
+
+      const DataExtracted = {
+        name: NameMatched ? NameMatched[2] : "",
+        description: DescriptionMatched ? DescriptionMatched[2] : "",
+        display: DisplayMatched ? DisplayMatched[1] === "true" : null,
+      };
+
+      // If the display is hidden we won't generate the page
+      if (DataExtracted.display === null || DataExtracted.display === false)
+        return GENERATED_TEXT + "\n\t\tdisplay-false\n\n";
+
+      // Starting for the page that is being generated
+      const StratingString = `\n<Wrapper>\n\n\n# ${DataExtracted.name}\n### ${DataExtracted.description}\n`;
+
+      // Assembling the new string
+      newString =
+        GENERATED_TEXT + StratingString + HeaderString + WrapperExtract;
+    } else {
+      log({
+        state: "error",
+        message: `Data object not found in ${relativePath}`,
+      });
+    }
+
+    if (!newString) return "";
+    return newString;
+  } catch (err) {
+    log({ state: "error", message: err });
+  }
 }
 
 function generateMDX(
@@ -39,33 +142,31 @@ function generateMDX(
   mdxFiles: string[]
 ) {
   try {
-    // Generate the imports
-    const imports = mdxFiles.map((file: string) => {
-      const componentName = path.basename(file, ".mdx");
-      const relativePath = `@/content/docs/${folderName}/${subFolderName}/${file.split(".mdx")[0]}`;
-      return `import ${capitalize(componentName)} from '${relativePath}.mdx'`;
-    });
+    let fileDataToBeAdded: string = INITIAL_STRING;
 
-    // Generate the components
-    const components = mdxFiles.map((file: string) => {
-      const componentName = path.basename(file, ".mdx");
-      return `<${capitalize(componentName)} />`;
-    });
-
-    // Generate the content - combine imports and components
-    const content = `${imports.join("\n")}\n\n${components.join("\n")}`;
-
-    if (content) {
-      // Generate the MDX
+    for (let i = 0; i < mdxFiles.length; i++) {
       const filePath = path.join(
+        contentDir,
+        folderName,
+        subFolderName,
+        mdxFiles[i]
+      );
+      const strTemp = generatePageText(filePath);
+
+      fileDataToBeAdded += strTemp;
+    }
+
+    if (fileDataToBeAdded) {
+      // Generate the MDX at the target path
+      const tragetPath = path.join(
         targetDir,
         folderName,
         subFolderName,
         `page.mdx`
       );
 
-      // Create the file
-      fs.writeFileSync(filePath, content, { encoding: "utf-8" });
+      // Create the file - Add later
+      fs.writeFileSync(tragetPath, fileDataToBeAdded, { encoding: "utf-8" });
     }
   } catch (err) {
     log({ state: "error", message: `Error in MDX generation: ${err}` });
