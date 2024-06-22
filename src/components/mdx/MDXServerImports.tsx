@@ -1,17 +1,19 @@
-import { Implementation } from "@/components/mdx/Implementation";
 import { convertToDashed } from "@/utils/utils";
 import { DefaultDisplay as Display } from "./DefaultDisplay";
-import { HeaderDefault } from "./HeaderToggle";
 
 import { TechnologyUsed } from "./TechnologyUsed";
-import { Preview } from "./Preview";
-import { Wrapper } from "@/components/mdx/Wrappers";
+import {
+  Wrapper,
+  Preview_Component_For_StratikUI as Preview,
+  Header_Component_For_StratikUI as Header,
+  Implementation_Component_For_StratikUI as Implementation,
+} from "@/components/mdx/Wrappers";
 
 export {
   Implementation,
   Preview,
   convertToDashed,
-  HeaderDefault,
+  Header,
   Display,
   TechnologyUsed,
   Wrapper,
