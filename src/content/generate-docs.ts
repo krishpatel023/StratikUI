@@ -15,8 +15,16 @@ const targetDir = path.join(
 );
 
 // Initial/Default string
-const INITIAL_STRING = `import { Implementation, Preview, Header, Display, TechnologyUsed, Wrapper } from "@/components/mdx/MDXServerImports"
-import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"\n`;
+
+const INITIAL_STRING = {
+  PRIMITIVES: `import { Implementation, Preview, Header, Display, TechnologyUsed, Wrapper } from "@/components/mdx/MDXServerImports"\nimport { CodeBlock } from "@/components/mdx/MDXClientImports"\n`,
+
+  COMPONENTS: `import { Implementation, Preview, Header, TechnologyUsed, Wrapper } from "@/components/mdx/MDXServerImports"\nimport { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"\n`,
+
+  HOOKS: `import { Display, TechnologyUsed, Wrapper } from "@/components/mdx/MDXServerImports"\nimport { CodeBlock } from "@/components/mdx/MDXClientImports"\n`,
+
+  GENERIC: `import { Implementation, Preview, Header, Display, TechnologyUsed, Wrapper } from "@/components/mdx/MDXServerImports"\nimport { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"\n`,
+};
 
 // Helper functions
 function log({
@@ -63,12 +71,6 @@ function generatePageText(filePath: string) {
 
     // Get category from path
     const category = filePath.split(`docs${path.sep}`)[1].split(path.sep)[0];
-
-    // Header string according to category
-    let HeaderString = "";
-    if (category === "components" || category === "primitives")
-      HeaderString = `\n<Header />\n`;
-    else HeaderString = "";
 
     // READ FILE
     const data = fs.readFileSync(filePath, "utf8");
@@ -120,8 +122,7 @@ function generatePageText(filePath: string) {
       const StratingString = `\n<Wrapper>\n\n\n# ${DataExtracted.name}\n### ${DataExtracted.description}\n`;
 
       // Assembling the new string
-      newString =
-        GENERATED_TEXT + StratingString + HeaderString + WrapperExtract;
+      newString = GENERATED_TEXT + StratingString + WrapperExtract;
     } else {
       log({
         state: "error",
@@ -142,7 +143,13 @@ function generateMDX(
   mdxFiles: string[]
 ) {
   try {
-    let fileDataToBeAdded: string = INITIAL_STRING;
+    let fileDataToBeAdded: string = "";
+
+    if (folderName === "components")
+      fileDataToBeAdded = INITIAL_STRING.COMPONENTS;
+    else if (folderName === "primitives")
+      fileDataToBeAdded = INITIAL_STRING.PRIMITIVES;
+    else if (folderName === "hooks") fileDataToBeAdded = INITIAL_STRING.HOOKS;
 
     for (let i = 0; i < mdxFiles.length; i++) {
       const filePath = path.join(
