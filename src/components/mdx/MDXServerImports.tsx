@@ -7,7 +7,11 @@ import {
   Preview_Component_For_StratikUI as Preview,
   Header_Component_For_StratikUI as Header,
   Implementation_Component_For_StratikUI as Implementation,
+  ImportsWrapper,
+  PARTITION,
 } from "@/components/mdx/Wrappers";
+
+import { Skeleton } from "../ui/Skeleton";
 
 export {
   Implementation,
@@ -17,4 +21,7 @@ export {
   Display,
   TechnologyUsed,
   Wrapper,
+  ImportsWrapper,
+  Skeleton,
+  PARTITION,
 };

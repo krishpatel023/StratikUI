@@ -1,6 +1,7 @@
 import { genId } from "@/utils/helper";
 import React from "react";
 import { HeaderToggle } from "./HeaderToggle";
+import { twMerge } from "tailwind-merge";
 
 export const Wrapper = ({ children }: { children: React.ReactNode }) => {
   const generatedId = genId("stratik-ui");
@@ -84,4 +85,12 @@ export const Preview_Component_For_StratikUI = ({
 
 export const Header_Component_For_StratikUI = ({ id }: { id: string }) => {
   return <HeaderToggle id={id} />;
+};
+
+export const ImportsWrapper = ({ children }: { children: React.ReactNode }) => {
+  return children;
+};
+
+export const PARTITION = ({ className }: { className?: string }) => {
+  return <div className={twMerge("min-w-full min-h-10", className)}></div>;
 };
