@@ -15,16 +15,18 @@ const targetDir = path.join(
 );
 
 // Initial/Default string
-
 const INITIAL_STRING = {
-  PRIMITIVES: `import { Implementation, Preview, Header, Display, TechnologyUsed, Wrapper } from "@/components/mdx/MDXServerImports"\nimport { CodeBlock } from "@/components/mdx/MDXClientImports"\n`,
+  PRIMITIVES: `import { Implementation, Preview, Header, Display, TechnologyUsed, Wrapper, Skeleton, PARTITION } from "@/components/mdx/MDXServerImports"\nimport { CodeBlock } from "@/components/mdx/MDXClientImports"\n`,
 
-  COMPONENTS: `import { Implementation, Preview, Header, TechnologyUsed, Wrapper } from "@/components/mdx/MDXServerImports"\nimport { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"\n`,
+  COMPONENTS: `import { Implementation, Preview, Header, TechnologyUsed, Wrapper, Skeleton, PARTITION } from "@/components/mdx/MDXServerImports"\nimport { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"\n`,
 
-  HOOKS: `import { Display, TechnologyUsed, Wrapper } from "@/components/mdx/MDXServerImports"\nimport { CodeBlock } from "@/components/mdx/MDXClientImports"\n`,
+  HOOKS: `import { Display, TechnologyUsed, Wrapper, Skeleton } from "@/components/mdx/MDXServerImports"\nimport { CodeBlock } from "@/components/mdx/MDXClientImports"\n`,
 
-  GENERIC: `import { Implementation, Preview, Header, Display, TechnologyUsed, Wrapper } from "@/components/mdx/MDXServerImports"\nimport { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"\n`,
+  GENERIC: `import { Implementation, Preview, Header, Display, TechnologyUsed, Wrapper, Skeleton, PARTITION } from "@/components/mdx/MDXServerImports"\nimport { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"\n`,
 };
+
+// Tags that we need to wrap in suspense
+const SUSPENSED_TAGS = ["Display", "ResizableDisplay"];
 
 // Helper functions
 function log({
@@ -49,6 +51,284 @@ function log({
 
 function capitalize(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+// This function will sanitize the file path and return a valid variable name
+function sanitizeFilePath(filePath: string): string {
+  // Replace invalid characters with underscores
+  let sanitizedPath = filePath.replace(/[^a-zA-Z0-9_$]/g, "_");
+
+  // Ensure the variable name does not start with a number
+  if (/^[0-9]/.test(sanitizedPath)) {
+    sanitizedPath = "_" + sanitizedPath;
+  }
+
+  // Convert to lowercase and replace multiple underscores with a single underscore
+  sanitizedPath = sanitizedPath.replace(/_+/g, "_").toLowerCase();
+
+  // Ensure the first character is a valid letter or underscore
+  if (!/^[a-zA-Z_$]/.test(sanitizedPath.charAt(0))) {
+    sanitizedPath = "_" + sanitizedPath;
+  }
+
+  return sanitizedPath;
+}
+
+interface ImportInfo {
+  defaultImport: string | null;
+  namedImports: string[];
+  importPath: string;
+}
+
+type ImportResult = ImportInfo[];
+
+// Extracts import information from a string in the format:
+// import { useState } from "react";
+// to
+// [
+//   {
+//     defaultImport: null,
+//     namedImports: ["useState"],
+//     importPath: "react",
+//   }
+// ]
+
+function extractImports(importString: string): ImportResult {
+  const importStatements = importString
+    .split(";")
+    .filter((statement) => statement.trim().startsWith("import"));
+
+  const DATA = importStatements.map((statement) => {
+    const importInfo: ImportInfo = {
+      defaultImport: null,
+      namedImports: [],
+      importPath: "",
+    };
+
+    // Extract import path
+    const pathMatch = statement.match(/from\s+['"](.+?)['"]/);
+    if (pathMatch) {
+      importInfo.importPath = pathMatch[1];
+    }
+
+    // Extract default import and named imports
+    const importMatch = statement.match(/import\s+([\w\s,{}\*]+)\s+from/);
+    if (importMatch) {
+      const imports = importMatch[1].trim();
+
+      // Check for default import
+      const defaultImportMatch = imports.match(/^(\w+)(?:,|\s*{|\s+\*)/);
+      if (defaultImportMatch) {
+        importInfo.defaultImport = defaultImportMatch[1];
+      }
+
+      // Check for named imports
+      const namedImportsMatch = imports.match(/{([^}]+)}/);
+      if (namedImportsMatch) {
+        importInfo.namedImports = namedImportsMatch[1]
+          .split(",")
+          .map((imp) => imp.trim());
+      }
+
+      // Check for namespace import
+      const namespaceImportMatch = imports.match(/\*\s+as\s+(\w+)/);
+      if (namespaceImportMatch) {
+        importInfo.namedImports.push(`* as ${namespaceImportMatch[1]}`);
+      }
+    }
+
+    return importInfo;
+  });
+  const JSON_FORMAT = JSON.stringify(DATA, null, 2);
+  return JSON.parse(JSON_FORMAT);
+}
+
+interface NameReplacementObjectProps {
+  current: string;
+  replacement: string;
+}
+
+interface GenerateImportsReturnType {
+  imports: string;
+  nameReplacement: NameReplacementObjectProps[];
+}
+
+// It will convert the imports to Lazy imports for faster loading
+// Here discriminator is used as a unique identifier for the lazy import. We are merging two files and there is a comman name in bith than it will create a conflict. Thus the name will be suffixed with discriminator.
+// The discriminator is the file path hence won't change on every generation unlike a CUID2 generated Name and won't create git issues.
+
+function generateImports(
+  ImportLine: ImportInfo,
+  discriminator: string
+): GenerateImportsReturnType {
+  // An array that will strore the current name and the new name that needs to be replaced
+  let nameReplacement: NameReplacementObjectProps[] = [];
+
+  // Generate for default import
+  const generatedDefaultImportLine = ImportLine.defaultImport
+    ? `const ${ImportLine.defaultImport}_${discriminator} = React.lazy(() =>\n\timport('${ImportLine.importPath}').\n\t\tthen((mod) => ({\n\t\t\tdefault: mod.${ImportLine.defaultImport},\n\t}))\n);`
+    : "";
+
+  // If there is a default import, add it to the nameReplacement array
+  if (generatedDefaultImportLine !== "" && ImportLine.defaultImport) {
+    nameReplacement.push({
+      current: ImportLine.defaultImport,
+      replacement: `${ImportLine.defaultImport}_${discriminator}`,
+    });
+  }
+
+  // Generate for named imports
+  let generatedNamedImports = "";
+
+  // If there is a named import, parse one by one
+  ImportLine.namedImports.map((namedImport) => {
+    // Checking if the named import contains "as" and the necessary logic
+    if (namedImport.includes("as")) {
+      const preTag = namedImport.split("as")[0];
+      const postTag = namedImport.split("as")[1] + "_" + discriminator;
+      nameReplacement.push({
+        current: namedImport.split("as")[1],
+        replacement: postTag,
+      });
+
+      const generatedImportLine = `export const ${postTag} = React.lazy(() =>\n\timport('${ImportLine.importPath}')\n\t\t.then((mod) => ({\n\t\t\tdefault: mod.${preTag}\n\t}))\n);`;
+
+      generatedNamedImports =
+        generatedNamedImports + "\n" + generatedImportLine;
+    } else {
+      const generatedImportLine = `export const ${namedImport}_${discriminator} = React.lazy(() =>\n\timport('${ImportLine.importPath}')\n\t\t.then((mod) => ({\n\t\t\tdefault: mod.${namedImport}\n\t}))\n);`;
+
+      nameReplacement.push({
+        current: namedImport,
+        replacement: `${namedImport}_${discriminator}`,
+      });
+
+      generatedNamedImports =
+        generatedNamedImports + "\n" + generatedImportLine;
+    }
+  });
+
+  const ReturnObject: GenerateImportsReturnType = {
+    imports: generatedDefaultImportLine + "\n" + generatedNamedImports,
+    nameReplacement: nameReplacement,
+  };
+
+  return ReturnObject;
+}
+
+// It will extract the imports and generate the lazy imports
+function ImportFilter(input: string, filePath: string): string | null {
+  // Get category from path
+  const category = filePath.split(`docs${path.sep}`)[1].split(path.sep)[0];
+
+  // Regex for code block
+  const CodeBlockRegex = /<\s*CodeBlock\s*>([\s\S]*?)<\s*\/\s*CodeBlock\s*>/;
+
+  // Removing code block from the input as if we change the imports it should not affect the codeblock strings
+  let InputStrExceptCodeBlock = input.replace(
+    CodeBlockRegex,
+    "<CodeBlock></CodeBlock>"
+  );
+
+  // Storing the code block in a variable
+  const CodeBlockMatch = input.match(CodeBlockRegex);
+  const InputStringCodeBlock = CodeBlockMatch ? CodeBlockMatch[1] : null;
+
+  // Will sanitize the file path and return a valid variable name
+  // This will be used in discriminator
+  const relativePath = filePath
+    .split("docs" + path.sep)[1]
+    .split(path.extname(filePath))[0];
+  const sanitizedRelativePath = sanitizeFilePath(relativePath);
+
+  // Regex for imports extraction from import wrapper
+  const ImportWrapperRegex =
+    /<\s*ImportsWrapper\s*>([\s\S]*?)<\s*\/\s*ImportsWrapper\s*>/;
+  const match = InputStrExceptCodeBlock.match(ImportWrapperRegex);
+  const importStrings = match ? match[1].trim() : null;
+
+  if (importStrings) {
+    // convert the string into JSON Format
+    const JSON_OF_IMPORTS: ImportResult = extractImports(importStrings);
+
+    let generatedLazyImports = "";
+
+    // iterating over the JSON of imports
+    JSON_OF_IMPORTS.map((single_import) => {
+      // generate the lazy import for each import
+      const ImportObject: GenerateImportsReturnType = generateImports(
+        single_import,
+        sanitizedRelativePath
+      );
+      const ImportLine = ImportObject.imports;
+      generatedLazyImports = generatedLazyImports + "\n" + ImportLine;
+
+      // The names for the imports will be changed to include the discriminator
+      // this will avoid conflicts in the imports
+      ImportObject.nameReplacement.forEach((replacement) => {
+        const current = replacement.current.replace(" ", "");
+        const replace = replacement.replacement.replace(" ", "");
+
+        const NameChangeRegex = new RegExp(
+          `<\\s*\\/\\s*${current}\\s*\\/?>|<\\s*${current}\\b[^>]*\\/?>`,
+          "gi"
+        );
+
+        InputStrExceptCodeBlock = InputStrExceptCodeBlock.replace(
+          NameChangeRegex,
+          (match, attributes) => {
+            // If attributes are present, include them in the replacement
+            if (attributes !== undefined) {
+              return match.replace(
+                new RegExp(`\\b${current}\\b`, "gi"),
+                replace
+              );
+            } else {
+              // Handle self-closing and closing tags without attributes
+              return match
+                .replace(new RegExp(`\\b${current}\\b`, "gi"), replace)
+                .replace(/\s+/g, " ");
+            }
+          }
+        );
+      });
+    });
+
+    // Adding the code block back
+    const inputProcessed = InputStrExceptCodeBlock.replace(
+      "<CodeBlock></CodeBlock>",
+      InputStringCodeBlock
+        ? `<CodeBlock>\n${InputStringCodeBlock}\n</CodeBlock>\n`
+        : ""
+    );
+
+    // Removing the Import Wrapper along with old imports
+    // Replacing with the new lazy imports
+    let newImports = inputProcessed.replace(
+      ImportWrapperRegex,
+      generatedLazyImports
+    );
+
+    // Wrapping the suspense tag in the lazy imports to avoid hydration issues
+    SUSPENSED_TAGS.forEach((tag) => {
+      const regex = new RegExp(
+        `<\\s*${tag}\\s*>([\\s\\S]*?)<\\s*\\/\\s*${tag}\\s*>`,
+        "g"
+      );
+
+      let SkeletonClassName = "";
+      if (category === "components") SkeletonClassName = "h-[800px] rounded-lg";
+      else if (category === "primitives") SkeletonClassName = "h-60 rounded-lg";
+      else SkeletonClassName = "h-60 rounded-lg";
+
+      const internalDataInsideTags = newImports.match(regex);
+      const replacedData = `<Suspense fallback={<Skeleton className="${SkeletonClassName}" />}>\n${internalDataInsideTags ? internalDataInsideTags[0] : ""}\n</Suspense>`;
+      newImports = newImports.replace(regex, replacedData);
+    });
+
+    return newImports;
+  }
+  return null;
 }
 
 // It reads the files, processes them and generates the text for the page
@@ -119,10 +399,16 @@ function generatePageText(filePath: string) {
         return GENERATED_TEXT + "\n\t\tdisplay-false\n\n";
 
       // Starting for the page that is being generated
-      const StratingString = `\n<Wrapper>\n\n\n# ${DataExtracted.name}\n### ${DataExtracted.description}\n`;
+      const StratingString = `\n<Wrapper>\n\n# ${DataExtracted.name}\n### ${DataExtracted.description}\n`;
 
+      const ImportFilteredString = ImportFilter(WrapperExtract, filePath);
+      const PartitionString = category === "hooks" ? "" : "\n<PARTITION />\n";
       // Assembling the new string
-      newString = GENERATED_TEXT + StratingString + WrapperExtract;
+      newString =
+        GENERATED_TEXT +
+        StratingString +
+        (ImportFilteredString ? ImportFilteredString : WrapperExtract) +
+        PartitionString;
     } else {
       log({
         state: "error",
@@ -161,6 +447,11 @@ function generateMDX(
       const strTemp = generatePageText(filePath);
 
       fileDataToBeAdded += strTemp;
+    }
+
+    if (fileDataToBeAdded.includes("React.lazy")) {
+      const ReactLazyImport = "import React, { Suspense } from 'react';\n";
+      fileDataToBeAdded = ReactLazyImport + fileDataToBeAdded;
     }
 
     if (fileDataToBeAdded) {
