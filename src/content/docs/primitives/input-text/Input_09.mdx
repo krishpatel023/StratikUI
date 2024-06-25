@@ -1,34 +1,30 @@
-import { Implementation, Preview, HeaderDefault, Display, TechnologyUsed , Wrapper } from "@/components/mdx/MDXServerImports"
+import { Implementation, Preview, Header, Display, TechnologyUsed , Wrapper, ImportsWrapper } from "@/components/mdx/MDXServerImports"
 import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
-import { genId } from "@/utils/helper";
-
-export const generatedId = genId("component");
 
 export const Data = {
     name: "Default Input with Embedded Label",
     tags: [],
     description: "This input component features a label positioned inside the input field itself. By placing the label within the input, it saves space in the UI and provides immediate context for the user. This design pattern can create a clean, modern look while maintaining clarity on the input's purpose.",
     version_included: "0.2.0",
-    id: generatedId,
     display: true
 }
 
 <Wrapper>
+
+<ImportsWrapper> 
 import { DefaultLabelCoveredInputComponent } from "@/packages/primitives/input_text/Input_9.tsx"
 
-# {Data.name}
-### {Data.description}
+</ImportsWrapper>
 
-<HeaderDefault id={Data.id}/> 
+<Header />
 
-<Preview id={Data.id}> 
-
+<Preview> 
 <Display>
     <DefaultLabelCoveredInputComponent />
 </Display>
 </Preview>
 
-<Implementation id={Data.id}>
+<Implementation>
 
 
 <TechnologyUsed technologies={[ "tailwind-css" , "twMerge", "react-aria" ]}/>

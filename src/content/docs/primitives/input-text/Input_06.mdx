@@ -1,34 +1,31 @@
-import { Implementation, Preview, HeaderDefault, Display, TechnologyUsed , Wrapper } from "@/components/mdx/MDXServerImports"
+import { Implementation, Preview, Header, Display, TechnologyUsed , Wrapper, ImportsWrapper } from "@/components/mdx/MDXServerImports"
 import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
-import { genId } from "@/utils/helper";
-
-export const generatedId = genId("component");
 
 export const Data = {
     name: "Passord Toggle Input",
     tags: [],
     description: "A toggle password input enhances usability by allowing users to reveal or conceal entered password characters with a simple interaction, such as clicking an icon. This feature improves user experience by providing flexibility to verify password accuracy before submission, while maintaining security by obscuring the password by default.",
     version_included: "0.2.0",
-    id: generatedId,
     display: true
 }
 
 <Wrapper>
+
+
+<ImportsWrapper> 
 import { InputWithPasswordToggle } from "@/packages/primitives/input_text/Input_6.tsx"
 
-# {Data.name}
-### {Data.description}
+</ImportsWrapper>
 
-<HeaderDefault id={Data.id}/> 
+<Header />
 
-<Preview id={Data.id}> 
-
+<Preview> 
 <Display>
     <InputWithPasswordToggle />
 </Display>
 </Preview>
 
-<Implementation id={Data.id}>
+<Implementation>
 
 
 <TechnologyUsed technologies={[ "tailwind-css" , "twMerge", "react-aria" ]}/>

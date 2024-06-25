@@ -1,12 +1,5 @@
-import { Implementation, Preview, HeaderDefault, Display, TechnologyUsed } from "@/components/mdx/MDXServerImports"
+import { Implementation, Preview, Header, Display, TechnologyUsed, Wrapper, ImportsWrapper } from "@/components/mdx/MDXServerImports"
 import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
-
-import { genId } from "@/utils/helper";
-
-import { StatefulInputComponent } from "@/packages/primitives/input_text/Input_2";
-
-export const generatedId = genId("component");
-
 
 export const Data = {
   name: "Text Input with various states",
@@ -14,22 +7,26 @@ export const Data = {
     "This is a default text input that has various states built using react-aria and is styled using tailwind css and twMerge. It is accessible by default.",
   version_included: "0.2.1",
   tags: [],
-  id: generatedId,
   display: true,
 };
 
-# {Data.name}
-### {Data.description}
+<Wrapper>
 
-<HeaderDefault id={Data.id}/> 
+<ImportsWrapper> 
 
-<Preview id={Data.id}> 
-<Display>
-    <StatefulInputComponent/> 
-</Display>
+import { StatefulInputComponent } from "@/packages/primitives/input_text/Input_2";
+
+</ImportsWrapper>
+
+<Header />
+
+<Preview> 
+  <Display>
+      <StatefulInputComponent/> 
+  </Display>
 </Preview>
 
-<Implementation id={Data.id}>
+<Implementation>
 
 
 <TechnologyUsed technologies={[ "tailwind-css" , "react-aria" ]}/>
@@ -315,3 +312,4 @@ export const StatefulInputComponent = () => {
 Checkout the default documentation of [React Aria Input](https://react-spectrum.adobe.com/react-aria/TextField.html)
 
 </Implementation>
+</Wrapper>

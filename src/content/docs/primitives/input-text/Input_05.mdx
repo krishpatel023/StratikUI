@@ -1,33 +1,33 @@
-import { Implementation, Preview, HeaderDefault, Display, TechnologyUsed , Wrapper } from "@/components/mdx/MDXServerImports"
+import { Implementation, Preview, Header, Display, TechnologyUsed , Wrapper, ImportsWrapper } from "@/components/mdx/MDXServerImports"
 import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
-import {InputWithFloatingLabel} from "@/packages/primitives/input_text/Input_5.tsx"
-import { genId } from "@/utils/helper";
-
-export const generatedId = genId("component");
 
 export const Data = {
     name: "Floating Label Animation in Input Fields",
     tags: [],
     description: "A floating label input component enhances form usability by animating the label to float above the input field when the field gains focus or contains text. The animation provides a smooth, modern interaction experience for users.",
     version_included: "0.2.0",
-    id: generatedId,
     display: true
 }
 
 <Wrapper>
-# {Data.name}
-### {Data.description}
 
-<HeaderDefault id={Data.id}/> 
 
-<Preview id={Data.id}> 
+<ImportsWrapper> 
+
+import {InputWithFloatingLabel} from "@/packages/primitives/input_text/Input_5.tsx"
+
+</ImportsWrapper>
+
+<Header />
+
+<Preview> 
 
 <Display>
     <InputWithFloatingLabel/>
 </Display>
 </Preview>
 
-<Implementation id={Data.id}>
+<Implementation>
 
 
 <TechnologyUsed technologies={[ "tailwind-css" , "twMerge", "react-aria" ]}/>

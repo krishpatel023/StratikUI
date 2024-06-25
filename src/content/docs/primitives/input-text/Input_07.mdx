@@ -1,34 +1,30 @@
-import { Implementation, Preview, HeaderDefault, Display, TechnologyUsed , Wrapper } from "@/components/mdx/MDXServerImports"
+import { Implementation, Preview, Header, Display, TechnologyUsed , Wrapper, ImportsWrapper } from "@/components/mdx/MDXServerImports"
 import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
-import { genId } from "@/utils/helper";
-
-export const generatedId = genId("component");
 
 export const Data = {
     name: "Default Lined Input",
     tags: [],
     description: "An input field with just a bottom line simplifies the appearance by removing side and top borders. It looks clean and modern, focusing on clarity and ease of use while fitting well with minimalist design styles.",
     version_included: "0.2.0",
-    id: generatedId,
     display: true
 }
 
 <Wrapper>
+
+<ImportsWrapper> 
 import { DefaultLinedInputComponent } from "@/packages/primitives/input_text/Input_7.tsx"
 
-# {Data.name}
-### {Data.description}
+</ImportsWrapper>
 
-<HeaderDefault id={Data.id}/> 
+<Header />
 
-<Preview id={Data.id}> 
-
+<Preview> 
 <Display>
     <DefaultLinedInputComponent />
 </Display>
 </Preview>
 
-<Implementation id={Data.id}>
+<Implementation>
 
 
 <TechnologyUsed technologies={[ "tailwind-css" , "twMerge", "react-aria" ]}/>

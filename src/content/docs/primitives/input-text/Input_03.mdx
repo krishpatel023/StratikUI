@@ -1,34 +1,34 @@
-import { Implementation, Preview, HeaderDefault, Display, TechnologyUsed, Wrapper } from "@/components/mdx/MDXServerImports"
+import { Implementation, Preview, Header, Display, TechnologyUsed, Wrapper, ImportsWrapper } from "@/components/mdx/MDXServerImports"
 import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
-import { InputWithLeftIcon } from "@/packages/primitives/input_text/Input_3.tsx"
-import { genId } from "@/utils/helper";
-
-export const generatedId = genId("component");
 
 export const Data = {
-    name: "Input Component With Icon on the left",
+  name: "Input Component With Icon on the left",
     tags: [],
     description: "The Input Component with Icon on the left seamlessly combines a text input field with an adjacent icon, enhancing user interaction by providing visual cues and streamlined functionality",
     version_included: "0.2.0",
-    id: generatedId,
     display: true
 }
 
 
 <Wrapper>
-# {Data.name}
-### {Data.description}
 
-<HeaderDefault id={Data.id}/> 
+<ImportsWrapper> 
 
-<Preview id={Data.id}> 
+import { InputWithLeftIcon } from "@/packages/primitives/input_text/Input_3.tsx"
+
+</ImportsWrapper>
+
+<Header />
+
+<Preview> 
 
 <Display>
     <InputWithLeftIcon/>
 </Display>
+
 </Preview>
 
-<Implementation id={Data.id}>
+<Implementation>
 
 
 <TechnologyUsed technologies={[ "tailwind-css" , "twMerge", "react-aria" ]}/>
