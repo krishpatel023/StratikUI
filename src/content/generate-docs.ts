@@ -183,7 +183,7 @@ function generateImports(
   // If there is a named import, parse one by one
   ImportLine.namedImports.map((namedImport) => {
     // Checking if the named import contains "as" and the necessary logic
-    if (namedImport.includes("as")) {
+    if (namedImport.includes(" as ")) {
       const preTag = namedImport.split("as")[0];
       const postTag = namedImport.split("as")[1] + "_" + discriminator;
       nameReplacement.push({
@@ -261,7 +261,7 @@ function ImportFilter(input: string, filePath: string): string | null {
         sanitizedRelativePath
       );
       const ImportLine = ImportObject.imports;
-      generatedLazyImports = generatedLazyImports + "\n" + ImportLine;
+      generatedLazyImports = generatedLazyImports + "\n" + ImportLine + "\n";
 
       // The names for the imports will be changed to include the discriminator
       // this will avoid conflicts in the imports
