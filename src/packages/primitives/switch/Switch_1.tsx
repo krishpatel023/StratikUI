@@ -1,55 +1,29 @@
-import { DataDescription, ImplementationNode } from "@/utils/constants";
-import Switch from "./Switch_1_Helper";
+"use client";
 
-function Demo() {
-  return (
-    <div className="w-full h-40 flex justify-center items-center">
-      <Switch initialValue={false} />
-    </div>
-  );
+import { Switch as ReactAriaSwitch, SwitchProps } from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+
+export interface ExtendedSwitchProps extends SwitchProps {
+  children?: React.ReactNode;
 }
 
-const Code: string = `
-// Add your code snippet here
-`;
-
-const DemoString: string = `
-// Add your demo code snippet here
-`;
-
-const Implementation: ImplementationNode[] = [
-  {
-    type: "technology_used",
-    content: ["tailwind-css", "twMerge"],
-  },
-  {
-    type: "code",
-    content: [
-      {
-        name: "Name",
-        content: [
-          { language: "tsx", code: Code },
-          { language: "jsx", code: Code },
-        ],
-      },
-      {
-        name: "Implementation",
-        content: [
-          { language: "tsx", code: DemoString },
-          { language: "jsx", code: DemoString },
-        ],
-      },
-    ],
-  },
-];
-
-const Data: DataDescription = {
-  name: "Default Switch",
-  description: "This is a default switch component.",
-  implementation: Implementation,
-  component: <Demo />,
-  version_included: "0.1.1",
-  display: true,
+export const Switch = ({ className, ...props }: ExtendedSwitchProps) => {
+  return (
+    <ReactAriaSwitch
+      className={twMerge(
+        "flex gap-4 justify-center items-center group hover:cursor-pointer disabled:cursor-not-allowed",
+        className as string
+      )}
+      {...props}
+    >
+      <div className="bg-secondary rounded-full w-14 flex justify-start items-center border border-outline  group-data-[selected=true]:justify-end group-data-[selected=true]:bg-accent group-focus:ring-2 group-focus:ring-accent group-disabled:opacity-50">
+        <span className="w-5 h-5 m-1 rounded-full bg-accent group-data-[selected=true]:bg-accent-foreground transition-transform duration-300 ease-linear" />
+      </div>
+      {props.children}
+    </ReactAriaSwitch>
+  );
 };
 
-export default Data;
+export const SwitchImplementation = () => {
+  return <Switch> Label Message </Switch>;
+};
