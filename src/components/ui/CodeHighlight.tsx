@@ -1,5 +1,6 @@
 "use client";
 
+import "@/assets/Styles/shiki.css";
 import { codeToHtml } from "shiki/bundle/web";
 import {
   transformerNotationHighlight,
