@@ -1,25 +1,19 @@
-import { Implementation, Preview, HeaderDefault, Display, TechnologyUsed, Wrapper } from "@/components/mdx/MDXServerImports"
-import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
-
-import { genId } from "@/utils/helper";
-import { Helper } from "@/packages/hooks/useDelay/Demo.tsx"
-
-export const generatedId = genId("component");
+import { Implementation, Preview, Display, TechnologyUsed, Wrapper, ImportsWrapper } from "@/components/mdx/MDXServerImports"
+import { CodeBlock } from "@/components/mdx/MDXClientImports"
 
 export const Data = {
-    name: "useDelay",
-    tags: [],
-    description: "The useDelay hook introduces a delay before executing a specified action, utilizing useTimeout and Promise for managing the delay.  This hook supports both synchronous and asynchronous functions, making it versatile for various use cases where deferred actions are needed, such as enhancing user experience or managing timed events.",
-    version_included: "0.2.0",
-    id: generatedId,
-    display: true
+  name: "useDelay",
+  tags: [],
+  description: "The useDelay hook introduces a delay before executing a specified action, utilizing useTimeout and Promise for managing the delay.  This hook supports both synchronous and asynchronous functions, making it versatile for various use cases where deferred actions are needed, such as enhancing user experience or managing timed events.",
+  version_included: "0.2.0",
+  display: true
 }
 
 <Wrapper>
+<ImportsWrapper>
+import { Helper } from "@/packages/hooks/useDelay/Demo.tsx"
 
-# {Data.name}
-### {Data.description}
-
+</ImportsWrapper>
 <CodeBlock> 
 
 ```tsx|useDelay

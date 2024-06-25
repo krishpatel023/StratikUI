@@ -1,24 +1,20 @@
-import { Implementation, Preview, HeaderDefault, Display, TechnologyUsed, Wrapper } from "@/components/mdx/MDXServerImports"
-import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
-
-import { genId } from "@/utils/helper";
-import { Helper } from "@/packages/hooks/useCookies/Demo.tsx"
-
-export const generatedId = genId("component");
+import { Implementation, Preview, Display, TechnologyUsed, Wrapper, ImportsWrapper } from "@/components/mdx/MDXServerImports"
+import { CodeBlock } from "@/components/mdx/MDXClientImports"
 
 export const Data = {
-    name: "useCookies",
-    tags: [],
-    description: "The useCookies hook a way to manage cookie preferences and operations in a React application. It allows you to toggle, reset, accept, or reject cookie categories, as well as set, edit, remove, and retrieve cookies with ease. This hook leverages localStorage to persist cookie preferences across sessions, ensuring a consistent user experience.",
-    version_included: "0.2.0",
-    id: generatedId,
-    display: true
+  name: "useCookies",
+  tags: [],
+  description: "The useCookies hook a way to manage cookie preferences and operations in a React application. It allows you to toggle, reset, accept, or reject cookie categories, as well as set, edit, remove, and retrieve cookies with ease. This hook leverages localStorage to persist cookie preferences across sessions, ensuring a consistent user experience.",
+  version_included: "0.2.0",
+  display: true
 }
 
 <Wrapper>
 
-# {Data.name}
-### {Data.description}
+<ImportsWrapper>
+import { Helper } from "@/packages/hooks/useCookies/Demo.tsx"
+
+</ImportsWrapper>
 
 <CodeBlock> 
 ```tsx|useCookies

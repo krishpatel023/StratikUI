@@ -1,24 +1,20 @@
-import { Implementation, Preview, HeaderDefault, Display, TechnologyUsed, Wrapper } from "@/components/mdx/MDXServerImports"
-import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
-
-import { genId } from "@/utils/helper";
-import { Loader } from "@/packages/hooks/useArtificialLoader/Demo.tsx"
-
-export const generatedId = genId("component");
+import { Implementation, Preview, Display, TechnologyUsed, Wrapper, ImportsWrapper } from "@/components/mdx/MDXServerImports"
+import { CodeBlock } from "@/components/mdx/MDXClientImports"
 
 export const Data = {
-    name: "useArtificialLoader",
-    tags: [],
-    description: "This hooks increases the value from 0 to 100 randomly in a given time. This helps us to give the loading effcts and the increase is random thus making it more realistic. You can use it in various website loaders as well as loading page elements like top loading bars.",
-    version_included: "0.2.0",
-    id: generatedId,
-    display: true
+  name: "useArtificialLoader",
+  tags: [],
+  description: "This hooks increases the value from 0 to 100 randomly in a given time. This helps us to give the loading effcts and the increase is random thus making it more realistic. You can use it in various website loaders as well as loading page elements like top loading bars.",
+  version_included: "0.2.0",
+  display: true
 }
 
 <Wrapper>
 
-# {Data.name}
-### {Data.description}
+<ImportsWrapper> 
+import { Loader } from "@/packages/hooks/useArtificialLoader/Demo.tsx"
+
+</ImportsWrapper>
 
 <CodeBlock> 
 ```tsx|useArtificialLoader

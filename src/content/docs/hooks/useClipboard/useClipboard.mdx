@@ -1,24 +1,20 @@
-import { Implementation, Preview, HeaderDefault, Display, TechnologyUsed, Wrapper } from "@/components/mdx/MDXServerImports"
-import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
-
-import { genId } from "@/utils/helper";
-import { Helper } from "@/packages/hooks/useClipboard/Demo.tsx"
-
-export const generatedId = genId("component");
+import { Implementation, Preview, Display, TechnologyUsed, Wrapper, ImportsWrapper } from "@/components/mdx/MDXServerImports"
+import { CodeBlock } from "@/components/mdx/MDXClientImports"
 
 export const Data = {
-    name: "useClipboard",
-    tags: [],
-    description: "The useClipboard hook makes it easy to use clipboard with its two functions: copy and read.",
-    version_included: "0.2.0",
-    id: generatedId,
-    display: true
+  name: "useClipboard",
+  tags: [],
+  description: "The useClipboard hook makes it easy to use clipboard with its two functions: copy and read.",
+  version_included: "0.2.0",
+  display: true
 }
 
 <Wrapper>
 
-# {Data.name}
-### {Data.description}
+<ImportsWrapper>
+import { Helper } from "@/packages/hooks/useClipboard/Demo.tsx"
+
+</ImportsWrapper>
 
 <CodeBlock> 
 ```tsx|useClipboard

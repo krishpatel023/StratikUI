@@ -1,23 +1,21 @@
-import { Implementation, Preview, HeaderDefault, Display, TechnologyUsed, Wrapper } from "@/components/mdx/MDXServerImports"
-import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
-import { Demo } from "@/packages/hooks/useResizable/Demo.tsx"
-import { genId } from "@/utils/helper";
+import { Implementation, Preview, Display, TechnologyUsed, Wrapper, ImportsWrapper } from "@/components/mdx/MDXServerImports"
+import { CodeBlock } from "@/components/mdx/MDXClientImports"
 
-export const generatedId = genId("component");
 
 export const Data = {
-    name: "useResizable",
-    tags: [],
-    description: "This hook is used to handle the resizing of an element. It can be used in multiple ways, such as pairing it with our Helper Function to make the entire implementation easy or else can be used as a standalone hook. It also has callback functions that can be used to show different messages to the user based on the current state of the hook.",
-    version_included: "0.2.0",
-    id: generatedId,
-    display: true
+  name: "useResizable",
+  tags: [],
+  description: "This hook is used to handle the resizing of an element. It can be used in multiple ways, such as pairing it with our Helper Function to make the entire implementation easy or else can be used as a standalone hook. It also has callback functions that can be used to show different messages to the user based on the current state of the hook.",
+  version_included: "0.2.0",
+  display: true
 }
 
 <Wrapper>
 
-# {Data.name}
-### {Data.description}
+<ImportsWrapper>
+import { Demo } from "@/packages/hooks/useResizable/Demo.tsx"
+
+</ImportsWrapper>
 
 <CodeBlock> 
 

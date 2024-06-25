@@ -1,24 +1,20 @@
-import { Implementation, Preview, HeaderDefault, Display, TechnologyUsed, Wrapper } from "@/components/mdx/MDXServerImports"
-import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
-import {Demo } from "@/packages/hooks/useProcess/Demo.tsx"
-
-import { genId } from "@/utils/helper";
-
-export const generatedId = genId("component");
+import { Implementation, Preview, Display, TechnologyUsed, Wrapper, ImportsWrapper } from "@/components/mdx/MDXServerImports"
+import { CodeBlock } from "@/components/mdx/MDXClientImports"
 
 export const Data = {
-    name: "useProcess",
-    tags: [],
-    description: "The useProcess hook is a custom React hook that provides a way to manage asynchronous processes in a React component. It returns an object with two properties: isProcessing and executeProcess. This hook is designed to help track the state of an asynchronous process and make subtle UI actions accordingly. By knowing whether a certain process is being executed or not, you can update the UI to provide a better user experience, such as displaying loading indicators, disabling buttons, etc.",
-    version_included: "0.2.0",
-    id: generatedId,
-    display: true
+  name: "useProcess",
+  tags: [],
+  description: "The useProcess hook is a custom React hook that provides a way to manage asynchronous processes in a React component. It returns an object with two properties: isProcessing and executeProcess. This hook is designed to help track the state of an asynchronous process and make subtle UI actions accordingly. By knowing whether a certain process is being executed or not, you can update the UI to provide a better user experience, such as displaying loading indicators, disabling buttons, etc.",
+  version_included: "0.2.0",
+  display: true
 }
 
 <Wrapper>
 
-# {Data.name}
-### {Data.description}
+<ImportsWrapper>
+import {Demo } from "@/packages/hooks/useProcess/Demo.tsx"
+
+</ImportsWrapper>
 
 <CodeBlock> 
 

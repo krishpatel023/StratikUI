@@ -1,23 +1,20 @@
-import { Implementation, Preview, HeaderDefault, Display, TechnologyUsed, Wrapper } from "@/components/mdx/MDXServerImports"
-import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
-import { Demo } from "@/packages/hooks/useScrollTo/Demo.tsx"
-import { genId } from "@/utils/helper";
-
-export const generatedId = genId("component");
+import { Implementation, Preview, Display, TechnologyUsed, Wrapper, ImportsWrapper } from "@/components/mdx/MDXServerImports"
+import { CodeBlock } from "@/components/mdx/MDXClientImports"
 
 export const Data = {
-    name: "useScrollTo",
-    tags: [],
-    description: "The useScrollTo hook is a custom React hook that helps to scroll to the top of the page or a specified element based on the window's scroll position. It takes an optional threshold parameter to determine when to toggle visibility.",
-    version_included: "0.2.0",
-    id: generatedId,
-    display: true
+  name: "useScrollTo",
+  tags: [],
+  description: "The useScrollTo hook is a custom React hook that helps to scroll to the top of the page or a specified element based on the window's scroll position. It takes an optional threshold parameter to determine when to toggle visibility.",
+  version_included: "0.2.0",
+  display: true
 }
 
 <Wrapper>
 
-# {Data.name}
-### {Data.description}
+<ImportsWrapper>
+import { Demo } from "@/packages/hooks/useScrollTo/Demo.tsx"
+
+</ImportsWrapper>
 
 <CodeBlock> 
 
