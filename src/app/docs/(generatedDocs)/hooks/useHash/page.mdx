@@ -1,3 +1,167 @@
-import UseHash from '@/content/docs/hooks/useHash/useHash.mdx'
+import React, { Suspense } from 'react';
+import { Display, TechnologyUsed, Wrapper, Skeleton } from "@/components/mdx/MDXServerImports"
+import { CodeBlock } from "@/components/mdx/MDXClientImports"
 
-<UseHash />
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from src/content/docs/hooks/useHash/useHash.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# useHash
+### useHash is a custom React hook that simplifies working with URL hash values in Next.js applications. It allows you to easily retrieve and update the hash value, while ensuring proper hydration and avoiding mismatches between server-rendered and client-rendered HTML. The hook provides a seamless way to handle hash changes and keep your component in sync with the URL hash value.
+
+
+
+
+
+export const Demo_hooks_usehash_usehash = React.lazy(() =>
+	import('@/packages/hooks/useHash/Demo.tsx')
+		.then((mod) => ({
+			default: mod.Demo
+	}))
+);
+
+
+
+<CodeBlock>
+ 
+
+```tsx|useHash
+"use client";
+
+import { useState, useEffect } from "react";
+
+const useHash = () => {
+  const [hash, setHash] = useState<string | null>(null);
+
+  const getHash = (): string | null => {
+    if (typeof window === "undefined") return null;
+    return window.location.hash.replace("#", "");
+  };
+
+  const addHash = (hash: string) => {
+    window.location.hash = hash;
+  };
+
+  useEffect(() => {
+    setHash(getHash());
+
+    const handleHashChange = () => {
+      setHash(getHash());
+    };
+
+    window.addEventListener("hashchange", handleHashChange);
+
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, []);
+
+  return { hash, addHash };
+};
+
+export default useHash;
+```
+
+```jsx|useHash
+"use client";
+
+import { useState, useEffect } from "react";
+
+const useHash = () => {
+  const [hash, setHash] = useState(null);
+
+  const getHash = () => {
+    if (typeof window === "undefined") return null;
+    return window.location.hash.replace("#", "");
+  };
+
+  const addHash = (hash) => {
+    window.location.hash = hash;
+  };
+
+  useEffect(() => {
+    setHash(getHash());
+
+    const handleHashChange = () => {
+      setHash(getHash());
+    };
+
+    window.addEventListener("hashchange", handleHashChange);
+
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, []);
+
+  return { hash, addHash };
+};
+
+export default useHash;
+```
+
+```tsx|Implementation
+"use client";
+
+import useHash from "./useHash";
+
+export const Demo = () => {
+  const { hash, addHash } = useHash();
+
+  const handleAddition = () => {
+    addHash("demoHashValue");
+  };
+  return (
+    <div className="text-center">
+      <h1 className="text-black dark:text-white mb-4">
+        Hash Value : {hash ? hash : "null"}
+      </h1>
+      <Button onClick={handleAddition}> Add Hash </Button>
+    </div>
+  );
+};
+```
+```jsx|Implementation
+"use client";
+
+import useHash from "./useHash";
+
+export const Demo = () => {
+  const { hash, addHash } = useHash();
+
+  const handleAddition = () => {
+    addHash("demoHashValue");
+  };
+  return (
+    <div className="text-center">
+      <h1 className="text-black dark:text-white mb-4">
+        Hash Value : {hash ? hash : "null"}
+      </h1>
+      <Button onClick={handleAddition}> Add Hash </Button>
+    </div>
+  );
+};
+```
+
+</CodeBlock>
+
+
+## Properties
+
+| Property | Type | Description |
+| --- | --- | --- |
+| hash | string \| null | The current hash value extracted from the URL. It is null if there is no hash value present. |
+| addHash | (hash: string) => void | A function that allows you to programmatically add or update the hash value in the URL. |
+
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+    <Demo_hooks_usehash_usehash/>
+</Display>
+</Suspense>
+</Wrapper>
