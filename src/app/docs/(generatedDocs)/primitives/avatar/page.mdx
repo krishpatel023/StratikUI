@@ -38,7 +38,7 @@ export const AvatarImplementation_primitives_avatar_avatar_01 = React.lazy(() =>
 </Preview>
 
 <Implementation>
-<TechnologyUsed technologies={[ "tailwind-css" , "react-aria", "twMerge" ]}/>
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge" ]}/>
 
 <CodeBlock>
  
@@ -161,6 +161,208 @@ export function AvatarImplementation() {
     </div>
   );
 }
+```
+
+</CodeBlock>
+
+
+## Props
+
+| Name       | Type                        | Description                                                                                        |
+|------------|-----------------------------|----------------------------------------------------------------------------------------------------|
+| src        | string \| StaticImageData   | The source URL or imported static image data for the avatar image. If not provided, initials will be displayed. |
+| alt        | string                      | Alternative text for the avatar image. Defaults to "avatar" if not provided.                       |
+| className  | string                      | Additional CSS classes to be applied to the avatar container.                                      |
+| name       | string                      | The name used to generate initials when no image is provided.                                      |
+| isDisabled | boolean                     | When true, applies a disabled state to the avatar.                                                 |
+
+</Implementation>
+</Wrapper>
+<PARTITION />
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from src/content/docs/primitives/avatar/Avatar_02.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Avatar with Icon
+### The Avatar component is a versatile UI element that displays either an image or initials within a circular container. It can be used to represent a user or entity in various contexts such as user profiles, comment sections, or member lists.
+
+
+
+
+
+export const AvatarImplementation_primitives_avatar_avatar_02 = React.lazy(() =>
+	import('@/packages/primitives/avatar/Avatar_2')
+		.then((mod) => ({
+			default: mod.AvatarImplementation
+	}))
+);
+
+
+<Header />
+
+<Preview> 
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+  <AvatarImplementation_primitives_avatar_avatar_02 /> 
+</Display>
+</Suspense>
+</Preview>
+
+<Implementation>
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge" ]}/>
+
+<CodeBlock>
+ 
+```tsx|Avatar
+"use client";
+
+import Image, { StaticImageData } from "next/image";
+import Dummy from "@/assets/Images/Image_2.jpg";
+import { twMerge } from "tailwind-merge";
+
+interface AvatarProps {
+  src?: string | StaticImageData;
+  alt?: string;
+  className?: string;
+  name: string;
+  isDisabled?: boolean;
+}
+
+export const Avatar = ({
+  src,
+  alt,
+  name,
+  className,
+  isDisabled,
+}: AvatarProps) => {
+  const initials = name
+    .split(" ")
+    .map((word) => word.charAt(0))
+    .join("")
+    .substring(0, 2);
+
+  return (
+    <div
+      className={twMerge(
+        "size-12 rounded-full flex justify-center items-center group aria-disabled: bg-gradient-to-r from-blue-500 to-purple-500",
+        className
+      )}
+      aria-disabled={isDisabled}
+      aria-label="avatar"
+    >
+      {src ? (
+        <Image
+          src={src}
+          alt={alt || "avatar"}
+          className="rounded-[inherit] size-full"
+        />
+      ) : (
+        <h1 aria-label="initials" className="text-2xl text-primary-foreground">
+          {initials}
+        </h1>
+      )}
+    </div>
+  );
+};
+
+export function AvatarWithIcon({ icon }: { icon?: JSX.Element }) {
+  return (
+    <div className="relative">
+      <Avatar src={Dummy} alt="Profile Picture" name="Profile Picture" />
+      {icon && (
+        <div
+          className={twMerge(
+            "absolute -right-1 bottom-0 w-6 h-6 rounded-full flex justify-center items-center bg-primary-foreground"
+          )}
+        >
+          {icon}{" "}
+        </div>
+      )}
+    </div>
+  );
+}
+```
+```jsx|Avatar
+"use client";
+
+import Image, { StaticImageData } from "next/image";
+import Dummy from "@/assets/Images/Image_2.jpg";
+import { twMerge } from "tailwind-merge";
+
+export const Avatar = ({
+  src,
+  alt,
+  name,
+  className,
+  isDisabled,
+}) => {
+  const initials = name
+    .split(" ")
+    .map((word) => word.charAt(0))
+    .join("")
+    .substring(0, 2);
+
+  return (
+    <div
+      className={twMerge(
+        "size-12 rounded-full flex justify-center items-center group aria-disabled: bg-gradient-to-r from-blue-500 to-purple-500",
+        className
+      )}
+      aria-disabled={isDisabled}
+      aria-label="avatar"
+    >
+      {src ? (
+        <Image
+          src={src}
+          alt={alt || "avatar"}
+          className="rounded-[inherit] size-full"
+        />
+      ) : (
+        <h1 aria-label="initials" className="text-2xl text-primary-foreground">
+          {initials}
+        </h1>
+      )}
+    </div>
+  );
+};
+
+export function AvatarWithIcon({ icon }: { icon?: JSX.Element }) {
+  return (
+    <div className="relative">
+      <Avatar src={Dummy} alt="Profile Picture" name="Profile Picture" />
+      {icon && (
+        <div
+          className={twMerge(
+            "absolute -right-1 bottom-0 w-6 h-6 rounded-full flex justify-center items-center bg-primary-foreground"
+          )}
+        >
+          {icon}{" "}
+        </div>
+      )}
+    </div>
+  );
+}
+```
+```tsx|Implementation
+export const AvatarImplementation = () => {
+  return (
+    <AvatarWithIcon icon={<NotionIcon className="size-2/3 text-primary" />} />
+  );
+};
+```
+```jsx|Implementation
+export const AvatarImplementation = () => {
+  return (
+    <AvatarWithIcon icon={<NotionIcon className="size-2/3 text-primary" />} />
+  );
+};
 ```
 
 </CodeBlock>

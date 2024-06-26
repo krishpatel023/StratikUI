@@ -2,7 +2,7 @@ import { Implementation, Preview, Header, Display, Wrapper, ImportsWrapper, Tech
 import { CodeBlock } from "@/components/mdx/MDXClientImports"
 
 export const Data = {
-  name: "Default Avatar",
+  name: "Avatar with Icon",
   description: "The Avatar component is a versatile UI element that displays either an image or initials within a circular container. It can be used to represent a user or entity in various contexts such as user profiles, comment sections, or member lists.",
   version_included: "0.2.1",
   tags: [],
@@ -13,7 +13,7 @@ export const Data = {
 
 <ImportsWrapper> 
 
-import { AvatarImplementation } from "@/packages/primitives/avatar/Avatar_1";
+import { AvatarImplementation } from "@/packages/primitives/avatar/Avatar_2";
 
 </ImportsWrapper>
 
@@ -80,6 +80,23 @@ export const Avatar = ({
     </div>
   );
 };
+
+export function AvatarWithIcon({ icon }: { icon?: JSX.Element }) {
+  return (
+    <div className="relative">
+      <Avatar src={Dummy} alt="Profile Picture" name="Profile Picture" />
+      {icon && (
+        <div
+          className={twMerge(
+            "absolute -right-1 bottom-0 w-6 h-6 rounded-full flex justify-center items-center bg-primary-foreground"
+          )}
+        >
+          {icon}{" "}
+        </div>
+      )}
+    </div>
+  );
+}
 ```
 ```jsx|Avatar
 "use client";
@@ -124,30 +141,37 @@ export const Avatar = ({
     </div>
   );
 };
+
+export function AvatarWithIcon({ icon }: { icon?: JSX.Element }) {
+  return (
+    <div className="relative">
+      <Avatar src={Dummy} alt="Profile Picture" name="Profile Picture" />
+      {icon && (
+        <div
+          className={twMerge(
+            "absolute -right-1 bottom-0 w-6 h-6 rounded-full flex justify-center items-center bg-primary-foreground"
+          )}
+        >
+          {icon}{" "}
+        </div>
+      )}
+    </div>
+  );
+}
 ```
 ```tsx|Implementation
-export function AvatarImplementation() {
+export const AvatarImplementation = () => {
   return (
-    <div className="flex flex-col justify-center items-center gap-4">
-      {/* With Image */}
-      <Avatar src={Dummy} alt="Profile Picture" name="Profile Picture" />
-      {/* Without Image */}
-      <Avatar alt="Profile Picture" name="Profile Picture" />
-    </div>
+    <AvatarWithIcon icon={<NotionIcon className="size-2/3 text-primary" />} />
   );
-}
+};
 ```
 ```jsx|Implementation
-export function AvatarImplementation() {
+export const AvatarImplementation = () => {
   return (
-    <div className="flex flex-col justify-center items-center gap-4">
-      {/* With Image */}
-      <Avatar src={Dummy} alt="Profile Picture" name="Profile Picture" />
-      {/* Fallback / Without Image */}
-      <Avatar alt="Profile Picture" name="Profile Picture" />
-    </div>
+    <AvatarWithIcon icon={<NotionIcon className="size-2/3 text-primary" />} />
   );
-}
+};
 ```
 </CodeBlock>
 
