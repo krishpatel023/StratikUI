@@ -13,8 +13,8 @@ html {
     --background: theme(colors.white);
     --foreground: theme(colors.black);
 
-    --primary: #171717;
-    --primary-foreground: #theme(colors.neutral.800);
+    --primary: theme(colors.neutral.200);
+    --primary-foreground: theme(colors.neutral.800);
 
     --secondary: theme(colors.neutral.100);
     --secondary-foreground: theme(colors.black);
