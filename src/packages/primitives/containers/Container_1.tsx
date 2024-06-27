@@ -6,43 +6,7 @@ import {
 } from "@/utils/constants";
 import { twMerge } from "tailwind-merge";
 
-function Demo() {
-  return (
-    <div className="flex flex-col items-center w-full">
-      <ArrowHeading text="Button (Default Background)" className="mb-4" />
-      <GradientBackground>
-        <button className="px-6 py-3 text-s_textPrimary rounded-lg bg-s_background max-w-80 @md:max-w-[30rem]">
-          Visit the latest collection now. | Developed With Tailwind
-        </button>
-      </GradientBackground>
-
-      <ArrowHeading text="Div" className="mb-4 mt-10" />
-      <GradientBackground className="from-pink-500 to-purple-500">
-        <div className="px-6 py-3 text-s_textPrimary rounded-lg bg-s_background flex justify-evenly items-center gap-6 max-w-80 @md:max-w-[30rem]">
-          <TailwindcssIcon className="w-20 h-20" />
-          <div className="w-[20rem]">
-            <h1>
-              This entire component has been made with TailwindCSS and is a part
-              of Stratik UI Library.
-            </h1>
-            <button className="text-s_accent mt-4">
-              Check out other components
-            </button>
-          </div>
-        </div>
-      </GradientBackground>
-
-      <ArrowHeading text="Button with Solo Color" className="mb-4 mt-10" />
-      <GradientBackground className="from-blue-500 to-blue-500 ">
-        <button className="px-6 py-3 text-s_textPrimary rounded-lg bg-s_background max-w-80 @md:max-w-[30rem]">
-          Visit the latest collection now. | Developed With Tailwind
-        </button>
-      </GradientBackground>
-    </div>
-  );
-}
-
-function GradientBackground({
+export function GradientBackground({
   children,
   className,
 }: {
@@ -62,6 +26,42 @@ function GradientBackground({
   );
 }
 
+export function ContainerImplementation() {
+  return (
+    <div className="flex flex-col items-center w-full">
+      <ArrowHeading text="Button (Default Background)" className="mb-4" />
+      <GradientBackground>
+        <button className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 @md:max-w-[30rem]">
+          Visit the latest collection now. | Developed With Tailwind
+        </button>
+      </GradientBackground>
+
+      <ArrowHeading text="Div" className="mb-4 mt-10" />
+      <GradientBackground className="from-pink-500 to-purple-500">
+        <div className="px-6 py-3 text-foreground rounded-lg bg-background flex justify-evenly items-center gap-6 max-w-80 @md:max-w-[30rem]">
+          <TailwindcssIcon className="w-20 h-20" />
+          <div className="w-[20rem]">
+            <h1>
+              This entire component has been made with TailwindCSS and is a part
+              of Stratik UI Library.
+            </h1>
+            <button className="text-s_accent mt-4">
+              Check out other components
+            </button>
+          </div>
+        </div>
+      </GradientBackground>
+
+      <ArrowHeading text="Button with Solo Color" className="mb-4 mt-10" />
+      <GradientBackground className="from-blue-500 to-blue-500 ">
+        <button className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 @md:max-w-[30rem]">
+          Visit the latest collection now. | Developed With Tailwind
+        </button>
+      </GradientBackground>
+    </div>
+  );
+}
+
 const TailwindcssIcon = (props: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -77,122 +77,12 @@ const TailwindcssIcon = (props: IconProps) => (
   </svg>
 );
 
-const CodeTsx: string = `function GradientBackground({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <div className="relative group/gradient_bg">
-      {children}
-      <div
-        className={twMerge(
-          "absolute -z-[5] -inset-0.5 bg-gradient-to-r from-blue-600 to-red-600 rounded-lg blur opacity-75 group-hover/gradient_bg:opacity-100 duration-200 transition-all",
-          className
-        )}
-      ></div>
-    </div>
-  );
-}`;
-
-const CodeJsx: string = `function GradientBackground({
-  children,
-  className,
-}) {
-  return (
-    <div className="relative group/gradient_bg">
-      {children}
-      <div
-        className={twMerge(
-          "absolute -z-[5] -inset-0.5 bg-gradient-to-r from-blue-600 to-red-600 rounded-lg blur opacity-75 group-hover/gradient_bg:opacity-100 duration-200 transition-all",
-          className
-        )}
-      ></div>
-    </div>
-  );
-}`;
-
-const demoString: string = `function Demo() {
-  return (
-    <div className="flex flex-col">
-      <ArrowHeading text="Button (Default Background)" className="mb-4" />
-      <gradientBackground>
-        <button className="px-6 py-3 text-s_textPrimary rounded-lg bg-s_background">
-          Visit the latest collection now. | Developed With Tailwind
-        </button>
-      </gradientBackground>
-
-      <ArrowHeading text="Div" className="mb-4 mt-10" />
-      <gradientBackground className="from-pink-500 to-purple-500">
-        <div className="px-6 py-3 text-s_textPrimary rounded-lg bg-s_background flex justify-evenly items-center gap-6">
-          <TailwindcssIcon className="w-20 h-20" />
-          <div className="w-[20rem]">
-            <h1>
-              This entire component has been made with TailwindCSS and is a part
-              of Stratik UI Library.
-            </h1>
-            <button className="text-s_accent mt-4">
-              Check out other components
-            </button>
-          </div>
-        </div>
-      </gradientBackground>
-
-      <ArrowHeading text="Button with Solo Color" className="mb-4 mt-10" />
-      <gradientBackground className="from-blue-500 to-blue-500">
-        <button className="px-6 py-3 text-s_textPrimary rounded-lg bg-s_background">
-          Visit the latest collection now. | Developed With Tailwind
-        </button>
-      </gradientBackground>
-    </div>
-  );
-}`;
-
-const Implementation: ImplementationNode[] = [
-  {
-    type: "technology_used",
-    content: ["tailwind-css", "twMerge"],
-  },
-  {
-    type: "code",
-    content: [
-      {
-        name: "Container",
-        content: [
-          {
-            language: "tsx",
-            code: CodeTsx,
-          },
-          {
-            language: "jsx",
-            code: CodeJsx,
-          },
-        ],
-      },
-      {
-        name: "Implementation",
-        content: [
-          {
-            language: "tsx",
-            code: demoString,
-          },
-          {
-            language: "jsx",
-            code: demoString,
-          },
-        ],
-      },
-    ],
-  },
-];
-
 const ButtonData_1: DataDescription = {
   name: "Container With Gradient Background",
-  description: "This is a Container with Gradient Background",
-  implementation: Implementation,
-  component: Demo(),
+  description:
+    "Container With Gradient Background. This container can be used as a button or a div. ",
+  implementation: [],
+  component: <></>,
   version_included: "0.0.4",
   display: true,
 };
