@@ -1149,3 +1149,137 @@ export const ContainerImplementation = () => {
 </Implementation>
 </Wrapper>
 <PARTITION />
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from src/content/docs/primitives/container/Container_06.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Glass / Blured Background Container
+### This effect adds a modern and sophisticated touch to your UI, blending background elements with a subtle blur for a clean and elegant look. Ideal for modals, overlays, or sections.
+
+
+
+
+
+export const ContainerImplementation_primitives_container_container_06 = React.lazy(() =>
+	import('@/packages/primitives/containers/Container_6')
+		.then((mod) => ({
+			default: mod.ContainerImplementation
+	}))
+);
+
+
+<Header />
+<Preview> 
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+<ContainerImplementation_primitives_container_container_06/>
+</Display>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge"  ]}/>
+
+<CodeBlock>
+ 
+```tsx|Container
+export const ContainerGlassEffect = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
+  return (
+    <div
+      className={twMerge(
+        "bg-neutral-100/30 dark:bg-neutral-900/40 backdrop-blur supports-[backdrop-filter]:bg-neutral-100/40 dark:supports-[backdrop-filter]:bg-neutral-900/40 z-50",
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
+};
+```
+```jsx|Container
+export const ContainerGlassEffect = ({
+  children,
+  className,
+}) => {
+  return (
+    <div
+      className={twMerge(
+        "bg-neutral-100/30 dark:bg-neutral-900/40 backdrop-blur supports-[backdrop-filter]:bg-neutral-100/40 dark:supports-[backdrop-filter]:bg-neutral-900/40 z-50",
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
+};
+```
+
+```tsx|Implementation
+export const ContainerImplementation = () => {
+  return (
+    <div className="w-full h-[25rem] relative overflow-hidden flex justify-center items-center">
+      <ContainerGlassEffect className="rounded-lg border border-neutral-300 dark:border-neutral-700">
+        <div className="px-10 py-20 text-foreground flex flex-col justify-center items-start gap-2 max-w-80 @md:max-w-[30rem]">
+          <h1>
+            This entire component has been made with TailwindCSS and is a part
+            of Stratik UI Library.
+          </h1>
+          <button className="text-s_accent mt-4">
+            Check out other components
+          </button>
+        </div>
+      </ContainerGlassEffect>
+      <h1 className="absolute text-7xl">
+        Sample text to see the effect in action
+      </h1>
+    </div>
+  );
+};
+```
+```jsx|Implementation
+export const ContainerImplementation = () => {
+  return (
+    <div className="w-full h-[25rem] relative overflow-hidden flex justify-center items-center">
+      <ContainerGlassEffect className="rounded-lg border border-neutral-300 dark:border-neutral-700">
+        <div className="px-10 py-20 text-foreground flex flex-col justify-center items-start gap-2 max-w-80 @md:max-w-[30rem]">
+          <h1>
+            This entire component has been made with TailwindCSS and is a part
+            of Stratik UI Library.
+          </h1>
+          <button className="text-s_accent mt-4">
+            Check out other components
+          </button>
+        </div>
+      </ContainerGlassEffect>
+      <h1 className="absolute text-7xl">
+        Sample text to see the effect in action
+      </h1>
+    </div>
+  );
+};
+```
+
+</CodeBlock>
+
+
+
+</Implementation>
+</Wrapper>
+<PARTITION />
