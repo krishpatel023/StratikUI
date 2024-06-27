@@ -1,9 +1,5 @@
 import ArrowHeading from "@/components/ui/ArrowHeading";
-import {
-  DataDescription,
-  IconProps,
-  ImplementationNode,
-} from "@/utils/constants";
+import { IconProps } from "@/utils/constants";
 import { twMerge } from "tailwind-merge";
 
 export function GradientBackground({
@@ -76,14 +72,3 @@ const TailwindcssIcon = (props: IconProps) => (
     ></path>
   </svg>
 );
-
-const ButtonData_1: DataDescription = {
-  name: "Container With Gradient Background",
-  description:
-    "Container With Gradient Background. This container can be used as a button or a div. ",
-  implementation: [],
-  component: <></>,
-  version_included: "0.0.4",
-  display: true,
-};
-export default ButtonData_1;
