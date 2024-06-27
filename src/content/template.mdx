@@ -1,6 +1,6 @@
 {/* TO CHECK HOW IT'S WORKING IN UI GO TO '/contributing/template' */}
 
-import { Implementation, Preview, Display, TechnologyUsed, Wrapper } from "@/components/mdx/MDXServerImports"
+import { Implementation, Preview, Display, TechnologyUsed, Wrapper, Header, ImportsWrapper } from "@/components/mdx/MDXServerImports"
 import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
 
 export const Data = { 
@@ -21,7 +21,16 @@ NOTE: Please reed the following details carefully
 
 <Wrapper>
 {/* EVERYTHING THAT YOU WILL DISPLAY IN PREVIEW SECTION WILL INSIDE THE FOLLOWING WRAPPER */}
-<Preview id={Data.id}> 
+
+{/* Anything you write in this Imports will Converted to LAzy Import once you generate the docs. */}
+<ImportsWrapper>
+{/* Importing paths*/}
+</ImportsWrapper>
+
+{/* It is the toggle header of Preview/Code and Mode that we see above every component */}
+<Header />
+
+<Preview> 
 {/* FOR COMPONENTS */}
 <ResizableDisplay>
     {/* YOUR SPECIFIC COMPONENT THAT YOU WILL IMPORT FROM PACKAGES */}
@@ -34,12 +43,12 @@ NOTE: Please reed the following details carefully
 </Preview>
 
 {/* EVERYTHING THAT YOU WILL DISPLAY IN CODE SECTION WILL INSIDE THE FOLLOWING WRAPPER */}
-<Implementation id={Data.id}>
+<Implementation>
 
 
 {/* CHOOSE FROM ANY OF THE FOLLOWING. WHATEVER YOU USE */}
 {/* NOTE : TO ADD ANY MORE PLEASE CHANGE THE TYPE SAFETY IN "@/components/mdx/TechnologyUsed.tsx" */}
-<TechnologyUsed technologies={[ "tailwind-css" , "framer-motion", "twMerge", "uuid", "cuid2" , "react-aria" ]}/>
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge", "react-aria", "framer-motion", "uuid", "cuid2"  ]}/>
 
 {/* ALL CODEBLOCKS SHOULD BE WRAPPED INSIDE <CodeBlock> ... </CodeBlock> */}
 <CodeBlock> 

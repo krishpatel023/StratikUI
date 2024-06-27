@@ -2,7 +2,7 @@
 {/* Same as template.mdx but without the explaination for instant copy and use */}
 {/* -------------------------------------------------------------------------- */}
 
-import { Implementation, Preview, Display, TechnologyUsed, Wrapper } from "@/components/mdx/MDXServerImports"
+import { Implementation, Preview, Display, TechnologyUsed, Wrapper, Header, ImportsWrapper } from "@/components/mdx/MDXServerImports"
 import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
 
 
@@ -24,7 +24,12 @@ NOTE: Please reed the following details carefully
 
 <Wrapper>
 
-<Preview id={Data.id}> 
+<ImportsWrapper>
+{/* Importing paths*/}
+</ImportsWrapper>
+
+<Header />
+<Preview> 
 
 <ResizableDisplay>
     {/* YOUR SPECIFIC COMPONENT THAT YOU WILL IMPORT FROM PACKAGES */}
@@ -37,10 +42,10 @@ NOTE: Please reed the following details carefully
 
 </Preview>
 
-<Implementation id={Data.id}>
+<Implementation>
 
 
-<TechnologyUsed technologies={[ "tailwind-css" , "framer-motion", "twMerge", "uuid", "cuid2" , "react-aria" ]}/>
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge", "react-aria", "framer-motion", "uuid", "cuid2"  ]}/>
 
 <CodeBlock> 
 ```tsx|Name1
