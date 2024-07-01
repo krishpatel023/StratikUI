@@ -83,6 +83,11 @@ const config: Config = {
         // For @/packages/primitive/stepper/Stepper_1.tsx
         stepperGrow: "stepperGrow 0.4s linear",
         stepperGrowVertical: "stepperGrowVertical 0.4s linear",
+
+        // For @/packages/primitive/modals/Modal_1.tsx
+        "modal-fade-in": "modal-fade 0.3s ease-in",
+        "modal-fade-out": "modal-fade 0.3s reverse ease-in",
+        "modal-zoom": "modal-zoom 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
       },
       keyframes: {
         // For @/packages/components/logo-carousel/Carousel_1.tsx
@@ -153,6 +158,23 @@ const config: Config = {
           },
           "100%": {
             transform: "translateY(0%)",
+          },
+        },
+        // For @/packages/primitive/modals/Modal_1.tsx
+        "modal-fade": {
+          "0%": {
+            opacity: "0",
+          },
+          "100%": {
+            opacity: "1",
+          },
+        },
+        "modal-zoom": {
+          "0%": {
+            transform: "scale(0.8)",
+          },
+          "100%": {
+            transform: "scale(1)",
           },
         },
       },
