@@ -14,6 +14,7 @@ import {
   Section,
   SelectProps,
   SelectValue,
+  Separator,
   Text,
 } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
@@ -28,9 +29,9 @@ export interface SelectTriggerProps extends SelectProps<any> {
 export function Select({ children, className, ...props }: SelectTriggerProps) {
   return (
     <ReactAriaSelect
-      {...props}
-      aria-label={props.label || "Select"}
       className={twMerge("flex flex-col", className)}
+      aria-label={props.label || "Select"}
+      {...props}
     >
       <>
         {props.label && (
@@ -55,6 +56,7 @@ export function Select({ children, className, ...props }: SelectTriggerProps) {
 export function SelectWrapper({
   items,
   children,
+  className,
   ...props
 }: ListBoxProps<any>) {
   return (
@@ -66,13 +68,12 @@ export function SelectWrapper({
         <ListBox
           items={items}
           className={twMerge(
-            "w-full bg-secondary border border-outline-secondary py-1 rounded"
+            "w-full bg-primary border border-outline-secondary py-1 rounded focus:outline-none",
+            className as string
           )}
           {...props}
         >
-          <Section>
-            <>{children}</>
-          </Section>
+          <>{children}</>
         </ListBox>
       </Popover>
     </>
@@ -83,7 +84,7 @@ export function SelectItem({ className, ...props }: ListBoxItemProps) {
   return (
     <ListBoxItem
       className={twMerge(
-        "p-1 mx-1 rounded hover:bg-primary hover:outline-none focus:bg-primary focus:outline-none text-primary-foreground disabled:opacity-50",
+        "p-1 mx-1 rounded hover:bg-secondary hover:outline-none focus:bg-secondary focus:outline-none text-primary-foreground disabled:opacity-50 hover:cursor-pointer",
         className as string
       )}
       {...props}
@@ -93,16 +94,31 @@ export function SelectItem({ className, ...props }: ListBoxItemProps) {
   );
 }
 
-export function SelectHeader({ children }: { children: React.ReactNode }) {
+export function SelectHeader({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
-    <Header className={twMerge("text-primary-foreground p-1 mx-1 mb-2")}>
+    <Header
+      className={twMerge("text-primary-foreground p-1 mx-1 mb-2", className)}
+    >
       {children}
     </Header>
   );
 }
 
-export function SelectDivider() {
-  return <Header className="min-w-full min-h-[2px] bg-outline my-2" />;
+export function SelectDivider({ className }: { className?: string }) {
+  return (
+    <Separator
+      className={twMerge(
+        "min-w-full  border-b-[1px] border-outline my-2",
+        className
+      )}
+    />
+  );
 }
 
 export function SelectImplementation() {
@@ -111,14 +127,19 @@ export function SelectImplementation() {
       label="Ice cream flavor"
       description="Select your favorite ice cream flavor"
     >
-      <SelectHeader>Ice-cream flavor</SelectHeader>
-      <SelectItem textValue="mint">Mint</SelectItem>
-      <SelectItem textValue="strawberry" isDisabled>
-        Strawberry
-      </SelectItem>
+      <Section>
+        <SelectHeader>Ice-cream flavor</SelectHeader>
+        <SelectItem textValue="mint">Mint</SelectItem>
+        <SelectItem textValue="strawberry" isDisabled>
+          Strawberry
+        </SelectItem>
+      </Section>
       <SelectDivider />
-      <SelectItem textValue="vanilla">Vanilla</SelectItem>
-      <SelectItem textValue="chocolate">Chocolate</SelectItem>
+      <Section>
+        <SelectHeader>All time favorite</SelectHeader>
+        <SelectItem textValue="vanilla">Vanilla</SelectItem>
+        <SelectItem textValue="chocolate">Chocolate</SelectItem>
+      </Section>
     </Select>
   );
 }
