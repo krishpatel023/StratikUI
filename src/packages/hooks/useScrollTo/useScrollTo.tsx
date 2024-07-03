@@ -1,7 +1,11 @@
 "use client";
 import { RefObject, useEffect, useState } from "react";
 
-const useScrollTo = (threshold = 300) => {
+interface UseScrollToProps {
+  threshold?: number;
+}
+
+const useScrollTo = ({ threshold = 300 }: UseScrollToProps = {}) => {
   const [isVisible, setIsVisible] = useState(false);
 
   const toggleVisibility = () => {
