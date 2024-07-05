@@ -77,6 +77,7 @@ const config: Config = {
         // For @/packages/primitive/toast/Toast_1.tsx
         toastEntryRight: "toastEntryRight 0.2s linear",
         toastEntryLeft: "toastEntryLeft 0.2s linear",
+        toastExit: "toastExit 0.5s forwards",
         // For @/packages/primitive/button/Button_6.tsx
         buttonGrow: "buttonGrow 0.4s linear",
 
@@ -125,6 +126,14 @@ const config: Config = {
           },
           "100%": {
             transform: "translateX(0%)",
+          },
+        },
+        toastExit: {
+          "0%": {
+            opacity: "1",
+          },
+          "100%": {
+            opacity: "0",
           },
         },
 

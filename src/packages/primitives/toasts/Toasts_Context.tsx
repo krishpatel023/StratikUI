@@ -16,7 +16,7 @@ export type ToastProviderProps = {
   toasts: ToastProps[];
   addToast: (value: ToastProps) => void;
   removeToast: (id: string) => void;
-  calculateHirarchy: (toastId: string) => number | null;
+  calculateHierarchy: (toastId: string) => number | null;
   getToast: (id: string) => ToastProps | null;
 };
 
@@ -28,7 +28,7 @@ export const ToastContext = createContext<ToastProviderProps>({
   toasts: [],
   addToast: () => {},
   removeToast: () => {},
-  calculateHirarchy: () => {
+  calculateHierarchy: () => {
     return null;
   },
   getToast: () => {
@@ -56,7 +56,7 @@ const ToastProvider: React.FC<ContextWrapperProps> = (props) => {
     setToasts(newtoast);
   };
 
-  const calculateHirarchy = (toastId: string) => {
+  const calculateHierarchy = (toastId: string) => {
     var count: number = -1;
     var flag = false;
     var selfvisible = false;
@@ -98,12 +98,25 @@ const ToastProvider: React.FC<ContextWrapperProps> = (props) => {
     toasts,
     addToast,
     removeToast,
-    calculateHirarchy,
+    calculateHierarchy,
     getToast,
   };
 
+  // Clear the toasts when all are closed. To avoid memory issues
   useEffect(() => {
-    console.log(toasts);
+    function checkAllClosed() {
+      var flag = true;
+      for (const toast of toasts) {
+        if (toast.visibility) {
+          flag = false;
+          break;
+        }
+      }
+      return flag;
+    }
+    if (toasts.length === 0) return;
+    const check = checkAllClosed();
+    if (check) setToasts([]);
   }, [toasts]);
 
   // -----------------------------------------------------
