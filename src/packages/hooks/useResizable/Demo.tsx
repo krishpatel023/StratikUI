@@ -1,3 +1,3 @@
-import { ResizeExample1 } from "@/packages/primitives/resizable_container/Resizable_1_Helper";
+import { ResizeImplementation } from "@/packages/primitives/resizable_container/Resizable_1";
 
-export const Demo = ResizeExample1;
+export const Demo = ResizeImplementation;
