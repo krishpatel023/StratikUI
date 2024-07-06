@@ -136,8 +136,10 @@ const useResizable = (
         return;
     }
 
-    resizableRef.current.style.width = `${widthFinal}px`;
-    resizableRef.current.style.height = `${heightFinal}px`;
+    if (activeHandle === "right" || activeHandle === "left")
+      resizableRef.current.style.width = `${widthFinal}px`;
+    else if (activeHandle === "bottom" || activeHandle === "top")
+      resizableRef.current.style.height = `${heightFinal}px`;
 
     setContainerDimensions({
       width: widthFinal,
