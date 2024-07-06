@@ -1,60 +1,50 @@
-import { DataDescription, ImplementationNode } from "@/utils/constants";
-import {
-  ExampleStringJsx,
-  ExampleStringTsx,
-  ResizeExample2,
-} from "./Resizable_2_Helper";
-import { HelperFunctionsJsx, HelperFunctionsTsx } from "./Resizable_Helper";
+"use client";
 
-function Demo() {
+import { useRef } from "react";
+import { ResizableContainer, ResizeBoundingElement } from "./Resizable_Helper";
+import useResizable, {
+  ResizableOptions,
+} from "@/packages/hooks/useResizable/useResizable";
+
+export function ResizeImplementation() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const resizableRef = useRef<HTMLDivElement>(null);
+
+  const options: ResizableOptions = {
+    minWidth: "100px",
+    minHeight: "100px",
+    maxWidth: "70%",
+    maxHeight: "100%",
+    expandBoundingElement: false,
+  };
+
+  const { handleResize } = useResizable(containerRef, resizableRef, options);
+
   return (
-    <div className="flex flex-col gap-4 w-full">
-      <ResizeExample2 />
+    <div className="flex justify-center items-center gap-4 w-full ">
+      <ResizeBoundingElement
+        containerRef={containerRef}
+        className="h-80 w-[35rem] max-w-[35rem] bg-accent flex"
+      >
+        <ResizableContainer
+          minWidth={100}
+          minHeight={100}
+          direction={["right"]}
+          className="h-full bg-secondary"
+          handleResize={handleResize}
+          resizableRef={resizableRef}
+        >
+          <div className="text-foreground h-80 text-center flex justify-center items-center">
+            <h1>This is a resizable container</h1>
+          </div>
+        </ResizableContainer>
+        <div className="w-full h-full bg-secondary text-secondary-foreground text-center flex justify-center items-center px-2">
+          <h1>
+            This is not a resizable div but will take the remaining width in the
+            container.
+          </h1>
+        </div>
+      </ResizeBoundingElement>
     </div>
   );
 }
-
-const Implementation: ImplementationNode[] = [
-  {
-    type: "technology_used",
-    content: ["tailwind-css", "twMerge"],
-  },
-  {
-    type: "code",
-    content: [
-      {
-        name: "Implementation",
-        content: [
-          { language: "tsx", code: ExampleStringTsx },
-          { language: "jsx", code: ExampleStringJsx },
-        ],
-      },
-      {
-        name: "Helper",
-        content: [
-          { language: "tsx", code: HelperFunctionsTsx },
-          { language: "jsx", code: HelperFunctionsJsx },
-        ],
-      },
-      // {
-      //   name: "useResizable",
-      //   content: [
-      //     { language: "tsx", code: useResizableCodeTsx },
-      //     { language: "jsx", code: useResizableCodeJsx },
-      //   ],
-      // },
-    ],
-  },
-];
-
-const Data: DataDescription = {
-  name: "Resizable Partition in a Container",
-  description:
-    "This way you can use Resizable component as a partition resizer. This is just an example of the use cases for this hook. The individual code is available in the useResizable hook section.",
-  implementation: Implementation,
-  component: <Demo />,
-  version_included: "0.1.5",
-  display: true,
-};
-
-export default Data;
