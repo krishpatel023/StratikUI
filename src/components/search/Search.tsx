@@ -15,7 +15,7 @@ const ContainerGlassEffect = dynamic(() =>
 import {
   KeyListener,
   KeyListenerDisplay,
-} from "@/packages/primitives/key_listener/KeyListener_Helper";
+} from "@/packages/primitives/key_listener/KeyListener";
 import { IconProps } from "@/utils/constants";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
