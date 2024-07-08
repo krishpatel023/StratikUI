@@ -45,7 +45,7 @@ export function Modal({
       <ModalAria className="outline-none ">
         <Dialog
           className={twMerge(
-            "absolute w-full h-max py-6 px-6 rounded bg-primary border border-outline-secondary text-primary-foreground outline-none max-w-[30rem] data-[entering=true]:animate-modal-zoom",
+            "absolute w-full h-max py-6 px-6 rounded bg-primary border border-outline-secondary text-primary-foreground outline-none data-[entering=true]:animate-modal-zoom",
             position === "center center" &&
               "top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2",
             position === "center top" && "top-6 left-1/2 -translate-x-1/2",
@@ -79,7 +79,7 @@ export function ModalImplementation() {
         <Button className="bg-primary hover:bg-secondary text-primary-foreground px-2 py-2 rounded border border-outline-secondary mt-4">
           Open Modal
         </Button>
-        <Modal>
+        <Modal className="max-w-[30rem]">
           {({ close }) => (
             <>
               <h1 className="text-xl font-semibold text-primary-foreground mb-4">
