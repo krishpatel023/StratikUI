@@ -9,7 +9,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { PasswordToggle } from "@/packages/primitives/input_text/Input_9_Helper";
-import { Button } from "@/packages/primitives/buttons/Button_6_Helper";
+import { Button } from "@/packages/primitives/buttons/Button_2";
 import { twMerge } from "tailwind-merge";
 import { Background } from "@/packages/helper/Background";
 

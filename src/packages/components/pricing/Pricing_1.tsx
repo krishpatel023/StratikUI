@@ -1,6 +1,6 @@
 import { DataDescription, ImplementationNode } from "@/utils/constants";
 
-import { Button } from "@/packages/primitives/buttons/Button_6_Helper";
+import { Button } from "@/packages/primitives/buttons/Button_2";
 import {
   HighlightGroup,
   HighlighterItem,

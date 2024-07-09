@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import useFileUpload from "../../hooks/useFileUpload/useFileUpload";
 import Image from "next/image";
 import { IconProps } from "@/utils/constants";
-import { Button } from "../buttons/Button_6_Helper";
+import { Button } from "../buttons/Button_2";
 import useDelay from "@/packages/hooks/useDelay/useDelay";
 import useProcess from "@/packages/hooks/useProcess/useProcess";
 import useArtificialLoader from "@/packages/hooks/useArtificialLoader/useArtificialLoader";

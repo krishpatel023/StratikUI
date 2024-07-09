@@ -1,4 +1,4 @@
-import { Button } from "@/packages/primitives/buttons/Button_6_Helper";
+import { Button } from "@/packages/primitives/buttons/Button_2";
 import { twMerge } from "tailwind-merge";
 import { GradientText } from "../ui/GradientText";
 

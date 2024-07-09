@@ -5,7 +5,7 @@ import useProcess from "@/packages/hooks/useProcess/useProcess";
 import { IconProps } from "@/utils/constants";
 import { useRef } from "react";
 import useFileUpload from "../../hooks/useFileUpload/useFileUpload";
-import { Button } from "../buttons/Button_6_Helper";
+import { Button } from "../buttons/Button_2";
 
 export const FileUpload_1 = () => {
   const allowedFileTypes = ["image/png", "image/jpeg", "image/jpg"];
@@ -213,7 +213,7 @@ export const CodeStringTsx = `import { useRef } from "react";
 import useFileUpload from "../../hooks/code/useFileUpload";
 import Image from "next/image";
 import { IconProps } from "@/utils/constants";
-import { Button } from "../buttons/Button_6_Helper";
+import { Button } from "../buttons/Button_2";
 import useDelay from "@/packages/hooks/code/useDelay";
 import useProcess from "@/packages/hooks/code/useProcess";
 
@@ -423,7 +423,7 @@ export const CodeStringJsx = `import { useRef } from "react";
 import useFileUpload from "../../hooks/code/useFileUpload";
 import Image from "next/image";
 import { IconProps } from "@/utils/constants";
-import { Button } from "../buttons/Button_6_Helper";
+import { Button } from "../buttons/Button_2";
 import useDelay from "@/packages/hooks/code/useDelay";
 import useProcess from "@/packages/hooks/code/useProcess";
 
