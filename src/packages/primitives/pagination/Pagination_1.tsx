@@ -6,28 +6,26 @@ import { Button, Group } from "react-aria-components";
 type PaginationProps = {
   initialPage: number;
   totalPage: number;
-  nextPageEvent?: () => void;
-  prevPageEvent?: () => void;
+  pageChangeHandler?: (page: number) => void;
 };
 
 export function Pagination({
   initialPage,
   totalPage,
-  nextPageEvent,
-  prevPageEvent,
+  pageChangeHandler,
 }: PaginationProps) {
   const [currentPage, setCurrentPage] = useState<number>(initialPage);
 
   const handleNext = () => {
     if (currentPage < totalPage) {
       setCurrentPage(currentPage + 1);
-      if (nextPageEvent) nextPageEvent();
+      if (pageChangeHandler) pageChangeHandler(currentPage + 1);
     }
   };
   const handlePrev = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
-      if (prevPageEvent) prevPageEvent();
+      if (pageChangeHandler) pageChangeHandler(currentPage - 1);
     }
   };
   return (
