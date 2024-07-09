@@ -79,7 +79,7 @@ const config: Config = {
         toastEntryLeft: "toastEntryLeft 0.2s linear",
         toastExit: "toastExit 0.5s forwards",
         // For @/packages/primitive/button/Button_6.tsx
-        buttonGrow: "buttonGrow 0.4s linear",
+        buttonGrow: "buttonGrow 0.4s linear forwards",
 
         // For @/packages/primitive/stepper/Stepper_1.tsx
         stepperGrow: "stepperGrow 0.4s linear",
