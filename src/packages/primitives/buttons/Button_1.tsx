@@ -1,54 +1,63 @@
+"use client";
+
 import ArrowHeading from "@/components/ui/ArrowHeading";
+import { IconProps } from "@/utils/constants";
 import {
-  DataDescription,
-  IconProps,
-  ImplementationNode,
-} from "@/utils/constants";
+  Button as ReactAriaButton,
+  ButtonProps as ReactAriaButtonProps,
+} from "react-aria-components";
 import { twMerge } from "tailwind-merge";
+
+export interface ButtonProps extends ReactAriaButtonProps {
+  isProcessing?: boolean;
+  variant?:
+    | "primary"
+    | "secondary"
+    | "destructive"
+    | "outline"
+    | "ghost"
+    | "accent";
+}
+
 function Button({
-  icon,
-  text,
-  state = "default",
-}: {
-  icon?: JSX.Element;
-  text: string;
-  state?: "default" | "disabled" | "processing";
-}) {
+  isProcessing = false,
+  isDisabled,
+  variant = "primary",
+  children,
+  className,
+  ...props
+}: ButtonProps) {
   return (
     <>
-      <button
+      <ReactAriaButton
+        data-processing={isProcessing}
         className={twMerge(
-          "bg-gray-700 rounded text-white py-2 px-4 flex gap-4 justify-center items-center",
-          state === "disabled" && "disabled:hover:cursor-not-allowed",
-          state === "processing" &&
-            "disabled:hover:cursor-not-allowed bg-gray-500"
+          "p-2 rounded transition-all duration-100 ease-in-out disabled:cursor-not-allowed disabled:opacity-60",
+          variant === "primary" &&
+            "bg-primary hover:bg-secondary pressed:bg-primary border border-outline text-primary-foreground",
+          variant === "secondary" &&
+            "bg-secondary hover:bg-primary pressed:bg-secondary border border-outline-secondary text-secondary-foreground",
+          variant === "destructive" &&
+            "bg-error text-error-foreground hover:bg-error-secondary pressed:bg-error",
+          variant === "outline" &&
+            "border border-outline hover:bg-primary pressed:bg-secondary text-foreground",
+          variant === "ghost" &&
+            " hover:bg-primary pressed:bg-secondary text-foreground",
+          variant === "accent" &&
+            "bg-accent hover:bg-accent-secondary pressed:bg-accent text-accent-foreground",
+          isProcessing && "cursor-not-allowed",
+          className as string
         )}
-        {...(state === "disabled" || state === "processing"
-          ? { disabled: true }
-          : {})}
+        isDisabled={isDisabled || isProcessing}
+        {...props}
       >
-        {state !== "processing" && (
-          <>
-            {icon ? icon : null}
-            <span>{text}</span>
-          </>
+        {isProcessing ? (
+          <Loader className="animate-spin w-6 h-6 mx-auto" />
+        ) : (
+          <> {children}</>
         )}
-        {state === "processing" && <Loader className="animate-spin w-6 h-6" />}
-      </button>
+      </ReactAriaButton>
     </>
-  );
-}
-
-function Demo() {
-  return (
-    <div className="gap-4 flex flex-col">
-      <ArrowHeading text="Default" />
-      <Button icon={<IonHome />} text="Button with Icon" />
-      <ArrowHeading text="Disabled" />
-      <Button icon={<IonHome />} text="Button with Icon" state="disabled" />
-      <ArrowHeading text="Processing" />
-      <Button icon={<IonHome />} text="Button with Icon" state="processing" />
-    </div>
   );
 }
 
@@ -68,240 +77,66 @@ const Loader = (props: IconProps) => {
     </svg>
   );
 };
-// Icons from https://iconbuddy.app/
-// Do check them out
-export const IonHome = (props: { props?: any }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 512 512"
-    {...props}
-  >
-    <path
-      fill="currentColor"
-      d="M261.56 101.28a8 8 0 0 0-11.06 0L66.4 277.15a8 8 0 0 0-2.47 5.79L63.9 448a32 32 0 0 0 32 32H192a16 16 0 0 0 16-16V328a8 8 0 0 1 8-8h80a8 8 0 0 1 8 8v136a16 16 0 0 0 16 16h96.06a32 32 0 0 0 32-32V282.94a8 8 0 0 0-2.47-5.79Z"
-    ></path>
-    <path
-      fill="currentColor"
-      d="m490.91 244.15l-74.8-71.56V64a16 16 0 0 0-16-16h-48a16 16 0 0 0-16 16v32l-57.92-55.38C272.77 35.14 264.71 32 256 32c-8.68 0-16.72 3.14-22.14 8.63l-212.7 203.5c-6.22 6-7 15.87-1.34 22.37A16 16 0 0 0 43 267.56L250.5 69.28a8 8 0 0 1 11.06 0l207.52 198.28a16 16 0 0 0 22.59-.44c6.14-6.36 5.63-16.86-.76-22.97Z"
-    ></path>
-  </svg>
-);
 
-const ImplementationString = `function Demo() {
+export function ButtonImplementation() {
   return (
-    <div className="gap-4 flex flex-col">
-      <ArrowHeading text="Default" />
-      <Button icon={<IonHome />} text="Button with Icon" />
-      <ArrowHeading text="Disabled" />
-      <Button icon={<IonHome />} text="Button with Icon" state="disabled" />
-      <ArrowHeading text="Processing" />
-      <Button icon={<IonHome />} text="Button with Icon" state="processing" />
+    <div className="grid grid-cols-1 @md:grid-cols-2 gap-4">
+      <div className="w-60 @md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Primary" />
+        <Button>Click</Button>
+        <Button isDisabled>Disabled</Button>
+        <Button isProcessing>Click</Button>
+      </div>
+      <div className="w-60 @md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Secondary" />
+        <Button variant="secondary">Click</Button>
+        <Button variant="secondary" isDisabled>
+          Disabled
+        </Button>
+        <Button variant="secondary" isProcessing>
+          Click
+        </Button>
+      </div>
+      <div className="w-60 @md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Destructive" />
+        <Button variant="destructive">Click</Button>
+        <Button variant="destructive" isDisabled>
+          Disabled
+        </Button>
+        <Button variant="destructive" isProcessing>
+          Click
+        </Button>
+      </div>
+      <div className="w-60 @md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Outline" />
+        <Button variant="outline">Click</Button>
+        <Button variant="outline" isDisabled>
+          Disabled
+        </Button>
+        <Button variant="outline" isProcessing>
+          Click
+        </Button>
+      </div>
+      <div className="w-60 @md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Ghost" />
+        <Button variant="ghost">Click</Button>
+        <Button variant="ghost" isDisabled>
+          Disabled
+        </Button>
+        <Button variant="ghost" isProcessing>
+          Click
+        </Button>
+      </div>
+      <div className="w-60 @md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Accent" />
+        <Button variant="accent">Click</Button>
+        <Button variant="accent" isDisabled>
+          Disabled
+        </Button>
+        <Button variant="accent" isProcessing>
+          Click
+        </Button>
+      </div>
     </div>
   );
-}`;
-
-const ButtonStringTsx = `function Button({
-  icon,
-  text,
-  state = "default",
-}: {
-  icon?: JSX.Element;
-  text: string;
-  state?: "default" | "disabled" | "processing";
-}) {
-  return (
-    <>
-      <button
-        className={twMerge(
-          "bg-gray-700 rounded text-white py-2 px-4 flex gap-4 justify-center items-center",
-          state === "disabled" && "disabled:hover:cursor-not-allowed",
-          state === "processing" &&
-            "disabled:hover:cursor-not-allowed bg-gray-500"
-        )}
-        {...(state === "disabled" || state === "processing"
-          ? { disabled: true }
-          : {})}
-      >
-        {state !== "processing" && (
-          <>
-            {icon ? icon : null}
-            <span>{text}</span>
-          </>
-        )}
-        {state === "processing" && <Loader className="animate-spin w-6 h-6" />}
-      </button>
-    </>
-  );
-}`;
-
-const ButtonStringJsx = `function Button({
-  icon,
-  text,
-  state = "default",
-}) {
-  return (
-    <>
-      <button
-        className={twMerge(
-          "bg-gray-700 rounded text-white py-2 px-4 flex gap-4 justify-center items-center",
-          state === "disabled" && "disabled:hover:cursor-not-allowed",
-          state === "processing" &&
-            "disabled:hover:cursor-not-allowed bg-gray-500"
-        )}
-        {...(state === "disabled" || state === "processing"
-          ? { disabled: true }
-          : {})}
-      >
-        {state !== "processing" && (
-          <>
-            {icon ? icon : null}
-            <span>{text}</span>
-          </>
-        )}
-        {state === "processing" && <Loader className="animate-spin w-6 h-6" />}
-      </button>
-    </>
-  );
-}`;
-
-const IconsStringTsx = `// Icons from https://iconbuddy.app/
-// Do check them out
-
-const Loader = (props: IconProps) => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      {...props}
-    >
-      <path
-        fill="currentColor"
-        d="M12 3a9 9 0 0 1 9 9h-2a7 7 0 0 0-7-7V3Z"
-      ></path>
-    </svg>
-  );
-};
-
-export const IonHome = (props: IconProps) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 512 512"
-    {...props}
-  >
-    <path
-      fill="currentColor"
-      d="M261.56 101.28a8 8 0 0 0-11.06 0L66.4 277.15a8 8 0 0 0-2.47 5.79L63.9 448a32 32 0 0 0 32 32H192a16 16 0 0 0 16-16V328a8 8 0 0 1 8-8h80a8 8 0 0 1 8 8v136a16 16 0 0 0 16 16h96.06a32 32 0 0 0 32-32V282.94a8 8 0 0 0-2.47-5.79Z"
-    ></path>
-    <path
-      fill="currentColor"
-      d="m490.91 244.15l-74.8-71.56V64a16 16 0 0 0-16-16h-48a16 16 0 0 0-16 16v32l-57.92-55.38C272.77 35.14 264.71 32 256 32c-8.68 0-16.72 3.14-22.14 8.63l-212.7 203.5c-6.22 6-7 15.87-1.34 22.37A16 16 0 0 0 43 267.56L250.5 69.28a8 8 0 0 1 11.06 0l207.52 198.28a16 16 0 0 0 22.59-.44c6.14-6.36 5.63-16.86-.76-22.97Z"
-    ></path>
-  </svg>
-);`;
-
-const IconsStringJsx = `// Icons from https://iconbuddy.app/
-// Do check them out
-
-const Loader = (props) => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      {...props}
-    >
-      <path
-        fill="currentColor"
-        d="M12 3a9 9 0 0 1 9 9h-2a7 7 0 0 0-7-7V3Z"
-      ></path>
-    </svg>
-  );
-};
-
-export const IonHome = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 512 512"
-    {...props}
-  >
-    <path
-      fill="currentColor"
-      d="M261.56 101.28a8 8 0 0 0-11.06 0L66.4 277.15a8 8 0 0 0-2.47 5.79L63.9 448a32 32 0 0 0 32 32H192a16 16 0 0 0 16-16V328a8 8 0 0 1 8-8h80a8 8 0 0 1 8 8v136a16 16 0 0 0 16 16h96.06a32 32 0 0 0 32-32V282.94a8 8 0 0 0-2.47-5.79Z"
-    ></path>
-    <path
-      fill="currentColor"
-      d="m490.91 244.15l-74.8-71.56V64a16 16 0 0 0-16-16h-48a16 16 0 0 0-16 16v32l-57.92-55.38C272.77 35.14 264.71 32 256 32c-8.68 0-16.72 3.14-22.14 8.63l-212.7 203.5c-6.22 6-7 15.87-1.34 22.37A16 16 0 0 0 43 267.56L250.5 69.28a8 8 0 0 1 11.06 0l207.52 198.28a16 16 0 0 0 22.59-.44c6.14-6.36 5.63-16.86-.76-22.97Z"
-    ></path>
-  </svg>
-);`;
-
-const Implementation: ImplementationNode[] = [
-  {
-    type: "technology_used",
-    content: ["tailwind-css"],
-  },
-  {
-    type: "code",
-    content: [
-      {
-        name: "Button",
-        content: [
-          {
-            language: "tsx",
-            code: ButtonStringTsx,
-          },
-          {
-            language: "jsx",
-            code: ButtonStringJsx,
-          },
-        ],
-      },
-      {
-        name: "Implementation",
-        content: [
-          {
-            language: "tsx",
-            code: ImplementationString,
-          },
-          {
-            language: "jsx",
-            code: ImplementationString,
-          },
-        ],
-      },
-      {
-        name: "Icons",
-        content: [
-          {
-            language: "tsx",
-            code: IconsStringTsx,
-          },
-          {
-            language: "jsx",
-            code: IconsStringJsx,
-          },
-        ],
-      },
-    ],
-  },
-];
-
-const ButtonData_1: DataDescription = {
-  name: "Button with Icon",
-  description:
-    "This is a button with Icon option. The Icon can be passed as a prop and if not passed it will act as a default button",
-  implementation: Implementation,
-  component: Demo(),
-  version_included: "0.0.1",
-  display: true,
-};
-export default ButtonData_1;
+}
