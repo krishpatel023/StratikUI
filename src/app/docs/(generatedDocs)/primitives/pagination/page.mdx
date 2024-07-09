@@ -1,0 +1,194 @@
+import React, { Suspense } from 'react';
+import { Implementation, Preview, Header, Display, TechnologyUsed, Wrapper, Skeleton, PARTITION } from "@/components/mdx/MDXServerImports"
+import { CodeBlock } from "@/components/mdx/MDXClientImports"
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from src/content/docs/primitives/pagination/Pagination_01.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Pagination with only Next and Previous Buttons
+### This is a simple pagination component with only next and previous buttons. It has a default implementation of the buttons and a prop to pass the event handlers. It has no way to jumt to a specific page, hence it is a simple pagination component.
+
+
+
+
+
+export const PaginationImplementation_primitives_pagination_pagination_01 = React.lazy(() =>
+	import('@/packages/primitives/pagination/Pagination_1')
+		.then((mod) => ({
+			default: mod.PaginationImplementation
+	}))
+);
+
+
+<Header />
+<Preview> 
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+<PaginationImplementation_primitives_pagination_pagination_01 />
+</Display>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge", "react-aria" ]}/>
+
+<CodeBlock>
+ 
+```tsx|Pagination
+"use client";
+
+import { useState } from "react";
+import { Button, Group } from "react-aria-components";
+
+type PaginationProps = {
+  initialPage: number;
+  totalPage: number;
+  nextPageEvent?: () => void;
+  prevPageEvent?: () => void;
+};
+
+export function Pagination({
+  initialPage,
+  totalPage,
+  nextPageEvent,
+  prevPageEvent,
+}: PaginationProps) {
+  const [currentPage, setCurrentPage] = useState<number>(initialPage);
+
+  const handleNext = () => {
+    if (currentPage < totalPage) {
+      setCurrentPage(currentPage + 1);
+      if (nextPageEvent) nextPageEvent();
+    }
+  };
+  const handlePrev = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+      if (prevPageEvent) prevPageEvent();
+    }
+  };
+  return (
+    <Group className="flex justify-center gap-4 text-primary-foreground border-[1px] border-outline  rounded-md bg-primary focus-within:ring-2 focus-within:ring-secondary">
+      <Button
+        className="w-full py-2 px-4 border-r-[1px] border-outline disabled:cursor-not-allowed disabled:text-muted-foreground  pressed:bg-secondary  rounded-l-[inherit] outline-none"
+        onPress={handlePrev}
+        isDisabled={currentPage === 1}
+        slot="decrement"
+      >
+        Prev
+      </Button>
+      <div className="flex justify-center gap-2 py-2 px-4 max-w-20">
+        <span>{currentPage}</span>
+        <span>of</span>
+        <span>{totalPage}</span>
+      </div>
+      <Button
+        className="w-full py-2 px-4 border-l-[1px] border-outline disabled:cursor-not-allowed disabled:text-muted-foreground  pressed:bg-secondary  rounded-r-[inherit] outline-none"
+        onPress={handleNext}
+        isDisabled={currentPage === totalPage}
+        slot="increment"
+      >
+        Next
+      </Button>
+    </Group>
+  );
+}
+```
+```jsx|Pagination
+"use client";
+
+import { useState } from "react";
+import { Button, Group } from "react-aria-components";
+
+export function Pagination({
+  initialPage,
+  totalPage,
+  nextPageEvent,
+  prevPageEvent,
+}) {
+  const [currentPage, setCurrentPage] = useState(initialPage);
+
+  const handleNext = () => {
+    if (currentPage < totalPage) {
+      setCurrentPage(currentPage + 1);
+      if (nextPageEvent) nextPageEvent();
+    }
+  };
+  const handlePrev = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+      if (prevPageEvent) prevPageEvent();
+    }
+  };
+  return (
+    <Group className="flex justify-center gap-4 text-primary-foreground border-[1px] border-outline  rounded-md bg-primary focus-within:ring-2 focus-within:ring-secondary">
+      <Button
+        className="w-full py-2 px-4 border-r-[1px] border-outline disabled:cursor-not-allowed disabled:text-muted-foreground  pressed:bg-secondary  rounded-l-[inherit] outline-none"
+        onPress={handlePrev}
+        isDisabled={currentPage === 1}
+        slot="decrement"
+      >
+        Prev
+      </Button>
+      <div className="flex justify-center gap-2 py-2 px-4 max-w-20">
+        <span>{currentPage}</span>
+        <span>of</span>
+        <span>{totalPage}</span>
+      </div>
+      <Button
+        className="w-full py-2 px-4 border-l-[1px] border-outline disabled:cursor-not-allowed disabled:text-muted-foreground  pressed:bg-secondary  rounded-r-[inherit] outline-none"
+        onPress={handleNext}
+        isDisabled={currentPage === totalPage}
+        slot="increment"
+      >
+        Next
+      </Button>
+    </Group>
+  );
+}
+```
+
+```tsx|Implementation
+export function PaginationImplementation() {
+  return (
+    <div className="w-full flex justify-center">
+      <Pagination initialPage={1} totalPage={10} />
+    </div>
+  );
+}
+```
+```jsx|Implementation
+export function PaginationImplementation() {
+  return (
+    <div className="w-full flex justify-center">
+      <Pagination initialPage={1} totalPage={10} />
+    </div>
+  );
+}
+```
+
+</CodeBlock>
+
+
+## Pagination Props
+
+| Name          | Type       | Description                                       |
+| ------------- | ---------- | ------------------------------------------------- |
+| `initialPage` | `number`   | The initial page number to start from.            |
+| `totalPage`   | `number`   | The total number of pages available.              |
+| `nextPageEvent` | `() => void` | Optional. Function to call when next page is clicked. |
+| `prevPageEvent` | `() => void` | Optional. Function to call when previous page is clicked. |
+
+</Implementation>
+</Wrapper>
+<PARTITION />
