@@ -2,9 +2,9 @@ import { Implementation, Preview, Display, TechnologyUsed, Wrapper, Header, Impo
 import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
 
 export const Data = {
-    name: "Default Stepper",
+    name: "Indicator Stepper",
     tags: [],
-    description: "This is a Stepper component that displays a series of steps. It handles the state change and navigation between steps internally and can be controlled by the user. It is designed in such a way that it can used in many different contexts. It is responsive and has a data-state attribute that can be used to show the current state of the step.",
+    description: "This stepper component is more like a stepper in form of a progress bar. It is used to indicate the current step of a process. It is responsive and has a data-state attribute that can be used to show the current state of the step. It will improve the user experience of the process as it will show the user which step they are on.",
     version_included: "0.2.0",
     display: true
 }
@@ -12,12 +12,13 @@ export const Data = {
 <Wrapper>
 
 <ImportsWrapper>
-import {StepperImplementation} from "@/packages/primitives/steppers/Stepper_1"
+import {StepperImplementation} from "@/packages/primitives/steppers/Stepper_2"
 
 </ImportsWrapper>
 
 <Header />
 <Preview> 
+
 <Display>
 <StepperImplementation />
 </Display>
@@ -156,7 +157,7 @@ export function StepInternal({
       )}
       data-state={state}
     >
-      <div className="h-full @sm:h-auto @sm:w-full flex flex-col items-center @sm:flex-row @sm:justify-start @sm:items-center gap-2 relative @sm:left-[calc(50%-1.5rem)] ">
+      <div className="h-full @sm:h-auto @sm:w-full flex flex-col items-center @sm:flex-row @sm:justify-start @sm:items-center gap-2 ">
         <StepCircular step={step} state={state} />
         <StepLine step={step} totalSteps={totalSteps} state={state} />
       </div>
@@ -165,14 +166,19 @@ export function StepInternal({
   );
 }
 
-export function StepLine({ className, step, totalSteps, state }: StepLineProps) {
+export function StepLine({
+  className,
+  step,
+  totalSteps,
+  state,
+}: StepLineProps) {
   const showConnectingLine = step >= 0 && step < totalSteps - 1;
   return (
     <>
       {showConnectingLine && (
         <div
           className={twMerge(
-            "w-1 h-full @sm:h-1 @sm:w-full rounded-full bg-secondary overflow-hidden pointer-events-none ",
+            "w-1 h-full min-h-8 @sm:min-h-max @sm:min-w-8 @sm:h-1 @sm:w-full rounded-full bg-secondary overflow-hidden pointer-events-none ",
             className
           )}
         >
@@ -189,7 +195,7 @@ export function StepCircular({ className, step, state }: StepCircularProps) {
   return (
     <div
       className={twMerge(
-        "min-h-8 min-w-8 @sm:min-w-12 @sm:min-h-12 rounded-full flex items-center justify-center border-[3px] text-lg @sm:text-2xl font-semibold transition-all delay-300 ",
+        "min-h-8 min-w-8  rounded-full flex items-center justify-center border-[3px] font-semibold transition-all delay-300 ",
         state === "active" && "border-accent text-accent",
         state === "complete" &&
           "bg-accent border-accent text-accent-foreground",
@@ -197,10 +203,8 @@ export function StepCircular({ className, step, state }: StepCircularProps) {
         className
       )}
     >
-      {state === "complete" ? (
+      {state === "complete" && (
         <Check className="w-3/4 h-3/4 text-accent-foreground" />
-      ) : (
-        step + 1
       )}
     </div>
   );
@@ -316,7 +320,7 @@ export function StepInternal({
       )}
       data-state={state}
     >
-      <div className="h-full @sm:h-auto @sm:w-full flex flex-col items-center @sm:flex-row @sm:justify-start @sm:items-center gap-2 relative @sm:left-[calc(50%-1.5rem)] ">
+      <div className="h-full @sm:h-auto @sm:w-full flex flex-col items-center @sm:flex-row @sm:justify-start @sm:items-center gap-2 ">
         <StepCircular step={step} state={state} />
         <StepLine step={step} totalSteps={totalSteps} state={state} />
       </div>
@@ -325,14 +329,19 @@ export function StepInternal({
   );
 }
 
-export function StepLine({ className, step, totalSteps, state }) {
+export function StepLine({
+  className,
+  step,
+  totalSteps,
+  state,
+}) {
   const showConnectingLine = step >= 0 && step < totalSteps - 1;
   return (
     <>
       {showConnectingLine && (
         <div
           className={twMerge(
-            "w-1 h-full @sm:h-1 @sm:w-full rounded-full bg-secondary overflow-hidden pointer-events-none ",
+            "w-1 h-full min-h-8 @sm:min-h-max @sm:min-w-8 @sm:h-1 @sm:w-full rounded-full bg-secondary overflow-hidden pointer-events-none ",
             className
           )}
         >
@@ -349,7 +358,7 @@ export function StepCircular({ className, step, state }) {
   return (
     <div
       className={twMerge(
-        "min-h-8 min-w-8 @sm:min-w-12 @sm:min-h-12 rounded-full flex items-center justify-center border-[3px] text-lg @sm:text-2xl font-semibold transition-all delay-300 ",
+        "min-h-8 min-w-8  rounded-full flex items-center justify-center border-[3px] font-semibold transition-all delay-300 ",
         state === "active" && "border-accent text-accent",
         state === "complete" &&
           "bg-accent border-accent text-accent-foreground",
@@ -357,10 +366,8 @@ export function StepCircular({ className, step, state }) {
         className
       )}
     >
-      {state === "complete" ? (
+      {state === "complete" && (
         <Check className="w-3/4 h-3/4 text-accent-foreground" />
-      ) : (
-        step + 1
       )}
     </div>
   );
@@ -400,76 +407,15 @@ export const StepperImplementation = () => {
 
   return (
     <div className="flex flex-col justify-center items-center gap-20">
-      <Stepper currentStep={activeStep} onChange={handleStepChange}>
-        <Step>
-          <div className="max-w-40  text-center ">
-            <h1 className="text-lg">Login</h1>
-            <p className="text-secondary-foreground">
-              You need to login to you account
-            </p>
-            <span className="group-data-[state='incomplete']:block hidden text-error">
-              Incomplete
-            </span>
-            <span className="group-data-[state='complete']:block hidden text-success">
-              Complete
-            </span>
-            <span className="group-data-[state='active']:block hidden text-accent">
-              Active
-            </span>
-          </div>
-        </Step>
-        <Step>
-          <div className="max-w-40  text-center ">
-            <h1 className="text-lg">Add your wallet</h1>
-            <p className="text-secondary-foreground">
-              Add your wallet to your account
-            </p>
-            <span className="group-data-[state='incomplete']:block hidden text-error">
-              Incomplete
-            </span>
-            <span className="group-data-[state='complete']:block hidden text-success">
-              Complete
-            </span>
-            <span className="group-data-[state='active']:block hidden text-accent">
-              Active
-            </span>
-          </div>
-        </Step>
-        <Step>
-          <div className="max-w-40  text-center ">
-            <h1 className="text-lg">Verify the plan</h1>
-            <p className="text-secondary-foreground">
-              Verify the plan you want to subscribe
-            </p>
-            <span className="group-data-[state='incomplete']:block hidden text-error">
-              Incomplete
-            </span>
-            <span className="group-data-[state='complete']:block hidden text-success">
-              Complete
-            </span>
-            <span className="group-data-[state='active']:block hidden text-accent">
-              Active
-            </span>
-          </div>
-        </Step>
-        <Step>
-          <div className="max-w-40  text-center ">
-            <h1 className="text-lg">Purchase</h1>
-            <p className="text-secondary-foreground">
-              Make the purchase using multiple payment methods
-            </p>
-            <span className="group-data-[state='incomplete']:block hidden text-error">
-              Incomplete
-            </span>
-            <span className="group-data-[state='complete']:block hidden text-success">
-              Complete
-            </span>
-            <span className="group-data-[state='active']:block hidden text-accent">
-              Active
-            </span>
-          </div>
-        </Step>
-      </Stepper>
+      <div className="flex gap-4 flex-col @sm:flex-row items-center justify-center">
+        <span className="text-foreground">Step {activeStep} of 4</span>
+        <Stepper currentStep={activeStep} onChange={handleStepChange}>
+          <Step></Step>
+          <Step></Step>
+          <Step></Step>
+          <Step></Step>
+        </Stepper>
+      </div>
       <span className="text-foreground">Current step: {activeStep}</span>
       <div className="flex gap-4">
         <ButtonUI onClick={handlePrev}>Prev</ButtonUI>
@@ -478,6 +424,8 @@ export const StepperImplementation = () => {
     </div>
   );
 };
+
+
 ```
 ```jsx|Implementation
 export const StepperImplementation = () => {
@@ -491,90 +439,31 @@ export const StepperImplementation = () => {
     setActiveStep(activeStep - 1);
   };
 
-  const handleStepChange = (step) => {
+  const handleStepChange = (step: number) => {
     setActiveStep(step);
   };
 
   return (
     <div className="flex flex-col justify-center items-center gap-20">
-      <Stepper currentStep={activeStep} onChange={handleStepChange}>
-        <Step>
-          <div className="max-w-40  text-center ">
-            <h1 className="text-lg">Login</h1>
-            <p className="text-secondary-foreground">
-              You need to login to you account
-            </p>
-            <span className="group-data-[state='incomplete']:block hidden text-error">
-              Incomplete
-            </span>
-            <span className="group-data-[state='complete']:block hidden text-success">
-              Complete
-            </span>
-            <span className="group-data-[state='active']:block hidden text-accent">
-              Active
-            </span>
-          </div>
-        </Step>
-        <Step>
-          <div className="max-w-40  text-center ">
-            <h1 className="text-lg">Add your wallet</h1>
-            <p className="text-secondary-foreground">
-              Add your wallet to your account
-            </p>
-            <span className="group-data-[state='incomplete']:block hidden text-error">
-              Incomplete
-            </span>
-            <span className="group-data-[state='complete']:block hidden text-success">
-              Complete
-            </span>
-            <span className="group-data-[state='active']:block hidden text-accent">
-              Active
-            </span>
-          </div>
-        </Step>
-        <Step>
-          <div className="max-w-40  text-center ">
-            <h1 className="text-lg">Verify the plan</h1>
-            <p className="text-secondary-foreground">
-              Verify the plan you want to subscribe
-            </p>
-            <span className="group-data-[state='incomplete']:block hidden text-error">
-              Incomplete
-            </span>
-            <span className="group-data-[state='complete']:block hidden text-success">
-              Complete
-            </span>
-            <span className="group-data-[state='active']:block hidden text-accent">
-              Active
-            </span>
-          </div>
-        </Step>
-        <Step>
-          <div className="max-w-40  text-center ">
-            <h1 className="text-lg">Purchase</h1>
-            <p className="text-secondary-foreground">
-              Make the purchase using multiple payment methods
-            </p>
-            <span className="group-data-[state='incomplete']:block hidden text-error">
-              Incomplete
-            </span>
-            <span className="group-data-[state='complete']:block hidden text-success">
-              Complete
-            </span>
-            <span className="group-data-[state='active']:block hidden text-accent">
-              Active
-            </span>
-          </div>
-        </Step>
-      </Stepper>
+      <div className="flex gap-4 flex-col @sm:flex-row items-center justify-center">
+        <span className="text-foreground">Step {activeStep} of 4</span>
+        <Stepper currentStep={activeStep} onChange={handleStepChange}>
+          <Step></Step>
+          <Step></Step>
+          <Step></Step>
+          <Step></Step>
+        </Stepper>
+      </div>
       <span className="text-foreground">Current step: {activeStep}</span>
       <div className="flex gap-4">
-        <Button onClick={handlePrev}>Prev</Button>
-        <Button onClick={handleNext}>Next</Button>
+        <ButtonUI onClick={handlePrev}>Prev</ButtonUI>
+        <ButtonUI onClick={handleNext}>Next</ButtonUI>
       </div>
     </div>
   );
 };
+
+
 ```
 </CodeBlock>
 
