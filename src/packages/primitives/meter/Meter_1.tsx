@@ -27,7 +27,7 @@ export function Meter({
           {children}
           <div
             className={twMerge(
-              "h-3 min-w-80 w-full rounded-full overflow-hidden",
+              "h-3 w-full rounded-full overflow-hidden",
               variant === "primary" && "bg-primary",
               variant === "destructive" &&
                 "bg-primary border border-outline-secondary",
