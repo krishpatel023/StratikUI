@@ -17,7 +17,7 @@ html {
     --primary-foreground: theme(colors.neutral.800);
 
     --secondary: theme(colors.neutral.200);
-    --secondary-foreground: theme(colors.black);
+    --secondary-foreground: theme(colors.neutral.700);
 
     --accent: theme(colors.blue.600);
     --accent-foreground: theme(colors.white);
@@ -26,6 +26,7 @@ html {
 
     --outline: theme(colors.neutral.300);
     --outline-secondary: theme(colors.neutral.500);
+    --outline-foreground: theme(colors.neutral.500);
 
     --success: theme(colors.green.500);
     --success-secondary: theme(colors.green.400);
@@ -61,6 +62,7 @@ html {
 
     --outline: theme(colors.neutral.700);
     --outline-secondary: theme(colors.neutral.800);
+    --outline-foreground: theme(colors.neutral.600);
 
     --success: theme(colors.green.800);
     --success-secondary: theme(colors.green.600);

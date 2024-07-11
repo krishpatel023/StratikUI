@@ -35,6 +35,7 @@ const config: Config = {
         outline: {
           DEFAULT: "var(--outline)",
           secondary: "var(--outline-secondary)",
+          foreground: "var(--outline-foreground)",
         },
 
         success: {
