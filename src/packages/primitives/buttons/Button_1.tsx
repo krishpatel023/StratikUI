@@ -19,7 +19,7 @@ export interface ButtonProps extends ReactAriaButtonProps {
     | "accent";
 }
 
-function Button({
+export function Button({
   isProcessing = false,
   isDisabled,
   variant = "primary",
