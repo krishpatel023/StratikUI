@@ -1,7 +1,13 @@
 "use client";
 
 import { Warning } from "@/packages/ui/Warning";
-import { DetailedHTMLProps, HTMLAttributes, useEffect, useState } from "react";
+import {
+  DetailedHTMLProps,
+  HTMLAttributes,
+  LegacyRef,
+  useEffect,
+  useState,
+} from "react";
 import { Button, ButtonProps } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
 
@@ -26,6 +32,7 @@ export interface HeaderItemProps extends ButtonProps {
   className?: string;
   open?: boolean;
   onChange?: (open: boolean) => void;
+  ref?: LegacyRef<HTMLButtonElement>;
 }
 
 export function HeaderItem({
@@ -106,7 +113,6 @@ export function HeaderDropdown({
 export function HeaderBlocksImplementation() {
   return (
     <div className="w-full min-h-[25rem] flex flex-col justify-center items-center">
-      <Warning message="This component is made for computers and not for mobile views. Please view on a larger screen to see its functionality." />
       <Header className="flex justify-center items-center gap-4">
         <HeaderItem className="hover:text-accent">Home</HeaderItem>
         <HeaderItem className="hover:text-accent">Pricing</HeaderItem>
