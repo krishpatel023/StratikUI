@@ -2,9 +2,9 @@ import { Implementation, Preview, Display, TechnologyUsed, Wrapper, Header, Impo
 import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
 
 export const Data = {
-    name: "Default Card",
+    name: "Simple Card with Button",
     tags: [],
-    description: "This card can be used as product card or to display any other information.",
+    description: "This is a simple card with button that can be used as product card or to display any other information.",
     version_included: "0.2.0",
     display: true
 }
@@ -12,7 +12,7 @@ export const Data = {
 <Wrapper>
 
 <ImportsWrapper>
-import {CardsImplementation} from "@/packages/components/cards/Card_1"
+import {CardsImplementation} from "@/packages/components/cards/Card_2"
 
 </ImportsWrapper>
 
@@ -22,23 +22,22 @@ import {CardsImplementation} from "@/packages/components/cards/Card_1"
 <ResizableDisplay>
 <CardsImplementation/>
 </ResizableDisplay>
-
 </Preview>
 
 <Implementation>
+
 
 <TechnologyUsed technologies={[ "tailwind-css" , "twMerge", "react-aria" ]}/>
 
 <CodeBlock> 
 ```tsx|Card
 import { Button } from "@/packages/primitives/buttons/Button_1";
-import { DashedBackground } from "@/packages/ui/DashedBackground";
 
 function Card() {
   return (
-    <div className="w-80 py-4 px-6 rounded-lg flex flex-col justify-center gap-4 bg-primary text-primary-foreground border shadow-sm border-outline-secondary">
-      <DashedBackground className="h-40 w-full" />
+    <div className="w-80 py-4 px-6 rounded-lg flex flex-col justify-center gap-3 bg-primary text-primary-foreground border shadow-sm border-outline-secondary">
       <h1 className="text-2xl font-semibold">Title</h1>
+      <h2>Subtitle Text</h2>
       <h3>
         This is something great. Design this according to your needs and make it
         look great.
@@ -50,13 +49,12 @@ function Card() {
 ```
 ```jsx|Card
 import { Button } from "@/packages/primitives/buttons/Button_1";
-import { DashedBackground } from "@/packages/ui/DashedBackground";
 
 function Card() {
   return (
-    <div className="w-80 py-4 px-6 rounded-lg flex flex-col justify-center gap-4 bg-primary text-primary-foreground border shadow-sm border-outline-secondary">
-      <DashedBackground className="h-40 w-full" />
+    <div className="w-80 py-4 px-6 rounded-lg flex flex-col justify-center gap-3 bg-primary text-primary-foreground border shadow-sm border-outline-secondary">
       <h1 className="text-2xl font-semibold">Title</h1>
+      <h2>Subtitle Text</h2>
       <h3>
         This is something great. Design this according to your needs and make it
         look great.

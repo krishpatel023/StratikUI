@@ -3,7 +3,7 @@ import { DashedBackground } from "@/packages/ui/DashedBackground";
 
 function Card() {
   return (
-    <div className="w-80 py-4 px-6 rounded-lg flex flex-col justify-center gap-4 bg-primary text-primary-foreground border shadow-sm border-outline">
+    <div className="w-80 py-4 px-6 rounded-lg flex flex-col justify-center gap-4 bg-primary text-primary-foreground border shadow-sm border-outline-secondary">
       <DashedBackground className="h-40 w-full" />
       <h1 className="text-2xl font-semibold">Title</h1>
       <h3>

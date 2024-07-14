@@ -12,8 +12,8 @@ import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
 
 <Wrapper>
 
-# Title
-### Description
+# Default Card
+### This card can be used as product card or to display any other information.
 
 
 
@@ -36,7 +36,92 @@ export const CardsImplementation_components_cards_card_01 = React.lazy(() =>
 </ResizableDisplay>
 </Suspense>
 
+</Preview>
 
+<Implementation>
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge", "react-aria" ]}/>
+
+<CodeBlock>
+ 
+```tsx|Card
+import { Button } from "@/packages/primitives/buttons/Button_1";
+import { DashedBackground } from "@/packages/ui/DashedBackground";
+
+function Card() {
+  return (
+    <div className="w-80 py-4 px-6 rounded-lg flex flex-col justify-center gap-4 bg-primary text-primary-foreground border shadow-sm border-outline-secondary">
+      <DashedBackground className="h-40 w-full" />
+      <h1 className="text-2xl font-semibold">Title</h1>
+      <h3>
+        This is something great. Design this according to your needs and make it
+        look great.
+      </h3>
+      <Button>Get Started</Button>
+    </div>
+  );
+}
+```
+```jsx|Card
+import { Button } from "@/packages/primitives/buttons/Button_1";
+import { DashedBackground } from "@/packages/ui/DashedBackground";
+
+function Card() {
+  return (
+    <div className="w-80 py-4 px-6 rounded-lg flex flex-col justify-center gap-4 bg-primary text-primary-foreground border shadow-sm border-outline-secondary">
+      <DashedBackground className="h-40 w-full" />
+      <h1 className="text-2xl font-semibold">Title</h1>
+      <h3>
+        This is something great. Design this according to your needs and make it
+        look great.
+      </h3>
+      <Button>Get Started</Button>
+    </div>
+  );
+}
+```
+
+
+</CodeBlock>
+
+
+</Implementation>
+</Wrapper>
+<PARTITION />
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from src/content/docs/components/cards/Card_02.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Simple Card with Button
+### This is a simple card with button that can be used as product card or to display any other information.
+
+
+
+
+
+export const CardsImplementation_components_cards_card_02 = React.lazy(() =>
+	import('@/packages/components/cards/Card_2')
+		.then((mod) => ({
+			default: mod.CardsImplementation
+	}))
+);
+
+
+<Header />
+<Preview> 
+
+<Suspense fallback={<Skeleton className="h-[800px] rounded-lg" />}>
+<ResizableDisplay>
+<CardsImplementation_components_cards_card_02/>
+</ResizableDisplay>
+</Suspense>
 </Preview>
 
 <Implementation>
@@ -47,18 +132,40 @@ export const CardsImplementation_components_cards_card_01 = React.lazy(() =>
 <CodeBlock>
  
 ```tsx|Card
+import { Button } from "@/packages/primitives/buttons/Button_1";
 
+function Card() {
+  return (
+    <div className="w-80 py-4 px-6 rounded-lg flex flex-col justify-center gap-3 bg-primary text-primary-foreground border shadow-sm border-outline-secondary">
+      <h1 className="text-2xl font-semibold">Title</h1>
+      <h2>Subtitle Text</h2>
+      <h3>
+        This is something great. Design this according to your needs and make it
+        look great.
+      </h3>
+      <Button>Get Started</Button>
+    </div>
+  );
+}
 ```
 ```jsx|Card
+import { Button } from "@/packages/primitives/buttons/Button_1";
 
+function Card() {
+  return (
+    <div className="w-80 py-4 px-6 rounded-lg flex flex-col justify-center gap-3 bg-primary text-primary-foreground border shadow-sm border-outline-secondary">
+      <h1 className="text-2xl font-semibold">Title</h1>
+      <h2>Subtitle Text</h2>
+      <h3>
+        This is something great. Design this according to your needs and make it
+        look great.
+      </h3>
+      <Button>Get Started</Button>
+    </div>
+  );
+}
 ```
 
-```tsx|Name2
-
-```
-```jsx|Name2
-
-```
 
 </CodeBlock>
 
