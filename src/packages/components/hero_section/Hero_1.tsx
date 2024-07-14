@@ -1,104 +1,78 @@
-import { Background, BackgroundString } from "@/packages/helper/Background";
-import { DataDescription, ImplementationNode } from "@/utils/constants";
+"use client";
+import { Background } from "@/packages/helper/Background";
+import { Button } from "@/packages/primitives/buttons/Button_1";
+import useMousePosition from "@/packages/primitives/containers/Container_3";
+import { useEffect, useRef, useState } from "react";
+import {
+  Button as ReactAriaButton,
+  ButtonProps as ReactAriaButtonProps,
+} from "react-aria-components";
+import { twMerge } from "tailwind-merge";
 
-function Hero_1() {
+export function BorderAnimationButton({
+  children,
+  className,
+}: ReactAriaButtonProps) {
+  const { x, y } = useMousePosition();
+  const [relativeX, setRelativeX] = useState(0);
+
+  const containerRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+
+      const dist = x - rect.left;
+      if (y > rect.top && y < rect.bottom && dist > 0 && dist < rect.width)
+        setRelativeX(dist);
+    }
+  }, [x]);
+
+  return (
+    <ReactAriaButton
+      className="group relative  rounded-full text-foreground overflow-hidden p-0.5"
+      ref={containerRef}
+    >
+      <div
+        className={twMerge(
+          "z-10 bg-background relative rounded-[inherit]",
+          className as string
+        )}
+      >
+        <>{children}</>
+      </div>
+      <div
+        className="z-0 m-1 mx-auto my-auto w-full h-full  absolute top-0 -left-1/2   bg-gradient-to-r from-transparent via-accent to-transparent opacity-40 group-hover:opacity-100 transition-opacity duration-500"
+        style={{ translate: relativeX ? `${relativeX}px` : "50%" }}
+      />
+    </ReactAriaButton>
+  );
+}
+export function HeroSection() {
   return (
     <div className="w-full min-h-screen flex flex-col justify-center items-center  relative">
       <div className="flex flex-col justify-center items-center text-center gap-8">
-        <button className="text-s_textPrimary flex gap-2 border-2 border-s_accent rounded-full @lg:px-6 px-4 py-1 ">
+        <BorderAnimationButton className="text-primary-foreground flex gap-2  rounded-full @lg:px-6 px-4 py-1 ">
           View all the latest components.
-          <span className="text-s_accent hidden @lg:block">Read More</span>
-        </button>
-        <h1 className="text-5xl font-bold  w-[90%] @lg:w-1/2 text-s_textPrimary">
-          Make the websites in lightspeed using Stratik UI
+          <span className="text-accent hidden @lg:block">Read More</span>
+        </BorderAnimationButton>
+        <h1 className="text-5xl font-bold  w-[90%] @lg:w-1/2 text-primary-foreground">
+          This is the best library for functional components.
         </h1>
-        <span className="text-2xl font-medium w-[90%] @lg:w-3/4 text-s_textSecondary">
+        <span className="text-2xl font-medium w-[90%] @lg:w-3/4 text-secondary-foreground">
           Beautifully designed components that you can copy and paste into your
           apps. Accessible. Customizable. Developer Friendly.
         </span>
         <div className="flex gap-8">
-          <button className="w-32 h-10 rounded-md bg-s_accent hover:bg-s_accentLight text-s_textComplementary">
+          <Button variant="accent" className="w-32">
             Get Started
-          </button>
-          <button className="text-s_textPrimary">Learn More</button>
+          </Button>
+          <Button variant="ghost" className="w-32 h-full">
+            Learn More
+          </Button>
         </div>
       </div>
       <Background />
     </div>
   );
 }
-
-const Code: string = `function Hero() {
-  return (
-    <div className="w-full min-h-screen flex flex-col justify-center items-center  relative">
-      <div className="flex flex-col justify-center items-center text-center gap-8">
-        <button className="text-s_textPrimary flex gap-2 border-2 border-s_accent rounded-full @lg:px-6 px-4 py-1 ">
-          View all the latest components.
-          <span className="text-s_accent hidden @lg:block">Read More</span>
-        </button>
-        <h1 className="text-5xl font-bold  w-[90%] @lg:w-1/2 text-s_textPrimary">
-          Make the websites in lightspeed using Stratik UI
-        </h1>
-        <span className="text-2xl font-medium w-[90%] @lg:w-3/4 text-s_textSecondary">
-          Beautifully designed components that you can copy and paste into your
-          apps. Accessible. Customizable. Developer Friendly.
-        </span>
-        <div className="flex gap-8">
-          <button className="w-32 h-10 rounded-md bg-s_accent hover:bg-s_accentLight text-s_textComplementary">
-            Get Started
-          </button>
-          <button className="text-s_textPrimary">Learn More</button>
-        </div>
-      </div>
-      <Background />
-    </div>
-  );
-}`;
-
-const Implementation: ImplementationNode[] = [
-  {
-    type: "technology_used",
-    content: ["tailwind-css"],
-  },
-  {
-    type: "code",
-    content: [
-      {
-        name: "Hero",
-        content: [
-          {
-            code: Code,
-            language: "tsx",
-          },
-          {
-            code: Code,
-            language: "jsx",
-          },
-        ],
-      },
-      {
-        name: "Background",
-        content: [
-          {
-            code: BackgroundString,
-            language: "tsx",
-          },
-          {
-            code: BackgroundString,
-            language: "jsx",
-          },
-        ],
-      },
-    ],
-  },
-];
-const HeroData_1: DataDescription = {
-  name: "Default Hero Section",
-  description:
-    "This is a default hero section that is simple and elegant for any purpose.",
-  implementation: Implementation,
-  component: Hero_1(),
-  version_included: "0.0.2",
-  display: true,
-};
-export default HeroData_1;
