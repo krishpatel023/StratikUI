@@ -1,3 +1,36 @@
+import { Implementation, Preview, Display, TechnologyUsed, Wrapper, Header, ImportsWrapper } from "@/components/mdx/MDXServerImports"
+import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
+
+export const Data = {
+    name: "Logo Carousel",
+    tags: [],
+    description: "This is an infinite logo Carousel developed using only tailwind. It has a direction attribute that controls the direction of the animation. The default direction is left.",
+    version_included: "0.2.0",
+    display: true
+}
+
+<Wrapper>
+
+<ImportsWrapper>
+import { CarouselImplementation } from "@/packages/components/logo_carousel/Carousel_1"
+
+</ImportsWrapper>
+
+<Header />
+<Preview> 
+
+<ResizableDisplay>
+<CarouselImplementation />
+</ResizableDisplay>
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge"]}/>
+<CodeBlock> 
+```tsx|Carousel
 import Logo from "@/packages/helper/Logo";
 
 export function Carousel({
@@ -34,17 +67,46 @@ export function Carousel({
     </>
   );
 }
+```
+```jsx|Carousel
+import Logo from "@/packages/helper/Logo";
 
-export function CarouselImplementation() {
+export function Carousel({
+  direction = "left",
+}) {
+  const animateInDirection =
+    direction === "right"
+      ? "animate-infinite-scroll-right"
+      : "animate-infinite-scroll-left";
   return (
-    <div className="w-full h-[40rem] flex flex-col justify-center items-center gap-8">
-      <Carousel direction="left" />
-      <Carousel direction="right" />
-    </div>
+    <>
+      <div className="max-w-[80rem] h-28 inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
+        <ul
+          className={`flex items-center justify-center md:justify-start [&_li]:mx-8 @md:[&_li]:mx-16  ${animateInDirection}`}
+        >
+          {Logo.map((item, i) => (
+            <li key={i} className="p-4 hover:bg-secondary rounded-md">
+              <item.logo className="w-10 h-10 text-primary-foreground" />
+            </li>
+          ))}
+        </ul>
+        <ul
+          className={`flex items-center justify-center md:justify-start [&_li]:mx-8 @md:[&_li]:mx-16   ${animateInDirection}`}
+        >
+          {Logo.map((item, i) => (
+            <li key={i} className="p-4 hover:bg-secondary rounded-md">
+              <item.logo className="w-10 h-10 text-primary-foreground" />
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
   );
 }
+```
 
-const TailwindConfigString: string = `import type { Config } from "tailwindcss";
+```ts|tailwind.config
+type { Config } from "tailwindcss";
 const config: Config = {
   //...
   theme: {
@@ -67,9 +129,11 @@ const config: Config = {
     },
   },
 };
-export default config;`;
+export default config;
+```
 
-const TailwindConfigStringJsx: string = `const config = {
+```js|tailwind.config
+const config = {
   //...
   theme: {
     extend: {
@@ -91,4 +155,9 @@ const TailwindConfigStringJsx: string = `const config = {
     },
   },
 };
-export default config;`;
+export default config;
+```
+</CodeBlock>
+
+</Implementation>
+</Wrapper>
