@@ -597,3 +597,107 @@ function Card() {
 </Implementation>
 </Wrapper>
 <PARTITION />
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from src/content/docs/components/cards/Card_07.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Card with following gradient animation
+### Any card can be used with this following gradient animation. This card can be used as product card or to display any other information.
+
+
+
+
+
+export const CardsImplementation_components_cards_card_07 = React.lazy(() =>
+	import('@/packages/components/cards/Card_7')
+		.then((mod) => ({
+			default: mod.CardsImplementation
+	}))
+);
+
+
+<Header />
+<Preview> 
+
+<Suspense fallback={<Skeleton className="h-[800px] rounded-lg" />}>
+<ResizableDisplay>
+<CardsImplementation_components_cards_card_07 />
+</ResizableDisplay>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge" ]}/>
+
+<CodeBlock>
+ 
+```tsx|Card
+import { Button } from "@/packages/primitives/buttons/Button_1";
+import {
+  HighlighterItem,
+  HighlightGroup,
+} from "@/packages/primitives/containers/Container_3";
+import { DashedBackground } from "@/packages/ui/DashedBackground";
+
+function Card() {
+  return (
+    <HighlightGroup className="h-full">
+      <HighlighterItem className="rounded-lg">
+        <div className=" w-80 py-4 px-6 rounded-lg flex flex-col justify-center gap-4  text-primary-foreground border shadow-sm border-outline-secondary">
+          <DashedBackground className="h-40 w-full " />
+          <h1 className="text-2xl font-semibold">Title</h1>
+          <h3>
+            This is something great. Design this according to your needs and
+            make it look great.
+          </h3>
+          <Button>Get Started</Button>
+        </div>
+      </HighlighterItem>
+    </HighlightGroup>
+  );
+}
+```
+```jsx|Card
+import { Button } from "@/packages/primitives/buttons/Button_1";
+import {
+  HighlighterItem,
+  HighlightGroup,
+} from "@/packages/primitives/containers/Container_3";
+import { DashedBackground } from "@/packages/ui/DashedBackground";
+
+function Card() {
+  return (
+    <HighlightGroup className="h-full">
+      <HighlighterItem className="rounded-lg">
+        <div className=" w-80 py-4 px-6 rounded-lg flex flex-col justify-center gap-4  text-primary-foreground border shadow-sm border-outline-secondary">
+          <DashedBackground className="h-40 w-full " />
+          <h1 className="text-2xl font-semibold">Title</h1>
+          <h3>
+            This is something great. Design this according to your needs and
+            make it look great.
+          </h3>
+          <Button>Get Started</Button>
+        </div>
+      </HighlighterItem>
+    </HighlightGroup>
+  );
+}
+```
+
+
+</CodeBlock>
+
+
+</Implementation>
+</Wrapper>
+<PARTITION />
