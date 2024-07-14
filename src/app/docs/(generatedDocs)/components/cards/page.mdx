@@ -1,0 +1,68 @@
+import React, { Suspense } from 'react';
+import { Implementation, Preview, Header, TechnologyUsed, Wrapper, Skeleton, PARTITION } from "@/components/mdx/MDXServerImports"
+import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from src/content/docs/components/cards/Card_01.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Title
+### Description
+
+
+
+
+
+export const CardsImplementation_components_cards_card_01 = React.lazy(() =>
+	import('@/packages/components/cards/Card_1')
+		.then((mod) => ({
+			default: mod.CardsImplementation
+	}))
+);
+
+
+<Header />
+<Preview> 
+
+<Suspense fallback={<Skeleton className="h-[800px] rounded-lg" />}>
+<ResizableDisplay>
+<CardsImplementation_components_cards_card_01/>
+</ResizableDisplay>
+</Suspense>
+
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge", "react-aria" ]}/>
+
+<CodeBlock>
+ 
+```tsx|Card
+
+```
+```jsx|Card
+
+```
+
+```tsx|Name2
+
+```
+```jsx|Name2
+
+```
+
+</CodeBlock>
+
+
+</Implementation>
+</Wrapper>
+<PARTITION />
