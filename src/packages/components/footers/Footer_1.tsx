@@ -1,8 +1,4 @@
-import {
-  DataDescription,
-  IconProps,
-  ImplementationNode,
-} from "@/utils/constants";
+import { IconProps } from "@/utils/constants";
 
 type LinkColProps = {
   title: string;
@@ -43,7 +39,7 @@ function Footer() {
     <div className="w-full px-6 py-12  text-black dark:text-white grid grid-cols-6 gap-10">
       <div className="col-span-6 @md:col-span-3 px-10 flex flex-col gap-4 items-center text-center @md:items-start @md:text-start">
         <h1 className="text-2xl font-semibold">Stratik / UI</h1>
-        <span className="text-neutral-600 dark:text-neutral-400">
+        <span className="text-secondary-foreground">
           This is the best UI library in the world. This claim is backed by the
           community and John Doe. Build something awesome.
         </span>
@@ -51,14 +47,14 @@ function Footer() {
       </div>
       {LinksData.map((data) => (
         <div
-          className="flex flex-col gap-2 col-span-6 items-center @md:col-span-1"
+          className="flex flex-col gap-2 col-span-6 items-center @md:items-start @md:col-span-1"
           key={data.title}
         >
           <h1 className="font-semibold mb-1">{data.title}</h1>
           {data.links.map((link) => (
             <a
               href={link.link}
-              className="text-neutral-600 dark:text-neutral-400 hover:text-blue-500 cursor-pointer text-sm"
+              className="text-secondary-foreground hover:text-accent cursor-pointer text-sm transition-all duration-300 hover:translate-x-1"
               key={link.title}
             >
               {link.title}
@@ -73,19 +69,19 @@ function Footer() {
 function SocialMedia() {
   return (
     <div className="flex gap-2">
-      <div className="w-8 h-8 p-1 rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-700 text-black dark:text-white flex justify-center items-center  cursor-pointer">
+      <div className="w-8 h-8 p-1 rounded-lg hover:bg-secondary text-foreground flex justify-center items-center  cursor-pointer transition-all duration-300 hover:-translate-y-1">
         <Icons.Instagram className="w-6 h-6" />
       </div>
-      <div className="w-8 h-8 p-1 rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-700 text-black dark:text-white flex justify-center items-center cursor-pointer">
+      <div className="w-8 h-8 p-1 rounded-lg hover:bg-secondary text-foreground flex justify-center items-center cursor-pointer transition-all duration-300 hover:-translate-y-1">
         <Icons.Facebook className="w-6 h-6" />
       </div>
-      <div className="w-8 h-8 p-1 rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-700 text-black dark:text-white flex justify-center items-center cursor-pointer">
+      <div className="w-8 h-8 p-1 rounded-lg hover:bg-secondary text-foreground flex justify-center items-center cursor-pointer transition-all duration-300 hover:-translate-y-1">
         <Icons.X className="w-5 h-5" />
       </div>{" "}
-      <div className="w-8 h-8 p-1 rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-700 text-black dark:text-white flex justify-center items-center cursor-pointer">
+      <div className="w-8 h-8 p-1 rounded-lg hover:bg-secondary text-foreground flex justify-center items-center cursor-pointer transition-all duration-300 hover:-translate-y-1">
         <Icons.Mail className="w-6 h-6" />
       </div>
-      <div className="w-8 h-8 p-1 rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-700 text-black dark:text-white flex justify-center items-center cursor-pointer">
+      <div className="w-8 h-8 p-1 rounded-lg hover:bg-secondary text-foreground flex justify-center items-center cursor-pointer transition-all duration-300 hover:-translate-y-1">
         <Icons.Github className="w-5 h-5" />
       </div>
     </div>
@@ -171,55 +167,10 @@ const Icons = {
   ),
 };
 
-function Demo() {
+export function FooterImplementation() {
   return (
     <div className="w-full">
       <Footer />
     </div>
   );
 }
-
-const Code: string = `
-// Add your code snippet here
-`;
-
-const DemoString: string = `
-// Add your demo code snippet here
-`;
-
-const Implementation: ImplementationNode[] = [
-  {
-    type: "technology_used",
-    content: ["tailwind-css", "twMerge"],
-  },
-  {
-    type: "code",
-    content: [
-      {
-        name: "Name",
-        content: [
-          { language: "tsx", code: Code },
-          { language: "jsx", code: Code },
-        ],
-      },
-      {
-        name: "Implementation",
-        content: [
-          { language: "tsx", code: DemoString },
-          { language: "jsx", code: DemoString },
-        ],
-      },
-    ],
-  },
-];
-
-const Data: DataDescription = {
-  name: "Default Footer",
-  description: "Component Description",
-  implementation: Implementation,
-  component: <Demo />,
-  version_included: "0.1.1",
-  display: true,
-};
-
-export default Data;
