@@ -16,13 +16,7 @@ export interface HeaderProps
 
 export function Header({ className, children, ...props }: HeaderProps) {
   return (
-    <header
-      className={twMerge(
-        "h-16 border border-neutral-400 dark:border-neutral-800 px-10 rounded-lg",
-        className
-      )}
-      {...props}
-    >
+    <header className={twMerge("h-full", className)} {...props}>
       {children}
     </header>
   );
@@ -113,7 +107,7 @@ export function HeaderDropdown({
 export function HeaderBlocksImplementation() {
   return (
     <div className="w-full min-h-[25rem] flex flex-col justify-center items-center">
-      <Header className="flex justify-center items-center gap-4">
+      <Header className="flex justify-center items-center gap-4 h-16 border border-outline px-10 rounded-lg">
         <HeaderItem className="hover:text-accent">Home</HeaderItem>
         <HeaderItem className="hover:text-accent">Pricing</HeaderItem>
         <HeaderItem className="hover:text-accent">
