@@ -1,0 +1,71 @@
+import { Implementation, Preview, Display, TechnologyUsed, Wrapper, Header, ImportsWrapper } from "@/components/mdx/MDXServerImports"
+import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
+
+export const Data = {
+    name: "Footer with theme toggle",
+    tags: [],
+    description: "This is the basic footer component wit h theme toggle that features a clean and straightforward design, making it easy for users to find the information they need without any distractions.",
+    version_included: "0.2.0",
+    display: true
+}
+
+<Wrapper>
+
+<ImportsWrapper>
+import {FooterImplementation} from "@/packages/components/footers/Footer_2"
+
+</ImportsWrapper>
+
+<Header />
+<Preview> 
+
+<ResizableDisplay>
+<FooterImplementation />
+</ResizableDisplay>
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge"]}/>
+
+<CodeBlock>
+```tsx|Footer
+import { ThemeToggle } from "@/packages/primitives/theme_toggles/Theme_Toggle_1";
+
+function Footer() {
+  return (
+    <div className="w-full h-60  @md:h-40 flex flex-col @md:flex-row justify-center @md:justify-between gap-8 items-center px-16">
+      <div className="flex flex-col justify-center @md:items-start items-center text-center text-foreground">
+        <h1 className="text-xl font-semibold">Stratik / UI</h1>
+        <span>© 2024 Stratik UI. All rights reserved.</span>
+      </div>
+      <div>
+        <ThemeToggle />
+      </div>
+    </div>
+  );
+}
+```
+```jsx|Footer
+import { ThemeToggle } from "@/packages/primitives/theme_toggles/Theme_Toggle_1";
+
+function Footer() {
+  return (
+    <div className="w-full h-60  @md:h-40 flex flex-col @md:flex-row justify-center @md:justify-between gap-8 items-center px-16">
+      <div className="flex flex-col justify-center @md:items-start items-center text-center text-foreground">
+        <h1 className="text-xl font-semibold">Stratik / UI</h1>
+        <span>© 2024 Stratik UI. All rights reserved.</span>
+      </div>
+      <div>
+        <ThemeToggle />
+      </div>
+    </div>
+  );
+}
+```
+</CodeBlock>
+
+</Implementation>
+</Wrapper>
