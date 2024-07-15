@@ -13,13 +13,7 @@ interface CircularAnimationProps {
   top: number;
   left: number;
   className?: string;
-  variant:
-    | "primary"
-    | "secondary"
-    | "destructive"
-    | "outline"
-    | "ghost"
-    | "accent";
+  variant: ButtonProps["variant"];
 }
 export function CircularAnimation({
   width,
@@ -39,6 +33,7 @@ export function CircularAnimation({
         variant === "outline" && "bg-secondary",
         variant === "ghost" && "bg-primary",
         variant === "accent" && "bg-accent-secondary",
+        variant === "complementary" && "bg-primary-foreground",
         className
       )}
       style={{ width, height, top, left }}
@@ -60,7 +55,8 @@ export interface ButtonProps
     | "destructive"
     | "outline"
     | "ghost"
-    | "accent";
+    | "accent"
+    | "complementary";
 }
 
 export function Button({
@@ -131,6 +127,8 @@ export function Button({
           "border border-outline-secondary text-foreground bg-transparent",
         variant === "ghost" && " text-foreground",
         variant === "accent" && "bg-accent text-accent-foreground",
+        variant === "complementary" &&
+          "bg-foreground text-primary border border-secondary-foreground font-medium",
         isProcessing && "cursor-not-allowed",
         className as string
       )}
