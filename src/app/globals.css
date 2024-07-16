@@ -43,6 +43,10 @@ html {
     --muted: theme(colors.neutral.600);
     --muted-secondary: theme(colors.neutral.200);
     --muted-foreground: theme(colors.neutral.200);
+
+    --blur: theme(colors.white/30%);
+    --blur-secondary: theme(colors.neutral.200/30%);
+    --blur-foreground: theme(colors.neutral.800);
   }
 
   .dark {
@@ -79,6 +83,10 @@ html {
     --muted: theme(colors.neutral.300);
     --muted-secondary: theme(colors.neutral.800);
     --muted-foreground: theme(colors.neutral.700);
+
+    --blur: theme(colors.black / 30%);
+    --blur-secondary: theme(colors.neutral.800/30%);
+    --blur-foreground: theme(colors.neutral.200);
   }
 }
 

@@ -61,6 +61,12 @@ const config: Config = {
           secondary: "var(--muted-secondary)",
           foreground: "var(--muted-foreground)",
         },
+
+        blur: {
+          DEFAULT: "var(--blur)",
+          secondary: "var(--blur-secondary)",
+          foreground: "var(--blur-foreground)",
+        },
       },
       borderRadius: {
         lg: `var(--radius)`,
