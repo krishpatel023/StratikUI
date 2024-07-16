@@ -4,7 +4,6 @@ import useCookies, {
   CookieCategory,
 } from "@/packages/hooks/useCookies/useCookies";
 import { Button } from "@/packages/primitives/buttons/Button_2";
-import { Button as ReactAriaBtn } from "react-aria-components";
 import { Modal, ModalTrigger } from "@/packages/primitives/modal/Modal_1";
 import { Switch } from "@/packages/primitives/switch/Switch_1";
 import { useState } from "react";
