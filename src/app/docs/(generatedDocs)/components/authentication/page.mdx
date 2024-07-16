@@ -834,3 +834,60 @@ export const AuthenticationImplementation_components_authentication_authenticati
 </Implementation>
 </Wrapper>
 <PARTITION />
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from src/content/docs/components/authentication/Authentication_05.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Flexed SignUp
+### The sign-up component features a sleek, responsive design with a balanced flex layout. On one side, a welcoming message greets users, setting a friendly and engaging tone for the sign-in process. On the opposite side, the sign-in form is presented in a clean, intuitive manner.
+
+
+
+
+
+export const AuthenticationImplementation_components_authentication_authentication_05 = React.lazy(() =>
+	import('@/packages/components/authentication/Authentication_2_SignUp')
+		.then((mod) => ({
+			default: mod.AuthenticationImplementation
+	}))
+);
+
+
+<Header />
+<Preview> 
+
+<Suspense fallback={<Skeleton className="h-[800px] rounded-lg" />}>
+<ResizableDisplay>
+<AuthenticationImplementation_components_authentication_authentication_05 />
+</ResizableDisplay>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge", "react-aria"]}/>
+
+<CodeBlock>
+ 
+```tsx|Name1
+
+```
+```jsx|Name1
+
+```
+
+</CodeBlock>
+
+
+</Implementation>
+</Wrapper>
+<PARTITION />

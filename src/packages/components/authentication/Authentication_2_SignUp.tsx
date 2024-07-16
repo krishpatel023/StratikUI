@@ -1,140 +1,84 @@
-import {
-  DataDescription,
-  IconProps,
-  ImplementationNode,
-} from "@/utils/constants";
+"use client";
+import { IconProps } from "@/utils/constants";
 
-import { useState } from "react";
-import clsx from "clsx";
-import Link from "next/link";
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
-import { PasswordToggle } from "@/packages/primitives/input_text/Input_9_Helper";
-import { Button } from "@/packages/primitives/buttons/Button_2";
-import { twMerge } from "tailwind-merge";
 import { Background } from "@/packages/helper/Background";
+import { Button } from "@/packages/primitives/buttons/Button_2";
+import { InputField as Input } from "@/packages/primitives/input_text/Input_1";
+import { InputField as PasswordToggle } from "@/packages/primitives/input_text/Input_6";
+import { Form } from "react-aria-components";
 
-export function SignIn() {
-  //   const [username, setUsername] = useState<string | null>();
-  //   const [usernameError, setUsernameError] = useState<string | null>(null);
-
-  //   const [password, setPassword] = useState<string | null>();
-  //   const [passwordError, setPasswordError] = useState<string | null>(null);
-
-  //   const [processMessage, setProcessMessage] = useState<string | null>(null);
-
+export function SignUp() {
   return (
     <div className="flex h-[48rem] w-full items-center justify-center ">
       <div className="relative h-full w-[40%] flex-col items-center justify-center hidden @lg:flex">
         <div className="flex w-3/4 flex-col gap-4">
-          <h1 className="text-5xl font-bold dark:text-white">
+          <h1 className="text-5xl font-bold text-primary-foreground">
             Welcome to the tech community.
           </h1>
-          <span className="text-2xl font-normal text-neutral-600 dark:text-slate-300">
+          <span className="text-2xl font-normal text-secondary-foreground">
             {
-              "Signup to start creating your dream website. Let's kickstart your development."
+              "Sign up to start creating your dream website. Let's kickstart your development."
             }
           </span>
         </div>
         <Background />
       </div>
-      <div className="flex h-full w-full @lg:w-[60%] items-center justify-center bg-white dark:bg-black">
-        <div className="w-[50%] min-w-80">
+      <div className="flex h-full w-full @lg:w-[60%] items-center justify-center bg-background">
+        <Form className="w-[50%] min-w-80">
           <div className="flex w-full flex-col gap-6">
             <span className="flex gap-6 @md:gap-4 flex-col @md:flex-row">
-              <InputText
+              <Input
                 label="First Name"
                 placeholder="First Name"
-                state="default"
-                className="h-12 border-neutral-300 dark:border-neutral-800/60 border-[2px]"
+                className="h-12"
               />
-              <InputText
+              <Input
                 label="Last Name"
                 placeholder="Last Name"
-                state="default"
-                className="h-12 border-neutral-300 dark:border-neutral-800/60 border-[2px]"
+                className="h-12"
               />
             </span>
-            <InputText
+            <Input
               label="Email"
               placeholder="you@email.com"
-              state="default"
-              className="h-12 border-neutral-300 dark:border-neutral-800/60 border-[2px]"
+              className="h-12 "
             />
             <PasswordToggle
               label="Password"
               placeholder="Password"
-              className="h-12 border-neutral-300 dark:border-neutral-800/60 border-[2px]"
+              className="h-12 "
               state="default"
             />
           </div>
 
           <div className="mt-10 w-full flex flex-col gap-4">
-            <Button
-              className="w-full h-12 mt-auto px-4 py-2 text-black dark:text-white bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-md relative z-[100]"
-              clickedClassName="bg-neutral-100 dark:bg-neutral-700"
-            >
+            <Button variant="primary" className="h-12">
               Sign Up
             </Button>
 
-            <p className="dark:text-neutral-300 flex gap-3">
+            <p className="text-secondary-foreground flex gap-3">
               {"Already have an account?"}
-              <span className="text-accent underline">Sign In</span>
+              <span className="text-accent-secondary underline">Sign In</span>
             </p>
           </div>
 
           <div className="w-full mt-6 flex items-center justify-between">
-            <div className="min-h-[1px] w-[43%] bg-neutral-300/20"></div>
-            <span className="text-sm font-medium text-textSecondary">OR</span>
-            <div className="min-h-[1px] w-[43%] bg-neutral-300/20"></div>
+            <div className="min-h-[1px] w-[43%] bg-outline-secondary"></div>
+            <span className="text-sm font-medium text-secondary-foreground">
+              OR
+            </span>
+            <div className="min-h-[1px] w-[43%] bg-outline-secondary"></div>
           </div>
-
-          <div className="width-full mt-6 flex items-center justify-center gap-6">
-            <button className="rounded-md border-[1px] border-border p-2">
+          <div className=" mt-6 flex items-center justify-center gap-6">
+            <Button variant="outline">
               <Google className="h-8 w-8" />
-            </button>
-            <button className="rounded-md border-[1px] border-border p-2">
-              <GitHubLogoIcon className="h-8 w-8 dark:text-white" />
-            </button>
+            </Button>
+            <Button variant="outline">
+              <GitHub className="h-8 w-8 text-foreground" />
+            </Button>
           </div>
-        </div>
+        </Form>
       </div>
-    </div>
-  );
-}
-
-function InputText({
-  label,
-  placeholder,
-  state = "default",
-  errorMessage = "",
-  className = "",
-}: {
-  label: string;
-  placeholder: string;
-  state?: "default" | "error" | "success" | "disabled";
-  errorMessage?: string;
-  className?: string;
-}) {
-  return (
-    <div>
-      <span className="text-s_textPrimary font-medium text-sm">{label}</span>
-      <input
-        type="text"
-        className={twMerge(
-          "mt-1 w-full bg-transparent text-s_textPrimary placeholder:text-s_textSecondary py-2 px-4 rounded-md border-[1px] border-s_primary focus:border-s_accent focus:outline-none focus:ring-2",
-          className,
-          state === "disabled" && "disabled:cursor-not-allowed",
-          state === "error" &&
-            "border-s_error focus:border-s_error focus:ring-red-400/90",
-          state === "success" &&
-            "border-s_success focus:border-s_success focus:ring-green-400/90"
-        )}
-        {...(state === "disabled" && { disabled: true })}
-        placeholder={placeholder}
-      />
-      {errorMessage === "" ? null : (
-        <span className="text-red-500 text-sm">{errorMessage}</span>
-      )}
     </div>
   );
 }
@@ -170,55 +114,25 @@ const Google = (props: IconProps) => (
   </svg>
 );
 
-function Demo() {
+const GitHub = (props: IconProps) => (
+  <svg
+    height="200"
+    width="200"
+    viewBox="0 0 432 416"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      d="M213.5 0q88.5 0 151 62.5T427 213q0 70-41 125.5T281 416q-14 2-14-11v-58q0-27-15-40q44-5 70.5-27t26.5-77q0-34-22-58q11-26-2-57q-18-5-58 22q-26-7-54-7t-53 7q-18-12-32.5-17.5T107 88h-6q-12 31-2 57q-22 24-22 58q0 55 27 77t70 27q-11 10-13 29q-42 18-62-18q-12-20-33-22q-2 0-4.5.5t-5 3.5t8.5 9q14 7 23 31q1 2 2 4.5t6.5 9.5t13 10.5T130 371t30-2v36q0 13-14 11q-64-22-105-77.5T0 213q0-88 62.5-150.5T213.5 0z"
+      fill="currentColor"
+    />
+  </svg>
+);
+
+export function AuthenticationImplementation() {
   return (
     <div className="w-full">
-      <SignIn />
+      <SignUp />
     </div>
   );
 }
-
-const Code: string = `
-  // Add your code snippet here
-  `;
-
-const DemoString: string = `
-  // Add your demo code snippet here
-  `;
-
-const Implementation: ImplementationNode[] = [
-  {
-    type: "technology_used",
-    content: ["tailwind-css", "twMerge"],
-  },
-  {
-    type: "code",
-    content: [
-      {
-        name: "Name",
-        content: [
-          { language: "tsx", code: Code },
-          { language: "jsx", code: Code },
-        ],
-      },
-      {
-        name: "Implementation",
-        content: [
-          { language: "tsx", code: DemoString },
-          { language: "jsx", code: DemoString },
-        ],
-      },
-    ],
-  },
-];
-
-const Data: DataDescription = {
-  name: "SignUp Flexed",
-  description: "Component Description",
-  implementation: Implementation,
-  component: <Demo />,
-  version_included: "0.1.1",
-  display: true,
-};
-
-export default Data;
