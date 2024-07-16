@@ -82,7 +82,6 @@ export function InputField({
     <Field
       name={props.name}
       type={props.type}
-      className="w-80"
       isInvalid={state === "isInvalid"}
       isDisabled={state === "isDisabled"}
       isReadOnly={isReadOnly}
