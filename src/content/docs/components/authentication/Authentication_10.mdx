@@ -1,0 +1,43 @@
+import { Implementation, Preview, Display, TechnologyUsed, Wrapper, Header, ImportsWrapper } from "@/components/mdx/MDXServerImports"
+import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
+
+export const Data = {
+    name: "Blured SignUp with Background",
+    tags: [],
+    description: "Description",
+    version_included: "0.2.0",
+    display: true
+}
+
+<Wrapper>
+
+<ImportsWrapper>
+import {AuthenticationImplementation} from "@/packages/components/authentication/Authentication_4_SignUp_1"
+
+</ImportsWrapper>
+
+<Header />
+<Preview> 
+
+<ResizableDisplay>
+<AuthenticationImplementation />
+</ResizableDisplay>
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge", "react-aria"]}/>
+
+<CodeBlock> 
+```tsx|Name1
+
+```
+```jsx|Name1
+
+```
+</CodeBlock>
+
+</Implementation>
+</Wrapper>
