@@ -69,9 +69,21 @@ export function Modal({
 }
 
 export function ModalTrigger({ ...props }: DialogTriggerProps) {
-  return <DialogTrigger {...props}>{props.children}</DialogTrigger>;
+  return (
+    <DialogTrigger {...props}>
+      <ModalClickable />
+      {props.children}
+    </DialogTrigger>
+  );
 }
 
+export function ModalClickable() {
+  return (
+    <Button className="hidden" aria-hidden="true">
+      Close
+    </Button>
+  );
+}
 export function ModalImplementation() {
   return (
     <div className="min-h-40 flex flex-col justify-center items-center ">
