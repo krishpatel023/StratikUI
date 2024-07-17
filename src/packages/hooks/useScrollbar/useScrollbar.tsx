@@ -8,42 +8,69 @@ const useScrollbar = (
   const [directionX, setDirectionX] = useState<boolean | null>(null);
   const [directionY, setDirectionY] = useState<boolean | null>(null);
 
+  const findPositionForElement = (element: HTMLElement) => {
+    const xpos = element.scrollLeft;
+    const ypos = element.scrollTop;
+    const prevXpos = scrollPosition.x;
+    const prevYpos = scrollPosition.y;
+    if (prevXpos <= xpos) setDirectionX(true);
+    else setDirectionX(false);
+    if (prevYpos <= ypos) setDirectionY(true);
+    else setDirectionY(false);
+    setScrollPosition({ x: xpos, y: ypos });
+  };
+
+  const findPositionForWindow = () => {
+    const xpos = parseFloat(window.scrollX.toFixed(2));
+    const ypos = parseFloat(window.scrollY.toFixed(2));
+    const prevXpos = scrollPosition.x;
+    const prevYpos = scrollPosition.y;
+    if (prevXpos <= xpos) setDirectionX(true);
+    else setDirectionX(false);
+    if (prevYpos <= ypos) setDirectionY(true);
+    else setDirectionY(false);
+    setScrollPosition({ x: xpos, y: ypos });
+  };
+
   const handleScroll = useCallback(() => {
     const element = getElement();
-    if (element) {
-      const xpos = parseFloat(window.scrollX.toFixed(2));
-      const ypos = parseFloat(window.scrollY.toFixed(2));
-      const prevXpos = scrollPosition.x;
-      const prevYpos = scrollPosition.y;
-      if (prevXpos <= xpos) setDirectionX(true);
-      else setDirectionX(false);
-      if (prevYpos <= ypos) setDirectionY(true);
-      else setDirectionY(false);
-      setScrollPosition({ x: xpos, y: ypos });
+    if (element.type === "element" && element.element) {
+      findPositionForElement(element.element);
+    } else if (element.type === "window") {
+      findPositionForWindow();
     }
   }, [scrollPosition]);
 
   const getElement = () => {
     if (elementIdOrRef && typeof elementIdOrRef === "string")
-      return document.getElementById(elementIdOrRef);
+      return {
+        type: "element",
+        element: document.getElementById(elementIdOrRef),
+      };
     else if (elementIdOrRef && typeof elementIdOrRef === "object")
-      return elementIdOrRef.current;
-    else return document.documentElement || document.body;
+      return { type: "element", element: elementIdOrRef.current };
+    else
+      return {
+        type: "window",
+        element: document.documentElement || document.body,
+      };
   };
 
   useEffect(() => {
     const element = getElement();
     const handleScrollEvent = () => handleScroll();
 
-    if (element === document.documentElement || element === document.body) {
+    if (element.type === "window") {
       window.addEventListener("scroll", handleScrollEvent, { passive: true });
       return () => {
         window.removeEventListener("scroll", handleScrollEvent);
       };
-    } else if (element) {
-      element.addEventListener("scroll", handleScroll, { passive: true });
+    } else if (element.type === "element" && element.element) {
+      element.element.addEventListener("scroll", handleScroll, {
+        passive: true,
+      });
       return () => {
-        element.removeEventListener("scroll", handleScroll);
+        element.element?.removeEventListener("scroll", handleScroll);
       };
     }
   }, [handleScroll]);

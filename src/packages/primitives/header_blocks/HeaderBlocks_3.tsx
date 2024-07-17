@@ -277,7 +277,10 @@ export function HeaderBlocksImplementation() {
 
   return (
     <div className="w-full min-h-[25rem] flex justify-center items-center ">
-      <Header className="flex justify-center items-center h-16 border border-outline px-10 rounded-lg">
+      <Header
+        className="flex justify-center items-center h-16 border border-outline px-10 rounded-lg"
+        onMouseLeave={() => setOpen(false)}
+      >
         <HeaderAnimationWrapper
           activeIndex={activeIndex}
           prevActiveIndex={prevActiveIndex}

@@ -63,7 +63,10 @@ export const HeaderComponent = () => {
           About
         </span>
       </HeaderDrawer>
-      <Header className="w-full h-16  flex justify-between px-6 @md:px-10 items-center bg-background shadow shadow-outline">
+      <Header
+        className="w-full h-16  flex justify-between px-6 @md:px-10 items-center bg-background shadow shadow-outline"
+        onMouseLeave={() => setOpen(false)}
+      >
         <a href="#" className="text-primary-foreground font-semibold text-lg">
           LOGO
         </a>
