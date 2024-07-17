@@ -35,10 +35,9 @@ export function Testimonial() {
         <Card className="@md:col-span-2 ">
           <LOGO6 className="w-8 h-8" />
           <p className="font-medium text-s_textSecondary mt-6">
-            As a startup founder, StratikUI has been a game-changer for our
-            team. We can quickly prototype and iterate on our product's
-            interface without needing a full-time designer. The responsive
-            templates ensure our app looks great on all devices.
+            {
+              "As a startup founder, StratikUI has been a game-changer for our team. We can quickly prototype and iterate on our product's interface without needing a full-time designer. The responsive templates ensure our app looks great on all devices."
+            }
           </p>
           <h1 className="text-xl font-semibold text-s_textPrimary mt-6">
             Jane Doe

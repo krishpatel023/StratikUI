@@ -53,7 +53,7 @@ export function Stepper({
 
   const newChildren = useMemo(
     () => replaceChildren(children, currentStep || 0),
-    [children, currentStep]
+    [children]
   );
 
   function replaceChildren(children: React.ReactNode, currentStep: number) {
@@ -68,10 +68,6 @@ export function Stepper({
             step={index}
             totalSteps={totalSteps}
           />
-        );
-      } else {
-        throw new Error(
-          "Invalid child element. Only Step is allowed as child of Stepper."
         );
       }
     });

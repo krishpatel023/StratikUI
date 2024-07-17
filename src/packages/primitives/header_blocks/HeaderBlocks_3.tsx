@@ -23,7 +23,7 @@ export function Header({ className, children, ...props }: HeaderProps) {
   );
 }
 
-function extractHeaderDropdowns(
+function useExtractHeaderDropdowns(
   children: React.ReactNode
 ): [
   React.ReactNode,
@@ -91,7 +91,7 @@ export function HeaderAnimationWrapper({
   ...props
 }: HeaderAnimationWrapperProps) {
   const [newChildren, dropdown, dropdownRefs] =
-    extractHeaderDropdowns(children);
+    useExtractHeaderDropdowns(children);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -223,6 +223,8 @@ export const HeaderItem = forwardRef<HTMLButtonElement, HeaderItemProps>(
     );
   }
 );
+
+HeaderItem.displayName = "HeaderItem";
 
 export interface HeaderDropdownProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}

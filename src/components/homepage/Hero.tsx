@@ -1,5 +1,4 @@
 import { Button } from "@/packages/primitives/buttons/Button_2";
-import { twMerge } from "tailwind-merge";
 import { GradientText } from "../ui/GradientText";
 
 export function Hero() {
@@ -17,12 +16,7 @@ export function Hero() {
             you own the code.
           </span>
         </p>
-        <Button
-          className="px-3 py-2 text-sm md:text-base md:px-6 md:py-3 text-black dark:text-white bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 rounded-md mt-8 hover:opacity-90"
-          clickedClassName="bg-neutral-100 dark:bg-neutral-700"
-        >
-          Explore Components
-        </Button>
+        <Button variant="primary">Explore Components</Button>
       </div>
       <Background />
     </div>

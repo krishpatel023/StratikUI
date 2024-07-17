@@ -33,10 +33,9 @@ export function Testimonial() {
         <Card>
           <LOGO4 className="w-8 h-8" />
           <p className="font-medium text-secondary-foreground mt-6">
-            I appreciate StratikUI's attention to accessibility. Their
-            components are WCAG compliant out of the box, which helps us create
-            inclusive designs effortlessly. The documentation is comprehensive
-            and regularly updated.
+            {
+              "I appreciate StratikUI's attention to accessibility. Their components are WCAG compliant out of the box, which helps us create inclusive designs effortlessly. The documentation is comprehensive and regularly updated."
+            }
           </p>
           <h1 className="text-xl font-semibold text-primary-foreground mt-6">
             Erin Joseph
@@ -73,10 +72,9 @@ export function Testimonial() {
         <Card>
           <LOGO1 className="w-8 h-8" />
           <p className="font-medium text-secondary-foreground mt-6">
-            As a startup founder, StratikUI has been a game-changer for our
-            team. We can quickly prototype and iterate on our product's
-            interface without needing a full-time designer. The responsive
-            templates ensure our app looks great on all devices.
+            {
+              "As a startup founder, StratikUI has been a game-changer for our team. We can quickly prototype and iterate on our product's interface without needing a full-time designer. The responsive templates ensure our app looks great on all devices."
+            }
           </p>
           <h1 className="text-xl font-semibold text-primary-foreground mt-6">
             Jane Doe
@@ -90,10 +88,9 @@ export function Testimonial() {
         <Card>
           <LOGO3 className="w-8 h-8" />
           <p className="font-medium text-secondary-foreground mt-6">
-            StratikUI has been a game-changer for our team. We can quickly
-            prototype and iterate on our product's interface without needing a
-            full-time designer. The responsive templates ensure our app looks
-            great on all devices.
+            {
+              "StratikUI has been a game-changer for our team. We can quickly prototype and iterate on our product's interface without needing a full-time designer. The responsive templates ensure our app looks great on all devices."
+            }
           </p>
           <h1 className="text-xl font-semibold text-primary-foreground mt-6">
             Jack Doe
