@@ -1,0 +1,67 @@
+import React, { Suspense } from 'react';
+import { Implementation, Preview, Header, TechnologyUsed, Wrapper, Skeleton, PARTITION } from "@/components/mdx/MDXServerImports"
+import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from src/content/docs/components/headers/Header_01.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Title
+### Description
+
+
+
+
+
+export const HeaderImplementation_components_headers_header_01 = React.lazy(() =>
+	import('@/packages/components/headers/Header_1')
+		.then((mod) => ({
+			default: mod.HeaderImplementation
+	}))
+);
+
+
+<Header />
+<Preview> 
+
+<Suspense fallback={<Skeleton className="h-[800px] rounded-lg" />}>
+<ResizableDisplay>
+<HeaderImplementation_components_headers_header_01/>
+</ResizableDisplay>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge", "react-aria"  ]}/>
+
+<CodeBlock>
+ 
+```tsx|Name1
+
+```
+```jsx|Name1
+
+```
+
+```tsx|Name2
+
+```
+```jsx|Name2
+
+```
+
+</CodeBlock>
+
+
+</Implementation>
+</Wrapper>
+<PARTITION />
