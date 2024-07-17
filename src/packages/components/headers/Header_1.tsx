@@ -68,8 +68,8 @@ export const HeaderComponent = () => {
             </HeaderDropdown>
           </HeaderItem>
         </div>
-        <GradientBackground>
-          <Button className="relative z-10 bg-background text-foreground py-2 @md:px-4 rounded-lg hidden @md:block">
+        <GradientBackground className="z-10">
+          <Button className="relative z-20 bg-background text-foreground py-2 @md:px-4 rounded-lg hidden @md:block">
             Get Started
           </Button>
         </GradientBackground>

@@ -166,7 +166,7 @@ export interface HeaderItemProps extends ButtonProps {
   onChange?: (open: boolean) => void;
 }
 
-const HeaderItem = forwardRef<HTMLButtonElement, HeaderItemProps>(
+export const HeaderItem = forwardRef<HTMLButtonElement, HeaderItemProps>(
   (
     {
       open = false,
