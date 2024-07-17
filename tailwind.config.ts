@@ -10,43 +10,68 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        //Website
         background: "var(--background)",
         foreground: "var(--foreground)",
-        accent: "var(--accent)",
-        accentLight: "var(--accent-light)",
-        primary: "var(--primary)",
-        primaryLight: "var(--primary-foreground)",
-        secondary: "var(--secondary)",
 
-        textPrimary: "var(--text-primary)",
-        textSecondary: "var(--text-secondary)",
-        textComplementary: "var(--text-complementary)",
+        primary: {
+          DEFAULT: "var(--primary)",
+          foreground: "var(--primary-foreground)",
+        },
 
-        error: "var(--error)",
-        alert: "var(--alert)",
-        success: "var(--success)",
+        secondary: {
+          DEFAULT: "var(--secondary)",
+          foreground: "var(--secondary-foreground)",
+        },
 
-        border: "var(--border)",
+        accent: {
+          DEFAULT: "var(--accent)",
+          foreground: "var(--accent-foreground)",
+          secondary: {
+            DEFAULT: "var(--accent-secondary)",
+            foreground: "var(--accent-secondary-foreground)",
+          },
+        },
 
-        //Components
-        s_background: "var(--s_background)",
-        s_foreground: "var(--s_foreground)",
-        s_accent: "var(--s_accent)",
-        s_accentLight: "var(--s_accent-light)",
-        s_primary: "var(--s_primary)",
-        s_primaryLight: "var(--s_primary-foreground)",
-        s_secondary: "var(--s_secondary)",
+        outline: {
+          DEFAULT: "var(--outline)",
+          secondary: "var(--outline-secondary)",
+          foreground: "var(--outline-foreground)",
+        },
 
-        s_textPrimary: "var(--s_text-primary)",
-        s_textSecondary: "var(--s_text-secondary)",
-        s_textComplementary: "var(--s_text-complementary)",
+        success: {
+          DEFAULT: "var(--success)",
+          secondary: "var(--success-secondary)",
+          foreground: "var(--success-foreground)",
+        },
 
-        s_error: "var(--s_error)",
-        s_alert: "var(--s_alert)",
-        s_success: "var(--s_success)",
+        alert: {
+          DEFAULT: "var(--alert)",
+          secondary: "var(--alert-secondary)",
+          foreground: "var(--alert-foreground)",
+        },
 
-        s_border: "var(--s_border)",
+        error: {
+          DEFAULT: "var(--error)",
+          secondary: "var(--error-secondary)",
+          foreground: "var(--error-foreground)",
+        },
+
+        muted: {
+          DEFAULT: "var(--muted)",
+          secondary: "var(--muted-secondary)",
+          foreground: "var(--muted-foreground)",
+        },
+
+        blur: {
+          DEFAULT: "var(--blur)",
+          secondary: "var(--blur-secondary)",
+          foreground: "var(--blur-foreground)",
+        },
+      },
+      borderRadius: {
+        lg: `var(--radius)`,
+        md: `calc(var(--radius) - 2px)`,
+        sm: "calc(var(--radius) - 4px)",
       },
       animation: {
         // For @/packages/components/logo-carousel/Carousel_1.tsx
@@ -59,12 +84,18 @@ const config: Config = {
         // For @/packages/primitive/toast/Toast_1.tsx
         toastEntryRight: "toastEntryRight 0.2s linear",
         toastEntryLeft: "toastEntryLeft 0.2s linear",
+        toastExit: "toastExit 0.5s forwards",
         // For @/packages/primitive/button/Button_6.tsx
-        buttonGrow: "buttonGrow 0.4s linear",
+        buttonGrow: "buttonGrow 0.4s linear forwards",
 
         // For @/packages/primitive/stepper/Stepper_1.tsx
         stepperGrow: "stepperGrow 0.4s linear",
         stepperGrowVertical: "stepperGrowVertical 0.4s linear",
+
+        // For @/packages/primitive/modals/Modal_1.tsx
+        "modal-fade-in": "modal-fade 0.3s ease-in",
+        "modal-fade-out": "modal-fade 0.3s reverse ease-in",
+        "modal-zoom": "modal-zoom 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
       },
       keyframes: {
         // For @/packages/components/logo-carousel/Carousel_1.tsx
@@ -104,6 +135,14 @@ const config: Config = {
             transform: "translateX(0%)",
           },
         },
+        toastExit: {
+          "0%": {
+            opacity: "1",
+          },
+          "100%": {
+            opacity: "0",
+          },
+        },
 
         // For @/packages/primitive/button/Button_6.tsx
         buttonGrow: {
@@ -137,6 +176,23 @@ const config: Config = {
             transform: "translateY(0%)",
           },
         },
+        // For @/packages/primitive/modals/Modal_1.tsx
+        "modal-fade": {
+          "0%": {
+            opacity: "0",
+          },
+          "100%": {
+            opacity: "1",
+          },
+        },
+        "modal-zoom": {
+          "0%": {
+            transform: "scale(0.8)",
+          },
+          "100%": {
+            transform: "scale(1)",
+          },
+        },
       },
     },
     containers: {
@@ -145,6 +201,9 @@ const config: Config = {
       lg: "900px",
     },
   },
-  plugins: [require("@tailwindcss/container-queries")],
+  plugins: [
+    require("@tailwindcss/container-queries"),
+    require("tailwindcss-react-aria-components"),
+  ],
 };
 export default config;

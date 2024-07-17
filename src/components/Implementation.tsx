@@ -78,6 +78,11 @@ const Technology_Used = ({ techUsed }: { techUsed: TechnologiesUsed[] }) => {
       link: "https://www.npmjs.com/package/uuid",
       logo: <h1 className="font-bold text-accent text-lg">UUID</h1>,
     },
+    "radix-ui": {
+      name: "Radix UI",
+      link: "https://www.radix-ui.com/",
+      logo: <Icons.radixui className="w-6 h-6 text-black dark:text-white" />,
+    },
   };
   return (
     <div>
@@ -249,16 +254,16 @@ const CodeDisplay = ({
 function Inspiration({ data }: { data: InspirationObject }) {
   return (
     <div className="w-full flex justify-start items-center gap-2">
-      <h1 className="text-lg font-medium text-textPrimary">{data.message}</h1>
+      <h1 className="text-base font-medium dark:text-white">{data.message}</h1>
       <a
         href={data.link}
         target="_blank"
         rel="nofollow"
-        className="text-accent flex gap-2 items-center justify-center font-semibold text-lg"
+        className="underline underline-offset-2 dark:text-white flex gap-2 items-center justify-center group"
         aria-label="Link to the inspiration"
       >
         {data.name}
-        <Icons.arrow className="rotate-45" />
+        <Icons.arrow className="w-4 h-4 rotate-45 hidden group-hover:block" />
       </a>
     </div>
   );

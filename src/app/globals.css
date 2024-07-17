@@ -1,8 +1,93 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 html {
   scroll-behavior: smooth;
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+
+    --background: theme(colors.white);
+    --foreground: theme(colors.black);
+
+    --primary: theme(colors.neutral.100);
+    --primary-foreground: theme(colors.neutral.800);
+
+    --secondary: theme(colors.neutral.200);
+    --secondary-foreground: theme(colors.neutral.700);
+
+    --accent: theme(colors.blue.600);
+    --accent-foreground: theme(colors.white);
+    --accent-secondary: theme(colors.blue.500);
+    --accent-secondary-foreground: theme(colors.white);
+
+    --outline-secondary: theme(colors.neutral.300);
+    --outline: theme(colors.neutral.500);
+    --outline-foreground: theme(colors.neutral.500);
+
+    --success: theme(colors.green.500);
+    --success-secondary: theme(colors.green.400);
+    --success-foreground: theme(colors.white);
+
+    --alert: theme(colors.yellow.500);
+    --alert-secondary: theme(colors.yellow.400);
+    --alert-foreground: theme(colors.yellow.900);
+
+    --error: theme(colors.red.600);
+    --error-secondary: theme(colors.red.500);
+    --error-foreground: theme(colors.white);
+
+    --muted: theme(colors.neutral.600);
+    --muted-secondary: theme(colors.neutral.200);
+    --muted-foreground: theme(colors.neutral.200);
+
+    --blur: theme(colors.white/30%);
+    --blur-secondary: theme(colors.neutral.200/30%);
+    --blur-foreground: theme(colors.neutral.800);
+  }
+
+  .dark {
+    --background: theme(colors.black);
+    --foreground: theme(colors.white);
+
+    --primary: #171717;
+    --primary-foreground: #e6e6e6;
+
+    --secondary: theme(colors.neutral.800);
+    --secondary-foreground: theme(colors.neutral.400);
+
+    --accent: theme(colors.blue.600);
+    --accent-foreground: theme(colors.white);
+    --accent-secondary: theme(colors.blue.500);
+    --accent-secondary-foreground: theme(colors.white);
+
+    --outline: theme(colors.neutral.700);
+    --outline-secondary: theme(colors.neutral.800);
+    --outline-foreground: theme(colors.neutral.600);
+
+    --success: theme(colors.green.800);
+    --success-secondary: theme(colors.green.600);
+    --success-foreground: theme(colors.white);
+
+    --alert: theme(colors.yellow.600);
+    --alert-secondary: theme(colors.yellow.400);
+    --alert-foreground: theme(colors.yellow.950);
+
+    --error: theme(colors.red.600);
+    --error-secondary: theme(colors.red.500);
+    --error-foreground: theme(colors.white);
+
+    --muted: theme(colors.neutral.300);
+    --muted-secondary: theme(colors.neutral.800);
+    --muted-foreground: theme(colors.neutral.700);
+
+    --blur: theme(colors.black / 30%);
+    --blur-secondary: theme(colors.neutral.800/30%);
+    --blur-foreground: theme(colors.neutral.200);
+  }
 }
 
 @layer utilities {
@@ -41,125 +126,8 @@ html {
     --container-border-size: 4px;
     --container-background: theme(colors.neutral.900);
   }
-  /* ------------------------------------------------------------ */
-
-  .svgEffect {
-    --container-rad: 0.75rem;
-    --container-border-size: 2px;
-    --container-border-initial: #ddd;
-    --container-gradient-color: rgba(255, 255, 255, 0.5);
-    --container-border-active: #ff6347;
-
-    position: relative;
-    overflow: visible;
-    width: 100px; /* Adjust as needed */
-    height: 100px; /* Adjust as needed */
-    padding: var(--container-border-size);
-    background: var(--container-border-initial);
-    border-radius: var(--container-rad);
-    pointer-events: none;
-    opacity: 1;
-    transition: opacity 0.5s;
-  }
-
-  /* Hover effect */
-  .svgEffect:hover {
-    opacity: 0.2;
-  }
-
-  /* Gradient application inside the SVG */
-  .svgEffect .dynamicGradient {
-    fill: url(#dynamicGradient);
-    transition: fill 0.5s;
-  }
 }
-@layer base {
-  :root {
-    --background: #ffffff;
-    --foreground: #000000;
 
-    --primary: #171717;
-    --primary-foreground: #232323;
-    --secondary: #f4f4f5;
-    /* --secondary-foreground: 222.2 47.4% 11.2%; */
-
-    --accent: #0372f3;
-    --accent-light: #d5e0ff;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: #dfdfe3;
-
-    --text-primary: #000000;
-    --text-secondary: #71717a;
-    --text-complementary: #ffffff;
-
-    --radius: 1 rem;
-
-    --success: #34d399;
-    --alert: #ffe629;
-    --error: rgb(255, 35, 35);
-
-    --s_background: #ffffff;
-    --s_foreground: #000000;
-
-    --s_primary: #171717;
-    --s_primary-foreground: #232323;
-    --s_secondary: #f4f4f5;
-
-    --s_accent: #0372f3;
-    --s_accent-light: #d5e0ff;
-
-    --s_border: #dfdfe3;
-
-    --s_text-primary: #000000;
-    --s_text-secondary: #71717a;
-    --s_text-complementary: #ffffff;
-
-    --s_success: #34d399;
-    --s_alert: #ffe629;
-    --s_error: rgb(255, 35, 35);
-  }
-
-  .dark {
-    --background: #000000;
-    --foreground: #ffffff;
-
-    --primary: #ffffff;
-    --primary-foreground: #a4a4a4;
-    --secondary: #212121;
-
-    --accent: #0ea5e9;
-    --accent-light: #0044ff41;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: #505050;
-
-    --text-primary: #f0f0f0;
-    --text-secondary: #969696;
-    --text-complementary: #000000;
-
-    --radius: 1 rem;
-  }
-  .darkComponent {
-    --s_background: #000000;
-    --s_foreground: #ffffff;
-
-    --s_primary: #ffffff;
-    --s_primary-foreground: #a4a4a4;
-    --s_secondary: #212121;
-
-    --s_accent: #0ea5e9;
-    --s_accent-light: #0044ff41;
-
-    --s_border: #505050;
-
-    --s_text-primary: #f0f0f0;
-    --s_text-secondary: #969696;
-    --s_text-complementary: #000000;
-  }
-}
 .scrollbar-vertical::-webkit-scrollbar {
   width: 8px; /* width of the entire scrollbar */
 }
@@ -172,63 +140,6 @@ html {
   height: 6px; /* width of the entire scrollbar */
 }
 .scrollbar-horizontal::-webkit-scrollbar-thumb {
-  background-color: var(--primary-foreground); /* color of the scroll thumb */
-  border-radius: 20px; /* roundness of the scroll thumb */
-}
-
-/* SHIKI */
-.with-counter .shiki {
-  counter-reset: step;
-  counter-increment: step 0;
-}
-
-.shiki .line {
-  @apply border-l-4 border-transparent;
-}
-
-.with-counter .shiki .line::before {
-  counter-increment: step;
-  @apply mr-6 inline-block w-4 border-transparent text-right text-neutral-600 content-[counter(step)];
-}
-
-.shiki .line.highlighted,
-.shiki .line.diff {
-  @apply -ml-4 -mr-5 inline-block w-[calc(100%+(theme(spacing.5)+theme(spacing.4)))] pl-4 pr-5;
-}
-
-.shiki .line.highlighted {
-  @apply border-neutral-500 bg-neutral-800;
-}
-
-.shiki .line.diff.add {
-  @apply border-blue-500 bg-blue-500/25 before:text-blue-500;
-}
-
-.shiki .line.diff.add span:first-child::before {
-  @apply -ml-4 inline-flex w-4 text-blue-500 content-["+"];
-}
-
-.shiki .line.diff.remove {
-  @apply border-orange-500 bg-orange-500/30 opacity-70 *:!text-neutral-400 before:text-orange-500;
-}
-
-.shiki .line.diff.remove span:first-child::before {
-  @apply -ml-4 inline-flex w-4 text-orange-500 content-["-"];
-}
-
-.dark .shiki,
-.dark .shiki span {
-  color: var(--shiki-dark) !important;
-  /* background-color: var(--shiki-dark-bg) !important; */
-  /* Optional, if you also want font styles */
-  font-style: var(--shiki-dark-font-style) !important;
-  font-weight: var(--shiki-dark-font-weight) !important;
-  text-decoration: var(--shiki-dark-text-decoration) !important;
-}
-.shiki::-webkit-scrollbar {
-  height: 6px; /* width of the entire scrollbar */
-}
-.shiki::-webkit-scrollbar-thumb {
   background-color: var(--primary-foreground); /* color of the scroll thumb */
   border-radius: 20px; /* roundness of the scroll thumb */
 }

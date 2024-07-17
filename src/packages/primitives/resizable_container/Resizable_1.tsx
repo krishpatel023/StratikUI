@@ -1,60 +1,45 @@
-import { DataDescription, ImplementationNode } from "@/utils/constants";
-import { ExampleJsx, ExampleTsx, ResizeExample1 } from "./Resizable_1_Helper";
-import { HelperFunctionsJsx, HelperFunctionsTsx } from "./Resizable_Helper";
-import {
-  useResizableCodeJsx,
-  useResizableCodeTsx,
-} from "@/packages/hooks/docs/useResizable/useResizable";
+"use client";
 
-function Demo() {
+import { useRef } from "react";
+import { ResizableContainer, ResizeBoundingElement } from "./Resizable_Helper";
+import useResizable from "@/packages/hooks/useResizable/useResizable";
+import ArrowHeading from "@/components/ui/ArrowHeading";
+
+export function ResizeImplementation() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const resizableRef = useRef<HTMLDivElement>(null);
+
+  const options = {
+    minWidth: "100px",
+    minHeight: "100px",
+  };
+  const { handleResize } = useResizable(containerRef, resizableRef, options);
+
   return (
-    <div className="flex flex-col gap-4 w-full">
-      <ResizeExample1 />
+    <div className="flex justify-center items-center flex-col gap-4 w-full">
+      <ArrowHeading
+        text="Bounding Element - can't resize outside this. However it can be expanded but the resize won't work outside this. This property can be adjusted in the options."
+        className="text-center px-4"
+      />
+      <div className="w-full">
+        <ResizeBoundingElement
+          containerRef={containerRef}
+          className="min-h-[400px] max-w-[90%] mx-auto bg-primary rounded-lg border-2 border-dashed border-outline"
+        >
+          <ResizableContainer
+            minWidth={100}
+            minHeight={100}
+            direction={["right", "bottom", "top", "left"]}
+            className="min-h-[600px] max-w-[95%] bg-secondary"
+            handleResize={handleResize}
+            resizableRef={resizableRef}
+          >
+            <div className="border text-foreground w-full h-full text-center flex justify-center items-center">
+              <h1>This is a resizable container</h1>
+            </div>
+          </ResizableContainer>
+        </ResizeBoundingElement>
+      </div>
     </div>
   );
 }
-
-const Implementation: ImplementationNode[] = [
-  {
-    type: "technology_used",
-    content: ["tailwind-css", "twMerge"],
-  },
-  {
-    type: "code",
-    content: [
-      {
-        name: "Implementation",
-        content: [
-          { language: "tsx", code: ExampleTsx },
-          { language: "jsx", code: ExampleJsx },
-        ],
-      },
-      {
-        name: "Helper",
-        content: [
-          { language: "tsx", code: HelperFunctionsTsx },
-          { language: "jsx", code: HelperFunctionsJsx },
-        ],
-      },
-      {
-        name: "useResizable",
-        content: [
-          { language: "tsx", code: useResizableCodeTsx },
-          { language: "jsx", code: useResizableCodeJsx },
-        ],
-      },
-    ],
-  },
-];
-
-const Data: DataDescription = {
-  name: "Resizable Container",
-  description:
-    "This way you can use Resizable component to change the dimension of the containers. This is just an example of the use cases for this hook. The individual code is available in the useResizable hook section.",
-  implementation: Implementation,
-  component: <Demo />,
-  version_included: "0.1.5",
-  display: true,
-};
-
-export default Data;

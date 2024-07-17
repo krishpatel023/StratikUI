@@ -1,6 +1,4 @@
-import { DataDescription, ImplementationNode } from "@/utils/constants";
-
-import { Button } from "@/packages/primitives/buttons/Button_6_Helper";
+import { Button } from "@/packages/primitives/buttons/Button_2";
 import { IconProps } from "@/utils/constants";
 import { twMerge } from "tailwind-merge";
 
@@ -39,11 +37,11 @@ export function Pricing() {
       {PricingData.map((data, index) => (
         <div
           className={twMerge(
-            "rounded-lg w-80 h-[27rem] bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 shadow"
+            "rounded-lg w-80 h-[27rem] bg-primary border border-outline-secondary shadow"
           )}
           key={index}
         >
-          <div className="text-s_textPrimary px-8 py-6 w-full h-full flex flex-col justify-between">
+          <div className="text-primary-foreground px-8 py-6 w-full h-full flex flex-col justify-between">
             <div>
               <h1 className="text-3xl font-medium mb-2 flex justify-between">
                 {data.name}
@@ -54,10 +52,12 @@ export function Pricing() {
                 )}
               </h1>
               <h2 className="text-md mb-4">{data.description}</h2>
-              <div className="w-full h-[1px] bg-neutral-300 dark:bg-neutral-700 "></div>
+              <div className="w-full h-[1px] bg-outline"></div>
               <h1 className="text-4xl font-medium mb-8 mt-6">
                 $ {data.price}{" "}
-                <span className="text-neutral-500 text-base">/ Month</span>
+                <span className="text-secondary-foreground text-base">
+                  / Month
+                </span>
               </h1>
               <span className="flex flex-col gap-2">
                 {data.features.map((feature, j) => (
@@ -70,17 +70,7 @@ export function Pricing() {
                 ))}
               </span>
             </div>
-            <Button
-              className={twMerge(
-                "w-full mt-auto px-4 py-2 text-black dark:text-white bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-md relative z-[100]",
-                data.popular &&
-                  "bg-blue-600 border-blue-700 text-white dark:bg-blue-800 dark:border-blue-950"
-              )}
-              clickedClassName={twMerge(
-                "bg-neutral-100 dark:bg-neutral-700",
-                data.popular && "bg-blue-300 dark:bg-blue-400"
-              )}
-            >
+            <Button variant={data.popular ? "accent" : "primary"}>
               Get Started
             </Button>
           </div>
@@ -107,55 +97,10 @@ export const Check = (props: IconProps) => (
   </svg>
 );
 
-function Demo() {
+export function PricingImplementation() {
   return (
     <div className="w-full min-h-[35rem] flex justify-center items-center py-10">
       <Pricing />
     </div>
   );
 }
-
-const Code: string = `
-// Add your code snippet here
-`;
-
-const DemoString: string = `
-// Add your demo code snippet here
-`;
-
-const Implementation: ImplementationNode[] = [
-  {
-    type: "technology_used",
-    content: ["tailwind-css", "twMerge"],
-  },
-  {
-    type: "code",
-    content: [
-      {
-        name: "Name",
-        content: [
-          { language: "tsx", code: Code },
-          { language: "jsx", code: Code },
-        ],
-      },
-      {
-        name: "Implementation",
-        content: [
-          { language: "tsx", code: DemoString },
-          { language: "jsx", code: DemoString },
-        ],
-      },
-    ],
-  },
-];
-
-const Data: DataDescription = {
-  name: "Pricing Normal",
-  description: "Component Description",
-  implementation: Implementation,
-  component: <Demo />,
-  version_included: "0.1.1",
-  display: true,
-};
-
-export default Data;

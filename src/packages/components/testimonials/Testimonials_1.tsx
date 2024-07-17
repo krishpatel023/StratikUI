@@ -1,221 +1,136 @@
-import {
-  DataDescription,
-  IconProps,
-  ImplementationNode,
-} from "@/utils/constants";
-import Image from "next/image";
-// import Earth from "@/assets/Images/GlowingEarth.jpg";
-import Logo from "@/assets/Images/Image_2.jpg";
-import { Background, BackgroundString } from "@/packages/helper/Background";
-function Testimonial() {
+import Logo from "@/packages/helper/Logo";
+
+const LOGO2 = Logo[2].logo;
+const LOGO4 = Logo[4].logo;
+const LOGO0 = Logo[0].logo;
+const LOGO1 = Logo[1].logo;
+const LOGO3 = Logo[3].logo;
+const LOGO5 = Logo[5].logo;
+
+export function Testimonial() {
   return (
-    <div className="w-full min-h-[30rem] flex  justify-center items-center">
-      <div className="w-[90%] @md:w-3/4 flex flex-col gap-10 justify-center items-center text-center">
-        <p className="text-base font-medium text-s_textPrimary text-wrap">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Est in ipsa
-          rem tempora perferendis. Reprehenderit sed provident ducimus dolores
-          voluptatem unde dolorum nisi dolorem quia commodi ex odit officia
-          perspiciatis et sequi eius laudantium nulla magnam blanditiis eligendi
-          aspernatur nihil, deserunt vitae accusantium! Nulla, ullam quia.
-          Provident nam consectetur quasi.
-        </p>
-        <div className="flex gap-4 text-blue-500 ">
-          <Star className="w-6 h-6" />
-          <Star className="w-6 h-6" />
-          <Star className="w-6 h-6" />
-          <Star className="w-6 h-6" />
-          <Star className="w-6 h-6" />
-        </div>
-
-        <div className="flex gap-4 items-center">
-          <Image
-            src={Logo}
-            alt="hero"
-            className="w-12 h-12 rounded-full object-cover"
-          />
-          <span className="text-start">
-            <h1 className="text-xl font-semibold text-s_textPrimary">
-              John Doe
-            </h1>
-            <h2 className="text-base text-s_textSecondary">
-              CEO of Lorem Ipsum
-            </h2>
-          </span>
-        </div>
+    <div className="w-full h-[70rem] overflow-hidden flex justify-center items-center gap-10 text-primary-foreground">
+      <div className="flex flex-col gap-10">
+        <EmptyCard />
+        <EmptyCard />
+        <EmptyCard />
       </div>
-
-      <div
-        className={`w-full h-full absolute left-0 top-0 -z-10 overflow-hidden`}
-      >
-        <Background />
+      <div className="flex-col gap-10 hidden @md:flex">
+        <EmptyCard />
+        <Card>
+          <LOGO2 className="w-8 h-8" />
+          <p className="font-medium text-secondary-foreground mt-6">
+            StratikUI has revolutionized my design workflow. Their extensive
+            library of customizable components saves me hours of development
+            time. The intuitive interface makes it easy to create sleek, modern
+            designs without compromising on functionality.
+          </p>
+          <h1 className="text-xl font-semibold text-primary-foreground mt-6">
+            John Doe
+          </h1>
+          <h2 className="font-medium text-secondary-foreground">Co-Founder</h2>
+        </Card>
+        <Card>
+          <LOGO4 className="w-8 h-8" />
+          <p className="font-medium text-secondary-foreground mt-6">
+            {
+              "I appreciate StratikUI's attention to accessibility. Their components are WCAG compliant out of the box, which helps us create inclusive designs effortlessly. The documentation is comprehensive and regularly updated."
+            }
+          </p>
+          <h1 className="text-xl font-semibold text-primary-foreground mt-6">
+            Erin Joseph
+          </h1>
+          <h2 className="font-medium text-secondary-foreground">
+            Product Manager
+          </h2>
+        </Card>
+        <EmptyCard />
+      </div>
+      <div className="flex flex-col gap-10">
+        <EmptyCard />
+        <Card>
+          <LOGO0 className="w-8 h-8" />
+          <p className="font-medium text-secondary-foreground mt-6">
+            While StratikUI offers a wide range of features, I found the
+            learning curve a bit steep. It took me some time to fully utilize
+            all the tools available. However, once I got the hang of it, my
+            productivity skyrocketed.
+          </p>
+          <h1 className="text-xl font-semibold text-primary-foreground mt-6">
+            John Doe
+          </h1>
+          <h2 className="font-medium text-secondary-foreground">CEO</h2>
+        </Card>
+        <div className="w-80 py-8 px-10 rounded-xl bg-gradient-to-tr from-primary  to-secondary border-outline-secondary border shadow-md shadow-outline-secondary">
+          <h1 className="text-xl text-primary-foreground font-semibold">
+            Want to see what others are saying about us?
+          </h1>
+          <button className="bg-foreground text-background py-2 px-4 rounded-xl mt-4">
+            See more
+          </button>
+        </div>
+        <Card>
+          <LOGO1 className="w-8 h-8" />
+          <p className="font-medium text-secondary-foreground mt-6">
+            {
+              "As a startup founder, StratikUI has been a game-changer for our team. We can quickly prototype and iterate on our product's interface without needing a full-time designer. The responsive templates ensure our app looks great on all devices."
+            }
+          </p>
+          <h1 className="text-xl font-semibold text-primary-foreground mt-6">
+            Jane Doe
+          </h1>
+          <h2 className="font-medium text-secondary-foreground">Founder</h2>
+        </Card>
+        <EmptyCard />
+      </div>{" "}
+      <div className="flex-col gap-10 hidden @md:flex">
+        <EmptyCard />
+        <Card>
+          <LOGO3 className="w-8 h-8" />
+          <p className="font-medium text-secondary-foreground mt-6">
+            {
+              "StratikUI has been a game-changer for our team. We can quickly prototype and iterate on our product's interface without needing a full-time designer. The responsive templates ensure our app looks great on all devices."
+            }
+          </p>
+          <h1 className="text-xl font-semibold text-primary-foreground mt-6">
+            Jack Doe
+          </h1>
+          <h2 className="font-medium text-secondary-foreground">CEO</h2>
+        </Card>
+        <Card>
+          <LOGO5 className="w-8 h-8" />
+          <p className="font-medium text-secondary-foreground mt-6">
+            While StratikUI offers a wide range of features, I found the
+            learning curve a bit steep. It took me some time to fully utilize
+            all the tools available. However, once I got the hang of it, my
+            productivity skyrocketed.
+          </p>
+          <h1 className="text-xl font-semibold text-primary-foreground mt-6">
+            John Doe
+          </h1>
+          <h2 className="font-medium text-secondary-foreground">CEO</h2>
+        </Card>
+        <EmptyCard />
+      </div>
+      <div className="flex flex-col gap-10">
+        <EmptyCard />
+        <EmptyCard />
+        <EmptyCard />
       </div>
     </div>
   );
 }
 
-export const Star = (props: IconProps) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 24 24"
-    {...props}
-  >
-    <path
-      fill="currentColor"
-      d="M17.562 21.56a1.003 1.003 0 0 1-.465-.115L12 18.765l-5.097 2.68a1 1 0 0 1-1.451-1.054l.973-5.676l-4.123-4.02a1 1 0 0 1 .554-1.705l5.699-.828l2.548-5.164a1.042 1.042 0 0 1 1.794 0l2.548 5.164l5.699.828a1 1 0 0 1 .554 1.706l-4.123 4.019l.973 5.676a1 1 0 0 1-.986 1.169Z"
-    ></path>
-  </svg>
-);
-
-const StarStringTsx = `export const Star = (props: IconProps) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 24 24"
-    {...props}
-  >
-    <path
-      fill="currentColor"
-      d="M17.562 21.56a1.003 1.003 0 0 1-.465-.115L12 18.765l-5.097 2.68a1 1 0 0 1-1.451-1.054l.973-5.676l-4.123-4.02a1 1 0 0 1 .554-1.705l5.699-.828l2.548-5.164a1.042 1.042 0 0 1 1.794 0l2.548 5.164l5.699.828a1 1 0 0 1 .554 1.706l-4.123 4.019l.973 5.676a1 1 0 0 1-.986 1.169Z"
-    ></path>
-  </svg>
-);
-`;
-
-const StarStringJsx = `export const Star = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 24 24"
-    {...props}
-  >
-    <path
-      fill="currentColor"
-      d="M17.562 21.56a1.003 1.003 0 0 1-.465-.115L12 18.765l-5.097 2.68a1 1 0 0 1-1.451-1.054l.973-5.676l-4.123-4.02a1 1 0 0 1 .554-1.705l5.699-.828l2.548-5.164a1.042 1.042 0 0 1 1.794 0l2.548 5.164l5.699.828a1 1 0 0 1 .554 1.706l-4.123 4.019l.973 5.676a1 1 0 0 1-.986 1.169Z"
-    ></path>
-  </svg>
-);
-`;
-
-export const Quotes = (props: IconProps) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 32 32"
-    {...props}
-  >
-    <path
-      fill="currentColor"
-      d="M12 15H6.11A9 9 0 0 1 10 8.86l1.79-1.2L10.69 6L8.9 7.2A11 11 0 0 0 4 16.35V23a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2zm14 0h-5.89A9 9 0 0 1 24 8.86l1.79-1.2L24.7 6l-1.8 1.2a11 11 0 0 0-4.9 9.15V23a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-6a2 2 0 0 0-2-2z"
-    ></path>
-  </svg>
-);
-
-const Code: string = `function Testimonial() {
+const Card = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="w-full h-[30rem] flex  justify-center items-center">
-      <div className="w-[90%] @md:w-3/4 flex flex-col gap-10 justify-center items-center text-center">
-        <p className="text-base font-medium text-s_textPrimary text-wrap">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Est in ipsa
-          rem tempora perferendis. Reprehenderit sed provident ducimus dolores
-          voluptatem unde dolorum nisi dolorem quia commodi ex odit officia
-          perspiciatis et sequi eius laudantium nulla magnam blanditiis eligendi
-          aspernatur nihil, deserunt vitae accusantium! Nulla, ullam quia.
-          Provident nam consectetur quasi.
-        </p>
-        <div className="flex gap-4 text-blue-500 ">
-          <Star className="w-6 h-6" />
-          <Star className="w-6 h-6" />
-          <Star className="w-6 h-6" />
-          <Star className="w-6 h-6" />
-          <Star className="w-6 h-6" />
-        </div>
-
-        <div className="flex gap-4 items-center">
-          <Image
-            src={Earth}
-            alt="hero"
-            className="w-12 h-12 rounded-full object-cover"
-          />
-          <span className="text-start">
-            <h1 className="text-xl font-semibold text-s_textPrimary">
-              John Doe
-            </h1>
-            <h2 className="text-base text-s_textSecondary">
-              CEO of Lorem Ipsum
-            </h2>
-          </span>
-        </div>
-      </div>
-
-      <div className="w-full h-full absolute left-0 top-0 -z-10 overflow-hidden">
-        <Background />
-      </div>
+    <div className="w-80 rounded-xl border-2 border-outline-secondary shadow-md shadow-outline-secondary px-8 py-6">
+      {children}
     </div>
   );
-}`;
-
-const Implementation: ImplementationNode[] = [
-  {
-    type: "technology_used",
-    content: ["tailwind-css"],
-  },
-  {
-    type: "code",
-    content: [
-      {
-        name: "Testimonial",
-        content: [
-          {
-            language: "tsx",
-            code: Code,
-          },
-          {
-            language: "jsx",
-            code: Code,
-          },
-        ],
-      },
-      {
-        name: "Background",
-        content: [
-          {
-            language: "tsx",
-            code: BackgroundString,
-          },
-          {
-            language: "jsx",
-            code: BackgroundString,
-          },
-        ],
-      },
-      {
-        name: "Star Icon",
-        content: [
-          {
-            language: "tsx",
-            code: StarStringTsx,
-          },
-          {
-            language: "jsx",
-            code: StarStringJsx,
-          },
-        ],
-      },
-    ],
-  },
-];
-
-const HeroData: DataDescription = {
-  name: "Testimonial Section",
-  description: "This is a default testimonial section",
-  implementation: Implementation,
-  component: Testimonial(),
-  version_included: "0.0.3",
-  display: true,
 };
-export default HeroData;
+
+const EmptyCard = () => {
+  return (
+    <div className="min-w-80 min-h-80 rounded-xl border-2 border-outline-secondary border-dashed " />
+  );
+};

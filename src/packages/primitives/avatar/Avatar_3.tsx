@@ -1,132 +1,124 @@
-import { DataDescription, ImplementationNode } from "@/utils/constants";
-import Image from "next/image";
-import DummyImage from "@/assets/Images/Image_4.jpg";
+"use client";
+
+import Image, { StaticImageData } from "next/image";
+import Dummy1 from "@/assets/Images/Image_1.jpg";
+import Dummy2 from "@/assets/Images/Image_2.jpg";
+import Dummy3 from "@/assets/Images/Image_3.jpg";
+import Dummy4 from "@/assets/Images/Image_4.jpg";
+import Dummy5 from "@/assets/Images/Image_5.jpg";
+import Dummy6 from "@/assets/Images/Image_6.jpg";
+import Dummy7 from "@/assets/Images/Image_7.jpg";
+
 import { twMerge } from "tailwind-merge";
-import { NotionLogoIcon } from "@radix-ui/react-icons";
-import { IconProps } from "@radix-ui/react-icons/dist/types";
-function Avatar({ withBorder = true }: { withBorder?: boolean }) {
+import ArrowHeading from "@/components/ui/ArrowHeading";
+
+interface AvatarProps {
+  src?: string | StaticImageData;
+  alt?: string;
+  className?: string;
+  name: string;
+  isDisabled?: boolean;
+}
+
+export const Avatar = ({
+  src,
+  alt,
+  name,
+  className,
+  isDisabled,
+}: AvatarProps) => {
+  const initials = name
+    .split(" ")
+    .map((word) => word.charAt(0))
+    .join("")
+    .substring(0, 2);
+
   return (
     <div
       className={twMerge(
-        "w-12 h-12 rounded-full relative",
-        withBorder && "border-2 border-foreground"
+        "size-12 rounded-full flex justify-center items-center group aria-disabled: bg-gradient-to-r from-blue-500 to-purple-500",
+        className
       )}
+      aria-disabled={isDisabled}
+      aria-label="avatar"
     >
-      <Image
-        src={DummyImage}
-        alt=""
-        className="rounded-[inherit] w-full h-full"
+      {src ? (
+        <Image
+          src={src}
+          alt={alt || "avatar"}
+          className="rounded-[inherit] size-full"
+        />
+      ) : (
+        <h1 aria-label="initials" className="text-2xl text-primary-foreground">
+          {initials}
+        </h1>
+      )}
+    </div>
+  );
+};
+
+export const AvatarStack = ({
+  avatars,
+  limit = 5,
+  withExtension,
+}: {
+  avatars: AvatarProps[];
+  limit?: number;
+  withExtension?: boolean;
+}) => {
+  const displayedAvatars = avatars.slice(0, limit);
+  const remainingCount = avatars.length - limit;
+
+  return (
+    <div className="flex flex-row-reverse">
+      {withExtension && remainingCount > 0 && (
+        <div className="z-10 -ml-4 last:ml-0">
+          <Avatar name={`+ ${remainingCount}`} />
+        </div>
+      )}
+      {displayedAvatars.map((avatar, index) => (
+        <div
+          key={index}
+          className="-ml-4 last:ml-0"
+          style={{ zIndex: displayedAvatars.length - index }}
+        >
+          <Avatar {...avatar} />
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export function StackedAvatarImplementation() {
+  return (
+    <div className="flex flex-col justify-center items-center gap-4">
+      {/* With Extension */}
+      <ArrowHeading text="With Extension" />
+      <AvatarStack
+        avatars={[
+          { src: Dummy6, name: "Profile Picture" },
+          { src: Dummy2, name: "Profile Picture" },
+          { src: Dummy3, name: "Profile Picture" },
+          { src: Dummy4, name: "Profile Picture" },
+          { src: Dummy5, name: "Profile Picture" },
+          { src: Dummy1, name: "Profile Picture" },
+          { src: Dummy7, name: "Profile Picture" },
+        ]}
+        withExtension
       />
-      <div
-        className={twMerge(
-          "absolute -right-1 bottom-0 w-6 h-6 rounded-full flex justify-center items-center bg-foreground text-s_textComplementary"
-        )}
-      >
-        <Icon className="w-3/4 h-3/4 rounded-[inherit]" />
-      </div>
+      {/* Without Extension */}
+      <ArrowHeading text="Without Extension" />
+      <AvatarStack
+        avatars={[
+          { src: Dummy2, name: "Profile Picture" },
+          { src: Dummy3, name: "Profile Picture" },
+          { src: Dummy4, name: "Profile Picture" },
+          { src: Dummy7, name: "Profile Picture" },
+          { src: Dummy5, name: "Profile Picture" },
+          { src: Dummy6, name: "Profile Picture" },
+          { src: Dummy1, name: "Profile Picture" },
+        ]}
+      />
     </div>
   );
 }
-const Icon = (props: IconProps) => {
-  return <NotionLogoIcon {...props} />;
-};
-function Demo() {
-  return (
-    <div className="w-full flex justify-center gap-6">
-      <Avatar />
-    </div>
-  );
-}
-
-const CodeTsx: string = `function Avatar({ withBorder = true }: { withBorder?: boolean }) {
-  return (
-    <div
-      className={twMerge(
-        "w-12 h-12 rounded-full relative",
-        withBorder && "border-2 border-foreground"
-      )}
-    >
-      <Image
-        src={DummyImage}
-        alt=""
-        className="rounded-[inherit] w-full h-full"
-      />
-      <div
-        className={twMerge(
-          "absolute -right-1 bottom-0 w-6 h-6 rounded-full flex justify-center items-center bg-foreground"
-        )}
-      >
-        <Icon className="w-3/4 h-3/4 rounded-[inherit]" />
-      </div>
-    </div>
-  );
-}`;
-
-const CodeJsx: string = `function Avatar({ withBorder = true }) {
-  return (
-    <div
-      className={twMerge(
-        "w-12 h-12 rounded-full relative",
-        withBorder && "border-2 border-foreground"
-      )}
-    >
-      <Image
-        src={DummyImage}
-        alt=""
-        className="rounded-[inherit] w-full h-full"
-      />
-      <div
-        className={twMerge(
-          "absolute -right-1 bottom-0 w-6 h-6 rounded-full flex justify-center items-center bg-foreground"
-        )}
-      >
-        <Icon className="w-3/4 h-3/4 rounded-[inherit]" />
-      </div>
-    </div>
-  );
-}`;
-
-const DemoString: string = `function Demo() {
-  return (
-    <div className="w-full flex justify-center gap-6">
-      <Avatar/>
-    </div>
-  );
-}`;
-
-const Implementation: ImplementationNode[] = [
-  {
-    type: "technology_used",
-    content: ["tailwind-css", "twMerge"],
-  },
-  {
-    type: "code",
-    content: [
-      {
-        name: "Avatar",
-        content: [
-          { language: "tsx", code: CodeTsx },
-          { language: "jsx", code: CodeJsx },
-        ],
-      },
-      {
-        name: "Implementation",
-        content: [
-          { language: "tsx", code: DemoString },
-          { language: "jsx", code: DemoString },
-        ],
-      },
-    ],
-  },
-];
-
-const Data: DataDescription = {
-  name: "Avatar with Company Logo",
-  description: "This is an avatar component with company logo.",
-  implementation: Implementation,
-  component: <Demo />,
-  version_included: "0.0.1",
-  display: true,
-};
-
-export default Data;

@@ -1,165 +1,136 @@
+"use client";
+
 import ArrowHeading from "@/components/ui/ArrowHeading";
-import { DataDescription, ImplementationNode } from "@/utils/constants";
-import { twMerge } from "tailwind-merge";
-function InputText({
-  label,
-  placeholder,
-  state = "default",
-}: {
-  label: string;
-  placeholder: string;
-  state?: "default" | "error" | "success" | "disabled";
-}) {
-  return (
-    <div>
-      <span className="text-s_textPrimary font-medium text-sm">{label}</span>
-      <input
-        type="text"
-        className={twMerge(
-          "mt-1 w-full bg-transparent text-s_textPrimary placeholder:text-s_textSecondary py-2 px-4 rounded-md border-[1px] border-s_primary focus:border-s_accent focus:outline-none focus:ring-2",
+import {
+  FieldError,
+  FieldErrorProps,
+  Input,
+  InputProps,
+  Label,
+  LabelProps,
+  TextField,
+  TextFieldProps,
+} from "react-aria-components";
+import { twJoin, twMerge } from "tailwind-merge";
 
-          state === "disabled" && "disabled:cursor-not-allowed",
-          state === "error" &&
-            "border-s_error focus:border-s_error focus:ring-red-400/90",
-          state === "success" &&
-            "border-s_success focus:border-s_success focus:ring-green-400/90"
-        )}
-        {...(state === "disabled" && { disabled: true })}
-        placeholder={placeholder}
-      />
-    </div>
+export function Field({ className, ...props }: TextFieldProps) {
+  return (
+    <TextField
+      className={twMerge("flex flex-col", className as string)}
+      {...props}
+    />
   );
 }
 
-function Demo() {
+export function InputLabel({ className, ...props }: LabelProps) {
   return (
-    <div className="w-80">
-      <ArrowHeading text="Default" className="mb-2" />
-      <InputText placeholder="Something..." label="Label" />
-      <ArrowHeading text="Error" className="mb-2 mt-6" />
-      <InputText placeholder="Something..." label="Label" state="error" />
-      <ArrowHeading text="Success" className="mb-2 mt-6" />
-      <InputText placeholder="Something..." label="Label" state="success" />
-      <ArrowHeading text="Disabled" className="mb-2 mt-6" />
-      <InputText placeholder="Something..." label="Label" state="disabled" />
-    </div>
+    <Label
+      className={twMerge(
+        "text-foreground text-sm font-medium",
+        className as string
+      )}
+    >
+      {props.children}
+    </Label>
+  );
+}
+export function InputError({ className, ...props }: FieldErrorProps) {
+  return (
+    <FieldError className={twMerge("text-error", className as string)}>
+      {props.children}
+    </FieldError>
   );
 }
 
-const DemoString: string = `function Demo() {
+export function InputBox({ className, ...props }: InputProps) {
   return (
-    <div className="w-80">
-      <InputText placeholder="Something..." label="Label" />
-      <InputText placeholder="Something..." label="Label" state="error" />
-      <InputText placeholder="Something..." label="Label" state="success" />
-      <InputText placeholder="Something..." label="Label" state="disabled" />
-    </div>
+    <Input
+      className={twMerge(
+        twJoin(
+          "w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 my-1",
+          "text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
+          "disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
+          "invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error"
+        ),
+        className as string
+      )}
+      {...props}
+    />
   );
-}`;
+}
 
-const ButtonCodeJsx: string = `
-function InputText({
-  label,
-  placeholder,
+export interface InputFieldProps extends InputProps {
+  state?: "default" | "isInvalid" | "isDisabled";
+  label?: string;
+  isRequired?: boolean;
+  isReadOnly?: boolean;
+}
+
+export function InputField({
   state = "default",
-}) {
-  return (
-    <div>
-      <span className="text-s_textPrimary font-medium text-sm">{label}</span>
-      <input
-        type="text"
-        className={twMerge(
-          "mt-1 w-full bg-transparent text-s_textPrimary placeholder:text-s_textSecondary py-2 px-4 rounded-md border-[1px] border-s_primary focus:border-s_accent focus:outline-none focus:ring-2",
-
-          state === "disabled" && "disabled:cursor-not-allowed",
-          state === "error" &&
-            "border-s_error focus:border-s_error focus:ring-red-400/90",
-          state === "success" &&
-            "border-s_success focus:border-s_success focus:ring-green-400/90"
-        )}
-        {...(state === "disabled" && { disabled: true })}
-        placeholder={placeholder}
-      />
-    </div>
-  );
-}`;
-
-const ButtonCodeTsx = `
-function InputText({
   label,
-  placeholder,
-  state = "default",
-}: {
-  label: string;
-  placeholder: string;
-  state?: "default" | "error" | "success" | "disabled";
-}) {
+  isRequired,
+  isReadOnly,
+  ...props
+}: InputFieldProps) {
   return (
-    <div>
-      <span className="text-s_textPrimary font-medium text-sm">{label}</span>
-      <input
-        type="text"
-        className={twMerge(
-          "mt-1 w-full bg-transparent text-s_textPrimary placeholder:text-s_textSecondary py-2 px-4 rounded-md border-[1px] border-s_primary focus:border-s_accent focus:outline-none focus:ring-2",
+    <Field
+      name={props.name}
+      type={props.type}
+      className="w-80"
+      isInvalid={state === "isInvalid"}
+      isDisabled={state === "isDisabled"}
+      isReadOnly={isReadOnly}
+      isRequired={isRequired}
+    >
+      <InputLabel>{label}</InputLabel>
+      <InputBox {...props} />
+      <InputError>Error Message </InputError>
+    </Field>
+  );
+}
 
-          state === "disabled" && "disabled:cursor-not-allowed",
-          state === "error" &&
-            "border-s_error focus:border-s_error focus:ring-red-400/90",
-          state === "success" &&
-            "border-s_success focus:border-s_success focus:ring-green-400/90"
-        )}
-        {...(state === "disabled" && { disabled: true })}
-        placeholder={placeholder}
-      />
+export const StatefulInputComponent = () => {
+  return (
+    <div className="w-full flex flex-col items-center gap-6">
+      <span>
+        <ArrowHeading text="Default" className="mb-2" />
+        <InputField name="Name" type="text" placeholder="Name" label="Name" />
+      </span>
+
+      <span>
+        <ArrowHeading text="Error" className="mb-2" />
+        <InputField
+          name="Name"
+          type="text"
+          label="Name"
+          placeholder="Name"
+          state="isInvalid"
+        />
+      </span>
+
+      <span>
+        <ArrowHeading text="Disabled" className="mb-2" />
+        <InputField
+          name="Name"
+          type="text"
+          label="Name"
+          placeholder="Name"
+          state="isDisabled"
+        />
+      </span>
+
+      <span>
+        <ArrowHeading text="ReadOnly" className="mb-2" />
+        <InputField
+          name="Name"
+          type="text"
+          label="Name"
+          placeholder="Name"
+          isReadOnly
+          value={"John Doe"}
+        />
+      </span>
     </div>
   );
-}`;
-
-const Implementation: ImplementationNode[] = [
-  {
-    type: "technology_used",
-    content: ["tailwind-css", "twMerge"],
-  },
-  {
-    type: "code",
-    content: [
-      {
-        name: "InputText",
-        content: [
-          {
-            language: "tsx",
-            code: ButtonCodeTsx,
-          },
-          {
-            language: "jsx",
-            code: ButtonCodeJsx,
-          },
-        ],
-      },
-      {
-        name: "Implementation",
-        content: [
-          {
-            language: "tsx",
-            code: DemoString,
-          },
-          {
-            language: "jsx",
-            code: DemoString,
-          },
-        ],
-      },
-    ],
-  },
-];
-
-const Data: DataDescription = {
-  name: "Text Input with label",
-  description:
-    "This is a text input with label. It contains four variants - default, success, error and disabled.",
-  implementation: Implementation,
-  component: Demo(),
-  version_included: "0.0.1",
-  display: true,
 };
-export default Data;

@@ -1,56 +1,159 @@
-import { DataDescription, ImplementationNode } from "@/utils/constants";
-import { CodeJsx, CodeTsx, Pagination } from "./Pagination_2_Helper";
+"use client";
 
-function Demo() {
+import { Fragment, useState } from "react";
+import { Button, Group } from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+
+type PaginationProps = {
+  initialPage: number;
+  totalPage: number;
+  limit?: number;
+  pageChangeHandler?: (page: number) => void;
+};
+export function Pagination({
+  initialPage,
+  totalPage,
+  limit = 5,
+  pageChangeHandler,
+}: PaginationProps) {
+  const [currentPage, setCurrentPage] = useState<number>(initialPage);
+
+  const handleNext = () => {
+    if (currentPage < totalPage) pageHandler(currentPage + 1);
+  };
+  const handlePrev = () => {
+    if (currentPage > 1) pageHandler(currentPage - 1);
+  };
+
+  const pageHandler = (value: number) => {
+    setCurrentPage(value);
+    pageChangeHandler && pageChangeHandler(value);
+  };
   return (
-    <div className="w-full flex justify-center">
-      <Pagination initialPage={1} totalPage={12} />
-    </div>
+    <Group className="flex justify-center  text-primary-foreground border-[1px] border-outline  rounded-md bg-primary focus-within:ring-2 focus-within:ring-secondary">
+      <Button
+        className="w-full py-2 px-4 border-r-[1px] border-outline disabled:cursor-not-allowed disabled:text-muted-foreground  pressed:bg-secondary  rounded-l-[inherit] outline-none transition-colors duration-100 ease-linear"
+        onPress={handlePrev}
+        isDisabled={currentPage === 1}
+        slot="decrement"
+      >
+        Prev
+      </Button>
+      <SeriesButton
+        state="prev"
+        currentPage={currentPage}
+        pageHandler={pageHandler}
+        limit={limit}
+        totalPage={totalPage}
+      />
+      {new Array(limit).fill(0).map((val, index) => (
+        <Fragment key={index}>
+          {limit * Math.floor((currentPage - 1) / limit) + index + 1 <=
+            totalPage && (
+            <SoloPage
+              value={limit * Math.floor((currentPage - 1) / limit) + index + 1}
+              currentPage={currentPage}
+              pageHandler={pageHandler}
+            />
+          )}
+        </Fragment>
+      ))}
+      <SeriesButton
+        state="next"
+        currentPage={currentPage}
+        pageHandler={pageHandler}
+        limit={limit}
+        totalPage={totalPage}
+      />
+      <Button
+        className="w-full py-2 px-4 border-l-[1px] border-outline disabled:cursor-not-allowed disabled:text-muted-foreground  pressed:bg-secondary  rounded-r-[inherit] outline-none transition-colors duration-100 ease-linear"
+        onPress={handleNext}
+        isDisabled={currentPage === totalPage}
+        slot="increment"
+      >
+        Next
+      </Button>
+    </Group>
   );
 }
 
-const DemoString: string = `function Demo() {
+const SoloPage = ({
+  value,
+  currentPage,
+  pageHandler,
+}: {
+  value: number;
+  currentPage: number;
+  pageHandler: (page: number) => void;
+}) => {
   return (
-    <div className="w-full flex justify-center">
-      <Pagination initialPage={1} totalPage={12} />
-    </div>
+    <Button
+      onPress={() => pageHandler(value)}
+      className={twMerge(
+        "w-6 px-4 flex justify-center items-center hover:bg-secondary transition-colors duration-200 ease-linear",
+        value === currentPage && "bg-secondary"
+      )}
+    >
+      {value}
+    </Button>
   );
-}`;
-
-const Implementation: ImplementationNode[] = [
-  {
-    type: "technology_used",
-    content: ["tailwind-css"],
-  },
-  {
-    type: "code",
-    content: [
-      {
-        name: "Name",
-        content: [
-          { language: "tsx", code: CodeTsx },
-          { language: "jsx", code: CodeJsx },
-        ],
-      },
-      {
-        name: "Implementation",
-        content: [
-          { language: "tsx", code: DemoString },
-          { language: "jsx", code: DemoString },
-        ],
-      },
-    ],
-  },
-];
-
-const Data: DataDescription = {
-  name: "Pagination with Page Grid",
-  description:
-    "This is a pagination with page grid that is fully functional and ready to use.",
-  implementation: Implementation,
-  component: <Demo />,
-  version_included: "0.0.7",
-  display: true,
 };
 
-export default Data;
+const SeriesButton = ({
+  state,
+  currentPage,
+  limit,
+  totalPage,
+  pageHandler,
+}: {
+  state: "next" | "prev";
+  currentPage: number;
+  limit: number;
+  totalPage: number;
+  pageHandler: (page: number) => void;
+}) => {
+  return (
+    <>
+      {state === "prev" && currentPage > limit && totalPage > limit && (
+        <Button
+          onPress={() => pageHandler(Math.floor(currentPage / limit) * limit)}
+          className={twMerge(
+            "w-6 px-4 flex justify-center items-center hover:bg-secondary"
+          )}
+        >
+          ...
+        </Button>
+      )}
+      {state === "next" &&
+        Math.ceil(currentPage / limit) < Math.ceil(totalPage / limit) &&
+        totalPage > limit && (
+          <Button
+            onPress={() =>
+              pageHandler(Math.ceil(currentPage / limit) * limit + 1)
+            }
+            className={twMerge(
+              "w-6 h-full px-4 flex justify-center items-center hover:bg-secondary"
+            )}
+          >
+            ...
+          </Button>
+        )}
+    </>
+  );
+};
+
+export function PaginationImplementation() {
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  return (
+    <div className="w-full flex flex-col items-center justify-center gap-4">
+      <Pagination
+        initialPage={1}
+        totalPage={12}
+        pageChangeHandler={(val) => {
+          setCurrentPage(val);
+        }}
+      />
+      <span className="text-foreground">The current page is {currentPage}</span>
+    </div>
+  );
+}

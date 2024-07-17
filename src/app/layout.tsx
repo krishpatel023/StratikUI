@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-//FOR COMPONENTS
-import "./components.css";
 import Header from "@/components/Header";
 import { Providers } from "./provider";
 import { DEFAULT_MODE } from "@/utils/utils";
-import { flattenData } from "@/components/search/FlattenData";
+import { flattenData } from "@/scripts/FlattenData";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} scrollbar-vertical bg-background ${DEFAULT_MODE ? "dark" : null}`}
+        className={`${inter.className} scrollbar-vertical bg-white dark:bg-black ${DEFAULT_MODE ? "dark" : null}`}
         id="theme-toggle"
       >
         <Providers>

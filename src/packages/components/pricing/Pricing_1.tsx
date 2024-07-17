@@ -1,10 +1,9 @@
-import { DataDescription, ImplementationNode } from "@/utils/constants";
-
-import { Button } from "@/packages/primitives/buttons/Button_6_Helper";
+import { Button } from "@/packages/primitives/buttons/Button_2";
 import {
-  HighlightGroup,
   HighlighterItem,
-} from "@/packages/primitives/containers/Container_3_Helper";
+  HighlightGroup,
+} from "@/packages/primitives/containers/Container_3";
+
 import { IconProps } from "@/utils/constants";
 import { twMerge } from "tailwind-merge";
 
@@ -43,8 +42,8 @@ export function Pricing() {
       {PricingData.map((data, index) => (
         <div key={index} className="w-max relative">
           {data.popular && (
-            <div className="absolute -top-4 text-s_textPrimary w-full flex justify-center items-center z-50">
-              <h1 className="px-4 py-1 text-sm font-semibold rounded-full bg-s_foreground text-s_textComplementary">
+            <div className="absolute -top-4 text-primary-foreground w-full flex justify-center items-center z-50">
+              <h1 className="px-4 py-1 text-sm font-semibold rounded-full bg-foreground text-background">
                 Most Popular
               </h1>
             </div>
@@ -52,17 +51,17 @@ export function Pricing() {
           <HighlighterItem
             className={twMerge(
               " w-80 h-[27rem]",
-              data.popular && " bg-neutral-900 dark:bg-white"
+              data.popular && " bg-secondary"
             )}
           >
-            <div className="text-s_textPrimary px-8 py-6 w-full h-full flex flex-col justify-between">
+            <div className="text-primary-foreground px-8 py-6 w-full h-full flex flex-col justify-between">
               <div>
                 <h1 className="text-3xl font-medium mb-2">{data.name}</h1>
                 <h2 className="text-md mb-4">{data.description}</h2>
-                <div className="w-full h-[1px] bg-black/60 dark:bg-neutral-700 "></div>
+                <div className="w-full h-[1px] bg-outline "></div>
                 <h1 className="text-4xl font-medium mb-8 mt-6">
                   $ {data.price}{" "}
-                  <span className="text-neutral-900 dark:text-neutral-200 text-base">
+                  <span className="text-secondary-foreground text-base">
                     / Month
                   </span>
                 </h1>
@@ -77,12 +76,7 @@ export function Pricing() {
                   ))}
                 </span>
               </div>
-              <Button
-                className="w-full mt-auto px-4 py-2 text-black dark:text-white bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-md relative z-[100]"
-                clickedClassName="bg-neutral-100 dark:bg-neutral-700"
-              >
-                Get Started
-              </Button>
+              <Button variant="primary">Get Started</Button>
             </div>
           </HighlighterItem>
         </div>
@@ -108,55 +102,10 @@ export const Check = (props: IconProps) => (
   </svg>
 );
 
-function Demo() {
+export function PricingImplementation() {
   return (
     <div className="w-full min-h-[35rem] flex justify-center items-center py-10">
       <Pricing />
     </div>
   );
 }
-
-const Code: string = `
-// Add your code snippet here
-`;
-
-const DemoString: string = `
-// Add your demo code snippet here
-`;
-
-const Implementation: ImplementationNode[] = [
-  {
-    type: "technology_used",
-    content: ["tailwind-css", "twMerge"],
-  },
-  {
-    type: "code",
-    content: [
-      {
-        name: "Name",
-        content: [
-          { language: "tsx", code: Code },
-          { language: "jsx", code: Code },
-        ],
-      },
-      {
-        name: "Implementation",
-        content: [
-          { language: "tsx", code: DemoString },
-          { language: "jsx", code: DemoString },
-        ],
-      },
-    ],
-  },
-];
-
-const Data: DataDescription = {
-  name: "Pricing Group",
-  description: "Component Description",
-  implementation: Implementation,
-  component: <Demo />,
-  version_included: "0.1.1",
-  display: true,
-};
-
-export default Data;

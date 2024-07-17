@@ -1,0 +1,1456 @@
+import React, { Suspense } from 'react';
+import { Implementation, Preview, Header, Display, TechnologyUsed, Wrapper, Skeleton, PARTITION } from "@/components/mdx/MDXServerImports"
+import { CodeBlock } from "@/components/mdx/MDXClientImports"
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from src/content/docs/primitives/toasts/Toast_Main.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Toast Architecture
+### The Toast component is a versatile notification system designed to display toasts in both stacked and unstacked layouts. With support for multiple states such as success, error, warning, and info, it offers a range of customizable options including direction, visibility duration, and close type. Utilizing the useToast hook, this component allows for easy control and integration within any part of your application, ensuring a flexible and dynamic user experience. It's totally developed without any external dependencies, making it a lightweight and efficient choice for your notification needs.
+
+
+
+
+
+export const ToastImplementation_primitives_toasts_toast_main = React.lazy(() =>
+	import('@/packages/primitives/toasts/Toasts_Main')
+		.then((mod) => ({
+			default: mod.ToastImplementation
+	}))
+);
+
+
+<Header />
+<Preview> 
+
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+<ToastImplementation_primitives_toasts_toast_main />
+</Display>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge" ]}/>
+
+<CodeBlock>
+ 
+```tsx|Toast_Context
+"use client";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
+
+export type ToastProps = {
+  toastId: string;
+  state: "success" | "error" | "warning" | "info";
+  children: React.ReactNode;
+  visibility: boolean;
+  visibilityDuration?: number;
+  creationTime: number;
+  closeType: "timeout" | "manual";
+  duration: number;
+};
+
+export type ToastProviderProps = {
+  toasts: ToastProps[];
+  addToast: (value: ToastProps) => void;
+  removeToast: (id: string) => void;
+  calculateHierarchy: (toastId: string) => number | null;
+  getToast: (id: string) => ToastProps | null;
+};
+
+type ContextWrapperProps = {
+  children: React.ReactNode;
+};
+
+export const ToastContext = createContext<ToastProviderProps>({
+  toasts: [],
+  addToast: () => {},
+  removeToast: () => {},
+  calculateHierarchy: () => {
+    return null;
+  },
+  getToast: () => {
+    return null;
+  },
+});
+
+const ToastProvider: React.FC<ContextWrapperProps> = (props) => {
+  const [toasts, setToasts] = useState<ToastProps[]>([]);
+
+  const addToast = (value: ToastProps) => {
+    setToasts([...toasts, value]);
+  };
+  const removeToast = (id: string) => {
+    const newtoast = toasts.map((toast) => {
+      if (toast.toastId === id) {
+        return {
+          ...toast,
+          visibility: false,
+        };
+      } else {
+        return toast;
+      }
+    });
+    setToasts(newtoast);
+  };
+
+  const calculateHierarchy = (toastId: string) => {
+    var count: number = -1;
+    var flag = false;
+    var selfvisible = false;
+
+    toasts.forEach((toast) => {
+      if (flag === false) {
+        if (toast.visibility === true) {
+          count++;
+        }
+      }
+      if (toast.toastId === toastId) {
+        if (toast.visibility === true) {
+          flag = true;
+        } else {
+          selfvisible = true;
+        }
+      }
+    });
+
+    if (selfvisible) {
+      return null;
+    } else {
+      if (count >= 0) {
+        return count;
+      } else {
+        return null;
+      }
+    }
+  };
+
+  const getToast = (toastId: string) => {
+    const toast = toasts.find((toast) => toast.toastId === toastId);
+    if (toast) {
+      return toast;
+    } else return null;
+  };
+
+  const value: ToastProviderProps = {
+    toasts,
+    addToast,
+    removeToast,
+    calculateHierarchy,
+    getToast,
+  };
+
+  // Clear the toasts when all are closed. To avoid memory issues
+  useEffect(() => {
+    function checkAllClosed() {
+      var flag = true;
+      for (const toast of toasts) {
+        if (toast.visibility) {
+          flag = false;
+          break;
+        }
+      }
+      return flag;
+    }
+    if (toasts.length === 0) return;
+    const check = checkAllClosed();
+    if (check) setToasts([]);
+  }, [toasts]);
+
+  // -----------------------------------------------------
+  // TIMEOUT HANDLER
+  // -----------------------------------------------------
+
+  const timeoutsRef = useRef<{ [key: string]: ReturnType<typeof setTimeout> }>(
+    {}
+  );
+
+  useEffect(() => {
+    // Clear existing timeouts
+    Object.values(timeoutsRef.current).forEach(clearTimeout);
+
+    // Set new timeouts
+    const newTimeouts: { [key: string]: ReturnType<typeof setTimeout> } = {};
+    const currentTime = Date.now();
+
+    toasts.forEach((toast) => {
+      if (
+        toast.visibility &&
+        !timeoutsRef.current[toast.toastId] &&
+        toast.closeType === "timeout"
+      ) {
+        const timeElapsed = currentTime - toast.creationTime;
+        const remainingTime = toast.duration - timeElapsed;
+        if (remainingTime > 0) {
+          newTimeouts[toast.toastId] = setTimeout(
+            () => removeToast(toast.toastId),
+            remainingTime
+          );
+        } else {
+          // If time has already elapsed, remove immediately
+          removeToast(toast.toastId);
+        }
+      }
+    });
+
+    // Update timeoutsRef
+    timeoutsRef.current = newTimeouts;
+
+    return () => {
+      // Clear timeouts on component unmount
+      Object.values(timeoutsRef.current).forEach(clearTimeout);
+    };
+  }, [toasts, removeToast]);
+
+  return (
+    <ToastContext.Provider value={value}>
+      {props.children}
+    </ToastContext.Provider>
+  );
+};
+
+export const useToast = () => {
+  const context = useContext(ToastContext);
+  if (!context) {
+    throw new Error("useToast Hook must be used within the Toast Provider");
+  }
+  return context;
+};
+
+export default ToastProvider;
+```
+```jsx|Toast_Context
+"use client";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
+
+export const ToastContext = createContext({
+  toasts: [],
+  addToast: () => {},
+  removeToast: () => {},
+  calculateHierarchy: () => {
+    return null;
+  },
+  getToast: () => {
+    return null;
+  },
+});
+
+const ToastProvider = (props) => {
+  const [toasts, setToasts] = useState([]);
+
+  const addToast = (value) => {
+    setToasts([...toasts, value]);
+  };
+  const removeToast = (id) => {
+    const newtoast = toasts.map((toast) => {
+      if (toast.toastId === id) {
+        return {
+          ...toast,
+          visibility: false,
+        };
+      } else {
+        return toast;
+      }
+    });
+    setToasts(newtoast);
+  };
+
+  const calculateHierarchy = (toastId) => {
+    var count: number = -1;
+    var flag = false;
+    var selfvisible = false;
+
+    toasts.forEach((toast) => {
+      if (flag === false) {
+        if (toast.visibility === true) {
+          count++;
+        }
+      }
+      if (toast.toastId === toastId) {
+        if (toast.visibility === true) {
+          flag = true;
+        } else {
+          selfvisible = true;
+        }
+      }
+    });
+
+    if (selfvisible) {
+      return null;
+    } else {
+      if (count >= 0) {
+        return count;
+      } else {
+        return null;
+      }
+    }
+  };
+
+  const getToast = (toastId) => {
+    const toast = toasts.find((toast) => toast.toastId === toastId);
+    if (toast) {
+      return toast;
+    } else return null;
+  };
+
+  const value = {
+    toasts,
+    addToast,
+    removeToast,
+    calculateHierarchy,
+    getToast,
+  };
+
+  // Clear the toasts when all are closed. To avoid memory issues
+  useEffect(() => {
+    function checkAllClosed() {
+      var flag = true;
+      for (const toast of toasts) {
+        if (toast.visibility) {
+          flag = false;
+          break;
+        }
+      }
+      return flag;
+    }
+    if (toasts.length === 0) return;
+    const check = checkAllClosed();
+    if (check) setToasts([]);
+  }, [toasts]);
+
+  // -----------------------------------------------------
+  // TIMEOUT HANDLER
+  // -----------------------------------------------------
+
+  const timeoutsRef = useRef({});
+
+  useEffect(() => {
+    // Clear existing timeouts
+    Object.values(timeoutsRef.current).forEach(clearTimeout);
+
+    // Set new timeouts
+    const newTimeouts = {};
+    const currentTime = Date.now();
+
+    toasts.forEach((toast) => {
+      if (
+        toast.visibility &&
+        !timeoutsRef.current[toast.toastId] &&
+        toast.closeType === "timeout"
+      ) {
+        const timeElapsed = currentTime - toast.creationTime;
+        const remainingTime = toast.duration - timeElapsed;
+        if (remainingTime > 0) {
+          newTimeouts[toast.toastId] = setTimeout(
+            () => removeToast(toast.toastId),
+            remainingTime
+          );
+        } else {
+          // If time has already elapsed, remove immediately
+          removeToast(toast.toastId);
+        }
+      }
+    });
+
+    // Update timeoutsRef
+    timeoutsRef.current = newTimeouts;
+
+    return () => {
+      // Clear timeouts on component unmount
+      Object.values(timeoutsRef.current).forEach(clearTimeout);
+    };
+  }, [toasts, removeToast]);
+
+  return (
+    <ToastContext.Provider value={value}>
+      {props.children}
+    </ToastContext.Provider>
+  );
+};
+
+export const useToast = () => {
+  const context = useContext(ToastContext);
+  if (!context) {
+    throw new Error("useToast Hook must be used within the Toast Provider");
+  }
+  return context;
+};
+
+export default ToastProvider;
+```
+
+```tsx|Toast_Logic
+"use client";
+import { ButtonHTMLAttributes, useEffect, useState } from "react";
+import { twMerge } from "tailwind-merge";
+import { v4 } from "uuid";
+import ToastProvider, { ToastProps, useToast } from "./Toasts_Context";
+
+type DirectionProps = "top-left" | "top-right" | "bottom-left" | "bottom-right";
+
+function ToastGroup({
+  direction,
+  createStack,
+}: {
+  direction: DirectionProps;
+  createStack?: boolean;
+}) {
+  const { toasts } = useToast();
+
+  return (
+    <div
+      className={twMerge(
+        "absolute flex flex-col gap-4 group/toast transition-all duration-300 ease-linear",
+        direction === "top-right" && "top-4 right-4",
+        direction === "bottom-right" && "bottom-4 right-4 flex-col-reverse",
+        direction === "top-left" && "top-4 left-4",
+        direction === "bottom-left" && "bottom-4 left-4 flex-col-reverse"
+      )}
+    >
+      {toasts.map((toast) => (
+        <Toast
+          key={toast.toastId}
+          toastId={toast.toastId}
+          createStack={createStack}
+          direction={direction}
+        />
+      ))}
+    </div>
+  );
+}
+
+function Toast({
+  toastId,
+  createStack,
+  direction,
+}: {
+  toastId: string;
+  createStack?: boolean;
+  direction: DirectionProps;
+}) {
+  const gapBetweenCardsInGroup = 0.5;
+
+  const { toasts, getToast, calculateHierarchy } = useToast();
+  const toast = getToast(toastId);
+  const [hierarchy, setHierarchy] = useState<number | null>(null);
+
+  const [isEntering, setIsEntering] = useState(false);
+  const [isExiting, setIsExiting] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const index = calculateHierarchy(toastId);
+    setHierarchy(index);
+
+    if (!isOpen && toast?.visibility) {
+      setIsEntering(true);
+      setIsOpen(true);
+
+      setTimeout(() => {
+        setIsEntering(false);
+      }, 500);
+    } else if (isOpen && !toast?.visibility) {
+      setIsExiting(true);
+
+      setTimeout(() => {
+        setIsOpen(false);
+        setIsExiting(false);
+      }, 300);
+    }
+  }, [toast]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const directionDependentPositioning: {
+    [key: string]: {
+      top?: string;
+      right?: string;
+      bottom?: string;
+      left?: string;
+    };
+  } = {
+    "top-right": {
+      top: `${hierarchy !== null ? gapBetweenCardsInGroup * hierarchy : 0}rem`,
+      right: `${hierarchy !== null ? gapBetweenCardsInGroup * hierarchy : 0}rem`,
+    },
+    "bottom-right": {
+      right: `${hierarchy !== null ? gapBetweenCardsInGroup * hierarchy : 0}rem`,
+      bottom: `${hierarchy !== null ? gapBetweenCardsInGroup * hierarchy : 0}rem`,
+    },
+    "top-left": {
+      top: `${hierarchy !== null ? gapBetweenCardsInGroup * hierarchy : 0}rem`,
+      left: `${hierarchy !== null ? gapBetweenCardsInGroup * hierarchy : 0}rem`,
+    },
+    "bottom-left": {
+      left: `${hierarchy !== null ? gapBetweenCardsInGroup * hierarchy : 0}rem`,
+      bottom: `${hierarchy !== null ? gapBetweenCardsInGroup * hierarchy : 0}rem`,
+    },
+  };
+
+  return (
+    <>
+      {isOpen && (
+        <div
+          className={twMerge(
+            "overflow-hidden w-max flex flex-col justify-between group-hover/toast:static transition-all duration-300 ease-linear",
+            createStack ? "absolute" : "static",
+            direction === "top-right" || direction === "bottom-right"
+              ? "data-[entering=true]:animate-toastEntryRight data-[exiting=true]:animate-toastExit duration-200"
+              : "data-[entering=true]:animate-toastEntryLeft data-[exiting=true]:animate-toastExit duration-200"
+          )}
+          style={
+            createStack
+              ? {
+                  ...directionDependentPositioning[direction],
+                  zIndex: hierarchy !== null ? hierarchy : -1,
+                }
+              : {}
+          }
+          data-entering={isEntering}
+          data-exiting={isExiting}
+          data-open={isOpen}
+        >
+          <ToastStyling toast={toast} />
+        </div>
+      )}
+    </>
+  );
+}
+
+// This is the only that you need to change in the code if you want custom styling
+const ToastStyling = ({ toast }: { toast: ToastProps | null }) => {
+  const { removeToast } = useToast();
+
+  return (
+    <>
+      {toast && (
+        <div
+          className={twMerge(
+            "min-w-80 min-h-full rounded-md text-textPrimary flex justify-between font-semibold border-2 gap-6 py-2 px-4",
+            toast.state === "success" &&
+              "bg-success-secondary border-success text-success-foreground ",
+            toast.state === "error" &&
+              "bg-error-secondary border-error text-error-foreground",
+            toast.state === "warning" &&
+              "bg-alert-secondary border-alert text-alert-foreground",
+            toast.state === "info" &&
+              "bg-accent-secondary border-accent text-accent-foreground"
+          )}
+        >
+          {toast.children}
+          <button
+            onClick={() => removeToast(toast.toastId)}
+            className={twMerge(toast.closeType === "timeout" && "hidden")}
+          >
+            &#10005;
+          </button>
+        </div>
+      )}
+    </>
+  );
+};
+```
+```jsx|Toast_Logic
+"use client";
+import { ButtonHTMLAttributes, useEffect, useState } from "react";
+import { twMerge } from "tailwind-merge";
+import { v4 } from "uuid";
+import ToastProvider, { ToastProps, useToast } from "./Toasts_Context";
+
+
+function ToastGroup({
+  direction,
+  createStack,
+}) {
+  const { toasts } = useToast();
+
+  return (
+    <div
+      className={twMerge(
+        "absolute flex flex-col gap-4 group/toast transition-all duration-300 ease-linear",
+        direction === "top-right" && "top-4 right-4",
+        direction === "bottom-right" && "bottom-4 right-4 flex-col-reverse",
+        direction === "top-left" && "top-4 left-4",
+        direction === "bottom-left" && "bottom-4 left-4 flex-col-reverse"
+      )}
+    >
+      {toasts.map((toast) => (
+        <Toast
+          key={toast.toastId}
+          toastId={toast.toastId}
+          createStack={createStack}
+          direction={direction}
+        />
+      ))}
+    </div>
+  );
+}
+
+function Toast({
+  toastId,
+  createStack,
+  direction,
+}) {
+  const gapBetweenCardsInGroup = 0.5;
+
+  const { toasts, getToast, calculateHierarchy } = useToast();
+  const toast = getToast(toastId);
+  const [hierarchy, setHierarchy] = useState(null);
+
+  const [isEntering, setIsEntering] = useState(false);
+  const [isExiting, setIsExiting] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const index = calculateHierarchy(toastId);
+    setHierarchy(index);
+
+    if (!isOpen && toast?.visibility) {
+      setIsEntering(true);
+      setIsOpen(true);
+
+      setTimeout(() => {
+        setIsEntering(false);
+      }, 500);
+    } else if (isOpen && !toast?.visibility) {
+      setIsExiting(true);
+
+      setTimeout(() => {
+        setIsOpen(false);
+        setIsExiting(false);
+      }, 300);
+    }
+  }, [toast]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const directionDependentPositioning = {
+    "top-right": {
+      top: `${hierarchy !== null ? gapBetweenCardsInGroup * hierarchy : 0}rem`,
+      right: `${hierarchy !== null ? gapBetweenCardsInGroup * hierarchy : 0}rem`,
+    },
+    "bottom-right": {
+      right: `${hierarchy !== null ? gapBetweenCardsInGroup * hierarchy : 0}rem`,
+      bottom: `${hierarchy !== null ? gapBetweenCardsInGroup * hierarchy : 0}rem`,
+    },
+    "top-left": {
+      top: `${hierarchy !== null ? gapBetweenCardsInGroup * hierarchy : 0}rem`,
+      left: `${hierarchy !== null ? gapBetweenCardsInGroup * hierarchy : 0}rem`,
+    },
+    "bottom-left": {
+      left: `${hierarchy !== null ? gapBetweenCardsInGroup * hierarchy : 0}rem`,
+      bottom: `${hierarchy !== null ? gapBetweenCardsInGroup * hierarchy : 0}rem`,
+    },
+  };
+
+  return (
+    <>
+      {isOpen && (
+        <div
+          className={twMerge(
+            "overflow-hidden w-max flex flex-col justify-between group-hover/toast:static transition-all duration-300 ease-linear",
+            createStack ? "absolute" : "static",
+            direction === "top-right" || direction === "bottom-right"
+              ? "data-[entering=true]:animate-toastEntryRight data-[exiting=true]:animate-toastExit duration-200"
+              : "data-[entering=true]:animate-toastEntryLeft data-[exiting=true]:animate-toastExit duration-200"
+          )}
+          style={
+            createStack
+              ? {
+                  ...directionDependentPositioning[direction],
+                  zIndex: hierarchy !== null ? hierarchy : -1,
+                }
+              : {}
+          }
+          data-entering={isEntering}
+          data-exiting={isExiting}
+          data-open={isOpen}
+        >
+          <ToastStyling toast={toast} />
+        </div>
+      )}
+    </>
+  );
+}
+
+// This is the only that you need to change in the code if you want custom styling
+const ToastStyling = ({ toast }) => {
+  const { removeToast } = useToast();
+
+  return (
+    <>
+      {toast && (
+        <div
+          className={twMerge(
+            "min-w-80 min-h-full rounded-md text-textPrimary flex justify-between font-semibold border-2 gap-6 py-2 px-4",
+            toast.state === "success" &&
+              "bg-success-secondary border-success text-success-foreground ",
+            toast.state === "error" &&
+              "bg-error-secondary border-error text-error-foreground",
+            toast.state === "warning" &&
+              "bg-alert-secondary border-alert text-alert-foreground",
+            toast.state === "info" &&
+              "bg-accent-secondary border-accent text-accent-foreground"
+          )}
+        >
+          {toast.children}
+          <button
+            onClick={() => removeToast(toast.toastId)}
+            className={twMerge(toast.closeType === "timeout" && "hidden")}
+          >
+            &#10005;
+          </button>
+        </div>
+      )}
+    </>
+  );
+};
+```
+
+```tsx|Implementation
+const ToastDemo = () => {
+
+  const { addToast } = useToast();
+  const createToasts = () => {
+    addToast({
+      toastId: v4(),
+      state: state,
+      children: <h1>Hello</h1>,
+      visibility: true,
+      creationTime: Date.now(),
+      closeType: closeType,
+      duration: 5000,
+    });
+  };
+
+  return (
+    <div className="w-full flex flex-col items-center gap-8 text-foreground">
+      <ToastGroup direction={direction} createStack={createStack} />
+      <Button onClick={() => createToasts()} className="w-60">
+        Create Toast
+      </Button>
+    </div>
+  );
+};
+
+export const ToastImplementation = () => {
+  return (
+    <ToastProvider>
+        <ToastDemo />
+    </ToastProvider>
+  );
+};
+```
+```jsx|Implementation
+const ToastDemo = () => {
+
+  const { addToast } = useToast();
+  const createToasts = () => {
+    addToast({
+      toastId: v4(),
+      state: state,
+      children: <h1>Hello</h1>,
+      visibility: true,
+      creationTime: Date.now(),
+      closeType: closeType,
+      duration: 5000,
+    });
+  };
+
+  return (
+    <div className="w-full flex flex-col items-center gap-8 text-foreground">
+      <ToastGroup direction={direction} createStack={createStack} />
+      <Button onClick={() => createToasts()} className="w-60">
+        Create Toast
+      </Button>
+    </div>
+  );
+};
+
+export const ToastImplementation = () => {
+  return (
+    <ToastProvider>
+        <ToastDemo />
+    </ToastProvider>
+  );
+};
+```
+
+```ts|tailwind.config
+import type { Config } from "tailwindcss";
+const config: Config = {
+  theme: {
+    extend: {
+      animation: {
+        toastEntryRight: "toastEntryRight 0.2s linear",
+        toastEntryLeft: "toastEntryLeft 0.2s linear",
+        toastExit: "toastExit 0.5s forwards",
+      },
+      keyframes: {
+
+        toastEntryRight: {
+          "0%": {
+            transform: "translateX(100%)",
+          },
+          "100%": {
+            transform: "translateX(0%)",
+          },
+        },
+        toastEntryLeft: {
+          "0%": {
+            transform: "translateX(-100%)",
+          },
+          "100%": {
+            transform: "translateX(0%)",
+          },
+        },
+        toastExit: {
+          "0%": {
+            opacity: "1",
+          },
+          "100%": {
+            opacity: "0",
+          },
+        }
+      },
+    },
+  },
+};
+export default config;
+```
+
+```js|tailwind.config
+const config = {
+  theme: {
+    extend: {
+      animation: {
+        toastEntryRight: "toastEntryRight 0.2s linear",
+        toastEntryLeft: "toastEntryLeft 0.2s linear",
+        toastExit: "toastExit 0.5s forwards",
+      },
+      keyframes: {
+
+        toastEntryRight: {
+          "0%": {
+            transform: "translateX(100%)",
+          },
+          "100%": {
+            transform: "translateX(0%)",
+          },
+        },
+        toastEntryLeft: {
+          "0%": {
+            transform: "translateX(-100%)",
+          },
+          "100%": {
+            transform: "translateX(0%)",
+          },
+        },
+        toastExit: {
+          "0%": {
+            opacity: "1",
+          },
+          "100%": {
+            opacity: "0",
+          },
+        }
+      },
+    },
+  },
+};
+export default config;
+```
+
+
+</CodeBlock>
+
+
+## ToastProps
+
+| Name               | Type                                 | Description                                           |
+|--------------------|--------------------------------------|-------------------------------------------------------|
+| `toastId`          | `string`                             | Unique identifier for the toast.                      |
+| `state`            | `"success" \| "error" \| "warning" \| "info"` | The state of the toast indicating its type.           |
+| `children`         | `React.ReactNode`                    | The content to be displayed inside the toast.         |
+| `visibility`       | `boolean`                            | Whether the toast is currently visible.               |
+| `visibilityDuration`| `number` (optional)                  | Duration in milliseconds for how long the toast is visible. |
+| `creationTime`     | `number`                             | The timestamp when the toast was created.             |
+| `closeType`        | `"timeout" \| "manual"`              | The method by which the toast will be closed.         |
+| `duration`         | `number`                             | The duration in milliseconds for how long the toast will be visible before closing. |
+
+## ToastProviderProps
+
+| Name               | Type                                   | Description                                           |
+|--------------------|----------------------------------------|-------------------------------------------------------|
+| `toasts`           | `ToastProps[]`                         | An array of `ToastProps` representing all toasts.     |
+| `addToast`         | `(value: ToastProps) => void`          | Function to add a new toast.                          |
+| `removeToast`      | `(id: string) => void`                 | Function to remove a toast by its ID.                 |
+| `calculateHierarchy` | `(toastId: string) => number \| null` | Function to calculate the hierarchy of a toast.      |
+| `getToast`         | `(id: string) => ToastProps \| null`   | Function to get a specific toast by its ID.           |
+
+## ToastGroup Props
+
+| Name            | Type                           | Description                                            |
+|-----------------|--------------------------------|--------------------------------------------------------|
+| `direction`     | `top-left` \| `top-right` \| `bottom-left` \| `bottom-right`           | The direction in which to display the toast group.     |
+| `createStack`   | `boolean` (optional)           | Whether to create a stack of toasts.                   |
+
+## Toast Props
+
+| Name            | Type                           | Description                                            |
+|-----------------|--------------------------------|--------------------------------------------------------|
+| `toastId`       | `string`                       | Unique identifier for the toast.                       |
+| `createStack`   | `boolean` (optional)           | Whether to create a stack of toasts.                   |
+| `direction`     | `top-left` \| `top-right` \| `bottom-left` \| `bottom-right`              | The direction in which to display the toast.           |
+
+## ToastStyling Props
+
+| Name  | Type                 | Description                    |
+|-------|----------------------|--------------------------------|
+| `toast` | `ToastProps \| null` | The toast object to be styled.  |
+
+
+</Implementation>
+</Wrapper>
+<PARTITION />
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from src/content/docs/primitives/toasts/Toast_Style_1.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Toast style with text state indication
+### This is just the styling component changes of the toast. You can copy the entire code above and replace that styling with the code in the current component.
+
+
+
+
+
+export const ToastStyleImplementation_primitives_toasts_toast_style_1 = React.lazy(() =>
+	import('@/packages/primitives/toasts/Toasts_1')
+		.then((mod) => ({
+			default: mod.ToastStyleImplementation
+	}))
+);
+
+
+<Header />
+<Preview> 
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+<ToastStyleImplementation_primitives_toasts_toast_style_1 />
+</Display>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge" ]}/>
+
+<CodeBlock>
+ 
+```tsx|Toast_Style
+const ToastStyling = ({ toast }: { toast: ToastProps | null }) => {
+  const { removeToast } = useToast();
+
+  return (
+    <>
+      {toast && (
+        <div
+          className={twMerge(
+            "min-w-80 min-h-full rounded-md text-textPrimary flex justify-between items-center font-semibold border-2 border-outline gap-6 py-2 px-4 bg-primary",
+            toast.state === "success" && "text-success ",
+            toast.state === "error" && "text-error ",
+            toast.state === "warning" && "text-alert ",
+            toast.state === "info" && "text-accent "
+          )}
+        >
+          <span className="flex items-center gap-3">
+            {toast.state === "success" && <Icon.success className="w-5 h-5" />}
+            {toast.state === "info" && <Icon.info className="w-5 h-5" />}
+            {toast.state === "warning" && <Icon.warning className="w-5 h-5" />}
+            {toast.state === "error" && <Icon.error className="w-5 h-5" />}
+
+            {toast.children}
+          </span>
+          <button
+            onClick={() => removeToast(toast.toastId)}
+            className={twMerge(toast.closeType === "timeout" && "hidden")}
+          >
+            &#10005;
+          </button>
+        </div>
+      )}
+    </>
+  );
+};
+
+const Icon = {
+  info: (props: IconProps) => (
+    <svg
+      strokeWidth="1.5"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M12 11.5V16.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        {...props}
+      ></path>
+      <path
+        d="M12 7.51L12.01 7.49889"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+      <path
+        d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+    </svg>
+  ),
+  success: (props: IconProps) => (
+    <svg
+      strokeWidth="1.5"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M7 12.5L10 15.5L17 8.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+      <path
+        d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+    </svg>
+  ),
+  error: (props: IconProps) => (
+    <svg
+      strokeWidth="1.5"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M9.17218 14.8284L12.0006 12M14.829 9.17157L12.0006 12M12.0006 12L9.17218 9.17157M12.0006 12L14.829 14.8284"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+      <path
+        d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+    </svg>
+  ),
+  warning: (props: IconProps) => (
+    <svg
+      strokeWidth="1.5"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M12 7L12 13"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+      <path
+        d="M12 17.01L12.01 16.9989"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+      <path
+        d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+    </svg>
+  ),
+};
+```
+```jsx|Toast_Style
+const ToastStyling = ({ toast }) => {
+  const { removeToast } = useToast();
+
+  return (
+    <>
+      {toast && (
+        <div
+          className={twMerge(
+            "min-w-80 min-h-full rounded-md text-textPrimary flex justify-between items-center font-semibold border-2 border-outline gap-6 py-2 px-4 bg-primary",
+            toast.state === "success" && "text-success ",
+            toast.state === "error" && "text-error ",
+            toast.state === "warning" && "text-alert ",
+            toast.state === "info" && "text-accent "
+          )}
+        >
+          <span className="flex items-center gap-3">
+            {toast.state === "success" && <Icon.success className="w-5 h-5" />}
+            {toast.state === "info" && <Icon.info className="w-5 h-5" />}
+            {toast.state === "warning" && <Icon.warning className="w-5 h-5" />}
+            {toast.state === "error" && <Icon.error className="w-5 h-5" />}
+
+            {toast.children}
+          </span>
+          <button
+            onClick={() => removeToast(toast.toastId)}
+            className={twMerge(toast.closeType === "timeout" && "hidden")}
+          >
+            &#10005;
+          </button>
+        </div>
+      )}
+    </>
+  );
+};
+
+const Icon = {
+  info: (props) => (
+    <svg
+      strokeWidth="1.5"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M12 11.5V16.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        {...props}
+      ></path>
+      <path
+        d="M12 7.51L12.01 7.49889"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+      <path
+        d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+    </svg>
+  ),
+  success: (props) => (
+    <svg
+      strokeWidth="1.5"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M7 12.5L10 15.5L17 8.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+      <path
+        d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+    </svg>
+  ),
+  error: (props) => (
+    <svg
+      strokeWidth="1.5"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M9.17218 14.8284L12.0006 12M14.829 9.17157L12.0006 12M12.0006 12L9.17218 9.17157M12.0006 12L14.829 14.8284"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+      <path
+        d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+    </svg>
+  ),
+  warning: (props) => (
+    <svg
+      strokeWidth="1.5"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M12 7L12 13"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+      <path
+        d="M12 17.01L12.01 16.9989"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+      <path
+        d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+    </svg>
+  ),
+};
+```
+
+</CodeBlock>
+
+
+</Implementation>
+</Wrapper>
+<PARTITION />
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from src/content/docs/primitives/toasts/Toast_Style_2.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Toast notification
+### It shows how you can integrate the notification like UI with the toast architecture. This is just the styling component changes of the toast. You can copy the entire code above and replace that styling with the code in the current component.
+
+
+
+
+
+export const NotificationDesignImplementation_primitives_toasts_toast_style_2 = React.lazy(() =>
+	import('@/packages/primitives/toasts/Toasts_2')
+		.then((mod) => ({
+			default: mod.NotificationDesignImplementation
+	}))
+);
+
+
+<Header />
+<Preview> 
+
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+<NotificationDesignImplementation_primitives_toasts_toast_style_2 />
+</Display>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge" ]}/>
+
+<CodeBlock>
+ 
+```tsx|Implementation
+function ToastDemo() {
+  const { addToast } = useToast();
+  const createToasts = () => {
+    addToast({
+      toastId: v4(),
+      state: "success",
+      children: <>{NotificationDesign}</>, // [!code highlight]
+      visibility: true,
+      creationTime: Date.now(),
+      closeType: "timeout",
+      duration: 5000,
+    });
+  };
+
+  return (
+    <div>
+      <ToastGroup direction={direction} createStack={createStack} />
+    </div>
+  );
+}
+
+const NotificationDesign = (
+  <div className="flex gap-6 py-4 px-4 text-primary-foreground bg-primary border-2 border-outline-secondary rounded-lg">
+    <div className="mt-1 ">
+      <svg
+        width="24px"
+        height="24px"
+        strokeWidth="1.5"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        color="currentColor"
+      >
+        <path
+          d="M18 8.4C18 6.70261 17.3679 5.07475 16.2426 3.87452C15.1174 2.67428 13.5913 2 12 2C10.4087 2 8.88258 2.67428 7.75736 3.87452C6.63214 5.07475 6 6.70261 6 8.4C6 15.8667 3 18 3 18H21C21 18 18 15.8667 18 8.4Z"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        ></path>
+        <path
+          d="M13.73 21C13.5542 21.3031 13.3019 21.5547 12.9982 21.7295C12.6946 21.9044 12.3504 21.9965 12 21.9965C11.6496 21.9965 11.3054 21.9044 11.0018 21.7295C10.6982 21.5547 10.4458 21.3031 10.27 21"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        ></path>
+      </svg>
+    </div>
+    <div className="flex flex-col gap-2 items-start justify-start">
+      <h1 className="font-medium text-lg">App Notification</h1>
+      <h3 className=" text-base">
+        {
+          "Notification that you want to be displayed. Please Don't make it annoying."
+        }
+      </h3>
+      <span className="flex gap-4">
+        <button className="text-accent hover:underline">Allow</button>
+        <button className="text-accent hover:underline">{"Don't Allow"}</button>
+      </span>
+    </div>
+  </div>
+);
+```
+
+```jsx|Implementation
+function ToastDemo() {
+  const { addToast } = useToast();
+  const createToasts = () => {
+    addToast({
+      toastId: v4(),
+      state: "success",
+      children: <>{NotificationDesign}</>, // [!code highlight]
+      visibility: true,
+      creationTime: Date.now(),
+      closeType: "timeout",
+      duration: 5000,
+    });
+  };
+
+  return (
+    <div>
+      <ToastGroup direction={direction} createStack={createStack} />
+    </div>
+  );
+}
+
+const NotificationDesign = (
+  <div className="flex gap-6 py-4 px-4 text-primary-foreground bg-primary border-2 border-outline-secondary rounded-lg">
+    <div className="mt-1 ">
+      <svg
+        width="24px"
+        height="24px"
+        strokeWidth="1.5"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        color="currentColor"
+      >
+        <path
+          d="M18 8.4C18 6.70261 17.3679 5.07475 16.2426 3.87452C15.1174 2.67428 13.5913 2 12 2C10.4087 2 8.88258 2.67428 7.75736 3.87452C6.63214 5.07475 6 6.70261 6 8.4C6 15.8667 3 18 3 18H21C21 18 18 15.8667 18 8.4Z"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        ></path>
+        <path
+          d="M13.73 21C13.5542 21.3031 13.3019 21.5547 12.9982 21.7295C12.6946 21.9044 12.3504 21.9965 12 21.9965C11.6496 21.9965 11.3054 21.9044 11.0018 21.7295C10.6982 21.5547 10.4458 21.3031 10.27 21"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        ></path>
+      </svg>
+    </div>
+    <div className="flex flex-col gap-2 items-start justify-start">
+      <h1 className="font-medium text-lg">App Notification</h1>
+      <h3 className=" text-base">
+        {
+          "Notification that you want to be displayed. Please Don't make it annoying."
+        }
+      </h3>
+      <span className="flex gap-4">
+        <button className="text-accent hover:underline">Allow</button>
+        <button className="text-accent hover:underline">{"Don't Allow"}</button>
+      </span>
+    </div>
+  </div>
+);
+```
+
+</CodeBlock>
+
+
+</Implementation>
+</Wrapper>
+<PARTITION />

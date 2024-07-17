@@ -1,10 +1,18 @@
 "use client";
 
-// import useClickOutside from "@/hooks/ClickOutside";
-import useClickOutside from "@/packages/hooks/code/useClickOutside";
+import useClickOutside from "@/packages/hooks/useClickOutside/useClickOutside";
 import { IconProps } from "@/utils/constants";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { twMerge } from "tailwind-merge";
+
+export interface HeaderDrawerProps {
+  direction?: "left" | "right" | "top";
+  cover?: "full" | "half";
+  children: React.ReactNode;
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  className?: string;
+}
 
 export const HeaderDrawer = ({
   direction = "top",
@@ -13,14 +21,7 @@ export const HeaderDrawer = ({
   open,
   setOpen,
   className,
-}: {
-  direction?: "left" | "right" | "top";
-  cover?: "full" | "half";
-  children: React.ReactNode;
-  open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  className?: string;
-}) => {
+}: HeaderDrawerProps) => {
   const ref = useRef(null);
   useClickOutside(ref, () => setOpen(false));
 

@@ -2,8 +2,8 @@
 
 import { useInternalState } from "@/hooks/useInternalState";
 import { useSearch } from "@/hooks/useSearch";
-import useClickOutside from "@/packages/hooks/code/useClickOutside";
-import useDisableScroll from "@/packages/hooks/code/useDisableScroll";
+import useClickOutside from "@/packages/hooks/useClickOutside/useClickOutside";
+import useDisableScroll from "@/packages/hooks/useDisableScroll/useDisableScroll";
 // import { ContainerGlassEffect } from "@/packages/primitives/containers/Container_6";
 
 const ContainerGlassEffect = dynamic(() =>
@@ -15,12 +15,12 @@ const ContainerGlassEffect = dynamic(() =>
 import {
   KeyListener,
   KeyListenerDisplay,
-} from "@/packages/primitives/key_listener/KeyListener_Helper";
+} from "@/packages/primitives/key_listener/KeyListener";
 import { IconProps } from "@/utils/constants";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { FlattenedItem } from "./FlattenData";
+import { FlattenedItem } from "../../scripts/FlattenData";
 import dynamic from "next/dynamic";
 
 // WRAPPER COMPONENT

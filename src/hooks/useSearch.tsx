@@ -1,5 +1,5 @@
 "use client";
-import { FlattenedItem } from "@/components/search/FlattenData";
+import { FlattenedItem } from "@/scripts/FlattenData";
 import { useMemo } from "react";
 
 type SearchOptions = {

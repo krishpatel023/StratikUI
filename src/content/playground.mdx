@@ -1,0 +1,82 @@
+{/* 
+----------------------------------------------------------------------------------------- 
+NOTE : DO NOT PUSH THIS PAGE IF YOU HAVE MADE ANY CHANGES THAN RESTORE IT.
+
+- This is a dummy page for fast development. Can Start the development process here.
+- It will update in realtime unkike the pages in Docs that you will need to build.
+- Once the development is completed, move the code to the docs in the content folder only. 
+- Then Build once to generate the docs in the app directory. DO NOT CHANGE ANYTHING THERE DIRECTLY. 
+- Once everyting is complete - RESTORE THIS PAGE (DO NOT PUSH !) 
+----------------------------------------------------------------------------------------- 
+*/}
+
+import { Implementation, Preview, Display, Header, TechnologyUsed, Wrapper } from "@/components/mdx/MDXServerImports"
+import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
+
+
+export const Data = {
+    name: "Title",
+    tags: [],
+    description: "Description",
+    version_included: "0.2.0",
+    display: true
+}
+
+{/* 
+NOTE: Please reed the following details carefully
+
+- Anything you write will go inside this. IMPORTS ALSO
+- Anything outside it will be removed in AUTOGENERATION 
+
+*/}
+
+<Wrapper>
+
+<Header />
+<Preview> 
+
+<ResizableDisplay>
+    {/* YOUR SPECIFIC COMPONENT THAT YOU WILL IMPORT FROM PACKAGES */}
+</ResizableDisplay>
+
+{/* FOR PRIMITIVES */}
+<Display>
+    {/* YOUR SPECIFIC COMPONENT THAT YOU WILL IMPORT FROM PACKAGES */}
+</Display>
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "framer-motion", "twMerge", "uuid", "cuid2" , "react-aria" ]}/>
+
+<CodeBlock> 
+```tsx|Name1
+console.log("NAME-1-TSX");
+```
+```jsx|Name1
+console.log("NAME-1-JSX");
+```
+
+```tsx|Name2
+console.log("NAME-2-TSX");
+```
+```jsx|Name2
+console.log("NAME-2-JSX");
+```
+</CodeBlock>
+
+
+This is an example message where I am linking the [React Aria Doc's](https://react-spectrum.adobe.com/react-aria/)
+
+## Table Heading
+
+| Prop Name    | Type           | Description       |
+| ------------ | ---------------| ------------------|
+|              |                |                   |
+
+
+</Implementation>
+
+</Wrapper>

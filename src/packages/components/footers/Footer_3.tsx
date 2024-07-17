@@ -1,9 +1,5 @@
-import { Mode } from "@/packages/primitives/theme_toggles/Theme_Toggle_1_Helper";
-import {
-  DataDescription,
-  IconProps,
-  ImplementationNode,
-} from "@/utils/constants";
+import { ThemeToggle } from "@/packages/primitives/theme_toggles/Theme_Toggle_1";
+import { IconProps } from "@/utils/constants";
 
 type LinkColProps = {
   title: string;
@@ -50,10 +46,10 @@ function Footer() {
     },
   ];
   return (
-    <div className="w-full px-4 @md:px-16 py-12  text-black dark:text-white grid grid-cols-4 gap-12">
+    <div className="w-full px-4 @md:px-16 py-12  text-foreground grid grid-cols-4 gap-12">
       <div className="col-span-4 flex flex-col gap-4 items-center text-center @md:items-start @md:text-start">
         <h1 className="text-2xl font-semibold">Stratik / UI</h1>
-        <span className="text-neutral-600 dark:text-neutral-400">
+        <span className="text-secondary-foreground">
           This is the best UI library in the world. This claim is backed by the
           community and John Doe. Build something awesome.
         </span>
@@ -68,7 +64,7 @@ function Footer() {
           {data.links.map((link) => (
             <a
               href={link.link}
-              className="text-neutral-600 dark:text-neutral-400 hover:text-blue-500 cursor-pointer text-sm"
+              className="text-secondary-foreground hover:text-accent cursor-pointer text-sm"
               key={link.title}
             >
               {link.title}
@@ -76,13 +72,13 @@ function Footer() {
           ))}
         </div>
       ))}
-      <div className="col-span-4 min-w-full bg-neutral-300 dark:bg-neutral-800 min-h-[1px]"></div>
+      <div className="col-span-4 min-w-full bg-outline-secondary min-h-px"></div>
       <div className="col-span-4 flex flex-col @md:flex-row justify-center @md:justify-between gap-8 items-center">
-        <div className="flex flex-col justify-center @md:items-start items-center text-center text-black dark:text-white">
+        <div className="flex flex-col justify-center @md:items-start items-center text-center text-foreground">
           <span>© 2024 Stratik UI. All rights reserved.</span>
         </div>
         <div>
-          <Mode />
+          <ThemeToggle />
         </div>
       </div>
     </div>
@@ -92,25 +88,24 @@ function Footer() {
 function SocialMedia() {
   return (
     <div className="flex gap-2">
-      <div className="w-8 h-8 p-1 rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-700 text-black dark:text-white flex justify-center items-center  cursor-pointer">
+      <div className="w-8 h-8 p-1 rounded-lg hover:bg-secondary text-foreground flex justify-center items-center  cursor-pointer transition-all duration-300 hover:-translate-y-1">
         <Icons.Instagram className="w-6 h-6" />
       </div>
-      <div className="w-8 h-8 p-1 rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-700 text-black dark:text-white flex justify-center items-center cursor-pointer">
+      <div className="w-8 h-8 p-1 rounded-lg hover:bg-secondary text-foreground flex justify-center items-center cursor-pointer transition-all duration-300 hover:-translate-y-1">
         <Icons.Facebook className="w-6 h-6" />
       </div>
-      <div className="w-8 h-8 p-1 rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-700 text-black dark:text-white flex justify-center items-center cursor-pointer">
+      <div className="w-8 h-8 p-1 rounded-lg hover:bg-secondary text-foreground flex justify-center items-center cursor-pointer transition-all duration-300 hover:-translate-y-1">
         <Icons.X className="w-5 h-5" />
       </div>{" "}
-      <div className="w-8 h-8 p-1 rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-700 text-black dark:text-white flex justify-center items-center cursor-pointer">
+      <div className="w-8 h-8 p-1 rounded-lg hover:bg-secondary text-foreground flex justify-center items-center cursor-pointer transition-all duration-300 hover:-translate-y-1">
         <Icons.Mail className="w-6 h-6" />
       </div>
-      <div className="w-8 h-8 p-1 rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-700 text-black dark:text-white flex justify-center items-center cursor-pointer">
+      <div className="w-8 h-8 p-1 rounded-lg hover:bg-secondary text-foreground flex justify-center items-center cursor-pointer transition-all duration-300 hover:-translate-y-1">
         <Icons.Github className="w-5 h-5" />
       </div>
     </div>
   );
 }
-
 const Icons = {
   Instagram: (props: IconProps) => (
     <svg
@@ -190,55 +185,10 @@ const Icons = {
   ),
 };
 
-function Demo() {
+export function FooterImplementation() {
   return (
     <div className="w-full">
       <Footer />
     </div>
   );
 }
-
-const Code: string = `
-  // Add your code snippet here
-  `;
-
-const DemoString: string = `
-  // Add your demo code snippet here
-  `;
-
-const Implementation: ImplementationNode[] = [
-  {
-    type: "technology_used",
-    content: ["tailwind-css", "twMerge"],
-  },
-  {
-    type: "code",
-    content: [
-      {
-        name: "Name",
-        content: [
-          { language: "tsx", code: Code },
-          { language: "jsx", code: Code },
-        ],
-      },
-      {
-        name: "Implementation",
-        content: [
-          { language: "tsx", code: DemoString },
-          { language: "jsx", code: DemoString },
-        ],
-      },
-    ],
-  },
-];
-
-const Data: DataDescription = {
-  name: "Default Footer",
-  description: "Component Description",
-  implementation: Implementation,
-  component: <Demo />,
-  version_included: "0.1.1",
-  display: true,
-};
-
-export default Data;

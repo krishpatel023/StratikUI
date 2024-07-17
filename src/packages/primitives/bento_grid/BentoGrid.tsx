@@ -1,4 +1,3 @@
-import { DataDescription, ImplementationNode } from "@/utils/constants";
 import { twMerge } from "tailwind-merge";
 
 function BentoGrid({
@@ -21,6 +20,7 @@ function BentoGrid({
         "grid gap-4 [grid-template-columns:var(--sm-grid)] @md:[grid-template-columns:var(--md-grid)] transition-all duration-300",
         className
       )}
+      role="grid"
       style={styles}
     >
       {children}
@@ -44,9 +44,11 @@ function BentoGridItem({
   return (
     <div
       className={twMerge(
-        "min-h-80 border border-neutral-400 dark:border-neutral-800 rounded-md [grid-column:var(--sm-grid)] @md:[grid-column:var(--md-grid)] hover:scale-[1.03] transition-all duration-300 dark:text-neutral-300",
+        "min-h-80 border border-outline rounded-md [grid-column:var(--sm-grid)] @md:[grid-column:var(--md-grid)] hover:scale-[1.03] transition-all duration-300 text-secondary-foreground",
         className
       )}
+      aria-label="bento grid item"
+      role="gridcell"
       style={styles}
     >
       {children}
@@ -54,7 +56,13 @@ function BentoGridItem({
   );
 }
 
-function Demo() {
+const Grayscale = () => {
+  return (
+    <div className="w-full h-2/3 bg-gradient-to-br from-neutral-300 to-neutral-200 dark:from-neutral-900 dark:to-neutral-800 rounded-md"></div>
+  );
+};
+
+export function BentoGridImplementation() {
   return (
     <div className="w-full flex justify-center items-center min-h-80">
       <BentoGrid span={3} className="w-[90%]">
@@ -85,53 +93,3 @@ function Demo() {
     </div>
   );
 }
-
-const Grayscale = () => {
-  return (
-    <div className="w-full h-2/3 bg-gradient-to-br from-neutral-300 to-neutral-200 dark:from-neutral-900 dark:to-neutral-800 rounded-md"></div>
-  );
-};
-const Code: string = `
-// Add your code snippet here
-`;
-
-const DemoString: string = `
-// Add your demo code snippet here
-`;
-
-const Implementation: ImplementationNode[] = [
-  {
-    type: "technology_used",
-    content: ["tailwind-css", "twMerge"],
-  },
-  {
-    type: "code",
-    content: [
-      {
-        name: "Name",
-        content: [
-          { language: "tsx", code: Code },
-          { language: "jsx", code: Code },
-        ],
-      },
-      {
-        name: "Implementation",
-        content: [
-          { language: "tsx", code: DemoString },
-          { language: "jsx", code: DemoString },
-        ],
-      },
-    ],
-  },
-];
-
-const Data: DataDescription = {
-  name: "Default Bento Grid",
-  description: "Component Description",
-  implementation: Implementation,
-  component: <Demo />,
-  version_included: "0.11",
-  display: true,
-};
-
-export default Data;

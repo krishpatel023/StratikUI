@@ -1,0 +1,202 @@
+import { Implementation, Preview, Display, TechnologyUsed, Wrapper, ImportsWrapper } from "@/components/mdx/MDXServerImports"
+import { CodeBlock } from "@/components/mdx/MDXClientImports"
+
+
+export const Data = {
+  name: "useScrollbar",
+  tags: [],
+  description: "The useScrollbar is a React hook that provides an easy way to track scroll position and direction of an HTML element or the entire document. It returns an object with scrollPosition, directionX, and directionY properties, allowing for seamless implementation of scroll-based behaviors.",
+  version_included: "0.2.0",
+  display: true
+}
+
+<Wrapper>
+
+<ImportsWrapper>
+import {Demo} from "@/packages/hooks/useScrollbar/Demo.tsx"
+
+</ImportsWrapper>
+
+<CodeBlock> 
+
+```tsx|useScrollbar
+"use client";
+import { useState, useEffect, useCallback } from "react";
+
+const useScrollbar = (
+  elementIdOrRef?: string | React.RefObject<HTMLElement>
+) => {
+  const [scrollPosition, setScrollPosition] = useState({ x: 0, y: 0 });
+  const [directionX, setDirectionX] = useState<boolean | null>(null);
+  const [directionY, setDirectionY] = useState<boolean | null>(null);
+
+  const handleScroll = useCallback(() => {
+    const element = getElement();
+    if (element) {
+      const xpos = parseFloat(window.scrollX.toFixed(2));
+      const ypos = parseFloat(window.scrollY.toFixed(2));
+      const prevXpos = scrollPosition.x;
+      const prevYpos = scrollPosition.y;
+      if (prevXpos <= xpos) setDirectionX(true);
+      else setDirectionX(false);
+      if (prevYpos <= ypos) setDirectionY(true);
+      else setDirectionY(false);
+      setScrollPosition({ x: xpos, y: ypos });
+    }
+  }, [scrollPosition]);
+
+  const getElement = () => {
+    if (elementIdOrRef && typeof elementIdOrRef === "string")
+      return document.getElementById(elementIdOrRef);
+    else if (elementIdOrRef && typeof elementIdOrRef === "object")
+      return elementIdOrRef.current;
+    else return document.documentElement || document.body;
+  };
+
+  useEffect(() => {
+    const element = getElement();
+    const handleScrollEvent = () => handleScroll();
+
+    if (element === document.documentElement || element === document.body) {
+      window.addEventListener("scroll", handleScrollEvent, { passive: true });
+      return () => {
+        window.removeEventListener("scroll", handleScrollEvent);
+      };
+    } else if (element) {
+      element.addEventListener("scroll", handleScroll, { passive: true });
+      return () => {
+        element.removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, [handleScroll]);
+
+  return { scrollPosition, directionX, directionY };
+};
+
+export default useScrollbar;
+```
+
+```jsx|useScrollbar
+"use client";
+import { useState, useEffect, useCallback } from "react";
+
+const useScrollbar = (elementIdOrRef) => {
+  const [scrollPosition, setScrollPosition] = useState({ x: 0, y: 0 });
+  const [directionX, setDirectionX] = useState(null);
+  const [directionY, setDirectionY] = useState(null);
+
+  const handleScroll = useCallback(() => {
+    const element = getElement();
+    if (element) {
+      const xpos = parseFloat(window.scrollX.toFixed(2));
+      const ypos = parseFloat(window.scrollY.toFixed(2));
+      const prevXpos = scrollPosition.x;
+      const prevYpos = scrollPosition.y;
+      if (prevXpos <= xpos) setDirectionX(true);
+      else setDirectionX(false);
+      if (prevYpos <= ypos) setDirectionY(true);
+      else setDirectionY(false);
+      setScrollPosition({ x: xpos, y: ypos });
+    }
+  }, [scrollPosition]);
+
+  const getElement = () => {
+    if (elementIdOrRef && typeof elementIdOrRef === "string")
+      return document.getElementById(elementIdOrRef);
+    else if (elementIdOrRef && typeof elementIdOrRef === "object")
+      return elementIdOrRef.current;
+    else return document.documentElement || document.body;
+  };
+
+  useEffect(() => {
+    const element = getElement();
+    const handleScrollEvent = () => handleScroll();
+
+    if (element === document.documentElement || element === document.body) {
+      window.addEventListener("scroll", handleScrollEvent, { passive: true });
+      return () => {
+        window.removeEventListener("scroll", handleScrollEvent);
+      };
+    } else if (element) {
+      element.addEventListener("scroll", handleScroll, { passive: true });
+      return () => {
+        element.removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, [handleScroll]);
+
+  return { scrollPosition, directionX, directionY };
+};
+
+export default useScrollbar;
+```
+
+```tsx|Implementation
+"use client";
+
+import useScrollbar from "./useScrollbar";
+
+export const Demo = () => {
+  // Will provide the information of main direction and scroll position
+  const { directionX, directionY, scrollPosition } = useScrollbar();
+
+  // Can be used like this also
+  // With Id
+  // const { directionY, scrollPosition } = useScrollbar("targetElem");
+  // With ref
+  // const { directionY, scrollPosition } = useScrollbar(ref);
+
+  return (
+    <div className="py-10 flex justify-center items-center">
+      <div className="w-80 flex flex-col py-4 px-4 gap-4 rounded-lg bg-neutral-100 dark:bg-neutral-900 border-neutral-300 dark:border-neutral-700 text-black dark:text-white">
+        <h1>Scrolling Down: {directionY ? "True" : "False"}</h1>
+        <h1>Scrolling Right: {directionX ? "True" : "False"}</h1>
+        <h1>Scroll Position X: {scrollPosition.x}</h1>
+        <h1>Scroll Position Y: {scrollPosition.y}</h1>
+      </div>
+    </div>
+  );
+};
+```
+```jsx|Implementation
+"use client";
+
+import useScrollbar from "./useScrollbar";
+
+export const Demo = () => {
+  // Will provide the information of main direction and scroll position
+  const { directionX, directionY, scrollPosition } = useScrollbar();
+
+  // Can be used like this also
+  // With Id
+  // const { directionY, scrollPosition } = useScrollbar("targetElem");
+  // With ref
+  // const { directionY, scrollPosition } = useScrollbar(ref);
+
+  return (
+    <div className="py-10 flex justify-center items-center">
+      <div className="w-80 flex flex-col py-4 px-4 gap-4 rounded-lg bg-neutral-100 dark:bg-neutral-900 border-neutral-300 dark:border-neutral-700 text-black dark:text-white">
+        <h1>Scrolling Down: {directionY ? "True" : "False"}</h1>
+        <h1>Scrolling Right: {directionX ? "True" : "False"}</h1>
+        <h1>Scroll Position X: {scrollPosition.x}</h1>
+        <h1>Scroll Position Y: {scrollPosition.y}</h1>
+      </div>
+    </div>
+  );
+};
+```
+</CodeBlock>
+
+## Properties
+
+| Property | Type | Description |
+| --- | --- | --- |
+| scrollPosition | \{ x: number, y: number } | An object containing the current scroll position of the tracked element or document body. The `x` property represents the horizontal scroll position, and the `y` property represents the vertical scroll position. Both values are fixed to two decimal places. |
+| directionX | boolean \| null | A value indicating the horizontal scroll direction. If `true`, the user is scrolling to the right. If `false`, the user is scrolling to the left. If `null`, the user has not scrolled horizontally yet. |
+| directionY | boolean \| null | A value indicating the vertical scroll direction. If `true`, the user is scrolling down. If `false`, the user is scrolling up. If `null`, the user has not scrolled vertically yet. |
+
+
+<Display>
+    <Demo/>
+</Display>
+</Wrapper>

@@ -1,9 +1,5 @@
-import { Button } from "@/packages/primitives/buttons/Button_6_Helper";
-import {
-  DataDescription,
-  IconProps,
-  ImplementationNode,
-} from "@/utils/constants";
+import { Button } from "@/packages/primitives/buttons/Button_2";
+import { IconProps } from "@/utils/constants";
 import { twMerge } from "tailwind-merge";
 import { Pricing } from "./Pricing_5";
 
@@ -55,7 +51,7 @@ function PricingGrid() {
   ];
 
   return (
-    <table className="w-full text-black dark:text-white">
+    <table className="w-full text-foreground">
       <colgroup>
         <col className="w-1/4" />
         <col
@@ -141,26 +137,16 @@ function TableHead({
   return (
     <td className="px-4 rounded-t-2xl py-6">
       <h1 className="text-2xl font-medium mb-2">{name}</h1>
-      <h2 className="text-md mb-4 text-neutral-700 dark:text-neutral-400">
+      <h2 className="text-md mb-4 text-secondary-foreground">
         {targetAudience}
       </h2>
       <h1 className="text-4xl font-medium mb-8 mt-6 flex gap-2 items-end">
         ${Amount}
-        <span className="text-neutral-700 dark:text-neutral-400 font-medium text-base">
+        <span className="text-secondary-foreground font-medium text-base">
           / Month
         </span>
       </h1>
-      <Button
-        className={twMerge(
-          "w-full mt-auto px-4 py-2 text-black dark:text-white bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-xl relative z-[100]",
-          popular &&
-            "bg-blue-600 border-blue-700 text-white dark:bg-blue-800 dark:border-blue-950"
-        )}
-        clickedClassName={twMerge(
-          "bg-neutral-100 dark:bg-neutral-700",
-          popular && "bg-blue-300 dark:bg-blue-400"
-        )}
-      >
+      <Button variant={popular ? "accent" : "primary"} className="w-full">
         {ButtonText}
       </Button>
     </td>
@@ -177,7 +163,7 @@ function TableRow({
   return (
     <>
       {value ? (
-        <tr className="h-16 text-neutral-700 dark:text-neutral-400">
+        <tr className="h-16 text-secondary-foreground">
           <td>{name}</td>
           {value.map((value, index) => (
             // Values of the row
@@ -187,16 +173,16 @@ function TableRow({
                 value
               ) : // In case of boolean values
               value ? (
-                <Check className="text-blue-700 dark:text-blue-600 mx-auto w-6 h-6" />
+                <Check className="text-accent mx-auto w-6 h-6" />
               ) : (
-                <Cross className="text-neutral-700/70 dark:text-neutral-600 mx-auto w-5 h-5" />
+                <Cross className="text-secondary-foreground opacity-50 mx-auto w-5 h-5" />
               )}
             </td>
           ))}
         </tr>
       ) : (
         <>
-          <tr className="h-20 border-b border-neutral-800 ">
+          <tr className="h-20 border-b border-outline-secondary ">
             <td className="font-semibold">
               <div className="w-full min-h-12 "></div>
               {name}
@@ -245,7 +231,7 @@ export const Cross = (props: IconProps) => (
   </svg>
 );
 
-function Demo() {
+export function PricingImplementation() {
   return (
     <div className="w-full flex justify-center items-center">
       <div className="hidden @lg:block w-[90%] mt-40 mb-20">
@@ -257,48 +243,3 @@ function Demo() {
     </div>
   );
 }
-
-const Code: string = `
-// Add your code snippet here
-`;
-
-const DemoString: string = `
-// Add your demo code snippet here
-`;
-
-const Implementation: ImplementationNode[] = [
-  {
-    type: "technology_used",
-    content: ["tailwind-css", "twMerge"],
-  },
-  {
-    type: "code",
-    content: [
-      {
-        name: "Name",
-        content: [
-          { language: "tsx", code: Code },
-          { language: "jsx", code: Code },
-        ],
-      },
-      {
-        name: "Implementation",
-        content: [
-          { language: "tsx", code: DemoString },
-          { language: "jsx", code: DemoString },
-        ],
-      },
-    ],
-  },
-];
-
-const Data: DataDescription = {
-  name: "Pricing Grid",
-  description: "Component Description",
-  implementation: Implementation,
-  component: <Demo />,
-  version_included: "0.1.1",
-  display: true,
-};
-
-export default Data;

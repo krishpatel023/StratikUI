@@ -1,6 +1,6 @@
 "use client";
 
-import useScrollTo from "@/packages/hooks/code/useScrollTo";
+import useScrollTo from "@/packages/hooks/useScrollTo/useScrollTo";
 import { IconProps } from "@/utils/constants";
 import { twMerge } from "tailwind-merge";
 

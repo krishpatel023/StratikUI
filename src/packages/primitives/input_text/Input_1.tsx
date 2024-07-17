@@ -1,145 +1,87 @@
-import ArrowHeading from "@/components/ui/ArrowHeading";
-import { DataDescription, ImplementationNode } from "@/utils/constants";
-import { twMerge } from "tailwind-merge";
-function InputText({
-  placeholder,
-  state = "default",
-}: {
-  placeholder: string;
-  state?: "default" | "error" | "success" | "disabled";
-}) {
+"use client";
+
+import {
+  FieldError,
+  Input,
+  InputProps,
+  Label,
+  LabelProps,
+  TextField,
+  TextFieldProps,
+} from "react-aria-components";
+import { twJoin, twMerge } from "tailwind-merge";
+
+export function Field({ className, ...props }: TextFieldProps) {
   return (
-    <input
-      type="text"
-      className={twMerge(
-        "w-full bg-transparent text-s_textPrimary py-2 px-4 rounded-md border-[1px] border-s_primary focus:border-s_accent focus:outline-none focus:ring-2",
-        state === "disabled" && "disabled:cursor-not-allowed",
-        state === "error" &&
-          "border-s_error focus:border-s_error focus:ring-red-400/90",
-        state === "success" &&
-          "border-s_success focus:border-s_success focus:ring-green-400/90"
-      )}
-      {...(state === "disabled" && { disabled: true })}
-      placeholder={placeholder}
+    <TextField
+      className={twMerge("flex flex-col", className as string)}
+      {...props}
     />
   );
 }
 
-function Demo() {
+export function InputLabel({ className, ...props }: LabelProps) {
   return (
-    <div className="w-80 flex flex-col gap-4">
-      <ArrowHeading text="Default" />
-      <InputText placeholder="Something..." />
-      <ArrowHeading text="Error" />
-      <InputText placeholder="Something..." state="error" />
-      <ArrowHeading text="Success" />
-      <InputText placeholder="Something..." state="success" />
-      <ArrowHeading text="Disabled" />
-      <InputText placeholder="Something..." state="disabled" />
-    </div>
+    <Label
+      className={twMerge(
+        "text-foreground text-sm font-medium",
+        className as string
+      )}
+    >
+      {props.children}
+    </Label>
   );
 }
 
-const DemoString: string = `function Demo() {
+export function InputBox({ className, ...props }: InputProps) {
   return (
-    <div className="w-80 flex flex-col gap-4">
-      <InputText placeholder="Something..." />
-      <InputText placeholder="Something..." state="error" />
-      <InputText placeholder="Something..." state="success" />
-      <InputText placeholder="Something..." state="disabled" />
+    <Input
+      className={twMerge(
+        "w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 mt-1",
+        "text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
+        className as string
+      )}
+      {...props}
+    />
+  );
+}
+
+export interface InputFieldProps extends InputProps {
+  label?: string;
+  isRequired?: boolean;
+  isReadOnly?: boolean;
+}
+
+export function InputField({
+  label,
+  isRequired,
+  isReadOnly,
+  ...props
+}: InputFieldProps) {
+  return (
+    <Field
+      isReadOnly={isReadOnly}
+      isRequired={isRequired}
+      name={props.name}
+      type={props.type}
+    >
+      <InputLabel>{label}</InputLabel>
+      <InputBox {...props} />
+      <FieldError />
+    </Field>
+  );
+}
+
+export const DefaultInputComponent = () => {
+  return (
+    <div className="w-full flex justify-center">
+      <InputField
+        label="Name"
+        placeholder="Name"
+        name="Name"
+        type="text"
+        className="w-80"
+      />
     </div>
   );
-}`;
-
-const ButtonCodeTsx: string = `function InputText({
-  placeholder,
-  state = "default",
-}: {
-  placeholder: string;
-  state?: "default" | "error" | "success" | "disabled";
-}) {
-  return (
-    <input
-      type="text"
-      className={twMerge(
-        "w-full bg-transparent text-s_textPrimary py-2 px-4 rounded-md border-[1px] border-s_primary focus:border-s_accent focus:outline-none focus:ring-2",
-        state === "disabled" && "disabled:cursor-not-allowed",
-        state === "error" &&
-          "border-s_error focus:border-s_error focus:ring-red-400/90",
-        state === "success" &&
-          "border-s_success focus:border-s_success focus:ring-green-400/90"
-      )}
-      {...(state === "disabled" && { disabled: true })}
-      placeholder={placeholder}
-    />
-  );
-}`;
-
-const ButtonCodeJsx = `function InputText({
-  placeholder,
-  state = "default",
-}) {
-  return (
-    <input
-      type="text"
-      className={twMerge(
-        "w-full bg-transparent text-s_textPrimary py-2 px-4 rounded-md border-[1px] border-s_primary focus:border-s_accent focus:outline-none focus:ring-2",
-        state === "disabled" && "disabled:cursor-not-allowed",
-        state === "error" &&
-          "border-s_error focus:border-s_error focus:ring-red-400/90",
-        state === "success" &&
-          "border-s_success focus:border-s_success focus:ring-green-400/90"
-      )}
-      {...(state === "disabled" && { disabled: true })}
-      placeholder={placeholder}
-    />
-  );
-}`;
-
-const Implementation: ImplementationNode[] = [
-  {
-    type: "technology_used",
-    content: ["tailwind-css", "twMerge"],
-  },
-  {
-    type: "code",
-    content: [
-      {
-        name: "InputText",
-        content: [
-          {
-            language: "tsx",
-            code: ButtonCodeTsx,
-          },
-          {
-            language: "jsx",
-            code: ButtonCodeJsx,
-          },
-        ],
-      },
-      {
-        name: "Implementation",
-        content: [
-          {
-            language: "tsx",
-            code: DemoString,
-          },
-          {
-            language: "jsx",
-            code: DemoString,
-          },
-        ],
-      },
-    ],
-  },
-];
-
-const Data: DataDescription = {
-  name: "Default Text Input",
-  description: "This is a default text input",
-  implementation: Implementation,
-  component: Demo(),
-  version_included: "0.0.1",
-  display: true,
 };
-export default Data;

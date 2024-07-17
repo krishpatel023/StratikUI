@@ -1,100 +1,55 @@
-import ArrowHeading from "@/components/ui/ArrowHeading";
-import { DataDescription, ImplementationNode } from "@/utils/constants";
-import { twMerge } from "tailwind-merge";
-function Banner() {
-  return (
-    <div className="w-full flex justify-center items-center py-2 px-6 bg-s_foreground gap-8">
-      <h1 className="font-semibold">
-        Checkout the latest release of the components that are available for
-        free.
-      </h1>
-      <GradientBackground>
-        <button className="py-2 px-4 rounded-md bg-s_background text-s_textPrimary z-10 relative">
-          Get Started
-        </button>
-      </GradientBackground>
-    </div>
-  );
-}
+"use client";
 
-function GradientBackground({
+import { Button } from "@/packages/primitives/buttons/Button_2";
+import { GradientBackground } from "@/packages/primitives/containers/Container_1";
+import { useState } from "react";
+import { twMerge } from "tailwind-merge";
+export function Banner({
+  open,
+  setOpen,
   children,
   className,
 }: {
+  open: boolean;
+  setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   children: React.ReactNode;
   className?: string;
 }) {
   return (
-    <div className="relative group/gradient_bg w-max">
-      <div
-        className={twMerge(
-          "absolute z-0 -inset-0.5 bg-gradient-to-r from-blue-600 to-red-600 rounded-lg blur opacity-75 group-hover/gradient_bg:opacity-100 duration-200 transition-all",
-          className
-        )}
-      ></div>
+    <div
+      className={twMerge(
+        "w-full absolute left-0 transition-all duration-300 ease-in-out",
+        open ? "top-0" : "-top-full",
+        className
+      )}
+    >
       {children}
     </div>
   );
 }
 
-function Demo() {
+export function BannerImplementation() {
+  const [open, setOpen] = useState(true);
   return (
-    <div className="w-full">
-      <Banner />
-      <div className="min-w-full min-h-[40rem]"></div>
+    <div className="w-full relative">
+      <Banner
+        className="flex justify-center items-center py-2 px-6 bg-foreground text-background gap-8"
+        open={open}
+        setOpen={setOpen}
+      >
+        <h1 className="font-semibold">
+          Checkout the latest release of the components that are available for
+          free.
+        </h1>
+        <GradientBackground className="absolute z-0">
+          <button className="py-2 px-4 rounded-md bg-background text-foreground z-10 relative">
+            Get Started
+          </button>
+        </GradientBackground>
+      </Banner>
+      <div className="min-w-full min-h-[40rem] flex justify-center items-center">
+        <Button onClick={() => setOpen(!open)}>Toggle Banner</Button>
+      </div>
     </div>
   );
 }
-
-const Code: string = `function Banner() {
-  return (
-    <div className="w-full flex justify-center items-center py-2 px-6 bg-s_foreground gap-8">
-      <h1 className="font-semibold">
-        Checkout the latest release of the components that are available for
-        free.
-      </h1>
-
-      {/* CAN FIND IT IN THE CONTAINER SECTION OF THE LIBRARY */}
-      <GradientBackground>
-        <button className="py-2 px-4 rounded-md bg-s_background text-s_textPrimary z-10 relative">
-          Get Started
-        </button>
-      </GradientBackground>
-    </div>
-  );
-}`;
-
-const Implementation: ImplementationNode[] = [
-  {
-    type: "technology_used",
-    content: ["tailwind-css", "twMerge"],
-  },
-  {
-    type: "code",
-    content: [
-      {
-        name: "InputText",
-        content: [
-          {
-            language: "tsx",
-            code: Code,
-          },
-          {
-            language: "jsx",
-            code: Code,
-          },
-        ],
-      },
-    ],
-  },
-];
-
-const Data: DataDescription = {
-  name: "This is the default banner",
-  description: "This is a default banner.",
-  implementation: Implementation,
-  component: Demo(),
-  version_included: "0.0.1",
-  display: true,
-};
-export default Data;

@@ -1,0 +1,1285 @@
+import React, { Suspense } from 'react';
+import { Implementation, Preview, Header, Display, TechnologyUsed, Wrapper, Skeleton, PARTITION } from "@/components/mdx/MDXServerImports"
+import { CodeBlock } from "@/components/mdx/MDXClientImports"
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from src/content/docs/primitives/container/Container_01.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Container With Gradient Background
+### The Container With Gradient Background component enhances your UI with a stylish gradient that creates a glowing effect along the borders. Ideal for highlighting important sections, cards, or banners, this component is easy to integrate and customize. Its responsive design ensures a seamless and consistent appearance across all devices and screen sizes.
+
+
+
+
+
+export const ContainerImplementation_primitives_container_container_01 = React.lazy(() =>
+	import('@/packages/primitives/containers/Container_1')
+		.then((mod) => ({
+			default: mod.ContainerImplementation
+	}))
+);
+
+
+<Header />
+<Preview> 
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+    <ContainerImplementation_primitives_container_container_01/>
+</Display>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge" ]}/>
+
+<CodeBlock>
+ 
+```tsx|GradientBackground
+export function GradientBackground({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className="relative group/gradient_bg w-max">
+      {children}
+      <div
+        className={twMerge(
+          "absolute -z-[5] -inset-0.5 bg-gradient-to-r from-blue-600 to-red-600 rounded-lg blur opacity-75 group-hover/gradient_bg:opacity-100 duration-200 transition-all",
+          className
+        )}
+      ></div>
+    </div>
+  );
+}
+```
+```jsx|GradientBackground
+export function GradientBackground({
+  children,
+  className,
+}) {
+  return (
+    <div className="relative group/gradient_bg w-max">
+      {children}
+      <div
+        className={twMerge(
+          "absolute -z-[5] -inset-0.5 bg-gradient-to-r from-blue-600 to-red-600 rounded-lg blur opacity-75 group-hover/gradient_bg:opacity-100 duration-200 transition-all",
+          className
+        )}
+      ></div>
+    </div>
+  );
+}
+```
+
+```tsx|Implementation
+export function ContainerImplementation() {
+  return (
+    <div className="flex flex-col items-center w-full">
+      <ArrowHeading text="Button (Default Background)" className="mb-4" />
+      <GradientBackground>
+        <button className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 @md:max-w-[30rem]">
+          Visit the latest collection now. | Developed With Tailwind
+        </button>
+      </GradientBackground>
+
+      <ArrowHeading text="Div" className="mb-4 mt-10" />
+      <GradientBackground className="from-pink-500 to-purple-500">
+        <div className="px-6 py-3 text-foreground rounded-lg bg-background flex justify-evenly items-center gap-6 max-w-80 @md:max-w-[30rem]">
+          <TailwindcssIcon className="w-20 h-20" />
+          <div className="w-[20rem]">
+            <h1>
+              This entire component has been made with TailwindCSS and is a part
+              of Stratik UI Library.
+            </h1>
+            <button className="text-s_accent mt-4">
+              Check out other components
+            </button>
+          </div>
+        </div>
+      </GradientBackground>
+
+      <ArrowHeading text="Button with Solo Color" className="mb-4 mt-10" />
+      <GradientBackground className="from-blue-500 to-blue-500 ">
+        <button className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 @md:max-w-[30rem]">
+          Visit the latest collection now. | Developed With Tailwind
+        </button>
+      </GradientBackground>
+    </div>
+  );
+}
+```
+```jsx|Implementation
+export function ContainerImplementation() {
+  return (
+    <div className="flex flex-col items-center w-full">
+      <ArrowHeading text="Button (Default Background)" className="mb-4" />
+      <GradientBackground>
+        <button className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 @md:max-w-[30rem]">
+          Visit the latest collection now. | Developed With Tailwind
+        </button>
+      </GradientBackground>
+
+      <ArrowHeading text="Div" className="mb-4 mt-10" />
+      <GradientBackground className="from-pink-500 to-purple-500">
+        <div className="px-6 py-3 text-foreground rounded-lg bg-background flex justify-evenly items-center gap-6 max-w-80 @md:max-w-[30rem]">
+          <TailwindcssIcon className="w-20 h-20" />
+          <div className="w-[20rem]">
+            <h1>
+              This entire component has been made with TailwindCSS and is a part
+              of Stratik UI Library.
+            </h1>
+            <button className="text-s_accent mt-4">
+              Check out other components
+            </button>
+          </div>
+        </div>
+      </GradientBackground>
+
+      <ArrowHeading text="Button with Solo Color" className="mb-4 mt-10" />
+      <GradientBackground className="from-blue-500 to-blue-500 ">
+        <button className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 @md:max-w-[30rem]">
+          Visit the latest collection now. | Developed With Tailwind
+        </button>
+      </GradientBackground>
+    </div>
+  );
+}
+```
+
+</CodeBlock>
+
+
+</Implementation>
+</Wrapper>
+<PARTITION />
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from src/content/docs/primitives/container/Container_02.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Container With Gradient Background
+### The Container With Gradient Background component enhances your UI with a stylish gradient that creates gradient along the borders. Ideal for highlighting important sections, cards, or banners, this component is easy to integrate and customize. Its responsive design ensures a seamless and consistent appearance across all devices and screen sizes.
+
+
+
+
+
+export const ContainerImplementation_primitives_container_container_02 = React.lazy(() =>
+	import('@/packages/primitives/containers/Container_2')
+		.then((mod) => ({
+			default: mod.ContainerImplementation
+	}))
+);
+
+
+<Header />
+<Preview> 
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+    <ContainerImplementation_primitives_container_container_02/>
+</Display>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge" ]}/>
+
+<CodeBlock>
+ 
+```tsx|GradientBackground
+export function GradientBackground({
+  children,
+  className,
+  borderSize = 0.25,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  borderSize?: number;
+}) {
+  return (
+    <div className="relative group/gradient_bg">
+      {children}
+      <div
+        className={twMerge(
+          "absolute bg-gradient-to-r  from-blue-500 to-red-500 -z-[5] rounded-xl",
+          className
+        )}
+        style={{
+          top: `-${borderSize}rem`,
+          left: `-${borderSize}rem`,
+          minHeight: `calc(100% + ${2 * borderSize}rem)`,
+          minWidth: `calc(100% + ${2 * borderSize}rem)`,
+        }}
+      ></div>
+    </div>
+  );
+}
+```
+```jsx|GradientBackground
+export function GradientBackground({
+  children,
+  className,
+  borderSize = 0.25,
+}) {
+  return (
+    <div className="relative group/gradient_bg">
+      {children}
+      <div
+        className={twMerge(
+          "absolute bg-gradient-to-r  from-blue-500 to-red-500 -z-[5] rounded-xl",
+          className
+        )}
+        style={{
+          top: `-${borderSize}rem`,
+          left: `-${borderSize}rem`,
+          minHeight: `calc(100% + ${2 * borderSize}rem)`,
+          minWidth: `calc(100% + ${2 * borderSize}rem)`,
+        }}
+      ></div>
+    </div>
+  );
+}
+```
+
+```jsx|Implementation
+export function ContainerImplementation() {
+  return (
+    <div className="flex flex-col items-center w-full">
+      <ArrowHeading text="Button (Default Background)" className="mb-4" />
+      <GradientBackground>
+        <button className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 @md:max-w-[30rem]">
+          Visit the latest collection now. | Developed With Tailwind
+        </button>
+      </GradientBackground>
+
+      <ArrowHeading text="Div" className="mb-4 mt-10" />
+      <GradientBackground className="from-pink-500 to-purple-500">
+        <div className="px-6 py-3 text-foreground rounded-lg bg-background flex justify-evenly items-center gap-6 max-w-80 @md:max-w-[30rem]">
+          <TailwindcssIcon className="w-20 h-20" />
+          <div className="w-[20rem]">
+            <h1>
+              This entire component has been made with TailwindCSS and is a part
+              of Stratik UI Library.
+            </h1>
+            <button className="text-s_accent mt-4">
+              Check out other components
+            </button>
+          </div>
+        </div>
+      </GradientBackground>
+
+      <ArrowHeading text="Button with Solo Color" className="mb-4 mt-10" />
+      <GradientBackground className="from-blue-500 to-blue-500 ">
+        <button className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 @md:max-w-[30rem]">
+          Visit the latest collection now. | Developed With Tailwind
+        </button>
+      </GradientBackground>
+
+      <ArrowHeading
+        text="Button with Solo Color And Tranparent Border Effect"
+        className="mb-4 mt-10"
+      />
+      <GradientBackground className="from-gray-600/30 to-gray-500/10 border-gray-300/10 border-[1px]">
+        <button className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 @md:max-w-[30rem] border-gray-200/30 border-[1px]">
+          Visit the latest collection now. | Developed With Tailwind
+        </button>
+      </GradientBackground>
+    </div>
+  );
+}
+```
+
+```tsx|Implementation
+export function ContainerImplementation() {
+  return (
+    <div className="flex flex-col items-center w-full">
+      <ArrowHeading text="Button (Default Background)" className="mb-4" />
+      <GradientBackground>
+        <button className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 @md:max-w-[30rem]">
+          Visit the latest collection now. | Developed With Tailwind
+        </button>
+      </GradientBackground>
+
+      <ArrowHeading text="Div" className="mb-4 mt-10" />
+      <GradientBackground className="from-pink-500 to-purple-500">
+        <div className="px-6 py-3 text-foreground rounded-lg bg-background flex justify-evenly items-center gap-6 max-w-80 @md:max-w-[30rem]">
+          <TailwindcssIcon className="w-20 h-20" />
+          <div className="w-[20rem]">
+            <h1>
+              This entire component has been made with TailwindCSS and is a part
+              of Stratik UI Library.
+            </h1>
+            <button className="text-s_accent mt-4">
+              Check out other components
+            </button>
+          </div>
+        </div>
+      </GradientBackground>
+
+      <ArrowHeading text="Button with Solo Color" className="mb-4 mt-10" />
+      <GradientBackground className="from-blue-500 to-blue-500 ">
+        <button className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 @md:max-w-[30rem]">
+          Visit the latest collection now. | Developed With Tailwind
+        </button>
+      </GradientBackground>
+
+      <ArrowHeading
+        text="Button with Solo Color And Tranparent Border Effect"
+        className="mb-4 mt-10"
+      />
+      <GradientBackground className="from-gray-600/30 to-gray-500/10 border-gray-300/10 border-[1px]">
+        <button className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 @md:max-w-[30rem] border-gray-200/30 border-[1px]">
+          Visit the latest collection now. | Developed With Tailwind
+        </button>
+      </GradientBackground>
+    </div>
+  );
+}
+```
+
+</CodeBlock>
+
+
+</Implementation>
+</Wrapper>
+<PARTITION />
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from src/content/docs/primitives/container/Container_03.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Dynamic Mouse Responsive Glow Container
+### The component provides a sophisticated interactive effect that responds to mouse movements. When a user moves their cursor over the HighlightGroup, the HighlighterItem elements within it glow and animate dynamically, creating a visually engaging experience. This effect is ideal for drawing attention to specific areas of your application or website, enhancing user interaction through seamless integration and customizable styling. It is not suitable for `small screens`, thus it is recommended to have an alternative for the mobile version.
+
+
+
+
+
+export const ContainerImplementation_primitives_container_container_03 = React.lazy(() =>
+	import('@/packages/primitives/containers/Container_3')
+		.then((mod) => ({
+			default: mod.ContainerImplementation
+	}))
+);
+
+
+<Header />
+<Preview> 
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+    <ContainerImplementation_primitives_container_container_03/>
+</Display>
+</Suspense>
+
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge" ]}/>
+
+<CodeBlock>
+ 
+```tsx|Container
+"use client";
+
+import React, { PropsWithChildren, useEffect, useRef, useState } from "react";
+import { twMerge } from "tailwind-merge";
+
+// -------------------
+//MOUSE POSITION
+//--------------------
+
+interface MousePosition {
+  x: number;
+  y: number;
+}
+
+export default function useMousePosition(): MousePosition {
+  const [mousePosition, setMousePosition] = useState<MousePosition>({
+    x: 0,
+    y: 0,
+  });
+
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      setMousePosition({ x: event.clientX, y: event.clientY });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
+  return mousePosition;
+}
+
+type HighlightGroupProps = {
+  children: React.ReactNode;
+  className?: string;
+  refresh?: boolean;
+};
+
+export const HighlightGroup: React.FC<HighlightGroupProps> = ({
+  children,
+  className = "",
+  refresh = false,
+}) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const mousePosition = useMousePosition();
+  const mouse = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const containerSize = useRef<{ w: number; h: number }>({ w: 0, h: 0 });
+  const [boxes, setBoxes] = useState<Array<HTMLElement>>([]);
+
+  useEffect(() => {
+    containerRef.current &&
+      setBoxes(
+        Array.from(containerRef.current.children).map((el) => el as HTMLElement)
+      );
+  }, []);
+
+  useEffect(() => {
+    initContainer();
+    window.addEventListener("resize", initContainer);
+
+    return () => {
+      window.removeEventListener("resize", initContainer);
+    };
+  }, [setBoxes]);
+
+  useEffect(() => {
+    onMouseMove();
+  }, [mousePosition]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    initContainer();
+  }, []);
+
+  const initContainer = () => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      containerSize.current.w = rect.width;
+      containerSize.current.h = rect.height;
+    }
+  };
+
+  const onMouseMove = () => {
+    if (containerRef.current) {
+      initContainer();
+      const rect = containerRef.current.getBoundingClientRect();
+      const { w, h } = containerSize.current;
+
+      const x = mousePosition.x - rect.left;
+      const y = mousePosition.y - rect.top;
+      const inside = x < w && x > 0 && y < h && y > 0;
+      if (inside) {
+        mouse.current.x = x;
+        mouse.current.y = y;
+        boxes.forEach((box) => {
+          const boxX = -(box.getBoundingClientRect().left - rect.left) + x;
+          const boxY = -(box.getBoundingClientRect().top - rect.top) + y;
+          box.style.setProperty("--mouse-x", `${boxX}px`);
+          box.style.setProperty("--mouse-y", `${boxY}px`);
+        });
+      }
+    }
+  };
+
+  return (
+    <div className={twMerge("group", className)} ref={containerRef}>
+      {children}
+    </div>
+  );
+};
+
+type HighlighterItemProps = {
+  children: React.ReactNode;
+  className?: string;
+  backgroundProps?: string;
+};
+
+export const HighlighterItem: React.FC<
+  PropsWithChildren<HighlighterItemProps>
+> = ({ children, className = "" }) => {
+  return (
+    <>
+      <div
+        className={twMerge(
+          `ContainerEffect relative rounded-xl before:absolute before:w-96 before:h-96 before:-left-48 before:-top-48  before:rounded-full before:opacity-0 before:pointer-events-none before:transition-opacity before:duration-500 before:translate-x-[var(--mouse-x)] before:translate-y-[var(--mouse-y)] before:hover:opacity-20 before:z-30 before:blur-[100px] after:absolute after:inset-0 after:rounded-[inherit] after:opacity-0 after:transition-opacity after:duration-500 after:group-hover:opacity-100 after:z-10 overflow-hidden bg-[var(--container-border-initial)] p-[var(--container-border-size)] before:bg-[var(--container-gradient-color)] after:bg-[radial-gradient(250px_circle_at_var(--mouse-x)_var(--mouse-y),var(--container-border-active),transparent)]`,
+          className
+        )}
+      >
+        <div
+          className={twMerge(
+            "ContainerEffect h-full w-full rounded-[inherit] relative z-20 overflow-hidden bg-[var(--container-background)]"
+          )}
+        >
+          {children}
+        </div>
+      </div>
+    </>
+  );
+};
+```
+```jsx|Container
+"use client";
+
+import React, { PropsWithChildren, useEffect, useRef, useState } from "react";
+import { twMerge } from "tailwind-merge";
+
+// -------------------
+//MOUSE POSITION
+//--------------------
+
+export default function useMousePosition() {
+  const [mousePosition, setMousePosition] = useState({
+    x: 0,
+    y: 0,
+  });
+
+  useEffect(() => {
+    const handleMouseMove = (event) => {
+      setMousePosition({ x: event.clientX, y: event.clientY });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
+  return mousePosition;
+}
+
+export const HighlightGroup = ({
+  children,
+  className = "",
+  refresh = false,
+}) => {
+  const containerRef = useRef(null);
+  const mousePosition = useMousePosition();
+  const mouse = useRef({ x: 0, y: 0 });
+  const containerSize = useRef({ w: 0, h: 0 });
+  const [boxes, setBoxes] = useState([]);
+
+  useEffect(() => {
+    containerRef.current &&
+      setBoxes(
+        Array.from(containerRef.current.children).map((el) => el)
+      );
+  }, []);
+
+  useEffect(() => {
+    initContainer();
+    window.addEventListener("resize", initContainer);
+
+    return () => {
+      window.removeEventListener("resize", initContainer);
+    };
+  }, [setBoxes]);
+
+  useEffect(() => {
+    onMouseMove();
+  }, [mousePosition]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    initContainer();
+  }, []);
+
+  const initContainer = () => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      containerSize.current.w = rect.width;
+      containerSize.current.h = rect.height;
+    }
+  };
+
+  const onMouseMove = () => {
+    if (containerRef.current) {
+      initContainer();
+      const rect = containerRef.current.getBoundingClientRect();
+      const { w, h } = containerSize.current;
+
+      const x = mousePosition.x - rect.left;
+      const y = mousePosition.y - rect.top;
+      const inside = x < w && x > 0 && y < h && y > 0;
+      if (inside) {
+        mouse.current.x = x;
+        mouse.current.y = y;
+        boxes.forEach((box) => {
+          const boxX = -(box.getBoundingClientRect().left - rect.left) + x;
+          const boxY = -(box.getBoundingClientRect().top - rect.top) + y;
+          box.style.setProperty("--mouse-x", `${boxX}px`);
+          box.style.setProperty("--mouse-y", `${boxY}px`);
+        });
+      }
+    }
+  };
+
+  return (
+    <div className={twMerge("group", className)} ref={containerRef}>
+      {children}
+    </div>
+  );
+};
+
+export const HighlighterItem = ({ children, className = "" }) => {
+  return (
+    <>
+      <div
+        className={twMerge(
+          `ContainerEffect relative rounded-xl before:absolute before:w-96 before:h-96 before:-left-48 before:-top-48  before:rounded-full before:opacity-0 before:pointer-events-none before:transition-opacity before:duration-500 before:translate-x-[var(--mouse-x)] before:translate-y-[var(--mouse-y)] before:hover:opacity-20 before:z-30 before:blur-[100px] after:absolute after:inset-0 after:rounded-[inherit] after:opacity-0 after:transition-opacity after:duration-500 after:group-hover:opacity-100 after:z-10 overflow-hidden bg-[var(--container-border-initial)] p-[var(--container-border-size)] before:bg-[var(--container-gradient-color)] after:bg-[radial-gradient(250px_circle_at_var(--mouse-x)_var(--mouse-y),var(--container-border-active),transparent)]`,
+          className
+        )}
+      >
+        <div
+          className={twMerge(
+            "ContainerEffect h-full w-full rounded-[inherit] relative z-20 overflow-hidden bg-[var(--container-background)]"
+          )}
+        >
+          {children}
+        </div>
+      </div>
+    </>
+  );
+};
+```
+
+```css|css
+{/* You can adjust the colors here */}
+
+@layer utilities {
+  .ContainerEffect {
+    --container-border-initial: theme(colors.neutral.400);
+    --container-border-active: theme(colors.neutral.900);
+    --container-gradient-color: theme(colors.neutral.600/70);
+    --container-border-size: 4px;
+    --container-background: theme(colors.neutral.100);
+  }
+  .dark .ContainerEffect {
+    --container-border-initial: theme(colors.neutral.800);
+    --container-border-active: theme(colors.white/80);
+    --container-gradient-color: theme(colors.neutral.100/70);
+    --container-border-size: 4px;
+    --container-background: theme(colors.neutral.900);
+  }
+}
+```
+
+```tsx|Implementation
+export function ContainerImplementation() {
+  return (
+    <div className="w-full h-full flex justify-center items-center flex-col gap-10">
+      <h1 className="text-2xl text-foreground">Hover to see the magic!!!</h1>
+      <div>
+        <ArrowHeading text="Solo Button" className="mb-4" />
+        <HighlightGroup className="h-full">
+          <HighlighterItem className="rounded-full">
+            <button className="px-8 py-2 text-foreground text-sm @md:text-base">
+              Checkout the latest updates
+            </button>
+          </HighlighterItem>
+        </HighlightGroup>
+      </div>
+      <div>
+        <ArrowHeading text="Solo Container" className="mb-4" />
+        <HighlightGroup className="h-full ">
+          <HighlighterItem>
+            <div className="min-h-60 min-w-60 @md:min-h-80 @md:min-w-80"></div>
+          </HighlighterItem>
+        </HighlightGroup>
+      </div>
+      <div className="w-full flex items-center flex-col">
+        <ArrowHeading
+          text="Multiple/Group Container"
+          className="mb-4 mx-auto"
+        />
+        <HighlightGroup className="w-full flex gap-6 flex-wrap justify-center items-center">
+          <HighlighterItem>
+            <div className="min-h-60 min-w-60 @md:min-h-80 @md:min-w-80"></div>
+          </HighlighterItem>
+          <HighlighterItem>
+            <div className="min-h-60 min-w-60 @md:min-h-80 @md:min-w-80"></div>
+          </HighlighterItem>{" "}
+          <HighlighterItem>
+            <div className="min-h-60 min-w-60 @md:min-h-80 @md:min-w-80"></div>
+          </HighlighterItem>
+        </HighlightGroup>
+      </div>
+    </div>
+  );
+}
+```
+```jsx|Implementation
+export function ContainerImplementation() {
+  return (
+    <div className="w-full h-full flex justify-center items-center flex-col gap-10">
+      <h1 className="text-2xl text-foreground">Hover to see the magic!!!</h1>
+      <div>
+        <ArrowHeading text="Solo Button" className="mb-4" />
+        <HighlightGroup className="h-full">
+          <HighlighterItem className="rounded-full">
+            <button className="px-8 py-2 text-foreground text-sm @md:text-base">
+              Checkout the latest updates
+            </button>
+          </HighlighterItem>
+        </HighlightGroup>
+      </div>
+      <div>
+        <ArrowHeading text="Solo Container" className="mb-4" />
+        <HighlightGroup className="h-full ">
+          <HighlighterItem>
+            <div className="min-h-60 min-w-60 @md:min-h-80 @md:min-w-80"></div>
+          </HighlighterItem>
+        </HighlightGroup>
+      </div>
+      <div className="w-full flex items-center flex-col">
+        <ArrowHeading
+          text="Multiple/Group Container"
+          className="mb-4 mx-auto"
+        />
+        <HighlightGroup className="w-full flex gap-6 flex-wrap justify-center items-center">
+          <HighlighterItem>
+            <div className="min-h-60 min-w-60 @md:min-h-80 @md:min-w-80"></div>
+          </HighlighterItem>
+          <HighlighterItem>
+            <div className="min-h-60 min-w-60 @md:min-h-80 @md:min-w-80"></div>
+          </HighlighterItem>{" "}
+          <HighlighterItem>
+            <div className="min-h-60 min-w-60 @md:min-h-80 @md:min-w-80"></div>
+          </HighlighterItem>
+        </HighlightGroup>
+      </div>
+    </div>
+  );
+}
+```
+
+</CodeBlock>
+
+
+</Implementation>
+</Wrapper>
+<PARTITION />
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from src/content/docs/primitives/container/Container_04.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Rotating Border Animation
+### The Rotating Border Animation component adds a stylish, rotating border effect to your UI elements. This dynamic animation captures attention and enhances the visual appeal of buttons, sections, or any highlighted content.
+
+
+
+
+
+export const ContainerImplementation_primitives_container_container_04 = React.lazy(() =>
+	import('@/packages/primitives/containers/Container_4')
+		.then((mod) => ({
+			default: mod.ContainerImplementation
+	}))
+);
+
+
+<Header />
+
+<Preview> 
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+<ContainerImplementation_primitives_container_container_04/>
+</Display>
+</Suspense>
+</Preview>
+
+<Implementation>
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge" ]}/>
+
+<CodeBlock>
+ 
+```tsx|Container
+export function ConicGradientConatiner({
+  children,
+  direction = "clockwise",
+}: {
+  direction: "clockwise" | "anticlockwise";
+  children?: React.ReactNode;
+}) {
+  return (
+    <div className="p-[2px] relative overflow-hidden rounded-2xl bg-primary text-secondary-foreground  -z-10">
+      <span
+        className={twMerge(
+          "bg-[conic-gradient(var(--tw-gradient-stops))] absolute left-[-25%] top-[-25%] min-h-[150%] min-w-[150%] animate-border-spin-anticlockwise -z-[5]",
+          direction === "clockwise"
+            ? "from-transparent via-transparent to-blue-600/70 dark:to-blue-400/30 animate-border-spin-clockwise"
+            : "from-blue-600/70 dark:from-blue-400/30 via-transparent to-transparent animate-border-spin-anticlockwise"
+        )}
+      ></span>
+      <div className="min-w-full min-h-full z-20 rounded-[inherit] bg-background">
+        {children}
+      </div>
+    </div>
+  );
+}
+```
+```jsx|Container
+export function ConicGradientConatiner({
+  children,
+  direction = "clockwise",
+}) {
+  return (
+    <div className="p-[2px] relative overflow-hidden rounded-2xl bg-primary text-secondary-foreground  -z-10">
+      <span
+        className={twMerge(
+          "bg-[conic-gradient(var(--tw-gradient-stops))] absolute left-[-25%] top-[-25%] min-h-[150%] min-w-[150%] animate-border-spin-anticlockwise -z-[5]",
+          direction === "clockwise"
+            ? "from-transparent via-transparent to-blue-600/70 dark:to-blue-400/30 animate-border-spin-clockwise"
+            : "from-blue-600/70 dark:from-blue-400/30 via-transparent to-transparent animate-border-spin-anticlockwise"
+        )}
+      ></span>
+      <div className="min-w-full min-h-full z-20 rounded-[inherit] bg-background">
+        {children}
+      </div>
+    </div>
+  );
+}
+```
+
+```tsx|Implementation
+export const ContainerImplementation = () => {
+  return (
+    <div>
+      <ConicGradientConatiner direction="clockwise">
+        <div className="w-60 h-60 flex justify-center items-center text-center">
+          <h1 className="text-2xl font-semibold">
+            This is a rotating border container
+          </h1>
+        </div>
+      </ConicGradientConatiner>
+    </div>
+  );
+};
+```
+```jsx|Implementation
+export const ContainerImplementation = () => {
+  return (
+    <div>
+      <ConicGradientConatiner direction="clockwise">
+        <div className="w-60 h-60 flex justify-center items-center text-center">
+          <h1 className="text-2xl font-semibold">
+            This is a rotating border container
+          </h1>
+        </div>
+      </ConicGradientConatiner>
+    </div>
+  );
+};
+```
+
+```ts|tailwind.config
+import type { Config } from "tailwindcss";
+const config: Config = {
+  //...
+  theme: {
+    extend: {
+      //other code
+      animation: {
+        "border-spin-clockwise": "border-spin-clockwise 7s linear infinite",
+        "border-spin-anticlockwise":
+          "border-spin-anticlockwise 7s linear infinite",
+      },
+      keyframes: {
+        "border-spin-clockwise": {
+          "100%": {
+            transform: "rotate(360deg)",
+          },
+        },
+        "border-spin-anticlockwise": {
+          "100%": {
+            transform: "rotate(-360deg)",
+          },
+        },
+      },
+    },
+  },
+  //...
+};
+export default config;
+```
+```js|tailwind.config
+const config = {
+  //...
+  theme: {
+    extend: {
+      //other code
+      animation: {
+        "border-spin-clockwise": "border-spin-clockwise 7s linear infinite",
+        "border-spin-anticlockwise":
+          "border-spin-anticlockwise 7s linear infinite",
+      },
+      keyframes: {
+        "border-spin-clockwise": {
+          "100%": {
+            transform: "rotate(360deg)",
+          },
+        },
+        "border-spin-anticlockwise": {
+          "100%": {
+            transform: "rotate(-360deg)",
+          },
+        },
+      },
+    },
+  },
+  //...
+};
+export default config;
+```
+
+</CodeBlock>
+
+
+</Implementation>
+</Wrapper>
+<PARTITION />
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from src/content/docs/primitives/container/Container_05.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Container With Conic Gradient Background
+### This component enhances your UI with a striking conic gradient effect. This unique background style creates a circular gradient pattern that adds depth and visual interest to your content.
+
+
+
+
+
+export const ContainerImplementation_primitives_container_container_05 = React.lazy(() =>
+	import('@/packages/primitives/containers/Container_5')
+		.then((mod) => ({
+			default: mod.ContainerImplementation
+	}))
+);
+
+
+<Header />
+<Preview> 
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+    <ContainerImplementation_primitives_container_container_05/>
+</Display>
+</Suspense>
+
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge" ]}/>
+<CodeBlock>
+ 
+```tsx|Container
+export function ConicGradientContainer({
+  children,
+  className,
+}: {
+  children?: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className={twMerge(
+        "relative flex rounded-md border border-outline-secondary bg-background text-foreground overflow-hidden",
+        className
+      )}
+    >
+      <div
+        aria-hidden="true"
+        className="left-1/2 right-1 top-0 w-[300px] sm:left-auto user-select-none center pointer-events-none absolute h-px max-w-full  -translate-y-1/2 bg-gradient-to-r from-transparent via-neutral-900 dark:via-neutral-400 to-transparent"
+      ></div>
+      <div
+        aria-hidden="true"
+        className="hidden dark:block -top-1 left-1/2 right-1 h-[300px] w-[320px] sm:left-auto user-select-none center pointer-events-none absolute max-w-full -translate-y-1/2"
+        style={{
+          background:
+            "conic-gradient(from 90deg at 50% 50%, #00000000 50%, #000 50%),radial-gradient(rgba(200,200,200,0.1) 0%, transparent 80%)",
+        }}
+      ></div>
+      <div
+        aria-hidden="true"
+        className="dark:hidden -top-4 left-1/2 right-1 h-[300px] w-[320px] sm:left-auto user-select-none center pointer-events-none absolute max-w-full -translate-y-1/2"
+        style={{
+          background:
+            "conic-gradient(from 90deg at 50% 50%, #ffffff00 50%, #fff 50%),radial-gradient(#D6E1FF90 0%, transparent 80%)",
+        }}
+      ></div>
+      {children}
+    </div>
+  );
+}
+```
+```jsx|Container
+export function ConicGradientContainer({
+  children,
+  className,
+}) {
+  return (
+    <div
+      className={twMerge(
+        "relative flex rounded-md border border-outline-secondary bg-background text-foreground overflow-hidden",
+        className
+      )}
+    >
+      <div
+        aria-hidden="true"
+        className="left-1/2 right-1 top-0 w-[300px] sm:left-auto user-select-none center pointer-events-none absolute h-px max-w-full  -translate-y-1/2 bg-gradient-to-r from-transparent via-neutral-900 dark:via-neutral-400 to-transparent"
+      ></div>
+      <div
+        aria-hidden="true"
+        className="hidden dark:block -top-1 left-1/2 right-1 h-[300px] w-[320px] sm:left-auto user-select-none center pointer-events-none absolute max-w-full -translate-y-1/2"
+        style={{
+          background:
+            "conic-gradient(from 90deg at 50% 50%, #00000000 50%, #000 50%),radial-gradient(rgba(200,200,200,0.1) 0%, transparent 80%)",
+        }}
+      ></div>
+      <div
+        aria-hidden="true"
+        className="dark:hidden -top-4 left-1/2 right-1 h-[300px] w-[320px] sm:left-auto user-select-none center pointer-events-none absolute max-w-full -translate-y-1/2"
+        style={{
+          background:
+            "conic-gradient(from 90deg at 50% 50%, #ffffff00 50%, #fff 50%),radial-gradient(#D6E1FF90 0%, transparent 80%)",
+        }}
+      ></div>
+      {children}
+    </div>
+  );
+}
+```
+
+```tsx|Implementation
+export const ContainerImplementation = () => {
+  return (
+    <div>
+      <ConicGradientContainer>
+        <div className="px-10 py-20 text-secondary-foreground flex flex-col justify-center items-start gap-2 max-w-80 @md:max-w-[30rem]">
+          <h1>
+            This entire component has been made with TailwindCSS and is a part
+            of Stratik UI Library.
+          </h1>
+          <button className="text-accent mt-4">
+            Check out other components
+          </button>
+        </div>
+      </ConicGradientContainer>
+    </div>
+  );
+};
+```
+```jsx|Implementation
+export const ContainerImplementation = () => {
+  return (
+    <div>
+      <ConicGradientContainer>
+        <div className="px-10 py-20 text-secondary-foreground flex flex-col justify-center items-start gap-2 max-w-80 @md:max-w-[30rem]">
+          <h1>
+            This entire component has been made with TailwindCSS and is a part
+            of Stratik UI Library.
+          </h1>
+          <button className="text-accent mt-4">
+            Check out other components
+          </button>
+        </div>
+      </ConicGradientContainer>
+    </div>
+  );
+};
+```
+
+</CodeBlock>
+
+
+</Implementation>
+</Wrapper>
+<PARTITION />
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from src/content/docs/primitives/container/Container_06.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Glass / Blured Background Container
+### This effect adds a modern and sophisticated touch to your UI, blending background elements with a subtle blur for a clean and elegant look. Ideal for modals, overlays, or sections.
+
+
+
+
+
+export const ContainerImplementation_primitives_container_container_06 = React.lazy(() =>
+	import('@/packages/primitives/containers/Container_6')
+		.then((mod) => ({
+			default: mod.ContainerImplementation
+	}))
+);
+
+
+<Header />
+<Preview> 
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+<ContainerImplementation_primitives_container_container_06/>
+</Display>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge"  ]}/>
+
+<CodeBlock>
+ 
+```tsx|Container
+export const ContainerGlassEffect = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
+  return (
+    <div
+      className={twMerge(
+        "bg-neutral-100/30 dark:bg-neutral-900/40 backdrop-blur supports-[backdrop-filter]:bg-neutral-100/40 dark:supports-[backdrop-filter]:bg-neutral-900/40 z-50",
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
+};
+```
+```jsx|Container
+export const ContainerGlassEffect = ({
+  children,
+  className,
+}) => {
+  return (
+    <div
+      className={twMerge(
+        "bg-neutral-100/30 dark:bg-neutral-900/40 backdrop-blur supports-[backdrop-filter]:bg-neutral-100/40 dark:supports-[backdrop-filter]:bg-neutral-900/40 z-50",
+        className
+      )}
+    >
+      {children}
+    </div>
+  );
+};
+```
+
+```tsx|Implementation
+export const ContainerImplementation = () => {
+  return (
+    <div className="w-full h-[25rem] relative overflow-hidden flex justify-center items-center">
+      <ContainerGlassEffect className="rounded-lg border border-neutral-300 dark:border-neutral-700">
+        <div className="px-10 py-20 text-foreground flex flex-col justify-center items-start gap-2 max-w-80 @md:max-w-[30rem]">
+          <h1>
+            This entire component has been made with TailwindCSS and is a part
+            of Stratik UI Library.
+          </h1>
+          <button className="text-s_accent mt-4">
+            Check out other components
+          </button>
+        </div>
+      </ContainerGlassEffect>
+      <h1 className="absolute text-7xl">
+        Sample text to see the effect in action
+      </h1>
+    </div>
+  );
+};
+```
+```jsx|Implementation
+export const ContainerImplementation = () => {
+  return (
+    <div className="w-full h-[25rem] relative overflow-hidden flex justify-center items-center">
+      <ContainerGlassEffect className="rounded-lg border border-neutral-300 dark:border-neutral-700">
+        <div className="px-10 py-20 text-foreground flex flex-col justify-center items-start gap-2 max-w-80 @md:max-w-[30rem]">
+          <h1>
+            This entire component has been made with TailwindCSS and is a part
+            of Stratik UI Library.
+          </h1>
+          <button className="text-s_accent mt-4">
+            Check out other components
+          </button>
+        </div>
+      </ContainerGlassEffect>
+      <h1 className="absolute text-7xl">
+        Sample text to see the effect in action
+      </h1>
+    </div>
+  );
+};
+```
+
+</CodeBlock>
+
+
+
+</Implementation>
+</Wrapper>
+<PARTITION />

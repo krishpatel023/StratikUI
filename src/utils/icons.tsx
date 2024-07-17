@@ -180,6 +180,35 @@ export const Icons = {
       <path fill="currentColor" d="M4 0h16v8h-8zm0 8h8l8 8H4zm0 8h8v8z"></path>
     </svg>
   ),
+  radixui: (props: IconProps) => (
+    <svg
+      height="200"
+      width="200"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M11.52 24a7.68 7.68 0 0 1-7.68-7.68a7.68 7.68 0 0 1 7.68-7.68V24Zm0-24v7.68H3.84V0h7.68Zm4.8 7.68a3.84 3.84 0 1 1 0-7.68a3.84 3.84 0 0 1 0 7.68Z"
+        fill="currentColor"
+      />
+    </svg>
+  ),
+  reactAria: (props: IconProps) => (
+    <svg
+      height="200"
+      width="200"
+      viewBox="0 0 20 20"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M20 1v18.001L12.607 1H20ZM7.399 1L0 19.001V1h7.399Zm2.604 6.265L14.713 19h-3.086l-1.41-3.419H6.77l3.233-8.316Z"
+        fill="currentColor"
+        fillRule="evenodd"
+      />
+    </svg>
+  ),
   tick: (props: IconProps) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"

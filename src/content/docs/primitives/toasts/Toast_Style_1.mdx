@@ -1,0 +1,337 @@
+import { Implementation, Preview, Display, TechnologyUsed, Wrapper, Header, ImportsWrapper } from "@/components/mdx/MDXServerImports"
+import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
+
+export const Data = {
+    name: "Toast style with text state indication",
+    tags: [],
+    description: "This is just the styling component changes of the toast. You can copy the entire code above and replace that styling with the code in the current component.",
+    version_included: "0.2.0",
+    display: true
+}
+
+<Wrapper>
+
+<ImportsWrapper>
+import {ToastStyleImplementation} from "@/packages/primitives/toasts/Toasts_1"
+
+</ImportsWrapper>
+
+<Header />
+<Preview> 
+
+<Display>
+<ToastStyleImplementation />
+</Display>
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge" ]}/>
+
+<CodeBlock> 
+```tsx|Toast_Style
+const ToastStyling = ({ toast }: { toast: ToastProps | null }) => {
+  const { removeToast } = useToast();
+
+  return (
+    <>
+      {toast && (
+        <div
+          className={twMerge(
+            "min-w-80 min-h-full rounded-md text-textPrimary flex justify-between items-center font-semibold border-2 border-outline gap-6 py-2 px-4 bg-primary",
+            toast.state === "success" && "text-success ",
+            toast.state === "error" && "text-error ",
+            toast.state === "warning" && "text-alert ",
+            toast.state === "info" && "text-accent "
+          )}
+        >
+          <span className="flex items-center gap-3">
+            {toast.state === "success" && <Icon.success className="w-5 h-5" />}
+            {toast.state === "info" && <Icon.info className="w-5 h-5" />}
+            {toast.state === "warning" && <Icon.warning className="w-5 h-5" />}
+            {toast.state === "error" && <Icon.error className="w-5 h-5" />}
+
+            {toast.children}
+          </span>
+          <button
+            onClick={() => removeToast(toast.toastId)}
+            className={twMerge(toast.closeType === "timeout" && "hidden")}
+          >
+            &#10005;
+          </button>
+        </div>
+      )}
+    </>
+  );
+};
+
+const Icon = {
+  info: (props: IconProps) => (
+    <svg
+      strokeWidth="1.5"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M12 11.5V16.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        {...props}
+      ></path>
+      <path
+        d="M12 7.51L12.01 7.49889"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+      <path
+        d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+    </svg>
+  ),
+  success: (props: IconProps) => (
+    <svg
+      strokeWidth="1.5"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M7 12.5L10 15.5L17 8.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+      <path
+        d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+    </svg>
+  ),
+  error: (props: IconProps) => (
+    <svg
+      strokeWidth="1.5"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M9.17218 14.8284L12.0006 12M14.829 9.17157L12.0006 12M12.0006 12L9.17218 9.17157M12.0006 12L14.829 14.8284"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+      <path
+        d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+    </svg>
+  ),
+  warning: (props: IconProps) => (
+    <svg
+      strokeWidth="1.5"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M12 7L12 13"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+      <path
+        d="M12 17.01L12.01 16.9989"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+      <path
+        d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+    </svg>
+  ),
+};
+```
+```jsx|Toast_Style
+const ToastStyling = ({ toast }) => {
+  const { removeToast } = useToast();
+
+  return (
+    <>
+      {toast && (
+        <div
+          className={twMerge(
+            "min-w-80 min-h-full rounded-md text-textPrimary flex justify-between items-center font-semibold border-2 border-outline gap-6 py-2 px-4 bg-primary",
+            toast.state === "success" && "text-success ",
+            toast.state === "error" && "text-error ",
+            toast.state === "warning" && "text-alert ",
+            toast.state === "info" && "text-accent "
+          )}
+        >
+          <span className="flex items-center gap-3">
+            {toast.state === "success" && <Icon.success className="w-5 h-5" />}
+            {toast.state === "info" && <Icon.info className="w-5 h-5" />}
+            {toast.state === "warning" && <Icon.warning className="w-5 h-5" />}
+            {toast.state === "error" && <Icon.error className="w-5 h-5" />}
+
+            {toast.children}
+          </span>
+          <button
+            onClick={() => removeToast(toast.toastId)}
+            className={twMerge(toast.closeType === "timeout" && "hidden")}
+          >
+            &#10005;
+          </button>
+        </div>
+      )}
+    </>
+  );
+};
+
+const Icon = {
+  info: (props) => (
+    <svg
+      strokeWidth="1.5"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M12 11.5V16.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        {...props}
+      ></path>
+      <path
+        d="M12 7.51L12.01 7.49889"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+      <path
+        d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+    </svg>
+  ),
+  success: (props) => (
+    <svg
+      strokeWidth="1.5"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M7 12.5L10 15.5L17 8.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+      <path
+        d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+    </svg>
+  ),
+  error: (props) => (
+    <svg
+      strokeWidth="1.5"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M9.17218 14.8284L12.0006 12M14.829 9.17157L12.0006 12M12.0006 12L9.17218 9.17157M12.0006 12L14.829 14.8284"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+      <path
+        d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+    </svg>
+  ),
+  warning: (props) => (
+    <svg
+      strokeWidth="1.5"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M12 7L12 13"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+      <path
+        d="M12 17.01L12.01 16.9989"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+      <path
+        d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></path>
+    </svg>
+  ),
+};
+```
+</CodeBlock>
+
+</Implementation>
+</Wrapper>

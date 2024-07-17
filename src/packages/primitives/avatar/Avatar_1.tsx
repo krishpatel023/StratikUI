@@ -1,114 +1,64 @@
-import { DataDescription, ImplementationNode } from "@/utils/constants";
-import Image from "next/image";
-import DummyImage from "@/assets/Images/Image_2.jpg";
+"use client";
+
+import Image, { StaticImageData } from "next/image";
+import Dummy from "@/assets/Images/Image_2.jpg";
 import { twMerge } from "tailwind-merge";
 import ArrowHeading from "@/components/ui/ArrowHeading";
-function Avatar({ withBorder = true }: { withBorder?: boolean }) {
-  return (
-    <div
-      className={twMerge(
-        "w-12 h-12 rounded-full",
-        withBorder && "border-2 border-foreground"
-      )}
-    >
-      <Image
-        src={DummyImage}
-        alt=""
-        className="rounded-[inherit] w-full h-full"
-      />
-    </div>
-  );
+
+interface AvatarProps {
+  src?: string | StaticImageData;
+  alt?: string;
+  className?: string;
+  name: string;
+  isDisabled?: boolean;
 }
 
-function Demo() {
-  return (
-    <div className="w-full flex flex-col items-center gap-6">
-      <ArrowHeading text="With Border" />
-      <Avatar />
-      <ArrowHeading text="Without Border" />
-      <Avatar withBorder={false} />
-    </div>
-  );
-}
+export const Avatar = ({
+  src,
+  alt,
+  name,
+  className,
+  isDisabled,
+}: AvatarProps) => {
+  const initials = name
+    .split(" ")
+    .map((word) => word.charAt(0))
+    .join("")
+    .substring(0, 2);
 
-const CodeTsx: string = `function Avatar({ withBorder = true }: { withBorder?: boolean }) {
-  return (
-    <div
-      className={twMerge(
-        "w-12 h-12 rounded-full",
-        withBorder && "border-2 border-foreground"
-      )}
-    >
-      <Image
-        src={DummyImage}
-        alt=""
-        className="rounded-[inherit] w-full h-full"
-      />
-    </div>
-  );
-}`;
-
-const CodeJsx: string = `function Avatar({ withBorder = true }) {
   return (
     <div
       className={twMerge(
-        "w-12 h-12 rounded-full",
-        withBorder && "border-2 border-foreground"
+        "size-12 rounded-full flex justify-center items-center group aria-disabled: bg-gradient-to-r from-blue-500 to-purple-500",
+        className
       )}
+      aria-disabled={isDisabled}
+      aria-label="avatar"
     >
-      <Image
-        src={DummyImage}
-        alt=""
-        className="rounded-[inherit] w-full h-full"
-      />
+      {src ? (
+        <Image
+          src={src}
+          alt={alt || "avatar"}
+          className="rounded-[inherit] size-full"
+        />
+      ) : (
+        <h1 aria-label="initials" className="text-2xl text-primary-foreground">
+          {initials}
+        </h1>
+      )}
     </div>
   );
-}`;
-
-const DemoString: string = `function Demo() {
-  return (
-    <div className="w-full flex flex-col items-center gap-6">
-      <ArrowHeading text="With Border" />
-      <Avatar />
-      <ArrowHeading text="Without Border" />
-      <Avatar withBorder={false} />
-    </div>
-  );
-}`;
-
-const Implementation: ImplementationNode[] = [
-  {
-    type: "technology_used",
-    content: ["tailwind-css", "twMerge"],
-  },
-  {
-    type: "code",
-    content: [
-      {
-        name: "Avatar",
-        content: [
-          { language: "tsx", code: CodeTsx },
-          { language: "jsx", code: CodeJsx },
-        ],
-      },
-      {
-        name: "Implementation",
-        content: [
-          { language: "tsx", code: DemoString },
-          { language: "jsx", code: DemoString },
-        ],
-      },
-    ],
-  },
-];
-
-const Data: DataDescription = {
-  name: "Default Avatar",
-  description: "This is a default avatar",
-  implementation: Implementation,
-  component: <Demo />,
-  version_included: "0.0.1",
-  display: true,
 };
 
-export default Data;
+export function AvatarImplementation() {
+  return (
+    <div className="flex flex-col justify-center items-center gap-4">
+      {/* With Image */}
+      <ArrowHeading text="With Image" />
+      <Avatar src={Dummy} alt="Profile Picture" name="Profile Picture" />
+      {/* Without Image */}
+      <ArrowHeading text="Fallback / Without Image" />
+      <Avatar alt="Profile Picture" name="Profile Picture" />
+    </div>
+  );
+}

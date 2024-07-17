@@ -1,231 +1,131 @@
-import {
-  DataDescription,
-  IconProps,
-  ImplementationNode,
-} from "@/utils/constants";
-import Logo, { LogoStringJsx, LogoStringTsx } from "@/packages/helper/Logo";
-function Testimonial() {
+import { Background } from "@/packages/helper/Background";
+import Logo from "@/packages/helper/Logo";
+import { twMerge } from "tailwind-merge";
+
+const LOGO2 = Logo[2].logo;
+const LOGO4 = Logo[4].logo;
+const LOGO0 = Logo[0].logo;
+const LOGO1 = Logo[1].logo;
+const LOGO3 = Logo[3].logo;
+const LOGO5 = Logo[5].logo;
+const LOGO6 = Logo[6].logo;
+
+export function Testimonial() {
   return (
-    <div className="w-full h-[60rem] overflow-hidden flex justify-center items-center gap-10 text-s_textPrimary">
-      <div className="flex flex-col gap-10">
-        <EmptyCard />
-        <EmptyCard />
-        <EmptyCard />
-      </div>
-      <div className="flex-col gap-10 hidden @md:flex">
-        <EmptyCard />
-        <Card LogoNumber={2} Name="John Doe" Position="Co-Founder" />
-        <Card LogoNumber={4} Name="Erin Joseph" Position="Product Manager" />
-        <EmptyCard />
-      </div>
-      <div className="flex flex-col gap-10">
-        <EmptyCard />
-        <Card LogoNumber={0} Name="John Doe" Position="CEO" />
-        <div className="w-80 py-8 px-10 rounded-xl bg-s_accent bg-gradient-to-tr from-blue-900  to-blue-400">
-          <h1 className="text-xl text-s_textComplementary font-semibold">
-            Want to see what others are saying about us?
+    <div className="w-full relative px-10 py-2">
+      <h1 className="text-3xl font-semibold text-primary-foreground text-center mb-2">
+        Testimonials
+      </h1>
+      <h2 className="text-base font-medium text-secondary-foreground text-center mb-8">
+        Look what our customers have to say about us.
+      </h2>
+      <div className="w-full grid grid-cols-1 @md:grid-cols-3 @lg:grid-cols-4 gap-4">
+        <Card>
+          <LOGO0 className="w-8 h-8" />
+          <p className="font-medium text-s_textSecondary mt-6">
+            While StratikUI offers a wide range of features, I found the
+            learning curve a bit steep. It took me some time to fully utilize
+            all the tools available.
+          </p>
+          <h1 className="text-xl font-semibold text-s_textPrimary mt-6">
+            John Doe
           </h1>
-          <button className="bg-s_foreground text-s_textComplementary py-2 px-4 rounded-xl mt-4">
-            See more
-          </button>
-        </div>
-        <Card LogoNumber={1} Name="John Doe" Position="CEO" />
-        <EmptyCard />
-      </div>{" "}
-      <div className="flex-col gap-10 hidden @md:flex">
-        <EmptyCard />
-        <Card LogoNumber={3} Name="Jane Doe" Position="CEO" />
-        <Card LogoNumber={5} Name="John Doe" Position="CEO" />
-        <EmptyCard />
+          <h2 className="font-medium text-s_textSecondary">CEO</h2>
+        </Card>
+        <Card className="@md:col-span-2 ">
+          <LOGO6 className="w-8 h-8" />
+          <p className="font-medium text-s_textSecondary mt-6">
+            {
+              "As a startup founder, StratikUI has been a game-changer for our team. We can quickly prototype and iterate on our product's interface without needing a full-time designer. The responsive templates ensure our app looks great on all devices."
+            }
+          </p>
+          <h1 className="text-xl font-semibold text-s_textPrimary mt-6">
+            Jane Doe
+          </h1>
+          <h2 className="font-medium text-s_textSecondary">Founder</h2>
+        </Card>
+        <Card>
+          <LOGO1 className="w-8 h-8" />
+          <p className="font-medium text-s_textSecondary mt-6">
+            StratikUI has revolutionized my design workflow. The intuitive
+            interface makes it easy to create sleek, modern designs without
+            compromising on functionality.
+          </p>
+          <h1 className="text-xl font-semibold text-s_textPrimary mt-6">
+            John Doe
+          </h1>
+          <h2 className="font-medium text-s_textSecondary">CEO</h2>
+        </Card>
+        <Card>
+          <LOGO1 className="w-8 h-8" />
+          <p className="font-medium text-s_textSecondary mt-6">
+            StratikUI has revolutionized my design workflow. Their extensive
+            library of customizable components saves me hours of development
+            time.
+          </p>
+          <h1 className="text-xl font-semibold text-s_textPrimary mt-6">
+            John Doe
+          </h1>
+          <h2 className="font-medium text-s_textSecondary">CEO</h2>
+        </Card>{" "}
+        <Card>
+          <LOGO2 className="w-8 h-8" />
+          <p className="font-medium text-s_textSecondary mt-6">
+            StratikUI has revolutionized my design workflow. Their extensive
+            library of customizable components saves me hours of development
+            time.
+          </p>
+          <h1 className="text-xl font-semibold text-s_textPrimary mt-6">
+            John Doe
+          </h1>
+          <h2 className="font-medium text-s_textSecondary">CEO</h2>
+        </Card>{" "}
+        <Card>
+          <LOGO3 className="w-8 h-8" />
+          <p className="font-medium text-s_textSecondary mt-6">
+            StratikUI has revolutionized my design workflow. Their extensive
+            library of customizable components saves me hours of development
+            time.
+          </p>
+          <h1 className="text-xl font-semibold text-s_textPrimary mt-6">
+            John Doe
+          </h1>
+          <h2 className="font-medium text-s_textSecondary">CEO</h2>
+        </Card>{" "}
+        <Card>
+          <LOGO4 className="w-8 h-8" />
+          <p className="font-medium text-s_textSecondary mt-6">
+            StratikUI has revolutionized my design workflow. Their extensive
+            library of customizable components saves me hours of development
+            time.
+          </p>
+          <h1 className="text-xl font-semibold text-s_textPrimary mt-6">
+            John Doe
+          </h1>
+          <h2 className="font-medium text-s_textSecondary">CEO</h2>
+        </Card>
       </div>
-      <div className="flex flex-col gap-10">
-        <EmptyCard />
-        <EmptyCard />
-        <EmptyCard />
-      </div>
+
+      <Background />
     </div>
   );
 }
 
 const Card = ({
-  LogoNumber,
-  Name,
-  Position,
+  children,
+  className,
 }: {
-  LogoNumber: number;
-  Name: string;
-  Position: string;
-}) => {
-  const MyLogo = Logo[LogoNumber].logo;
-
-  return (
-    <div className="w-80 rounded-xl border-2 border-blue-300 px-8 py-6">
-      <MyLogo className="w-8 h-8" />
-      <p className="font-medium text-s_textSecondary mt-6">
-        {`"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos
-            harum esse libero con."`}
-      </p>
-      <h1 className="text-xl font-semibold text-s_textPrimary mt-6">{Name}</h1>
-      <h2 className="font-medium text-s_textSecondary">{Position}</h2>
-    </div>
-  );
-};
-
-const EmptyCard = () => {
-  return (
-    <div className="min-w-80 min-h-80 rounded-xl border-2 border-blue-200 dark:border-blue-300/20 border-dashed"></div>
-  );
-};
-const Code: string = `function Testimonial() {
-  return (
-    <div className="w-full h-[60rem] overflow-hidden flex justify-center items-center gap-10 text-s_textPrimary">
-      <div className="flex flex-col gap-10">
-        <EmptyCard />
-        <EmptyCard />
-        <EmptyCard />
-      </div>
-      <div className="flex-col gap-10 hidden @md:flex">
-        <EmptyCard />
-        <Card Name="John Doe" Position="Co-Founder" />
-        <Card Name="Erin Joseph" Position="Product Manager" />
-        <EmptyCard />
-      </div>
-      <div className="flex flex-col gap-10">
-        <EmptyCard />
-        <Card Name="John Doe" Position="CEO" />
-        <div className="w-80 py-8 px-10 rounded-xl bg-s_accent bg-gradient-to-tr from-blue-900  to-blue-400">
-          <h1 className="text-xl text-s_textComplementary font-semibold">
-            Want to see what others are saying about us?
-          </h1>
-          <button className="bg-s_foreground text-s_textComplementary py-2 px-4 rounded-xl mt-4">
-            See more
-          </button>
-        </div>
-        <Card Name="John Doe" Position="CEO" />
-        <EmptyCard />
-      </div>{" "}
-      <div className="flex-col gap-10 hidden @md:flex">
-        <EmptyCard />
-        <Card Name="Jane Doe" Position="CEO" />
-        <Card Name="John Doe" Position="CEO" />
-        <EmptyCard />
-      </div>
-      <div className="flex flex-col gap-10">
-        <EmptyCard />
-        <EmptyCard />
-        <EmptyCard />
-      </div>
-    </div>
-  );
-}`;
-
-const CardsStringTsx = `const Card = ({
-  Name,
-  Position,
-}: {
-  Name: string;
-  Position: string;
+  children: React.ReactNode;
+  className?: string;
 }) => {
   return (
-    <div className="w-80 rounded-xl border-2 border-blue-300 px-8 py-6">
-      <MyLogo className="w-8 h-8" />
-      <p className="font-medium text-s_textSecondary mt-6">
-        {\`"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos
-            harum esse libero con."\`}
-      </p>
-      <h1 className="text-xl font-semibold text-s_textPrimary mt-6">{Name}</h1>
-      <h2 className="font-medium text-s_textSecondary">{Position}</h2>
+    <div
+      className={twMerge(
+        "text-foreground rounded-xl border-2 border-outline px-8 py-6 bg-slate-400/10  hover:scale-105 hover:cursor-pointer transition-all duration-300",
+        className
+      )}
+    >
+      {children}
     </div>
   );
 };
-
-const EmptyCard = () => {
-  return (
-    <div className="min-w-80 min-h-80 rounded-xl border-2 border-blue-200 dark:border-blue-300/20 border-dashed"></div>
-  );
-};`;
-
-const CardsStringJsx = `const Card = ({
-  Name,
-  Position,
-}) => {
-  return (
-    <div className="w-80 rounded-xl border-2 border-blue-300 px-8 py-6">
-      <MyLogo className="w-8 h-8" />
-      <p className="font-medium text-s_textSecondary mt-6">
-        {\`"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos
-            harum esse libero con."\`}
-      </p>
-      <h1 className="text-xl font-semibold text-s_textPrimary mt-6">{Name}</h1>
-      <h2 className="font-medium text-s_textSecondary">{Position}</h2>
-    </div>
-  );
-};
-
-const EmptyCard = () => {
-  return (
-    <div className="min-w-80 min-h-80 rounded-xl border-2 border-blue-200 dark:border-blue-300/20 border-dashed"></div>
-  );
-};`;
-
-const Implementation: ImplementationNode[] = [
-  {
-    type: "technology_used",
-    content: ["tailwind-css"],
-  },
-  {
-    type: "code",
-    content: [
-      {
-        name: "Testimonial",
-        content: [
-          {
-            code: Code,
-            language: "tsx",
-          },
-          {
-            code: Code,
-            language: "jsx",
-          },
-        ],
-      },
-      {
-        name: "Cards",
-        content: [
-          {
-            code: CardsStringTsx,
-            language: "tsx",
-          },
-          {
-            code: CardsStringJsx,
-            language: "jsx",
-          },
-        ],
-      },
-      {
-        name: "Logo",
-        content: [
-          {
-            code: LogoStringTsx,
-            language: "tsx",
-          },
-          {
-            code: LogoStringJsx,
-            language: "jsx",
-          },
-        ],
-      },
-    ],
-  },
-];
-
-const Data: DataDescription = {
-  name: "Testimonial Section with Cards",
-  description:
-    "This is a testimonial section which can be used for displaying tweets for the products.",
-  implementation: Implementation,
-  component: Testimonial(),
-  version_included: "0.0.3",
-  display: true,
-};
-export default Data;
