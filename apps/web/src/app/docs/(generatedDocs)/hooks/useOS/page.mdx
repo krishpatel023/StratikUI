@@ -1,0 +1,153 @@
+import React, { Suspense } from 'react';
+import { Display, TechnologyUsed, Wrapper, Skeleton } from "@/components/mdx/MDXServerImports"
+import { CodeBlock } from "@/components/mdx/MDXClientImports"
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from apps/web/src/content/docs/hooks/useOS/useOS.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# useOS
+### Use the useOS hook to get the operating system of the user.
+
+
+
+
+
+export const Demo_hooks_useos_useos = React.lazy(() =>
+	import('@/packages/hooks/useOS/Demo.tsx')
+		.then((mod) => ({
+			default: mod.Demo
+	}))
+);
+
+
+<CodeBlock>
+ 
+
+```tsx|useOS
+"use client";
+
+import { useState, useEffect } from "react";
+
+export type OS = "Windows" | "MacOS" | "Linux" | "Android" | "iOS" | "Unknown";
+
+export const useOS = (): OS => {
+  const [os, setOS] = useState<OS>("Unknown");
+
+  useEffect(() => {
+    const userAgent = window.navigator.userAgent;
+
+    const detectOS = (): OS => {
+      if (/Windows/i.test(userAgent)) {
+        return "Windows";
+      }
+      if (/Macintosh|MacIntel|MacPPC|Mac68K/i.test(userAgent)) {
+        return "MacOS";
+      }
+      if (/Linux/i.test(userAgent)) {
+        return "Linux";
+      }
+      if (/Android/i.test(userAgent)) {
+        return "Android";
+      }
+      if (/iPhone|iPad|iPod/i.test(userAgent)) {
+        return "iOS";
+      }
+      return "Unknown";
+    };
+
+    setOS(detectOS());
+  }, []);
+
+  return os;
+};
+```
+
+```jsx|useOS
+"use client";
+
+import { useState, useEffect } from "react";
+
+export const useOS = (): OS => {
+  const [os, setOS] = useState("Unknown");
+
+  useEffect(() => {
+    const userAgent = window.navigator.userAgent;
+
+    const detectOS = () => {
+      if (/Windows/i.test(userAgent)) {
+        return "Windows";
+      }
+      if (/Macintosh|MacIntel|MacPPC|Mac68K/i.test(userAgent)) {
+        return "MacOS";
+      }
+      if (/Linux/i.test(userAgent)) {
+        return "Linux";
+      }
+      if (/Android/i.test(userAgent)) {
+        return "Android";
+      }
+      if (/iPhone|iPad|iPod/i.test(userAgent)) {
+        return "iOS";
+      }
+      return "Unknown";
+    };
+
+    setOS(detectOS());
+  }, []);
+
+  return os;
+};
+```
+
+```tsx|Implementation
+"use client";
+
+import React from "react";
+import { useOS } from "./useOS";
+
+export const Demo: React.FC = () => {
+  const os = useOS();
+
+  return (
+    <div className="w-full h-80 flex flex-col justify-center items-center dark:text-white">
+      <p>Your operating system is: {os}</p>
+    </div>
+  );
+};
+```
+```jsx|Implementation
+"use client";
+
+import React from "react";
+import { useOS } from "./useOS";
+
+export const Demo = () => {
+  const os = useOS();
+
+  return (
+    <div className="w-full h-80 flex flex-col justify-center items-center dark:text-white">
+      <p>Your operating system is: {os}</p>
+    </div>
+  );
+};
+```
+
+</CodeBlock>
+
+
+
+
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+    <Demo_hooks_useos_useos/>
+</Display>
+</Suspense>
+</Wrapper>

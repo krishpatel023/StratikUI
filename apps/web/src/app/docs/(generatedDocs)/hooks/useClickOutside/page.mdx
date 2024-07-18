@@ -1,0 +1,248 @@
+import React, { Suspense } from 'react';
+import { Display, TechnologyUsed, Wrapper, Skeleton } from "@/components/mdx/MDXServerImports"
+import { CodeBlock } from "@/components/mdx/MDXClientImports"
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from apps/web/src/content/docs/hooks/useClickOutside/useClickOutside.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# useClickOutside
+### The useClickOutside hook detects clicks outside a specified element and triggers a callback function. It accepts two parameters: a reference to the target element and a callback function to execute when a click outside the element is detected. This hook is useful for handling interactions like closing dropdowns or modals when a user clicks outside of them.
+
+
+
+
+
+export const ModalImplementation_hooks_useclickoutside_useclickoutside = React.lazy(() =>
+	import('@/packages/hooks/useClickOutside/Demo.tsx')
+		.then((mod) => ({
+			default: mod.ModalImplementation
+	}))
+);
+
+
+<CodeBlock>
+ 
+```tsx|useClickOutside
+"use client";
+
+import { useEffect, RefObject } from "react";
+
+const useClickOutside = (ref: RefObject<HTMLElement>, handler: () => void) => {
+  useEffect(() => {
+    const listener = (event: MouseEvent) => {
+      if (
+        !ref.current ||
+        ref.current.contains(event.target ? (event.target as Node) : null)
+      ) {
+        return;
+      }
+      handler();
+    };
+    const listenerTouch = (event: TouchEvent) => {
+      if (
+        !ref.current ||
+        ref.current.contains(event.target ? (event.target as Node) : null)
+      ) {
+        return;
+      }
+      handler();
+    };
+
+    document.addEventListener("mousedown", listener);
+    document.addEventListener("touchstart", listenerTouch);
+
+    return () => {
+      document.removeEventListener("mousedown", listener);
+      document.removeEventListener("touchstart", listenerTouch);
+    };
+  }, [ref, handler]);
+};
+
+export default useClickOutside;
+```
+```jsx|useClickOutside
+"use client";
+
+import { useEffect, RefObject } from "react";
+
+const useClickOutside = (ref, handler) => {
+  useEffect(() => {
+    const listener = (event) => {
+      if (
+        !ref.current ||
+        ref.current.contains(event.target ? event.target : null)
+      ) {
+        return;
+      }
+      handler();
+    };
+    const listenerTouch = (event) => {
+      if (
+        !ref.current ||
+        ref.current.contains(event.target ? event.target : null)
+      ) {
+        return;
+      }
+      handler();
+    };
+
+    document.addEventListener("mousedown", listener);
+    document.addEventListener("touchstart", listenerTouch);
+
+    return () => {
+      document.removeEventListener("mousedown", listener);
+      document.removeEventListener("touchstart", listenerTouch);
+    };
+  }, [ref, handler]);
+};
+
+export default useClickOutside;
+```
+
+```tsx|Implementation
+"use client";
+
+import { useRef, useState } from "react";
+import { twMerge } from "tailwind-merge";
+
+function Modal({
+  children,
+  active,
+  setActive,
+  position = "center",
+  className,
+  blurBg = true,
+}: {
+  children: React.ReactNode;
+  active: boolean;
+  setActive: React.Dispatch<React.SetStateAction<boolean>>;
+  position?: "center" | "top" | "bottom";
+  className?: string;
+  blurBg?: boolean;
+}) {
+  const ref = useRef(null);
+  useClickOutside(ref, () => setActive(false));
+
+  return (
+    <>
+      {active && (
+        <ContainerGlassEffect
+          className={twMerge(
+            "w-full h-full fixed top-0 left-0 z-50 flex justify-center",
+            !blurBg &&
+              "bg-transparent dark:bg-transparent backdrop-blur-none supports-[backdrop-filter]:bg-transparent dark:supports-[backdrop-filter]:bg-transparent"
+          )}
+        >
+          <div
+            ref={ref}
+            className={twMerge(
+              "hidden absolute rounded-md px-6 py-6 border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-950 text-black dark:text-white",
+              active && "flex flex-col",
+              position === "center" && "top-1/2 -translate-y-1/2",
+              position === "top" && "top-6",
+              position === "bottom" && "bottom-6",
+              className
+            )}
+          >
+            {children}
+          </div>
+        </ContainerGlassEffect>
+      )}
+    </>
+  );
+}
+
+export const ModalImplementation = () => {
+  const [active, setActive] = useState<boolean>(false);
+  return (
+    <div className="min-h-[35rem] flex justify-center items-center">
+      <Modal active={active} setActive={setActive} className="max-w-[30rem]">
+        <h1>
+          First click inside the modal to check that it {"won't"} close. Now,
+          click outside the modal to close and see how the hook works.
+        </h1>
+      </Modal>
+      <Button onClick={() => setActive(true)}>Open Modal</Button>
+    </div>
+  );
+};
+```
+```jsx|Implementation
+"use client";
+
+import { useRef, useState } from "react";
+import { twMerge } from "tailwind-merge";
+
+function Modal({
+  children,
+  active,
+  setActive,
+  position = "center",
+  className,
+  blurBg = true,
+}) {
+  const ref = useRef(null);
+  useClickOutside(ref, () => setActive(false));
+
+  return (
+    <>
+      {active && (
+        <ContainerGlassEffect
+          className={twMerge(
+            "w-full h-full fixed top-0 left-0 z-50 flex justify-center",
+            !blurBg &&
+              "bg-transparent dark:bg-transparent backdrop-blur-none supports-[backdrop-filter]:bg-transparent dark:supports-[backdrop-filter]:bg-transparent"
+          )}
+        >
+          <div
+            ref={ref}
+            className={twMerge(
+              "hidden absolute rounded-md px-6 py-6 border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-950 text-black dark:text-white",
+              active && "flex flex-col",
+              position === "center" && "top-1/2 -translate-y-1/2",
+              position === "top" && "top-6",
+              position === "bottom" && "bottom-6",
+              className
+            )}
+          >
+            {children}
+          </div>
+        </ContainerGlassEffect>
+      )}
+    </>
+  );
+}
+
+export const ModalImplementation = () => {
+  const [active, setActive] = useState(false);
+  return (
+    <div className="min-h-[35rem] flex justify-center items-center">
+      <Modal active={active} setActive={setActive} className="max-w-[30rem]">
+        <h1>
+          First click inside the modal to check that it {"won't"} close. Now,
+          click outside the modal to close and see how the hook works.
+        </h1>
+      </Modal>
+      <Button onClick={() => setActive(true)}>Open Modal</Button>
+    </div>
+  );
+};
+```
+
+</CodeBlock>
+
+
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+    <ModalImplementation_hooks_useclickoutside_useclickoutside/>
+</Display>
+</Suspense>
+</Wrapper>

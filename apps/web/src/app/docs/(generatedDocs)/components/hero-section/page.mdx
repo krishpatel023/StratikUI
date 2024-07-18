@@ -1,0 +1,1320 @@
+import React, { Suspense } from 'react';
+import { Implementation, Preview, Header, TechnologyUsed, Wrapper, Skeleton, PARTITION } from "@/components/mdx/MDXServerImports"
+import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from apps/web/src/content/docs/components/hero-section/Hero_01.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Simple Hero Section
+### This is a simple hero section that is elegant and simple for any purpose.
+
+
+
+
+
+export const HeroSection_components_hero_section_hero_01 = React.lazy(() =>
+	import('@/packages/components/hero_section/Hero_1')
+		.then((mod) => ({
+			default: mod.HeroSection
+	}))
+);
+
+
+<Header />
+<Preview> 
+
+<Suspense fallback={<Skeleton className="h-[800px] rounded-lg" />}>
+<ResizableDisplay>
+<HeroSection_components_hero_section_hero_01/>
+</ResizableDisplay>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge"]}/>
+
+<CodeBlock>
+ 
+```tsx|Hero
+"use client";
+import { Background } from "@/packages/helper/Background";
+import { Button } from "@/packages/primitives/buttons/Button_1";
+import useMousePosition from "@/packages/primitives/containers/Container_3";
+import { useEffect, useRef, useState } from "react";
+import {
+  Button as ReactAriaButton,
+  ButtonProps as ReactAriaButtonProps,
+} from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+
+export function BorderAnimationButton({
+  children,
+  className,
+}: ReactAriaButtonProps) {
+  const { x, y } = useMousePosition();
+  const [relativeX, setRelativeX] = useState(0);
+
+  const containerRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+
+      const dist = x - rect.left;
+      if (y > rect.top && y < rect.bottom && dist > 0 && dist < rect.width)
+        setRelativeX(dist);
+    }
+  }, [x]);
+
+  return (
+    <ReactAriaButton
+      className="group relative  rounded-full text-foreground overflow-hidden p-0.5"
+      ref={containerRef}
+    >
+      <div
+        className={twMerge(
+          "z-10 bg-background relative rounded-[inherit]",
+          className as string
+        )}
+      >
+        <>{children}</>
+      </div>
+      <div
+        className="z-0 m-1 mx-auto my-auto w-full h-full  absolute top-0 -left-1/2   bg-gradient-to-r from-transparent via-accent to-transparent opacity-40 group-hover:opacity-100 transition-opacity duration-500"
+        style={{ translate: relativeX ? `${relativeX}px` : "50%" }}
+      />
+    </ReactAriaButton>
+  );
+}
+export function HeroSection() {
+  return (
+    <div className="w-full min-h-screen flex flex-col justify-center items-center  relative">
+      <div className="flex flex-col justify-center items-center text-center gap-8">
+        <BorderAnimationButton className="text-primary-foreground flex gap-2  rounded-full @lg:px-6 px-4 py-1 ">
+          View all the latest components.
+          <span className="text-accent hidden @lg:block">Read More</span>
+        </BorderAnimationButton>
+        <h1 className="text-5xl font-bold  w-[90%] @lg:w-1/2 text-primary-foreground">
+          This is the best library for functional components.
+        </h1>
+        <span className="text-2xl font-medium w-[90%] @lg:w-3/4 text-secondary-foreground">
+          Beautifully designed components that you can copy and paste into your
+          apps. Accessible. Customizable. Developer Friendly.
+        </span>
+        <div className="flex gap-8">
+          <Button variant="accent" className="w-32">
+            Get Started
+          </Button>
+          <Button variant="ghost" className="w-32 h-full">
+            Learn More
+          </Button>
+        </div>
+      </div>
+      <Background />
+    </div>
+  );
+}
+```
+```jsx|Hero
+"use client";
+import { Background } from "@/packages/helper/Background";
+import { Button } from "@/packages/primitives/buttons/Button_1";
+import useMousePosition from "@/packages/primitives/containers/Container_3";
+import { useEffect, useRef, useState } from "react";
+import {
+  Button as ReactAriaButton,
+  ButtonProps as ReactAriaButtonProps,
+} from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+
+export function BorderAnimationButton({
+  children,
+  className,
+}) {
+  const { x, y } = useMousePosition();
+  const [relativeX, setRelativeX] = useState(0);
+
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+
+      const dist = x - rect.left;
+      if (y > rect.top && y < rect.bottom && dist > 0 && dist < rect.width)
+        setRelativeX(dist);
+    }
+  }, [x]);
+
+  return (
+    <ReactAriaButton
+      className="group relative  rounded-full text-foreground overflow-hidden p-0.5"
+      ref={containerRef}
+    >
+      <div
+        className={twMerge(
+          "z-10 bg-background relative rounded-[inherit]",
+          className
+        )}
+      >
+        <>{children}</>
+      </div>
+      <div
+        className="z-0 m-1 mx-auto my-auto w-full h-full  absolute top-0 -left-1/2   bg-gradient-to-r from-transparent via-accent to-transparent opacity-40 group-hover:opacity-100 transition-opacity duration-500"
+        style={{ translate: relativeX ? `${relativeX}px` : "50%" }}
+      />
+    </ReactAriaButton>
+  );
+}
+export function HeroSection() {
+  return (
+    <div className="w-full min-h-screen flex flex-col justify-center items-center  relative">
+      <div className="flex flex-col justify-center items-center text-center gap-8">
+        <BorderAnimationButton className="text-primary-foreground flex gap-2  rounded-full @lg:px-6 px-4 py-1 ">
+          View all the latest components.
+          <span className="text-accent hidden @lg:block">Read More</span>
+        </BorderAnimationButton>
+        <h1 className="text-5xl font-bold  w-[90%] @lg:w-1/2 text-primary-foreground">
+          This is the best library for functional components.
+        </h1>
+        <span className="text-2xl font-medium w-[90%] @lg:w-3/4 text-secondary-foreground">
+          Beautifully designed components that you can copy and paste into your
+          apps. Accessible. Customizable. Developer Friendly.
+        </span>
+        <div className="flex gap-8">
+          <Button variant="accent" className="w-32">
+            Get Started
+          </Button>
+          <Button variant="ghost" className="w-32 h-full">
+            Learn More
+          </Button>
+        </div>
+      </div>
+      <Background />
+    </div>
+  );
+}
+```
+
+</CodeBlock>
+
+
+</Implementation>
+</Wrapper>
+<PARTITION />
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from apps/web/src/content/docs/components/hero-section/Hero_02.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Hero Section with Images
+### This hero section can be used for websites that require images to display their credebility. It can also be used for landing pages.
+
+
+
+
+
+export const HeroSection_components_hero_section_hero_02 = React.lazy(() =>
+	import('@/packages/components/hero_section/Hero_2')
+		.then((mod) => ({
+			default: mod.HeroSection
+	}))
+);
+
+
+<Header />
+<Preview> 
+
+<Suspense fallback={<Skeleton className="h-[800px] rounded-lg" />}>
+<ResizableDisplay>
+<HeroSection_components_hero_section_hero_02/>
+</ResizableDisplay>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge" ]}/>
+
+<CodeBlock>
+ 
+```tsx|
+import Image_1 from "@/assets/Images/Image_1.jpg";
+import Image_2 from "@/assets/Images/Image_2.jpg";
+import Image_3 from "@/assets/Images/Image_3.jpg";
+import Image_4 from "@/assets/Images/Image_4.jpg";
+import Image_5 from "@/assets/Images/Image_5.jpg";
+import Image_6 from "@/assets/Images/Image_6.jpg";
+import Image_7 from "@/assets/Images/Image_7.jpg";
+import { Background } from "@/packages/helper/Background";
+import { Button } from "@/packages/primitives/buttons/Button_1";
+import Image from "next/image";
+
+export function HeroSection() {
+  return (
+    <div className="w-full pt-40 @md:pt-0 @md:h-screen flex flex-col @md:flex-row gap-10 @md:gap-0 justify-center items-center  relative">
+      <div className="w-full @md:w-[60%] @lg:1/2 px-10 flex flex-col justify-center items-center @lg:items-start text-center @lg:text-left gap-8">
+        <h1 className="text-5xl font-bold text-primary-foreground">
+          This is the best library for functional components.
+        </h1>
+        <span className="text-2xl font-medium text-secondary-foreground">
+          Beautifully designed components that you can copy and paste into your
+          apps. Accessible. Customizable. Developer Friendly.
+        </span>
+        <div className="flex gap-8">
+          <Button variant="accent" className="w-32">
+            Get Started
+          </Button>
+          <Button variant="ghost" className="w-32 h-full">
+            Learn More
+          </Button>
+        </div>
+      </div>
+      {/* IMAGES */}
+      <div className="w-full h-[40rem] @md:h-full justify-center @md:justify-start @md:items-center overflow-hidden @md:w-[40%] @lg:w-1/2 flex gap-8">
+        <div className="mt-20 @md:mt-0 flex flex-col gap-8 relative">
+          <div className="w-48 h-68 rounded-md">
+            <Image
+              src={Image_1}
+              alt="hero"
+              className="w-full h-full object-cover rounded-lg"
+            />
+          </div>
+          <div className="w-48 h-68 rounded-md">
+            <Image
+              src={Image_2}
+              alt="hero"
+              className="w-full h-full object-cover rounded-lg"
+            />
+          </div>
+        </div>
+        <div className="flex flex-col gap-8 relative">
+          <div className="w-48 h-68 rounded-md">
+            <Image
+              src={Image_3}
+              alt="hero"
+              className="w-full h-full object-cover rounded-lg"
+            />
+          </div>
+          <div className="w-48 h-68 rounded-md">
+            <Image
+              src={Image_4}
+              alt="hero"
+              className="w-full h-full object-cover rounded-lg"
+            />
+          </div>
+          <div className="w-48 h-68 rounded-md">
+            <Image
+              src={Image_5}
+              alt="hero"
+              className="w-full h-full object-cover rounded-lg"
+            />
+          </div>
+        </div>
+        <div className="mt-14 @md:mt-0 flex flex-col gap-8 relative">
+          <div className="w-48 h-68 rounded-md">
+            <Image
+              src={Image_6}
+              alt="hero"
+              className="w-full h-full object-cover rounded-lg"
+            />
+          </div>
+          <div className="w-48 h-68 rounded-md">
+            <Image
+              src={Image_7}
+              alt="hero"
+              className="w-full h-full object-cover rounded-lg"
+            />
+          </div>
+        </div>
+      </div>
+      <Background />
+    </div>
+  );
+}
+
+
+```
+```jsx|
+import Image_1 from "@/assets/Images/Image_1.jpg";
+import Image_2 from "@/assets/Images/Image_2.jpg";
+import Image_3 from "@/assets/Images/Image_3.jpg";
+import Image_4 from "@/assets/Images/Image_4.jpg";
+import Image_5 from "@/assets/Images/Image_5.jpg";
+import Image_6 from "@/assets/Images/Image_6.jpg";
+import Image_7 from "@/assets/Images/Image_7.jpg";
+import { Background } from "@/packages/helper/Background";
+import { Button } from "@/packages/primitives/buttons/Button_1";
+import Image from "next/image";
+
+export function HeroSection() {
+  return (
+    <div className="w-full pt-40 @md:pt-0 @md:h-screen flex flex-col @md:flex-row gap-10 @md:gap-0 justify-center items-center  relative">
+      <div className="w-full @md:w-[60%] @lg:1/2 px-10 flex flex-col justify-center items-center @lg:items-start text-center @lg:text-left gap-8">
+        <h1 className="text-5xl font-bold text-primary-foreground">
+          This is the best library for functional components.
+        </h1>
+        <span className="text-2xl font-medium text-secondary-foreground">
+          Beautifully designed components that you can copy and paste into your
+          apps. Accessible. Customizable. Developer Friendly.
+        </span>
+        <div className="flex gap-8">
+          <Button variant="accent" className="w-32">
+            Get Started
+          </Button>
+          <Button variant="ghost" className="w-32 h-full">
+            Learn More
+          </Button>
+        </div>
+      </div>
+      {/* IMAGES */}
+      <div className="w-full h-[40rem] @md:h-full justify-center @md:justify-start @md:items-center overflow-hidden @md:w-[40%] @lg:w-1/2 flex gap-8">
+        <div className="mt-20 @md:mt-0 flex flex-col gap-8 relative">
+          <div className="w-48 h-68 rounded-md">
+            <Image
+              src={Image_1}
+              alt="hero"
+              className="w-full h-full object-cover rounded-lg"
+            />
+          </div>
+          <div className="w-48 h-68 rounded-md">
+            <Image
+              src={Image_2}
+              alt="hero"
+              className="w-full h-full object-cover rounded-lg"
+            />
+          </div>
+        </div>
+        <div className="flex flex-col gap-8 relative">
+          <div className="w-48 h-68 rounded-md">
+            <Image
+              src={Image_3}
+              alt="hero"
+              className="w-full h-full object-cover rounded-lg"
+            />
+          </div>
+          <div className="w-48 h-68 rounded-md">
+            <Image
+              src={Image_4}
+              alt="hero"
+              className="w-full h-full object-cover rounded-lg"
+            />
+          </div>
+          <div className="w-48 h-68 rounded-md">
+            <Image
+              src={Image_5}
+              alt="hero"
+              className="w-full h-full object-cover rounded-lg"
+            />
+          </div>
+        </div>
+        <div className="mt-14 @md:mt-0 flex flex-col gap-8 relative">
+          <div className="w-48 h-68 rounded-md">
+            <Image
+              src={Image_6}
+              alt="hero"
+              className="w-full h-full object-cover rounded-lg"
+            />
+          </div>
+          <div className="w-48 h-68 rounded-md">
+            <Image
+              src={Image_7}
+              alt="hero"
+              className="w-full h-full object-cover rounded-lg"
+            />
+          </div>
+        </div>
+      </div>
+      <Background />
+    </div>
+  );
+}
+
+
+```
+
+</CodeBlock>
+
+
+</Implementation>
+</Wrapper>
+<PARTITION />
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from apps/web/src/content/docs/components/hero-section/Hero_04.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Hero Section with Carousel
+### This hero section can be used for websites that require images to display their credebility. It can also be used for landing pages. This component also comes with a carousel component that has a left and right direction movement that you add to it.
+
+
+
+
+
+export const HeroSection_components_hero_section_hero_04 = React.lazy(() =>
+	import('@/packages/components/hero_section/Hero_4')
+		.then((mod) => ({
+			default: mod.HeroSection
+	}))
+);
+
+
+<Header />
+<Preview> 
+
+<Suspense fallback={<Skeleton className="h-[800px] rounded-lg" />}>
+<ResizableDisplay>
+<HeroSection_components_hero_section_hero_04/>
+</ResizableDisplay>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge"]}/>
+
+<CodeBlock>
+ 
+```tsx|Hero
+"use client";
+
+import Logo from "@/packages/helper/Logo";
+import useMousePosition from "@/packages/primitives/containers/Container_3";
+import { useEffect, useRef, useState } from "react";
+
+import {
+  Button as ReactAriaButton,
+  ButtonProps as ReactAriaButtonProps,
+} from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+import { Background } from "@/packages/helper/Background";
+import { Button } from "@/packages/primitives/buttons/Button_1";
+
+export function BorderAnimationButton({
+  children,
+  className,
+}: ReactAriaButtonProps) {
+  const { x, y } = useMousePosition();
+  const [relativeX, setRelativeX] = useState(0);
+
+  const containerRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+
+      const dist = x - rect.left;
+      if (y > rect.top && y < rect.bottom && dist > 0 && dist < rect.width)
+        setRelativeX(dist);
+    }
+  }, [x]);
+
+  return (
+    <ReactAriaButton
+      className="group relative  rounded-full text-foreground overflow-hidden p-0.5"
+      ref={containerRef}
+    >
+      <div
+        className={twMerge(
+          "z-10 bg-background relative rounded-[inherit]",
+          className as string
+        )}
+      >
+        <>{children}</>
+      </div>
+      <div
+        className="z-0 m-1 mx-auto my-auto w-full h-full  absolute top-0 -left-1/2   bg-gradient-to-r from-transparent via-accent to-transparent opacity-40 group-hover:opacity-100 transition-opacity duration-500"
+        style={{ translate: relativeX ? `${relativeX}px` : "50%" }}
+      />
+    </ReactAriaButton>
+  );
+}
+
+export function Carousel({
+  direction = "left",
+}: {
+  direction?: "left" | "right";
+}) {
+  const animateInDirection =
+    direction === "right"
+      ? "animate-infinite-scroll-right"
+      : "animate-infinite-scroll-left";
+  return (
+    <>
+      <div className="max-w-[80rem] h-28 inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
+        <ul
+          className={`flex items-center justify-center md:justify-start [&_li]:mx-8 @md:[&_li]:mx-16  ${animateInDirection}`}
+        >
+          {Logo.map((item, i) => (
+            <li key={i} className="p-4 hover:bg-secondary rounded-md">
+              <item.logo className="w-10 h-10 text-primary-foreground" />
+            </li>
+          ))}
+        </ul>
+        <ul
+          className={`flex items-center justify-center md:justify-start [&_li]:mx-8 @md:[&_li]:mx-16   ${animateInDirection}`}
+        >
+          {Logo.map((item, i) => (
+            <li key={i} className="p-4 hover:bg-secondary rounded-md">
+              <item.logo className="w-10 h-10 text-primary-foreground" />
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
+  );
+}
+
+export function HeroSection() {
+  return (
+    <div className="w-full overflow-hidden flex flex-col @md:flex-row gap-10 @md:gap-0 justify-center items-center relative py-20">
+      <div className="flex flex-col justify-center items-center text-center gap-8">
+        <BorderAnimationButton className="text-primary-foreground flex gap-2  rounded-full @lg:px-6 px-4 py-1 ">
+          View all the latest components.
+          <span className="text-accent hidden @lg:block">Read More</span>
+        </BorderAnimationButton>
+        <h1 className="text-5xl font-bold  w-[90%] @lg:w-1/2 text-primary-foreground">
+          This is the best library for functional components.
+        </h1>
+        <span className="text-2xl font-medium w-[90%] @lg:w-3/4 text-secondary-foreground">
+          Beautifully designed components that you can copy and paste into your
+          apps. Accessible. Customizable. Developer Friendly.
+        </span>
+        <div className="flex gap-8">
+          <Button variant="accent" className="w-32">
+            Get Started
+          </Button>
+          <Button variant="ghost" className="w-32 h-full">
+            Learn More
+          </Button>
+        </div>
+        <div>
+          <h1 className="text-primary-foreground font-semibold text-2xl mt-8">
+            Meet Our Partners
+          </h1>
+          <Carousel />
+        </div>
+      </div>
+      <Background />
+    </div>
+  );
+}
+
+
+```
+```jsx|Hero
+"use client";
+
+import Logo from "@/packages/helper/Logo";
+import useMousePosition from "@/packages/primitives/containers/Container_3";
+import { useEffect, useRef, useState } from "react";
+
+import {
+  Button as ReactAriaButton,
+  ButtonProps as ReactAriaButtonProps,
+} from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+import { Background } from "@/packages/helper/Background";
+import { Button } from "@/packages/primitives/buttons/Button_1";
+
+export function BorderAnimationButton({
+  children,
+  className,
+}) {
+  const { x, y } = useMousePosition();
+  const [relativeX, setRelativeX] = useState(0);
+
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+
+      const dist = x - rect.left;
+      if (y > rect.top && y < rect.bottom && dist > 0 && dist < rect.width)
+        setRelativeX(dist);
+    }
+  }, [x]);
+
+  return (
+    <ReactAriaButton
+      className="group relative  rounded-full text-foreground overflow-hidden p-0.5"
+      ref={containerRef}
+    >
+      <div
+        className={twMerge(
+          "z-10 bg-background relative rounded-[inherit]",
+          className as string
+        )}
+      >
+        <>{children}</>
+      </div>
+      <div
+        className="z-0 m-1 mx-auto my-auto w-full h-full  absolute top-0 -left-1/2   bg-gradient-to-r from-transparent via-accent to-transparent opacity-40 group-hover:opacity-100 transition-opacity duration-500"
+        style={{ translate: relativeX ? `${relativeX}px` : "50%" }}
+      />
+    </ReactAriaButton>
+  );
+}
+
+export function Carousel({
+  direction = "left",
+}) {
+  const animateInDirection =
+    direction === "right"
+      ? "animate-infinite-scroll-right"
+      : "animate-infinite-scroll-left";
+  return (
+    <>
+      <div className="max-w-[80rem] h-28 inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
+        <ul
+          className={`flex items-center justify-center md:justify-start [&_li]:mx-8 @md:[&_li]:mx-16  ${animateInDirection}`}
+        >
+          {Logo.map((item, i) => (
+            <li key={i} className="p-4 hover:bg-secondary rounded-md">
+              <item.logo className="w-10 h-10 text-primary-foreground" />
+            </li>
+          ))}
+        </ul>
+        <ul
+          className={`flex items-center justify-center md:justify-start [&_li]:mx-8 @md:[&_li]:mx-16   ${animateInDirection}`}
+        >
+          {Logo.map((item, i) => (
+            <li key={i} className="p-4 hover:bg-secondary rounded-md">
+              <item.logo className="w-10 h-10 text-primary-foreground" />
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
+  );
+}
+
+export function HeroSection() {
+  return (
+    <div className="w-full overflow-hidden flex flex-col @md:flex-row gap-10 @md:gap-0 justify-center items-center relative py-20">
+      <div className="flex flex-col justify-center items-center text-center gap-8">
+        <BorderAnimationButton className="text-primary-foreground flex gap-2  rounded-full @lg:px-6 px-4 py-1 ">
+          View all the latest components.
+          <span className="text-accent hidden @lg:block">Read More</span>
+        </BorderAnimationButton>
+        <h1 className="text-5xl font-bold  w-[90%] @lg:w-1/2 text-primary-foreground">
+          This is the best library for functional components.
+        </h1>
+        <span className="text-2xl font-medium w-[90%] @lg:w-3/4 text-secondary-foreground">
+          Beautifully designed components that you can copy and paste into your
+          apps. Accessible. Customizable. Developer Friendly.
+        </span>
+        <div className="flex gap-8">
+          <Button variant="accent" className="w-32">
+            Get Started
+          </Button>
+          <Button variant="ghost" className="w-32 h-full">
+            Learn More
+          </Button>
+        </div>
+        <div>
+          <h1 className="text-primary-foreground font-semibold text-2xl mt-8">
+            Meet Our Partners
+          </h1>
+          <Carousel />
+        </div>
+      </div>
+      <Background />
+    </div>
+  );
+}
+```
+
+</CodeBlock>
+
+
+</Implementation>
+</Wrapper>
+<PARTITION />
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from apps/web/src/content/docs/components/hero-section/Hero_05.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Hero Section with brand association
+### This hero section can be used for websites that require images to display their credebility. It can also be used for landing pages. It contains various logos that are associated with the brand.
+
+
+
+
+
+export const HeroSection_components_hero_section_hero_05 = React.lazy(() =>
+	import('@/packages/components/hero_section/Hero_5')
+		.then((mod) => ({
+			default: mod.HeroSection
+	}))
+);
+
+
+<Header />
+<Preview> 
+
+<Suspense fallback={<Skeleton className="h-[800px] rounded-lg" />}>
+<ResizableDisplay>
+<HeroSection_components_hero_section_hero_05/>
+</ResizableDisplay>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge" ]}/>
+
+<CodeBlock>
+ 
+```tsx|Hero
+"use client";
+
+import { Logo } from "./Hero_5_Helper";
+
+import useMousePosition from "@/packages/primitives/containers/Container_3";
+import { useEffect, useRef, useState } from "react";
+import {
+  Button as ReactAriaButton,
+  ButtonProps as ReactAriaButtonProps,
+} from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+
+export function BorderAnimationButton({
+  children,
+  className,
+}: ReactAriaButtonProps) {
+  const { x, y } = useMousePosition();
+  const [relativeX, setRelativeX] = useState(0);
+
+  const containerRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+
+      const dist = x - rect.left;
+      if (y > rect.top && y < rect.bottom && dist > 0 && dist < rect.width)
+        setRelativeX(dist);
+    }
+  }, [x]);
+
+  return (
+    <ReactAriaButton
+      className="group relative  rounded-full text-foreground overflow-hidden p-0.5"
+      ref={containerRef}
+    >
+      <div
+        className={twMerge(
+          "z-10 bg-background relative rounded-[inherit]",
+          className as string
+        )}
+      >
+        <>{children}</>
+      </div>
+      <div
+        className="z-0 m-1 mx-auto my-auto w-full h-full  absolute top-0 -left-1/2   bg-gradient-to-r from-transparent via-accent to-transparent opacity-40 group-hover:opacity-100 transition-opacity duration-500"
+        style={{ translate: relativeX ? `${relativeX}px` : "50%" }}
+      />
+    </ReactAriaButton>
+  );
+}
+
+export function HeroSection() {
+  return (
+    <div className="w-full min-h-screen overflow-hidden flex flex-col @md:flex-row gap-10 @md:gap-0 justify-center items-center bg-background  relative">
+      <div className="w-full my-24 flex flex-col justify-center items-center text-center gap-8 z-10">
+        <BorderAnimationButton className="text-primary-foreground flex gap-2 rounded-full @lg:px-6 px-4 py-1 ">
+          New Layouts Weekly
+        </BorderAnimationButton>
+        <h1 className="text-5xl font-bold  w-[90%] @lg:w-1/2 text-primary-foreground">
+          The best library for Tailwind Components.
+        </h1>
+        <span className="text-lg font-medium w-[30rem] max-w-[90%] text-secondary-foreground">
+          Beautifully designed components that you can copy and paste into your
+          apps. Accessible. Customizable. Developer Friendly.
+        </span>
+        <div className="flex gap-8">
+          <button className="px-4 h-10 rounded-md bg-accent hover:bg-accent-secondary text-accent-foreground font-semibold">
+            Create Free Account
+          </button>
+          <button className="text-primary-foreground">View Plans</button>
+        </div>
+      </div>
+      <LogoBackground />
+    </div>
+  );
+}
+
+const LogoBackground = () => {
+  return (
+    <div className="absolute top-0 left-0 w-full h-full flex justify-center gap-[65%] @lg:gap-[35%] items-center flex-col @lg:flex-row @lg:items-end text-accent-foreground">
+      <div className="grid grid-cols-4 @lg:grid-cols-3 gap-12 @lg:gap-6">
+        <div className="@lg:col-span-3 mt-10">
+          <Logo.airbnb className="w-12 h-12 @lg:w-24 @lg:h-24" />
+        </div>
+        <div className="@lg:col-span-3 @lg:col-start-2">
+          <Logo.loom className="w-12 h-12 @lg:w-24 @lg:h-24" />
+        </div>{" "}
+        <div className="@lg:col-span-1">
+          <Logo.spotify className="w-12 h-12 @lg:w-24 @lg:h-24" />
+        </div>{" "}
+        <div className="@lg:col-span-1 @lg:col-start-3 mt-10">
+          <Logo.dribbble className="w-12 h-12 @lg:w-24 @lg:h-24" />
+        </div>
+      </div>
+      <div className="grid grid-cols-4 @lg:grid-cols-3 gap-12 @lg:gap-6">
+        <div className="@lg:col-span-1 @lg:col-start-3">
+          <Logo.podcast className="w-12 h-12 @lg:w-24 @lg:h-24" />
+        </div>
+        <div className="@lg:col-span-3 @lg:col-start-2 mt-10 @lg:mt-0">
+          <Logo.trello className="w-12 h-12 @lg:w-24 @lg:h-24" />
+        </div>{" "}
+        <div className="@lg:col-span-1 mt-10 @lg:mt-0">
+          <Logo.uber className="w-12 h-12 @lg:w-24 @lg:h-24 rounded-md" />
+        </div>{" "}
+        <div className="@lg:col-span-1 @lg:col-start-3">
+          <Logo.dailymotion className="w-12 h-12 @lg:w-24 @lg:h-24 rounded-md" />
+        </div>
+      </div>
+    </div>
+  );
+};
+```
+```jsx|Hero
+"use client";
+
+import { Logo } from "./Hero_5_Helper";
+
+import useMousePosition from "@/packages/primitives/containers/Container_3";
+import { useEffect, useRef, useState } from "react";
+import {
+  Button as ReactAriaButton,
+  ButtonProps as ReactAriaButtonProps,
+} from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+
+export function BorderAnimationButton({
+  children,
+  className,
+}) {
+  const { x, y } = useMousePosition();
+  const [relativeX, setRelativeX] = useState(0);
+
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+
+      const dist = x - rect.left;
+      if (y > rect.top && y < rect.bottom && dist > 0 && dist < rect.width)
+        setRelativeX(dist);
+    }
+  }, [x]);
+
+  return (
+    <ReactAriaButton
+      className="group relative  rounded-full text-foreground overflow-hidden p-0.5"
+      ref={containerRef}
+    >
+      <div
+        className={twMerge(
+          "z-10 bg-background relative rounded-[inherit]",
+          className
+        )}
+      >
+        <>{children}</>
+      </div>
+      <div
+        className="z-0 m-1 mx-auto my-auto w-full h-full  absolute top-0 -left-1/2   bg-gradient-to-r from-transparent via-accent to-transparent opacity-40 group-hover:opacity-100 transition-opacity duration-500"
+        style={{ translate: relativeX ? `${relativeX}px` : "50%" }}
+      />
+    </ReactAriaButton>
+  );
+}
+
+export function HeroSection() {
+  return (
+    <div className="w-full min-h-screen overflow-hidden flex flex-col @md:flex-row gap-10 @md:gap-0 justify-center items-center bg-background  relative">
+      <div className="w-full my-24 flex flex-col justify-center items-center text-center gap-8 z-10">
+        <BorderAnimationButton className="text-primary-foreground flex gap-2 rounded-full @lg:px-6 px-4 py-1 ">
+          New Layouts Weekly
+        </BorderAnimationButton>
+        <h1 className="text-5xl font-bold  w-[90%] @lg:w-1/2 text-primary-foreground">
+          The best library for Tailwind Components.
+        </h1>
+        <span className="text-lg font-medium w-[30rem] max-w-[90%] text-secondary-foreground">
+          Beautifully designed components that you can copy and paste into your
+          apps. Accessible. Customizable. Developer Friendly.
+        </span>
+        <div className="flex gap-8">
+          <button className="px-4 h-10 rounded-md bg-accent hover:bg-accent-secondary text-accent-foreground font-semibold">
+            Create Free Account
+          </button>
+          <button className="text-primary-foreground">View Plans</button>
+        </div>
+      </div>
+      <LogoBackground />
+    </div>
+  );
+}
+
+const LogoBackground = () => {
+  return (
+    <div className="absolute top-0 left-0 w-full h-full flex justify-center gap-[65%] @lg:gap-[35%] items-center flex-col @lg:flex-row @lg:items-end text-accent-foreground">
+      <div className="grid grid-cols-4 @lg:grid-cols-3 gap-12 @lg:gap-6">
+        <div className="@lg:col-span-3 mt-10">
+          <Logo.airbnb className="w-12 h-12 @lg:w-24 @lg:h-24" />
+        </div>
+        <div className="@lg:col-span-3 @lg:col-start-2">
+          <Logo.loom className="w-12 h-12 @lg:w-24 @lg:h-24" />
+        </div>{" "}
+        <div className="@lg:col-span-1">
+          <Logo.spotify className="w-12 h-12 @lg:w-24 @lg:h-24" />
+        </div>{" "}
+        <div className="@lg:col-span-1 @lg:col-start-3 mt-10">
+          <Logo.dribbble className="w-12 h-12 @lg:w-24 @lg:h-24" />
+        </div>
+      </div>
+      <div className="grid grid-cols-4 @lg:grid-cols-3 gap-12 @lg:gap-6">
+        <div className="@lg:col-span-1 @lg:col-start-3">
+          <Logo.podcast className="w-12 h-12 @lg:w-24 @lg:h-24" />
+        </div>
+        <div className="@lg:col-span-3 @lg:col-start-2 mt-10 @lg:mt-0">
+          <Logo.trello className="w-12 h-12 @lg:w-24 @lg:h-24" />
+        </div>{" "}
+        <div className="@lg:col-span-1 mt-10 @lg:mt-0">
+          <Logo.uber className="w-12 h-12 @lg:w-24 @lg:h-24 rounded-md" />
+        </div>{" "}
+        <div className="@lg:col-span-1 @lg:col-start-3">
+          <Logo.dailymotion className="w-12 h-12 @lg:w-24 @lg:h-24 rounded-md" />
+        </div>
+      </div>
+    </div>
+  );
+};
+```
+
+</CodeBlock>
+
+
+</Implementation>
+</Wrapper>
+<PARTITION />
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from apps/web/src/content/docs/components/hero-section/Hero_06.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Hero Section with brand association with minor changes
+### This hero section can be used for websites that require images to display their credebility. It can also be used for landing pages. It contains various logos that are associated with the brand.
+
+
+
+
+
+export const HeroSection_components_hero_section_hero_06 = React.lazy(() =>
+	import('@/packages/components/hero_section/Hero_6')
+		.then((mod) => ({
+			default: mod.HeroSection
+	}))
+);
+
+
+<Header />
+<Preview> 
+
+<Suspense fallback={<Skeleton className="h-[800px] rounded-lg" />}>
+<ResizableDisplay>
+<HeroSection_components_hero_section_hero_06/>
+</ResizableDisplay>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge" ]}/>
+
+<CodeBlock>
+ 
+```tsx|Hero
+"use client";
+
+import { Logo } from "./Hero_5_Helper";
+
+import useMousePosition from "@/packages/primitives/containers/Container_3";
+import { useEffect, useRef, useState } from "react";
+import {
+  Button as ReactAriaButton,
+  ButtonProps as ReactAriaButtonProps,
+} from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+
+export function BorderAnimationButton({
+  children,
+  className,
+}: ReactAriaButtonProps) {
+  const { x, y } = useMousePosition();
+  const [relativeX, setRelativeX] = useState(0);
+
+  const containerRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+
+      const dist = x - rect.left;
+      if (y > rect.top && y < rect.bottom && dist > 0 && dist < rect.width)
+        setRelativeX(dist);
+    }
+  }, [x]);
+
+  return (
+    <ReactAriaButton
+      className="group relative  rounded-full text-foreground overflow-hidden p-0.5"
+      ref={containerRef}
+    >
+      <div
+        className={twMerge(
+          "z-10 bg-background relative rounded-[inherit]",
+          className as string
+        )}
+      >
+        <>{children}</>
+      </div>
+      <div
+        className="z-0 m-1 mx-auto my-auto w-full h-full  absolute top-0 -left-1/2   bg-gradient-to-r from-transparent via-accent to-transparent opacity-40 group-hover:opacity-100 transition-opacity duration-500"
+        style={{ translate: relativeX ? `${relativeX}px` : "50%" }}
+      />
+    </ReactAriaButton>
+  );
+}
+
+export function HeroSection() {
+  return (
+    <div className="w-full min-h-screen overflow-hidden flex flex-col @md:flex-row gap-10 @md:gap-0 justify-center items-center bg-background  relative">
+      <div className="w-full my-24 flex flex-col justify-center items-center text-center gap-8 z-10">
+        <BorderAnimationButton className="text-primary-foreground flex gap-2 rounded-full @lg:px-6 px-4 py-1 ">
+          New Layouts Weekly
+        </BorderAnimationButton>
+        <h1 className="text-5xl font-bold  w-[90%] @lg:w-1/2 text-primary-foreground">
+          The best library for Tailwind Components.
+        </h1>
+        <span className="text-lg font-medium w-[30rem] max-w-[90%] text-secondary-foreground">
+          Beautifully designed components that you can copy and paste into your
+          apps. Accessible. Customizable. Developer Friendly.
+        </span>
+        <div className="flex gap-8">
+          <button className="px-4 h-10 rounded-md bg-accent hover:bg-accent-secondary text-accent-foreground font-semibold">
+            Create Free Account
+          </button>
+          <button className="text-primary-foreground">View Plans</button>
+        </div>
+      </div>
+      <LogoBackground />
+    </div>
+  );
+}
+
+const LogoBackground = () => {
+  return (
+    <div className="@lg:absolute top-0 left-0 w-full h-full flex @lg:justify-center gap-4 @lg:gap-[35%] items-center flex-col @lg:flex-row @lg:items-end text-s_textComplementary">
+      <div className="grid grid-cols-4 @lg:grid-cols-3 gap-12 @lg:gap-6">
+        <div className="@lg:col-span-3 ">
+          <Logo.airbnb className="w-12 h-12 @lg:w-24 @lg:h-24" />
+        </div>
+        <div className="@lg:col-span-3 @lg:col-start-2">
+          <Logo.loom className="w-12 h-12 @lg:w-24 @lg:h-24" />
+        </div>{" "}
+        <div className="@lg:col-span-1">
+          <Logo.spotify className="w-12 h-12 @lg:w-24 @lg:h-24" />
+        </div>{" "}
+        <div className="@lg:col-span-1 @lg:col-start-3">
+          <Logo.dribbble className="w-12 h-12 @lg:w-24 @lg:h-24" />
+        </div>
+      </div>
+      <div className="grid grid-cols-4 @lg:grid-cols-3 gap-12 @lg:gap-6">
+        <div className="@lg:col-span-1 @lg:col-start-3">
+          <Logo.podcast className="w-12 h-12 @lg:w-24 @lg:h-24" />
+        </div>
+        <div className="@lg:col-span-3 @lg:col-start-2">
+          <Logo.trello className="w-12 h-12 @lg:w-24 @lg:h-24" />
+        </div>{" "}
+        <div className="@lg:col-span-1">
+          <Logo.uber className="w-12 h-12 @lg:w-24 @lg:h-24 rounded-md" />
+        </div>{" "}
+        <div className="@lg:col-span-1 @lg:col-start-3">
+          <Logo.dailymotion className="w-12 h-12 @lg:w-24 @lg:h-24 rounded-md" />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+```
+```jsx|Hero
+"use client";
+
+import { Logo } from "./Hero_5_Helper";
+
+import useMousePosition from "@/packages/primitives/containers/Container_3";
+import { useEffect, useRef, useState } from "react";
+import {
+  Button as ReactAriaButton,
+  ButtonProps as ReactAriaButtonProps,
+} from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+
+export function BorderAnimationButton({
+  children,
+  className,
+}) {
+  const { x, y } = useMousePosition();
+  const [relativeX, setRelativeX] = useState(0);
+
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+
+      const dist = x - rect.left;
+      if (y > rect.top && y < rect.bottom && dist > 0 && dist < rect.width)
+        setRelativeX(dist);
+    }
+  }, [x]);
+
+  return (
+    <ReactAriaButton
+      className="group relative  rounded-full text-foreground overflow-hidden p-0.5"
+      ref={containerRef}
+    >
+      <div
+        className={twMerge(
+          "z-10 bg-background relative rounded-[inherit]",
+          className
+        )}
+      >
+        <>{children}</>
+      </div>
+      <div
+        className="z-0 m-1 mx-auto my-auto w-full h-full  absolute top-0 -left-1/2   bg-gradient-to-r from-transparent via-accent to-transparent opacity-40 group-hover:opacity-100 transition-opacity duration-500"
+        style={{ translate: relativeX ? `${relativeX}px` : "50%" }}
+      />
+    </ReactAriaButton>
+  );
+}
+
+export function HeroSection() {
+  return (
+    <div className="w-full min-h-screen overflow-hidden flex flex-col @md:flex-row gap-10 @md:gap-0 justify-center items-center bg-background  relative">
+      <div className="w-full my-24 flex flex-col justify-center items-center text-center gap-8 z-10">
+        <BorderAnimationButton className="text-primary-foreground flex gap-2 rounded-full @lg:px-6 px-4 py-1 ">
+          New Layouts Weekly
+        </BorderAnimationButton>
+        <h1 className="text-5xl font-bold  w-[90%] @lg:w-1/2 text-primary-foreground">
+          The best library for Tailwind Components.
+        </h1>
+        <span className="text-lg font-medium w-[30rem] max-w-[90%] text-secondary-foreground">
+          Beautifully designed components that you can copy and paste into your
+          apps. Accessible. Customizable. Developer Friendly.
+        </span>
+        <div className="flex gap-8">
+          <button className="px-4 h-10 rounded-md bg-accent hover:bg-accent-secondary text-accent-foreground font-semibold">
+            Create Free Account
+          </button>
+          <button className="text-primary-foreground">View Plans</button>
+        </div>
+      </div>
+      <LogoBackground />
+    </div>
+  );
+}
+
+const LogoBackground = () => {
+  return (
+    <div className="@lg:absolute top-0 left-0 w-full h-full flex @lg:justify-center gap-4 @lg:gap-[35%] items-center flex-col @lg:flex-row @lg:items-end text-s_textComplementary">
+      <div className="grid grid-cols-4 @lg:grid-cols-3 gap-12 @lg:gap-6">
+        <div className="@lg:col-span-3 ">
+          <Logo.airbnb className="w-12 h-12 @lg:w-24 @lg:h-24" />
+        </div>
+        <div className="@lg:col-span-3 @lg:col-start-2">
+          <Logo.loom className="w-12 h-12 @lg:w-24 @lg:h-24" />
+        </div>{" "}
+        <div className="@lg:col-span-1">
+          <Logo.spotify className="w-12 h-12 @lg:w-24 @lg:h-24" />
+        </div>{" "}
+        <div className="@lg:col-span-1 @lg:col-start-3">
+          <Logo.dribbble className="w-12 h-12 @lg:w-24 @lg:h-24" />
+        </div>
+      </div>
+      <div className="grid grid-cols-4 @lg:grid-cols-3 gap-12 @lg:gap-6">
+        <div className="@lg:col-span-1 @lg:col-start-3">
+          <Logo.podcast className="w-12 h-12 @lg:w-24 @lg:h-24" />
+        </div>
+        <div className="@lg:col-span-3 @lg:col-start-2">
+          <Logo.trello className="w-12 h-12 @lg:w-24 @lg:h-24" />
+        </div>{" "}
+        <div className="@lg:col-span-1">
+          <Logo.uber className="w-12 h-12 @lg:w-24 @lg:h-24 rounded-md" />
+        </div>{" "}
+        <div className="@lg:col-span-1 @lg:col-start-3">
+          <Logo.dailymotion className="w-12 h-12 @lg:w-24 @lg:h-24 rounded-md" />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+```
+
+</CodeBlock>
+
+
+</Implementation>
+</Wrapper>
+<PARTITION />

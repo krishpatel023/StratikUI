@@ -1,0 +1,129 @@
+import React, { Suspense } from 'react';
+import { Implementation, Preview, Header, Display, TechnologyUsed, Wrapper, Skeleton, PARTITION } from "@/components/mdx/MDXServerImports"
+import { CodeBlock } from "@/components/mdx/MDXClientImports"
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from apps/web/src/content/docs/primitives/text/Text_01.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Gradient Text
+### This is just a dem of how to implement a gradient text. You can use it in your project in multiple ways.
+
+
+
+
+
+export const GradientTextImplementation_primitives_text_text_01 = React.lazy(() =>
+	import('@/packages/primitives/text/Text_1')
+		.then((mod) => ({
+			default: mod.GradientTextImplementation
+	}))
+);
+
+
+<Header />
+<Preview> 
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+<GradientTextImplementation_primitives_text_text_01 />
+</Display>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge", "react-aria"  ]}/>
+
+<CodeBlock>
+ 
+```tsx|GradientText
+"use client";
+
+import { Text, TextProps } from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+
+export function GradientText({ children, className, ...props }: TextProps) {
+  return (
+    <Text
+      className={twMerge(
+        "bg-gradient-to-r inline-block text-transparent bg-clip-text from-neutral-600 to-neutral-300",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </Text>
+  );
+}
+```
+```jsx|GradientText
+"use client";
+
+import { Text } from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+
+export function GradientText({ children, className, ...props }) {
+  return (
+    <Text
+      className={twMerge(
+        "bg-gradient-to-r inline-block text-transparent bg-clip-text from-neutral-600 to-neutral-300",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </Text>
+  );
+}
+```
+
+```tsx|Implementation
+export function GradientTextImplementation() {
+  return (
+    <div className="w-80 @lg:w-[40rem] flex flex-col gap-4">
+      <GradientText className="bg-gradient-to-br text-3xl @lg:text-7xl font-bold">
+        Bring Gradients to your Text
+      </GradientText>
+      <GradientText className="from-blue-600 via-green-500 to-indigo-400 text-3xl @lg:text-7xl font-bold">
+        Bring Gradients to your Text
+      </GradientText>
+      <GradientText className="bg-gradient-to-b from-blue-700 to-indigo-400 text-3xl @lg:text-7xl font-bold">
+        Bring Gradients to your Text
+      </GradientText>
+    </div>
+  );
+}
+```
+```jsx|Implementation
+export function GradientTextImplementation() {
+  return (
+    <div className="w-80 @lg:w-[40rem] flex flex-col gap-4">
+      <GradientText className="bg-gradient-to-br text-3xl @lg:text-7xl font-bold">
+        Bring Gradients to your Text
+      </GradientText>
+      <GradientText className="from-blue-600 via-green-500 to-indigo-400 text-3xl @lg:text-7xl font-bold">
+        Bring Gradients to your Text
+      </GradientText>
+      <GradientText className="bg-gradient-to-b from-blue-700 to-indigo-400 text-3xl @lg:text-7xl font-bold">
+        Bring Gradients to your Text
+      </GradientText>
+    </div>
+  );
+}
+```
+
+</CodeBlock>
+
+
+</Implementation>
+</Wrapper>
+<PARTITION />

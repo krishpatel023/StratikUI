@@ -1,0 +1,794 @@
+import React, { Suspense } from 'react';
+import { Implementation, Preview, Header, TechnologyUsed, Wrapper, Skeleton, PARTITION } from "@/components/mdx/MDXServerImports"
+import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from apps/web/src/content/docs/components/cards/Card_01.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Default Card
+### This card can be used as product card or to display any other information.
+
+
+
+
+
+export const CardsImplementation_components_cards_card_01 = React.lazy(() =>
+	import('@/packages/components/cards/Card_1')
+		.then((mod) => ({
+			default: mod.CardsImplementation
+	}))
+);
+
+
+<Header />
+<Preview> 
+
+<Suspense fallback={<Skeleton className="h-[800px] rounded-lg" />}>
+<ResizableDisplay>
+<CardsImplementation_components_cards_card_01/>
+</ResizableDisplay>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge", "react-aria" ]}/>
+
+<CodeBlock>
+ 
+```tsx|Card
+import { Button } from "@/packages/primitives/buttons/Button_1";
+import { DashedBackground } from "@/packages/ui/DashedBackground";
+
+function Card() {
+  return (
+    <div className="w-80 py-4 px-6 rounded-lg flex flex-col justify-center gap-4 bg-primary text-primary-foreground border shadow-sm border-outline-secondary">
+      <DashedBackground className="h-40 w-full" />
+      <h1 className="text-2xl font-semibold">Title</h1>
+      <h3>
+        This is something great. Design this according to your needs and make it
+        look great.
+      </h3>
+      <Button>Get Started</Button>
+    </div>
+  );
+}
+```
+```jsx|Card
+import { Button } from "@/packages/primitives/buttons/Button_1";
+import { DashedBackground } from "@/packages/ui/DashedBackground";
+
+function Card() {
+  return (
+    <div className="w-80 py-4 px-6 rounded-lg flex flex-col justify-center gap-4 bg-primary text-primary-foreground border shadow-sm border-outline-secondary">
+      <DashedBackground className="h-40 w-full" />
+      <h1 className="text-2xl font-semibold">Title</h1>
+      <h3>
+        This is something great. Design this according to your needs and make it
+        look great.
+      </h3>
+      <Button>Get Started</Button>
+    </div>
+  );
+}
+```
+
+
+</CodeBlock>
+
+
+</Implementation>
+</Wrapper>
+<PARTITION />
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from apps/web/src/content/docs/components/cards/Card_02.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Simple Card with Button
+### This is a simple card with button that can be used as product card or to display any other information.
+
+
+
+
+
+export const CardsImplementation_components_cards_card_02 = React.lazy(() =>
+	import('@/packages/components/cards/Card_2')
+		.then((mod) => ({
+			default: mod.CardsImplementation
+	}))
+);
+
+
+<Header />
+<Preview> 
+
+<Suspense fallback={<Skeleton className="h-[800px] rounded-lg" />}>
+<ResizableDisplay>
+<CardsImplementation_components_cards_card_02/>
+</ResizableDisplay>
+</Suspense>
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge", "react-aria" ]}/>
+
+<CodeBlock>
+ 
+```tsx|Card
+import { Button } from "@/packages/primitives/buttons/Button_1";
+
+function Card() {
+  return (
+    <div className="w-80 py-4 px-6 rounded-lg flex flex-col justify-center gap-3 bg-primary text-primary-foreground border shadow-sm border-outline-secondary">
+      <h1 className="text-2xl font-semibold">Title</h1>
+      <h2>Subtitle Text</h2>
+      <h3>
+        This is something great. Design this according to your needs and make it
+        look great.
+      </h3>
+      <Button>Get Started</Button>
+    </div>
+  );
+}
+```
+```jsx|Card
+import { Button } from "@/packages/primitives/buttons/Button_1";
+
+function Card() {
+  return (
+    <div className="w-80 py-4 px-6 rounded-lg flex flex-col justify-center gap-3 bg-primary text-primary-foreground border shadow-sm border-outline-secondary">
+      <h1 className="text-2xl font-semibold">Title</h1>
+      <h2>Subtitle Text</h2>
+      <h3>
+        This is something great. Design this according to your needs and make it
+        look great.
+      </h3>
+      <Button>Get Started</Button>
+    </div>
+  );
+}
+```
+
+
+</CodeBlock>
+
+
+</Implementation>
+</Wrapper>
+<PARTITION />
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from apps/web/src/content/docs/components/cards/Card_03.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Simple Card with Link
+### This is a simple card with link that can be used as product card or to display any other information.
+
+
+
+
+
+export const CardsImplementation_components_cards_card_03 = React.lazy(() =>
+	import('@/packages/components/cards/Card_3')
+		.then((mod) => ({
+			default: mod.CardsImplementation
+	}))
+);
+
+
+<Header />
+<Preview> 
+
+<Suspense fallback={<Skeleton className="h-[800px] rounded-lg" />}>
+<ResizableDisplay>
+<CardsImplementation_components_cards_card_03 />
+</ResizableDisplay>
+</Suspense>
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge", "react-aria"  ]}/>
+
+<CodeBlock>
+ 
+```tsx|Cards
+import Link from "next/link";
+
+function Card() {
+  return (
+    <div className="w-80 py-4 px-6 rounded-lg flex flex-col justify-center gap-3 bg-primary text-primary-foreground border shadow-sm border-outline-secondary">
+      <h1 className="text-2xl font-semibold">Title</h1>
+      <h2>Subtitle Text</h2>
+      <h3>
+        This is something great. Design this according to your needs and make it
+        look great.
+      </h3>
+      <Link
+        href="#"
+        target="_blank"
+        rel="noreferrer"
+        className="text-accent font-semibold mt-4 flex gap-2 hover:gap-4 transition-all duration-200"
+      >
+        Get Started <span>&rarr;</span>
+      </Link>
+    </div>
+  );
+}
+```
+```jsx|Cards
+import Link from "next/link";
+
+function Card() {
+  return (
+    <div className="w-80 py-4 px-6 rounded-lg flex flex-col justify-center gap-3 bg-primary text-primary-foreground border shadow-sm border-outline-secondary">
+      <h1 className="text-2xl font-semibold">Title</h1>
+      <h2>Subtitle Text</h2>
+      <h3>
+        This is something great. Design this according to your needs and make it
+        look great.
+      </h3>
+      <Link
+        href="#"
+        target="_blank"
+        rel="noreferrer"
+        className="text-accent font-semibold mt-4 flex gap-2 hover:gap-4 transition-all duration-200"
+      >
+        Get Started <span>&rarr;</span>
+      </Link>
+    </div>
+  );
+}
+```
+
+
+</CodeBlock>
+
+
+
+</Implementation>
+</Wrapper>
+<PARTITION />
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from apps/web/src/content/docs/components/cards/Card_04.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Simple Card with Header
+### This is a simple card with header that can be used as product card or to display any other information.
+
+
+
+
+
+export const CardsImplementation_components_cards_card_04 = React.lazy(() =>
+	import('@/packages/components/cards/Card_4')
+		.then((mod) => ({
+			default: mod.CardsImplementation
+	}))
+);
+
+
+<Header />
+<Preview> 
+
+<Suspense fallback={<Skeleton className="h-[800px] rounded-lg" />}>
+<ResizableDisplay>
+<CardsImplementation_components_cards_card_04 />
+</ResizableDisplay>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge" ]}/>
+
+<CodeBlock>
+ 
+```tsx|Cards
+import Link from "next/link";
+
+function Card() {
+  return (
+    <div className="w-80 rounded-lg flex flex-col justify-center gap-3 bg-background text-primary-foreground border shadow-sm border-outline-secondary">
+      <div className="w-full flex items-center py-6 px-6 bg-primary rounded-t-[inherit]">
+        <h1>Featured</h1>
+      </div>
+      <div className="w-full px-6 py-4 flex flex-col gap-2">
+        <h1 className="text-2xl font-semibold">Title</h1>
+        <h3>
+          This is something great. Design this according to your needs and make
+          it look great.
+        </h3>
+        <Link
+          href="#"
+          target="_blank"
+          rel="noreferrer"
+          className="text-accent font-semibold mt-4 flex gap-2 hover:gap-4 transition-all duration-200"
+        >
+          Get Started <span>&rarr;</span>
+        </Link>
+      </div>
+    </div>
+  );
+}
+```
+```jsx|Cards
+import Link from "next/link";
+
+function Card() {
+  return (
+    <div className="w-80 rounded-lg flex flex-col justify-center gap-3 bg-background text-primary-foreground border shadow-sm border-outline-secondary">
+      <div className="w-full flex items-center py-6 px-6 bg-primary rounded-t-[inherit]">
+        <h1>Featured</h1>
+      </div>
+      <div className="w-full px-6 py-4 flex flex-col gap-2">
+        <h1 className="text-2xl font-semibold">Title</h1>
+        <h3>
+          This is something great. Design this according to your needs and make
+          it look great.
+        </h3>
+        <Link
+          href="#"
+          target="_blank"
+          rel="noreferrer"
+          className="text-accent font-semibold mt-4 flex gap-2 hover:gap-4 transition-all duration-200"
+        >
+          Get Started <span>&rarr;</span>
+        </Link>
+      </div>
+    </div>
+  );
+}
+```
+
+
+</CodeBlock>
+
+
+</Implementation>
+</Wrapper>
+<PARTITION />
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from apps/web/src/content/docs/components/cards/Card_05.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Simple Card with Footer
+### This is a simple card with footer that can be used as product card or to display any other information.
+
+
+
+
+
+export const CardsImplementation_components_cards_card_05 = React.lazy(() =>
+	import('@/packages/components/cards/Card_5')
+		.then((mod) => ({
+			default: mod.CardsImplementation
+	}))
+);
+
+
+<Header />
+<Preview> 
+
+<Suspense fallback={<Skeleton className="h-[800px] rounded-lg" />}>
+<ResizableDisplay>
+<CardsImplementation_components_cards_card_05 />
+</ResizableDisplay>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge" ]}/>
+
+<CodeBlock>
+
+```tsx|Cards
+import Link from "next/link";
+
+function Card() {
+  return (
+    <div className="w-80 rounded-lg flex flex-col justify-center bg-background text-primary-foreground border shadow-sm border-outline-secondary">
+      <div className="w-full px-6 py-6 flex flex-col gap-2">
+        <h1 className="text-2xl font-semibold">Title</h1>
+        <h3 className="text-secondary-foreground">
+          This is something great. Design this according to your needs and make
+          it look great.
+        </h3>
+        <Link
+          href="#"
+          target="_blank"
+          rel="noreferrer"
+          className="text-accent font-semibold mt-4 flex gap-2 hover:gap-4 transition-all duration-200"
+        >
+          Get Started <span>&rarr;</span>
+        </Link>
+      </div>
+      <div className="w-full flex items-center py-6 px-6 bg-primary rounded-b-[inherit]">
+        <h1>Updated 2 min ago</h1>
+      </div>
+    </div>
+  );
+}
+```
+
+```jsx|Cards
+import Link from "next/link";
+
+function Card() {
+  return (
+    <div className="w-80 rounded-lg flex flex-col justify-center bg-background text-primary-foreground border shadow-sm border-outline-secondary">
+      <div className="w-full px-6 py-6 flex flex-col gap-2">
+        <h1 className="text-2xl font-semibold">Title</h1>
+        <h3 className="text-secondary-foreground">
+          This is something great. Design this according to your needs and make
+          it look great.
+        </h3>
+        <Link
+          href="#"
+          target="_blank"
+          rel="noreferrer"
+          className="text-accent font-semibold mt-4 flex gap-2 hover:gap-4 transition-all duration-200"
+        >
+          Get Started <span>&rarr;</span>
+        </Link>
+      </div>
+      <div className="w-full flex items-center py-6 px-6 bg-primary rounded-b-[inherit]">
+        <h1>Updated 2 min ago</h1>
+      </div>
+    </div>
+  );
+}
+```
+
+
+</CodeBlock>
+
+
+</Implementation>
+</Wrapper>
+<PARTITION />
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from apps/web/src/content/docs/components/cards/Card_06.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Banner Card
+### This is a banner card that can be used as product card or to display any other information.
+
+
+
+
+
+export const CardsImplementation_components_cards_card_06 = React.lazy(() =>
+	import('@/packages/components/cards/Card_6')
+		.then((mod) => ({
+			default: mod.CardsImplementation
+	}))
+);
+
+
+<Header />
+<Preview> 
+
+<Suspense fallback={<Skeleton className="h-[800px] rounded-lg" />}>
+<ResizableDisplay>
+<CardsImplementation_components_cards_card_06 />
+</ResizableDisplay>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge" ]}/>
+
+<CodeBlock>
+
+```tsx|Cards
+import { DashedBackground } from "@/packages/ui/DashedBackground";
+import Link from "next/link";
+
+function Card() {
+  return (
+    <div className="w-[30rem] h-auto @md:h-[20rem] @md:w-[35rem] rounded-lg flex flex-col @md:flex-row py-6 px-6  bg-background text-primary-foreground border shadow-sm border-outline-secondary">
+      <DashedBackground className="w-full h-48 @md:w-1/2 @md:h-full" />
+
+      <div className="@md:w-1/2 px-6 py-6 flex flex-col gap-2">
+        <h1 className="text-2xl font-semibold">Title</h1>
+        <h3>
+          This is something great. Design this according to your needs and make
+          it look great.
+        </h3>
+        <Link
+          href="#"
+          target="_blank"
+          rel="noreferrer"
+          className="text-accent font-semibold mt-4 flex gap-2 hover:gap-4 transition-all duration-200"
+        >
+          Get Started <span>&rarr;</span>
+        </Link>
+      </div>
+    </div>
+  );
+}
+```
+```jsx|Cards
+import { DashedBackground } from "@/packages/ui/DashedBackground";
+import Link from "next/link";
+
+function Card() {
+  return (
+    <div className="w-[30rem] h-auto @md:h-[20rem] @md:w-[35rem] rounded-lg flex flex-col @md:flex-row py-6 px-6  bg-background text-primary-foreground border shadow-sm border-outline-secondary">
+      <DashedBackground className="w-full h-48 @md:w-1/2 @md:h-full" />
+
+      <div className="@md:w-1/2 px-6 py-6 flex flex-col gap-2">
+        <h1 className="text-2xl font-semibold">Title</h1>
+        <h3>
+          This is something great. Design this according to your needs and make
+          it look great.
+        </h3>
+        <Link
+          href="#"
+          target="_blank"
+          rel="noreferrer"
+          className="text-accent font-semibold mt-4 flex gap-2 hover:gap-4 transition-all duration-200"
+        >
+          Get Started <span>&rarr;</span>
+        </Link>
+      </div>
+    </div>
+  );
+}
+```
+
+</CodeBlock>
+
+
+</Implementation>
+</Wrapper>
+<PARTITION />
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from apps/web/src/content/docs/components/cards/Card_07.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Card with following gradient animation
+### Any card can be used with this following gradient animation. This card can be used as product card or to display any other information.
+
+
+
+
+
+export const CardsImplementation_components_cards_card_07 = React.lazy(() =>
+	import('@/packages/components/cards/Card_7')
+		.then((mod) => ({
+			default: mod.CardsImplementation
+	}))
+);
+
+
+<Header />
+<Preview> 
+
+<Suspense fallback={<Skeleton className="h-[800px] rounded-lg" />}>
+<ResizableDisplay>
+<CardsImplementation_components_cards_card_07 />
+</ResizableDisplay>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge" ]}/>
+
+<CodeBlock>
+ 
+```tsx|Card
+import { Button } from "@/packages/primitives/buttons/Button_1";
+import {
+  HighlighterItem,
+  HighlightGroup,
+} from "@/packages/primitives/containers/Container_3";
+import { DashedBackground } from "@/packages/ui/DashedBackground";
+
+function Card() {
+  return (
+    <HighlightGroup className="h-full">
+      <HighlighterItem className="rounded-lg">
+        <div className=" w-80 py-4 px-6 rounded-lg flex flex-col justify-center gap-4  text-primary-foreground border shadow-sm border-outline-secondary">
+          <DashedBackground className="h-40 w-full " />
+          <h1 className="text-2xl font-semibold">Title</h1>
+          <h3>
+            This is something great. Design this according to your needs and
+            make it look great.
+          </h3>
+          <Button>Get Started</Button>
+        </div>
+      </HighlighterItem>
+    </HighlightGroup>
+  );
+}
+```
+```jsx|Card
+import { Button } from "@/packages/primitives/buttons/Button_1";
+import {
+  HighlighterItem,
+  HighlightGroup,
+} from "@/packages/primitives/containers/Container_3";
+import { DashedBackground } from "@/packages/ui/DashedBackground";
+
+function Card() {
+  return (
+    <HighlightGroup className="h-full">
+      <HighlighterItem className="rounded-lg">
+        <div className=" w-80 py-4 px-6 rounded-lg flex flex-col justify-center gap-4  text-primary-foreground border shadow-sm border-outline-secondary">
+          <DashedBackground className="h-40 w-full " />
+          <h1 className="text-2xl font-semibold">Title</h1>
+          <h3>
+            This is something great. Design this according to your needs and
+            make it look great.
+          </h3>
+          <Button>Get Started</Button>
+        </div>
+      </HighlighterItem>
+    </HighlightGroup>
+  );
+}
+```
+
+
+</CodeBlock>
+
+
+</Implementation>
+</Wrapper>
+<PARTITION />
+
+
+{/*
+// ------------------------------------------------------------------------------------
+//	The text below is generated from apps/web/src/content/docs/components/cards/Card_08.mdx
+// ------------------------------------------------------------------------------------
+*/}
+
+
+<Wrapper>
+
+# Contact Card
+### This is a contact card that can be used as workforce introduction.
+
+
+
+
+
+export const CardsImplementation_components_cards_card_08 = React.lazy(() =>
+	import('@/packages/components/cards/Card_8')
+		.then((mod) => ({
+			default: mod.CardsImplementation
+	}))
+);
+
+
+<Header />
+<Preview> 
+
+<Suspense fallback={<Skeleton className="h-[800px] rounded-lg" />}>
+<ResizableDisplay>
+<CardsImplementation_components_cards_card_08 />
+</ResizableDisplay>
+</Suspense>
+
+
+</Preview>
+
+<Implementation>
+
+
+<TechnologyUsed technologies={[ "tailwind-css" , "twMerge" ]}/>
+
+<CodeBlock>
+ 
+```tsx|Cards
+import { DashedBackground } from "@/packages/ui/DashedBackground";
+
+function Card() {
+  return (
+    <div className="group before:hover:scale-95 before:hover:h-72 before:hover:w-80 before:hover:rounded-b-2xl before:transition-all before:duration-500 before:content-[''] before:w-80 before:h-24 before:rounded-t-2xl before:bg-gradient-to-bl from-sky-200  to-neutral-200 dark:from-sky-500 dark:to-neutral-600 before:absolute before:top-0 w-80 h-72 relative bg-primary flex flex-col items-center justify-center gap-2 text-center rounded-2xl overflow-hidden">
+      <DashedBackground className="min-w-28 min-h-28 mt-2 rounded-full z-10 group-hover:scale-150 group-hover:-translate-x-24  group-hover:-translate-y-20 transition-all duration-500 bg-secondary" />
+
+      <div className="z-10  group-hover:-translate-y-12 transition-all duration-500 text-primary-foreground">
+        <span className="text-2xl font-semibold">John Doe</span>
+        <p>Developer</p>
+        <span className="hidden group-hover:block delay-300 px-4">
+          This is the description of the person that you want to provide.
+        </span>
+      </div>
+    </div>
+  );
+}
+```
+```jsx|Cards
+import { DashedBackground } from "@/packages/ui/DashedBackground";
+
+function Card() {
+  return (
+    <div className="group before:hover:scale-95 before:hover:h-72 before:hover:w-80 before:hover:rounded-b-2xl before:transition-all before:duration-500 before:content-[''] before:w-80 before:h-24 before:rounded-t-2xl before:bg-gradient-to-bl from-sky-200  to-neutral-200 dark:from-sky-500 dark:to-neutral-600 before:absolute before:top-0 w-80 h-72 relative bg-primary flex flex-col items-center justify-center gap-2 text-center rounded-2xl overflow-hidden">
+      <DashedBackground className="min-w-28 min-h-28 mt-2 rounded-full z-10 group-hover:scale-150 group-hover:-translate-x-24  group-hover:-translate-y-20 transition-all duration-500 bg-secondary" />
+
+      <div className="z-10  group-hover:-translate-y-12 transition-all duration-500 text-primary-foreground">
+        <span className="text-2xl font-semibold">John Doe</span>
+        <p>Developer</p>
+        <span className="hidden group-hover:block delay-300 px-4">
+          This is the description of the person that you want to provide.
+        </span>
+      </div>
+    </div>
+  );
+}
+```
+
+</CodeBlock>
+
+
+
+</Implementation>
+</Wrapper>
+<PARTITION />

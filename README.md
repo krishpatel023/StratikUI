@@ -1,1 +1,1 @@
-# Stratik UI
+# StratikUI
