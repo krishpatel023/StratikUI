@@ -1,33 +1,143 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+html {
+  scroll-behavior: smooth;
 }
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --radius: 0.5rem;
+
+    --background: theme(colors.white);
+    --foreground: theme(colors.black);
+
+    --primary: theme(colors.neutral.100);
+    --primary-foreground: theme(colors.neutral.800);
+
+    --secondary: theme(colors.neutral.200);
+    --secondary-foreground: theme(colors.neutral.700);
+
+    --accent: theme(colors.blue.600);
+    --accent-foreground: theme(colors.white);
+    --accent-secondary: theme(colors.blue.500);
+    --accent-secondary-foreground: theme(colors.white);
+
+    --outline-secondary: theme(colors.neutral.300);
+    --outline: theme(colors.neutral.500);
+    --outline-foreground: theme(colors.neutral.500);
+
+    --success: theme(colors.green.500);
+    --success-secondary: theme(colors.green.400);
+    --success-foreground: theme(colors.white);
+
+    --alert: theme(colors.yellow.500);
+    --alert-secondary: theme(colors.yellow.400);
+    --alert-foreground: theme(colors.yellow.900);
+
+    --error: theme(colors.red.600);
+    --error-secondary: theme(colors.red.500);
+    --error-foreground: theme(colors.white);
+
+    --muted: theme(colors.neutral.600);
+    --muted-secondary: theme(colors.neutral.200);
+    --muted-foreground: theme(colors.neutral.200);
+
+    --blur: theme(colors.white/30%);
+    --blur-secondary: theme(colors.neutral.200/30%);
+    --blur-foreground: theme(colors.neutral.800);
+  }
+
+  .dark {
+    --background: theme(colors.black);
+    --foreground: theme(colors.white);
+
+    --primary: #171717;
+    --primary-foreground: #e6e6e6;
+
+    --secondary: theme(colors.neutral.800);
+    --secondary-foreground: theme(colors.neutral.400);
+
+    --accent: theme(colors.blue.600);
+    --accent-foreground: theme(colors.white);
+    --accent-secondary: theme(colors.blue.500);
+    --accent-secondary-foreground: theme(colors.white);
+
+    --outline: theme(colors.neutral.700);
+    --outline-secondary: theme(colors.neutral.800);
+    --outline-foreground: theme(colors.neutral.600);
+
+    --success: theme(colors.green.800);
+    --success-secondary: theme(colors.green.600);
+    --success-foreground: theme(colors.white);
+
+    --alert: theme(colors.yellow.600);
+    --alert-secondary: theme(colors.yellow.400);
+    --alert-foreground: theme(colors.yellow.950);
+
+    --error: theme(colors.red.600);
+    --error-secondary: theme(colors.red.500);
+    --error-foreground: theme(colors.white);
+
+    --muted: theme(colors.neutral.300);
+    --muted-secondary: theme(colors.neutral.800);
+    --muted-foreground: theme(colors.neutral.700);
+
+    --blur: theme(colors.black / 30%);
+    --blur-secondary: theme(colors.neutral.800/30%);
+    --blur-foreground: theme(colors.neutral.200);
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
 @layer utilities {
+  .scrollbar-y::-webkit-scrollbar {
+    width: 8px; /* width of the entire scrollbar */
+  }
+  .scrollbar-y::-webkit-scrollbar-thumb {
+    background-color: var(--primary-foreground); /* color of the scroll thumb */
+    border-radius: 20px; /* roundness of the scroll thumb */
+  }
+
+  .scrollbar-x::-webkit-scrollbar {
+    height: 6px; /* width of the entire scrollbar */
+  }
+  .scrollbar-x::-webkit-scrollbar-thumb {
+    background-color: var(--primary-foreground); /* color of the scroll thumb */
+    border-radius: 20px; /* roundness of the scroll thumb */
+  }
+
   .text-balance {
     text-wrap: balance;
+  }
+  /* FOR HOPEPAGE */
+  .HomepageEffect {
+    --container-border-initial: theme(colors.neutral.400/00);
+    --container-border-active: theme(colors.sky.700);
+    --container-gradient-color: theme(colors.sky.600/70);
+    --container-border-size: 0.25rem;
+    --container-background: theme(colors.white);
+    --size: 300px;
+  }
+  .dark .HomepageEffect {
+    --container-border-initial: theme(colors.neutral.900/00);
+    --container-border-active: theme(colors.white/30);
+    --container-gradient-color: theme(colors.neutral.500/10);
+    --container-background: theme(colors.black);
+  }
+
+  /* FOR @packages/primitives/containers/Container_3_Helper.tsx */
+
+  .ContainerEffect {
+    --container-border-initial: theme(colors.neutral.400);
+    --container-border-active: theme(colors.neutral.900);
+    --container-gradient-color: theme(colors.neutral.600/70);
+    --container-border-size: 4px;
+    --container-background: theme(colors.neutral.100);
+  }
+  .dark .ContainerEffect {
+    --container-border-initial: theme(colors.neutral.800);
+    --container-border-active: theme(colors.white/80);
+    --container-gradient-color: theme(colors.neutral.100/70);
+    --container-border-size: 4px;
+    --container-background: theme(colors.neutral.900);
   }
 }
