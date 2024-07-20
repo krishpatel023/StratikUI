@@ -1,6 +1,6 @@
 "use client";
 
-import { IconProps } from "@/utils/constants";
+import { IconProps } from "@/utils/types";
 import {
   Button as ReactAriaButton,
   ButtonProps as ReactAriaButtonProps,
