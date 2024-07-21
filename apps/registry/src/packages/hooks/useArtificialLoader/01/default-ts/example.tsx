@@ -1,7 +1,7 @@
 "use client";
 
 import Button from "@/ui/Button";
-import useArtificialLoader from "./useArtificialLoader";
+import useArtificialLoader from "@/packages/hooks/useArtificialLoader/01/default-ts/useArtificialLoader";
 
 const Loader = () => {
   const { isLoading, progress, startLoader, stopLoader } =

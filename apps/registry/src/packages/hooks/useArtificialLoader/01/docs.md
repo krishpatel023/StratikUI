@@ -1,5 +1,5 @@
 ---
-title: useArtificialLoader
+name: useArtificialLoader
 description: A hook that simulates a loading state for a component.
 tags: ["hooks", "artificial", "loader"]
 version_included: 0.3.0
