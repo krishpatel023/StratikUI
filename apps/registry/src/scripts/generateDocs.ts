@@ -1,5 +1,3 @@
-import fs from "fs";
-import path from "path";
 import {
   capitalize,
   createDirectory,
@@ -9,14 +7,17 @@ import {
   getPathWithReferenceFromPackages,
   log,
   sanitizeFilePath,
+  terminalLink,
 } from "@/scripts/helperFunctions";
 import { TECH_USED, TECH_USED_PROPS } from "@/utils/technologiesUsed";
+import fs from "fs";
+import path from "path";
 
 // Directories
 const { targetDir, packageDir } = DirPathFinder();
 // The category having resizable display element
 const categoryHavingResizableDisplayElement = ["components"];
-const FOLDER_NOMENCLATURE = {
+export const FOLDER_NOMENCLATURE = {
   docs: "docs.md",
   example: "example.tsx",
   default_example_folder: "default-ts",
@@ -1004,14 +1005,25 @@ function cleanup(dirPath: string) {
 
 function main() {
   // generate the docs
-  log({ state: "success", message: "Generating the docs" });
+  log({ state: "success", message: "DOCS / Generating the docs" });
   addBuildLog("event", "Generating the docs", "main");
   generateDocs();
 
   // Run Cleanup - remove all the empty folders & files
-  log({ state: "success", message: "Cleaning up the generated docs" });
+  log({ state: "success", message: "DOCS / Cleaning up the generated docs" });
   addBuildLog("event", "Cleaning up the generated docs", "main");
   cleanup(targetDir);
+  log({ state: "success", message: "DOCS / Cleaned up the generated docs" });
+  log({
+    state: "success",
+    message: "DOCS / Generated successfully!",
+  });
+  log({
+    state: "success",
+    message:
+      "DOCS / View the generated data " + terminalLink("here", targetDir),
+  });
+  addBuildLog("event", "Docs Generated", "main");
   publishBuildLog();
 }
 

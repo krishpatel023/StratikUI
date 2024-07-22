@@ -8,12 +8,16 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate:docs": "tsx src/scripts/generateDocs.ts"
+    "generate:docs": "tsx src/scripts/generateDocs.ts",
+    "generate:search": "tsx src/scripts/generateSearchData.ts",
+    "generate:sidebar": "tsx src/scripts/generateSidebarData.ts",
+    "generate:data": "tsx src/scripts/generateDocs.ts && tsx src/scripts/generateSidebarData.ts && tsx src/scripts/generateSearchData.ts"
   },
   "dependencies": {
     "next": "14.2.5",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "@/web": "*"
   },
   "devDependencies": {
     "@types/node": "^20",

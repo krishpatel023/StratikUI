@@ -142,67 +142,32 @@ export function customLog(message: string) {
   console.log(message);
 }
 
-let BUILD_LOG = "";
+export function stringToDashedString(str: string) {
+  // reduce all to lowercase
+  const strLower = str.toLowerCase();
 
-export function addBuildLog(
-  state: "default" | "error" | "success" | "warning" | "event",
-  message: string,
-  functionCalled?: string,
-  folderPath?: string
-) {
-  const folderPathData = folderPath ? `\n${folderPath}\n` : "\n";
-  const functionCalledData = functionCalled
-    ? `\nfunction - ${functionCalled}`
-    : "";
-  BUILD_LOG += "\n";
-  switch (state) {
-    case "default":
-      BUILD_LOG += "📄 " + message + functionCalledData + folderPathData;
-      break;
-    case "error":
-      BUILD_LOG += "❌ " + message + functionCalledData + folderPathData;
-      break;
-    case "success":
-      BUILD_LOG += "✅ " + message + functionCalledData + folderPathData;
-      break;
-    case "warning":
-      BUILD_LOG += "⚠️ " + message + functionCalledData + folderPathData;
-      break;
-    case "event":
-      const date = new Date();
-      BUILD_LOG +=
-        "📢 [" +
-        date.toLocaleString() +
-        "] " +
-        message +
-        functionCalledData +
-        folderPathData;
-      break;
-    default:
-      BUILD_LOG += "📄 " + message + functionCalledData + folderPathData;
-  }
+  const arr = strLower.split(" ");
+  return arr.join("-");
 }
 
-export function publishBuildLog() {
-  const dashedPartition =
-    "--------------------------------------------------------------";
-  const dirPath = path.join(process.cwd(), ".stratik-ui");
-  const logPath = path.join(process.cwd(), ".stratik-ui", "log.txt");
+export function compareVersions(version1: string, version2: string) {
+  const v1Parts = version1.split(".");
+  const v2Parts = version2.split(".");
 
-  createDirectory(dirPath);
+  for (let i = 0; i < v1Parts.length; i++) {
+    const v1Part = parseInt(v1Parts[i]);
+    const v2Part = parseInt(v2Parts[i]);
 
-  // check if the log file exists
-  if (!fs.existsSync(logPath)) {
-    fs.writeFileSync(logPath, "", "utf8");
+    if (v1Part > v2Part) {
+      return true;
+    }
   }
-  const prevData = fs.readFileSync(logPath, "utf8");
-  const newData =
-    prevData +
-    (prevData === "" ? "" : "\n\n\n") +
-    dashedPartition +
-    "\nGENERATING THE DOCS\n" +
-    dashedPartition +
-    "\n\n\n" +
-    BUILD_LOG;
-  fs.writeFileSync(logPath, newData, "utf8");
+
+  return false;
+}
+
+export function terminalLink(text: string, link: string) {
+  const blueText = `\u001b[34m${text}\u001b[0m`; // \u001b[34m starts blue text, \u001b[0m resets to default
+  const clickableLink = `\u001b]8;;${link}\u0007${blueText}\u001b]8;;\u0007`;
+  return clickableLink;
 }

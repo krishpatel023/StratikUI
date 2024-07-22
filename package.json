@@ -9,7 +9,8 @@
         "dev": "turbo dev",
         "lint": "turbo lint",
         "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-        "check-types": "tsc --noEmit"
+        "check-types": "tsc --noEmit",
+        "generate:data": "npm run generate:data --workspace=registry"
     },
     "workspaces": [
         "apps/*"
