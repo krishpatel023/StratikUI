@@ -2,8 +2,7 @@
 
 import useClickOutside from "@/packages/hooks/useClickOutside/01/default-ts/useClickOutside";
 import { ContainerGlassEffect } from "@/packages/primitives/containers/06/default-ts/container";
-import Button from "@/ui/Button";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { twMerge } from "tailwind-merge";
 
 export interface ModalProps {

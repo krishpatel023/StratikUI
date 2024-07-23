@@ -39,7 +39,7 @@ export function Modal({
       isDismissable={isDismissable}
       className={twMerge(
         "w-[100dvw] h-[100dvh] top-0 fixed z-[9999] data-[entering=true]:animate-modal-fade-in data-[exiting=true]:animate-modal-fade-out",
-        isBGBlur && "bg-neutral-900/60"
+        isBGBlur && "bg-blur"
       )}
     >
       <ModalAria className="outline-none ">
