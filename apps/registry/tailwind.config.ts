@@ -75,6 +75,23 @@ const config: Config = {
         md: `calc(var(--radius) - 2px)`,
         sm: "calc(var(--radius) - 4px)",
       },
+      animation: {
+        // For @/packages/primitives/buttons/02/
+        circleGrow: "circleGrow 0.5s ease-in-out",
+      },
+      keyframes: {
+        // For @/packages/primitives/buttons/02/
+        circleGrow: {
+          "0%": {
+            transform: "scale(0)",
+            opacity: "1",
+          },
+          "100%": {
+            transform: "scale(1)",
+            opacity: "0",
+          },
+        },
+      },
     },
     containers: {
       sm: "420px",
