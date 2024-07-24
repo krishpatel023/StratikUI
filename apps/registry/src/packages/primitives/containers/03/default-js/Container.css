@@ -1,0 +1,14 @@
+.ContainerEffect {
+  --container-border-initial: theme(colors.neutral.400);
+  --container-border-active: theme(colors.neutral.900);
+  --container-gradient-color: theme(colors.neutral.600/70);
+  --container-border-size: 4px;
+  --container-background: theme(colors.neutral.100);
+}
+.dark .ContainerEffect {
+  --container-border-initial: theme(colors.neutral.800);
+  --container-border-active: theme(colors.white/80);
+  --container-gradient-color: theme(colors.neutral.100/70);
+  --container-border-size: 4px;
+  --container-background: theme(colors.neutral.900);
+}
