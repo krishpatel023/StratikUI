@@ -33,7 +33,7 @@ export function InputLabel({ className, ...props }: LabelProps) {
   );
 }
 
-export function InputBox({ className, ...props }: InputProps) {
+export function InputBox({ className, ...props }: ReactAriaInputProps) {
   return (
     <ReactAriaInput
       className={twMerge(

@@ -1,12 +1,13 @@
 "use client";
 
+import React from "react";
 import {
   FieldError,
   FieldErrorProps,
-  Input as ReactAriaInput,
-  InputProps as ReactAriaInputProps,
   Label,
   LabelProps,
+  Input as ReactAriaInput,
+  InputProps as ReactAriaInputProps,
   TextField,
   TextFieldProps,
 } from "react-aria-components";
@@ -63,6 +64,7 @@ export interface InputProps extends ReactAriaInputProps {
   label?: string;
   isRequired?: boolean;
   isReadOnly?: boolean;
+  icon: React.ReactNode;
 }
 
 export function Input({
@@ -70,6 +72,8 @@ export function Input({
   label,
   isRequired,
   isReadOnly,
+  icon,
+  className,
   ...props
 }: InputProps) {
   return (
@@ -83,7 +87,15 @@ export function Input({
       isRequired={isRequired}
     >
       <InputLabel>{label}</InputLabel>
-      <InputBox {...props} />
+      <div className="relative">
+        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center px-4 text-foreground">
+          {icon}
+        </div>
+        <InputBox
+          className={twMerge("pl-12", className as string)}
+          {...props}
+        />
+      </div>
       <InputError>Error Message </InputError>
     </Field>
   );

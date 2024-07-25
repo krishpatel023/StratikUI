@@ -1,47 +1,42 @@
 "use client";
 
+import React from "react";
 import {
   FieldError,
   FieldErrorProps,
-  Input as ReactAriaInput,
-  InputProps as ReactAriaInputProps,
   Label,
   LabelProps,
+  Input as ReactAriaInput,
+  InputProps as ReactAriaInputProps,
   TextField,
   TextFieldProps,
 } from "react-aria-components";
 import { twJoin, twMerge } from "tailwind-merge";
 
-export function Field({ className, ...props }: TextFieldProps) {
+export function Field({ className, ...props }) {
   return (
-    <TextField
-      className={twMerge("flex flex-col", className as string)}
-      {...props}
-    />
+    <TextField className={twMerge("flex flex-col", className)} {...props} />
   );
 }
 
-export function InputLabel({ className, ...props }: LabelProps) {
+export function InputLabel({ className, ...props }) {
   return (
     <Label
-      className={twMerge(
-        "text-foreground text-sm font-medium",
-        className as string
-      )}
+      className={twMerge("text-foreground text-sm font-medium", className)}
     >
       {props.children}
     </Label>
   );
 }
-export function InputError({ className, ...props }: FieldErrorProps) {
+export function InputError({ className, ...props }) {
   return (
-    <FieldError className={twMerge("text-error", className as string)}>
+    <FieldError className={twMerge("text-error", className)}>
       {props.children}
     </FieldError>
   );
 }
 
-export function InputBox({ className, ...props }: ReactAriaInputProps) {
+export function InputBox({ className, ...props }) {
   return (
     <ReactAriaInput
       className={twMerge(
@@ -51,18 +46,11 @@ export function InputBox({ className, ...props }: ReactAriaInputProps) {
           "disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
           "invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error"
         ),
-        className as string
+        className
       )}
       {...props}
     />
   );
-}
-
-export interface InputProps extends ReactAriaInputProps {
-  state?: "default" | "isInvalid" | "isDisabled";
-  label?: string;
-  isRequired?: boolean;
-  isReadOnly?: boolean;
 }
 
 export function Input({
@@ -70,8 +58,10 @@ export function Input({
   label,
   isRequired,
   isReadOnly,
+  icon,
+  className,
   ...props
-}: InputProps) {
+}) {
   return (
     <Field
       name={props.name}
@@ -83,7 +73,12 @@ export function Input({
       isRequired={isRequired}
     >
       <InputLabel>{label}</InputLabel>
-      <InputBox {...props} />
+      <div className="relative">
+        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center px-4 text-foreground">
+          {icon}
+        </div>
+        <InputBox className={twMerge("pl-12", className)} {...props} />
+      </div>
       <InputError>Error Message </InputError>
     </Field>
   );
