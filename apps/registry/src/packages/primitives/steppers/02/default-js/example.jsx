@@ -24,12 +24,12 @@ export default function StepperImplementation() {
 
   return (
     <div className="flex flex-col justify-center items-center gap-10">
-      <div className="flex gap-4 flex-col md:flex-row items-center justify-center">
+      <div className="flex gap-4 flex-col @md:flex-row items-center justify-center">
         <span className="text-foreground">Step {activeStep} of 4</span>
         <Stepper currentStep={activeStep} onChange={handleStepChange}>
-          <Step className="min-h-20 md:min-h-max md:min-w-20" />
-          <Step className="min-h-20 md:min-h-max md:min-w-20" />
-          <Step className="min-h-20 md:min-h-max md:min-w-20" />
+          <Step className="min-h-20 @md:min-h-max @md:min-w-20" />
+          <Step className="min-h-20 @md:min-h-max @md:min-w-20" />
+          <Step className="min-h-20 @md:min-h-max @md:min-w-20" />
           <Step />
         </Stepper>
       </div>

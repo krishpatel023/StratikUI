@@ -1,12 +1,10 @@
+import StepperImplementation from "@/packages/primitives/steppers/01/default-ts/example";
 import { twMerge } from "tailwind-merge";
 
 export default function Page() {
   return (
     <Playground>
-      {/* Remove this div and add your component here */}
-      <div className="min-h-60 flex justify-center items-center">
-        <h1 className="text-foreground text-center">Playground</h1>
-      </div>
+      <StepperImplementation />
     </Playground>
   );
 }
