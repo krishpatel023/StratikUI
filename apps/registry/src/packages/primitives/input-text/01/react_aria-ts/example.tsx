@@ -1,0 +1,15 @@
+import { Input } from "@/packages/primitives/input-text/01/react_aria-ts/Input";
+
+export default function InputImplementation() {
+  return (
+    <div className="w-full flex justify-center">
+      <Input
+        label="Name"
+        placeholder="Name"
+        name="Name"
+        type="text"
+        className="w-80"
+      />
+    </div>
+  );
+}
