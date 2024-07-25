@@ -2,7 +2,7 @@
 
 import {
   FieldError,
-  InputProps,
+  InputProps as ReactAriaInputProps,
   Label,
   LabelProps,
   Input as ReactAriaInput,
@@ -46,18 +46,13 @@ export function InputBox({ className, ...props }: InputProps) {
   );
 }
 
-export interface InputFieldProps extends InputProps {
+export interface InputProps extends ReactAriaInputProps {
   label?: string;
   isRequired?: boolean;
   isReadOnly?: boolean;
 }
 
-export function Input({
-  label,
-  isRequired,
-  isReadOnly,
-  ...props
-}: InputFieldProps) {
+export function Input({ label, isRequired, isReadOnly, ...props }: InputProps) {
   return (
     <Field
       isReadOnly={isReadOnly}
