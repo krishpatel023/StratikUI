@@ -7,7 +7,7 @@ import {
 import Button from "@/ui/Button";
 import { useState } from "react";
 
-export const StepperImplementation = () => {
+export default function StepperImplementation() {
   const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
@@ -101,4 +101,4 @@ export const StepperImplementation = () => {
       </div>
     </div>
   );
-};
+}
