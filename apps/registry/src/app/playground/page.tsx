@@ -1,7 +1,14 @@
 import { twMerge } from "tailwind-merge";
 
 export default function Page() {
-  return <Playground>Hello</Playground>;
+  return (
+    <Playground>
+      {/* Remove this div and add your component here */}
+      <div className="min-h-60 flex justify-center items-center">
+        <h1 className="text-foreground text-center">Playground</h1>
+      </div>
+    </Playground>
+  );
 }
 
 export function Playground({
@@ -13,10 +20,15 @@ export function Playground({
 }) {
   return (
     <div>
-      <h1 className="text-foreground my-20 text-center">Playground</h1>
+      <h1 className="text-foreground mt-20 text-center">
+        Welcome to the Playground
+      </h1>
+      <h2 className="text-secondary-foreground mt-2 mb-10 text-center">
+        Please test the components here and DO NOT PUSH this page to production
+      </h2>
       <div
         className={twMerge(
-          "w-[90%] mx-auto h-max min-h-60 flex flex-col justify-center items-center @container border border-outline-secondary rounded-lg",
+          "@container w-[90%] mx-auto h-max flex flex-col justify-center items-center border border-outline-secondary rounded-lg",
           className
         )}
       >
