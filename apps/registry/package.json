@@ -14,6 +14,7 @@
     "generate:data": "tsx src/scripts/generateDocs.ts && tsx src/scripts/generateSidebarData.ts && tsx src/scripts/generateSearchData.ts"
   },
   "dependencies": {
+    "@paralleldrive/cuid2": "^2.2.2",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18"
