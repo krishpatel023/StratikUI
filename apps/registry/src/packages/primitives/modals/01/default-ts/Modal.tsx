@@ -2,6 +2,7 @@
 
 import useClickOutside from "@/packages/hooks/useClickOutside/01/default-ts/useClickOutside";
 import { ContainerGlassEffect } from "@/packages/primitives/containers/06/default-ts/container";
+import { KeyListener } from "@/packages/primitives/key-listener/01/default-ts/KeyListener";
 import { useRef } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -43,12 +44,13 @@ export function Modal({
   return (
     <ContainerGlassEffect
       className={twMerge(
-        "w-full h-full fixed top-0 left-0 z-50",
+        "w-full h-full absolute top-0 left-0 right-0 z-50 ",
         !isBGBlur &&
           "bg-transparent dark:bg-transparent backdrop-blur-none supports-[backdrop-filter]:bg-transparent dark:supports-[backdrop-filter]:bg-transparent",
         !isOpen && "hidden"
       )}
     >
+      <KeyListener onKeyDown={() => setOpen(false)} keys={["Esc"]} />
       <div
         ref={ref}
         className={twMerge(
