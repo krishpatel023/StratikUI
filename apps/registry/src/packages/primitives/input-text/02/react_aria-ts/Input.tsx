@@ -63,6 +63,7 @@ export interface InputProps extends ReactAriaInputProps {
   label?: string;
   isRequired?: boolean;
   isReadOnly?: boolean;
+  errorMessage?: string;
 }
 
 export function Input({
@@ -70,13 +71,13 @@ export function Input({
   label,
   isRequired,
   isReadOnly,
+  errorMessage,
   ...props
 }: InputProps) {
   return (
     <Field
       name={props.name}
       type={props.type}
-      className="w-80"
       isInvalid={state === "isInvalid"}
       isDisabled={state === "isDisabled"}
       isReadOnly={isReadOnly}
@@ -84,7 +85,7 @@ export function Input({
     >
       <InputLabel>{label}</InputLabel>
       <InputBox {...props} />
-      <InputError>Error Message </InputError>
+      <InputError>{errorMessage}</InputError>
     </Field>
   );
 }
