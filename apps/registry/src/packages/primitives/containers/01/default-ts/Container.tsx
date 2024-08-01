@@ -13,7 +13,7 @@ export function GradientBackground({
       <div className="relative z-10">{children}</div>
       <div
         className={twMerge(
-          "absolute -z-[5] -inset-0.5 bg-gradient-to-r from-blue-600 to-red-600 rounded-lg blur opacity-75 group-hover/gradient_bg:opacity-100 duration-200 transition-all",
+          "absolute z-0 -inset-0.5 bg-gradient-to-r from-blue-600 to-red-600 rounded-lg blur opacity-75 group-hover/gradient_bg:opacity-100 duration-200 transition-all",
           className
         )}
       ></div>
