@@ -60,6 +60,7 @@ export function Background() {
     </div>
   );
 }
+
 export function HeroSection() {
   return (
     <div className="w-full min-h-screen flex flex-col justify-center items-center  relative">
