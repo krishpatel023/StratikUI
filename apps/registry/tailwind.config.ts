@@ -83,6 +83,10 @@ const config: Config = {
         "border-spin-clockwise": "border-spin-clockwise 7s linear infinite",
         "border-spin-anticlockwise":
           "border-spin-anticlockwise 7s linear infinite",
+
+        // For @/packages/components/carousel/01
+        "infinite-scroll-left": "infinite-scroll-left 50s linear infinite",
+        "infinite-scroll-right": "infinite-scroll-right 50s linear infinite",
       },
       keyframes: {
         // For @/packages/primitives/buttons/02/
@@ -107,6 +111,16 @@ const config: Config = {
           "100%": {
             transform: "rotate(-360deg)",
           },
+        },
+
+        // For @/packages/components/carousel/01
+        "infinite-scroll-left": {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-100%)" },
+        },
+        "infinite-scroll-right": {
+          from: { transform: "translateX(-100%)" },
+          to: { transform: "translateX(0%)" },
         },
       },
     },
