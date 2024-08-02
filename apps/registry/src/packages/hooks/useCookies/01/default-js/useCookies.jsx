@@ -9,8 +9,7 @@ const useCookies = () => {
     analytics: true,
     advertising: true,
   };
-  const [cookiePreferences, setCookiePreferences] =
-    useState < CookiePreferences > defaultValue;
+  const [cookiePreferences, setCookiePreferences] = useState(defaultValue);
 
   const handlePrefLoad = () => {
     const storedPreferences = localStorage.getItem("cookiePreferences");

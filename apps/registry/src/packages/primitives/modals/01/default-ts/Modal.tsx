@@ -36,7 +36,7 @@ export function Modal({
 }: ModalProps) {
   const ref = useRef(null);
   useClickOutside(ref, () => {
-    if (isDismissable) {
+    if (isDismissable && isOpen) {
       setOpen(false);
     }
   });
