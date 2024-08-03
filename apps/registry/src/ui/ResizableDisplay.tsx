@@ -137,7 +137,7 @@ export default function ResizableDisplay({
       >
         <ResizableContainer
           direction={["right"]}
-          className="min-h-[700px] max-h-[700px] w-full border border-outline-secondary rounded-lg shadow-sm @container overflow-y-auto scrollbar-y scrollbar-x"
+          className=" max-h-[700px] w-full border border-outline-secondary rounded-lg shadow-sm @container overflow-y-auto scrollbar-y scrollbar-x"
           handleResize={handleResize}
           style={{ maxWidth: "100%", minWidth: "22rem", width: "100%" }}
           ref={resizableRef}
