@@ -46,7 +46,7 @@ const ResizableContainer = forwardRef<HTMLDivElement, ResizableContainerProps>(
           directionArr={direction}
           handleResize={handleResize}
         />
-        <div className=" flex justify-center items-center">
+        <div className="flex justify-center">
           <Handle
             direction="left"
             directionArr={direction}
@@ -71,6 +71,8 @@ const ResizableContainer = forwardRef<HTMLDivElement, ResizableContainerProps>(
   }
 );
 
+ResizableContainer.displayName = "ResizableContainer";
+
 export interface HandleProps {
   direction: "right" | "bottom" | "top" | "left";
   directionArr: ("right" | "bottom" | "top" | "left")[];
@@ -87,7 +89,7 @@ export function Handle({ direction, directionArr, handleResize }: HandleProps) {
         <>
           {(direction === "right" || direction === "left") && (
             <div
-              className="min-h-[700px] min-w-3 relative left-0 flex justify-center items-center cursor-col-resize z-10 "
+              className="min-w-3 relative left-0 flex justify-center items-center cursor-col-resize z-10 "
               aria-label={`Resize ${direction}`}
               onMouseDown={(e) => handleResize(e, direction)}
               onTouchStart={(e) => handleResize(e, direction)}
@@ -124,20 +126,33 @@ export default function ResizableDisplay({
     resizableRef
   );
 
-  const handleMouseLeave = () => {
-    stopResize();
-    if (!resizableRef.current || !isResizing) return;
-    resizableRef.current.style.width = "100%";
+  const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!resizableRef.current || !containerRef.current || !isResizing) return;
+    e.preventDefault();
+
+    // Get the bounding rectangle of the resizable element
+    const rect = containerRef.current.getBoundingClientRect();
+
+    // Get the mouse position
+    const mouseX = e.clientX;
+
+    // Reset the resizable element's width as needed
+    if (mouseX <= rect.left || mouseX >= rect.right) {
+      resizableRef.current.style.width = "100%";
+      stopResize();
+    }
   };
+
   return (
-    <div className="flex justify-center items-center flex-col gap-4 w-full mb-10">
+    <div className="h-max flex justify-center items-center flex-col gap-4 w-full mb-10">
       <ResizeBoundingElement
         containerRef={containerRef}
         onMouseLeave={handleMouseLeave}
+        className="h-max"
       >
         <ResizableContainer
           direction={["right"]}
-          className=" max-h-[700px] w-full border border-outline-secondary rounded-lg shadow-sm @container overflow-y-auto scrollbar-y scrollbar-x"
+          className="h-max max-h-[700px] w-full border border-outline-secondary rounded-lg shadow-sm @container overflow-y-auto scrollbar-y scrollbar-x"
           handleResize={handleResize}
           style={{ maxWidth: "100%", minWidth: "22rem", width: "100%" }}
           ref={resizableRef}
