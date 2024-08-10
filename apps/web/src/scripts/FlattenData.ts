@@ -1,4 +1,4 @@
-import { StorageData } from "@/content/index";
+// import { StorageData } from "@/content/index";
 import { FileData } from "@/utils/constants";
 
 type Content = {
@@ -30,7 +30,8 @@ export type FlattenedItem = {
 };
 
 export const flattenData = (): FlattenedItem[] => {
-  const data: FileData[] = StorageData;
+  // const data: FileData[] = StorageData;
+  const data: FileData[] = [];
   const result: FlattenedItem[] = [];
 
   const processItem = (
