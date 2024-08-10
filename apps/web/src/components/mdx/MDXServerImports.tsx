@@ -10,7 +10,7 @@ import {
   ImportsWrapper,
   PARTITION,
 } from "@/components/mdx/Wrappers";
-
+import { Title } from "./MDX";
 import { Skeleton } from "../ui/Skeleton";
 
 export {
@@ -24,4 +24,5 @@ export {
   ImportsWrapper,
   Skeleton,
   PARTITION,
+  Title,
 };

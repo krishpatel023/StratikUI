@@ -77,7 +77,7 @@ export function ImageComponent({ ...props }) {
   );
 }
 
-export const H1 = ({ children }: { children: React.ReactNode }) => {
+export const Title = ({ children }: { children: React.ReactNode }) => {
   return (
     <Link
       href={`#${convertToDashed(children as string)}`}
@@ -93,6 +93,14 @@ export const H1 = ({ children }: { children: React.ReactNode }) => {
         <Icons.link className="w-6 h-6" />
       </span>
     </Link>
+  );
+};
+
+export const H1 = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <h1 className="text-xl font-medium text-foreground group/hashtag flex gap-2 relative transition-all duration-300 ease-linear">
+      {children}
+    </h1>
   );
 };
 
