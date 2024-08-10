@@ -4,25 +4,26 @@ import { DefaultDisplay as Display } from "./DefaultDisplay";
 import { TechnologyUsed } from "./TechnologyUsed";
 import {
   Wrapper,
-  Preview_Component_For_StratikUI as Preview,
-  Header_Component_For_StratikUI as Header,
-  Implementation_Component_For_StratikUI as Implementation,
-  ImportsWrapper,
+  WrapperToggle,
+  Preview,
+  Implementation,
   PARTITION,
 } from "@/components/mdx/Wrappers";
 import { Title } from "./MDX";
 import { Skeleton } from "../ui/Skeleton";
+import { Details, Provider } from "./Details";
 
 export {
   Implementation,
   Preview,
   convertToDashed,
-  Header,
   Display,
   TechnologyUsed,
   Wrapper,
-  ImportsWrapper,
   Skeleton,
   PARTITION,
   Title,
+  Details,
+  Provider,
+  WrapperToggle,
 };

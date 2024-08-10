@@ -772,13 +772,13 @@ function generateIndividualDocument(folderPath: string) {
           flagData +
           `<Title>${name}</Title>\n` +
           `### ${description}\n` +
-          "<Header />" +
+          "<WrapperToggle>\n" +
           preview +
           "<Implementation>\n" +
           techUsed +
           codeBlock +
           otherData +
-          "\n</Implementation>\n</Wrapper>\n";
+          "\n</Implementation>\n</WrapperToggle>\n</Wrapper>\n";
       } else if (category === "primitives") {
         individualDocument = generatedMessage;
         const name = frontMatter?.name || "Name Not Found";
@@ -791,13 +791,13 @@ function generateIndividualDocument(folderPath: string) {
           flagData +
           `<Title>${name}</Title>\n` +
           `### ${description}\n` +
-          "\n<Header />\n" +
+          "\n<WrapperToggle >\n" +
           preview +
           "\n\n<Implementation>\n\n" +
           techUsed +
           codeBlock +
           otherData +
-          "\n</Implementation>\n</Wrapper>\n";
+          "\n</Implementation>\n</WrapperToggle>\n</Wrapper>\n";
       }
 
       return individualDocument;
@@ -907,13 +907,13 @@ function generateDocs() {
           });
 
           const INITIAL_STRING = {
-            PRIMITIVES: `import React, { Suspense } from 'react';\nimport { Implementation, Preview, Header, Display, TechnologyUsed, Wrapper, Skeleton, PARTITION } from "@/components/mdx/MDXServerImports"\nimport { CodeBlock } from "@/components/mdx/MDXClientImports"\n`,
+            PRIMITIVES: `import React, { Suspense, lazy } from 'react';\nimport { Implementation, Preview, WrapperToggle, Display, TechnologyUsed, Wrapper, Skeleton, PARTITION, Details, Provider, Title } from "@/components/mdx/MDXServerImports"\nimport { CodeBlock } from "@/components/mdx/MDXClientImports"\n`,
 
-            COMPONENTS: `import React, { Suspense } from 'react';\nimport { Implementation, Preview, Header, TechnologyUsed, Wrapper, Skeleton, PARTITION } from "@/components/mdx/MDXServerImports"\nimport { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"\n`,
+            COMPONENTS: `import React, { Suspense, lazy } from 'react';\nimport { Implementation, Preview, WrapperToggle, TechnologyUsed, Wrapper, Skeleton, PARTITION, Details, Provider, Title } from "@/components/mdx/MDXServerImports"\nimport { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"\n`,
 
-            HOOKS: `import React, { Suspense } from 'react';\nimport { Display, TechnologyUsed, Wrapper, Skeleton } from "@/components/mdx/MDXServerImports"\nimport { CodeBlock } from "@/components/mdx/MDXClientImports"\n`,
+            HOOKS: `import React, { Suspense, lazy } from 'react';\nimport { Display, TechnologyUsed, Wrapper, Skeleton, Title, Details, Provider } from "@/components/mdx/MDXServerImports"\nimport { CodeBlock } from "@/components/mdx/MDXClientImports"\n`,
 
-            GENERIC: `import React, { Suspense } from 'react';\nimport { Implementation, Preview, Header, Display, TechnologyUsed, Wrapper, Skeleton, PARTITION } from "@/components/mdx/MDXServerImports"\nimport { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"\n`,
+            GENERIC: `import React, { Suspense, lazy } from 'react';\nimport { Implementation, Preview, WrapperToggle, Display, TechnologyUsed, Wrapper, Skeleton, PARTITION, Details, Provider, Title } from "@/components/mdx/MDXServerImports"\nimport { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"\n`,
           };
 
           let finalDocument = "";
