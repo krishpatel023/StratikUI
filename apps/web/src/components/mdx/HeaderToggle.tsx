@@ -4,25 +4,18 @@ import { useTheme } from "@/hooks/Theme";
 import { Icons } from "@/utils/icons";
 import { useState } from "react";
 
-export const HeaderToggle = ({ id }: { id: string }) => {
+export const HeaderToggle = ({
+  getState,
+}: {
+  getState: (val: boolean) => void;
+}) => {
   const { theme, setTheme } = useTheme();
   const [active, setActive] = useState<boolean>(false);
 
-  const toggleActive = (state: boolean) => {
-    const display = document.getElementById(`${id}-preview`);
-    const implementation = document.getElementById(`${id}-implementation`);
-
-    if (!display || !implementation) return;
-    if (state) {
-      setActive(state);
-      display.style.display = "none";
-      implementation.style.display = "flex";
-    } else {
-      setActive(state);
-      display.style.display = "block";
-      implementation.style.display = "none";
-    }
-  };
+  function handleToggle(state: boolean) {
+    setActive(state);
+    getState(state);
+  }
   return (
     <div className="w-full h-12 flex justify-between items-center">
       <div className="py-1 px-1 flex gap-1 bg-secondary text-primary-foreground rounded text-textPrimary">
@@ -30,7 +23,7 @@ export const HeaderToggle = ({ id }: { id: string }) => {
           className={
             active === false ? "bg-background px-2 py-1 rounded" : "px-2 py-1"
           }
-          onClick={() => toggleActive(false)}
+          onClick={() => handleToggle(false)}
         >
           Preview
         </button>
@@ -38,10 +31,10 @@ export const HeaderToggle = ({ id }: { id: string }) => {
           className={
             active === true ? "bg-background px-2 py-1 rounded" : "px-2 py-1"
           }
-          onClick={() => toggleActive(true)}
+          onClick={() => handleToggle(true)}
         >
           Code
-        </button>{" "}
+        </button>
       </div>
       <button
         onClick={() => setTheme(!theme)}
