@@ -9,7 +9,7 @@ import {
   sanitizeFilePath,
   terminalLink,
 } from "@/scripts/helperFunctions";
-import { TECH_USED, TECH_USED_PROPS } from "@/utils/technologiesUsed";
+import { TECH_USED, TechNames } from "@web/components/mdx/TechnologyUsed";
 import fs from "fs";
 import path from "path";
 
@@ -20,8 +20,15 @@ const categoryHavingResizableDisplayElement = ["components"];
 export const FOLDER_NOMENCLATURE = {
   docs: "docs.md",
   example: "example.tsx",
-  default_example_folder: "default-ts",
+  default_example_folder: "react_aria-ts",
+  exampleFolders: [
+    "react_aria-ts",
+    "default-ts",
+    "default-js",
+    "react_aria-js",
+  ],
   docsAdditionalFolders: ["docs-react_aria.md", "docs-default.md"],
+  registry_ref_name: "@registry",
 };
 
 // This function will help to generate the log.tsx file in .stratik-ui folder of registry
@@ -392,7 +399,7 @@ function addDisplayElement(folderPath: string) {
 
       const displayData = `\n<Suspense fallback={<Skeleton className="${SkeletonClassName}" />}>\n${displayElement}\n</Suspense>\n`;
 
-      const importData = `\nexport const ${sanitizedName} = lazy(() => import("@/packages/${registryPath}/${FOLDER_NOMENCLATURE.example}"));\n`;
+      const importData = `\nexport const ${sanitizedName} = lazy(() => import("${FOLDER_NOMENCLATURE.registry_ref_name}/${registryPath}/${FOLDER_NOMENCLATURE.example.split(".")[0]}"));\n`;
 
       return { importData, displayData };
     }
@@ -588,11 +595,9 @@ function addDocumentationData(folderPath: string) {
 function addTechnologyUsed(codeBlock: string, folderPath: string) {
   try {
     {
-      const techAvailable: (keyof TECH_USED_PROPS)[] = Object.keys(
-        TECH_USED
-      ) as (keyof TECH_USED_PROPS)[];
+      const techAvailable: TechNames[] = Object.keys(TECH_USED) as TechNames[];
 
-      let techUsed: (keyof TECH_USED_PROPS)[] = [];
+      let techUsed: TechNames[] = [];
       const importRegex =
         /import\s+[\s\S]+?\s+from\s+['"][^'"]+['"];?|import\s+['"][^'"]+['"];?/g;
 
@@ -607,13 +612,14 @@ function addTechnologyUsed(codeBlock: string, folderPath: string) {
         });
       });
 
-      let techUsedString = "<TechnologiesUsed>\n";
+      let techUsedString = "<TechnologyUsed technologies={[";
       techUsed?.forEach((tech) => {
-        const logo = TECH_USED[tech].logo;
-        techUsedString += `<Tech name="${tech}" />\n`;
+        if (techUsedString !== "<TechnologyUsed technologies={[")
+          techUsedString += ",";
+        techUsedString += `"${tech}"`;
       });
 
-      techUsedString += "</TechnologiesUsed>";
+      techUsedString += "]} />";
 
       return techUsedString;
     }
@@ -785,9 +791,9 @@ function generateIndividualDocument(folderPath: string) {
           flagData +
           `<Title>${name}</Title>\n` +
           `### ${description}\n` +
-          "<Header />" +
+          "\n<Header />\n" +
           preview +
-          "<Implementation>\n" +
+          "\n\n<Implementation>\n\n" +
           techUsed +
           codeBlock +
           otherData +
