@@ -1,8 +1,8 @@
 "use client";
 
-import useClickOutside from "@/packages/hooks/useClickOutside/01/default-ts/useClickOutside";
-import { ContainerGlassEffect } from "@/packages/primitives/containers/06/default-ts/container";
-import { KeyListener } from "@/packages/primitives/key-listener/01/default-ts/KeyListener";
+import useClickOutside from "@registry/hooks/useClickOutside/01/default-ts/useClickOutside";
+import { ContainerGlassEffect } from "@registry/primitives/containers/06/default-ts/container";
+import { KeyListener } from "@registry/primitives/key-listener/01/default-ts/KeyListener";
 import { useRef } from "react";
 import { twMerge } from "tailwind-merge";
 

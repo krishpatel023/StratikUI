@@ -1,5 +1,5 @@
 import ArrowHeading from "@/ui/ArrowHeading";
-import { Avatar } from "@/packages/primitives/avatars/01/default-ts/Avatar";
+import { Avatar } from "@registry/primitives/avatars/01/default-ts/Avatar";
 import Dummy from "@/assets/Images/Image_2.jpg";
 
 export default function AvatarImplementation() {

@@ -1,5 +1,5 @@
-import { Pricing } from "@/packages/components/pricing/05/default-js/Pricing";
-import { PricingGrid } from "@/packages/components/pricing/06/default-js/Pricing";
+import { Pricing } from "@registry/components/pricing/05/default-js/Pricing";
+import { PricingGrid } from "@registry/components/pricing/06/default-js/Pricing";
 
 export default function PricingImplementation() {
   return (

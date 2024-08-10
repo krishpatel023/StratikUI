@@ -2,10 +2,10 @@
 
 import useCookies, {
   CookieCategory,
-} from "@/packages/hooks/useCookies/01/default-ts/useCookies";
-import { Button } from "@/packages/primitives/buttons/02/default-ts/Button";
-import { Modal } from "@/packages/primitives/modals/01/default-ts/Modal";
-import { Switch } from "@/packages/primitives/switch/01/default-ts/Switch";
+} from "@registry/hooks/useCookies/01/default-ts/useCookies";
+import { Button } from "@registry/primitives/buttons/02/default-ts/Button";
+import { Modal } from "@registry/primitives/modals/01/default-ts/Modal";
+import { Switch } from "@registry/primitives/switch/01/default-ts/Switch";
 import { useEffect, useState } from "react";
 
 export const CookiePrompt = ({

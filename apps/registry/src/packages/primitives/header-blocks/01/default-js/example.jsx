@@ -2,7 +2,7 @@ import {
   Header,
   HeaderDropdown,
   HeaderItem,
-} from "@/packages/primitives/header-blocks/01/default-js/HeaderBlocks";
+} from "@registry/primitives/header-blocks/01/default-js/HeaderBlocks";
 
 export default function HeaderBlocksImplementation() {
   return (

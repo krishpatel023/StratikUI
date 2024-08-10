@@ -1,4 +1,4 @@
-import { Pricing } from "@/packages/components/pricing/01/default-ts/Pricing";
+import { Pricing } from "@registry/components/pricing/01/default-ts/Pricing";
 
 export default function PricingImplementation() {
   return (

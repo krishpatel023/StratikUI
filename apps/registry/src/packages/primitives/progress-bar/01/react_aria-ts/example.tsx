@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ProgressBar } from "@/packages/primitives/progress-bar/01/react_aria-ts/ProgressBar";
+import { ProgressBar } from "@registry/primitives/progress-bar/01/react_aria-ts/ProgressBar";
 import { Label } from "react-aria-components";
 import Button from "@/ui/Button";
 

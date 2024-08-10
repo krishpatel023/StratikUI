@@ -4,8 +4,8 @@ import { useRef } from "react";
 import {
   ResizableContainer,
   ResizeBoundingElement,
-} from "@/packages/hooks/useResizable/01/default-ts/Resizable";
-import useResizable from "@/packages/hooks/useResizable/01/default-ts/useResizable";
+} from "@registry/hooks/useResizable/01/default-ts/Resizable";
+import useResizable from "@registry/hooks/useResizable/01/default-ts/useResizable";
 import ArrowHeading from "@/ui/ArrowHeading";
 
 export default function ResizeImplementation() {

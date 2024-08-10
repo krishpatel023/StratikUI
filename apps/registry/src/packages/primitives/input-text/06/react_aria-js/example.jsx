@@ -1,4 +1,4 @@
-import { Input } from "@/packages/primitives/input-text/06/react_aria-js/Input";
+import { Input } from "@registry/primitives/input-text/06/react_aria-js/Input";
 
 export default function InputPasswordToggle() {
   return (

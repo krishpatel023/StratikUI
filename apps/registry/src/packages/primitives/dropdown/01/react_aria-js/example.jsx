@@ -7,7 +7,7 @@ import {
   DropdownItem,
   DropdownTrigger,
   SubmenuTrigger,
-} from "@/packages/primitives/dropdown/01/react_aria-js/Dropdown";
+} from "@registry/primitives/dropdown/01/react_aria-js/Dropdown";
 import Button from "@/ui/Button";
 import { Section } from "react-aria-components";
 

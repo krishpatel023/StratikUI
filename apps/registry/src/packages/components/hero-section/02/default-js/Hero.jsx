@@ -5,7 +5,7 @@ import Image_4 from "@/assets/Images/Image_4.jpg";
 import Image_5 from "@/assets/Images/Image_5.jpg";
 import Image_6 from "@/assets/Images/Image_6.jpg";
 import Image_7 from "@/assets/Images/Image_7.jpg";
-import { Button } from "@/packages/primitives/buttons/02/default-js/Button";
+import { Button } from "@registry/primitives/buttons/02/default-js/Button";
 import Image from "next/image";
 
 export function Background() {

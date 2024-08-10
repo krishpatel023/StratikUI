@@ -1,4 +1,4 @@
-import { ConicGradientContainer } from "@/packages/primitives/containers/04/default-ts/Container";
+import { ConicGradientContainer } from "@registry/primitives/containers/04/default-ts/Container";
 
 export default function ContainerImplementation() {
   return (

@@ -1,10 +1,10 @@
 "use client";
 
-import useArtificialLoader from "@/packages/hooks/useArtificialLoader/01/default-js/useArtificialLoader";
-import { Button } from "@/packages/primitives/buttons/02/default-js/Button";
-import { FileUploadButton } from "@/packages/primitives/file-upload-button/00/default-js/FileUpload";
-import { Dropbox } from "@/packages/primitives/file-upload-dropbox/01/default-js/Dropbox";
-import { ProgressBar } from "@/packages/primitives/progress-bar/01/react_aria-js/ProgressBar";
+import useArtificialLoader from "@registry/hooks/useArtificialLoader/01/default-js/useArtificialLoader";
+import { Button } from "@registry/primitives/buttons/02/default-js/Button";
+import { FileUploadButton } from "@registry/primitives/file-upload-button/00/default-js/FileUpload";
+import { Dropbox } from "@registry/primitives/file-upload-dropbox/01/default-js/Dropbox";
+import { ProgressBar } from "@registry/primitives/progress-bar/01/react_aria-js/ProgressBar";
 import { useEffect, useState } from "react";
 
 export function FileUpload() {

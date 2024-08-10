@@ -1,6 +1,6 @@
-import { Button } from "@/packages/primitives/buttons/02/default-js/Button";
-import { Input } from "@/packages/primitives/input-text/01/react_aria-js/Input";
-import { Input as PasswordToggle } from "@/packages/primitives/input-text/06/react_aria-js/Input";
+import { Button } from "@registry/primitives/buttons/02/default-js/Button";
+import { Input } from "@registry/primitives/input-text/01/react_aria-js/Input";
+import { Input as PasswordToggle } from "@registry/primitives/input-text/06/react_aria-js/Input";
 
 export function SignUp() {
   return (

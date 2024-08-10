@@ -1,18 +1,18 @@
 "use client";
 
-import useScrollbar from "@/packages/hooks/useScrollbar/01/default-ts/useScrollbar";
-import { ContainerGlassEffect } from "@/packages/primitives/containers/06/default-ts/container";
+import useScrollbar from "@registry/hooks/useScrollbar/01/default-ts/useScrollbar";
+import { ContainerGlassEffect } from "@registry/primitives/containers/06/default-ts/container";
 import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { GradientBackground } from "@/packages/primitives/containers/01/default-ts/Container";
+import { GradientBackground } from "@registry/primitives/containers/01/default-ts/Container";
 import {
   Header,
   HeaderAnimationWrapper,
   HeaderDropdown,
   HeaderItem,
-} from "@/packages/primitives/header-blocks/03/default-ts/HeaderBlocks";
+} from "@registry/primitives/header-blocks/03/default-ts/HeaderBlocks";
 import { Button } from "react-aria-components";
-import { HeaderDrawer } from "@/packages/components/headers/04/default-ts/HeaderDrawer";
+import { HeaderDrawer } from "@registry/components/headers/04/default-ts/HeaderDrawer";
 import { IconProps } from "@/utils/types";
 
 export const HeaderComponent = () => {

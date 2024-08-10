@@ -2,9 +2,9 @@
 
 import React, { PropsWithChildren, useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import useMousePosition from "@/packages/hooks/useMousePosition/01/default-ts/useMousePosition";
+import useMousePosition from "@registry/hooks/useMousePosition/01/default-ts/useMousePosition";
 import ArrowHeading from "@/ui/ArrowHeading";
-import "@/packages/primitives/containers/03/default-ts/Container.css";
+import "@registry/primitives/containers/03/default-ts/Container.css";
 
 type HighlightGroupProps = {
   children: React.ReactNode;

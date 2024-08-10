@@ -1,4 +1,4 @@
-import { Pagination } from "@/packages/primitives/pagination/01/react_aria-ts/Pagination";
+import { Pagination } from "@registry/primitives/pagination/01/react_aria-ts/Pagination";
 
 export default function PaginationImplementation() {
   return (

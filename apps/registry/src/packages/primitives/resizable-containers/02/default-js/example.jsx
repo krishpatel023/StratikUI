@@ -1,10 +1,10 @@
 "use client";
 
-import useResizable from "@/packages/hooks/useResizable/01/default-js/useResizable";
+import useResizable from "@registry/hooks/useResizable/01/default-js/useResizable";
 import {
   ResizableContainer,
   ResizeBoundingElement,
-} from "@/packages/primitives/resizable-containers/02/default-js/Resizable";
+} from "@registry/primitives/resizable-containers/02/default-js/Resizable";
 import { useRef } from "react";
 
 export default function ResizeImplementation() {

@@ -6,7 +6,7 @@ import {
   HeaderAnimationWrapper,
   HeaderDropdown,
   HeaderItem,
-} from "@/packages/primitives/header-blocks/03/default-js/HeaderBlocks";
+} from "@registry/primitives/header-blocks/03/default-js/HeaderBlocks";
 
 export default function HeaderBlocksImplementation() {
   const [open, setOpen] = useState(false);

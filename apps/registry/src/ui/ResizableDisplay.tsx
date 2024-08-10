@@ -2,7 +2,7 @@
 
 import { twMerge } from "tailwind-merge";
 import React, { forwardRef, useRef } from "react";
-import useResizable from "@/packages/hooks/useResizable/01/default-ts/useResizable";
+import useResizable from "@registry/hooks/useResizable/01/default-ts/useResizable";
 
 export interface ResizableBoundingElementProps
   extends React.HTMLAttributes<HTMLDivElement> {

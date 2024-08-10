@@ -1,6 +1,6 @@
 "use client";
 
-import { Modal } from "@/packages/primitives/modals/01/default-js/Modal";
+import { Modal } from "@registry/primitives/modals/01/default-js/Modal";
 import Button from "@/ui/Button";
 import { useState } from "react";
 

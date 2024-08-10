@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Meter } from "@/packages/primitives/meter/01/react_aria-ts/Meter";
+import { Meter } from "@registry/primitives/meter/01/react_aria-ts/Meter";
 import { Label } from "react-aria-components";
 import Button from "@/ui/Button";
 

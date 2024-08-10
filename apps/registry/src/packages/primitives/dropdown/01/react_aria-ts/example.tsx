@@ -8,7 +8,7 @@ import {
   DropdownItem,
   DropdownTrigger,
   SubmenuTrigger,
-} from "@/packages/primitives/dropdown/01/react_aria-ts/Dropdown";
+} from "@registry/primitives/dropdown/01/react_aria-ts/Dropdown";
 import { Section } from "react-aria-components";
 import { IconProps } from "@/utils/types";
 

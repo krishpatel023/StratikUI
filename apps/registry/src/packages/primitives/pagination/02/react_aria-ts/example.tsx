@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Pagination } from "@/packages/primitives/pagination/02/react_aria-ts/Pagination";
+import { Pagination } from "@registry/primitives/pagination/02/react_aria-ts/Pagination";
 
 export default function PaginationImplementation() {
   const [currentPage, setCurrentPage] = useState<number>(1);

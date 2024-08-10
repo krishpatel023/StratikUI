@@ -1,6 +1,6 @@
 "use client";
 
-import useClickOutside from "@/packages/hooks/useClickOutside/01/default-ts/useClickOutside";
+import useClickOutside from "@registry/hooks/useClickOutside/01/default-ts/useClickOutside";
 import { IconProps } from "@/utils/types";
 import { useRef } from "react";
 import { twMerge } from "tailwind-merge";

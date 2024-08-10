@@ -1,5 +1,5 @@
-import { HeaderComponent } from "@/packages/components/headers/04/default-js/Header";
-import { HeroSection } from "@/packages/components/hero-section/03/default-js/Hero";
+import { HeaderComponent } from "@registry/components/headers/04/default-js/Header";
+import { HeroSection } from "@registry/components/hero-section/03/default-js/Hero";
 
 export default function HeaderImplementation() {
   return (

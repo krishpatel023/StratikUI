@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Drawer } from "@/packages/primitives/drawer/01/default-js/Drawer";
+import { Drawer } from "@registry/primitives/drawer/01/default-js/Drawer";
 import Button from "@/ui/Button";
 
 export default function DrawerImplementation() {

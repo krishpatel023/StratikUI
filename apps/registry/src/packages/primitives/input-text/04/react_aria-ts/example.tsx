@@ -1,5 +1,5 @@
 import { IconProps } from "@/utils/types";
-import { Input } from "@/packages/primitives/input-text/04/react_aria-ts/Input";
+import { Input } from "@registry/primitives/input-text/04/react_aria-ts/Input";
 
 export default function InputWithRightIcon() {
   return (

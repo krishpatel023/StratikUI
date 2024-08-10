@@ -4,7 +4,7 @@ import { useState } from "react";
 import {
   Stepper,
   Step,
-} from "@/packages/primitives/steppers/03/default-ts/Stepper";
+} from "@registry/primitives/steppers/03/default-ts/Stepper";
 import Button from "@/ui/Button";
 
 export default function StepperImplementation() {

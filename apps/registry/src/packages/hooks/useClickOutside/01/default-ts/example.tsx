@@ -1,6 +1,6 @@
 "use client";
 
-import { Modal } from "@/packages/hooks/useClickOutside/01/default-ts/Modal";
+import { Modal } from "@registry/hooks/useClickOutside/01/default-ts/Modal";
 import Button from "@/ui/Button";
 import { useState } from "react";
 

@@ -2,7 +2,7 @@
 import ArrowHeading from "@/ui/ArrowHeading";
 import Message from "@/ui/Message";
 import { useState } from "react";
-import { OTPInput } from "@/packages/primitives/input-otp/01/default-ts/InputOTP";
+import { OTPInput } from "@registry/primitives/input-otp/01/default-ts/InputOTP";
 
 export default function OTPImplementation() {
   const [otp1, setOtp1] = useState<string | null>("");

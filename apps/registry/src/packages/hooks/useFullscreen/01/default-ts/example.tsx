@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import { useFullscreen } from "@/packages/hooks/useFullscreen/01/default-ts/useFullscreen";
+import { useFullscreen } from "@registry/hooks/useFullscreen/01/default-ts/useFullscreen";
 import Button from "@/ui/Button";
 
 export default function UseFullscreenExample() {

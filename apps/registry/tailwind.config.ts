@@ -76,20 +76,20 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       animation: {
-        // For @/packages/primitives/buttons/02/
+        // For @registry/primitives/buttons/02/
         circleGrow: "circleGrow 0.5s ease-in-out",
 
-        // For @/packages/primitives/containers/04
+        // For @registry/primitives/containers/04
         "border-spin-clockwise": "border-spin-clockwise 7s linear infinite",
         "border-spin-anticlockwise":
           "border-spin-anticlockwise 7s linear infinite",
 
-        // For @/packages/components/carousel/01
+        // For @registry/components/carousel/01
         "infinite-scroll-left": "infinite-scroll-left 50s linear infinite",
         "infinite-scroll-right": "infinite-scroll-right 50s linear infinite",
       },
       keyframes: {
-        // For @/packages/primitives/buttons/02/
+        // For @registry/primitives/buttons/02/
         circleGrow: {
           "0%": {
             transform: "scale(0)",
@@ -101,7 +101,7 @@ const config: Config = {
           },
         },
 
-        // For @/packages/primitives/containers/04
+        // For @registry/primitives/containers/04
         "border-spin-clockwise": {
           "100%": {
             transform: "rotate(360deg)",
@@ -113,7 +113,7 @@ const config: Config = {
           },
         },
 
-        // For @/packages/components/carousel/01
+        // For @registry/components/carousel/01
         "infinite-scroll-left": {
           from: { transform: "translateX(0)" },
           to: { transform: "translateX(-100%)" },

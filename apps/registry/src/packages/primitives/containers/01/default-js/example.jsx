@@ -1,4 +1,4 @@
-import { GradientBackground } from "@/packages/primitives/containers/01/default-js/Container";
+import { GradientBackground } from "@registry/primitives/containers/01/default-js/Container";
 import ArrowHeading from "@/ui/ArrowHeading";
 
 export default function ContainerImplementation() {

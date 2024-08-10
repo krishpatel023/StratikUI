@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useOS } from "@/packages/hooks/useOS/01/default-ts/useOS";
+import { useOS } from "@registry/hooks/useOS/01/default-ts/useOS";
 
 export default function UseOSExample() {
   const os = useOS();

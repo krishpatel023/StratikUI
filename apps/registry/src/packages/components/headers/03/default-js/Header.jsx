@@ -1,6 +1,6 @@
 "use client";
 
-import { ContainerGlassEffect } from "@/packages/primitives/containers/06/default-js/container";
+import { ContainerGlassEffect } from "@registry/primitives/containers/06/default-js/container";
 import { useAnimate } from "framer-motion";
 import { useState } from "react";
 import { HeaderDrawer } from "./HeaderDrawer";

@@ -1,4 +1,4 @@
-import { Button } from "@/packages/primitives/buttons/02/default-js/Button";
+import { Button } from "@registry/primitives/buttons/02/default-js/Button";
 import { twMerge } from "tailwind-merge";
 
 export function Pricing() {

@@ -2,8 +2,8 @@
 import {
   KeyListener,
   KeyListenerDisplay,
-} from "@/packages/primitives/key-listener/01/default-js/KeyListener";
-import { Modal } from "@/packages/primitives/modals/01/default-js/Modal";
+} from "@registry/primitives/key-listener/01/default-js/KeyListener";
+import { Modal } from "@registry/primitives/modals/01/default-js/Modal";
 import { useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 

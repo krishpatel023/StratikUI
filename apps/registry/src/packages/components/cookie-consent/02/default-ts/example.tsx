@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { CookiePrompt } from "./CookieConsent";
-import { Button } from "@/packages/primitives/buttons/02/default-ts/Button";
+import { Button } from "@registry/primitives/buttons/02/default-ts/Button";
 
 export default function CookieImplementation() {
   const [active, setActive] = useState(false);

@@ -6,7 +6,7 @@ import Dummy5 from "@/assets/Images/Image_5.jpg";
 import Dummy6 from "@/assets/Images/Image_6.jpg";
 import Dummy7 from "@/assets/Images/Image_7.jpg";
 import ArrowHeading from "@/ui/ArrowHeading";
-import { AvatarStack } from "@/packages/primitives/avatars/03/default-ts/Avatar";
+import { AvatarStack } from "@registry/primitives/avatars/03/default-ts/Avatar";
 
 export default function StackedAvatarImplementation() {
   return (

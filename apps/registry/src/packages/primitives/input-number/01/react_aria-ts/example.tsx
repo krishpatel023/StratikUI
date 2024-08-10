@@ -1,5 +1,5 @@
 import ArrowHeading from "@/ui/ArrowHeading";
-import { InputNumber } from "@/packages/primitives/input-number/01/react_aria-ts/InputNumber";
+import { InputNumber } from "@registry/primitives/input-number/01/react_aria-ts/InputNumber";
 
 export default function InputImplementation() {
   return (

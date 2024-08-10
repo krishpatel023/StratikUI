@@ -2,7 +2,7 @@ import ArrowHeading from "@/ui/ArrowHeading";
 import {
   HighlighterItem,
   HighlightGroup,
-} from "@/packages/primitives/containers/03/default-js/Container";
+} from "@registry/primitives/containers/03/default-js/Container";
 
 export default function ContainerImplementation() {
   return (

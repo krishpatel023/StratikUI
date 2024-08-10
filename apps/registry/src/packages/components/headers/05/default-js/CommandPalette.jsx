@@ -8,7 +8,7 @@ import {
   CommandPaletteMenu,
   CommandPaletteSearchBar,
   CommandPaletteTrigger,
-} from "@/packages/primitives/command-palette/01/default-js/CommandPalette";
+} from "@registry/primitives/command-palette/01/default-js/CommandPalette";
 import { useState } from "react";
 
 export function CommandPaletteBox() {

@@ -1,4 +1,4 @@
-import { ContainerGlassEffect } from "@/packages/primitives/containers/06/default-ts/container";
+import { ContainerGlassEffect } from "@registry/primitives/containers/06/default-ts/container";
 
 const ContainerImplementation = () => {
   return (

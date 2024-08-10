@@ -1,4 +1,4 @@
-import { ScrollToTop } from "@/packages/primitives/scroll-to-top/01/default-ts/ScrollToTop";
+import { ScrollToTop } from "@registry/primitives/scroll-to-top/01/default-ts/ScrollToTop";
 
 export default function ScrollToTopImplementation() {
   return (

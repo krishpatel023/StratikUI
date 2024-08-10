@@ -1,4 +1,4 @@
-import { Switch } from "@/packages/primitives/switch/01/default-ts/Switch";
+import { Switch } from "@registry/primitives/switch/01/default-ts/Switch";
 
 export default function SwitchImplementation() {
   return (

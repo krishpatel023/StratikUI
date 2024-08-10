@@ -1,4 +1,4 @@
-import { Input } from "@/packages/primitives/input-text/03/react_aria-ts/Input";
+import { Input } from "@registry/primitives/input-text/03/react_aria-ts/Input";
 import { IconProps } from "@/utils/types";
 
 export default function InputWithLeftIcon() {

@@ -3,8 +3,8 @@
 
 import Button from "@/ui/Button";
 import { useState } from "react";
-import useDelay from "@/packages/hooks/useDelay/01/default-ts/useDelay";
-import { Modal } from "@/packages/primitives/modals/01/default-ts/Modal";
+import useDelay from "@registry/hooks/useDelay/01/default-ts/useDelay";
+import { Modal } from "@registry/primitives/modals/01/default-ts/Modal";
 
 export default function UseDelayExample() {
   const { isDelaying, delay, clearDelay } = useDelay();

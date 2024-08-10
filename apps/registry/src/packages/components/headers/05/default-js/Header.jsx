@@ -1,12 +1,12 @@
 "use client";
 
-import { GradientBackground } from "@/packages/primitives/containers/01/default-js/Container";
+import { GradientBackground } from "@registry/primitives/containers/01/default-js/Container";
 import {
   Header,
   HeaderAnimationWrapper,
   HeaderDropdown,
   HeaderItem,
-} from "@/packages/primitives/header-blocks/03/default-js/HeaderBlocks";
+} from "@registry/primitives/header-blocks/03/default-js/HeaderBlocks";
 import { useState } from "react";
 import { Button } from "react-aria-components";
 import { CommandPaletteBox } from "./CommandPalette";

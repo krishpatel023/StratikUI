@@ -5,7 +5,7 @@ import {
   SelectHeader,
   SelectDivider,
   SelectItem,
-} from "@/packages/primitives/select/01/react_aria-js/Select";
+} from "@registry/primitives/select/01/react_aria-js/Select";
 import { Section } from "react-aria-components";
 
 export default function SelectImplementation() {

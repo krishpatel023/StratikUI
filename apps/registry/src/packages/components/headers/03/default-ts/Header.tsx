@@ -1,7 +1,7 @@
 "use client";
 
 import { IconProps } from "@/utils/types";
-import { ContainerGlassEffect } from "@/packages/primitives/containers/06/default-ts/container";
+import { ContainerGlassEffect } from "@registry/primitives/containers/06/default-ts/container";
 import { useAnimate } from "framer-motion";
 import { useState } from "react";
 import { HeaderDrawer } from "./HeaderDrawer";

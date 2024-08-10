@@ -2,7 +2,7 @@ import Button from "@/ui/Button";
 import {
   Popover,
   PopoverTrigger,
-} from "@/packages/primitives/popover/01/react_aria-js/Popover";
+} from "@registry/primitives/popover/01/react_aria-js/Popover";
 
 export default function PopoverImplementation() {
   return (

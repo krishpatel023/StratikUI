@@ -1,6 +1,6 @@
 "use client";
 
-import { GradientBackground } from "@/packages/primitives/containers/01/default-ts/Container";
+import { GradientBackground } from "@registry/primitives/containers/01/default-ts/Container";
 import { IconProps } from "@/utils/types";
 import { useState } from "react";
 import { Button } from "react-aria-components";
@@ -10,7 +10,7 @@ import {
   HeaderItem,
   HeaderDropdown,
   HeaderAnimationWrapper,
-} from "@/packages/primitives/header-blocks/03/default-ts/HeaderBlocks";
+} from "@registry/primitives/header-blocks/03/default-ts/HeaderBlocks";
 
 export const HeaderComponent = () => {
   const [open, setOpen] = useState<boolean>(false);

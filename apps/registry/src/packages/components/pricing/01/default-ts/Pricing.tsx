@@ -1,8 +1,8 @@
-import { Button } from "@/packages/primitives/buttons/02/default-ts/Button";
+import { Button } from "@registry/primitives/buttons/02/default-ts/Button";
 import {
   HighlighterItem,
   HighlightGroup,
-} from "@/packages/primitives/containers/03/default-ts/Container";
+} from "@registry/primitives/containers/03/default-ts/Container";
 import { IconProps } from "@/utils/types";
 import { twMerge } from "tailwind-merge";
 

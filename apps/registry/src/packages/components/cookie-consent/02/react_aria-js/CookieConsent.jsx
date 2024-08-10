@@ -1,12 +1,12 @@
 "use client";
 
-import useCookies from "@/packages/hooks/useCookies/01/default-js/useCookies";
-import { Button } from "@/packages/primitives/buttons/02/default-js/Button";
+import useCookies from "@registry/hooks/useCookies/01/default-js/useCookies";
+import { Button } from "@registry/primitives/buttons/02/default-js/Button";
 import {
   Modal,
   ModalTrigger,
-} from "@/packages/primitives/modals/01/react_aria-js/Modal";
-import { Switch } from "@/packages/primitives/switch/01/react_aria-js/Switch";
+} from "@registry/primitives/modals/01/react_aria-js/Modal";
+import { Switch } from "@registry/primitives/switch/01/react_aria-js/Switch";
 import { useState } from "react";
 import { Button as ReactAriaButton } from "react-aria-components";
 

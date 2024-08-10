@@ -3,7 +3,7 @@
 import {
   Modal,
   ModalTrigger,
-} from "@/packages/primitives/modals/01/react_aria-ts/Modal";
+} from "@registry/primitives/modals/01/react_aria-ts/Modal";
 import Button from "@/ui/Button";
 
 export default function ModalImplementation() {

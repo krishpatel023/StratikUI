@@ -1,5 +1,5 @@
 import ArrowHeading from "@/ui/ArrowHeading";
-import { Input } from "@/packages/primitives/input-text/10/react_aria-ts/Input";
+import { Input } from "@registry/primitives/input-text/10/react_aria-ts/Input";
 
 export default function StatefulLabelCoveredInputComponent() {
   return (

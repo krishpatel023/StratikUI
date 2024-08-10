@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FileUploadButton } from "@/packages/primitives/file-upload-button/00/react_aria-js/FileUpload";
+import { FileUploadButton } from "@registry/primitives/file-upload-button/00/react_aria-js/FileUpload";
 
 export default function FileUploadButtonImplementation() {
   const [files, setFiles] = useState([]);

@@ -1,7 +1,7 @@
 "use client";
 
 import Button from "@/ui/Button";
-import useHash from "@/packages/hooks/useHash/01/default-js/useHash";
+import useHash from "@registry/hooks/useHash/01/default-js/useHash";
 
 export default function UseHashExample() {
   const { hash, addHash } = useHash();

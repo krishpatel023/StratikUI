@@ -3,8 +3,8 @@ import {
   Key,
   KeyListener,
   KeyListenerDisplay,
-} from "@/packages/primitives/key-listener/01/default-ts/KeyListener";
-import { Modal } from "@/packages/primitives/modals/01/default-ts/Modal";
+} from "@registry/primitives/key-listener/01/default-ts/KeyListener";
+import { Modal } from "@registry/primitives/modals/01/default-ts/Modal";
 import { IconProps } from "@/utils/types";
 import {
   ButtonHTMLAttributes,

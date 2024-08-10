@@ -1,4 +1,4 @@
-import { Button } from "@/packages/primitives/buttons/02/default-ts/Button";
+import { Button } from "@registry/primitives/buttons/02/default-ts/Button";
 import { IconProps } from "@/utils/types";
 
 export function PricingGrid() {

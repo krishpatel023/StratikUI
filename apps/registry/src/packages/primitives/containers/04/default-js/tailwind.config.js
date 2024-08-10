@@ -3,13 +3,13 @@ const config = {
   theme: {
     extend: {
       animation: {
-        // For @/packages/primitives/containers/04
+        // For @registry/primitives/containers/04
         "border-spin-clockwise": "border-spin-clockwise 7s linear infinite",
         "border-spin-anticlockwise":
           "border-spin-anticlockwise 7s linear infinite",
       },
       keyframes: {
-        // For @/packages/primitives/containers/04
+        // For @registry/primitives/containers/04
         "border-spin-clockwise": {
           "100%": {
             transform: "rotate(360deg)",

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import useClipboard from "@/packages/hooks/useClipboard/01/default-js/useClipboard";
+import useClipboard from "@registry/hooks/useClipboard/01/default-js/useClipboard";
 import Button from "@/ui/Button";
 import Message from "@/ui/Message";
 

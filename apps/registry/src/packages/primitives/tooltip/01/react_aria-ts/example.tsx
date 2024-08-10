@@ -1,7 +1,7 @@
 import {
   Tooltip,
   TooltipTrigger,
-} from "@/packages/primitives/tooltip/01/react_aria-ts/Tooltip";
+} from "@registry/primitives/tooltip/01/react_aria-ts/Tooltip";
 import Button from "@/ui/Button";
 
 export default function TooltipImplementation() {

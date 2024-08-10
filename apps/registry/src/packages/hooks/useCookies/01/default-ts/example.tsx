@@ -1,7 +1,7 @@
 "use client";
 
 import Button from "@/ui/Button";
-import useCookies from "@/packages/hooks/useCookies/01/default-ts/useCookies";
+import useCookies from "@registry/hooks/useCookies/01/default-ts/useCookies";
 import { useEffect, useState } from "react";
 import Input from "@/ui/Input";
 
