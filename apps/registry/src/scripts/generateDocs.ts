@@ -101,6 +101,7 @@ function CodeBlockGenerator(folderPath: string) {
       // Eg: default-ts, default-js, etc
       const subFolderPath = path.join(folderPath, folder);
       const folderName = path.basename(subFolderPath).split("-")[0];
+      const folderType = path.basename(subFolderPath).split("-")[1];
 
       // Eg: example.tsx, input.tsx, etc
       const files = getFilesInDir(subFolderPath);
@@ -109,16 +110,6 @@ function CodeBlockGenerator(folderPath: string) {
         const fileExtension = path.extname(filePath);
         const fileName = path.basename(filePath).split(fileExtension)[0];
         let fileData = fs.readFileSync(filePath, "utf8");
-
-        // Sanitize the code
-        const SANITIZE_CODE_REGEX = /`/g;
-        fileData = fileData.replace(SANITIZE_CODE_REGEX, "\\`");
-        addBuildLog(
-          "default",
-          `Sanitized the code`,
-          "CodeBlockGenerator",
-          folderPath
-        );
 
         // Flags Reading
         // 1. Skip File
@@ -247,18 +238,16 @@ function CodeBlockGenerator(folderPath: string) {
           /\/\/\s*!skip-lines:\s*\[([0-9,\-\s]*)\]\n/g,
           ""
         );
-
-        // Returning the code of that file
-        const returnCode =
-          "```" +
-          fileExtension.split(".")[1] +
-          "|" +
+        const name =
           folderName +
           "|" +
+          folderType +
+          "|" +
           fileName +
-          "\n" +
-          fileData +
-          "\n```";
+          "." +
+          fileExtension.split(".")[1];
+        // Returning the code of that file
+        const returnCode = "```" + name + "\n" + fileData + "\n```";
         codeBlock += "\n" + returnCode + "\n";
       });
     });
