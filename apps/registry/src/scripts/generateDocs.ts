@@ -21,6 +21,7 @@ export const FOLDER_NOMENCLATURE = {
   docs: "docs.md",
   example: "example.tsx",
   default_example_folder: "default-ts",
+  docsAdditionalFolders: ["docs-react_aria.md", "docs-default.md"],
 };
 
 // This function will help to generate the log.tsx file in .stratik-ui folder of registry
@@ -415,6 +416,48 @@ function addDisplayElement(folderPath: string) {
   }
 }
 
+function otherDataProcessing(folderPath: string, defaultData: string): string {
+  try {
+    const files = getFilesInDir(folderPath);
+    let data = "";
+
+    files?.forEach((file) => {
+      if (file === "docs.md") return;
+
+      const isPresent =
+        FOLDER_NOMENCLATURE.docsAdditionalFolders.includes(file);
+
+      if (!isPresent) return;
+
+      const filePath = path.join(folderPath, file);
+      const fileData = fs.readFileSync(filePath, "utf8");
+
+      const provider = file.split("docs-")[1].split(".md")[0];
+
+      data += `<Provider tag="${provider}">\n${fileData}\n</Provider>\n`;
+    });
+
+    data = "<Details>\n" + defaultData + data + "\n</Details>";
+    return data;
+  } catch (err) {
+    log({
+      state: "error",
+      message:
+        "Error while generating the documentation for the component - docs.md: " +
+        folderPath +
+        "\nERROR: " +
+        err,
+    });
+    addBuildLog(
+      "error",
+      `Error while generating the documentation for the component - docs.md: Error: ${err}`,
+      "otherDataProcessing",
+      folderPath
+    );
+    return "";
+  }
+}
+
 function addDocumentationData(folderPath: string) {
   try {
     {
@@ -512,9 +555,11 @@ function addDocumentationData(folderPath: string) {
       const frontmatterMatchedData = match[0];
       const otherData = docsFileData.replace(frontmatterMatchedData, "");
 
+      const finalOtherData = otherDataProcessing(folderPath, otherData);
+
       const returnData = {
         frontMatter,
-        otherData,
+        otherData: finalOtherData,
       };
 
       return returnData;
