@@ -600,7 +600,7 @@ function addTechnologyUsed(codeBlock: string, folderPath: string) {
 
       techAvailable.forEach((tech) => {
         importsMade?.forEach((importItem) => {
-          if (importItem.includes(tech)) {
+          if (importItem.includes(tech) && !techUsed.includes(tech)) {
             techUsed.push(tech);
             return;
           }
@@ -610,7 +610,7 @@ function addTechnologyUsed(codeBlock: string, folderPath: string) {
       let techUsedString = "<TechnologiesUsed>\n";
       techUsed?.forEach((tech) => {
         const logo = TECH_USED[tech].logo;
-        techUsedString += `<Tech link="${TECH_USED[tech].link}">\n${logo}\n<h1>${TECH_USED[tech].name}</h1>\n</Tech>\n`;
+        techUsedString += `<Tech name="${tech}" />\n`;
       });
 
       techUsedString += "</TechnologiesUsed>";
