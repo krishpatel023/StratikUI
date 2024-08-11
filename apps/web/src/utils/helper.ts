@@ -11,3 +11,7 @@ export function genId(prefix: string) {
   const cuid = createId();
   return `${prefix}-${cuid}`;
 }
+
+export function capitalize(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
