@@ -16,4 +16,7 @@ export const Links = {
     twitter: "https://x.com/krish__23",
     linkedin: "https://www.linkedin.com/in/krish-patel-7824231ba",
   },
+  stratikui: {
+    github: "https://github.com/krishpatel023/StratikUI",
+  },
 };

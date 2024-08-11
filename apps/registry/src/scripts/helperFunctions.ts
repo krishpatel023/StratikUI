@@ -41,15 +41,14 @@ export function DirPathFinder() {
   const replacedPath = currentDirectory.replace("registry", "web");
 
   // TARGET DIR - This is where the generated docs will be placed. i.e. web/src/app/docs/(generatedDocs)
-  //   ORIGINAL
-  //   const targetDir = path.join(
-  //     replacedPath,
-  //     "src",
-  //     "app",
-  //     "docs",
-  //     "(generatedDocs)"
-  //   );
-  const targetDir = path.join(process.cwd(), "src", "(generatedDocs)");
+  const targetDir = path.join(
+    replacedPath,
+    "src",
+    "app",
+    "docs",
+    "(generatedDocs)"
+  );
+  // const targetDir = path.join(process.cwd(), "src", "(generatedDocs)");
 
   // PACKAGE DIR - This is where the packages are located. i.e. registry/src/packages
   const packageDir = path.join(process.cwd(), "src", "packages");
