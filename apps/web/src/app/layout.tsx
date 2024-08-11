@@ -4,7 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import { Providers } from "./provider";
 import { DEFAULT_MODE } from "@/utils/utils";
-import { flattenData } from "@/scripts/FlattenData";
+import { twMerge } from "tailwind-merge";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,15 +22,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const data = flattenData();
   return (
     <html lang="en">
       <body
-        className={`${inter.className} scrollbar-vertical bg-white dark:bg-black ${DEFAULT_MODE ? "dark" : null}`}
+        className={twMerge(
+          "scrollbar-vertical bg-background",
+          DEFAULT_MODE && "dark",
+          inter.className
+        )}
         id="theme-toggle"
       >
         <Providers>
-          <Header data={data} />
+          <Header />
           {children}
         </Providers>
       </body>

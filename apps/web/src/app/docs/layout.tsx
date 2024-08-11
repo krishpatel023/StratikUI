@@ -1,20 +1,17 @@
-import { StorageData } from "@/content/index";
-import { FileData } from "@/utils/constants";
-import dynamic from "next/dynamic";
-
-const Sidebar = dynamic(() => import("@/components/Sidebar"), { ssr: false });
+import Sidebar from "@/components/Sidebar";
 
 export default function Layout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const data: FileData[] = StorageData;
   return (
     <>
       <div className="w-full flex justify-center relative">
-        <Sidebar params={{ data: data }} />
-        <div className="w-[90%]">{children}</div>
+        <Sidebar />
+        <div className="w-full right-0">
+          <div className="w-[90%] mx-auto">{children}</div>
+        </div>
       </div>
     </>
   );
