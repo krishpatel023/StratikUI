@@ -34,7 +34,31 @@ export interface Sidebar_DefaultProps {
 
 export type SidebarProps = (Sidebar_TitleProps | Sidebar_DefaultProps)[];
 
-const defaultSidebar: SidebarProps = [];
+const defaultSidebar: SidebarProps = [
+  {
+    type: "title",
+    name: "Get Started",
+    flag: "default",
+    children: [
+      {
+        type: "heading",
+        name: "Installation",
+        link: "/installation",
+        version_included: "1.0.0",
+        flag: "default",
+        children: [],
+      },
+      {
+        type: "heading",
+        name: "Utilities",
+        link: "/get-started/utilities",
+        version_included: "1.0.0",
+        flag: "default",
+        children: [],
+      },
+    ],
+  },
+];
 
 const SidebarData: SidebarProps = [
   ...defaultSidebar,

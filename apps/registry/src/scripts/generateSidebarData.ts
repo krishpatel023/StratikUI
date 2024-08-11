@@ -392,6 +392,25 @@ function generateSidebarHeadings(folderPath: string): Sidebar_HeadingProps[] {
   }
 }
 
+export function reArrangeSidebar(sidebar: SidebarProps): SidebarProps {
+  const order = ["primitives", "components", "hooks"];
+  let returnSidebar: SidebarProps = [];
+  let inputSidebar: SidebarProps = sidebar;
+
+  order.forEach((item) => {
+    inputSidebar.forEach((child) => {
+      if (child.name === item) {
+        returnSidebar.push(child);
+        inputSidebar = inputSidebar.filter((child) => child.name !== item);
+      }
+    });
+  });
+
+  returnSidebar.push(...inputSidebar);
+
+  return returnSidebar;
+}
+
 export function generateSidebar() {
   addBuildLog("event", "Generated the sidebar", "generateSidebar");
   log({
@@ -440,6 +459,8 @@ export function generateSidebar() {
       folderPath
     );
   });
+
+  sidebar = reArrangeSidebar(sidebar);
 
   if (!fs.existsSync(targetDir)) fs.mkdirSync(targetDir);
   const sideBarPath = path.join(targetDir, "generated-sidebar.ts");
