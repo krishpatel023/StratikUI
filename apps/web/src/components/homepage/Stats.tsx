@@ -7,9 +7,9 @@ export function Stats() {
       <GradientText className="w-full text-center text-5xl font-medium mx-auto mt-40 mb-28 py-1">
         Total components available in the library.
       </GradientText>
-      <div className="w-[80%] mx-auto flex flex-col md:flex-row justify-evenly items-center gap-20">
-        <StatGroup title="Components" value={50} />
-        <StatGroup title="Primitives" value={40} />
+      <div className="w-[80%] mx-auto flex flex-col md:flex-row justify-evenly items-center gap-12">
+        <StatGroup title="Primitives" value={50} />
+        <StatGroup title="Components" value={40} />
         <StatGroup title="Hooks" value={15} />
       </div>
     </>

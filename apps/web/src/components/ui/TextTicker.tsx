@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useRef } from "react";
 import { useInView, useMotionValue, useSpring } from "framer-motion";
 import { twMerge } from "tailwind-merge";
@@ -18,8 +19,7 @@ export function Counter({
     damping: 100,
     stiffness: 100,
   });
-  //   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const isInView = true;
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   useEffect(() => {
     if (isInView) {

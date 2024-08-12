@@ -33,7 +33,7 @@ export default function ShineButton({
       ref={ref}
       data-visible={animate && animateInView}
       className={twMerge(
-        "group/button relative inline-flex items-center justify-center overflow-hidden rounded-md bg-black border border-neutral-800 px-4 py-2 text-white transition-all duration-300 ease-in-out hover:scale-105 focus:outline-none pressed:scale-95",
+        "group/button relative inline-flex items-center justify-center overflow-hidden rounded-md bg-black border border-neutral-800 px-4 py-2 text-white transition-all duration-300 ease-in-out hover:scale-105 outline-none pressed:scale-95",
         className as string
       )}
       {...props}
