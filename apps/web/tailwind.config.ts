@@ -75,6 +75,9 @@ const config: Config = {
       },
       animation: {
         circleGrow: "circleGrow 0.5s ease-in-out",
+        buttonPress: "buttonPress 0.5s ease-in-out forwards",
+        shimmer: "shimmer 8s forwards",
+        ripple: "ripple var(--duration,2s) ease calc(var(--i, 0)*.2s) infinite",
       },
       keyframes: {
         circleGrow: {
@@ -85,6 +88,34 @@ const config: Config = {
           "100%": {
             transform: "scale(1)",
             opacity: "0",
+          },
+        },
+        buttonPress: {
+          "0%": {
+            transform: "scale(1)",
+          },
+          "50%": {
+            transform: "scale(0.85)",
+          },
+          "100%": {
+            transform: "scale(1)",
+          },
+        },
+        shimmer: {
+          "0%, 90%, 100%": {
+            "background-position": "calc(-100% - var(--shimmer-width)) 0",
+          },
+          "30%, 60%": {
+            "background-position": "calc(100% + var(--shimmer-width)) 0",
+          },
+        },
+
+        ripple: {
+          "0%, 100%": {
+            transform: "translate(-50%, -50%) scale(1)",
+          },
+          "50%": {
+            transform: "translate(-50%, -50%) scale(0.9)",
           },
         },
       },
