@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import { Providers } from "./provider";
 import { DEFAULT_MODE } from "@/utils/utils";
 import { twMerge } from "tailwind-merge";
+import Sidebar from "@/components/Sidebar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,6 +35,7 @@ export default function RootLayout({
       >
         <Providers>
           <Header />
+          <Sidebar />
           {children}
         </Providers>
       </body>
