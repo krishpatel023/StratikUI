@@ -10,8 +10,8 @@ html {
   :root {
     --sidebar-width: 8px;
     --sidebar-height: 6px;
-    --sidebar-color: var(--foreground);
-
+  }
+  :root {
     --radius: 0.5rem;
 
     --background: theme(colors.white);
@@ -150,7 +150,7 @@ html {
   width: var(--sidebar-width); /* width of the entire scrollbar */
 }
 .scrollbar-y::-webkit-scrollbar-thumb {
-  background-color: var(--sidebar-color); /* color of the scroll thumb */
+  background-color: var(--foreground); /* color of the scroll thumb */
   border-radius: 20px; /* roundness of the scroll thumb */
 }
 
@@ -158,6 +158,6 @@ html {
   height: var(--sidebar-height); /* width of the entire scrollbar */
 }
 .scrollbar-x::-webkit-scrollbar-thumb {
-  background-color: var(--sidebar-color); /* color of the scroll thumb */
+  background-color: var(--foreground); /* color of the scroll thumb */
   border-radius: 20px; /* roundness of the scroll thumb */
 }
