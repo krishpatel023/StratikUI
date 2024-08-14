@@ -42,16 +42,16 @@ const defaultSidebar: SidebarProps = [
     children: [
       {
         type: "heading",
-        name: "Installation",
-        link: "/installation",
+        name: "Introduction",
+        link: "docs/introduction",
         version_included: "1.0.0",
         flag: "default",
         children: [],
       },
       {
         type: "heading",
-        name: "Utilities",
-        link: "/get-started/utilities",
+        name: "Installation",
+        link: "docs/installation",
         version_included: "1.0.0",
         flag: "default",
         children: [],
