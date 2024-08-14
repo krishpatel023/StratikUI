@@ -21,12 +21,9 @@ export default function StringCleaner(
 ): string {
   if (!str) return "";
   let output = convertContainerQueries(str);
-  console.log("color", colorPalette);
 
   if (colorPalette === "tailwind") {
-    // output = replaceColorVariables(output);
     output = replaceColorVariables(output);
-    console.log("output", output);
   }
   return output;
 }

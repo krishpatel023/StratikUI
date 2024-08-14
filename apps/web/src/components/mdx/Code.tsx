@@ -15,6 +15,9 @@ import { BundledLanguage } from "shiki/bundle/web";
 import { twMerge } from "tailwind-merge";
 import CodeHighlight from "../ui/CodeHighlight";
 import { Tooltip, TooltipTrigger } from "../ui/Tooltip";
+import { useInternalState } from "@/hooks/useInternalState";
+import { Popover, PopoverTrigger } from "../ui/Popover";
+import { IconProps } from "@/utils/constants";
 
 export interface CodeIndividual {
   provider: "default" | "react_aria";
@@ -27,6 +30,7 @@ export interface CodeIndividual {
 const ALLOWED_NOMENCLATURE = {
   provider: ["default", "react_aria"],
   type: ["js", "ts"],
+  themingOption: ["tailwind", "custom"],
 };
 
 export function CodeBlock({ children }: { children: ReactNode }) {
@@ -40,7 +44,6 @@ export function CodeBlock({ children }: { children: ReactNode }) {
   }
 
   function processCodeBlock(blocks: ReactNode[]): CodeIndividual[] {
-    console.log("blocks", blocks);
     let result: CodeIndividual[] = [];
     blocks.forEach((block) => {
       const { props } = block as {
@@ -53,8 +56,8 @@ export function CodeBlock({ children }: { children: ReactNode }) {
       const type = languageArray[1];
       const fullName = languageArray[2];
 
-      const name = fullName.split(".")[0];
-      const extension = fullName.split(".")[1];
+      const extension = fullName.split(".").pop() || "";
+      const name = fullName.split("." + extension)[0];
 
       const content = children as { props: { children: string } };
       const code = content.props.children?.replace(/\\n$/, "");
@@ -76,8 +79,6 @@ export function CodeBlock({ children }: { children: ReactNode }) {
     Array.isArray(children) ? children : ([children] as ReactNode[])
   );
 
-  console.log("result", result);
-
   return <>{result && <CodeDisplay codeArray={result} />}</>;
 }
 
@@ -93,9 +94,14 @@ function CodeDisplay({
   codeArray: CodeIndividual[];
   withCounter?: boolean;
 }) {
-  // Link this to the hook
-  const DEFAULT_PROVIDER = "default";
-  const DEFAULT_TYPE = "ts";
+  const {
+    provider,
+    language,
+    setProvider,
+    setLanguage,
+    themingOption,
+    setThemingOption,
+  } = useInternalState();
 
   const [files, setFiles] = useState<CodeIndividual[]>([]);
   const [availableData, setAvailableData] = useState<AvailableDataProps>({
@@ -104,9 +110,9 @@ function CodeDisplay({
   });
 
   const [activeProvider, setActiveProvider] =
-    useState<CodeIndividual["provider"]>(DEFAULT_PROVIDER);
+    useState<CodeIndividual["provider"]>(provider);
   const [activeType, setActiveType] =
-    useState<CodeIndividual["type"]>(DEFAULT_TYPE);
+    useState<CodeIndividual["type"]>(language);
   const [activeFile, setActiveFile] = useState<CodeIndividual>(
     files[0] || { name: "", content: [], provider: "", type: "", language: "" }
   );
@@ -122,6 +128,7 @@ function CodeDisplay({
       providers,
       types,
     });
+    return { providers, types };
   }
 
   function filterByProvider(
@@ -135,41 +142,114 @@ function CodeDisplay({
     return files.filter((item) => item.type === type);
   }
 
-  useEffect(() => {
-    getAvailableData();
+  function changeData() {
     const filteredByProvider = filterByProvider(activeProvider, codeArray);
     const filteredByType = filterByType(activeType, filteredByProvider);
     setFiles(filteredByType);
     const activeFilePrev = filteredByType.find(
       (item) => item.name === activeFile.name
     );
-    setActiveFile(activeFilePrev || filteredByType[0]);
-    console.log("files", filteredByType);
-  }, [activeProvider, activeType]);
+    if (!filteredByType || filteredByType.length === 0) return;
+    setActiveFile(activeFilePrev ? activeFilePrev : filteredByType[0]);
+  }
 
+  useEffect(() => {
+    const availableData = getAvailableData();
+    if (!availableData.providers.includes(provider))
+      setActiveProvider(availableData.providers[0]);
+    else setProvider(provider);
+    if (!availableData.types.includes(language))
+      setActiveType(availableData.types[0]);
+    else setActiveType(language);
+    changeData();
+  }, [codeArray, provider, language]);
+
+  useEffect(() => {
+    changeData();
+  }, [activeProvider, activeType, codeArray, provider, language]);
+
+  // Mobile version toggle
+  const [more, setMore] = useState<boolean>(false);
+
+  function handleProviderChange(val: CodeIndividual["provider"]) {
+    setActiveProvider(val);
+    setProvider(val);
+  }
+
+  function handleTypeChange(val: CodeIndividual["type"]) {
+    setActiveType(val);
+    setLanguage(val);
+  }
+
+  function handleThemeChange(val: "tailwind" | "custom") {
+    setThemingOption(val);
+    setActiveColorTheme(val);
+  }
   return (
-    <div>
-      <div className="w-full border-[2px] border-slate-100 dark:border-neutral-900/70 rounded-lg text-foreground p-0">
-        {/* TASKBAR */}
-        <div className="w-full h-8 flex justify-between items-center mt-2">
-          {/* BUTTONS */}
+    <div className="w-full border-[2px] border-slate-100 dark:border-neutral-900/70 rounded-lg text-foreground p-0">
+      {/* TASKBAR */}
+      <div className="w-full h-auto md:h-8 flex-col md:flex-row items-start flex justify-between md:items-center mt-2">
+        {/* BUTTONS */}
 
-          <div className="hidden md:flex gap-2 px-4 h-full">
-            {files?.map((file, i) => (
-              <button
-                key={i}
-                className={
-                  activeFile.name === file.name
-                    ? "text-sm h-full px-4 py-1 rounded-t-md dark:bg-neutral-900/70 bg-gray-50 border-t-2 border-x-2 dark:border-neutral-900 border-slate-100"
-                    : "text-sm h-full px-4 py-1"
-                }
-                onClick={() => setActiveFile(file)}
-              >
-                {file.name}
-              </button>
-            ))}
+        <div className="hidden md:flex gap-2 px-4 h-full">
+          {files?.map((file, i) => (
+            <button
+              key={i}
+              className={
+                activeFile.name === file.name
+                  ? "text-sm h-full px-4 py-1 rounded-t-md dark:bg-neutral-900/70 bg-gray-50 border-t-2 border-x-2 dark:border-neutral-900 border-slate-100"
+                  : "text-sm h-full px-4 py-1"
+              }
+              onClick={() => setActiveFile(file)}
+            >
+              {file.name}
+            </button>
+          ))}
+        </div>
+        {/* OPERATOR */}
+        <div className="md:px-2 px-4 flex flex-col-reverse md:flex-row w-full items-start md:items-center md:w-max pb-2 gap-2">
+          <div
+            className={twMerge(
+              "w-full md:flex gap-2 flex-row hidden",
+              more && "flex flex-col md:flex-row"
+            )}
+          >
+            <SelectComponent
+              onChange={(val) => handleThemeChange(val as ColorPaletteSettings)}
+              value={activeColorTheme}
+              label="Color Theme"
+              items={["custom", "tailwind"]}
+              tooltipMessage="Select the color theme: custom means the custom colors that can be used to create your color palette, whereas tailwind means the default Tailwind colors."
+              displayClassName="md:w-max"
+            />
+            <SelectComponent
+              onChange={(val) =>
+                handleProviderChange(val as CodeIndividual["provider"])
+              }
+              value={activeProvider}
+              label="Provider"
+              items={availableData.providers}
+              tooltipMessage="Select the provider: default means the default JSX and TSX, whereas react_aria means the React Aria components."
+              displayClassName="md:w-max"
+            />
+            <SelectComponent
+              onChange={(val) =>
+                handleTypeChange(val as CodeIndividual["type"])
+              }
+              value={activeType}
+              label="Language"
+              items={availableData.types}
+              tooltipMessage="Select the language: js means JavaScript, whereas ts means TypeScript."
+              displayClassName="md:w-max"
+            />
           </div>
-          <div className="md:hidden flex pb-2 mx-2">
+          <Button
+            className="md:hidden text-sm text-start ml-1 underline outline-none pressed:scale-95 transition-all duration-300"
+            onPress={() => setMore(!more)}
+          >
+            {more ? "Hide Options" : "Additional Options"}
+          </Button>
+          <div className="gap-2 flex w-full">
             <SelectComponent
               onChange={(val) =>
                 setActiveFile(
@@ -180,47 +260,21 @@ function CodeDisplay({
               label="File"
               items={files.map((item) => item.name)}
               tooltipMessage="Select the file"
+              displayClassName="md:hidden"
+              className="w-40"
             />
-          </div>
-          {/* OPERATOR */}
-          <div className="px-2 sm:px-4 flex pb-2 gap-2">
-            <SelectComponent
-              onChange={(val) =>
-                setActiveColorTheme(val as ColorPaletteSettings)
-              }
-              value={activeColorTheme}
-              label="Color Theme"
-              items={["custom", "tailwind"]}
-              tooltipMessage="Select the color theme: custom means the custom colors that can be used to create your color palette, whereas tailwind means the default Tailwind colors."
-            />
-            <SelectComponent
-              onChange={(val) =>
-                setActiveProvider(val as CodeIndividual["provider"])
-              }
-              value={activeProvider}
-              label="Provider"
-              items={availableData.providers}
-              tooltipMessage="Select the provider: default means the default JSX and TSX, whereas react_aria means the React Aria components."
-            />
-            <SelectComponent
-              onChange={(val) => setActiveType(val as CodeIndividual["type"])}
-              value={activeType}
-              label="Language"
-              items={availableData.types}
-              tooltipMessage="Select the language: js means JavaScript, whereas ts means TypeScript."
-            />
-            <CopyButton copyText="Hello" />
+            <CopyButton copyText={activeFile?.content} />
           </div>
         </div>
-        {/* CONTENT */}
-        <div className="w-full">
-          <CodeHighlight
-            // code={StringCleaner(activeFile.content)}
-            code={StringCleaner(activeFile.content, activeColorTheme)}
-            lang={activeFile.language}
-            withCounter={withCounter}
-          />
-        </div>
+      </div>
+      {/* CONTENT */}
+      <div className="w-full">
+        <CodeHighlight
+          // code={StringCleaner(activeFile.content)}
+          code={StringCleaner(activeFile?.content, activeColorTheme)}
+          lang={activeFile?.language}
+          withCounter={withCounter}
+        />
       </div>
     </div>
   );
@@ -233,6 +287,8 @@ function SelectComponent({
   onChange,
   value,
   tooltipMessage,
+  displayClassName,
+  className,
 }: {
   items: string[];
   label: string;
@@ -240,6 +296,8 @@ function SelectComponent({
   onChange: (value: string) => void;
   value: string;
   tooltipMessage: string;
+  displayClassName?: string;
+  className?: string;
 }) {
   return (
     <TooltipTrigger delay={0}>
@@ -247,7 +305,11 @@ function SelectComponent({
         aria-label={label}
         selectedKey={value}
         onSelectionChange={(val: Key) => onChange(val.toString())}
-        className="w-max text-sm p-0 px-0 py-0 focus-within:outline-none green-500"
+        className={twMerge(
+          "w-max text-sm p-0 px-0 py-0 focus-within:outline-none",
+          className
+        )}
+        displayClassName={twMerge("", displayClassName)}
       >
         <Section>
           <SelectHeader>{label}</SelectHeader>
@@ -277,10 +339,10 @@ function CopyButton({ copyText }: { copyText: string }) {
   };
 
   return (
-    <TooltipTrigger delay={0} isOpen={clicked ? true : undefined}>
+    <TooltipTrigger delay={300}>
       <Button
         className={twMerge(
-          "rounded text-sm w-7 ml-3",
+          "rounded text-sm w-7",
           clicked ? "text-green-700 dark:text-green-400" : "text-foreground"
         )}
         onPress={!clicked ? handleCopy : undefined}
