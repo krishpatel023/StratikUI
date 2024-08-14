@@ -8,6 +8,7 @@ import {
   SelectHeader,
   SelectItem,
 } from "@/components/ui/Select";
+import { useInternalState } from "@/hooks/useInternalState";
 import { Icons } from "@/utils/icons";
 import StringCleaner, { ColorPaletteSettings } from "@/utils/StringCleaner";
 import { Button, Key } from "react-aria-components";
@@ -15,9 +16,6 @@ import { BundledLanguage } from "shiki/bundle/web";
 import { twMerge } from "tailwind-merge";
 import CodeHighlight from "../ui/CodeHighlight";
 import { Tooltip, TooltipTrigger } from "../ui/Tooltip";
-import { useInternalState } from "@/hooks/useInternalState";
-import { Popover, PopoverTrigger } from "../ui/Popover";
-import { IconProps } from "@/utils/constants";
 
 export interface CodeIndividual {
   provider: "default" | "react_aria";
@@ -60,6 +58,7 @@ export function CodeBlock({ children }: { children: ReactNode }) {
       const name = fullName.split("." + extension)[0];
 
       const content = children as { props: { children: string } };
+      if (typeof content.props.children !== "string") return;
       const code = content.props.children?.replace(/\\n$/, "");
 
       if (!checkNomenclature(provider, type)) return;
