@@ -1,5 +1,5 @@
-import { ThemeToggle } from "@registry/primitives/theme-toggles/01/react_aria-ts/ThemeToggle";
-import { IconProps } from "@/utils/types";
+import { ThemeToggle } from "@registry/packages/primitives/theme-toggles/01/react_aria-ts/ThemeToggle";
+import { IconProps } from "@registry/utils/types";
 
 type LinkColProps = {
   title: string;

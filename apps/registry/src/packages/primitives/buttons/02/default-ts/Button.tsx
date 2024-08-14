@@ -3,7 +3,7 @@
 import React, { ButtonHTMLAttributes, DetailedHTMLProps, useRef } from "react";
 import { twMerge } from "tailwind-merge";
 
-import { IconProps } from "@/utils/types";
+import { IconProps } from "@registry/utils/types";
 import { createRoot } from "react-dom/client";
 
 export interface CircularAnimationProps {

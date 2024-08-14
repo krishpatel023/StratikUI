@@ -1,4 +1,4 @@
-import { Switch } from "@registry/primitives/switch/01/react_aria-ts/Switch";
+import { Switch } from "@registry/packages/primitives/switch/01/react_aria-ts/Switch";
 
 export default function SwitchImplementation() {
   return (

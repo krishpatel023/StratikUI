@@ -1,19 +1,19 @@
 "use client";
 
-import useScrollbar from "@registry/hooks/useScrollbar/01/default-ts/useScrollbar";
-import { ContainerGlassEffect } from "@registry/primitives/containers/06/default-ts/container";
+import useScrollbar from "@registry/packages/hooks/useScrollbar/01/default-ts/useScrollbar";
+import { ContainerGlassEffect } from "@registry/packages/primitives/containers/06/default-ts/container";
 import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { GradientBackground } from "@registry/primitives/containers/01/default-ts/Container";
+import { GradientBackground } from "@registry/packages/primitives/containers/01/default-ts/Container";
 import {
   Header,
   HeaderAnimationWrapper,
   HeaderDropdown,
   HeaderItem,
-} from "@registry/primitives/header-blocks/03/default-ts/HeaderBlocks";
+} from "@registry/packages/primitives/header-blocks/03/default-ts/HeaderBlocks";
 import { Button } from "react-aria-components";
-import { HeaderDrawer } from "@registry/components/headers/04/default-ts/HeaderDrawer";
-import { IconProps } from "@/utils/types";
+import { HeaderDrawer } from "@registry/packages/components/headers/04/default-ts/HeaderDrawer";
+import { IconProps } from "@registry/utils/types";
 
 export const HeaderComponent = () => {
   const { directionY, scrollPosition } = useScrollbar("targetElemForScroll");

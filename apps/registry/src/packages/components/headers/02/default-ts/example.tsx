@@ -1,4 +1,4 @@
-import { HeaderComponent } from "@registry/components/headers/02/default-ts/Header";
+import { HeaderComponent } from "@registry/packages/components/headers/02/default-ts/Header";
 
 export default function HeaderImplementation() {
   return (

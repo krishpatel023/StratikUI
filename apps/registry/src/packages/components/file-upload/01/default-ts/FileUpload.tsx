@@ -1,9 +1,9 @@
 "use client";
 
-import { Button } from "@registry/primitives/buttons/02/default-ts/Button";
-import { FileUploadButton } from "@registry/primitives/file-upload-button/00/default-ts/FileUpload";
-import { Dropbox } from "@registry/primitives/file-upload-dropbox/01/default-ts/Dropbox";
-import { IconProps } from "@/utils/types";
+import { Button } from "@registry/packages/primitives/buttons/02/default-ts/Button";
+import { FileUploadButton } from "@registry/packages/primitives/file-upload-button/00/default-ts/FileUpload";
+import { Dropbox } from "@registry/packages/primitives/file-upload-dropbox/01/default-ts/Dropbox";
+import { IconProps } from "@registry/utils/types";
 import { useState } from "react";
 
 export const FileUpload = () => {

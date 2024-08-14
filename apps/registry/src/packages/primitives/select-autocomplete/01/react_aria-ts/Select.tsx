@@ -1,6 +1,6 @@
 "use client";
 
-import { IconProps } from "@/utils/types";
+import { IconProps } from "@registry/utils/types";
 import { useRef, useState } from "react";
 import {
   Button,

@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@registry/primitives/buttons/01/react_aria-js/Button";
+import { Button } from "@registry/packages/primitives/buttons/01/react_aria-js/Button";
 import { FileTrigger } from "react-aria-components";
 
 export function FileUploadButton({

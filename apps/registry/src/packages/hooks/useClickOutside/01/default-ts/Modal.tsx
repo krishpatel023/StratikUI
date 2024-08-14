@@ -1,8 +1,8 @@
 // !code-highlight: [37-42]
 "use client";
 
-import useClickOutside from "@registry/hooks/useClickOutside/01/default-ts/useClickOutside";
-import { ContainerGlassEffect } from "@registry/primitives/containers/06/default-ts/container";
+import useClickOutside from "@registry/packages/hooks/useClickOutside/01/default-ts/useClickOutside";
+import { ContainerGlassEffect } from "@registry/packages/primitives/containers/06/default-ts/container";
 import { useRef } from "react";
 import { twMerge } from "tailwind-merge";
 

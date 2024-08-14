@@ -6,7 +6,7 @@ import {
   AutocompleteItem,
   AutocompleteList,
   AutocompleteSearch,
-} from "@registry/primitives/select-autocomplete/01/react_aria-ts/Select";
+} from "@registry/packages/primitives/select-autocomplete/01/react_aria-ts/Select";
 import { Section } from "react-aria-components";
 
 export default function AutocompleteImplementation() {

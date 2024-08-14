@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { Banner } from "./Banner";
-import { GradientBackground } from "@registry/primitives/containers/01/default-ts/Container";
-import { Button } from "@registry/primitives/buttons/02/default-ts/Button";
+import { GradientBackground } from "@registry/packages/primitives/containers/01/default-ts/Container";
+import { Button } from "@registry/packages/primitives/buttons/02/default-ts/Button";
 
 export default function BannerImplementation() {
   const [open, setOpen] = useState(true);

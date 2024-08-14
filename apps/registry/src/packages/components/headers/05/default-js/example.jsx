@@ -1,4 +1,4 @@
-import { HeaderComponent } from "@registry/components/headers/05/default-js/Header";
+import { HeaderComponent } from "@registry/packages/components/headers/05/default-js/Header";
 
 export default function HeaderImplementation() {
   return (

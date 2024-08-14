@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Meter } from "@registry/primitives/meter/01/react_aria-js/Meter";
+import { Meter } from "@registry/packages/primitives/meter/01/react_aria-js/Meter";
 import { Label } from "react-aria-components";
-import Button from "@/ui/Button";
+import Button from "@registry/ui/Button";
 
 export default function MeterImplementation() {
   const [value, setValue] = useState(50);

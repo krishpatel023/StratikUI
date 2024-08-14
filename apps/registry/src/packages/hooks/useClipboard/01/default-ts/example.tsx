@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import useClipboard from "./useClipboard";
-import Button from "@/ui/Button";
-import Message from "@/ui/Message";
+import Button from "@registry/ui/Button";
+import Message from "@registry/ui/Message";
 
 export default function UseClipboardExample() {
   const { copy, read } = useClipboard();

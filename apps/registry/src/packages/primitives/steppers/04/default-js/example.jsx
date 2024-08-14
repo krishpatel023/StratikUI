@@ -3,8 +3,8 @@
 import {
   Stepper,
   Step,
-} from "@registry/primitives/steppers/04/default-js/Stepper";
-import Button from "@/ui/Button";
+} from "@registry/packages/primitives/steppers/04/default-js/Stepper";
+import Button from "@registry/ui/Button";
 import { useState } from "react";
 
 export default function StepperImplementation() {

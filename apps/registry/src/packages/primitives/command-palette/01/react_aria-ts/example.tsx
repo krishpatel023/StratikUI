@@ -8,7 +8,7 @@ import {
   CommandPaletteMenu,
   CommandPaletteSearchBar,
   CommandPaletteTrigger,
-} from "@registry/primitives/command-palette/01/react_aria-ts/CommandPalette";
+} from "@registry/packages/primitives/command-palette/01/react_aria-ts/CommandPalette";
 import { ChangeEvent, useState } from "react";
 
 export default function CommandPaletteExample() {

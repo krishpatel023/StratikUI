@@ -1,13 +1,13 @@
 "use client";
 
-import { GradientBackground } from "@registry/primitives/containers/01/default-ts/Container";
+import { GradientBackground } from "@registry/packages/primitives/containers/01/default-ts/Container";
 import {
   Header,
   HeaderAnimationWrapper,
   HeaderDropdown,
   HeaderItem,
-} from "@registry/primitives/header-blocks/03/default-ts/HeaderBlocks";
-import { IconProps } from "@/utils/types";
+} from "@registry/packages/primitives/header-blocks/03/default-ts/HeaderBlocks";
+import { IconProps } from "@registry/utils/types";
 import { useState } from "react";
 import { Button } from "react-aria-components";
 import { CommandPaletteBox } from "./CommandPalette";

@@ -1,4 +1,4 @@
-import { ThemeToggle } from "@registry/primitives/theme-toggles/01/react_aria-js/ThemeToggle";
+import { ThemeToggle } from "@registry/packages/primitives/theme-toggles/01/react_aria-js/ThemeToggle";
 
 export function Footer() {
   const LinksData = [

@@ -1,4 +1,4 @@
-import ArrowHeading from "@/ui/ArrowHeading";
+import ArrowHeading from "@registry/ui/ArrowHeading";
 import { twMerge } from "tailwind-merge";
 
 export function GradientBackground({

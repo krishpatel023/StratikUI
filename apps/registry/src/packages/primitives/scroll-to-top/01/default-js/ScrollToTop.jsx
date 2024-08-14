@@ -1,6 +1,6 @@
 "use client";
 
-import useScrollTo from "@registry/hooks/useScrollTo/01/default-js/useScrollTo";
+import useScrollTo from "@registry/packages/hooks/useScrollTo/01/default-js/useScrollTo";
 import { Button } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
 

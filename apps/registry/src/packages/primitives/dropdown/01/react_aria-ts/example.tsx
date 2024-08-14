@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/ui/Button";
+import Button from "@registry/ui/Button";
 import {
   Dropdown,
   DropdownDivider,
@@ -8,9 +8,9 @@ import {
   DropdownItem,
   DropdownTrigger,
   SubmenuTrigger,
-} from "@registry/primitives/dropdown/01/react_aria-ts/Dropdown";
+} from "@registry/packages/primitives/dropdown/01/react_aria-ts/Dropdown";
 import { Section } from "react-aria-components";
-import { IconProps } from "@/utils/types";
+import { IconProps } from "@registry/utils/types";
 
 export default function DropdownImplementation() {
   return (

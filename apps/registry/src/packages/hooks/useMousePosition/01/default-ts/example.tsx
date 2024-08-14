@@ -1,6 +1,6 @@
 "use client";
 
-import useMousePosition from "@registry/hooks/useMousePosition/01/default-ts/useMousePosition";
+import useMousePosition from "@registry/packages/hooks/useMousePosition/01/default-ts/useMousePosition";
 import { useRef } from "react";
 
 export function MousePositionWithoutRef() {

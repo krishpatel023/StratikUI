@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { ProgressBar } from "@registry/primitives/progress-bar/01/react_aria-js/ProgressBar";
+import { ProgressBar } from "@registry/packages/primitives/progress-bar/01/react_aria-js/ProgressBar";
 import { Label } from "react-aria-components";
-import Button from "@/ui/Button";
+import Button from "@registry/ui/Button";
 
 export default function ProgressBarImplementation() {
   const [value, setValue] = useState(50);

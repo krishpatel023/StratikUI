@@ -1,5 +1,5 @@
-import { Button } from "@registry/primitives/buttons/02/default-ts/Button";
-import { IconProps } from "@/utils/types";
+import { Button } from "@registry/packages/primitives/buttons/02/default-ts/Button";
+import { IconProps } from "@registry/utils/types";
 import { twMerge } from "tailwind-merge";
 
 export function PricingGrid() {

@@ -21,7 +21,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@web/*": ["../web/src/*"],
-      "@registry/*": ["./src/packages/*"]
+      "@registry/*": ["./src/*"]
     },
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "**/*.jsx", "**/*.js"],

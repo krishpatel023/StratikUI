@@ -1,5 +1,5 @@
-import ArrowHeading from "@/ui/ArrowHeading";
-import { Input } from "@registry/primitives/input-text/08/react_aria-ts/Input";
+import ArrowHeading from "@registry/ui/ArrowHeading";
+import { Input } from "@registry/packages/primitives/input-text/08/react_aria-ts/Input";
 
 export default function StatefulLinedInputComponent() {
   return (

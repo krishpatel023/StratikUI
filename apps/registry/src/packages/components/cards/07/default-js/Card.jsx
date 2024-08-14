@@ -1,9 +1,9 @@
-import { Button } from "@registry/primitives/buttons/02/default-js/Button";
+import { Button } from "@registry/packages/primitives/buttons/02/default-js/Button";
 import {
   HighlighterItem,
   HighlightGroup,
-} from "@registry/primitives/containers/03/default-js/Container";
-import { DashedBackground } from "@/ui/DashedBackground";
+} from "@registry/packages/primitives/containers/03/default-js/Container";
+import { DashedBackground } from "@registry/ui/DashedBackground";
 
 export function Card() {
   return (

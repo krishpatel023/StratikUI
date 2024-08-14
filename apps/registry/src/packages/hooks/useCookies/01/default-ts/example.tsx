@@ -1,9 +1,9 @@
 "use client";
 
-import Button from "@/ui/Button";
-import useCookies from "@registry/hooks/useCookies/01/default-ts/useCookies";
+import Button from "@registry/ui/Button";
+import useCookies from "@registry/packages/hooks/useCookies/01/default-ts/useCookies";
 import { useEffect, useState } from "react";
-import Input from "@/ui/Input";
+import Input from "@registry/ui/Input";
 
 export default function UseCookiesExample() {
   const {

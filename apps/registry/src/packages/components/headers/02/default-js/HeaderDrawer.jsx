@@ -1,6 +1,6 @@
 "use client";
 
-import useClickOutside from "@registry/hooks/useClickOutside/01/default-js/useClickOutside";
+import useClickOutside from "@registry/packages/hooks/useClickOutside/01/default-js/useClickOutside";
 import { useRef } from "react";
 import { twMerge } from "tailwind-merge";
 

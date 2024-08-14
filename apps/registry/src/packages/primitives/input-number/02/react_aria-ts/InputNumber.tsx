@@ -1,5 +1,5 @@
 "use client";
-import { IconProps } from "@/utils/types";
+import { IconProps } from "@registry/utils/types";
 import {
   Button,
   FieldError,

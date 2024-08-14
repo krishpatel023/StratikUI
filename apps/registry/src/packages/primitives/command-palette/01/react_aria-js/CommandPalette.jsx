@@ -3,12 +3,12 @@ import {
   Key,
   KeyListener,
   KeyListenerDisplay,
-} from "@registry/primitives/key-listener/01/default-ts/KeyListener";
+} from "@registry/packages/primitives/key-listener/01/default-ts/KeyListener";
 import {
   Modal,
   ModalTrigger,
-} from "@registry/primitives/modals/01/react_aria-ts/Modal";
-import { IconProps } from "@/utils/types";
+} from "@registry/packages/primitives/modals/01/react_aria-ts/Modal";
+import { IconProps } from "@registry/utils/types";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import {
   Button,

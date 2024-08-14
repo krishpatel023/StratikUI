@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Dropbox } from "./Dropbox";
-import DemoImage from "@/assets/Images/Image_2.jpg";
+import DemoImage from "@registry/assets/Images/Image_2.jpg";
 import Image from "next/image";
 
 export default function DropboxImplementation() {

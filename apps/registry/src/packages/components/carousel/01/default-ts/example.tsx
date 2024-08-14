@@ -1,4 +1,4 @@
-import { Carousel } from "@registry/components/carousel/01/default-ts/Carousel";
+import { Carousel } from "@registry/packages/components/carousel/01/default-ts/Carousel";
 
 export default function CarouselImplementation() {
   return (

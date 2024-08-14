@@ -1,6 +1,6 @@
-import ArrowHeading from "@/ui/ArrowHeading";
-import { GradientBackground } from "@registry/primitives/containers/02/default-ts/Container";
-import { IconProps } from "@/utils/types";
+import ArrowHeading from "@registry/ui/ArrowHeading";
+import { GradientBackground } from "@registry/packages/primitives/containers/02/default-ts/Container";
+import { IconProps } from "@registry/utils/types";
 
 export default function ContainerImplementation() {
   return (

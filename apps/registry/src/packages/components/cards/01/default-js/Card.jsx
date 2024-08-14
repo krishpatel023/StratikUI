@@ -1,5 +1,5 @@
-import { Button } from "@registry/primitives/buttons/02/default-js/Button";
-import { DashedBackground } from "@/ui/DashedBackground";
+import { Button } from "@registry/packages/primitives/buttons/02/default-js/Button";
+import { DashedBackground } from "@registry/ui/DashedBackground";
 
 export function Card() {
   return (

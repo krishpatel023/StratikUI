@@ -1,4 +1,4 @@
-import { DashedBackground } from "@/ui/DashedBackground";
+import { DashedBackground } from "@registry/ui/DashedBackground";
 
 export function Card() {
   return (

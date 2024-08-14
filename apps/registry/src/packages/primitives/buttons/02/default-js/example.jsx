@@ -1,5 +1,5 @@
-import ArrowHeading from "@/ui/ArrowHeading";
-import { Button } from "@registry/primitives/buttons/02/default-js/Button";
+import ArrowHeading from "@registry/ui/ArrowHeading";
+import { Button } from "@registry/packages/primitives/buttons/02/default-js/Button";
 
 export default function ButtonImplementation() {
   return (

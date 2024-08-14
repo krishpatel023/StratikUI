@@ -1,4 +1,4 @@
-import { Input } from "@registry/primitives/input-text/07/react_aria-ts/Input";
+import { Input } from "@registry/packages/primitives/input-text/07/react_aria-ts/Input";
 
 export default function DefaultLinedInputComponent() {
   return (

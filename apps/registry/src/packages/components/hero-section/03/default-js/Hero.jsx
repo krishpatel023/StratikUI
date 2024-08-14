@@ -1,12 +1,12 @@
 "use client";
 
-import useMousePosition from "@registry/hooks/useMousePosition/01/default-js/useMousePosition";
+import useMousePosition from "@registry/packages/hooks/useMousePosition/01/default-js/useMousePosition";
 import { useEffect, useRef, useState } from "react";
 
 import { Button as ReactAriaButton } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
-import { Button } from "@registry/primitives/buttons/02/default-js/Button";
-import { Carousel } from "@registry/components/carousel/01/default-js/Carousel";
+import { Button } from "@registry/packages/primitives/buttons/02/default-js/Button";
+import { Carousel } from "@registry/packages/components/carousel/01/default-js/Carousel";
 
 export function Background() {
   return (

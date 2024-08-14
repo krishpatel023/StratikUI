@@ -4,10 +4,10 @@ import { useRef } from "react";
 import {
   ResizableContainer,
   ResizeBoundingElement,
-} from "@registry/primitives/resizable-containers/02/default-ts/Resizable";
+} from "@registry/packages/primitives/resizable-containers/02/default-ts/Resizable";
 import useResizable, {
   ResizableOptions,
-} from "@registry/hooks/useResizable/01/default-ts/useResizable";
+} from "@registry/packages/hooks/useResizable/01/default-ts/useResizable";
 
 export default function ResizeImplementation() {
   const containerRef = useRef<HTMLDivElement>(null);

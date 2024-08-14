@@ -1,4 +1,4 @@
-import { SignUp } from "@registry/components/authentication/05/default-js/Authentication";
+import { SignUp } from "@registry/packages/components/authentication/05/default-js/Authentication";
 
 export default function AuthenticationImplementation() {
   return (

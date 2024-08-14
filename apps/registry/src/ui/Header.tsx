@@ -1,10 +1,10 @@
 "use client";
 import { Header as ReactAriaHeader } from "react-aria-components";
-import Button from "@/ui/Button";
-import { IconProps } from "@/utils/types";
-import { useTheme } from "@/hooks/useTheme";
+import Button from "@registry/ui/Button";
+import { IconProps } from "@registry/utils/types";
+import { useTheme } from "@registry/hooks/useTheme";
 import Link from "next/link";
-import { CURRENT_VERSION } from "@/utils/controllers";
+import { CURRENT_VERSION } from "@registry/utils/controllers";
 
 export default function Header() {
   const { theme, toggleTheme } = useTheme();

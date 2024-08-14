@@ -1,4 +1,4 @@
-import { Button } from "@registry/primitives/buttons/02/default-ts/Button";
+import { Button } from "@registry/packages/primitives/buttons/02/default-ts/Button";
 
 export function Card() {
   return (

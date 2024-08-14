@@ -3,7 +3,7 @@
 import {
   KeyListener,
   KeyListenerDisplay,
-} from "@registry/primitives/key-listener/01/default-js/KeyListener";
+} from "@registry/packages/primitives/key-listener/01/default-js/KeyListener";
 
 export default function KeyListenerImplementation() {
   const funcCall = () => {

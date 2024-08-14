@@ -1,4 +1,4 @@
-import { Switch } from "@registry/primitives/switch/01/default-js/Switch";
+import { Switch } from "@registry/packages/primitives/switch/01/default-js/Switch";
 
 export default function SwitchImplementation() {
   return (

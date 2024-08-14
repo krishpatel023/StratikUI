@@ -1,6 +1,6 @@
-import { IconProps } from "@/utils/types";
-import { AvatarWithIcon } from "@registry/primitives/avatars/02/default-ts/Avatar";
-import Dummy from "@/assets/Images/Image_2.jpg";
+import { IconProps } from "@registry/utils/types";
+import { AvatarWithIcon } from "@registry/packages/primitives/avatars/02/default-ts/Avatar";
+import Dummy from "@registry/assets/Images/Image_2.jpg";
 
 export default function AvatarImplementation() {
   return (

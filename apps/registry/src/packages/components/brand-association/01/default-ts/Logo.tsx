@@ -1,4 +1,4 @@
-import { IconProps } from "@/utils/types";
+import { IconProps } from "@registry/utils/types";
 
 export type LogoProps = {
   name: string;

@@ -1,4 +1,4 @@
-import { Button } from "@registry/primitives/buttons/02/default-js/Button";
+import { Button } from "@registry/packages/primitives/buttons/02/default-js/Button";
 
 export function PricingGrid() {
   const PricingData = [

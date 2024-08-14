@@ -4,7 +4,7 @@ import {
   Header,
   HeaderDropdown,
   HeaderItem,
-} from "@registry/primitives/header-blocks/02/default-js/HeaderBlocks";
+} from "@registry/packages/primitives/header-blocks/02/default-js/HeaderBlocks";
 import { useEffect, useRef, useState } from "react";
 
 export default function HeaderBlocksImplementation() {

@@ -1,4 +1,4 @@
-import { SignIn } from "@registry/components/authentication/01/default-js/Authentication";
+import { SignIn } from "@registry/packages/components/authentication/01/default-js/Authentication";
 
 export default function AuthenticationImplementation() {
   return (

@@ -1,4 +1,4 @@
-import { IconProps } from "@/utils/types";
+import { IconProps } from "@registry/utils/types";
 
 export const Logo = {
   airbnb: (props: IconProps) => (

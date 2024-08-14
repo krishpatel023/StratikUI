@@ -1,7 +1,7 @@
 "use client";
 
-import useMousePosition from "@registry/hooks/useMousePosition/01/default-js/useMousePosition";
-import "@registry/primitives/containers/03/default-js/Container.css";
+import useMousePosition from "@registry/packages/hooks/useMousePosition/01/default-js/useMousePosition";
+import "@registry/packages/primitives/containers/03/default-js/Container.css";
 import { useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 

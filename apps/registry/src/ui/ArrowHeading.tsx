@@ -1,4 +1,4 @@
-import { IconProps } from "@/utils/types";
+import { IconProps } from "@registry/utils/types";
 import { twMerge } from "tailwind-merge";
 
 export default function ArrowHeading({

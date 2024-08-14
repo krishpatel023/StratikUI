@@ -1,6 +1,6 @@
 "use client";
-import { Button } from "@registry/primitives/buttons/02/default-js/Button";
-import useMousePosition from "@registry/hooks/useMousePosition/01/default-js/useMousePosition";
+import { Button } from "@registry/packages/primitives/buttons/02/default-js/Button";
+import useMousePosition from "@registry/packages/hooks/useMousePosition/01/default-js/useMousePosition";
 import { useEffect, useRef, useState } from "react";
 import { Button as ReactAriaButton } from "react-aria-components";
 import { twMerge } from "tailwind-merge";

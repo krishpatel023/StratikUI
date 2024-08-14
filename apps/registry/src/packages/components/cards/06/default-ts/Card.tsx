@@ -1,4 +1,4 @@
-import { DashedBackground } from "@/ui/DashedBackground";
+import { DashedBackground } from "@registry/ui/DashedBackground";
 import Link from "next/link";
 
 export function Card() {

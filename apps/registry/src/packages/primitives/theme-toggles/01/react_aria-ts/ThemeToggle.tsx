@@ -1,6 +1,6 @@
 "use client";
 
-import { IconProps } from "@/utils/types";
+import { IconProps } from "@registry/utils/types";
 import { useState } from "react";
 import { Button, ButtonProps, Group } from "react-aria-components";
 import { twMerge } from "tailwind-merge";

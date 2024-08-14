@@ -1,12 +1,12 @@
-import Dummy1 from "@/assets/Images/Image_1.jpg";
-import Dummy2 from "@/assets/Images/Image_2.jpg";
-import Dummy3 from "@/assets/Images/Image_3.jpg";
-import Dummy4 from "@/assets/Images/Image_4.jpg";
-import Dummy5 from "@/assets/Images/Image_5.jpg";
-import Dummy6 from "@/assets/Images/Image_6.jpg";
-import Dummy7 from "@/assets/Images/Image_7.jpg";
-import ArrowHeading from "@/ui/ArrowHeading";
-import { AvatarStack } from "@registry/primitives/avatars/03/default-js/Avatar";
+import Dummy1 from "@registry/assets/Images/Image_1.jpg";
+import Dummy2 from "@registry/assets/Images/Image_2.jpg";
+import Dummy3 from "@registry/assets/Images/Image_3.jpg";
+import Dummy4 from "@registry/assets/Images/Image_4.jpg";
+import Dummy5 from "@registry/assets/Images/Image_5.jpg";
+import Dummy6 from "@registry/assets/Images/Image_6.jpg";
+import Dummy7 from "@registry/assets/Images/Image_7.jpg";
+import ArrowHeading from "@registry/ui/ArrowHeading";
+import { AvatarStack } from "@registry/packages/primitives/avatars/03/default-js/Avatar";
 
 export default function StackedAvatarImplementation() {
   return (

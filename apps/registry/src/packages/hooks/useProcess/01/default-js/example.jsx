@@ -1,8 +1,8 @@
 "use client";
 
-import useDelay from "@registry/hooks/useDelay/01/default-js/useDelay";
-import useProcess from "@registry/hooks/useProcess/01/default-js/useProcess";
-import Button from "@/ui/Button";
+import useDelay from "@registry/packages/hooks/useDelay/01/default-js/useDelay";
+import useProcess from "@registry/packages/hooks/useProcess/01/default-js/useProcess";
+import Button from "@registry/ui/Button";
 
 export default function UseProcessExample() {
   const { delay } = useDelay();

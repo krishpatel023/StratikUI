@@ -391,8 +391,6 @@ function addDisplayElement(folderPath: string) {
             "registry" +
             path.sep +
             "src" +
-            path.sep +
-            "packages" +
             path.sep
         )[1]
         .replaceAll(path.sep, "/");

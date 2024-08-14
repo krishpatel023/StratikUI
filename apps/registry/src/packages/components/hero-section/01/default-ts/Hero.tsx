@@ -1,6 +1,6 @@
 "use client";
-import { Button } from "@registry/primitives/buttons/02/default-ts/Button";
-import useMousePosition from "@registry/hooks/useMousePosition/01/default-ts/useMousePosition";
+import { Button } from "@registry/packages/primitives/buttons/02/default-ts/Button";
+import useMousePosition from "@registry/packages/hooks/useMousePosition/01/default-ts/useMousePosition";
 import { useEffect, useRef, useState } from "react";
 import {
   Button as ReactAriaButton,

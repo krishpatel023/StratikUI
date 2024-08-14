@@ -1,5 +1,5 @@
-import ArrowHeading from "@/ui/ArrowHeading";
-import { GradientText } from "@registry/primitives/text/01/react_aria-ts/Text";
+import ArrowHeading from "@registry/ui/ArrowHeading";
+import { GradientText } from "@registry/packages/primitives/text/01/react_aria-ts/Text";
 
 export default function GradientTextImplementation() {
   return (

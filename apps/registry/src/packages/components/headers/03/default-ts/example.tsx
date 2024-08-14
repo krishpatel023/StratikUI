@@ -1,5 +1,5 @@
-import { Header } from "@registry/components/headers/03/default-ts/Header";
-import { HeroSection } from "@registry/components/hero-section/03/default-ts/Hero";
+import { Header } from "@registry/packages/components/headers/03/default-ts/Header";
+import { HeroSection } from "@registry/packages/components/hero-section/03/default-ts/Hero";
 
 export default function HeaderImplementation() {
   return (

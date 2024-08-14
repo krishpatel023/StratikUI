@@ -1,7 +1,7 @@
 "use client";
 
-import Button from "@/ui/Button";
-import useScrollTo from "@registry/hooks/useScrollTo/01/default-js/useScrollTo";
+import Button from "@registry/ui/Button";
+import useScrollTo from "@registry/packages/hooks/useScrollTo/01/default-js/useScrollTo";
 import { useRef } from "react";
 
 export default function UseScrollToExample() {

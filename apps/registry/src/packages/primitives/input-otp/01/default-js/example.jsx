@@ -1,8 +1,8 @@
 "use client";
-import ArrowHeading from "@/ui/ArrowHeading";
-import Message from "@/ui/Message";
+import ArrowHeading from "@registry/ui/ArrowHeading";
+import Message from "@registry/ui/Message";
 import { useState } from "react";
-import { OTPInput } from "@registry/primitives/input-otp/01/default-js/InputOTP";
+import { OTPInput } from "@registry/packages/primitives/input-otp/01/default-js/InputOTP";
 
 export default function OTPImplementation() {
   const [otp1, setOtp1] = useState("");

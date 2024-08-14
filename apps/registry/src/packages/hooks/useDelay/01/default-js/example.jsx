@@ -1,10 +1,10 @@
 // !code-highlight: [10]
 "use client";
 
-import Button from "@/ui/Button";
+import Button from "@registry/ui/Button";
 import { useState } from "react";
-import useDelay from "@registry/hooks/useDelay/01/default-js/useDelay";
-import { Modal } from "@registry/primitives/modals/01/default-js/Modal";
+import useDelay from "@registry/packages/hooks/useDelay/01/default-js/useDelay";
+import { Modal } from "@registry/packages/primitives/modals/01/default-js/Modal";
 
 export default function UseDelayExample() {
   const { isDelaying, delay, clearDelay } = useDelay();

@@ -1,7 +1,7 @@
 import {
   BentoGrid,
   BentoGridItem,
-} from "@registry/primitives/bento-grid/01/default-ts/BentoGrid";
+} from "@registry/packages/primitives/bento-grid/01/default-ts/BentoGrid";
 
 export default function BentoGridImplementation() {
   return (

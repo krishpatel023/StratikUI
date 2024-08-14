@@ -3,7 +3,7 @@
 import {
   Button,
   ButtonProps,
-} from "@registry/primitives/buttons/01/react_aria-ts/Button";
+} from "@registry/packages/primitives/buttons/01/react_aria-ts/Button";
 import { FileTrigger, FileTriggerProps } from "react-aria-components";
 
 interface FileUploadButtonProps extends FileTriggerProps {

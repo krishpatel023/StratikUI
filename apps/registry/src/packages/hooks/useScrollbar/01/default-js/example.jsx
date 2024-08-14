@@ -1,6 +1,6 @@
 "use client";
 
-import useScrollbar from "@registry/hooks/useScrollbar/01/default-js/useScrollbar";
+import useScrollbar from "@registry/packages/hooks/useScrollbar/01/default-js/useScrollbar";
 
 export default function UseScrollbarExample() {
   // Will provide the information of main direction and scroll position

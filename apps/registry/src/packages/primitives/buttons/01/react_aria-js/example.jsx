@@ -1,5 +1,5 @@
-import ArrowHeading from "@/ui/ArrowHeading";
-import { Button } from "@registry/primitives/buttons/01/react_aria-js/Button";
+import ArrowHeading from "@registry/ui/ArrowHeading";
+import { Button } from "@registry/packages/primitives/buttons/01/react_aria-js/Button";
 
 export default function ButtonImplementation() {
   return (

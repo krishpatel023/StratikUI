@@ -1,7 +1,7 @@
-import { IconProps } from "@/utils/types";
-import { Button } from "@registry/primitives/buttons/02/default-ts/Button";
-import { Input } from "@registry/primitives/input-text/01/react_aria-ts/Input";
-import { Input as PasswordToggle } from "@registry/primitives/input-text/06/react_aria-ts/Input";
+import { IconProps } from "@registry/utils/types";
+import { Button } from "@registry/packages/primitives/buttons/02/default-ts/Button";
+import { Input } from "@registry/packages/primitives/input-text/01/react_aria-ts/Input";
+import { Input as PasswordToggle } from "@registry/packages/primitives/input-text/06/react_aria-ts/Input";
 
 export function SignUp() {
   return (

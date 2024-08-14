@@ -1,8 +1,8 @@
 "use client";
 
-import Button from "@/ui/Button";
+import Button from "@registry/ui/Button";
 import { useRef, useState } from "react";
-import useDisableScroll from "@registry/hooks/useDisableScroll/01/default-js/useDisableScroll";
+import useDisableScroll from "@registry/packages/hooks/useDisableScroll/01/default-js/useDisableScroll";
 
 export default function UseDisableScrollExample() {
   const [IdPaused, setIdPaused] = useState(false);

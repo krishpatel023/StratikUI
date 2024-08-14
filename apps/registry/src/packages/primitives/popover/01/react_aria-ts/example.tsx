@@ -1,8 +1,8 @@
-import Button from "@/ui/Button";
+import Button from "@registry/ui/Button";
 import {
   Popover,
   PopoverTrigger,
-} from "@registry/primitives/popover/01/react_aria-ts/Popover";
+} from "@registry/packages/primitives/popover/01/react_aria-ts/Popover";
 
 export default function PopoverImplementation() {
   return (

@@ -1,8 +1,8 @@
-import ArrowHeading from "@/ui/ArrowHeading";
+import ArrowHeading from "@registry/ui/ArrowHeading";
 import {
   HighlighterItem,
   HighlightGroup,
-} from "@registry/primitives/containers/03/default-ts/Container";
+} from "@registry/packages/primitives/containers/03/default-ts/Container";
 
 export default function ContainerImplementation() {
   return (
