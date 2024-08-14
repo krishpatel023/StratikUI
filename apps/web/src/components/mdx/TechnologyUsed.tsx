@@ -141,7 +141,7 @@ export const TechnologyUsed = ({
   const techUsed: TechNames[] = ["tailwindcss", ...technologies];
   return (
     <div>
-      <h1 className="text-lg font-medium text-foreground">Technology Used</h1>
+      <h1 className="text-lg font-medium text-foreground">Technologies Used</h1>
       <div className="flex justify-start gap-8 mt-2 flex-wrap">
         {techUsed &&
           techUsed.map((item, i) => (
