@@ -9,18 +9,19 @@ import {
 import type { BundledLanguage, BundledTheme } from "shiki";
 import { useEffect, useState } from "react";
 import { Skeleton } from "./Skeleton";
+import { twMerge } from "tailwind-merge";
 
 type Props = {
   code: string;
   lang?: BundledLanguage;
   withCounter?: boolean;
-  //   theme?: BundledTheme;
-  //   filename?: string;
+  skeletonClassName?: string;
 };
 export default function CodeHighlight({
   code,
   lang = "javascript",
   withCounter = true,
+  skeletonClassName = "",
 }: Props) {
   const [html, setHtml] = useState("");
   useEffect(() => {
@@ -43,21 +44,22 @@ export default function CodeHighlight({
     });
   }
 
-  //Total Lines
-  //const lines = (String(code).match(/\n/g) || "").length + 1;
-
   return (
     <>
       {html ? (
         <div className="w-full mx-auto overflow-hidden">
           <div
-            className={`${withCounter ? "with-counter" : ""} text-sm [&>pre]:overflow-x-auto  dark:[&>pre]:!bg-neutral-900/70 [&>pre]:!bg-gray-50  [&>pre]:py-3 [&>pre]:pl-4 [&>pre]:pr-5 [&>pre]:leading-snug [&_code]:block [&_code]:w-fit [&_code]:min-w-full`}
+            className={`${withCounter ? "with-counter" : ""} text-sm [&>pre]:overflow-x-auto  dark:[&>pre]:!bg-neutral-900/70 [&>pre]:!bg-gray-50  [&>pre]:py-4 [&>pre]:pl-4 [&>pre]:pr-5 [&>pre]:leading-snug [&_code]:block [&_code]:w-fit [&_code]:min-w-full`}
             dangerouslySetInnerHTML={{ __html: html }}
           ></div>
         </div>
       ) : (
         <Skeleton
-          className={`w-full bg-slate-50 dark:bg-neutral-950 ${withCounter ? "min-h-60" : "min-h-10"}`}
+          className={twMerge(
+            "w-full bg-slate-50 dark:bg-neutral-950",
+            withCounter ? "min-h-60" : "min-h-10",
+            skeletonClassName
+          )}
         />
       )}
     </>

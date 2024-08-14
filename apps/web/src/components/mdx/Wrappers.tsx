@@ -62,6 +62,11 @@ export const Preview = ({
   );
 };
 
-export const PARTITION = ({ className }: { className?: string }) => {
-  return <div className={twMerge("min-w-full min-h-10", className)}></div>;
+export const PARTITION = ({
+  className,
+  children,
+}: React.HTMLAttributes<HTMLDivElement>) => {
+  return (
+    <div className={twMerge("min-w-full min-h-10", className)}>{children}</div>
+  );
 };
