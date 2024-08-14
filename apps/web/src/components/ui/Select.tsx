@@ -26,12 +26,18 @@ export interface SelectTriggerProps extends SelectProps<any> {
   description?: string;
   errorMessage?: string;
   className?: string;
+  displayClassName?: string;
 }
 
-export function Select({ children, className, ...props }: SelectTriggerProps) {
+export function Select({
+  children,
+  className,
+  displayClassName,
+  ...props
+}: SelectTriggerProps) {
   return (
     <ReactAriaSelect
-      className={twMerge("flex flex-col", className)}
+      className={twMerge("flex flex-col w-full")}
       aria-label={props.label || "Select"}
       {...props}
     >
@@ -41,7 +47,12 @@ export function Select({ children, className, ...props }: SelectTriggerProps) {
             {props.label}
           </Label>
         )}
-        <SelectWrapper>{children}</SelectWrapper>
+        <SelectWrapper
+          className={className}
+          displayClassName={displayClassName}
+        >
+          {children}
+        </SelectWrapper>
         {props.description && (
           <Text slot="description" className="text-primary-foreground text-sm">
             {props.description}
@@ -54,16 +65,25 @@ export function Select({ children, className, ...props }: SelectTriggerProps) {
     </ReactAriaSelect>
   );
 }
+interface SelectWrapperProps extends ListBoxProps<any> {
+  displayClassName?: string;
+}
 
 export function SelectWrapper({
   items,
   children,
   className,
+  displayClassName,
   ...props
-}: ListBoxProps<any>) {
+}: SelectWrapperProps) {
   return (
     <>
-      <Button className="w-full text-start rounded border border-outline-secondary bg-primary open:bg-secondary text-primary-foreground my-1 max-w-80 outline-none px-2 py-0.5">
+      <Button
+        className={twMerge(
+          "w-full text-start rounded border border-outline-secondary bg-primary open:bg-secondary text-primary-foreground my-1 outline-none px-2 py-0.5",
+          displayClassName
+        )}
+      >
         <SelectValue />
       </Button>
       <Popover>

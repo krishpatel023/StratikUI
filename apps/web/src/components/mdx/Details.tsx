@@ -1,13 +1,14 @@
 "use client";
 
+import { useInternalState } from "@/hooks/useInternalState";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 export const Details = ({ children }: { children: React.ReactNode }) => {
-  const [provider, setProvider] = useState<string>("default");
+  const { provider } = useInternalState();
   return (
     <div
-      className="group/details w-full"
+      className="group/details w-full flex flex-col gap-6"
       data-provider={
         provider.includes("_") ? provider.replace("_", "") : provider
       }
@@ -27,11 +28,9 @@ export const Provider = ({
   return (
     <div
       className={twMerge(
-        "flex flex-col gap-8",
-        tag === "default" &&
-          "hidden group-data-[provider=default]/details:flex flex-col gap-6",
-        tag === "react_aria" &&
-          "hidden group-data-[provider='reactaria']/details:flex flex-col gap-6"
+        "flex-col gap-6 hidden",
+        tag === "default" && "group-data-[provider=default]/details:flex",
+        tag === "react_aria" && "group-data-[provider='reactaria']/details:flex"
       )}
     >
       {children}

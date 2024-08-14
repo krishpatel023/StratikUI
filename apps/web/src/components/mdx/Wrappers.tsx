@@ -6,7 +6,7 @@ import { twMerge } from "tailwind-merge";
 
 export const Wrapper = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="group/wrapper w-full flex flex-col gap-4 mb-8 mt-8">
+    <div className="group/wrapper w-full flex flex-col gap-4 mb-20 mt-8">
       {children}
     </div>
   );

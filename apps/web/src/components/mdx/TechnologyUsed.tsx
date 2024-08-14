@@ -95,7 +95,12 @@ export const TECH_USED: TECH_USED_PROPS = {
   tailwindcss: {
     name: "",
     link: "https://tailwindcss.com/",
-    logo: <Icons.tailwindcss className="w-6 h-6" />,
+    logo: (
+      <div className="flex gap-2 text-foreground items-center">
+        <Icons.tailwindcss className="w-6 h-6" />
+        TailwindCSS
+      </div>
+    ),
   },
   "framer-motion": {
     name: "Framer Motion",
@@ -133,12 +138,13 @@ export const TechnologyUsed = ({
 }: {
   technologies: TechNames[];
 }) => {
+  const techUsed: TechNames[] = ["tailwindcss", ...technologies];
   return (
     <div>
       <h1 className="text-lg font-medium text-foreground">Technology Used</h1>
       <div className="flex justify-start gap-8 mt-2 flex-wrap">
-        {technologies &&
-          technologies.map((item, i) => (
+        {techUsed &&
+          techUsed.map((item, i) => (
             <Fragment key={i}>
               <a
                 href={TECH_USED[item].link}
