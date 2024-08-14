@@ -8,6 +8,10 @@ html {
 
 @layer base {
   :root {
+    --sidebar-width: 8px;
+    --sidebar-height: 6px;
+    --sidebar-color: var(--foreground);
+
     --radius: 0.5rem;
 
     --background: theme(colors.white);
@@ -128,18 +132,32 @@ html {
   }
 }
 
-.scrollbar-vertical::-webkit-scrollbar {
-  width: 8px; /* width of the entire scrollbar */
+@layer components {
+  .glass-effect-light {
+    @apply bg-neutral-100/95 backdrop-blur supports-[backdrop-filter]:bg-neutral-100/20;
+  }
+
+  .glass-effect-dark {
+    @apply bg-black backdrop-blur-md supports-[backdrop-filter]:bg-neutral-900/20;
+  }
+
+  .glass-effect {
+    @apply glass-effect-light dark:glass-effect-dark;
+  }
 }
-.scrollbar-vertical::-webkit-scrollbar-thumb {
-  background-color: var(--primary-foreground); /* color of the scroll thumb */
+
+.scrollbar-y::-webkit-scrollbar {
+  width: var(--sidebar-width); /* width of the entire scrollbar */
+}
+.scrollbar-y::-webkit-scrollbar-thumb {
+  background-color: var(--sidebar-color); /* color of the scroll thumb */
   border-radius: 20px; /* roundness of the scroll thumb */
 }
 
-.scrollbar-horizontal::-webkit-scrollbar {
-  height: 6px; /* width of the entire scrollbar */
+.scrollbar-x::-webkit-scrollbar {
+  height: var(--sidebar-height); /* width of the entire scrollbar */
 }
-.scrollbar-horizontal::-webkit-scrollbar-thumb {
-  background-color: var(--primary-foreground); /* color of the scroll thumb */
+.scrollbar-x::-webkit-scrollbar-thumb {
+  background-color: var(--sidebar-color); /* color of the scroll thumb */
   border-radius: 20px; /* roundness of the scroll thumb */
 }

@@ -27,15 +27,15 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={twMerge(
-          "scrollbar-vertical bg-background",
+          "scrollbar-y scrollbar-x bg-background",
           DEFAULT_MODE && "dark",
           inter.className
         )}
         id="theme-toggle"
       >
         <Providers>
-          <Header />
           <Sidebar />
+          <Header />
           {children}
         </Providers>
       </body>

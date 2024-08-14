@@ -1,5 +1,3 @@
-import Sidebar from "@/components/Sidebar";
-
 export default function Layout({
   children,
 }: Readonly<{
@@ -7,11 +5,8 @@ export default function Layout({
 }>) {
   return (
     <>
-      <div className="w-full flex justify-center relative">
-        <Sidebar />
-        <div className="w-full right-0">
-          <div className="w-[90%] mx-auto">{children}</div>
-        </div>
+      <div className="w-full sm:peer-data-[sidebar-state=fixed]:w-[calc(100dvw-18.25rem)] relative sm:peer-data-[sidebar-state=fixed]:left-[17.25rem]">
+        <div className="w-[90%] mx-auto">{children}</div>
       </div>
     </>
   );
