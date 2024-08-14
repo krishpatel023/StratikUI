@@ -7,7 +7,8 @@ import { IconProps } from "@/utils/constants";
 import { capitalize } from "@/utils/helper";
 import { Icons } from "@/utils/icons";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import React, { Fragment, useEffect, useState } from "react";
 import { Button } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
 
@@ -25,20 +26,22 @@ export default function Sidebar() {
       {/* Large Screen */}
       <div
         className={twMerge(
-          "hidden sm:flex fixed h-full w-[18.25rem] left-0 justify-end",
-          state === "hover" && "transition-all duration-500",
+          "peer z-[9999] hidden sm:flex fixed h-full w-[18.25rem] left-0 top-16 justify-end",
+          state === "hover" && "transition-all duration-[600ms]",
           state === "hover" && !sidebar && "-left-full"
         )}
         onMouseLeave={closeSidebarOnMouseLeave}
+        data-sidebar-state={state}
+        data-sidebar-open={sidebar}
       >
         <div
           className={twMerge(
-            "h-[92%] w-full bg-background ",
+            "h-[92%] w-full bg-background",
             state === "hover" &&
               "rounded-lg h-[calc(100dvh-4.75rem)] w-[17.5rem] border-[2px] border-secondary"
           )}
         >
-          <SidebarArrangement />
+          <SidebarArrangement allowClose={false} setSidebar={setSidebar} />
           <SidebarFooter setState={setState} />
         </div>
       </div>
@@ -50,7 +53,7 @@ export default function Sidebar() {
       />
 
       {/* Mobile Version */}
-      <SidebarSmall sidebar={sidebar} />
+      <SidebarSmall sidebar={sidebar} setSidebar={setSidebar} />
 
       <SidebarDetectors
         state={state}
@@ -62,7 +65,13 @@ export default function Sidebar() {
   );
 }
 
-function SidebarSmall({ sidebar }: { sidebar: boolean }) {
+function SidebarSmall({
+  sidebar,
+  setSidebar,
+}: {
+  sidebar: boolean;
+  setSidebar: (sidebar: boolean) => void;
+}) {
   const { theme, toggleTheme } = useTheme();
   function sidebarSidebar() {
     if (document.body.clientWidth > 600) return;
@@ -79,11 +88,11 @@ function SidebarSmall({ sidebar }: { sidebar: boolean }) {
   return (
     <div
       className={twMerge(
-        "w-full h-[calc(100dvh-3.75rem)] bg-neutral-100/95 dark:bg-neutral-950/95 backdrop-blur supports-[backdrop-filter]:bg-neutral-200/80 dark:supports-[backdrop-filter]:bg-neutral-950/99 flex flex-col justify-between sm:hidden fixed top-16 data-[open=false]:-right-full data-[open=true]:right-0 transition-all duration-500"
+        "peer z-[9999] w-full h-[calc(100dvh-3.75rem)] bg-background flex flex-col justify-between sm:hidden fixed top-16 data-[sidebar-open=false]:-right-full data-[sidebar-open=true]:right-0 transition-all duration-500"
       )}
-      data-open={sidebar}
+      data-sidebar-open={sidebar}
     >
-      <SidebarArrangement />
+      <SidebarArrangement allowClose={true} setSidebar={setSidebar} />
       <div className="w-full h-14 px-3 py-2 flex justify-between items-center border-t border-outline-secondary">
         <button
           className="w-8 h-10 flex justify-center items-center rounded text-foreground"
@@ -110,32 +119,64 @@ function SidebarSmall({ sidebar }: { sidebar: boolean }) {
   );
 }
 
-function SidebarArrangement() {
+function SidebarArrangement({
+  allowClose,
+  setSidebar,
+}: {
+  allowClose: boolean;
+  setSidebar: (sidebar: boolean) => void;
+}) {
+  const pathname = usePathname();
+  function handleClick() {
+    if (allowClose) setSidebar(false);
+  }
   return (
-    <div className="h-[calc(100%-3.4rem)] w-full px-8 py-6 overflow-y-auto scrollbar-vertical flex flex-col gap-8">
-      {SidebarData.map((item, index) => (
-        <>
+    <div
+      className="h-[calc(100%-3.4rem)] w-full px-8 py-6 overflow-y-auto scrollbar-y flex flex-col gap-8"
+      style={
+        {
+          "--sidebar-width": "7px",
+        } as React.CSSProperties
+      }
+    >
+      {SidebarData.map((item, i) => (
+        <Fragment key={i}>
           {item.type === "title" && item.flag === "default" && (
             <div className="flex flex-col gap-[0.5rem]">
               <h2 className="text-foreground text-base mb-2">
                 {capitalize(item.name)}
               </h2>
               {item.children.map((child, index) => (
-                <Link
-                  href={child.link}
-                  className="text-secondary-foreground hover:text-accent-secondary px-3 text-sm  hover:translate-x-2 transition-all duration-300"
+                <Button
+                  className="pressed:scale-95 outline-none w-max sm:hover:translate-x-2 transition-all duration-300 sm:hover:scale-105"
+                  key={index}
+                  onPress={handleClick}
                 >
-                  {item.name !== "hooks" ? capitalize(child.name) : child.name}
-                </Link>
+                  <Link
+                    href={"/" + child.link}
+                    className={twMerge(
+                      "text-secondary-foreground hover:text-accent-secondary px-3 text-[0.9rem] data-[active=true]:text-accent-secondary",
+                      item.name !== "hooks" && "capitalize"
+                    )}
+                    data-active={pathname === "/" + child.link}
+                  >
+                    {child.name.replaceAll("-", " ")}
+                  </Link>
+                </Button>
               ))}
             </div>
           )}
           {item.type === "default" && (
-            <div className="text-secondary-foreground text-sm hover:text-accent-secondary hover:translate-x-2 transition-all duration-300">
+            <Button
+              className="text-secondary-foreground text-[0.9rem] hover:text-accent-secondary hover:translate-x-2 transition-all duration-300 pressed:scale-95 hover:scale-105 outline-none"
+              onPress={() => {
+                if (allowClose) setSidebar(false);
+              }}
+            >
               <Link href={item.link}>{item.name}</Link>
-            </div>
+            </Button>
           )}
-        </>
+        </Fragment>
       ))}
     </div>
   );
@@ -152,22 +193,23 @@ function SidebarDetectors({
   sidebar: boolean;
   setSidebar: (sidebar: boolean) => void;
 }) {
-  function handleStateChange(state: "fixed" | "hover") {}
-
   return (
     <>
       {state === "hover" && !sidebar && (
         <div
-          className="w-4 h-full bg-transparent absolute top-0 left-0"
+          className="z-[9998] w-4 h-full bg-transparent absolute top-0 left-0"
           onMouseEnter={() => setSidebar(true)}
         ></div>
       )}
       {state === "hover" && !sidebar && (
         <Button
-          className="hidden sm:flex w-10 h-10 bg-primary border border-outline-secondary text-foreground fixed bottom-4 left-4 rounded-lg  justify-center items-center"
-          onPress={() =>
-            setState((prevState) => (prevState === "hover" ? "fixed" : "hover"))
-          }
+          className="z-[9999] hidden sm:flex w-10 h-10 bg-primary border border-outline-secondary text-foreground fixed bottom-4 left-4 rounded-lg  justify-center items-center transition-all duration-300 pressed:scale-95 hover:scale-110"
+          onPress={() => {
+            setState((prevState) =>
+              prevState === "hover" ? "fixed" : "hover"
+            );
+            setSidebar(true);
+          }}
         >
           <SidebarIcon className="w-6 h-6" />
         </Button>
@@ -184,7 +226,7 @@ function SidebarFooter({
   return (
     <div className="text-foreground w-full h-12 flex justify-end px-4">
       <Button
-        className="outline-none"
+        className="outline-none hover:scale-110 hover:bg-secondary size-max p-2 rounded-lg pressed:scale-95 transition-all duration-300 hover:border border-outline-secondary"
         onPress={() =>
           setState((state) => (state === "fixed" ? "hover" : "fixed"))
         }
