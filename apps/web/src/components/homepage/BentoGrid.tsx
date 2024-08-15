@@ -48,8 +48,9 @@ export function BentoGrid() {
               <span className="group-data-[visible=true]/bento-card:text-green-500 group-data-[visible=true]/bento-card:underline  group-hover/bento-card:text-green-500 group-hover/bento-card:underline underline-offset-2 transition-all duration-200 delay-300 ">
                 copy and paste
               </span>{" "}
-              any component you like, and then customize it customize it as you
-              wish. It's as easy as that!
+              {
+                "any component you like, and then customize it customize it as you wish. It's as easy as that!"
+              }
             </p>
           </div>
         </BentoCard>

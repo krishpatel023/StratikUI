@@ -8,7 +8,7 @@ export default function Imports() {
           <span className="text-red-400 ">import</span>
           <span className="">Everything</span>
           <span className="text-red-400 ">from</span>
-          <span className="text-blue-300">'something'</span>
+          <span className="text-blue-300">{"'something'"}</span>
         </div>
         <div className="absolute flex justify-start items-center h-full bg-background -right-6 w-6 group-data-[visible=true]/bento-card:w-[calc(100%+2rem)] group-hover/bento-card:w-[calc(100%+2rem)] transition-all duration-[2000ms]">
           <Cursor className="w-6 h-6 group-data-[visible=true]/bento-card:scale-150  group-hover/bento-card:scale-150 transition-all duration-300" />

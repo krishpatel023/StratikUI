@@ -466,7 +466,7 @@ export function generateSidebar() {
   const sideBarPath = path.join(targetDir, "generated-sidebar.ts");
 
   const writeData =
-    'import {SidebarProps} from "@/data/Sidebar"' +
+    'import {SidebarProps} from "../Sidebar";' +
     "\n\n" +
     "const sidebar: SidebarProps = " +
     JSON.stringify(sidebar, null, 2) +

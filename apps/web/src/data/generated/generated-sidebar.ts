@@ -1,4 +1,4 @@
-import { SidebarProps } from "@/data/Sidebar";
+import { SidebarProps } from "../Sidebar";
 
 const sidebar: SidebarProps = [
   {

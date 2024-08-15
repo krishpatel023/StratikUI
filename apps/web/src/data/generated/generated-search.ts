@@ -1,4 +1,4 @@
-import { SearchProps } from "@/data/Search";
+import { SearchProps } from "../Search";
 
 const Search: SearchProps = [
   {

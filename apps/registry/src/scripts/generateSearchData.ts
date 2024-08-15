@@ -329,7 +329,7 @@ export function generateSearch() {
   const SearchPath = path.join(targetDir, "generated-search.ts");
 
   const writeData =
-    'import {SearchProps} from "@/data/Search"' +
+    'import { SearchProps } from "../Search";' +
     "\n\n" +
     "const Search: SearchProps = " +
     JSON.stringify(SearchData, null, 2) +

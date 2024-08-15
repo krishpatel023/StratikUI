@@ -1,7 +1,5 @@
 import { Fragment } from "react";
-
-import React from "react";
-import { IconProps } from "@/utils/constants";
+import { IconProps } from "../../utils/constants";
 
 const Icons = {
   tailwindcss: (props: IconProps) => (
