@@ -1,94 +1,58 @@
 "use client";
-import { FlattenedItem } from "@/scripts/FlattenData";
-import { useMemo } from "react";
 
-type SearchOptions = {
-  limit?: number;
+import { useState } from "react";
+import Fuse from "fuse.js";
+import SearchData, { SearchProps } from "@/data/Search";
+
+type UseSearchResult = {
+  isLoading: boolean;
+  message: { state: "error" | "success" | "default"; msg: string } | null;
+  search: (query: string) => void;
+  results: SearchProps;
 };
 
-const calculateRelevance = (query: string, text: string): number => {
-  const queryWords = query
-    .toLowerCase()
-    .split(" ")
-    .filter((item) => item !== "");
-  const textWords = text
-    .toLowerCase()
-    .split(" ")
-    .filter((item) => item !== "");
+const DEFAULTS = {
+  resultLimit: 6,
+};
 
-  let relevance = 0;
-  let consecutiveMatchCount = 0;
-  let lastMatchedIndex = -1;
+const options = {
+  includeScore: true,
+  keys: [
+    { name: "name", weight: 1 },
+    { name: "description", weight: 0.5 },
+    { name: "tags", weight: 1 },
+  ],
+  threshold: 0.4,
+};
 
-  for (let i = 0; i < textWords.length; i++) {
-    const word = textWords[i];
-    let partialMatch = false;
+export const useSearch = (): UseSearchResult => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [message, setMessage] = useState<UseSearchResult["message"]>(null);
+  const [results, setResults] = useState<SearchProps>([]);
 
-    for (const queryWord of queryWords) {
-      if (word.startsWith(queryWord)) {
-        relevance += 10; // Base relevance score for each matched word
-        partialMatch = true;
+  const fuse = new Fuse(SearchData, options);
 
-        if (i === lastMatchedIndex + 1) {
-          consecutiveMatchCount++;
-          relevance += consecutiveMatchCount * 2; // Bonus score for consecutive matches
-        } else {
-          consecutiveMatchCount = 1;
-        }
+  const search = (query: string) => {
+    // Set loading state to true before search is executed
+    setIsLoading(true);
+    setMessage(null);
+    setResults([]);
 
-        lastMatchedIndex = i;
-        break;
-      }
+    // Search Logic
+    const results = fuse.search(query);
+    const items = results.map((result) => result.item);
+    setResults(items.slice(0, DEFAULTS.resultLimit));
+    if (items.length === 0) {
+      setMessage({ state: "default", msg: "No results found." });
+    } else {
+      setMessage({
+        state: "success",
+        msg: "Found " + items.length + " results.",
+      });
     }
+    // Set loading state to false after search is complete
+    setIsLoading(false);
+  };
 
-    if (!partialMatch) {
-      consecutiveMatchCount = 0;
-      lastMatchedIndex = -1;
-    }
-  }
-
-  return relevance;
-};
-
-const calculateTotalRelevance = (
-  query: string,
-  name: string,
-  description: string
-): number => {
-  const nameScore = calculateRelevance(query, name);
-  const descriptionScore = calculateRelevance(query, description) / 2; // Description has half the weight
-  return nameScore + descriptionScore;
-};
-
-export const useSearch = (
-  query: string | null,
-  data: FlattenedItem[],
-  options?: SearchOptions
-): FlattenedItem[] => {
-  const memoizedData = useMemo(() => data, [data]);
-
-  if (!query || !query.trim()) return [];
-
-  const lowerCaseQuery = query.toLowerCase();
-  const resultsWithRelevance = memoizedData.map((item) => {
-    const { name, description } = item;
-    const relevance = calculateTotalRelevance(
-      lowerCaseQuery,
-      name,
-      description
-    );
-    return { ...item, relevance };
-  });
-
-  const filteredResults = resultsWithRelevance.filter(
-    (item) => item.relevance > 0
-  );
-  const sortedResults = filteredResults.sort(
-    (a, b) => b.relevance - a.relevance
-  );
-
-  const limit = options?.limit || Infinity;
-  const limitedResults = sortedResults.slice(0, limit);
-
-  return limitedResults;
+  return { results, isLoading, message, search };
 };
