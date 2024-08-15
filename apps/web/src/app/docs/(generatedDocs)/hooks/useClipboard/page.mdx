@@ -1,0 +1,188 @@
+import React, { Suspense, lazy } from 'react';
+import { Display, TechnologyUsed, Wrapper, Skeleton, Title, Details, Provider } from "@/components/mdx/MDXServerImports"
+import { CodeBlock } from "@/components/mdx/MDXClientImports"
+
+{/*
+// ------------------------------------------------------------------------------------
+    //	The text below is generated from "@/registry/hooks/useClipboard/01"
+//------------------------------------------------------------------------------------
+*/}
+
+<Wrapper>
+<Title>useClipboard</Title>
+### The useClipboard hook makes it easy to use clipboard with its two functions - copy and read.
+
+<CodeBlock>
+
+```default|js|example.jsx
+"use client";
+
+import { useState } from "react";
+import useClipboard from "@registry/packages/hooks/useClipboard/01/default-js/useClipboard";
+import Button from "@registry/ui/Button";
+import Message from "@registry/ui/Message";
+
+export default function UseClipboardExample() {
+  const { copy, read } = useClipboard();
+
+  const [value, setValue] = useState("Hello, World!");
+
+  const handleCopy = () => {
+    copy("Hello, World!");
+  };
+
+  const handleRead = async () => {
+    const text = await read();
+    if (text) setValue(text);
+  };
+
+  return (
+    <div className="text-foreground flex flex-col justify-center items-center gap-8 px-8">
+      <div className="flex gap-4">
+        <Button onPress={handleCopy}>Copy</Button>
+        <Button onPress={handleRead}>Read</Button>
+      </div>
+
+      <h1 className="text-2xl underline">Copied Value</h1>
+      <Message>
+        First Press Copy or copy anything you want and then press the read
+        button.
+      </Message>
+      <p>{value}</p>
+    </div>
+  );
+}
+
+```
+
+```default|js|useClipboard.jsx
+"use client";
+
+export default function useClipboard() {
+  const copy = async (text, callback) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      if (callback) callback();
+    } catch (err) {
+      console.error("Failed to write to clipboard", err);
+    }
+  };
+
+  const read = async () => {
+    try {
+      const text = await navigator.clipboard.readText();
+      return text;
+    } catch (err) {
+      console.error("Failed to read clipboard contents", err);
+    }
+  };
+
+  return {
+    copy,
+    read,
+  };
+}
+
+```
+
+```default|ts|example.tsx
+"use client";
+
+import { useState } from "react";
+import useClipboard from "./useClipboard";
+import Button from "@registry/ui/Button";
+import Message from "@registry/ui/Message";
+
+export default function UseClipboardExample() {
+  const { copy, read } = useClipboard();
+
+  const [value, setValue] = useState("Hello, World!");
+
+  const handleCopy = () => {
+    copy("Hello, World!");
+  };
+
+  const handleRead = async () => {
+    const text = await read();
+    if (text) setValue(text);
+  };
+
+  return (
+    <div className="text-foreground flex flex-col justify-center items-center gap-8 px-8">
+      <div className="flex gap-4">
+        <Button onPress={handleCopy}>Copy</Button>
+        <Button onPress={handleRead}>Read</Button>
+      </div>
+
+      <div className="text-center flex flex-col gap-2">
+        <h1 className="text-2xl underline">Copied Value</h1>
+        <Message>
+          First Press Copy or copy anything you want and then press the read
+          button.
+        </Message>
+      </div>
+      <p>{value}</p>
+    </div>
+  );
+}
+
+```
+
+```default|ts|useClipboard.tsx
+"use client";
+
+export default function useClipboard() {
+  const copy = async (text: string, callback?: () => void) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      if (callback) callback();
+    } catch (err) {
+      console.error("Failed to write to clipboard", err);
+    }
+  };
+
+  const read = async () => {
+    try {
+      const text = await navigator.clipboard.readText();
+      return text;
+    } catch (err) {
+      console.error("Failed to read clipboard contents", err);
+    }
+  };
+
+  return {
+    copy,
+    read,
+  };
+}
+
+```
+
+</CodeBlock>
+<Details>
+
+
+## Functions Table
+
+| Name | Parameters                              | Description                                                                              |
+| ---- | --------------------------------------- | ---------------------------------------------------------------------------------------- |
+| copy | `text: string`, `callback?: () => void` | Copies the provided text to the clipboard and optionally executes a callback on success. |
+| read | -                                       | Reads and returns the current text from the clipboard.                                   |
+
+## Parameters Table for `copy`
+
+| Name     | Type         | Default | Description                                                       |
+| -------- | ------------ | ------- | ----------------------------------------------------------------- |
+| text     | `string`     | -       | The text to be copied to the clipboard.                           |
+| callback | `() => void` | -       | Optional function to execute after successfully copying the text. |
+
+</Details>
+export const Hooks_useclipboard_01 = lazy(() => import("@registry/packages/hooks/useClipboard/01/default-ts/example"));
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+<Hooks_useclipboard_01 />
+</Display>
+</Suspense>
+
+</Wrapper>

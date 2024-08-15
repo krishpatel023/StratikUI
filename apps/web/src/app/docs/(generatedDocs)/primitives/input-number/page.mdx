@@ -1,0 +1,709 @@
+import React, { Suspense, lazy } from 'react';
+import { Implementation, Preview, WrapperToggle, Display, TechnologyUsed, Wrapper, Skeleton, PARTITION, Details, Provider, Title } from "@/components/mdx/MDXServerImports"
+import { CodeBlock } from "@/components/mdx/MDXClientImports"
+
+{/*
+// ------------------------------------------------------------------------------------
+    //	The text below is generated from "@/registry/primitives/input-number/01"
+//------------------------------------------------------------------------------------
+*/}
+
+<Wrapper>
+<Title>Default Input Number</Title>
+### A number field allows a user to enter a number, and increment or decrement the value using stepper buttons. There are various formats for the number, such as currency, percentage, or decimal.
+
+<WrapperToggle >
+<Preview>
+
+export const Primitives_input_number_01 = lazy(() => import("@registry/packages/primitives/input-number/01/react_aria-ts/example"));
+
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+<Primitives_input_number_01 />
+</Display>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+<TechnologyUsed technologies={["tailwind-merge","react-aria-components"]} />
+<CodeBlock>
+
+```react_aria|js|example.jsx
+import ArrowHeading from "@registry/ui/ArrowHeading";
+import { InputNumber } from "@registry/packages/primitives/input-number/01/react_aria-js/InputNumber";
+
+export default function InputImplementation() {
+  return (
+    <div className="w-full flex flex-col justify-center items-center gap-8">
+      <ArrowHeading text="Default Usage" />
+      <InputNumber
+        placeholder="Enter a value"
+        label="Label"
+        description="This is a description"
+      />
+      <ArrowHeading text="Default Usage with showButtons false" />
+      <InputNumber
+        placeholder="Enter a value"
+        label="Label"
+        description="This is a description"
+        showButtons={false}
+      />
+      <ArrowHeading text=" Usage with different format." />
+      <InputNumber
+        placeholder="Enter a value"
+        label="Price"
+        description="Choose the amount you want to pay"
+        formatOptions={{
+          style: "currency",
+          currency: "USD",
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }}
+      />
+    </div>
+  );
+}
+
+```
+
+```react_aria|js|InputNumber.jsx
+"use client";
+import {
+  Button,
+  FieldError,
+  Group,
+  Input,
+  Label,
+  NumberField,
+  Text,
+} from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+
+export const InputNumber = ({
+  label,
+  description,
+  errorMessage,
+  placeholder,
+  className,
+  showButtons = true,
+  ...props
+}) => {
+  return (
+    <NumberField {...props}>
+      <Label className="text-secondary-foreground">{label}</Label>
+      <Group
+        className={twMerge(
+          "border border-outline-secondary flex rounded h-10 text-foreground mb-1",
+          "focus-within:outline-2 focus-within:outline-primary",
+          className
+        )}
+      >
+        <Button
+          slot="decrement"
+          className={twMerge(
+            "px-2 border-r border-outline-secondary rounded-l-[inherit]",
+            !showButtons && "hidden"
+          )}
+          aria-hidden={!showButtons}
+        >
+          <Icons.minus className="h-4 w-4 m-auto" />
+        </Button>
+        <Input
+          placeholder={placeholder}
+          className={twMerge(
+            "focus:outline-none py-1 px-2 bg-transparent placeholder:text-secondary-foreground",
+            !showButtons && "rounded"
+          )}
+        />
+        <Button
+          slot="increment"
+          className={twMerge(
+            "px-2 border-l border-outline-secondary rounded-r-[inherit]",
+            !showButtons && "hidden"
+          )}
+          aria-hidden={!showButtons}
+        >
+          <Icons.plus className="h-4 w-4 m-auto" />
+        </Button>
+      </Group>
+      {description && (
+        <Text slot="description" className="text-secondary-foreground text-sm">
+          {description}
+        </Text>
+      )}
+      <FieldError className="text-error text-sm">{errorMessage}</FieldError>
+    </NumberField>
+  );
+};
+
+const Icons = {
+  plus: (props) => (
+    <svg
+      height="200"
+      width="200"
+      viewBox="0 0 16 16"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M8.25 3a.5.5 0 0 1 .5.5v3.75h3.75a.5.5 0 0 1 .5.5v.5a.5.5 0 0 1-.5.5H8.75v3.75a.5.5 0 0 1-.5.5h-.5a.5.5 0 0 1-.5-.5V8.75H3.5a.5.5 0 0 1-.5-.5v-.5a.5.5 0 0 1 .5-.5h3.75V3.5a.5.5 0 0 1 .5-.5z"
+        fill="currentColor"
+      />
+    </svg>
+  ),
+  minus: (props) => (
+    <svg
+      height="200"
+      width="200"
+      viewBox="0 0 16 16"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <rect
+        height="1.5"
+        width="10"
+        fill="currentColor"
+        rx=".5"
+        x="3"
+        y="7.25"
+      />
+    </svg>
+  ),
+};
+
+```
+
+```react_aria|ts|example.tsx
+import ArrowHeading from "@registry/ui/ArrowHeading";
+import { InputNumber } from "@registry/packages/primitives/input-number/01/react_aria-ts/InputNumber";
+
+export default function InputImplementation() {
+  return (
+    <div className="w-full flex flex-col justify-center items-center gap-8">
+      <ArrowHeading text="Default Usage" />
+      <InputNumber
+        placeholder="Enter a value"
+        label="Label"
+        description="This is a description"
+      />
+      <ArrowHeading text="Default Usage with showButtons false" />
+      <InputNumber
+        placeholder="Enter a value"
+        label="Label"
+        description="This is a description"
+        showButtons={false}
+      />
+      <ArrowHeading text=" Usage with different format." />
+      <InputNumber
+        placeholder="Enter a value"
+        label="Price"
+        description="Choose the amount you want to pay"
+        formatOptions={{
+          style: "currency",
+          currency: "USD",
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }}
+      />
+    </div>
+  );
+}
+
+```
+
+```react_aria|ts|InputNumber.tsx
+"use client";
+import { IconProps } from "@registry/utils/types";
+import {
+  Button,
+  FieldError,
+  Group,
+  Input,
+  Label,
+  NumberField,
+  NumberFieldProps,
+  Text,
+  ValidationResult,
+} from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+
+export interface NumberFieldPropsExtended extends NumberFieldProps {
+  label?: string;
+  description?: string;
+  errorMessage?: string | ((validation: ValidationResult) => string);
+  placeholder?: string;
+  showButtons?: boolean;
+}
+
+export const InputNumber = ({
+  label,
+  description,
+  errorMessage,
+  placeholder,
+  className,
+  showButtons = true,
+  ...props
+}: NumberFieldPropsExtended) => {
+  return (
+    <NumberField {...props}>
+      <Label className="text-secondary-foreground">{label}</Label>
+      <Group
+        className={twMerge(
+          "border border-outline-secondary flex rounded h-10 text-foreground mb-1",
+          "focus-within:outline-2 focus-within:outline-primary",
+          className as string
+        )}
+      >
+        <Button
+          slot="decrement"
+          className={twMerge(
+            "px-2 border-r border-outline-secondary rounded-l-[inherit]",
+            !showButtons && "hidden"
+          )}
+          aria-hidden={!showButtons}
+        >
+          <Icons.minus className="h-4 w-4 m-auto" />
+        </Button>
+        <Input
+          placeholder={placeholder}
+          className={twMerge(
+            "focus:outline-none py-1 px-2 bg-transparent placeholder:text-secondary-foreground",
+            !showButtons && "rounded"
+          )}
+        />
+        <Button
+          slot="increment"
+          className={twMerge(
+            "px-2 border-l border-outline-secondary rounded-r-[inherit]",
+            !showButtons && "hidden"
+          )}
+          aria-hidden={!showButtons}
+        >
+          <Icons.plus className="h-4 w-4 m-auto" />
+        </Button>
+      </Group>
+      {description && (
+        <Text slot="description" className="text-secondary-foreground text-sm">
+          {description}
+        </Text>
+      )}
+      <FieldError className="text-error text-sm">{errorMessage}</FieldError>
+    </NumberField>
+  );
+};
+
+const Icons = {
+  plus: (props: IconProps) => (
+    <svg
+      height="200"
+      width="200"
+      viewBox="0 0 16 16"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M8.25 3a.5.5 0 0 1 .5.5v3.75h3.75a.5.5 0 0 1 .5.5v.5a.5.5 0 0 1-.5.5H8.75v3.75a.5.5 0 0 1-.5.5h-.5a.5.5 0 0 1-.5-.5V8.75H3.5a.5.5 0 0 1-.5-.5v-.5a.5.5 0 0 1 .5-.5h3.75V3.5a.5.5 0 0 1 .5-.5z"
+        fill="currentColor"
+      />
+    </svg>
+  ),
+  minus: (props: IconProps) => (
+    <svg
+      height="200"
+      width="200"
+      viewBox="0 0 16 16"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <rect
+        height="1.5"
+        width="10"
+        fill="currentColor"
+        rx=".5"
+        x="3"
+        y="7.25"
+      />
+    </svg>
+  ),
+};
+
+```
+
+</CodeBlock>
+<Details>
+
+<Provider tag="react_aria">
+## InputNumber Props
+
+| Name         | Type                                                   | Default | Description                                                                               |
+| ------------ | ------------------------------------------------------ | ------- | ----------------------------------------------------------------------------------------- |
+| label        | `string`                                               | -       | The label for the number input field.                                                     |
+| description  | `string`                                               | -       | A description or helper text displayed below the input field.                             |
+| errorMessage | `string \| ((validation: ValidationResult) => string)` | -       | The error message displayed when validation fails.                                        |
+| placeholder  | `string`                                               | -       | The placeholder text for the input field.                                                 |
+| className    | `string`                                               | -       | Additional CSS classes for custom styling of the input group.                             |
+| showButtons  | `boolean`                                              | `true`  | Determines whether the increment and decrement buttons are displayed.                     |
+| ...props     | `NumberFieldProps`                                     | -       | Additional props for the underlying `NumberField` component from `react-aria-components`. |
+
+Checkout the official documentation of [React Aria NumberField](https://react-spectrum.adobe.com/react-aria/NumberField.html) for more information.
+
+</Provider>
+
+</Details>
+</Implementation>
+</WrapperToggle>
+</Wrapper>
+
+{/*
+// ------------------------------------------------------------------------------------
+    //	The text below is generated from "@/registry/primitives/input-number/02"
+//------------------------------------------------------------------------------------
+*/}
+
+<Wrapper>
+<Title>Input Number</Title>
+### A number field allows a user to enter a number, and increment or decrement the value using stepper buttons. There are various formats for the number, such as currency, percentage, or decimal.
+
+<WrapperToggle >
+<Preview>
+
+export const Primitives_input_number_02 = lazy(() => import("@registry/packages/primitives/input-number/02/react_aria-ts/example"));
+
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+<Primitives_input_number_02 />
+</Display>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+<TechnologyUsed technologies={["tailwind-merge","react-aria-components"]} />
+<CodeBlock>
+
+```react_aria|js|example.jsx
+import ArrowHeading from "@registry/ui/ArrowHeading";
+import { InputNumber } from "@registry/packages/primitives/input-number/02/react_aria-js/InputNumber";
+
+export default function InputImplementation() {
+  return (
+    <div className="w-full flex flex-col justify-center items-center gap-8">
+      <ArrowHeading text="Default Usage" />
+      <InputNumber
+        placeholder="Enter a value"
+        label="Label"
+        description="This is a description"
+      />
+      <ArrowHeading text="Default Usage with showButtons false" />
+      <InputNumber
+        placeholder="Enter a value"
+        label="Label"
+        description="This is a description"
+        showButtons={false}
+      />
+      <ArrowHeading text=" Usage with different format." />
+      <InputNumber
+        placeholder="Enter a value"
+        label="Price"
+        description="Choose the amount you want to pay"
+        formatOptions={{
+          style: "currency",
+          currency: "USD",
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }}
+      />
+    </div>
+  );
+}
+
+```
+
+```react_aria|js|InputNumber.jsx
+"use client";
+import {
+  Button,
+  FieldError,
+  Group,
+  Input,
+  Label,
+  NumberField,
+  Text,
+} from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+
+export const InputNumber = ({
+  label,
+  description,
+  errorMessage,
+  placeholder,
+  className,
+  showButtons = true,
+  ...props
+}) => {
+  return (
+    <NumberField {...props}>
+      <Label className="text-secondary-foreground">{label}</Label>
+      <Group
+        className={twMerge(
+          "border border-outline-secondary flex rounded h-10 text-foreground mb-1",
+          "focus-within:outline-2 focus-within:outline-primary",
+          className
+        )}
+      >
+        <Input
+          placeholder={placeholder}
+          className={twMerge(
+            "focus:outline-none py-1 px-2 bg-transparent placeholder:text-secondary-foreground",
+            !showButtons && "rounded"
+          )}
+        />
+        <Group
+          className={twMerge(
+            "flex flex-col border-l border-outline-secondary",
+            !showButtons && "hidden"
+          )}
+          aria-hidden={!showButtons}
+        >
+          <Button
+            slot="increment"
+            className="h-1/2 px-2 border-b border-outline-secondary rounded-r-[inherit]"
+            aria-hidden={!showButtons}
+          >
+            <Icons.plus className="h-4 w-4 m-auto" />
+          </Button>
+          <Button
+            slot="decrement"
+            className="h-1/2 px-2  rounded-r-[inherit]"
+            aria-hidden={!showButtons}
+          >
+            <Icons.minus className="h-4 w-4 m-auto" />
+          </Button>
+        </Group>
+      </Group>
+      {description && (
+        <Text slot="description" className="text-secondary-foreground text-sm">
+          {description}
+        </Text>
+      )}
+      <FieldError className="text-error text-sm">{errorMessage}</FieldError>
+    </NumberField>
+  );
+};
+
+const Icons = {
+  plus: (props) => (
+    <svg
+      height="200"
+      width="200"
+      viewBox="0 0 20 20"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M10.707 7.05L10 6.343L4.343 12l1.414 1.414L10 9.172l4.243 4.242L15.657 12z"
+        fill="currentColor"
+      />
+    </svg>
+  ),
+  minus: (props) => (
+    <svg
+      height="200"
+      width="200"
+      viewBox="0 0 20 20"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="m9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828L5.757 6.586L4.343 8z"
+        fill="currentColor"
+      />
+    </svg>
+  ),
+};
+
+```
+
+```react_aria|ts|example.tsx
+import ArrowHeading from "@registry/ui/ArrowHeading";
+import { InputNumber } from "@registry/packages/primitives/input-number/02/react_aria-ts/InputNumber";
+
+export default function InputImplementation() {
+  return (
+    <div className="w-full flex flex-col justify-center items-center gap-8">
+      <ArrowHeading text="Default Usage" />
+      <InputNumber
+        placeholder="Enter a value"
+        label="Label"
+        description="This is a description"
+      />
+      <ArrowHeading text="Default Usage with showButtons false" />
+      <InputNumber
+        placeholder="Enter a value"
+        label="Label"
+        description="This is a description"
+        showButtons={false}
+      />
+      <ArrowHeading text=" Usage with different format." />
+      <InputNumber
+        placeholder="Enter a value"
+        label="Price"
+        description="Choose the amount you want to pay"
+        formatOptions={{
+          style: "currency",
+          currency: "USD",
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }}
+      />
+    </div>
+  );
+}
+
+```
+
+```react_aria|ts|InputNumber.tsx
+"use client";
+import { IconProps } from "@registry/utils/types";
+import {
+  Button,
+  FieldError,
+  Group,
+  Input,
+  Label,
+  NumberField,
+  NumberFieldProps,
+  Text,
+  ValidationResult,
+} from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+
+export interface NumberFieldPropsExtended extends NumberFieldProps {
+  label?: string;
+  description?: string;
+  errorMessage?: string | ((validation: ValidationResult) => string);
+  placeholder?: string;
+  showButtons?: boolean;
+}
+
+export const InputNumber = ({
+  label,
+  description,
+  errorMessage,
+  placeholder,
+  className,
+  showButtons = true,
+  ...props
+}: NumberFieldPropsExtended) => {
+  return (
+    <NumberField {...props}>
+      <Label className="text-secondary-foreground">{label}</Label>
+      <Group
+        className={twMerge(
+          "border border-outline-secondary flex rounded h-10 text-foreground mb-1",
+          "focus-within:outline-2 focus-within:outline-primary",
+          className as string
+        )}
+      >
+        <Input
+          placeholder={placeholder}
+          className={twMerge(
+            "focus:outline-none py-1 px-2 bg-transparent placeholder:text-secondary-foreground",
+            !showButtons && "rounded"
+          )}
+        />
+        <Group
+          className={twMerge(
+            "flex flex-col border-l border-outline-secondary",
+            !showButtons && "hidden"
+          )}
+          aria-hidden={!showButtons}
+        >
+          <Button
+            slot="increment"
+            className="h-1/2 px-2 border-b border-outline-secondary rounded-r-[inherit]"
+            aria-hidden={!showButtons}
+          >
+            <Icons.plus className="h-4 w-4 m-auto" />
+          </Button>
+          <Button
+            slot="decrement"
+            className="h-1/2 px-2  rounded-r-[inherit]"
+            aria-hidden={!showButtons}
+          >
+            <Icons.minus className="h-4 w-4 m-auto" />
+          </Button>
+        </Group>
+      </Group>
+      {description && (
+        <Text slot="description" className="text-secondary-foreground text-sm">
+          {description}
+        </Text>
+      )}
+      <FieldError className="text-error text-sm">{errorMessage}</FieldError>
+    </NumberField>
+  );
+};
+
+const Icons = {
+  plus: (props: IconProps) => (
+    <svg
+      height="200"
+      width="200"
+      viewBox="0 0 20 20"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M10.707 7.05L10 6.343L4.343 12l1.414 1.414L10 9.172l4.243 4.242L15.657 12z"
+        fill="currentColor"
+      />
+    </svg>
+  ),
+  minus: (props: IconProps) => (
+    <svg
+      height="200"
+      width="200"
+      viewBox="0 0 20 20"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="m9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828L5.757 6.586L4.343 8z"
+        fill="currentColor"
+      />
+    </svg>
+  ),
+};
+
+```
+
+</CodeBlock>
+<Details>
+
+<Provider tag="react_aria">
+## InputNumber Props
+
+| Name         | Type                                                   | Default | Description                                                                               |
+| ------------ | ------------------------------------------------------ | ------- | ----------------------------------------------------------------------------------------- |
+| label        | `string`                                               | -       | The label for the number input field.                                                     |
+| description  | `string`                                               | -       | A description or helper text displayed below the input field.                             |
+| errorMessage | `string \| ((validation: ValidationResult) => string)` | -       | The error message displayed when validation fails.                                        |
+| placeholder  | `string`                                               | -       | The placeholder text for the input field.                                                 |
+| className    | `string`                                               | -       | Additional CSS classes for custom styling of the input group.                             |
+| showButtons  | `boolean`                                              | `true`  | Determines whether the increment and decrement buttons are displayed.                     |
+| ...props     | `NumberFieldProps`                                     | -       | Additional props for the underlying `NumberField` component from `react-aria-components`. |
+
+Checkout the official documentation of [React Aria NumberField](https://react-spectrum.adobe.com/react-aria/NumberField.html) for more information.
+
+</Provider>
+
+</Details>
+</Implementation>
+</WrapperToggle>
+</Wrapper>

@@ -1,0 +1,280 @@
+import React, { Suspense, lazy } from 'react';
+import { Implementation, Preview, WrapperToggle, Display, TechnologyUsed, Wrapper, Skeleton, PARTITION, Details, Provider, Title } from "@/components/mdx/MDXServerImports"
+import { CodeBlock } from "@/components/mdx/MDXClientImports"
+
+{/*
+// ------------------------------------------------------------------------------------
+    //	The text below is generated from "@/registry/primitives/tooltip/01"
+//------------------------------------------------------------------------------------
+*/}
+
+<Wrapper>
+<Title>Tooltip</Title>
+### The tooltip component enhances user interaction by providing contextual information when hovering over or focusing on an element.
+
+<WrapperToggle >
+<Preview>
+
+export const Primitives_tooltip_01 = lazy(() => import("@registry/packages/primitives/tooltip/01/react_aria-ts/example"));
+
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+<Primitives_tooltip_01 />
+</Display>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+<TechnologyUsed technologies={["tailwind-merge","react-aria-components"]} />
+<CodeBlock>
+
+```react_aria|js|example.jsx
+import {
+  Tooltip,
+  TooltipTrigger,
+} from "@registry/packages/primitives/tooltip/01/react_aria-js/Tooltip";
+import Button from "@registry/ui/Button";
+
+export default function TooltipImplementation() {
+  return (
+    <div className="w-80 min-h-[30rem] mx-auto flex flex-col justify-center items-center gap-10">
+      <TooltipTrigger delay={0}>
+        <Button>Hover Me</Button>
+        <Tooltip>
+          <h1>This is a tooltip message</h1>
+        </Tooltip>
+      </TooltipTrigger>
+
+      <TooltipTrigger delay={0}>
+        <Button>Hover Me</Button>
+        <Tooltip placement="right">
+          <h1>
+            This is a tooltip message to demonstrate it can deal with long text
+            messages easily. Making this message a little bit longer.
+          </h1>
+        </Tooltip>
+      </TooltipTrigger>
+
+      <TooltipTrigger delay={0}>
+        <Button>Hover Me</Button>
+        <Tooltip placement="left">
+          <h1>This is a tooltip</h1>
+        </Tooltip>
+      </TooltipTrigger>
+
+      <TooltipTrigger delay={0}>
+        <Button>Hover Me</Button>
+        <Tooltip placement="bottom">
+          <h1>
+            This is a tooltip message to demonstrate it can deal with long text
+            messages easily. Making this message a little bit longer.
+          </h1>
+        </Tooltip>
+      </TooltipTrigger>
+    </div>
+  );
+}
+
+```
+
+```react_aria|js|Tooltip.jsx
+"use client";
+
+import {
+  OverlayArrow as OverlayArrowAria,
+  Tooltip as TooltipAria,
+  TooltipTrigger as TooltipTriggerAria,
+} from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+
+export const TooltipTrigger = TooltipTriggerAria;
+
+export function OverlayArrow({ position = "top", ...props }) {
+  return (
+    <OverlayArrowAria {...props}>
+      <svg
+        width={8}
+        height={8}
+        viewBox="0 0 8 8"
+        className={twMerge(
+          position?.split(" ")[0] === "bottom" && "rotate-180",
+          position?.split(" ")[0] === "left" && "-rotate-90",
+          position?.split(" ")[0] === "right" && "rotate-90"
+        )}
+      >
+        <path
+          d="M0 0 L4 4 L8 0"
+          className="fill-primary stroke-outline-secondary"
+        />
+      </svg>
+    </OverlayArrowAria>
+  );
+}
+
+export function Tooltip({ children, className, ...props }) {
+  return (
+    <TooltipAria
+      className={twMerge(
+        "p-2 rounded border border-outline-secondary bg-primary text-primary-foreground text-sm",
+        !props.placement?.split(" ")[0] && "mb-2",
+        props.placement?.split(" ")[0] === "top" && "mb-2",
+        props.placement?.split(" ")[0] === "bottom" && "mt-2",
+        props.placement?.split(" ")[0] === "left" && "mr-2",
+        props.placement?.split(" ")[0] === "right" && "ml-2",
+        className
+      )}
+      {...props}
+    >
+      <>
+        <OverlayArrow position={props.placement} />
+        {children}
+      </>
+    </TooltipAria>
+  );
+}
+
+```
+
+```react_aria|ts|example.tsx
+import {
+  Tooltip,
+  TooltipTrigger,
+} from "@registry/packages/primitives/tooltip/01/react_aria-ts/Tooltip";
+import Button from "@registry/ui/Button";
+
+export default function TooltipImplementation() {
+  return (
+    <div className="w-80 min-h-[30rem] mx-auto flex flex-col justify-center items-center gap-10">
+      <TooltipTrigger delay={0}>
+        <Button>Hover Me</Button>
+        <Tooltip>
+          <h1>This is a tooltip message</h1>
+        </Tooltip>
+      </TooltipTrigger>
+
+      <TooltipTrigger delay={0}>
+        <Button>Hover Me</Button>
+        <Tooltip placement="right">
+          <h1>
+            This is a tooltip message to demonstrate it can deal with long text
+            messages easily. Making this message a little bit longer.
+          </h1>
+        </Tooltip>
+      </TooltipTrigger>
+
+      <TooltipTrigger delay={0}>
+        <Button>Hover Me</Button>
+        <Tooltip placement="left">
+          <h1>This is a tooltip</h1>
+        </Tooltip>
+      </TooltipTrigger>
+
+      <TooltipTrigger delay={0}>
+        <Button>Hover Me</Button>
+        <Tooltip placement="bottom">
+          <h1>
+            This is a tooltip message to demonstrate it can deal with long text
+            messages easily. Making this message a little bit longer.
+          </h1>
+        </Tooltip>
+      </TooltipTrigger>
+    </div>
+  );
+}
+
+```
+
+```react_aria|ts|Tooltip.tsx
+"use client";
+
+import {
+  Button,
+  OverlayArrow as OverlayArrowAria,
+  OverlayArrowProps as OverlayArrowPropsAria,
+  Tooltip as TooltipAria,
+  TooltipProps,
+  TooltipTrigger as TooltipTriggerAria,
+} from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+
+export const TooltipTrigger = TooltipTriggerAria;
+
+export interface OverlayArrowProps extends OverlayArrowPropsAria {
+  position: TooltipProps["placement"];
+}
+
+export function OverlayArrow({
+  position = "top",
+  ...props
+}: OverlayArrowProps) {
+  return (
+    <OverlayArrowAria {...props}>
+      <svg
+        width={8}
+        height={8}
+        viewBox="0 0 8 8"
+        className={twMerge(
+          (position as string)?.split(" ")[0] === "bottom" && "rotate-180",
+          (position as string)?.split(" ")[0] === "left" && "-rotate-90",
+          (position as string)?.split(" ")[0] === "right" && "rotate-90"
+        )}
+      >
+        <path
+          d="M0 0 L4 4 L8 0"
+          className="fill-primary stroke-outline-secondary"
+        />
+      </svg>
+    </OverlayArrowAria>
+  );
+}
+
+export function Tooltip({ children, className, ...props }: TooltipProps) {
+  return (
+    <TooltipAria
+      className={twMerge(
+        "p-2 rounded border border-outline-secondary bg-primary text-primary-foreground text-sm",
+        !(props.placement as string)?.split(" ")[0] && "mb-2",
+        (props.placement as string)?.split(" ")[0] === "top" && "mb-2",
+        (props.placement as string)?.split(" ")[0] === "bottom" && "mt-2",
+        (props.placement as string)?.split(" ")[0] === "left" && "mr-2",
+        (props.placement as string)?.split(" ")[0] === "right" && "ml-2",
+        className as string
+      )}
+      {...props}
+    >
+      <>
+        <OverlayArrow position={props.placement} />
+        {children}
+      </>
+    </TooltipAria>
+  );
+}
+
+```
+
+</CodeBlock>
+<Details>
+
+
+## OverlayArrow Props
+
+| Name     | Type                        | Default | Description                                                                                         |
+| -------- | --------------------------- | ------- | --------------------------------------------------------------------------------------------------- |
+| position | `TooltipProps["placement"]` | `"top"` | The position of the tooltip relative to the trigger element, which affects the arrow's orientation. |
+| ...props | `OverlayArrowPropsAria`     | -       | Additional props to pass to the `OverlayArrowAria` component from `react-aria-components`.          |
+
+## Tooltip Props
+
+| Name      | Type              | Default | Description                                                                           |
+| --------- | ----------------- | ------- | ------------------------------------------------------------------------------------- |
+| className | `string`          | -       | Additional classes to apply to the tooltip.                                           |
+| children  | `React.ReactNode` | -       | The content to be displayed inside the tooltip.                                       |
+| ...props  | `TooltipProps`    | -       | Additional props to pass to the `TooltipAria` component from `react-aria-components`. |
+
+</Details>
+</Implementation>
+</WrapperToggle>
+</Wrapper>

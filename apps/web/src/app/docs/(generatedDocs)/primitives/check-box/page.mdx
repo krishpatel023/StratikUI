@@ -1,0 +1,150 @@
+import React, { Suspense, lazy } from 'react';
+import { Implementation, Preview, WrapperToggle, Display, TechnologyUsed, Wrapper, Skeleton, PARTITION, Details, Provider, Title } from "@/components/mdx/MDXServerImports"
+import { CodeBlock } from "@/components/mdx/MDXClientImports"
+
+{/*
+// ------------------------------------------------------------------------------------
+    //	The text below is generated from "@/registry/primitives/check-box/01"
+//------------------------------------------------------------------------------------
+*/}
+
+<Wrapper>
+<Title>Default Checkbox</Title>
+### A customizable checkbox component with built-in styles and animations for selected and focused states.
+
+<WrapperToggle >
+<Preview>
+
+export const Primitives_check_box_01 = lazy(() => import("@registry/packages/primitives/check-box/01/react_aria-ts/example"));
+
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+<Primitives_check_box_01 />
+</Display>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+<TechnologyUsed technologies={["tailwind-merge","react-aria-components"]} />
+<CodeBlock>
+
+```react_aria|js|CheckBox.jsx
+"use client";
+
+import { Checkbox as ReactAriaCheckbox } from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+
+export default function Checkbox({ children, className, ...props }) {
+  return (
+    <ReactAriaCheckbox
+      className={twMerge(
+        "group text-foreground hover:cursor-pointer flex gap-2 ",
+        className
+      )}
+      {...props}
+    >
+      <>
+        <div className="mt-[0.125rem] min-w-5 max-w-5 min-h-5 max-h-5 flex items-start justify-center border border-outline rounded group-data-[selected=true]:bg-accent group-data-[focused=true]:ring-2 group-data-[focused=true]:ring-accent transition-all duration-200">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 16 16"
+            aria-hidden="true"
+            className="w-full h-full fill-none group-data-[selected=true]:fill-accent-foreground"
+          >
+            <path
+              fillRule="evenodd"
+              d="M13.488 3.43a.75.75 0 0 1 .081 1.058l-6 7a.75.75 0 0 1-1.1.042l-3.5-3.5A.75.75 0 0 1 4.03 6.97l2.928 2.927l5.473-6.385a.75.75 0 0 1 1.057-.081Z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </div>
+        {children}
+      </>
+    </ReactAriaCheckbox>
+  );
+}
+
+```
+
+```react_aria|js|example.jsx
+import Checkbox from "@registry/packages/primitives/check-box/01/react_aria-js/CheckBox";
+
+export default function CheckboxExample() {
+  return <Checkbox> Checkbox </Checkbox>;
+}
+
+```
+
+```react_aria|ts|CheckBox.tsx
+"use client";
+
+import {
+  CheckboxProps,
+  Checkbox as ReactAriaCheckbox,
+} from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+
+export default function Checkbox({
+  children,
+  className,
+  ...props
+}: CheckboxProps) {
+  return (
+    <ReactAriaCheckbox
+      className={twMerge(
+        "group text-foreground hover:cursor-pointer flex gap-2 ",
+        className as string
+      )}
+      {...props}
+    >
+      <>
+        <div className="mt-[0.125rem] min-w-5 max-w-5 min-h-5 max-h-5 flex items-start justify-center border border-outline rounded group-data-[selected=true]:bg-accent group-data-[focused=true]:ring-2 group-data-[focused=true]:ring-accent transition-all duration-200">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 16 16"
+            aria-hidden="true"
+            className="w-full h-full fill-none group-data-[selected=true]:fill-accent-foreground"
+          >
+            <path
+              fillRule="evenodd"
+              d="M13.488 3.43a.75.75 0 0 1 .081 1.058l-6 7a.75.75 0 0 1-1.1.042l-3.5-3.5A.75.75 0 0 1 4.03 6.97l2.928 2.927l5.473-6.385a.75.75 0 0 1 1.057-.081Z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </div>
+        {children}
+      </>
+    </ReactAriaCheckbox>
+  );
+}
+
+```
+
+```react_aria|ts|example.tsx
+import Checkbox from "@registry/packages/primitives/check-box/01/react_aria-ts/CheckBox";
+
+export default function CheckboxExample() {
+  return <Checkbox> Checkbox </Checkbox>;
+}
+
+```
+
+</CodeBlock>
+<Details>
+
+
+## Checkbox Props
+
+| Name      | Type              | Default | Description                                                   |
+| --------- | ----------------- | ------- | ------------------------------------------------------------- |
+| children  | `React.ReactNode` | -       | The content displayed alongside the checkbox.                 |
+| className | `string`          | -       | Additional CSS classes for custom styling.                    |
+| ...props  | `CheckboxProps`   | -       | Props passed to the underlying `ReactAriaCheckbox` component. |
+
+</Details>
+</Implementation>
+</WrapperToggle>
+</Wrapper>

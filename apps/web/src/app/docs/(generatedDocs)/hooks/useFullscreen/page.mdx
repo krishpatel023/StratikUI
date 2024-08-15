@@ -1,0 +1,262 @@
+import React, { Suspense, lazy } from 'react';
+import { Display, TechnologyUsed, Wrapper, Skeleton, Title, Details, Provider } from "@/components/mdx/MDXServerImports"
+import { CodeBlock } from "@/components/mdx/MDXClientImports"
+
+{/*
+// ------------------------------------------------------------------------------------
+    //	The text below is generated from "@/registry/hooks/useFullscreen/01"
+//------------------------------------------------------------------------------------
+*/}
+
+<Wrapper>
+<Title>useFullscreen</Title>
+### The `useFullscreen` hook provides functionality for managing fullscreen mode in web applications. It allows you to request fullscreen mode for a specific element and exit fullscreen mode when needed. The hook also tracks whether the document is currently in fullscreen mode.
+
+<CodeBlock>
+
+```default|js|example.jsx
+"use client";
+
+import React, { useRef } from "react";
+import { useFullscreen } from "@registry/packages/hooks/useFullscreen/01/default-js/useFullscreen";
+import Button from "@registry/ui/Button";
+
+export default function UseFullscreenExample() {
+  const { isFullscreen, requestFullscreen, exitFullscreen } = useFullscreen();
+  const elementRef = useRef(null);
+
+  const handleEnterFullscreen = () => {
+    if (elementRef.current) {
+      requestFullscreen(elementRef.current);
+    }
+  };
+
+  return (
+    <div className="w-full h-80 flex flex-col justify-center items-center gap-8 text-foreground">
+      <div
+        ref={elementRef}
+        className="w-1/2 min-w-60 h-60 bg-secondary text-secondary-foreground flex flex-col justify-center items-center text-center gap-6"
+      >
+        <p>This content can be viewed in full-screen mode.</p>
+        <p>Fullscreen status: {isFullscreen ? "Enabled" : "Disabled"}</p>
+        <Button onPress={exitFullscreen}>Exit Fullscreen</Button>
+      </div>
+      <div className="flex gap-4">
+        <Button onPress={handleEnterFullscreen}>Enter Fullscreen</Button>
+      </div>
+    </div>
+  );
+}
+
+```
+
+```default|js|useFullscreen.jsx
+"use client";
+
+import { useState, useCallback, useEffect } from "react";
+
+export const useFullscreen = () => {
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  const requestFullscreen = useCallback((element) => {
+    if (element.requestFullscreen) {
+      element.requestFullscreen();
+    }
+    // This is for Safari
+    else if (element.webkitRequestFullscreen) {
+      element.webkitRequestFullscreen();
+    }
+    // This is for IE11
+    else if (element.msRequestFullscreen) {
+      element.msRequestFullscreen();
+    }
+  }, []);
+
+  const exitFullscreen = useCallback(() => {
+    if (
+      document.fullscreenElement ||
+      document.webkitFullscreenElement ||
+      document.msFullscreenElement
+    ) {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+      // This is for Safari
+      else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+      // This is for IE11
+      else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
+    }
+  }, []);
+
+  const handleFullscreenChange = useCallback(() => {
+    setIsFullscreen(!document.fullscreenElement);
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+    document.addEventListener("msfullscreenchange", handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      document.removeEventListener(
+        "webkitfullscreenchange",
+        handleFullscreenChange
+      );
+      document.removeEventListener(
+        "msfullscreenchange",
+        handleFullscreenChange
+      );
+    };
+  }, [handleFullscreenChange]);
+
+  return {
+    isFullscreen,
+    requestFullscreen,
+    exitFullscreen,
+  };
+};
+
+```
+
+```default|ts|example.tsx
+"use client";
+
+import React, { useRef } from "react";
+import { useFullscreen } from "@registry/packages/hooks/useFullscreen/01/default-ts/useFullscreen";
+import Button from "@registry/ui/Button";
+
+export default function UseFullscreenExample() {
+  const { isFullscreen, requestFullscreen, exitFullscreen } = useFullscreen();
+  const elementRef = useRef<HTMLDivElement>(null);
+
+  const handleEnterFullscreen = () => {
+    if (elementRef.current) {
+      requestFullscreen(elementRef.current);
+    }
+  };
+
+  return (
+    <div className="w-full h-80 flex flex-col justify-center items-center gap-8 text-foreground">
+      <div
+        ref={elementRef}
+        className="w-1/2 min-w-60 h-60 bg-secondary text-secondary-foreground flex flex-col justify-center items-center text-center gap-6"
+      >
+        <p>This content can be viewed in full-screen mode.</p>
+        <p>Fullscreen status: {isFullscreen ? "Enabled" : "Disabled"}</p>
+        <Button onPress={exitFullscreen}>Exit Fullscreen</Button>
+      </div>
+      <div className="flex gap-4">
+        <Button onPress={handleEnterFullscreen}>Enter Fullscreen</Button>
+      </div>
+    </div>
+  );
+}
+
+```
+
+```default|ts|useFullscreen.tsx
+"use client";
+
+import { useState, useCallback, useEffect } from "react";
+
+export const useFullscreen = () => {
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  const requestFullscreen = useCallback((element: HTMLElement) => {
+    if (element.requestFullscreen) {
+      element.requestFullscreen();
+    }
+    // This is for Safari
+    else if ((element as any).webkitRequestFullscreen) {
+      (element as any).webkitRequestFullscreen();
+    }
+    // This is for IE11
+    else if ((element as any).msRequestFullscreen) {
+      (element as any).msRequestFullscreen();
+    }
+  }, []);
+
+  const exitFullscreen = useCallback(() => {
+    if (
+      document.fullscreenElement ||
+      (document as any).webkitFullscreenElement ||
+      (document as any).msFullscreenElement
+    ) {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+      // This is for Safari
+      else if ((document as any).webkitExitFullscreen) {
+        (document as any).webkitExitFullscreen();
+      }
+      // This is for IE11
+      else if ((document as any).msExitFullscreen) {
+        (document as any).msExitFullscreen();
+      }
+    }
+  }, []);
+
+  const handleFullscreenChange = useCallback(() => {
+    setIsFullscreen(!document.fullscreenElement);
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+    document.addEventListener("msfullscreenchange", handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      document.removeEventListener(
+        "webkitfullscreenchange",
+        handleFullscreenChange
+      );
+      document.removeEventListener(
+        "msfullscreenchange",
+        handleFullscreenChange
+      );
+    };
+  }, [handleFullscreenChange]);
+
+  return {
+    isFullscreen,
+    requestFullscreen,
+    exitFullscreen,
+  };
+};
+
+```
+
+</CodeBlock>
+<Details>
+
+
+## Return Table
+
+| Name              | Type                             | Description                                                       |
+| ----------------- | -------------------------------- | ----------------------------------------------------------------- |
+| isFullscreen      | `boolean`                        | Indicates whether the document is currently in fullscreen mode.   |
+| requestFullscreen | `(element: HTMLElement) => void` | Requests fullscreen mode for a specified HTML element.            |
+| exitFullscreen    | `() => void`                     | Exits fullscreen mode if the document is currently in fullscreen. |
+
+### Key Features
+
+- **Cross-Browser Support**: The hook handles differences in the fullscreen API across various browsers, including support for WebKit and Internet Explorer 11.
+- **State Management**: The `isFullscreen` state reflects whether any element is currently in fullscreen mode, updating automatically when entering or exiting fullscreen.
+- **Event Handling**: The hook listens for fullscreen change events and cleans up these listeners when the component using the hook unmounts.
+
+</Details>
+export const Hooks_usefullscreen_01 = lazy(() => import("@registry/packages/hooks/useFullscreen/01/default-ts/example"));
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+<Hooks_usefullscreen_01 />
+</Display>
+</Suspense>
+
+</Wrapper>

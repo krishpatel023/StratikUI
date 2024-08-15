@@ -1,0 +1,495 @@
+import React, { Suspense, lazy } from 'react';
+import { Implementation, Preview, WrapperToggle, Display, TechnologyUsed, Wrapper, Skeleton, PARTITION, Details, Provider, Title } from "@/components/mdx/MDXServerImports"
+import { CodeBlock } from "@/components/mdx/MDXClientImports"
+
+{/*
+// ------------------------------------------------------------------------------------
+    //	The text below is generated from "@/registry/primitives/dropdown/01"
+//------------------------------------------------------------------------------------
+*/}
+
+<Wrapper>
+<Title>Dropdown</Title>
+### This is a dropdown component is a versatile UI components that provides a list of selectable options within a compact and accessible interface.
+
+<WrapperToggle >
+<Preview>
+
+export const Primitives_dropdown_01 = lazy(() => import("@registry/packages/primitives/dropdown/01/react_aria-ts/example"));
+
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+<Primitives_dropdown_01 />
+</Display>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+<TechnologyUsed technologies={["tailwind-merge","react-aria-components"]} />
+<CodeBlock>
+
+```react_aria|js|Dropdown.jsx
+"use client";
+
+import {
+  FieldError,
+  Header,
+  Label,
+  Menu,
+  MenuItem,
+  MenuTrigger as MenuTriggerAria,
+  Popover,
+  Separator,
+  SubmenuTrigger as SubmenuTriggerAria,
+  Text,
+} from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+
+export function DropdownTrigger({ children, ...props }) {
+  return (
+    <MenuTriggerAria aria-label={props.label || "Dropdown"} {...props}>
+      <div className="flex flex-col gap-1">
+        {props.label && (
+          <Label className="text-primary-foreground text-sm">
+            {props.label}
+          </Label>
+        )}
+        {children}
+        {props.description && (
+          <Text slot="description" className="text-primary-foreground text-sm">
+            {props.description}
+          </Text>
+        )}
+        <FieldError className="text-sm text-error">
+          {props.errorMessage}
+        </FieldError>
+      </div>
+    </MenuTriggerAria>
+  );
+}
+
+export function Dropdown({ items, children, className, ...props }) {
+  return (
+    <>
+      <Popover>
+        <Menu
+          items={items}
+          className={twMerge(
+            "w-full bg-primary border border-outline-secondary py-1 rounded outline-none focus-visible:outline-none",
+            className
+          )}
+          {...props}
+        >
+          {/* <Section> */}
+          <>{children}</>
+          {/* </Section> */}
+        </Menu>
+      </Popover>
+    </>
+  );
+}
+
+export function DropdownItem({ className, ...props }) {
+  return (
+    <MenuItem
+      aria-label="Dropdown Item"
+      className={twMerge(
+        "p-1 mx-1 rounded hover:bg-secondary hover:outline-none focus:bg-secondary focus:outline-none text-primary-foreground disabled:opacity-50 transition-colors duration-100 ease-linear hover:cursor-pointer",
+        className
+      )}
+      {...props}
+    >
+      {props.children}
+    </MenuItem>
+  );
+}
+
+export function DropdownHeader({ children, className }) {
+  return (
+    <Header
+      className={twMerge("text-primary-foreground p-1 mx-1 mb-2", className)}
+    >
+      {children}
+    </Header>
+  );
+}
+
+export function DropdownDivider({ className }) {
+  return (
+    <Separator
+      className={twMerge(
+        "min-w-full min-h-[2px] border-b border-outline my-2",
+        className
+      )}
+    />
+  );
+}
+
+export const SubmenuTrigger = (props) => {
+  return (
+    <SubmenuTriggerAria {...props} aria-label={"Submenu"}>
+      {props.children}
+    </SubmenuTriggerAria>
+  );
+};
+
+```
+
+```react_aria|js|example.jsx
+"use client";
+
+import {
+  Dropdown,
+  DropdownDivider,
+  DropdownHeader,
+  DropdownItem,
+  DropdownTrigger,
+  SubmenuTrigger,
+} from "@registry/packages/primitives/dropdown/01/react_aria-js/Dropdown";
+import Button from "@registry/ui/Button";
+import { Section } from "react-aria-components";
+
+export default function DropdownImplementation() {
+  return (
+    <DropdownTrigger
+      label="User Settings"
+      description="This is an user settings dropdown"
+    >
+      <Button>Settings</Button>
+      <Dropdown className="min-w-60">
+        <Section>
+          <DropdownHeader>My Account</DropdownHeader>
+          <DropdownItem>Profile</DropdownItem>
+          <DropdownItem isDisabled>Billing</DropdownItem>
+          <DropdownItem>Settings</DropdownItem>
+        </Section>
+        <DropdownDivider />
+        <Section>
+          <DropdownHeader className="mt-2">Other Settings</DropdownHeader>
+
+          <SubmenuTrigger>
+            <DropdownItem className="flex items-center justify-between">
+              <span>Team</span>
+              <Icons.chevron className="h-5 w-5" />
+            </DropdownItem>
+
+            <Dropdown className="min-w-40">
+              <Section>
+                <DropdownHeader>Team</DropdownHeader>
+              </Section>
+              <DropdownDivider />
+              <Section>
+                <DropdownItem>Team 1</DropdownItem>
+                <DropdownItem>Team 2</DropdownItem>
+                <DropdownItem>Team 3</DropdownItem>
+              </Section>
+              <DropdownDivider />
+              <DropdownItem>Add Team</DropdownItem>
+            </Dropdown>
+          </SubmenuTrigger>
+
+          <DropdownItem>Support</DropdownItem>
+        </Section>
+        <DropdownDivider />
+        <DropdownItem className="hover:bg-error focus:bg-error">
+          Logout
+        </DropdownItem>
+      </Dropdown>
+    </DropdownTrigger>
+  );
+}
+
+const Icons = {
+  chevron: (props) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 16 16"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        fillRule="evenodd"
+        d="M6.22 4.22a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06l-3.25 3.25a.75.75 0 0 1-1.06-1.06L8.94 8L6.22 5.28a.75.75 0 0 1 0-1.06"
+        clipRule="evenodd"
+      ></path>
+    </svg>
+  ),
+};
+
+```
+
+```react_aria|ts|Dropdown.tsx
+"use client";
+
+import {
+  FieldError,
+  Header,
+  Label,
+  Menu,
+  MenuItem,
+  MenuItemProps,
+  MenuProps,
+  MenuTrigger as MenuTriggerAria,
+  MenuTriggerProps,
+  Popover,
+  Separator,
+  SubmenuTrigger as SubmenuTriggerAria,
+  SubmenuTriggerProps,
+  Text,
+} from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+
+export interface DropdownTriggerProps extends MenuTriggerProps {
+  label?: string;
+  description?: string;
+  errorMessage?: string;
+}
+
+export function DropdownTrigger({ children, ...props }: DropdownTriggerProps) {
+  return (
+    <MenuTriggerAria aria-label={props.label || "Dropdown"} {...props}>
+      <div className="flex flex-col gap-1">
+        {props.label && (
+          <Label className="text-primary-foreground text-sm">
+            {props.label}
+          </Label>
+        )}
+        {children}
+        {props.description && (
+          <Text slot="description" className="text-primary-foreground text-sm">
+            {props.description}
+          </Text>
+        )}
+        <FieldError className="text-sm text-error">
+          {props.errorMessage}
+        </FieldError>
+      </div>
+    </MenuTriggerAria>
+  );
+}
+
+export function Dropdown({
+  items,
+  children,
+  className,
+  ...props
+}: MenuProps<any>) {
+  return (
+    <>
+      <Popover>
+        <Menu
+          items={items}
+          className={twMerge(
+            "w-full bg-primary border border-outline-secondary py-1 rounded outline-none focus-visible:outline-none",
+            className as string
+          )}
+          {...props}
+        >
+          {/* <Section> */}
+          <>{children}</>
+          {/* </Section> */}
+        </Menu>
+      </Popover>
+    </>
+  );
+}
+
+export function DropdownItem({ className, ...props }: MenuItemProps) {
+  return (
+    <MenuItem
+      aria-label="Dropdown Item"
+      className={twMerge(
+        "p-1 mx-1 rounded hover:bg-secondary hover:outline-none focus:bg-secondary focus:outline-none text-primary-foreground disabled:opacity-50 transition-colors duration-100 ease-linear hover:cursor-pointer",
+        className as string
+      )}
+      {...props}
+    >
+      {props.children}
+    </MenuItem>
+  );
+}
+
+export function DropdownHeader({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <Header
+      className={twMerge("text-primary-foreground p-1 mx-1 mb-2", className)}
+    >
+      {children}
+    </Header>
+  );
+}
+
+export function DropdownDivider({ className }: { className?: string }) {
+  return (
+    <Separator
+      className={twMerge(
+        "min-w-full min-h-[2px] border-b border-outline my-2",
+        className
+      )}
+    />
+  );
+}
+
+export const SubmenuTrigger = (props: SubmenuTriggerProps) => {
+  return (
+    <SubmenuTriggerAria {...props} aria-label={"Submenu"}>
+      {props.children}
+    </SubmenuTriggerAria>
+  );
+};
+
+```
+
+```react_aria|ts|example.tsx
+"use client";
+
+import Button from "@registry/ui/Button";
+import {
+  Dropdown,
+  DropdownDivider,
+  DropdownHeader,
+  DropdownItem,
+  DropdownTrigger,
+  SubmenuTrigger,
+} from "@registry/packages/primitives/dropdown/01/react_aria-ts/Dropdown";
+import { Section } from "react-aria-components";
+import { IconProps } from "@registry/utils/types";
+
+export default function DropdownImplementation() {
+  return (
+    <DropdownTrigger
+      label="User Settings"
+      description="This is an user settings dropdown"
+    >
+      <Button>Settings</Button>
+      <Dropdown className="min-w-60">
+        <Section>
+          <DropdownHeader>My Account</DropdownHeader>
+          <DropdownItem>Profile</DropdownItem>
+          <DropdownItem isDisabled>Billing</DropdownItem>
+          <DropdownItem>Settings</DropdownItem>
+        </Section>
+        <DropdownDivider />
+        <Section>
+          <DropdownHeader className="mt-2">Other Settings</DropdownHeader>
+
+          <SubmenuTrigger>
+            <DropdownItem className="flex items-center justify-between">
+              <span>Team</span>
+              <Icons.chevron className="h-5 w-5" />
+            </DropdownItem>
+
+            <Dropdown className="min-w-40">
+              <Section>
+                <DropdownHeader>Team</DropdownHeader>
+              </Section>
+              <DropdownDivider />
+              <Section>
+                <DropdownItem>Team 1</DropdownItem>
+                <DropdownItem>Team 2</DropdownItem>
+                <DropdownItem>Team 3</DropdownItem>
+              </Section>
+              <DropdownDivider />
+              <DropdownItem>Add Team</DropdownItem>
+            </Dropdown>
+          </SubmenuTrigger>
+
+          <DropdownItem>Support</DropdownItem>
+        </Section>
+        <DropdownDivider />
+        <DropdownItem className="hover:bg-error focus:bg-error">
+          Logout
+        </DropdownItem>
+      </Dropdown>
+    </DropdownTrigger>
+  );
+}
+
+const Icons = {
+  chevron: (props: IconProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 16 16"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        fillRule="evenodd"
+        d="M6.22 4.22a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06l-3.25 3.25a.75.75 0 0 1-1.06-1.06L8.94 8L6.22 5.28a.75.75 0 0 1 0-1.06"
+        clipRule="evenodd"
+      ></path>
+    </svg>
+  ),
+};
+
+```
+
+</CodeBlock>
+<Details>
+
+<Provider tag="react_aria">
+## DropdownTrigger Props
+
+| Name         | Type               | Default | Description                                                             |
+| ------------ | ------------------ | ------- | ----------------------------------------------------------------------- |
+| label        | `string`           | -       | The label for the dropdown trigger.                                     |
+| description  | `string`           | -       | A description text for the dropdown trigger, displayed below the label. |
+| errorMessage | `string`           | -       | An error message displayed when there's a validation error.             |
+| ...props     | `MenuTriggerProps` | -       | Additional props to be passed to the `MenuTriggerAria` component.       |
+
+## Dropdown Props
+
+| Name      | Type              | Default | Description                                                     |
+| --------- | ----------------- | ------- | --------------------------------------------------------------- |
+| items     | `any`             | -       | The items to be rendered in the dropdown menu.                  |
+| children  | `React.ReactNode` | -       | The content inside the `Dropdown` component.                    |
+| className | `string`          | -       | Additional CSS classes for custom styling of the dropdown menu. |
+| ...props  | `MenuProps<any>`  | -       | Additional props to be passed to the `Menu` component.          |
+
+## DropdownItem Props
+
+| Name      | Type            | Default | Description                                                     |
+| --------- | --------------- | ------- | --------------------------------------------------------------- |
+| className | `string`        | -       | Additional CSS classes for custom styling of the dropdown item. |
+| ...props  | `MenuItemProps` | -       | Additional props to be passed to the `MenuItem` component.      |
+
+## DropdownHeader Props
+
+| Name      | Type              | Default | Description                                                       |
+| --------- | ----------------- | ------- | ----------------------------------------------------------------- |
+| children  | `React.ReactNode` | -       | The content inside the `DropdownHeader` component.                |
+| className | `string`          | -       | Additional CSS classes for custom styling of the dropdown header. |
+
+## DropdownDivider Props
+
+| Name      | Type     | Default | Description                                                        |
+| --------- | -------- | ------- | ------------------------------------------------------------------ |
+| className | `string` | -       | Additional CSS classes for custom styling of the dropdown divider. |
+
+## SubmenuTrigger Props
+
+| Name     | Type                  | Default | Description                                                          |
+| -------- | --------------------- | ------- | -------------------------------------------------------------------- |
+| ...props | `SubmenuTriggerProps` | -       | Additional props to be passed to the `SubmenuTriggerAria` component. |
+
+Checkout the official documentation of [React Aria Menu](https://react-spectrum.adobe.com/react-aria/Menu.html)
+
+</Provider>
+
+</Details>
+</Implementation>
+</WrapperToggle>
+</Wrapper>

@@ -1,0 +1,897 @@
+import React, { Suspense, lazy } from 'react';
+import { Implementation, Preview, WrapperToggle, Display, TechnologyUsed, Wrapper, Skeleton, PARTITION, Details, Provider, Title } from "@/components/mdx/MDXServerImports"
+import { CodeBlock } from "@/components/mdx/MDXClientImports"
+
+{/*
+// ------------------------------------------------------------------------------------
+    //	The text below is generated from "@/registry/primitives/buttons/01"
+//------------------------------------------------------------------------------------
+*/}
+
+<Wrapper>
+<Title>Default Button</Title>
+### A customizable button component with different styles based on the provided variant and processing state. Includes an internal Loader component for indicating loading state.
+
+<WrapperToggle >
+<Preview>
+
+export const Primitives_buttons_01 = lazy(() => import("@registry/packages/primitives/buttons/01/react_aria-ts/example"));
+
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+<Primitives_buttons_01 />
+</Display>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+<TechnologyUsed technologies={["tailwind-merge","react-aria-components"]} />
+<CodeBlock>
+
+```react_aria|js|Button.jsx
+"use client";
+
+import { Button as ReactAriaButton } from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+
+export function Button({
+  isProcessing = false,
+  isDisabled,
+  variant = "primary",
+  children,
+  className,
+  ...props
+}) {
+  return (
+    <>
+      <ReactAriaButton
+        data-processing={isProcessing}
+        className={twMerge(
+          "p-2 rounded transition-all duration-100 ease-in-out disabled:cursor-not-allowed disabled:opacity-60",
+          variant === "primary" &&
+            "bg-primary hover:bg-secondary pressed:bg-primary border border-outline text-primary-foreground",
+          variant === "secondary" &&
+            "bg-secondary hover:bg-primary pressed:bg-secondary border border-outline-secondary text-secondary-foreground",
+          variant === "destructive" &&
+            "bg-error text-error-foreground hover:bg-error-secondary pressed:bg-error",
+          variant === "outline" &&
+            "border border-outline hover:bg-primary pressed:bg-secondary text-foreground",
+          variant === "ghost" &&
+            " hover:bg-primary pressed:bg-secondary text-foreground",
+          variant === "accent" &&
+            "bg-accent hover:bg-accent-secondary pressed:bg-accent text-accent-foreground",
+          isProcessing && "cursor-not-allowed",
+          className
+        )}
+        isDisabled={isDisabled || isProcessing}
+        {...props}
+      >
+        {isProcessing ? (
+          <Loader className="animate-spin w-6 h-6 mx-auto" />
+        ) : (
+          <> {children}</>
+        )}
+      </ReactAriaButton>
+    </>
+  );
+}
+
+const Loader = (props) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M12 3a9 9 0 0 1 9 9h-2a7 7 0 0 0-7-7V3Z"
+      ></path>
+    </svg>
+  );
+};
+
+```
+
+```react_aria|js|example.jsx
+import ArrowHeading from "@registry/ui/ArrowHeading";
+import { Button } from "@registry/packages/primitives/buttons/01/react_aria-js/Button";
+
+export default function ButtonImplementation() {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="w-60 md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Primary" />
+        <Button>Click</Button>
+        <Button isDisabled>Disabled</Button>
+        <Button isProcessing>Click</Button>
+      </div>
+      <div className="w-60 md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Secondary" />
+        <Button variant="secondary">Click</Button>
+        <Button variant="secondary" isDisabled>
+          Disabled
+        </Button>
+        <Button variant="secondary" isProcessing>
+          Click
+        </Button>
+      </div>
+      <div className="w-60 md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Destructive" />
+        <Button variant="destructive">Click</Button>
+        <Button variant="destructive" isDisabled>
+          Disabled
+        </Button>
+        <Button variant="destructive" isProcessing>
+          Click
+        </Button>
+      </div>
+      <div className="w-60 md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Outline" />
+        <Button variant="outline">Click</Button>
+        <Button variant="outline" isDisabled>
+          Disabled
+        </Button>
+        <Button variant="outline" isProcessing>
+          Click
+        </Button>
+      </div>
+      <div className="w-60 md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Ghost" />
+        <Button variant="ghost">Click</Button>
+        <Button variant="ghost" isDisabled>
+          Disabled
+        </Button>
+        <Button variant="ghost" isProcessing>
+          Click
+        </Button>
+      </div>
+      <div className="w-60 md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Accent" />
+        <Button variant="accent">Click</Button>
+        <Button variant="accent" isDisabled>
+          Disabled
+        </Button>
+        <Button variant="accent" isProcessing>
+          Click
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+```
+
+```react_aria|ts|Button.tsx
+"use client";
+
+import { IconProps } from "@registry/utils/types";
+import {
+  Button as ReactAriaButton,
+  ButtonProps as ReactAriaButtonProps,
+} from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+
+export interface ButtonProps extends ReactAriaButtonProps {
+  isProcessing?: boolean;
+  variant?:
+    | "primary"
+    | "secondary"
+    | "destructive"
+    | "outline"
+    | "ghost"
+    | "accent";
+}
+
+export function Button({
+  isProcessing = false,
+  isDisabled,
+  variant = "primary",
+  children,
+  className,
+  ...props
+}: ButtonProps) {
+  return (
+    <>
+      <ReactAriaButton
+        data-processing={isProcessing}
+        className={twMerge(
+          "p-2 rounded transition-all duration-100 ease-in-out disabled:cursor-not-allowed disabled:opacity-60",
+          variant === "primary" &&
+            "bg-primary hover:bg-secondary pressed:bg-primary border border-outline text-primary-foreground",
+          variant === "secondary" &&
+            "bg-secondary hover:bg-primary pressed:bg-secondary border border-outline-secondary text-secondary-foreground",
+          variant === "destructive" &&
+            "bg-error text-error-foreground hover:bg-error-secondary pressed:bg-error",
+          variant === "outline" &&
+            "border border-outline hover:bg-primary pressed:bg-secondary text-foreground",
+          variant === "ghost" &&
+            " hover:bg-primary pressed:bg-secondary text-foreground",
+          variant === "accent" &&
+            "bg-accent hover:bg-accent-secondary pressed:bg-accent text-accent-foreground",
+          isProcessing && "cursor-not-allowed",
+          className as string
+        )}
+        isDisabled={isDisabled || isProcessing}
+        {...props}
+      >
+        {isProcessing ? (
+          <Loader className="animate-spin w-6 h-6 mx-auto" />
+        ) : (
+          <> {children}</>
+        )}
+      </ReactAriaButton>
+    </>
+  );
+}
+
+const Loader = (props: IconProps) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M12 3a9 9 0 0 1 9 9h-2a7 7 0 0 0-7-7V3Z"
+      ></path>
+    </svg>
+  );
+};
+
+```
+
+```react_aria|ts|example.tsx
+import ArrowHeading from "@registry/ui/ArrowHeading";
+import { Button } from "@registry/packages/primitives/buttons/01/react_aria-ts/Button";
+
+export default function ButtonImplementation() {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="w-60 md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Primary" />
+        <Button>Click</Button>
+        <Button isDisabled>Disabled</Button>
+        <Button isProcessing>Click</Button>
+      </div>
+      <div className="w-60 md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Secondary" />
+        <Button variant="secondary">Click</Button>
+        <Button variant="secondary" isDisabled>
+          Disabled
+        </Button>
+        <Button variant="secondary" isProcessing>
+          Click
+        </Button>
+      </div>
+      <div className="w-60 md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Destructive" />
+        <Button variant="destructive">Click</Button>
+        <Button variant="destructive" isDisabled>
+          Disabled
+        </Button>
+        <Button variant="destructive" isProcessing>
+          Click
+        </Button>
+      </div>
+      <div className="w-60 md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Outline" />
+        <Button variant="outline">Click</Button>
+        <Button variant="outline" isDisabled>
+          Disabled
+        </Button>
+        <Button variant="outline" isProcessing>
+          Click
+        </Button>
+      </div>
+      <div className="w-60 md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Ghost" />
+        <Button variant="ghost">Click</Button>
+        <Button variant="ghost" isDisabled>
+          Disabled
+        </Button>
+        <Button variant="ghost" isProcessing>
+          Click
+        </Button>
+      </div>
+      <div className="w-60 md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Accent" />
+        <Button variant="accent">Click</Button>
+        <Button variant="accent" isDisabled>
+          Disabled
+        </Button>
+        <Button variant="accent" isProcessing>
+          Click
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+```
+
+</CodeBlock>
+<Details>
+
+
+## Button Props
+
+| Name         | Type                                                                            | Default     | Description                                                                                                          |
+| ------------ | ------------------------------------------------------------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------- |
+| isProcessing | `boolean`                                                                       | `false`     | Indicates if the button is in a processing/loading state.                                                            |
+| isDisabled   | `boolean`                                                                       | -           | Disables the button when true.                                                                                       |
+| variant      | `"primary" \| "secondary" \| "destructive" \| "outline" \| "ghost" \| "accent"` | `"primary"` | Specifies the button style. Options include "primary", "secondary", "destructive", "outline", "ghost", and "accent". |
+| className    | `string`                                                                        | -           | Additional CSS classes for custom styling.                                                                           |
+| children     | `React.ReactNode`                                                               | -           | The content inside the button.                                                                                       |
+
+</Details>
+</Implementation>
+</WrapperToggle>
+</Wrapper>
+
+{/*
+// ------------------------------------------------------------------------------------
+    //	The text below is generated from "@/registry/primitives/buttons/02"
+//------------------------------------------------------------------------------------
+*/}
+
+<Wrapper>
+<Title>Animated Button</Title>
+### A button component with customizable styles and animations. Includes a CircularAnimation component for visual effects on click and an internal Loader for indicating loading state.
+
+<WrapperToggle >
+<Preview>
+
+export const Primitives_buttons_02 = lazy(() => import("@registry/packages/primitives/buttons/02/default-ts/example"));
+
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+<Primitives_buttons_02 />
+</Display>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+<TechnologyUsed technologies={["tailwindcss","tailwind-merge"]} />
+<CodeBlock>
+
+```default|js|Button.jsx
+"use client";
+
+import { useRef } from "react";
+import { twMerge } from "tailwind-merge";
+import { createRoot } from "react-dom/client";
+
+export function CircularAnimation({
+  width,
+  height,
+  top,
+  left,
+  className,
+  variant,
+}) {
+  return (
+    <div
+      className={twMerge(
+        "absolute rounded-full animate-circleGrow",
+        variant === "primary" && "bg-secondary",
+        variant === "secondary" && "bg-primary",
+        variant === "destructive" && "bg-error-secondary",
+        variant === "outline" && "bg-secondary",
+        variant === "ghost" && "bg-primary",
+        variant === "accent" && "bg-accent-secondary",
+        variant === "complementary" && "bg-primary-foreground",
+        className
+      )}
+      style={{ width, height, top, left }}
+    />
+  );
+}
+
+export function Button({
+  children,
+  className,
+  animationClassName,
+  onClick,
+  isProcessing = false,
+  variant = "primary",
+  isDisabled,
+  ...props
+}) {
+  const buttonRef = useRef(null);
+
+  const handleClick = (e) => {
+    if (onClick) onClick(e);
+
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    addElementToDOM({ x, y });
+  };
+
+  const addElementToDOM = ({ x, y }) => {
+    if (buttonRef.current && !isProcessing) {
+      const buttonWidth = buttonRef.current.offsetWidth;
+      const buttonHeight = buttonRef.current.offsetHeight;
+      const maxRadius = Math.max(buttonWidth, buttonHeight);
+
+      const dimensions = {
+        width: maxRadius * 2,
+        height: maxRadius * 2,
+        top: y - maxRadius,
+        left: x - maxRadius,
+      };
+
+      // Addition of the animation container to the button
+      const animationContainer = document.createElement("div");
+      buttonRef.current.appendChild(animationContainer);
+      const root = createRoot(animationContainer);
+      root.render(
+        <CircularAnimation
+          {...dimensions}
+          className={animationClassName}
+          variant={variant}
+        />
+      );
+
+      // Removal of the animation container after 400ms
+      setTimeout(() => {
+        if (buttonRef.current && animationContainer)
+          buttonRef.current.removeChild(animationContainer);
+      }, 400);
+    }
+  };
+
+  return (
+    <button
+      className={twMerge(
+        "relative focus:outline-none overflow-hidden :scale-[0.98] p-2 rounded text-primary-foreground disabled:cursor-not-allowed disabled:opacity-50",
+        variant === "primary" &&
+          "bg-primary  border border-outline text-primary-foreground",
+        variant === "secondary" &&
+          "bg-secondary  border border-outline text-secondary-foreground",
+        variant === "destructive" && "bg-error text-error-foreground",
+        variant === "outline" &&
+          "border border-outline-secondary text-foreground bg-transparent",
+        variant === "ghost" && " text-foreground",
+        variant === "accent" && "bg-accent text-accent-foreground",
+        variant === "complementary" &&
+          "bg-foreground text-primary border border-secondary-foreground font-medium",
+        isProcessing && "cursor-not-allowed",
+        className
+      )}
+      ref={buttonRef}
+      onClick={handleClick}
+      disabled={isDisabled}
+      {...props}
+    >
+      {isProcessing ? (
+        <Loader className="animate-spin w-6 h-6 mx-auto" />
+      ) : (
+        <span className="relative z-50">
+          <>{children}</>
+        </span>
+      )}
+    </button>
+  );
+}
+
+const Loader = (props) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M12 3a9 9 0 0 1 9 9h-2a7 7 0 0 0-7-7V3Z"
+      ></path>
+    </svg>
+  );
+};
+
+```
+
+```default|js|example.jsx
+import ArrowHeading from "@registry/ui/ArrowHeading";
+import { Button } from "@registry/packages/primitives/buttons/02/default-js/Button";
+
+export default function ButtonImplementation() {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="w-60 md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Primary" />
+        <Button>Click</Button>
+        <Button isDisabled>Disabled</Button>
+        <Button isProcessing>Click</Button>
+      </div>
+      <div className="w-60 md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Secondary" />
+        <Button variant="secondary">Click</Button>
+        <Button variant="secondary" isDisabled>
+          Disabled
+        </Button>
+        <Button variant="secondary" isProcessing>
+          Click
+        </Button>
+      </div>
+      <div className="w-60 md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Destructive" />
+        <Button variant="destructive">Click</Button>
+        <Button variant="destructive" isDisabled>
+          Disabled
+        </Button>
+        <Button variant="destructive" isProcessing>
+          Click
+        </Button>
+      </div>
+      <div className="w-60 md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Outline" />
+        <Button variant="outline">Click</Button>
+        <Button variant="outline" isDisabled>
+          Disabled
+        </Button>
+        <Button variant="outline" isProcessing>
+          Click
+        </Button>
+      </div>
+      <div className="w-60 md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Ghost" />
+        <Button variant="ghost">Click</Button>
+        <Button variant="ghost" isDisabled>
+          Disabled
+        </Button>
+        <Button variant="ghost" isProcessing>
+          Click
+        </Button>
+      </div>
+      <div className="w-60 md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Accent" />
+        <Button variant="accent">Click</Button>
+        <Button variant="accent" isDisabled>
+          Disabled
+        </Button>
+        <Button variant="accent" isProcessing>
+          Click
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+```
+
+```default|js|tailwind.config.js
+const config = {
+  content: [],
+  theme: {
+    extend: {
+      animation: {
+        circleGrow: "circleGrow 0.5s ease-in-out",
+      },
+      keyframes: {
+        circleGrow: {
+          "0%": {
+            transform: "scale(0)",
+            opacity: "1",
+          },
+          "100%": {
+            transform: "scale(1)",
+            opacity: "0",
+          },
+        },
+      },
+    },
+  },
+  plugins: [],
+};
+
+export default config;
+
+```
+
+```default|ts|Button.tsx
+"use client";
+
+import React, { ButtonHTMLAttributes, DetailedHTMLProps, useRef } from "react";
+import { twMerge } from "tailwind-merge";
+
+import { IconProps } from "@registry/utils/types";
+import { createRoot } from "react-dom/client";
+
+export interface CircularAnimationProps {
+  width: number;
+  height: number;
+  top: number;
+  left: number;
+  className?: string;
+  variant: ButtonProps["variant"];
+}
+
+export function CircularAnimation({
+  width,
+  height,
+  top,
+  left,
+  className,
+  variant,
+}: CircularAnimationProps) {
+  return (
+    <div
+      className={twMerge(
+        "absolute rounded-full animate-circleGrow",
+        variant === "primary" && "bg-secondary",
+        variant === "secondary" && "bg-primary",
+        variant === "destructive" && "bg-error-secondary",
+        variant === "outline" && "bg-secondary",
+        variant === "ghost" && "bg-primary",
+        variant === "accent" && "bg-accent-secondary",
+        variant === "complementary" && "bg-primary-foreground",
+        className
+      )}
+      style={{ width, height, top, left }}
+    />
+  );
+}
+
+export interface ButtonProps
+  extends DetailedHTMLProps<
+    ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+  > {
+  animationClassName?: string;
+  isProcessing?: boolean;
+  isDisabled?: boolean;
+  variant?:
+    | "primary"
+    | "secondary"
+    | "destructive"
+    | "outline"
+    | "ghost"
+    | "accent"
+    | "complementary";
+}
+
+export function Button({
+  children,
+  className,
+  animationClassName,
+  onClick,
+  isProcessing = false,
+  variant = "primary",
+  isDisabled,
+  ...props
+}: ButtonProps) {
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (onClick) onClick(e);
+
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    addElementToDOM({ x, y });
+  };
+
+  const addElementToDOM = ({ x, y }: { x: number; y: number }) => {
+    if (buttonRef.current && !isProcessing) {
+      const buttonWidth = buttonRef.current.offsetWidth;
+      const buttonHeight = buttonRef.current.offsetHeight;
+      const maxRadius = Math.max(buttonWidth, buttonHeight);
+
+      const dimensions = {
+        width: maxRadius * 2,
+        height: maxRadius * 2,
+        top: y - maxRadius,
+        left: x - maxRadius,
+      };
+
+      // Addition of the animation container to the button
+      const animationContainer = document.createElement("div");
+      buttonRef.current.appendChild(animationContainer);
+      const root = createRoot(animationContainer);
+      root.render(
+        <CircularAnimation
+          {...dimensions}
+          className={animationClassName}
+          variant={variant}
+        />
+      );
+
+      // Removal of the animation container after 400ms
+      setTimeout(() => {
+        if (buttonRef.current && animationContainer)
+          buttonRef.current.removeChild(animationContainer);
+      }, 400);
+    }
+  };
+
+  return (
+    <button
+      className={twMerge(
+        "relative focus:outline-none overflow-hidden :scale-[0.98] p-2 rounded text-primary-foreground disabled:cursor-not-allowed disabled:opacity-50",
+        variant === "primary" &&
+          "bg-primary  border border-outline text-primary-foreground",
+        variant === "secondary" &&
+          "bg-secondary  border border-outline text-secondary-foreground",
+        variant === "destructive" && "bg-error text-error-foreground",
+        variant === "outline" &&
+          "border border-outline-secondary text-foreground bg-transparent",
+        variant === "ghost" && " text-foreground",
+        variant === "accent" && "bg-accent text-accent-foreground",
+        variant === "complementary" &&
+          "bg-foreground text-primary border border-secondary-foreground font-medium",
+        isProcessing && "cursor-not-allowed",
+        className as string
+      )}
+      ref={buttonRef}
+      onClick={handleClick}
+      disabled={isDisabled}
+      {...props}
+    >
+      {isProcessing ? (
+        <Loader className="animate-spin w-6 h-6 mx-auto" />
+      ) : (
+        <span className="relative z-50">
+          <>{children}</>
+        </span>
+      )}
+    </button>
+  );
+}
+
+const Loader = (props: IconProps) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M12 3a9 9 0 0 1 9 9h-2a7 7 0 0 0-7-7V3Z"
+      ></path>
+    </svg>
+  );
+};
+
+```
+
+```default|ts|example.tsx
+import ArrowHeading from "@registry/ui/ArrowHeading";
+import { Button } from "@registry/packages/primitives/buttons/02/default-ts/Button";
+
+export default function ButtonImplementation() {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="w-60 md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Primary" />
+        <Button>Click</Button>
+        <Button isDisabled>Disabled</Button>
+        <Button isProcessing>Click</Button>
+      </div>
+      <div className="w-60 md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Secondary" />
+        <Button variant="secondary">Click</Button>
+        <Button variant="secondary" isDisabled>
+          Disabled
+        </Button>
+        <Button variant="secondary" isProcessing>
+          Click
+        </Button>
+      </div>
+      <div className="w-60 md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Destructive" />
+        <Button variant="destructive">Click</Button>
+        <Button variant="destructive" isDisabled>
+          Disabled
+        </Button>
+        <Button variant="destructive" isProcessing>
+          Click
+        </Button>
+      </div>
+      <div className="w-60 md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Outline" />
+        <Button variant="outline">Click</Button>
+        <Button variant="outline" isDisabled>
+          Disabled
+        </Button>
+        <Button variant="outline" isProcessing>
+          Click
+        </Button>
+      </div>
+      <div className="w-60 md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Ghost" />
+        <Button variant="ghost">Click</Button>
+        <Button variant="ghost" isDisabled>
+          Disabled
+        </Button>
+        <Button variant="ghost" isProcessing>
+          Click
+        </Button>
+      </div>
+      <div className="w-60 md:w-80 flex flex-col gap-4">
+        <ArrowHeading text="Accent" />
+        <Button variant="accent">Click</Button>
+        <Button variant="accent" isDisabled>
+          Disabled
+        </Button>
+        <Button variant="accent" isProcessing>
+          Click
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+```
+
+```default|ts|tailwind.config.ts
+import { Config } from "tailwindcss";
+
+const config: Config = {
+  content: [],
+  theme: {
+    extend: {
+      animation: {
+        circleGrow: "circleGrow 0.5s ease-in-out",
+      },
+      keyframes: {
+        circleGrow: {
+          "0%": {
+            transform: "scale(0)",
+            opacity: "1",
+          },
+          "100%": {
+            transform: "scale(1)",
+            opacity: "0",
+          },
+        },
+      },
+    },
+  },
+  plugins: [],
+};
+
+export default config;
+
+```
+
+</CodeBlock>
+<Details>
+
+
+## Button Props
+
+| Name               | Type                                                                                               | Default     | Description                                                                                                                           |
+| ------------------ | -------------------------------------------------------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| animationClassName | `string`                                                                                           | -           | Additional CSS classes for the animation effect.                                                                                      |
+| isProcessing       | `boolean`                                                                                          | `false`     | Indicates if the button is in a processing/loading state.                                                                             |
+| isDisabled         | `boolean`                                                                                          | -           | Disables the button when true.                                                                                                        |
+| variant            | `"primary" \| "secondary" \| "destructive" \| "outline" \| "ghost" \| "accent" \| "complementary"` | `"primary"` | Specifies the button style. Options include "primary", "secondary", "destructive", "outline", "ghost", "accent", and "complementary". |
+| className          | `string`                                                                                           | -           | Additional CSS classes for custom styling.                                                                                            |
+| children           | `React.ReactNode`                                                                                  | -           | The content inside the button.                                                                                                        |
+| onClick            | `(e: React.MouseEvent<HTMLButtonElement>) => void`                                                 | -           | Callback function for button click events.                                                                                            |
+
+</Details>
+</Implementation>
+</WrapperToggle>
+</Wrapper>
