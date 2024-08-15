@@ -6,6 +6,6 @@ const CodeBlock = dynamic(
   { ssr: false }
 );
 
-import { ResizableDisplay } from "@/components/mdx/ResizableDisplay";
+import ResizableDisplay from "@/components/mdx/ResizableDisplay";
 
 export { CodeBlock, ResizableDisplay };
