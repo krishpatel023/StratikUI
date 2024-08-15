@@ -1,334 +1,140 @@
 "use client";
 
-import { useInternalState } from "@/hooks/useInternalState";
-import { useSearch } from "@/hooks/useSearch";
-import useClickOutside from "@/packages/hooks/useClickOutside/useClickOutside";
-import useDisableScroll from "@/packages/hooks/useDisableScroll/useDisableScroll";
-// import { ContainerGlassEffect } from "@/packages/primitives/containers/Container_6";
-
-const ContainerGlassEffect = dynamic(() =>
-  import("@/packages/primitives/containers/Container_6").then(
-    (mod) => mod.ContainerGlassEffect
-  )
-);
-
 import {
-  KeyListener,
-  KeyListenerDisplay,
-} from "@/packages/primitives/key_listener/KeyListener";
+  CommandPaletteDivider,
+  CommandPaletteFooter,
+  CommandPaletteGroup,
+  CommandPaletteItem,
+  CommandPaletteMenu,
+  CommandPalette as CommandPalettePrimitive,
+  CommandPaletteSearchBar,
+} from "@/components/ui/CommandPalette";
+import { SearchIndividualProps } from "@/data/Search";
+import { useSearch } from "@/hooks/useSearch";
 import { IconProps } from "@/utils/constants";
-import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import { twMerge } from "tailwind-merge";
-import { FlattenedItem } from "../../scripts/FlattenData";
-import dynamic from "next/dynamic";
+import { Links } from "@/utils/utils";
+import { CSSProperties } from "react";
 
-// WRAPPER COMPONENT
-export function CommandPaletteImplementation({
-  data,
-}: {
-  data: FlattenedItem[];
-}) {
-  // CONTROLS MODAL STATE
-
-  const { searchbar, setSearchbar } = useInternalState();
-
-  // SEARCH FUNCTIONALITY
-  const [query, setQuery] = useState("");
-  const results = useSearch(query, data, { limit: 5 });
-
-  // FOCUS ON INPUT WHEN MODAL IS OPENED
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (inputRef.current) inputRef.current.focus();
-    setQuery("");
-  }, [searchbar]);
-
-  // HANDLE FOCUS
-  const router = useRouter();
-  const handleSocial = [
-    {
-      name: "Docs",
-      link: "/docs/components/hero-section",
-      placeholder: "View our components",
-      external: false,
-    },
-    {
-      name: "Twitter",
-      link: "https://twitter.com/stratikui",
-      placeholder: "Follow us on Twitter",
-      external: true,
-    },
-    {
-      name: "Feedback",
-      link: "https://github.com/stratik-ui",
-      placeholder: "Send us a feedback",
-      external: false,
-    },
-    {
-      name: "Bug",
-      link: "https://github.com/stratik-ui",
-      placeholder: "Report a bug",
-      external: false,
-    },
-  ];
-
-  const itemLimit = handleSocial.length + results.length;
-  const [focus, setFocus] = useState<number | null>(null);
-
-  const handleFocusIncrement = () => {
-    if (focus === null) setFocus(0);
-    else if (focus < itemLimit - 1) setFocus(focus + 1);
-  };
-
-  const handleFocusDecrement = () => {
-    if (!focus) return;
-    if (focus > 0) setFocus(focus - 1);
-  };
-
-  const handleFocusReset = () => {
-    setFocus(null);
-    setQuery("");
-    setSearchbar(false);
-  };
-
-  const handleEnter = () => {
-    if (!focus) return;
-    if (focus >= results.length) {
-      const link = handleSocial[focus - results.length].link;
-      if (handleSocial[focus - results.length].external)
-        window.open(link, "_blank", "noopener,noreferrer");
-      else router.push(link);
-    } else {
-      const { group, category, hash } = results[focus];
-      const link = `/docs/${group}/${category}#${hash}`;
-      router.push(link);
-    }
-
-    setSearchbar(false);
-  };
-
-  return (
-    <Modal
-      searchbar={searchbar}
-      setSearchbar={setSearchbar}
-      className="h-[25rem] w-[20rem] md:min-w-[40rem] px-0 py-0"
-    >
-      <KeyListener
-        onKeyDown={() => {
-          setSearchbar(false);
-        }}
-        keys={["Esc"]}
-      />
-      <div className="w-full h-full flex flex-col">
-        <div className="w-full flex justify-between">
-          <input
-            type="text"
-            className="my-1 w-full bg-transparent text-black dark:text-white py-2 px-4 rounded-md  border-none focus:outline-none"
-            placeholder="Search"
-            value={query}
-            ref={inputRef}
-            onChange={(e) => setQuery(e.target.value)}
-            aria-label="Searchbar input"
-          />
-          <button
-            onClick={() => {
-              setQuery("");
-              inputRef.current?.focus();
-            }}
-            className={query === "" ? "hidden" : "block"}
-            aria-label="Clear searchbar input"
-          >
-            <Icons.backspace className="w-5 h-5 mr-3" />
-          </button>
-        </div>
-        <div className="min-w-full border-[0.5px] border-neutral-200 dark:border-neutral-800"></div>
-        <div className="w-full h-[23rem] px-2 overflow-y-auto scrollbar-vertical py-2">
-          {results.map((item, index) => {
-            return (
-              <Item
-                key={index}
-                category={item.group}
-                placeholder={item.name}
-                id={index}
-                focus={focus}
-                handleEnter={handleEnter}
-                setFocus={setFocus}
-              />
-            );
-          })}
-
-          <span className="ml-3 text-sm font-medium">Connect</span>
-
-          {handleSocial.map((item, index) => {
-            return (
-              <Item
-                key={index}
-                category={item.name}
-                placeholder={item.placeholder}
-                id={index + results.length}
-                focus={focus}
-                handleEnter={handleEnter}
-                setFocus={setFocus}
-              />
-            );
-          })}
-        </div>
-        <div className="hidden md:flex w-full h-8 bg-white dark:bg-neutral-950 justify-end items-center gap-4 pr-4 rounded-[inherit]">
-          <div className="flex gap-2 items-center text-neutral-700 dark:text-neutral-200 text-sm">
-            <KeyListenerDisplay
-              keys={["Enter"]}
-              className="py-0 px-0 w-6 h-5 flex justify-center items-center"
-            />
-            <h1>Search</h1>
-            <KeyListener onKeyDown={() => handleEnter()} keys={["Enter"]} />
-          </div>
-          <div className="flex gap-2 items-center text-neutral-700 dark:text-neutral-200 text-sm">
-            <KeyListenerDisplay
-              keys={["Down"]}
-              className="py-0 px-0 w-6 h-5 flex justify-center items-center"
-            />
-            <h1>Next</h1>
-            <KeyListener
-              onKeyDown={() => handleFocusIncrement()}
-              keys={["Down"]}
-            />
-          </div>
-          <div className="flex gap-2 items-center text-neutral-700 dark:text-neutral-200 text-sm">
-            <KeyListenerDisplay
-              keys={["Up"]}
-              className="py-0 px-0 w-6 h-5 flex justify-center items-center"
-            />
-            <h1>Prev</h1>
-            <KeyListener
-              onKeyDown={() => handleFocusDecrement()}
-              keys={["Up"]}
-            />
-          </div>
-          <div className="flex gap-2 items-center text-neutral-700 dark:text-neutral-200 text-sm">
-            <KeyListenerDisplay
-              keys={["Esc"]}
-              className="py-0 px-0 w-6 h-5 flex justify-center items-center"
-            />
-            <h1>Close</h1>
-            <KeyListener onKeyDown={() => handleFocusReset()} keys={["Esc"]} />
-          </div>
-        </div>
-      </div>
-    </Modal>
-  );
-}
-
-// INITIAL INPUT - COTROLLED FROM WRAPPER
-
-function Modal({
-  children,
+export default function CommandPalette({
   searchbar,
   setSearchbar,
-  position = "center",
-  className,
-  blurBg = true,
 }: {
-  children: React.ReactNode;
   searchbar: boolean;
-  setSearchbar: (open: boolean) => void;
-  position?: "center" | "top" | "bottom";
-  className?: string;
-  blurBg?: boolean;
+  setSearchbar: (val: boolean) => void;
 }) {
-  const ref = useRef(null);
-  useClickOutside(ref, () => setSearchbar(false));
+  const { search, isLoading, message, results } = useSearch();
 
-  useDisableScroll(searchbar, "theme-toggle");
+  function HandleClick() {
+    setSearchbar(false);
+  }
 
   return (
     <>
-      {searchbar && (
-        <ContainerGlassEffect
-          className={twMerge(
-            "w-full h-screen flex justify-center items-center absolute z-[9999]",
-            !blurBg &&
-              "bg-transparent dark:bg-transparent backdrop-blur-none supports-[backdrop-filter]:bg-transparent dark:supports-[backdrop-filter]:bg-transparent"
-          )}
+      <CommandPalettePrimitive
+        isOpen={searchbar}
+        onOpenChange={(val) => setSearchbar(val)}
+      >
+        <CommandPaletteSearchBar
+          placeholder="Search for something"
+          onChange={(e) => search(e.target.value)}
+        />
+        <CommandPaletteDivider />
+        <CommandPaletteMenu
+          isLoading={isLoading}
+          style={{ "--sidebar-width": "5px" } as CSSProperties}
         >
-          <div
-            ref={ref}
-            className={twMerge(
-              "rounded-md px-6 py-6 border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 text-black dark:text-white",
-              className
-            )}
-          >
-            {children}
-          </div>
-        </ContainerGlassEffect>
-      )}
+          {results.map((item, index) => (
+            <SearchItems
+              link={"/" + item.link}
+              category={item.category}
+              name={item.name}
+              key={index}
+              onPress={HandleClick}
+            />
+          ))}
+          <DefaultItems onPress={HandleClick} />
+        </CommandPaletteMenu>
+        <CommandPaletteFooter
+          listeners={[
+            { name: "Search", key: ["Enter"] },
+            { name: "Next", key: ["Down"] },
+            { name: "Prev", key: ["Up"] },
+            { name: "Close", key: ["Esc"] },
+          ]}
+        />
+      </CommandPalettePrimitive>
     </>
   );
 }
 
-const Item = ({
+function SearchItems({
+  link,
+  name,
   category,
-  placeholder,
-  id,
-  focus,
-  handleEnter,
-  setFocus,
+  onPress,
 }: {
-  category: string;
-  placeholder: string;
-  id: number;
-  focus: number | null;
-  handleEnter: () => void;
-  setFocus: React.Dispatch<React.SetStateAction<number | null>>;
-}) => {
-  const ref = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    if (!ref.current) return;
-    if (focus === id) ref.current.focus();
-    else ref.current.blur();
-  }, [focus, id]);
+  link: string;
+  name: string;
+  category: SearchIndividualProps["category"];
+  onPress: () => void;
+}) {
   return (
-    <button
-      className={twMerge(
-        "w-full h-16 px-2 md:px-4 rounded-md flex justify-between items-center text-start gap-6 text-base dark:focus:bg-neutral-900  group transition-all duration-300 ease-linear outline-none data-[focus=true]:bg-neutral-100 data-[focus=true]:dark:bg-neutral-900"
-      )}
-      ref={ref}
-      aria-label={placeholder}
-      data-focus={focus === id}
-      onMouseEnter={() => setFocus(id)}
-      onMouseLeave={() => setFocus(null)}
-      onClick={handleEnter}
+    <CommandPaletteItem
+      className="flex items-center justify-start gap-6 my-2 h-16"
+      link={link}
+      onPress={onPress}
     >
-      <span className="ml-2 flex justify-start items-center gap-6">
-        {category === "components" && <Icons.components className="w-4 h-4" />}
-        {category === "primitives" && <Icons.primitive className="w-4 h-4" />}
-        {category === "hooks" && <Icons.hooks className="w-4 h-4" />}
-        {category === "Twitter" && <Icons.twitter className="w-4 h-4" />}
-        {category === "Docs" && <Icons.guide className="w-4 h-4" />}
-        {category === "Feedback" && <Icons.feedback className="w-4 h-4" />}
-        {category === "Bug" && <Icons.bug className="w-4 h-4" />}
-      </span>
-      <span className="w-full ml-2 flex flex-col items-start  overflow-hidden">
-        <span className="text-sm md:text-base text-nowrap">{placeholder}</span>
-        {(category === "components" ||
-          category === "primitives" ||
-          category === "hooks") && (
-          <span className="hidden sm:block text-sm capitalize text-neutrral-800 dark:text-neutral-200">
-            {category}
-          </span>
-        )}
-      </span>
-      <span
-        data-focus={focus === id}
-        className="w-4 h-4 opacity-0 data-[focus=true]:opacity-100 mr-2 delay-100"
-      >
-        <Icons.arrow className="w-4 h-4" />
-      </span>
-    </button>
+      {category === "components" ? (
+        <Icons.components className="w-4 h-4" />
+      ) : category === "primitives" ? (
+        <Icons.primitive className="w-4 h-4" />
+      ) : category === "hooks" ? (
+        <Icons.hooks className="w-4 h-4" />
+      ) : null}
+      <div className="flex flex-col items-start">
+        <span className="text-sm md:text-base text-nowrap">{name}</span>
+        <span className="hidden sm:block text-sm capitalize text-secondary-foreground">
+          {category}
+        </span>
+      </div>
+    </CommandPaletteItem>
   );
-};
+}
+function DefaultItems({ onPress }: { onPress: () => void }) {
+  return (
+    <CommandPaletteGroup heading="Connect">
+      <CommandPaletteItem
+        className="flex items-center justify-start gap-6"
+        link={Links.personal.twitter}
+        newTab
+        onPress={onPress}
+      >
+        <Icons.twitter className="w-4 h-4" />
+        <span>Follow us on Twitter</span>
+      </CommandPaletteItem>
+      {/* <CommandPaletteItem className="flex items-center justify-start gap-6">
+        <Icons.feedback className="w-4 h-4" />
+        <span>Send us a feedback</span>
+      </CommandPaletteItem> */}
+      <CommandPaletteItem
+        className="flex items-center justify-start gap-6"
+        link={Links.stratikui.github}
+        newTab
+      >
+        <Icons.github className="w-4 h-4" />
+        <span>View Repository</span>
+      </CommandPaletteItem>
+      <CommandPaletteItem
+        className="flex items-center justify-start gap-6"
+        link={Links.stratikui.newIssue}
+        newTab
+      >
+        <Icons.bug className="w-4 h-4" />
+        <span>Report a bug</span>
+      </CommandPaletteItem>
+    </CommandPaletteGroup>
+  );
+}
 
 const Icons = {
   components: (props: IconProps) => (
@@ -498,6 +304,20 @@ const Icons = {
     >
       <path
         d="M19.5 5h-10c-1.266 0-2.834.807-3.57 1.837L3.32 10.49l-1.199 1.679c-.121.175-.122.492.003.664l1.188 1.664l2.619 3.667C6.666 19.193 8.233 20 9.5 20h10c1.379 0 2.5-1.122 2.5-2.5v-10C22 6.122 20.879 5 19.5 5zm-2.293 9.793a.999.999 0 1 1-1.414 1.414L13.5 13.914l-2.293 2.293a.997.997 0 0 1-1.414 0a.999.999 0 0 1 0-1.414l2.293-2.293l-2.293-2.293a.999.999 0 1 1 1.414-1.414l2.293 2.293l2.293-2.293a.999.999 0 1 1 1.414 1.414L14.914 12.5l2.293 2.293z"
+        fill="currentColor"
+      />
+    </svg>
+  ),
+  github: (props: IconProps) => (
+    <svg
+      height="200"
+      width="200"
+      viewBox="0 0 432 416"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M213.5 0q88.5 0 151 62.5T427 213q0 70-41 125.5T281 416q-14 2-14-11v-58q0-27-15-40q44-5 70.5-27t26.5-77q0-34-22-58q11-26-2-57q-18-5-58 22q-26-7-54-7t-53 7q-18-12-32.5-17.5T107 88h-6q-12 31-2 57q-22 24-22 58q0 55 27 77t70 27q-11 10-13 29q-42 18-62-18q-12-20-33-22q-2 0-4.5.5t-5 3.5t8.5 9q14 7 23 31q1 2 2 4.5t6.5 9.5t13 10.5T130 371t30-2v36q0 13-14 11q-64-22-105-77.5T0 213q0-88 62.5-150.5T213.5 0z"
         fill="currentColor"
       />
     </svg>

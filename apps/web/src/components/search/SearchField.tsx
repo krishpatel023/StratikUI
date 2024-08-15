@@ -1,69 +1,64 @@
 "use client";
 
-import { useInternalState } from "@/hooks/useInternalState";
-import {
-  KeyListener,
-  KeyListenerDisplay,
-} from "@/packages/primitives/key_listener/KeyListener";
 import { IconProps } from "@/utils/constants";
+import { Button, Input, InputProps } from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+import { KeyListener, KeyListenerDisplay, Key } from "../ui/KeyListener";
+import { useRef } from "react";
 
-export function SearchField() {
-  const { setSearchbar } = useInternalState();
-  return (
-    <>
-      <IconInput
-        placeholder="Search"
-        icon={<KeyListenerDisplay keys={["Control", "k"]} />}
-        setSearchbar={setSearchbar}
-      />
-      <KeyListener
-        onKeyDown={() => setSearchbar(true)}
-        keys={["Control", "k"]}
-      />
-    </>
-  );
+export interface CommandPaletteTriggerProps extends InputProps {
+  keys: Key[];
+  searchbar: boolean;
+  setSearchbar: (open: boolean) => void;
 }
 
-function IconInput({
-  placeholder,
-  props,
-  icon,
+export function SearchField({
+  keys,
+  className,
+  searchbar,
   setSearchbar,
-}: {
-  placeholder: string;
-  props?: any;
-  icon?: any;
-  setSearchbar: (open: boolean) => void;
-}) {
+  ...props
+}: CommandPaletteTriggerProps) {
+  const ref = useRef<HTMLInputElement>(null);
+
+  function handleFocus() {
+    setSearchbar(true);
+    ref.current?.blur();
+  }
+
   return (
-    <div>
-      <div className="hidden md:block w-80 relative text-s_primary">
-        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2.5">
-          {icon ? icon : null}
+    <div className="relative text-foreground w-max">
+      {keys && (
+        <div className="hidden md:flex pointer-events-none absolute inset-y-0 right-0 items-center pr-2.5">
+          <KeyListenerDisplay keys={keys} />
+          <KeyListener onKeyDown={handleFocus} keys={keys} />
         </div>
-        <input
-          type="text"
-          className="my-1 w-full text-black dark:text-white placeholder:text-neutral-800 dark:placeholder:text-neutral-300 py-2 pr-24 pl-4 rounded-md bg-white dark:bg-neutral-950 border-[2px] border-neutral-200 dark:border-neutral-800 focus:outline-none focus:ring-2 focus:ring-neutral-200 dark:focus:ring-neutral-500 shadow-sm"
-          placeholder={placeholder}
-          {...props}
-          onFocus={() => setSearchbar(true)}
-          aria-label="Search"
-        />
-      </div>
+      )}
+      <Input
+        type="text"
+        className={twMerge(
+          "hidden md:block w-80 my-1 text-primary-foreground placeholder:text-secondary-foreground py-2 pr-24 pl-4 rounded-lg bg-neutral-200/30 dark:bg-neutral-900/50 border-[2px] hover:border-outline border-outline-secondary focus:outline-none",
+          className as string
+        )}
+        placeholder="Search"
+        ref={ref}
+        onFocus={handleFocus}
+        {...props}
+      />
       <div className="md:hidden h-full flex items-center justify-center">
-        <button
-          className="text-neutral-800 dark:text-neutral-200"
-          onClick={() => setSearchbar(true)}
+        <Button
+          className="text-primary-foreground"
+          onPress={() => setSearchbar(true)}
           aria-label="Search"
         >
-          <Search className="w-5 h-5" />
-        </button>
+          <SearchIcon className="w-5 h-5" />
+        </Button>
       </div>
     </div>
   );
 }
 
-const Search = (props: IconProps) => (
+const SearchIcon = (props: IconProps) => (
   <svg
     height="200"
     width="200"
