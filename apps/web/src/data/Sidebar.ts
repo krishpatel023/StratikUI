@@ -56,6 +56,14 @@ const defaultSidebar: SidebarProps = [
         flag: "default",
         children: [],
       },
+      {
+        type: "heading",
+        name: "Changelog",
+        link: "docs/changelog",
+        version_included: "1.0.0",
+        flag: "default",
+        children: [],
+      },
     ],
   },
 ];

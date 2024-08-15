@@ -67,6 +67,6 @@ export const PARTITION = ({
   children,
 }: React.HTMLAttributes<HTMLDivElement>) => {
   return (
-    <div className={twMerge("min-w-full min-h-10", className)}>{children}</div>
+    <div className={twMerge("min-w-full py-5", className)}>{children}</div>
   );
 };

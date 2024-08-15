@@ -20,7 +20,7 @@ export function Hero() {
           100+ Open Source components, hooks, and primitives designed in default
           along with accessible React Aria variant.
         </p>
-        <Link href="/get-started">
+        <Link href="/docs/introduction">
           <ShineButton className="hover:gap-2 hover:scale-105 flex gap-1 justify-center items-center py-3 px-6 mt-4  border rounded-xl text-accent-foreground transition-all duration-300">
             Explore Components
             <RightIcon className="h-5 w-5" />
