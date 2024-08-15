@@ -6,19 +6,17 @@ import { Logo } from "@/utils/logo";
 import { Links } from "@/utils/utils";
 import Link from "next/link";
 import { useEffect } from "react";
-// import { SearchField } from "./search/SearchField";
 import { Button } from "@/components/ui/Button";
 import useHash from "@/hooks/useHash";
 import useScrollToSection from "@/hooks/useScrollToSection";
-import { twMerge } from "tailwind-merge";
+import dynamic from "next/dynamic";
+import { SearchField } from "./search/SearchField";
 
-// const CommandPaletteImplementation = dynamic(() =>
-//   import("./search/Search").then((mod) => mod.CommandPaletteImplementation)
-// );
+const CommandPalette = dynamic(() => import("./search/Search"));
 
 export const Header = () => {
   const { theme, toggleTheme } = useTheme();
-  const { sidebar, setSidebar } = useInternalState();
+  const { sidebar, setSidebar, searchbar, setSearchbar } = useInternalState();
 
   // Reading the hashed version
   const hash = useHash();
@@ -30,7 +28,7 @@ export const Header = () => {
 
   return (
     <div className="sticky top-0 z-[999] bg-background peer-data-[sidebar-open=false]:glass-effect sm:glass-effect w-full  h-16 flex justify-between px-2 sm:px-6 md:px-10 items-center border-b dark:border-neutral-900 ">
-      {/* <CommandPaletteImplementation data={data} /> */}
+      <CommandPalette searchbar={searchbar} setSearchbar={setSearchbar} />
 
       <Link
         href="/"
@@ -50,7 +48,11 @@ export const Header = () => {
 
       <div className="flex gap-6 items-center">
         {/* PLACEHOLDER */}
-        {/* <SearchField /> */}
+        <SearchField
+          setSearchbar={setSearchbar}
+          searchbar={searchbar}
+          keys={["Control", "k"]}
+        />
 
         <div className="hidden sm:flex justify-center items-center gap-4">
           <Button
