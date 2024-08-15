@@ -1,0 +1,237 @@
+import { CODE } from "@/components/mdx/CodeSimple";
+import {PARTITION} from "@/components/mdx/Wrappers";
+
+# Installation
+
+<PARTITION className="mt-8">
+## Requirements
+</PARTITION>
+
+- [React 18](https://react.dev/learn/installation)  or higher
+- [Next.js 14](https://nextjs.org/docs/getting-started) or higher
+- [TailwindCSS 3.4](https://tailwindcss.com/docs/installation) or higher
+- [Framer Motion 11](https://www.framer.com/motion/introduction/) or higher
+- [React Aria Components 1.3](https://react-spectrum.adobe.com/react-aria/getting-started.html) or higher
+
+<PARTITION className="mt-4 py-8">
+## Utilities
+</PARTITION>
+There are a few utilities that are used in this project. You can find them below:
+
+<PARTITION className="py-8">
+>alert| Only add these if you are using the custom color classes in your code. If you are not then you can ignore this section.
+</PARTITION>
+
+<CODE language="tsx">
+```ts.config|ts
+import type { Config } from "tailwindcss";
+const config: Config = {
+  darkMode: "selector",
+  content: [
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    {/* Add Folder path that you add your components */}
+  ],
+  theme: {
+    extend: {
+      colors: {
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+
+        primary: {
+          DEFAULT: "var(--primary)",
+          foreground: "var(--primary-foreground)",
+        },
+
+        secondary: {
+          DEFAULT: "var(--secondary)",
+          foreground: "var(--secondary-foreground)",
+        },
+
+        accent: {
+          DEFAULT: "var(--accent)",
+          foreground: "var(--accent-foreground)",
+          secondary: {
+            DEFAULT: "var(--accent-secondary)",
+            foreground: "var(--accent-secondary-foreground)",
+          },
+        },
+
+        outline: {
+          DEFAULT: "var(--outline)",
+          secondary: "var(--outline-secondary)",
+          foreground: "var(--outline-foreground)",
+        },
+
+        success: {
+          DEFAULT: "var(--success)",
+          secondary: "var(--success-secondary)",
+          foreground: "var(--success-foreground)",
+        },
+
+        alert: {
+          DEFAULT: "var(--alert)",
+          secondary: "var(--alert-secondary)",
+          foreground: "var(--alert-foreground)",
+        },
+
+        error: {
+          DEFAULT: "var(--error)",
+          secondary: "var(--error-secondary)",
+          foreground: "var(--error-foreground)",
+        },
+
+        muted: {
+          DEFAULT: "var(--muted)",
+          secondary: "var(--muted-secondary)",
+          foreground: "var(--muted-foreground)",
+        },
+
+        blur: {
+          DEFAULT: "var(--blur)",
+          secondary: "var(--blur-secondary)",
+          foreground: "var(--blur-foreground)",
+        },
+      },
+    },
+  },
+  plugins: [
+    require("tailwindcss-react-aria-components"), // [!code highlight]
+  ],
+};
+export default config;
+```
+</CODE>
+
+<PARTITION className="my-2"/>
+
+<CODE>
+```global.css|css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+@layer base {
+  :root {
+    --sidebar-width: 8px;
+    --sidebar-height: 6px;
+  }
+  :root {
+    --radius: 0.5rem;
+
+    --background: theme(colors.white);
+    --foreground: theme(colors.black);
+
+    --primary: theme(colors.neutral.100);
+    --primary-foreground: theme(colors.neutral.800);
+
+    --secondary: theme(colors.neutral.200);
+    --secondary-foreground: theme(colors.neutral.700);
+
+    --accent: theme(colors.blue.600);
+    --accent-foreground: theme(colors.white);
+    --accent-secondary: theme(colors.blue.500);
+    --accent-secondary-foreground: theme(colors.white);
+
+    --outline-secondary: theme(colors.neutral.300);
+    --outline: theme(colors.neutral.500);
+    --outline-foreground: theme(colors.neutral.500);
+
+    --success: theme(colors.green.500);
+    --success-secondary: theme(colors.green.400);
+    --success-foreground: theme(colors.white);
+
+    --alert: theme(colors.yellow.500);
+    --alert-secondary: theme(colors.yellow.400);
+    --alert-foreground: theme(colors.yellow.900);
+
+    --error: theme(colors.red.600);
+    --error-secondary: theme(colors.red.500);
+    --error-foreground: theme(colors.white);
+
+    --muted: theme(colors.neutral.600);
+    --muted-secondary: theme(colors.neutral.200);
+    --muted-foreground: theme(colors.neutral.200);
+
+    --blur: theme(colors.white/30%);
+    --blur-secondary: theme(colors.neutral.200/30%);
+    --blur-foreground: theme(colors.neutral.800);
+  }
+
+  .dark {
+    --background: theme(colors.black);
+    --foreground: theme(colors.white);
+
+    --primary: #171717;
+    --primary-foreground: #e6e6e6;
+
+    --secondary: theme(colors.neutral.800);
+    --secondary-foreground: theme(colors.neutral.400);
+
+    --accent: theme(colors.blue.600);
+    --accent-foreground: theme(colors.white);
+    --accent-secondary: theme(colors.blue.500);
+    --accent-secondary-foreground: theme(colors.white);
+
+    --outline: theme(colors.neutral.700);
+    --outline-secondary: theme(colors.neutral.800);
+    --outline-foreground: theme(colors.neutral.600);
+
+    --success: theme(colors.green.800);
+    --success-secondary: theme(colors.green.600);
+    --success-foreground: theme(colors.white);
+
+    --alert: theme(colors.yellow.600);
+    --alert-secondary: theme(colors.yellow.400);
+    --alert-foreground: theme(colors.yellow.950);
+
+    --error: theme(colors.red.600);
+    --error-secondary: theme(colors.red.500);
+    --error-foreground: theme(colors.white);
+
+    --muted: theme(colors.neutral.300);
+    --muted-secondary: theme(colors.neutral.800);
+    --muted-foreground: theme(colors.neutral.700);
+
+    --blur: theme(colors.black / 30%);
+    --blur-secondary: theme(colors.neutral.800/30%);
+    --blur-foreground: theme(colors.neutral.200);
+  }
+}
+
+.scrollbar-y::-webkit-scrollbar {
+  width: var(--sidebar-width); /* width of the entire scrollbar */
+}
+
+.scrollbar-y::-webkit-scrollbar-thumb {
+  background-color: var(--foreground); /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+}
+
+.scrollbar-x::-webkit-scrollbar {
+  height: var(--sidebar-height); /* width of the entire scrollbar */
+}
+
+.scrollbar-x::-webkit-scrollbar-thumb {
+  background-color: var(--foreground); /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+}
+```
+</CODE>
+
+<PARTITION className="mt-8">
+## Usage
+</PARTITION>
+<PARTITION className="py-4">
+Now that you have installed the required dependencies, you can start using the components in your project. 
+
+- To get started, browse the components. 
+- Adjust the settings that you need. For example, react aria components, default JSX/TSX, default color classes, tailwindcss color classes, etc.
+- Copy the code snippets provided in the documentation. 
+- Paste the code into your project and start using the fully functional components in your application.
+</PARTITION>
