@@ -1,0 +1,642 @@
+import React, { Suspense, lazy } from 'react';
+import { Display, TechnologyUsed, Wrapper, Skeleton, Title, Details, Provider } from "@/components/mdx/MDXServerImports"
+import { CodeBlock } from "@/components/mdx/MDXClientImports"
+
+{/*
+// ------------------------------------------------------------------------------------
+    //	The text below is generated from "@/registry/hooks/useCookies/01"
+//------------------------------------------------------------------------------------
+*/}
+
+<Wrapper>
+<Title>useCookies</Title>
+### The useCookies hook a way to manage cookie preferences and operations in a React application. It allows you to toggle, reset, accept, or reject cookie categories, as well as set, edit, remove, and retrieve cookies with ease. This hook leverages localStorage to persist cookie preferences across sessions, ensuring a consistent user experience.
+
+<CodeBlock>
+
+```default|js|example.jsx
+"use client";
+
+import Button from "@registry/ui/Button";
+import useCookies from "@registry/packages/hooks/useCookies/01/default-ts/useCookies";
+import { useEffect, useState } from "react";
+import Input from "@registry/ui/Input";
+
+export default function UseCookiesExample() {
+  const {
+    setCookie,
+    getCookie,
+    getAllCookies,
+    removeCookie,
+    resetCookiePreferences,
+  } = useCookies();
+
+  const [cookieValue, setCookieValue] = useState("");
+
+  const [message, setMessage] = useState(
+    "Click any of the buttons to get started."
+  );
+  const [displayData, setDisplayData] = useState(null);
+
+  const resetPreferences = () => {
+    resetCookiePreferences();
+  };
+
+  const handleSaveCookie = () => {
+    if (!cookieValue) return;
+    setCookie("demoCookie", cookieValue, 30 * 24 * 60 * 60, "essential");
+    setMessage("Cookie Saved under the name of 'demoCookie'");
+    setDisplayData(null);
+  };
+  const handleReadCookie = () => {
+    const val = getCookie("demoCookie");
+    if (val) {
+      setDisplayData({ demoCookie: val });
+      setMessage("Cookie Fetched");
+    }
+  };
+  const handleReadAllCookies = () => {
+    const val = getAllCookies();
+    if (val) {
+      setDisplayData(val);
+      setMessage("All Cookies Fetched");
+    }
+  };
+
+  const handleRemoveCookie = () => {
+    removeCookie("demoCookie", "essential");
+    setDisplayData(null);
+    setMessage("Cookie named 'demoCookie' removed");
+  };
+
+  useEffect(() => {
+    resetPreferences();
+  }, []);
+
+  return (
+    <div className="min-h-80 w-full flex flex-col justify-center items-center gap-6 text-foreground">
+      <div>
+        <h1>useCookie</h1>
+      </div>
+      <div>
+        <Input
+          label="Cookie Value"
+          placeholder="Cookie Value"
+          onChange={(e) => setCookieValue(e.target.value)}
+        />
+      </div>
+      <div className="flex gap-4 flex-col @md:flex-row">
+        <Button onPress={handleSaveCookie}>Set Cookie</Button>
+        <Button onPress={handleReadCookie}>Get Cookie</Button>
+        <Button onPress={handleReadAllCookies}>Get All Cookies</Button>
+        <Button onPress={handleRemoveCookie}>Remove Cookie</Button>
+      </div>
+
+      <div className="flex flex-col text-start">
+        {message && <h1>{message}</h1>}
+        {displayData && (
+          <div className=" h-max mt-10">
+            {"{"}
+            {Object.keys(displayData).map((key, i) => (
+              <div key={i} className="flex gap-2">
+                <p className="text-accent-secondary">{key} : </p>
+                <p className="max-w-60 overflow-hidden">
+                  {displayData[key]} {displayData[key].length > 50 && "..."}
+                </p>
+              </div>
+            ))}
+            {"}"}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+```
+
+```default|js|useCookies.jsx
+"use client";
+
+import { useState, useEffect } from "react";
+
+const useCookies = () => {
+  const defaultValue = {
+    essential: true,
+    functional: true,
+    analytics: true,
+    advertising: true,
+  };
+  const [cookiePreferences, setCookiePreferences] = useState(defaultValue);
+
+  const handlePrefLoad = () => {
+    const storedPreferences = localStorage.getItem("cookiePreferences");
+    if (storedPreferences) {
+      setCookiePreferences(JSON.parse(storedPreferences));
+    }
+  };
+  const handlePrefUpdate = (pref) => {
+    localStorage.setItem("cookiePreferences", JSON.stringify(pref));
+  };
+
+  useEffect(() => {
+    handlePrefLoad();
+  }, []);
+
+  const toggleCookieCategory = (category) => {
+    const newPref = {
+      ...cookiePreferences,
+      [category]: !cookiePreferences[category],
+    };
+    setCookiePreferences(newPref);
+    handlePrefUpdate(newPref);
+  };
+
+  const resetCookiePreferences = () => {
+    setCookiePreferences(defaultValue);
+    handlePrefUpdate(defaultValue);
+  };
+
+  const rejectAllCookiePreferences = () => {
+    setCookiePreferences({
+      essential: false,
+      functional: false,
+      analytics: false,
+      advertising: false,
+    });
+    handlePrefUpdate({
+      essential: false,
+      functional: false,
+      analytics: false,
+      advertising: false,
+    });
+  };
+
+  const acceptAllCookiePreferences = () => {
+    setCookiePreferences({
+      essential: true,
+      functional: true,
+      analytics: true,
+      advertising: true,
+    });
+    handlePrefUpdate({
+      essential: true,
+      functional: true,
+      analytics: true,
+      advertising: true,
+    });
+  };
+
+  const setCookie = (
+    name,
+    value,
+    time,
+    category,
+    options = {
+      path: "/",
+    }
+  ) => {
+    if (cookiePreferences[category]) {
+      const date = new Date();
+      const timeCalaculated = date.setTime(date.getTime() + time * 1000);
+      const expires = `expires=${date.toUTCString()}`;
+      const cookieOptions = Object.entries(options)
+        .map(([key, value]) => `${key}=${value}`)
+        .join(";");
+      document.cookie = `${name}=${value};${expires};path=${options.path};${category};${cookieOptions}`;
+    }
+  };
+
+  const editCookie = (category, name, value, days, options = {}) => {
+    if (cookiePreferences[category]) {
+      removeCookie(name, category);
+      setCookie(name, value, days, category, options);
+    }
+  };
+
+  const removeCookie = (name, category) => {
+    if (cookiePreferences[category]) {
+      const cookiesForCategory = document.cookie.split(";");
+
+      cookiesForCategory.forEach((cookie) => {
+        const cookieName = cookie.split("=")[0].trim();
+        if (cookieName === name) {
+          const expires = `expires=Thu, 01 Jan 1970 00:00:00 UTC`;
+          document.cookie = `${cookieName}=; ${expires}; path=/; ${category}`;
+        }
+      });
+    }
+  };
+
+  const getCookie = (name) => {
+    const encodedName = encodeURIComponent(name);
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(`${encodedName}=`)) {
+        return decodeURIComponent(cookie.substring(encodedName.length + 1));
+      }
+    }
+    return null;
+  };
+
+  const getAllCookies = () => {
+    const cookies = {};
+    const cookiesArray = document.cookie.split(";");
+    for (let i = 0; i < cookiesArray.length; i++) {
+      const cookie = cookiesArray[i].trim().split("=");
+      const name = decodeURIComponent(cookie[0]);
+      const value = decodeURIComponent(cookie.slice(1).join("="));
+      cookies[name] = value;
+    }
+    return cookies;
+  };
+
+  return {
+    cookiePreferences,
+    toggleCookieCategory,
+    resetCookiePreferences,
+    acceptAllCookiePreferences,
+    rejectAllCookiePreferences,
+    setCookie,
+    editCookie,
+    removeCookie,
+    getCookie,
+    getAllCookies,
+  };
+};
+
+export default useCookies;
+
+```
+
+```default|ts|example.tsx
+"use client";
+
+import Button from "@registry/ui/Button";
+import useCookies from "@registry/packages/hooks/useCookies/01/default-ts/useCookies";
+import { useEffect, useState } from "react";
+import Input from "@registry/ui/Input";
+
+export default function UseCookiesExample() {
+  const {
+    setCookie,
+    getCookie,
+    getAllCookies,
+    removeCookie,
+    resetCookiePreferences,
+  } = useCookies();
+
+  const [cookieValue, setCookieValue] = useState("");
+
+  const [message, setMessage] = useState(
+    "Click any of the buttons to get started."
+  );
+  const [displayData, setDisplayData] = useState<{
+    [key: string]: string;
+  } | null>(null);
+
+  const resetPreferences = () => {
+    resetCookiePreferences();
+  };
+
+  const handleSaveCookie = () => {
+    if (!cookieValue) return;
+    setCookie("demoCookie", cookieValue, 30 * 24 * 60 * 60, "essential");
+    setMessage("Cookie Saved under the name of 'demoCookie'");
+    setDisplayData(null);
+  };
+  const handleReadCookie = () => {
+    const val = getCookie("demoCookie");
+    if (val) {
+      setDisplayData({ demoCookie: val });
+      setMessage("Cookie Fetched");
+    }
+  };
+  const handleReadAllCookies = () => {
+    const val = getAllCookies();
+    if (val) {
+      setDisplayData(val);
+      setMessage("All Cookies Fetched");
+    }
+  };
+
+  const handleRemoveCookie = () => {
+    removeCookie("demoCookie", "essential");
+    setDisplayData(null);
+    setMessage("Cookie named 'demoCookie' removed");
+  };
+
+  useEffect(() => {
+    resetPreferences();
+  }, []);
+
+  return (
+    <div className="min-h-80 w-full flex flex-col justify-center items-center gap-6 text-foreground">
+      <div>
+        <h1>useCookie</h1>
+      </div>
+      <div>
+        <Input
+          label="Cookie Value"
+          placeholder="Cookie Value"
+          onChange={(e) => setCookieValue(e.target.value)}
+        />
+      </div>
+      <div className="flex gap-4 flex-col @md:flex-row">
+        <Button onPress={handleSaveCookie}>Set Cookie</Button>
+        <Button onPress={handleReadCookie}>Get Cookie</Button>
+        <Button onPress={handleReadAllCookies}>Get All Cookies</Button>
+        <Button onPress={handleRemoveCookie}>Remove Cookie</Button>
+      </div>
+
+      <div className="flex flex-col text-start">
+        {message && <h1>{message}</h1>}
+        {displayData && (
+          <div className=" h-max mt-10">
+            {"{"}
+            {Object.keys(displayData).map((key, i) => (
+              <div key={i} className="flex gap-2">
+                <p className="text-accent-secondary">{key} : </p>
+                <p className="max-w-60 overflow-hidden">
+                  {displayData[key]} {displayData[key].length > 50 && "..."}
+                </p>
+              </div>
+            ))}
+            {"}"}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+```
+
+```default|ts|useCookies.tsx
+"use client";
+
+import { useState, useEffect } from "react";
+
+export type CookieCategory =
+  | "essential"
+  | "functional"
+  | "analytics"
+  | "advertising";
+
+export interface CookiePreferences {
+  [key: string]: boolean;
+}
+
+export interface CookieOptions {
+  path?: string;
+  domain?: string;
+  secure?: boolean;
+  sameSite?: "strict" | "lax" | "none";
+}
+
+const useCookies = () => {
+  const defaultValue: CookiePreferences = {
+    essential: true,
+    functional: true,
+    analytics: true,
+    advertising: true,
+  };
+  const [cookiePreferences, setCookiePreferences] =
+    useState<CookiePreferences>(defaultValue);
+
+  const handlePrefLoad = () => {
+    const storedPreferences = localStorage.getItem("cookiePreferences");
+    if (storedPreferences) {
+      setCookiePreferences(JSON.parse(storedPreferences));
+    }
+  };
+  const handlePrefUpdate = (pref: CookiePreferences) => {
+    localStorage.setItem("cookiePreferences", JSON.stringify(pref));
+  };
+
+  useEffect(() => {
+    handlePrefLoad();
+  }, []);
+
+  const toggleCookieCategory = (category: CookieCategory) => {
+    const newPref = {
+      ...cookiePreferences,
+      [category]: !cookiePreferences[category],
+    };
+    setCookiePreferences(newPref);
+    handlePrefUpdate(newPref);
+  };
+
+  const resetCookiePreferences = () => {
+    setCookiePreferences(defaultValue);
+    handlePrefUpdate(defaultValue);
+  };
+
+  const rejectAllCookiePreferences = () => {
+    setCookiePreferences({
+      essential: false,
+      functional: false,
+      analytics: false,
+      advertising: false,
+    });
+    handlePrefUpdate({
+      essential: false,
+      functional: false,
+      analytics: false,
+      advertising: false,
+    });
+  };
+
+  const acceptAllCookiePreferences = () => {
+    setCookiePreferences({
+      essential: true,
+      functional: true,
+      analytics: true,
+      advertising: true,
+    });
+    handlePrefUpdate({
+      essential: true,
+      functional: true,
+      analytics: true,
+      advertising: true,
+    });
+  };
+
+  const setCookie = (
+    name: string,
+    value: string,
+    time: number,
+    category: CookieCategory,
+    options: CookieOptions = {
+      path: "/",
+    }
+  ) => {
+    if (cookiePreferences[category]) {
+      const date = new Date();
+      const timeCalaculated = date.setTime(date.getTime() + time * 1000);
+      const expires = `expires=${date.toUTCString()}`;
+      const cookieOptions = Object.entries(options)
+        .map(([key, value]) => `${key}=${value}`)
+        .join(";");
+      document.cookie = `${name}=${value};${expires};path=${options.path};${category};${cookieOptions}`;
+    }
+  };
+
+  const editCookie = (
+    category: CookieCategory,
+    name: string,
+    value: string,
+    days: number,
+    options: CookieOptions = {}
+  ) => {
+    if (cookiePreferences[category]) {
+      removeCookie(name, category);
+      setCookie(name, value, days, category, options);
+    }
+  };
+
+  const removeCookie = (name: string, category: CookieCategory) => {
+    if (cookiePreferences[category]) {
+      const cookiesForCategory = document.cookie.split(";");
+
+      cookiesForCategory.forEach((cookie) => {
+        const cookieName = cookie.split("=")[0].trim();
+        if (cookieName === name) {
+          const expires = `expires=Thu, 01 Jan 1970 00:00:00 UTC`;
+          document.cookie = `${cookieName}=; ${expires}; path=/; ${category}`;
+        }
+      });
+    }
+  };
+
+  const getCookie = (name: string): string | null => {
+    const encodedName = encodeURIComponent(name);
+    const cookies = document.cookie.split(";");
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(`${encodedName}=`)) {
+        return decodeURIComponent(cookie.substring(encodedName.length + 1));
+      }
+    }
+    return null;
+  };
+
+  const getAllCookies = (): { [key: string]: string } => {
+    const cookies: { [key: string]: string } = {};
+    const cookiesArray = document.cookie.split(";");
+    for (let i = 0; i < cookiesArray.length; i++) {
+      const cookie = cookiesArray[i].trim().split("=");
+      const name = decodeURIComponent(cookie[0]);
+      const value = decodeURIComponent(cookie.slice(1).join("="));
+      cookies[name] = value;
+    }
+    return cookies;
+  };
+
+  return {
+    cookiePreferences,
+    toggleCookieCategory,
+    resetCookiePreferences,
+    acceptAllCookiePreferences,
+    rejectAllCookiePreferences,
+    setCookie,
+    editCookie,
+    removeCookie,
+    getCookie,
+    getAllCookies,
+  };
+};
+
+export default useCookies;
+
+```
+
+</CodeBlock>
+<Details>
+
+
+## Options Table
+
+| Name     | Type                          | Default | Description                                                    |
+| -------- | ----------------------------- | ------- | -------------------------------------------------------------- |
+| path     | `string`                      | "/"     | Path within the domain that the cookie is accessible to.       |
+| domain   | `string`                      | -       | Domain that the cookie is accessible to.                       |
+| secure   | `boolean`                     | -       | Indicates if the cookie should be transmitted over HTTPS only. |
+| sameSite | `"strict" \| "lax" \| "none"` | -       | Controls the cookie's same-site policy.                        |
+
+## Return Table
+
+| Name                       | Type                                                                                                     | Description                                                                 |
+| -------------------------- | -------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| cookiePreferences          | `CookiePreferences`                                                                                      | The current user's cookie preferences.                                      |
+| toggleCookieCategory       | `(category: CookieCategory) => void`                                                                     | Toggles the acceptance of cookies for a specific category.                  |
+| resetCookiePreferences     | `() => void`                                                                                             | Resets the cookie preferences to the default values.                        |
+| acceptAllCookiePreferences | `() => void`                                                                                             | Accepts all categories of cookies.                                          |
+| rejectAllCookiePreferences | `() => void`                                                                                             | Rejects all categories of cookies.                                          |
+| setCookie                  | `(name: string, value: string, time: number, category: CookieCategory, options?: CookieOptions) => void` | Sets a cookie with the specified name, value, expiration time, and options. |
+| editCookie                 | `(category: CookieCategory, name: string, value: string, days: number, options?: CookieOptions) => void` | Edits an existing cookie with the specified details.                        |
+| removeCookie               | `(name: string, category: CookieCategory) => void`                                                       | Removes a cookie by name for a specific category.                           |
+| getCookie                  | `(name: string) => string \| null`                                                                       | Retrieves the value of a cookie by name.                                    |
+| getAllCookies              | `() => Object`                                                                                           | Returns all cookies as an object with key-value pairs.                      |
+
+## Cookie Category Enum
+
+The `CookieCategory` type can be one of the following strings:
+
+- `"essential"`
+- `"functional"`
+- `"analytics"`
+- `"advertising"`
+
+## Parameters Table for Functions
+
+### `toggleCookieCategory`
+
+| Name     | Type             | Description                        |
+| -------- | ---------------- | ---------------------------------- |
+| category | `CookieCategory` | The category of cookies to toggle. |
+
+### `setCookie`
+
+| Name     | Type             | Default         | Description                                                         |
+| -------- | ---------------- | --------------- | ------------------------------------------------------------------- |
+| name     | `string`         | -               | The name of the cookie to set.                                      |
+| value    | `string`         | -               | The value to assign to the cookie.                                  |
+| time     | `number`         | -               | The time in seconds for which the cookie is valid.                  |
+| category | `CookieCategory` | -               | The category of the cookie to set.                                  |
+| options  | `CookieOptions`  | `{ path: "/" }` | Optional settings for cookie attributes like `path`, `domain`, etc. |
+
+### `editCookie`
+
+| Name     | Type             | Default | Description                                                         |
+| -------- | ---------------- | ------- | ------------------------------------------------------------------- |
+| category | `CookieCategory` | -       | The category of the cookie to edit.                                 |
+| name     | `string`         | -       | The name of the cookie to edit.                                     |
+| value    | `string`         | -       | The new value to assign to the cookie.                              |
+| days     | `number`         | -       | The number of days for which the cookie should be valid.            |
+| options  | `CookieOptions`  | `{}`    | Optional settings for cookie attributes like `path`, `domain`, etc. |
+
+### `removeCookie`
+
+| Name     | Type             | Description                           |
+| -------- | ---------------- | ------------------------------------- |
+| name     | `string`         | The name of the cookie to remove.     |
+| category | `CookieCategory` | The category of the cookie to remove. |
+
+### `getCookie`
+
+| Name | Type     | Description                         |
+| ---- | -------- | ----------------------------------- |
+| name | `string` | The name of the cookie to retrieve. |
+
+</Details>
+export const Hooks_usecookies_01 = lazy(() => import("@registry/packages/hooks/useCookies/01/default-ts/example"));
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+<Hooks_usecookies_01 />
+</Display>
+</Suspense>
+
+</Wrapper>

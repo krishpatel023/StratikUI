@@ -1,0 +1,174 @@
+import React, { Suspense, lazy } from 'react';
+import { Implementation, Preview, WrapperToggle, Display, TechnologyUsed, Wrapper, Skeleton, PARTITION, Details, Provider, Title } from "@/components/mdx/MDXServerImports"
+import { CodeBlock } from "@/components/mdx/MDXClientImports"
+
+{/*
+// ------------------------------------------------------------------------------------
+    //	The text below is generated from "@/registry/primitives/scroll-to-top/01"
+//------------------------------------------------------------------------------------
+*/}
+
+<Wrapper>
+<Title>Scroll To Top</Title>
+### A button component that becomes visible when scrolling down a page, allowing users to quickly scroll back to the top. This will automatically detect if the user has scrolled past the specified threshold and will scroll to the top of the page enabling clean code implementation.
+
+<WrapperToggle >
+<Preview>
+
+export const Primitives_scroll_to_top_01 = lazy(() => import("@registry/packages/primitives/scroll-to-top/01/default-ts/example"));
+
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+<Primitives_scroll_to_top_01 />
+</Display>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+<TechnologyUsed technologies={["tailwind-merge","react-aria-components"]} />
+<CodeBlock>
+
+```default|js|example.jsx
+import { ScrollToTop } from "@registry/packages/primitives/scroll-to-top/01/default-js/ScrollToTop";
+
+export default function ScrollToTopImplementation() {
+  return (
+    <div className="w-full min-h-[45rem] flex justify-center items-center text-center">
+      <div className="flex flex-col items-center justify-center gap-4">
+        <h1 className="text-4xl text-primary-foreground">Content</h1>
+        <h2 className="text-xl text-primary-foreground">
+          It will only show up if a threshold is reached. You can change the
+          threshold by passing a value to the `threshold` prop.
+        </h2>
+      </div>
+      <ScrollToTop />
+    </div>
+  );
+}
+
+```
+
+```default|js|ScrollToTop.jsx
+"use client";
+
+import useScrollTo from "@registry/packages/hooks/useScrollTo/01/default-js/useScrollTo";
+import { Button } from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+
+export const ScrollToTop = ({ className }) => {
+  const { isVisible, scroll } = useScrollTo({ threshold: 150 });
+
+  const handleScrollToTop = () => {
+    scroll(null);
+  };
+
+  return (
+    <Button
+      onPress={handleScrollToTop}
+      className={twMerge(
+        "p-2 absolute right-4 bottom-4 text-primary-foreground bg-primary hover:bg-secondary rounded-lg border border-outline-secondary",
+        isVisible ? "" : "hidden",
+        className
+      )}
+    >
+      <UpIcon className="w-6 h-6" />
+    </Button>
+  );
+};
+
+export const UpIcon = (props) => (
+  <svg
+    height="200"
+    width="200"
+    viewBox="0 0 16 16"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      d="M11.78 9.78a.75.75 0 0 1-1.06 0L8 7.06L5.28 9.78a.75.75 0 0 1-1.06-1.06l3.25-3.25a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06"
+      fill="currentColor"
+      fillRule="evenodd"
+    />
+  </svg>
+);
+
+```
+
+```default|ts|example.tsx
+import { ScrollToTop } from "@registry/packages/primitives/scroll-to-top/01/default-ts/ScrollToTop";
+
+export default function ScrollToTopImplementation() {
+  return (
+    <div className="w-full min-h-[45rem] flex justify-center items-center text-center">
+      <div className="flex flex-col items-center justify-center gap-4">
+        <h1 className="text-4xl text-primary-foreground">Content</h1>
+        <h2 className="text-xl text-primary-foreground">
+          It will only show up if a threshold is reached. You can change the
+          threshold by passing a value to the `threshold` prop.
+        </h2>
+      </div>
+      <ScrollToTop />
+    </div>
+  );
+}
+
+```
+
+```default|ts|ScrollToTop.tsx
+"use client";
+
+import useScrollTo from "@registry/packages/hooks/useScrollTo/01/default-ts/useScrollTo";
+import { IconProps } from "@registry/utils/types";
+import { Button } from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+
+export const ScrollToTop = ({ className }: { className?: string }) => {
+  const { isVisible, scroll } = useScrollTo({ threshold: 150 });
+
+  const handleScrollToTop = () => {
+    scroll(null);
+  };
+
+  return (
+    <Button
+      onPress={handleScrollToTop}
+      className={twMerge(
+        "p-2 absolute right-4 bottom-4 text-primary-foreground bg-primary hover:bg-secondary rounded-lg border border-outline-secondary",
+        isVisible ? "" : "hidden",
+        className
+      )}
+    >
+      <UpIcon className="w-6 h-6" />
+    </Button>
+  );
+};
+
+export const UpIcon = (props: IconProps) => (
+  <svg
+    height="200"
+    width="200"
+    viewBox="0 0 16 16"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      d="M11.78 9.78a.75.75 0 0 1-1.06 0L8 7.06L5.28 9.78a.75.75 0 0 1-1.06-1.06l3.25-3.25a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06"
+      fill="currentColor"
+      fillRule="evenodd"
+    />
+  </svg>
+);
+
+```
+
+</CodeBlock>
+<Details>
+
+
+</Details>
+</Implementation>
+</WrapperToggle>
+</Wrapper>

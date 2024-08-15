@@ -1,0 +1,531 @@
+import React, { Suspense, lazy } from 'react';
+import { Implementation, Preview, WrapperToggle, Display, TechnologyUsed, Wrapper, Skeleton, PARTITION, Details, Provider, Title } from "@/components/mdx/MDXServerImports"
+import { CodeBlock } from "@/components/mdx/MDXClientImports"
+
+{/*
+// ------------------------------------------------------------------------------------
+    //	The text below is generated from "@/registry/primitives/file-upload-button/00"
+//------------------------------------------------------------------------------------
+*/}
+
+<Wrapper>
+<Title>File Upload Button</Title>
+### A button component that triggers a file upload dialog and handles file selection. It supports custom styling and a callback function to handle selected files. This is a raw component without any styling.
+
+<WrapperToggle >
+<Preview>
+
+export const Primitives_file_upload_button_00 = lazy(() => import("@registry/packages/primitives/file-upload-button/00/react_aria-ts/example"));
+
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+<Primitives_file_upload_button_00 />
+</Display>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+<TechnologyUsed technologies={["react-aria-components"]} />
+<CodeBlock>
+
+```default|js|example.jsx
+"use client";
+
+import { useState } from "react";
+import { FileUploadButton } from "@registry/packages/primitives/file-upload-button/00/default-js/FileUpload";
+
+export default function FileUploadButtonImplementation() {
+  const [files, setFiles] = useState([]);
+
+  return (
+    <div className="w-full flex justify-center items-center text-foreground flex-col gap-4">
+      <FileUploadButton getFiles={(files) => setFiles(files)} allowsMultiple>
+        Choose a file
+      </FileUploadButton>
+      <div className="text-center flex flex-col ">
+        <h1 className="text-primary-foreground font-semibold underline underline-offset-1 mb-4">
+          Selected Files
+        </h1>
+        {files.map((file, index) => (
+          <span key={file.name + index}>{file.name}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+```
+
+```default|js|FileUpload.jsx
+"use client";
+
+import { useRef } from "react";
+
+export function FileUploadButton({
+  children,
+  getFiles,
+  allowsMultiple,
+  acceptedFileTypes,
+  className,
+  ...props
+}) {
+  function handleFileUpload(e) {
+    e.preventDefault();
+    const target = e.target;
+
+    let Files = [];
+
+    if (allowsMultiple) {
+      Files = Array.from(target.files ? target.files : []);
+    } else {
+      const file = target.files?.[0];
+      Files = file ? [file] : [];
+    }
+    getFiles && getFiles(Files);
+  }
+
+  const inputRef = useRef(null);
+
+  function handleClick() {
+    inputRef.current?.click();
+  }
+
+  return (
+    <>
+      <input
+        type="file"
+        ref={inputRef}
+        className="hidden"
+        onChange={(e) => handleFileUpload(e)}
+        multiple={allowsMultiple}
+        accept={acceptedFileTypes?.join(",")}
+        {...props}
+      />
+      <button className={className} onClick={handleClick}>
+        {children}
+      </button>
+    </>
+  );
+}
+
+```
+
+```default|ts|example.tsx
+"use client";
+
+import { useState } from "react";
+import { FileUploadButton } from "@registry/packages/primitives/file-upload-button/00/default-ts/FileUpload";
+
+export default function FileUploadButtonImplementation() {
+  const [files, setFiles] = useState<File[]>([]);
+
+  return (
+    <div className="w-full flex justify-center items-center text-foreground flex-col gap-4">
+      <FileUploadButton
+        getFiles={(files) => setFiles(files)}
+        allowsMultiple
+        acceptedFileTypes={[".png", ".pdf"]}
+      >
+        Choose a file
+      </FileUploadButton>
+      <div className="text-center flex flex-col ">
+        <h1 className="text-primary-foreground font-semibold underline underline-offset-1 mb-4">
+          Selected Files
+        </h1>
+        {files.map((file, index) => (
+          <span key={file.name + index}>{file.name}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+```
+
+```default|ts|FileUpload.tsx
+"use client";
+
+import {
+  ChangeEvent,
+  DetailedHTMLProps,
+  InputHTMLAttributes,
+  useRef,
+} from "react";
+
+export interface FileUploadButtonProps
+  extends DetailedHTMLProps<
+    InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  > {
+  getFiles?: (files: File[]) => void;
+  allowsMultiple?: boolean;
+  acceptedFileTypes?: InputHTMLAttributes<HTMLInputElement>["accept"][];
+}
+
+export function FileUploadButton({
+  children,
+  getFiles,
+  allowsMultiple,
+  acceptedFileTypes,
+  className,
+  ...props
+}: FileUploadButtonProps) {
+  function handleFileUpload(e: ChangeEvent<HTMLInputElement>) {
+    e.preventDefault();
+    const target = e.target as HTMLInputElement;
+
+    let Files: File[] = [];
+
+    if (allowsMultiple) {
+      Files = Array.from(target.files ? target.files : []);
+    } else {
+      const file = target.files?.[0];
+      Files = file ? [file] : [];
+    }
+    getFiles && getFiles(Files);
+  }
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  function handleClick() {
+    inputRef.current?.click();
+  }
+
+  return (
+    <>
+      <input
+        type="file"
+        ref={inputRef}
+        className="hidden"
+        onChange={(e) => handleFileUpload(e)}
+        multiple={allowsMultiple}
+        accept={acceptedFileTypes?.join(",")}
+        {...props}
+      />
+      <button className={className} onClick={handleClick}>
+        {children}
+      </button>
+    </>
+  );
+}
+
+```
+
+```react_aria|js|example.jsx
+"use client";
+
+import { useState } from "react";
+import { FileUploadButton } from "@registry/packages/primitives/file-upload-button/00/react_aria-js/FileUpload";
+
+export default function FileUploadButtonImplementation() {
+  const [files, setFiles] = useState([]);
+
+  return (
+    <div className="w-full flex justify-center items-center text-foreground flex-col gap-4">
+      <FileUploadButton getFiles={(files) => setFiles(files)} allowsMultiple>
+        Choose a file
+      </FileUploadButton>
+      <div className="text-center flex flex-col ">
+        <h1 className="text-primary-foreground font-semibold underline underline-offset-1 mb-4">
+          Selected Files
+        </h1>
+        {files.map((file, index) => (
+          <span key={file.name + index}>{file.name}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+```
+
+```react_aria|js|FileUpload.jsx
+"use client";
+
+import { Button, FileTrigger } from "react-aria-components";
+
+export function FileUploadButton({ className, children, getFiles, ...props }) {
+  function handleFileUpload(e) {
+    let files = Array.from(e);
+    getFiles && getFiles(files);
+  }
+
+  return (
+    <FileTrigger onSelect={(e) => handleFileUpload(e)} {...props}>
+      <Button className={className}>{children}</Button>
+    </FileTrigger>
+  );
+}
+
+```
+
+```react_aria|ts|example.tsx
+"use client";
+
+import { useState } from "react";
+import { FileUploadButton } from "@registry/packages/primitives/file-upload-button/00/react_aria-ts/FileUpload";
+
+export default function FileUploadButtonImplementation() {
+  const [files, setFiles] = useState<File[]>([]);
+
+  return (
+    <div className="w-full flex justify-center items-center text-foreground flex-col gap-4">
+      <FileUploadButton getFiles={(files) => setFiles(files)} allowsMultiple>
+        Choose a file
+      </FileUploadButton>
+      <div className="text-center flex flex-col ">
+        <h1 className="text-primary-foreground font-semibold underline underline-offset-1 mb-4">
+          Selected Files
+        </h1>
+        {files.map((file, index) => (
+          <span key={file.name + index}>{file.name}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+```
+
+```react_aria|ts|FileUpload.tsx
+"use client";
+
+import { FileTrigger, FileTriggerProps, Button } from "react-aria-components";
+
+interface FileUploadButtonProps extends FileTriggerProps {
+  className?: string;
+  getFiles?: (files: File[]) => void;
+}
+
+export function FileUploadButton({
+  className,
+  children,
+  getFiles,
+  ...props
+}: FileUploadButtonProps) {
+  function handleFileUpload(e: FileList | null) {
+    let files = Array.from(e as FileList);
+    getFiles && getFiles(files);
+  }
+
+  return (
+    <FileTrigger onSelect={(e) => handleFileUpload(e)} {...props}>
+      <Button className={className}>{children}</Button>
+    </FileTrigger>
+  );
+}
+
+```
+
+</CodeBlock>
+<Details>
+
+<Provider tag="default">
+## FileUploadButton Props
+
+| Name              | Type                                                                         | Default | Description                                                                               |
+| ----------------- | ---------------------------------------------------------------------------- | ------- | ----------------------------------------------------------------------------------------- |
+| getFiles          | `(files: File[]) => void`                                                    | -       | A callback function that receives the selected files as an array.                         |
+| allowsMultiple    | `boolean`                                                                    | `false` | If `true`, multiple files can be selected.                                                |
+| acceptedFileTypes | `InputHTMLAttributes<HTMLInputElement>["accept"][]`                          | -       | An array of accepted file types, used to set the `accept` attribute on the input element. |
+| className         | `string`                                                                     | -       | Additional CSS classes for custom styling of the button.                                  |
+| children          | `React.ReactNode`                                                            | -       | The content inside the `FileUploadButton` component, typically the button label.          |
+| ...props          | `DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>` | -       | Additional props to be passed to the input element.                                       |
+
+</Provider>
+<Provider tag="react_aria">
+## FileUploadButton Props
+
+| Name      | Type                      | Default | Description                                                                                        |
+| --------- | ------------------------- | ------- | -------------------------------------------------------------------------------------------------- |
+| className | `string`                  | -       | Additional CSS classes for custom styling of the button.                                           |
+| getFiles  | `(files: File[]) => void` | -       | Callback function that is called with the selected files.                                          |
+| children  | `React.ReactNode`         | -       | The content inside the `FileUploadButton`, usually the button label.                               |
+| ...props  | `FileTriggerProps`        | -       | Additional props to be passed to the `FileTrigger` component, including `accept`, `multiple`, etc. |
+
+Check out the official documentation of [React Aria FileTrigger](https://react-spectrum.adobe.com/react-aria/FileTrigger.html) for more information.
+
+</Provider>
+
+</Details>
+</Implementation>
+</WrapperToggle>
+</Wrapper>
+
+{/*
+// ------------------------------------------------------------------------------------
+    //	The text below is generated from "@/registry/primitives/file-upload-button/01"
+//------------------------------------------------------------------------------------
+*/}
+
+<Wrapper>
+<Title>Styled File Upload Button</Title>
+### A styled button component that triggers a file upload dialog and handles file selection. It supports custom styling and a callback function to handle selected files. This is a raw component without any styling.
+
+<WrapperToggle >
+<Preview>
+
+export const Primitives_file_upload_button_01 = lazy(() => import("@registry/packages/primitives/file-upload-button/01/react_aria-ts/example"));
+
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+<Primitives_file_upload_button_01 />
+</Display>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+<TechnologyUsed technologies={["react-aria-components"]} />
+<CodeBlock>
+
+```react_aria|js|example.jsx
+"use client";
+
+import { useState } from "react";
+import { FileUploadButton } from "@registry/packages/primitives/file-upload-button/01/react_aria-js/FileUpload";
+
+export default function FileUploadButtonImplementation() {
+  const [files, setFiles] = useState([]);
+
+  return (
+    <div className="w-full flex justify-center items-center text-foreground flex-col gap-4">
+      <FileUploadButton getFiles={(files) => setFiles(files)} allowsMultiple>
+        Choose a file
+      </FileUploadButton>
+      <div className="text-center flex flex-col ">
+        <h1 className="text-primary-foreground font-semibold underline underline-offset-1 mb-4">
+          Selected Files
+        </h1>
+        {files.map((file, index) => (
+          <span key={file.name + index}>{file.name}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+```
+
+```react_aria|js|FileUpload.jsx
+"use client";
+
+import { Button } from "@registry/packages/primitives/buttons/01/react_aria-js/Button";
+import { FileTrigger } from "react-aria-components";
+
+export function FileUploadButton({
+  className,
+  children,
+  getFiles,
+  variant = "primary",
+  ...props
+}) {
+  function handleFileUpload(e) {
+    let files = Array.from(e);
+    getFiles && getFiles(files);
+  }
+
+  return (
+    <FileTrigger onSelect={(e) => handleFileUpload(e)} {...props}>
+      <Button className={className} variant={variant}>
+        {children}
+      </Button>
+    </FileTrigger>
+  );
+}
+
+```
+
+```react_aria|ts|example.tsx
+"use client";
+
+import { useState } from "react";
+import { FileUploadButton } from "@registry/packages/primitives/file-upload-button/01/react_aria-ts/FileUpload";
+
+export default function FileUploadButtonImplementation() {
+  const [files, setFiles] = useState<File[]>([]);
+
+  return (
+    <div className="w-full flex justify-center items-center text-foreground flex-col gap-4">
+      <FileUploadButton getFiles={(files) => setFiles(files)} allowsMultiple>
+        Choose a file
+      </FileUploadButton>
+      <div className="text-center flex flex-col ">
+        <h1 className="text-primary-foreground font-semibold underline underline-offset-1 mb-4">
+          Selected Files
+        </h1>
+        {files.map((file, index) => (
+          <span key={file.name + index}>{file.name}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+```
+
+```react_aria|ts|FileUpload.tsx
+"use client";
+
+import {
+  Button,
+  ButtonProps,
+} from "@registry/packages/primitives/buttons/01/react_aria-ts/Button";
+import { FileTrigger, FileTriggerProps } from "react-aria-components";
+
+interface FileUploadButtonProps extends FileTriggerProps {
+  className?: string;
+  getFiles?: (files: File[]) => void;
+  variant?: ButtonProps["variant"];
+}
+
+export function FileUploadButton({
+  className,
+  children,
+  getFiles,
+  variant = "primary",
+  ...props
+}: FileUploadButtonProps) {
+  function handleFileUpload(e: FileList | null) {
+    let files = Array.from(e as FileList);
+    getFiles && getFiles(files);
+  }
+
+  return (
+    <FileTrigger onSelect={(e) => handleFileUpload(e)} {...props}>
+      <Button className={className} variant={variant}>
+        {children}
+      </Button>
+    </FileTrigger>
+  );
+}
+
+```
+
+</CodeBlock>
+<Details>
+
+<Provider tag="react_aria">
+## FileUploadButton Props
+
+| Name      | Type                      | Default     | Description                                                                                            |
+| --------- | ------------------------- | ----------- | ------------------------------------------------------------------------------------------------------ |
+| className | `string`                  | -           | Additional CSS classes for custom styling of the button.                                               |
+| getFiles  | `(files: File[]) => void` | -           | A callback function that receives the selected files as an array.                                      |
+| variant   | `ButtonProps["variant"]`  | `"primary"` | Specifies the variant of the button, allowing for different styles (e.g., `"primary"`, `"secondary"`). |
+| children  | `React.ReactNode`         | -           | The content inside the `FileUploadButton` component, typically the button label.                       |
+| ...props  | `FileTriggerProps`        | -           | Additional props to be passed to the `FileTrigger` component.                                          |
+
+Check out the official documentation of [React Aria FileTrigger](https://react-spectrum.adobe.com/react-aria/FileTrigger.html) for more information.
+
+</Provider>
+
+</Details>
+</Implementation>
+</WrapperToggle>
+</Wrapper>

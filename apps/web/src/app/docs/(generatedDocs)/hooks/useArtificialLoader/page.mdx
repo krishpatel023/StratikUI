@@ -1,0 +1,308 @@
+import React, { Suspense, lazy } from 'react';
+import { Display, TechnologyUsed, Wrapper, Skeleton, Title, Details, Provider } from "@/components/mdx/MDXServerImports"
+import { CodeBlock } from "@/components/mdx/MDXClientImports"
+
+{/*
+// ------------------------------------------------------------------------------------
+    //	The text below is generated from "@/registry/hooks/useArtificialLoader/01"
+//------------------------------------------------------------------------------------
+*/}
+
+<Wrapper>
+<Title>useArtificialLoader</Title>
+### This hooks increases the value from 0 to 100 randomly in a given time. This helps us to give the loading effects and the increase is random thus making it more realistic. You can use it in various website loaders as well as loading page elements like top loading bars.
+
+<CodeBlock>
+
+```default|js|example.jsx
+"use client";
+
+import Button from "@registry/ui/Button";
+import useArtificialLoader from "@registry/packages/hooks/useArtificialLoader/01/default-js/useArtificialLoader";
+
+const Loader = () => {
+  const { isLoading, progress, startLoader, stopLoader } =
+    useArtificialLoader();
+
+  const handleStart = () => {
+    startLoader({
+      duration: 2000,
+      updateCount: 100,
+    });
+  };
+
+  const handleStop = () => {
+    stopLoader();
+  };
+  return (
+    <div className="w-full flex flex-col gap-4 justify-center items-center">
+      <div className="w-80 flex justify-between items-center">
+        <div className="w-[80%] h-2 rounded-full bg-primary">
+          <div
+            style={{ width: `${progress}%` }}
+            className="min-h-full bg-accent rounded-full transition-all duration-300"
+          ></div>
+        </div>
+        <span className="text-sm flex text-primary-foreground">
+          {progress} %
+        </span>
+      </div>
+      <div className="flex gap-4">
+        <Button
+          onPress={() => handleStart()}
+          isDisabled={isLoading || progress > 0}
+        >
+          Start
+        </Button>
+        <Button
+          onPress={handleStop}
+          isDisabled={!isLoading && progress === 0}
+          variant="outline"
+        >
+          Reset
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default Loader;
+
+```
+
+```default|js|useArtificialLoader.jsx
+"use client";
+
+import { useEffect, useState } from "react";
+
+const useArtificialLoader = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [loaderTimeout, setLoaderTimeout] = useState(null);
+
+  useEffect(() => {
+    return () => {
+      if (loaderTimeout) {
+        clearTimeout(loaderTimeout);
+      }
+    };
+  }, [loaderTimeout]);
+
+  const startLoader = (options = {}) => {
+    const { duration = 5000, initialDelay = 0, updateCount = 10 } = options;
+
+    setIsLoading(true);
+    setProgress(0);
+
+    const startTime = Date.now();
+    const endTime = startTime + duration;
+    const updateStep = 100 / updateCount;
+
+    const updateProgress = () => {
+      const currentTime = Date.now();
+      const elapsedTime = currentTime - startTime;
+      const newProgress = Math.min((elapsedTime * 100) / duration, 100);
+
+      const randomJump = Math.floor(Math.random() * updateStep);
+      const randomizedProgress = Math.min(newProgress + randomJump, 100);
+      const intRandomizedProgress = Math.floor(randomizedProgress);
+      setProgress(intRandomizedProgress);
+
+      if (currentTime < endTime) {
+        const timeout = setTimeout(updateProgress, Math.random() * 200);
+        setLoaderTimeout(timeout);
+      } else {
+        setIsLoading(false);
+        setProgress(100);
+      }
+    };
+
+    const timeout = setTimeout(updateProgress, initialDelay);
+    setLoaderTimeout(timeout);
+  };
+
+  const stopLoader = () => {
+    if (loaderTimeout) {
+      clearTimeout(loaderTimeout);
+      setLoaderTimeout(null);
+      setIsLoading(false);
+      setProgress(0);
+    }
+  };
+
+  return { isLoading, progress, startLoader, stopLoader };
+};
+
+export default useArtificialLoader;
+
+```
+
+```default|ts|example.tsx
+"use client";
+
+import Button from "@registry/ui/Button";
+import useArtificialLoader from "@registry/packages/hooks/useArtificialLoader/01/default-ts/useArtificialLoader";
+
+const Loader = () => {
+  const { isLoading, progress, startLoader, stopLoader } =
+    useArtificialLoader();
+
+  const handleStart = () => {
+    startLoader({
+      duration: 2000,
+      updateCount: 100,
+    });
+  };
+
+  const handleStop = () => {
+    stopLoader();
+  };
+  return (
+    <div className="w-full flex flex-col gap-4 justify-center items-center">
+      <div className="w-80 flex justify-between items-center">
+        <div className="w-[80%] h-2 rounded-full bg-primary">
+          <div
+            style={{ width: `${progress}%` }}
+            className="min-h-full bg-accent rounded-full transition-all duration-300"
+          ></div>
+        </div>
+        <span className="text-sm flex text-primary-foreground">
+          {progress} %
+        </span>
+      </div>
+      <div className="flex gap-4">
+        <Button
+          onPress={() => handleStart()}
+          isDisabled={isLoading || progress > 0}
+        >
+          Start
+        </Button>
+        <Button
+          onPress={handleStop}
+          isDisabled={!isLoading && progress === 0}
+          variant="outline"
+        >
+          Reset
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default Loader;
+
+```
+
+```default|ts|useArtificialLoader.tsx
+"use client";
+
+import { useEffect, useState } from "react";
+
+interface UseArtificialLoaderOptions {
+  duration?: number;
+  initialDelay?: number;
+  updateCount?: number;
+}
+
+interface UseArtificialLoaderReturn {
+  isLoading: boolean;
+  progress: number;
+  startLoader: (options?: UseArtificialLoaderOptions) => void;
+  stopLoader: () => void;
+}
+
+const useArtificialLoader = (): UseArtificialLoaderReturn => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [progress, setProgress] = useState<number>(0);
+  const [loaderTimeout, setLoaderTimeout] = useState<ReturnType<
+    typeof setTimeout
+  > | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (loaderTimeout) {
+        clearTimeout(loaderTimeout);
+      }
+    };
+  }, [loaderTimeout]);
+
+  const startLoader = (options: UseArtificialLoaderOptions = {}) => {
+    const { duration = 5000, initialDelay = 0, updateCount = 10 } = options;
+
+    setIsLoading(true);
+    setProgress(0);
+
+    const startTime = Date.now();
+    const endTime = startTime + duration;
+    const updateStep = 100 / updateCount;
+
+    const updateProgress = () => {
+      const currentTime = Date.now();
+      const elapsedTime = currentTime - startTime;
+      const newProgress = Math.min((elapsedTime * 100) / duration, 100);
+
+      const randomJump = Math.floor(Math.random() * updateStep);
+      const randomizedProgress = Math.min(newProgress + randomJump, 100);
+      const intRandomizedProgress = Math.floor(randomizedProgress);
+      setProgress(intRandomizedProgress);
+
+      if (currentTime < endTime) {
+        const timeout = setTimeout(updateProgress, Math.random() * 200);
+        setLoaderTimeout(timeout);
+      } else {
+        setIsLoading(false);
+        setProgress(100);
+      }
+    };
+
+    const timeout = setTimeout(updateProgress, initialDelay);
+    setLoaderTimeout(timeout);
+  };
+
+  const stopLoader = () => {
+    if (loaderTimeout) {
+      clearTimeout(loaderTimeout);
+      setLoaderTimeout(null);
+      setIsLoading(false);
+      setProgress(0);
+    }
+  };
+
+  return { isLoading, progress, startLoader, stopLoader };
+};
+
+export default useArtificialLoader;
+
+```
+
+</CodeBlock>
+<Details>
+
+
+### UseArtificialLoaderOptions
+
+| Name         | Type     | Default | Description                                                   |
+| ------------ | -------- | ------- | ------------------------------------------------------------- |
+| duration     | `number` | 5000    | Total duration of the loading process in milliseconds.        |
+| initialDelay | `number` | 0       | Delay before the loader starts in milliseconds.               |
+| updateCount  | `number` | 10      | Number of updates to the progress during the loading process. |
+
+### Return Values
+
+| Name        | Type                                             | Description                                                |
+| ----------- | ------------------------------------------------ | ---------------------------------------------------------- |
+| isLoading   | `boolean`                                        | Indicates whether the loading process is currently active. |
+| progress    | `number`                                         | Represents the current progress percentage of the loader.  |
+| startLoader | `(options?: UseArtificialLoaderOptions) => void` | Function to start the loader with optional configuration.  |
+| stopLoader  | `() => void`                                     | Function to stop the loader and reset the progress.        |
+
+</Details>
+export const Hooks_useartificialloader_01 = lazy(() => import("@registry/packages/hooks/useArtificialLoader/01/default-ts/example"));
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+<Hooks_useartificialloader_01 />
+</Display>
+</Suspense>
+
+</Wrapper>

@@ -1,0 +1,215 @@
+import React, { Suspense, lazy } from 'react';
+import { Display, TechnologyUsed, Wrapper, Skeleton, Title, Details, Provider } from "@/components/mdx/MDXServerImports"
+import { CodeBlock } from "@/components/mdx/MDXClientImports"
+
+{/*
+// ------------------------------------------------------------------------------------
+    //	The text below is generated from "@/registry/hooks/useScrollTo/01"
+//------------------------------------------------------------------------------------
+*/}
+
+<Wrapper>
+<Title>useScrollTo</Title>
+### The `useScrollTo` hook allows you to scroll smoothly to a specific element or to the top of the page and manages the visibility of elements based on scroll position. This is useful for implementing features like "Back to Top" buttons or revealing elements when the user scrolls down the page.
+
+<CodeBlock>
+
+```default|js|example.jsx
+"use client";
+
+import Button from "@registry/ui/Button";
+import useScrollTo from "@registry/packages/hooks/useScrollTo/01/default-js/useScrollTo";
+import { useRef } from "react";
+
+export default function UseScrollToExample() {
+  const { isVisible, scroll } = useScrollTo();
+
+  const handleScrollToTop = () => {
+    scroll(null);
+  };
+
+  // This way you can scroll to an element with element-id
+  const handleScrollToElement = () => {
+    scroll("element");
+  };
+
+  // This way you can scroll to an element with element-ref
+  const ref = useRef(null);
+  const handleScrollToRef = () => {
+    scroll(ref);
+  };
+
+  return (
+    <div className="flex flex-col items-center justify-center">
+      <Button onPress={handleScrollToTop}>Scroll To Top</Button>
+    </div>
+  );
+}
+
+```
+
+```default|js|useScrollTo.jsx
+"use client";
+import { useEffect, useState } from "react";
+
+const useScrollTo = ({ threshold = 300 } = {}) => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  const toggleVisibility = () => {
+    if (window.scrollY > threshold) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
+  };
+
+  const scroll = (element) => {
+    let targetElem = null;
+
+    if (typeof element === "string")
+      targetElem = document.getElementById(element);
+    else if (typeof element === "object") targetElem = element?.current;
+    else targetElem = null;
+
+    if (targetElem) {
+      // Scroll to element
+      targetElem.scrollIntoView({ behavior: "smooth" });
+    } else {
+      // Scroll to top
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", toggleVisibility);
+
+    return () => {
+      window.removeEventListener("scroll", toggleVisibility);
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  return { isVisible, scroll };
+};
+
+export default useScrollTo;
+
+```
+
+```default|ts|example.tsx
+"use client";
+
+import Button from "@registry/ui/Button";
+import useScrollTo from "@registry/packages/hooks/useScrollTo/01/default-ts/useScrollTo";
+import { useRef } from "react";
+
+export default function UseScrollToExample() {
+  const { isVisible, scroll } = useScrollTo();
+
+  const handleScrollToTop = () => {
+    scroll(null);
+  };
+
+  // This way you can scroll to an element with element-id
+  const handleScrollToElement = () => {
+    scroll("element");
+  };
+
+  // This way you can scroll to an element with element-ref
+  const ref = useRef(null);
+  const handleScrollToRef = () => {
+    scroll(ref);
+  };
+
+  return (
+    <div className="flex flex-col items-center justify-center">
+      <Button onPress={handleScrollToTop}>Scroll To Top</Button>
+    </div>
+  );
+}
+
+```
+
+```default|ts|useScrollTo.tsx
+"use client";
+import { RefObject, useEffect, useState } from "react";
+
+interface UseScrollToProps {
+  threshold?: number;
+}
+
+const useScrollTo = ({ threshold = 300 }: UseScrollToProps = {}) => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  const toggleVisibility = () => {
+    if (window.scrollY > threshold) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
+  };
+
+  const scroll = (element: RefObject<HTMLElement | null> | string | null) => {
+    let targetElem = null;
+
+    if (typeof element === "string")
+      targetElem = document.getElementById(element);
+    else if (typeof element === "object") targetElem = element?.current;
+    else targetElem = null;
+
+    if (targetElem) {
+      // Scroll to element
+      targetElem.scrollIntoView({ behavior: "smooth" });
+    } else {
+      // Scroll to top
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", toggleVisibility);
+
+    return () => {
+      window.removeEventListener("scroll", toggleVisibility);
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  return { isVisible, scroll };
+};
+
+export default useScrollTo;
+
+```
+
+</CodeBlock>
+<Details>
+
+
+## Parameters
+
+| Name      | Type     | Default | Description                                          |
+| --------- | -------- | ------- | ---------------------------------------------------- |
+| threshold | `number` | `300`   | The scroll position threshold for visibility toggle. |
+
+## Return Values
+
+| Name      | Type       | Description                                                                     |
+| --------- | ---------- | ------------------------------------------------------------------------------- |
+| isVisible | `boolean`  | `true` if the current scroll position exceeds the threshold, otherwise `false`. |
+| scroll    | `function` | A function to scroll to a specified element or to the top of the page.          |
+
+</Details>
+export const Hooks_usescrollto_01 = lazy(() => import("@registry/packages/hooks/useScrollTo/01/default-ts/example"));
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+<Hooks_usescrollto_01 />
+</Display>
+</Suspense>
+
+</Wrapper>

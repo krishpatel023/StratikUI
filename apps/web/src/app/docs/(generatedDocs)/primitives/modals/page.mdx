@@ -1,0 +1,540 @@
+import React, { Suspense, lazy } from 'react';
+import { Implementation, Preview, WrapperToggle, Display, TechnologyUsed, Wrapper, Skeleton, PARTITION, Details, Provider, Title } from "@/components/mdx/MDXServerImports"
+import { CodeBlock } from "@/components/mdx/MDXClientImports"
+
+{/*
+// ------------------------------------------------------------------------------------
+    //	The text below is generated from "@/registry/primitives/modals/01"
+//------------------------------------------------------------------------------------
+*/}
+
+<Wrapper>
+<Title>Modal</Title>
+### A modal is highly customizable and includes features like entry and exit animations, customizable underlay and overlay elements, various closing methods, etc.
+
+<WrapperToggle >
+<Preview>
+
+export const Primitives_modals_01 = lazy(() => import("@registry/packages/primitives/modals/01/react_aria-ts/example"));
+
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+<Primitives_modals_01 />
+</Display>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+<TechnologyUsed technologies={["tailwind-merge","react-aria-components"]} />
+<CodeBlock>
+
+```default|js|example.jsx
+"use client";
+
+import { Modal } from "@registry/packages/primitives/modals/01/default-js/Modal";
+import Button from "@registry/ui/Button";
+import { useState } from "react";
+
+export default function ModalImplementation() {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div className="min-h-40 flex flex-col justify-center items-center ">
+      <Button className="mt-4" onPress={() => setIsOpen(true)}>
+        Open Modal
+      </Button>
+      <Modal
+        className="max-w-[30rem]"
+        isOpen={isOpen}
+        setOpen={() => setIsOpen(false)}
+      >
+        <h1 className="text-xl font-semibold text-primary-foreground mb-4">
+          This is a modal
+        </h1>
+        <span>It has various various positions and can be dismissed by:</span>
+        <ul className="list-disc ml-4 mt-4">
+          <li>Clicking outside the modal</li>
+          <li>Clicking the close button</li>
+        </ul>
+        <Button onPress={() => setIsOpen(false)} className="mt-4">
+          Close
+        </Button>
+      </Modal>
+    </div>
+  );
+}
+
+```
+
+```default|js|Modal.jsx
+"use client";
+
+import useClickOutside from "@registry/packages/hooks/useClickOutside/01/default-js/useClickOutside";
+import { ContainerGlassEffect } from "@registry/packages/primitives/containers/06/default-js/container";
+import { KeyListener } from "@registry/packages/primitives/key-listener/01/default-js/KeyListener";
+import { useRef } from "react";
+import { twMerge } from "tailwind-merge";
+
+export function Modal({
+  children,
+  isOpen,
+  setOpen,
+  position = "center center",
+  className,
+  isBGBlur = true,
+  isDismissable = true,
+}) {
+  const ref = useRef(null);
+  useClickOutside(ref, () => {
+    if (isDismissable && isOpen) {
+      setOpen(false);
+    }
+  });
+
+  return (
+    <ContainerGlassEffect
+      className={twMerge(
+        "w-full h-full absolute top-0 left-0 right-0 z-50 ",
+        !isBGBlur &&
+          "bg-transparent dark:bg-transparent backdrop-blur-none supports-[backdrop-filter]:bg-transparent dark:supports-[backdrop-filter]:bg-transparent",
+        !isOpen && "hidden"
+      )}
+    >
+      <KeyListener onKeyDown={() => setOpen(false)} keys={["Esc"]} />
+      <div
+        ref={ref}
+        className={twMerge(
+          "hidden absolute rounded-md px-6 py-6 border border-outline-secondary bg-primary text-foreground",
+          isOpen && "flex flex-col",
+          position === "center center" &&
+            "top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2",
+          position === "center top" && "top-6 left-1/2 -translate-x-1/2",
+          position === "center bottom" && "bottom-6 left-1/2 -translate-x-1/2",
+          position === "left top" && "top-6 left-6",
+          position === "left center" && "top-1/2 left-6 -translate-y-1/2",
+          position === "left bottom" && "bottom-6 left-6",
+          position === "right top" && "top-6 right-6",
+          position === "right bottom" && "bottom-6 right-6",
+          position === "right center" && "top-1/2 right-6 -translate-y-1/2",
+          className
+        )}
+      >
+        {children}
+      </div>
+    </ContainerGlassEffect>
+  );
+}
+
+```
+
+```default|ts|example.tsx
+"use client";
+
+import { Modal } from "@registry/packages/primitives/modals/01/default-ts/Modal";
+import Button from "@registry/ui/Button";
+import { useState } from "react";
+
+export default function ModalImplementation() {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div className="min-h-40 flex flex-col justify-center items-center ">
+      <Button className="mt-4" onPress={() => setIsOpen(true)}>
+        Open Modal
+      </Button>
+      <Modal
+        className="max-w-[30rem]"
+        isOpen={isOpen}
+        setOpen={() => setIsOpen(false)}
+      >
+        <h1 className="text-xl font-semibold text-primary-foreground mb-4">
+          This is a modal
+        </h1>
+        <span>It has various various positions and can be dismissed by:</span>
+        <ul className="list-disc ml-4 mt-4">
+          <li>Clicking outside the modal</li>
+          <li>Clicking the close button</li>
+        </ul>
+        <Button onPress={() => setIsOpen(false)} className="mt-4">
+          Close
+        </Button>
+      </Modal>
+    </div>
+  );
+}
+
+```
+
+```default|ts|Modal.tsx
+"use client";
+
+import useClickOutside from "@registry/packages/hooks/useClickOutside/01/default-ts/useClickOutside";
+import { ContainerGlassEffect } from "@registry/packages/primitives/containers/06/default-ts/container";
+import { KeyListener } from "@registry/packages/primitives/key-listener/01/default-ts/KeyListener";
+import { useRef } from "react";
+import { twMerge } from "tailwind-merge";
+
+export interface ModalProps {
+  position?:
+    | "center center"
+    | "center top"
+    | "center bottom"
+    | "left top"
+    | "left center"
+    | "left bottom"
+    | "right top"
+    | "right bottom"
+    | "right center";
+  isBGBlur?: boolean;
+  isDismissable?: boolean;
+  isOpen: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  className?: string;
+  children: React.ReactNode;
+}
+
+export function Modal({
+  children,
+  isOpen,
+  setOpen,
+  position = "center center",
+  className,
+  isBGBlur = true,
+  isDismissable = true,
+}: ModalProps) {
+  const ref = useRef(null);
+  useClickOutside(ref, () => {
+    if (isDismissable && isOpen) {
+      setOpen(false);
+    }
+  });
+
+  return (
+    <ContainerGlassEffect
+      className={twMerge(
+        "w-full h-full absolute top-0 left-0 right-0 z-50 ",
+        !isBGBlur &&
+          "bg-transparent dark:bg-transparent backdrop-blur-none supports-[backdrop-filter]:bg-transparent dark:supports-[backdrop-filter]:bg-transparent",
+        !isOpen && "hidden"
+      )}
+    >
+      <KeyListener onKeyDown={() => setOpen(false)} keys={["Esc"]} />
+      <div
+        ref={ref}
+        className={twMerge(
+          "hidden absolute rounded-md px-6 py-6 border border-outline-secondary bg-primary text-foreground",
+          isOpen && "flex flex-col",
+          position === "center center" &&
+            "top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2",
+          position === "center top" && "top-6 left-1/2 -translate-x-1/2",
+          position === "center bottom" && "bottom-6 left-1/2 -translate-x-1/2",
+          position === "left top" && "top-6 left-6",
+          position === "left center" && "top-1/2 left-6 -translate-y-1/2",
+          position === "left bottom" && "bottom-6 left-6",
+          position === "right top" && "top-6 right-6",
+          position === "right bottom" && "bottom-6 right-6",
+          position === "right center" && "top-1/2 right-6 -translate-y-1/2",
+          className
+        )}
+      >
+        {children}
+      </div>
+    </ContainerGlassEffect>
+  );
+}
+
+```
+
+```react_aria|js|example.jsx
+"use client";
+
+import {
+  Modal,
+  ModalTrigger,
+} from "@registry/packages/primitives/modals/01/react_aria-js/Modal";
+import Button from "@registry/ui/Button";
+
+export default function ModalImplementation() {
+  return (
+    <div className="min-h-40 flex flex-col justify-center items-center ">
+      <ModalTrigger>
+        <Button className="mt-4">Open Modal</Button>
+        <Modal className="max-w-[30rem]">
+          {({ close }) => (
+            <>
+              <h1 className="text-xl font-semibold text-primary-foreground mb-4">
+                This is a modal
+              </h1>
+              <span>
+                It has various various positions and can be dismissed by:
+              </span>
+              <ul className="list-disc ml-4 mt-4">
+                <li>Clicking outside the modal</li>
+                <li>Pressing the escape key</li>
+                <li>Clicking the close button</li>
+              </ul>
+              <Button onPress={close} className="mt-4">
+                Close
+              </Button>
+            </>
+          )}
+        </Modal>
+      </ModalTrigger>
+    </div>
+  );
+}
+
+```
+
+```react_aria|js|Modal.jsx
+"use client";
+
+import {
+  Button,
+  Dialog,
+  DialogTrigger,
+  Modal as ModalAria,
+  ModalOverlay,
+} from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+
+export function Modal({
+  children,
+  isDismissable = true,
+  position = "center center",
+  isBGBlur = true,
+  className,
+  ...props
+}) {
+  return (
+    <ModalOverlay
+      isDismissable={isDismissable}
+      className={twMerge(
+        "w-[100dvw] h-[100dvh] top-0 fixed z-[9999] data-[entering=true]:animate-modal-fade-in data-[exiting=true]:animate-modal-fade-out",
+        isBGBlur && "bg-blur"
+      )}
+    >
+      <ModalAria className="outline-none ">
+        <Dialog
+          className={twMerge(
+            "absolute w-full h-max py-6 px-6 rounded bg-primary border border-outline-secondary text-primary-foreground outline-none data-[entering=true]:animate-modal-zoom",
+            position === "center center" &&
+              "top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2",
+            position === "center top" && "top-6 left-1/2 -translate-x-1/2",
+            position === "center bottom" &&
+              "bottom-6 left-1/2 -translate-x-1/2",
+            position === "left top" && "top-6 left-6",
+            position === "left center" && "top-1/2 left-6 -translate-y-1/2",
+            position === "left bottom" && "bottom-6 left-6",
+            position === "right top" && "top-6 right-6",
+            position === "right bottom" && "bottom-6 right-6",
+            position === "right center" && "top-1/2 right-6 -translate-y-1/2",
+            className
+          )}
+          {...props}
+        >
+          {children}
+        </Dialog>
+      </ModalAria>
+    </ModalOverlay>
+  );
+}
+
+export function ModalTrigger({ ...props }) {
+  return (
+    <DialogTrigger {...props}>
+      <ModalClickable />
+      {props.children}
+    </DialogTrigger>
+  );
+}
+
+export function ModalClickable() {
+  return (
+    <Button className="hidden" aria-hidden="true">
+      Close
+    </Button>
+  );
+}
+
+```
+
+```react_aria|ts|example.tsx
+"use client";
+
+import {
+  Modal,
+  ModalTrigger,
+} from "@registry/packages/primitives/modals/01/react_aria-ts/Modal";
+import Button from "@registry/ui/Button";
+
+export default function ModalImplementation() {
+  return (
+    <div className="min-h-40 flex flex-col justify-center items-center ">
+      <ModalTrigger>
+        <Button className="mt-4">Open Modal</Button>
+        <Modal className="max-w-[30rem]">
+          {({ close }) => (
+            <>
+              <h1 className="text-xl font-semibold text-primary-foreground mb-4">
+                This is a modal
+              </h1>
+              <span>
+                It has various various positions and can be dismissed by:
+              </span>
+              <ul className="list-disc ml-4 mt-4">
+                <li>Clicking outside the modal</li>
+                <li>Pressing the escape key</li>
+                <li>Clicking the close button</li>
+              </ul>
+              <Button onPress={close} className="mt-4">
+                Close
+              </Button>
+            </>
+          )}
+        </Modal>
+      </ModalTrigger>
+    </div>
+  );
+}
+
+```
+
+```react_aria|ts|Modal.tsx
+"use client";
+
+import {
+  Button,
+  Dialog,
+  DialogProps,
+  DialogTrigger,
+  DialogTriggerProps,
+  Modal as ModalAria,
+  ModalOverlay,
+} from "react-aria-components";
+import { twMerge } from "tailwind-merge";
+
+export interface ModalProps extends DialogProps {
+  position?:
+    | "center center"
+    | "center top"
+    | "center bottom"
+    | "left top"
+    | "left center"
+    | "left bottom"
+    | "right top"
+    | "right bottom"
+    | "right center";
+  isBGBlur?: boolean;
+  isDismissable?: boolean;
+}
+
+export function Modal({
+  children,
+  isDismissable = true,
+  position = "center center",
+  isBGBlur = true,
+  className,
+  ...props
+}: ModalProps) {
+  return (
+    <ModalOverlay
+      isDismissable={isDismissable}
+      className={twMerge(
+        "w-[100dvw] h-[100dvh] top-0 fixed z-[9999] data-[entering=true]:animate-modal-fade-in data-[exiting=true]:animate-modal-fade-out",
+        isBGBlur && "bg-blur"
+      )}
+    >
+      <ModalAria className="outline-none ">
+        <Dialog
+          className={twMerge(
+            "absolute w-full h-max py-6 px-6 rounded bg-primary border border-outline-secondary text-primary-foreground outline-none data-[entering=true]:animate-modal-zoom",
+            position === "center center" &&
+              "top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2",
+            position === "center top" && "top-6 left-1/2 -translate-x-1/2",
+            position === "center bottom" &&
+              "bottom-6 left-1/2 -translate-x-1/2",
+            position === "left top" && "top-6 left-6",
+            position === "left center" && "top-1/2 left-6 -translate-y-1/2",
+            position === "left bottom" && "bottom-6 left-6",
+            position === "right top" && "top-6 right-6",
+            position === "right bottom" && "bottom-6 right-6",
+            position === "right center" && "top-1/2 right-6 -translate-y-1/2",
+            className
+          )}
+          {...props}
+        >
+          {children}
+        </Dialog>
+      </ModalAria>
+    </ModalOverlay>
+  );
+}
+
+export function ModalTrigger({ ...props }: DialogTriggerProps) {
+  return (
+    <DialogTrigger {...props}>
+      <ModalClickable />
+      {props.children}
+    </DialogTrigger>
+  );
+}
+
+export function ModalClickable() {
+  return (
+    <Button className="hidden" aria-hidden="true">
+      Close
+    </Button>
+  );
+}
+
+```
+
+</CodeBlock>
+<Details>
+
+<Provider tag="default">
+## Modal Props
+
+| Name          | Type                                                                                                                                                    | Default           | Description                                                                        |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | ---------------------------------------------------------------------------------- |
+| position      | `"center center" \| "center top" \| "center bottom" \| "left top" \| "left center" \| "left bottom" \| "right top" \| "right bottom" \| "right center"` | `"center center"` | Position of the modal on the screen.                                               |
+| isBGBlur      | `boolean`                                                                                                                                               | `true`            | Whether the background should have a blur effect when the modal is open.           |
+| isDismissable | `boolean`                                                                                                                                               | `true`            | Whether the modal can be dismissed by clicking outside or pressing the escape key. |
+| isOpen        | `boolean`                                                                                                                                               |                   | Controls the open or closed state of the modal.                                    |
+| setOpen       | `React.Dispatch<React.SetStateAction<boolean>>`                                                                                                         |                   | Function to update the modal's open state.                                         |
+| className     | `string`                                                                                                                                                | `""`              | Additional classes to apply to the modal container.                                |
+| children      | `React.ReactNode`                                                                                                                                       |                   | Content to be displayed inside the modal.                                          |
+
+</Provider>
+<Provider tag="react_aria">
+## Modal Props
+
+| Name          | Type                                                                                                                                                    | Default           | Description                                                                        |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | ---------------------------------------------------------------------------------- |
+| children      | `React.ReactNode`                                                                                                                                       | `null`            | Content to be displayed inside the modal.                                          |
+| className     | `string`                                                                                                                                                | `""`              | Additional classes to apply to the modal container.                                |
+| isDismissable | `boolean`                                                                                                                                               | `true`            | Whether the modal can be dismissed by clicking outside or pressing the escape key. |
+| position      | `"center center" \| "center top" \| "center bottom" \| "left top" \| "left center" \| "left bottom" \| "right top" \| "right bottom" \| "right center"` | `"center center"` | Position of the modal on the screen.                                               |
+| isBGBlur      | `boolean`                                                                                                                                               | `true`            | Whether the background should have a blur effect when the modal is open.           |
+| ...props      | `DialogProps`                                                                                                                                           |                   | Additional props to be passed to the underlying `Dialog` component.                |
+
+## ModalTrigger
+
+| Name     | Type                 | Default | Description                                                     |
+| -------- | -------------------- | ------- | --------------------------------------------------------------- |
+| ...props | `DialogTriggerProps` |         | Additional props to be passed to the `DialogTrigger` component. |
+
+## ModalClickable
+
+A hidden button used for accessibility to close the modal.
+
+Checkout the official documentation of [React Aria Modal](https://react-spectrum.adobe.com/react-aria/Modal.html) for more information.
+
+</Provider>
+
+</Details>
+</Implementation>
+</WrapperToggle>
+</Wrapper>

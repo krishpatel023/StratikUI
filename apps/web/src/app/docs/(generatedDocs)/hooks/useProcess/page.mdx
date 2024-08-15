@@ -1,0 +1,165 @@
+import React, { Suspense, lazy } from 'react';
+import { Display, TechnologyUsed, Wrapper, Skeleton, Title, Details, Provider } from "@/components/mdx/MDXServerImports"
+import { CodeBlock } from "@/components/mdx/MDXClientImports"
+
+{/*
+// ------------------------------------------------------------------------------------
+    //	The text below is generated from "@/registry/hooks/useProcess/01"
+//------------------------------------------------------------------------------------
+*/}
+
+<Wrapper>
+<Title>useProcess</Title>
+### The `useProcess` hook provides a convenient way to manage the execution of asynchronous processes, with built-in state management to track whether a process is currently running. This is particularly useful for handling loading states in user interfaces during async and not async operations.
+
+<CodeBlock>
+
+```default|js|example.jsx
+"use client";
+
+import useDelay from "@registry/packages/hooks/useDelay/01/default-js/useDelay";
+import useProcess from "@registry/packages/hooks/useProcess/01/default-js/useProcess";
+import Button from "@registry/ui/Button";
+
+export default function UseProcessExample() {
+  const { delay } = useDelay();
+  const { isProcessing, executeProcess } = useProcess();
+
+  const handleAction = () => {
+    executeProcess(async () => {
+      // Do something
+      // Delayed here just to show the loading state
+      await delay(2000);
+    });
+  };
+
+  return (
+    <div className="flex justify-center items-center gap-6 text-center py-10">
+      <Button
+        onPress={handleAction}
+        className="w-40 flex justify-center items-center"
+        isProcessing={isProcessing}
+      >
+        Click me
+      </Button>
+    </div>
+  );
+}
+
+```
+
+```default|js|useProcess.jsx
+"use client";
+
+import { useCallback, useState } from "react";
+
+const useProcess = () => {
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const executeProcess = useCallback(async (callback) => {
+    try {
+      setIsProcessing(true);
+      await callback();
+    } catch (error) {
+      console.error("Error executing process:", error);
+    } finally {
+      setIsProcessing(false);
+    }
+  }, []);
+
+  return { isProcessing, executeProcess };
+};
+
+export default useProcess;
+
+```
+
+```default|ts|example.tsx
+"use client";
+
+import useDelay from "@registry/packages/hooks/useDelay/01/default-ts/useDelay";
+import useProcess from "@registry/packages/hooks/useProcess/01/default-ts/useProcess";
+import Button from "@registry/ui/Button";
+
+export default function UseProcessExample() {
+  const { delay } = useDelay();
+  const { isProcessing, executeProcess } = useProcess();
+
+  const handleAction = () => {
+    executeProcess(async () => {
+      // Do something
+      // Delayed here just to show the loading state
+      await delay(2000);
+    });
+  };
+
+  return (
+    <div className="flex justify-center items-center gap-6 text-center py-10">
+      <Button
+        onPress={handleAction}
+        className="w-40 flex justify-center items-center"
+        isProcessing={isProcessing}
+      >
+        Click me
+      </Button>
+    </div>
+  );
+}
+
+```
+
+```default|ts|useProcess.tsx
+"use client";
+
+import { useCallback, useState } from "react";
+
+interface UseProcessReturn {
+  isProcessing: boolean;
+  executeProcess: (callback: () => Promise<void>) => Promise<void>;
+}
+
+const useProcess = (): UseProcessReturn => {
+  const [isProcessing, setIsProcessing] = useState<boolean>(false);
+
+  const executeProcess = useCallback(
+    async (callback: () => Promise<void>): Promise<void> => {
+      try {
+        setIsProcessing(true);
+        await callback();
+      } catch (error) {
+        console.error("Error executing process:", error);
+      } finally {
+        setIsProcessing(false);
+      }
+    },
+    []
+  );
+
+  return { isProcessing, executeProcess };
+};
+
+export default useProcess;
+
+```
+
+</CodeBlock>
+<Details>
+
+
+### Return Values
+
+| Name           | Type                                               | Description                                                                          |
+| -------------- | -------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| isProcessing   | `boolean`                                          | Indicates whether the process is currently running.                                  |
+| executeProcess | `(callback: () => Promise<void>) => Promise<void>` | Function to execute a provided asynchronous callback, managing its processing state. |
+
+</Details>
+export const Hooks_useprocess_01 = lazy(() => import("@registry/packages/hooks/useProcess/01/default-ts/example"));
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+<Hooks_useprocess_01 />
+</Display>
+</Suspense>
+
+</Wrapper>
