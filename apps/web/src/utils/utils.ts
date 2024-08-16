@@ -19,5 +19,6 @@ export const Links = {
   stratikui: {
     github: "https://github.com/krishpatel023/StratikUI",
     newIssue: "https://github.com/krishpatel023/StratikUI/issues/new/choose",
+    url: "https://www.stratikui.com/",
   },
 };
