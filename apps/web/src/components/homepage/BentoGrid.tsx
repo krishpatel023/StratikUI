@@ -32,7 +32,8 @@ export function BentoGrid() {
             <ShineLink
               className="w-max"
               href={Links.stratikui.github}
-              openNewTab
+              target="_blank"
+              rel="noreferrer noopener"
             >
               View on Github
             </ShineLink>
