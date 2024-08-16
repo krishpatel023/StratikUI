@@ -6,10 +6,10 @@ import { useInternalState } from "@/hooks/useInternalState";
 import { IconProps } from "@/utils/constants";
 import { capitalize } from "@/utils/helper";
 import { Icons } from "@/utils/icons";
-import Link from "next/link";
+import { Links } from "@/utils/utils";
 import { usePathname } from "next/navigation";
 import React, { Fragment, useEffect, useState } from "react";
-import { Button } from "react-aria-components";
+import { Button, Link } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
 
 export default function Sidebar() {
@@ -122,10 +122,22 @@ function SidebarSmall({
         </button>
 
         <span className="h-full flex gap-6 justify-center items-center">
-          <Link href="/settings" className="text-foreground">
+          <Link
+            href={Links.personal.twitter}
+            className="text-foreground"
+            aria-label="Twitter"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Icons.twitter className="w-4 h-4" />
           </Link>
-          <Link href="/settings" className="text-foreground">
+          <Link
+            href={Links.stratikui.github}
+            className="text-foreground"
+            aria-label="GitHub"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <Icons.gitHub className="w-5 h-5" />
           </Link>
         </span>
@@ -163,34 +175,33 @@ function SidebarArrangement({
                 {capitalize(item.name)}
               </h2>
               {item.children.map((child, index) => (
-                <Button
-                  className="pressed:scale-95 outline-none w-max sm:hover:translate-x-2 transition-all duration-300 sm:hover:scale-105"
+                <Link
                   key={index}
+                  href={"/" + child.link}
+                  className={twMerge(
+                    "text-secondary-foreground hover:text-accent-secondary mx-3 text-[0.92rem] data-[active=true]:text-accent-secondary outline-none  transition-all duration-500 md:hover:scale-[101%] pressed:animate-press py-0.5 w-max",
+                    item.name !== "hooks" && "capitalize"
+                  )}
                   onPress={handleClick}
+                  data-active={pathname === "/" + child.link}
                 >
-                  <Link
-                    href={"/" + child.link}
-                    className={twMerge(
-                      "text-secondary-foreground hover:text-accent-secondary px-3 text-[0.9rem] data-[active=true]:text-accent-secondary",
-                      item.name !== "hooks" && "capitalize"
-                    )}
-                    data-active={pathname === "/" + child.link}
-                  >
-                    {child.name.replaceAll("-", " ")}
-                  </Link>
-                </Button>
+                  {child.name.replaceAll("-", " ")}
+                </Link>
               ))}
             </div>
           )}
           {item.type === "default" && (
-            <Button
-              className="text-secondary-foreground text-[0.9rem] hover:text-accent-secondary hover:translate-x-2 transition-all duration-300 pressed:scale-95 hover:scale-105 outline-none"
-              onPress={() => {
-                if (allowClose) setSidebar(false);
-              }}
+            <Link
+              href={"/" + item.link}
+              className={twMerge(
+                "text-secondary-foreground hover:text-accent-secondary mx-3 text-[0.92rem] data-[active=true]:text-accent-secondary outline-none  transition-all duration-500 md:hover:scale-[101%] pressed:animate-press py-0.5 w-max",
+                item.name !== "hooks" && "capitalize"
+              )}
+              onPress={handleClick}
+              data-active={pathname === "/" + item.link}
             >
-              <Link href={item.link}>{item.name}</Link>
-            </Button>
+              {item.name}
+            </Link>
           )}
         </Fragment>
       ))}
