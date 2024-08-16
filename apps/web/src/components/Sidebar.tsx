@@ -21,46 +21,55 @@ export default function Sidebar() {
       setSidebar(false);
     }
   }
+
+  const path = usePathname();
   return (
     <>
       {/* Large Screen */}
-      <div
-        className={twMerge(
-          "peer z-[9999] hidden sm:flex fixed h-full w-[18.25rem] left-0 top-16 justify-end",
-          state === "hover" && "transition-all duration-[600ms]",
-          state === "hover" && !sidebar && "-left-full"
-        )}
-        onMouseLeave={closeSidebarOnMouseLeave}
-        data-sidebar-state={state}
-        data-sidebar-open={sidebar}
-      >
-        <div
-          className={twMerge(
-            "h-[92%] w-full bg-background",
-            state === "hover" &&
-              "rounded-lg h-[calc(100dvh-4.75rem)] w-[17.5rem] border-[2px] border-secondary"
-          )}
-        >
-          <SidebarArrangement allowClose={false} setSidebar={setSidebar} />
-          <SidebarFooter setState={setState} />
-        </div>
-      </div>
-      <div
-        className={twMerge(
-          "min-h-full min-w-[18.25rem] hidden sm:block transition-all duration-500",
-          state === "fixed" ? "left-0" : "absolute -left-full"
-        )}
-      />
+      {path !== "/" && (
+        <>
+          <div
+            className={twMerge(
+              "peer z-[9999] hidden sm:flex fixed h-full w-[18.25rem] left-0 top-16 justify-end",
+              state === "hover" && "transition-all duration-[600ms]",
+              state === "hover" && !sidebar && "-left-full"
+            )}
+            onMouseLeave={closeSidebarOnMouseLeave}
+            data-sidebar-state={state}
+            data-sidebar-open={sidebar}
+          >
+            <div
+              className={twMerge(
+                "h-[92%] w-full bg-background",
+                state === "hover" &&
+                  "rounded-lg h-[calc(100dvh-4.75rem)] w-[17.5rem] border-[2px] border-secondary"
+              )}
+            >
+              <SidebarArrangement
+                allowClose={false}
+                setSidebar={setSidebar}
+                pathname={path}
+              />
+              <SidebarFooter setState={setState} />
+            </div>
+          </div>
+          <div
+            className={twMerge(
+              "min-h-full min-w-[18.25rem] hidden sm:block transition-all duration-500",
+              state === "fixed" ? "left-0" : "absolute -left-full"
+            )}
+          />
+          <SidebarDetectors
+            state={state}
+            setState={setState}
+            sidebar={sidebar}
+            setSidebar={setSidebar}
+          />
+        </>
+      )}
 
       {/* Mobile Version */}
-      <SidebarSmall sidebar={sidebar} setSidebar={setSidebar} />
-
-      <SidebarDetectors
-        state={state}
-        setState={setState}
-        sidebar={sidebar}
-        setSidebar={setSidebar}
-      />
+      <SidebarSmall sidebar={sidebar} setSidebar={setSidebar} pathname={path} />
     </>
   );
 }
@@ -68,9 +77,11 @@ export default function Sidebar() {
 function SidebarSmall({
   sidebar,
   setSidebar,
+  pathname,
 }: {
   sidebar: boolean;
   setSidebar: (sidebar: boolean) => void;
+  pathname: string;
 }) {
   const { theme, toggleTheme } = useTheme();
   function sidebarSidebar() {
@@ -92,7 +103,11 @@ function SidebarSmall({
       )}
       data-sidebar-open={sidebar}
     >
-      <SidebarArrangement allowClose={true} setSidebar={setSidebar} />
+      <SidebarArrangement
+        allowClose={true}
+        setSidebar={setSidebar}
+        pathname={pathname}
+      />
       <div className="w-full h-14 px-3 py-2 flex justify-between items-center border-t border-outline-secondary">
         <button
           className="w-8 h-10 flex justify-center items-center rounded text-foreground"
@@ -122,11 +137,12 @@ function SidebarSmall({
 function SidebarArrangement({
   allowClose,
   setSidebar,
+  pathname,
 }: {
   allowClose: boolean;
   setSidebar: (sidebar: boolean) => void;
+  pathname: string;
 }) {
-  const pathname = usePathname();
   function handleClick() {
     if (allowClose) setSidebar(false);
   }

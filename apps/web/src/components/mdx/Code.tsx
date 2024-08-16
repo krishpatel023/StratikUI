@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useMemo, useState } from "react";
 
 import {
   Section,
@@ -16,6 +16,7 @@ import { BundledLanguage } from "shiki/bundle/web";
 import { twMerge } from "tailwind-merge";
 import CodeHighlight from "../ui/CodeHighlight";
 import { Tooltip, TooltipTrigger } from "../ui/Tooltip";
+import { Skeleton } from "@/components/ui/Skeleton";
 
 export interface CodeIndividual {
   provider: "default" | "react_aria";
@@ -184,6 +185,12 @@ function CodeDisplay({
     setThemingOption(val);
     setActiveColorTheme(val);
   }
+
+  const code = useMemo(
+    () => StringCleaner(activeFile?.content, activeColorTheme),
+    [activeFile?.content, activeColorTheme]
+  );
+
   return (
     <div className="w-full border-[2px] border-slate-100 dark:border-neutral-900/70 rounded-lg text-foreground p-0">
       {/* TASKBAR */}
@@ -268,12 +275,13 @@ function CodeDisplay({
       </div>
       {/* CONTENT */}
       <div className="w-full">
-        <CodeHighlight
-          // code={StringCleaner(activeFile.content)}
-          code={StringCleaner(activeFile?.content, activeColorTheme)}
-          lang={activeFile?.language}
-          withCounter={withCounter}
-        />
+        {code && code.length > 0 && (
+          <CodeHighlight
+            code={code}
+            lang={activeFile?.language}
+            withCounter={withCounter}
+          />
+        )}
       </div>
     </div>
   );

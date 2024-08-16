@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { isValidElement, ReactElement } from "react";
 import { twMerge } from "tailwind-merge";
 
 const TableDescriptionLayout = ({ dimensions }: { dimensions: number[] }) => {
@@ -18,14 +18,17 @@ export const TABLE = ({
   children,
   ...props
 }: React.HTMLAttributes<HTMLTableElement>) => {
+  const childrenArr = children as ReactElement[];
+  const length = childrenArr[0].props.children.props.children.length;
+
   return (
-    <div className="w-full overflow-x-auto scrollbar-horizontal">
-      <div className="w-full min-w-[800px] p-[1px] border border-slate-100 dark:border-none bg-gray-50 dark:bg-neutral-900/70 rounded-xl overflow-hidden">
-        <table className="w-full" {...props}>
-          <TableDescriptionLayout dimensions={[1, 1, 2]} />
-          {children}
-        </table>
-      </div>
+    <div className="w-full max-w-full p-[1px] border border-slate-100 dark:border-none bg-gray-50 dark:bg-neutral-900/70 rounded-xl overflow-y-auto scrollbar-x">
+      <table className="w-full" {...props}>
+        <TableDescriptionLayout
+          dimensions={length === 4 ? [1, 1, 1, 2] : [1, 1, 2]}
+        />
+        {children}
+      </table>
     </div>
   );
 };

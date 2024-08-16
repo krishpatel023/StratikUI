@@ -71,7 +71,7 @@ const useResizable = (
   };
 
   const handleMove = (e: TouchEvent | MouseEvent) => {
-    e.preventDefault();
+    if (e instanceof MouseEvent) e.preventDefault();
 
     if (!activeHandle || !isResizing || !resizableRef.current) return;
 
