@@ -1,14 +1,11 @@
 "use client";
 
 import { useInView } from "framer-motion";
-import Link, { LinkProps } from "next/link";
+import { Link, LinkProps } from "react-aria-components";
 import { useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 interface ShineLinkProps extends LinkProps {
-  className?: string;
-  children: React.ReactNode;
-  openNewTab?: boolean;
   animateInView?: boolean;
   options?: { once?: boolean; margin?: string };
 }
@@ -16,7 +13,6 @@ interface ShineLinkProps extends LinkProps {
 export default function ShineLink({
   className,
   children,
-  openNewTab = true,
   animateInView = true,
   options = { once: false, margin: "-300px" },
   ...props
@@ -43,8 +39,6 @@ export default function ShineLink({
         "z-10 group/button relative inline-flex items-center justify-center overflow-hidden rounded-md bg-black border border-neutral-800 px-4 py-2 text-white transition-all duration-300 ease-in-out hover:scale-105 focus:outline-none pressed:scale-95",
         className as string
       )}
-      target={openNewTab ? "_blank" : undefined}
-      rel={openNewTab ? "noopener noreferrer" : undefined}
       {...props}
     >
       <>{children}</>
