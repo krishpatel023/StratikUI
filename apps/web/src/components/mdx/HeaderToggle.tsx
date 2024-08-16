@@ -24,7 +24,7 @@ export const HeaderToggle = ({
       <div className="flex gap-2">
         <Button
           onPress={() => setTheme(!theme)}
-          className="h-10 w-10 bg-secondary p-1 rounded-lg flex justify-center items-center gap-4 text-center text-foreground md:hover:scale-105 pressed:scale-90 transition-transform duration-300 outline-none border border-outline-secondary"
+          className="h-10 w-10 bg-secondary p-1 rounded-lg flex justify-center items-center gap-4 text-center text-foreground md:hover:scale-105 pressed:animate-press transition-transform duration-300 outline-none border border-outline-secondary"
           name="theme toggle"
         >
           <div className="bg-background w-full h-full flex justify-center items-center rounded-md ">
@@ -81,7 +81,10 @@ const Tab = ({
       onPress={() => {
         onPress();
       }}
-      className={twMerge("z-20 h-8 text-foreground outline-none", className)}
+      className={twMerge(
+        "z-20 h-8 text-foreground outline-none pressed:animate-press",
+        className
+      )}
     >
       {children}
     </Button>
