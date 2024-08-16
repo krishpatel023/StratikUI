@@ -38,7 +38,7 @@ export function Modal({
     <ModalOverlay
       isDismissable={isDismissable}
       className={twMerge(
-        "z-[99999] w-[100dvw] h-[100dvh] top-0 fixed data-[entering=true]:animate-modal-fade-in data-[exiting=true]:animate-modal-fade-out",
+        "z-[99999] w-[100dvw] h-[100dvh] top-0 fixed data-[entering=true]:animate-fade-in data-[exiting=true]:animate-fade-out",
         isBGBlur && "bg-neutral-700/60 dark:bg-black/60"
       )}
     >
