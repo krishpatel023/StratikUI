@@ -1,5 +1,7 @@
 # StratikUI
 
+![hero](apps/web/public/og.png)
+
 ## About
 
 StratikUI is a collection of accessible, composable, and performant React components, hooks, and primitives designed in default along with accessible React Aria variant, to ensure accessibility without compromising on style or performance.
