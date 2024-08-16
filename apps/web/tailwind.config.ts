@@ -78,8 +78,21 @@ const config: Config = {
         buttonPress: "buttonPress 0.5s ease-in-out forwards",
         shimmer: "shimmer 8s forwards",
         ripple: "ripple var(--duration,2s) ease calc(var(--i, 0)*.2s) infinite",
+        press: "press var(--duration,0.8s) ease-in-out forwards",
+
+        "fade-in": "fade 0.3s ease-in",
+        "fade-out": "fade 0.3s reverse ease-in",
+        "modal-zoom": "modal-zoom 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
       },
       keyframes: {
+        press: {
+          "0%, 100%": {
+            transform: "scale(1)",
+          },
+          "50%": {
+            transform: "scale(0.85)",
+          },
+        },
         circleGrow: {
           "0%": {
             transform: "scale(0)",
@@ -116,6 +129,23 @@ const config: Config = {
           },
           "50%": {
             transform: "translate(-50%, -50%) scale(0.9)",
+          },
+        },
+
+        fade: {
+          "0%": {
+            opacity: "0",
+          },
+          "100%": {
+            opacity: "1",
+          },
+        },
+        "modal-zoom": {
+          "0%": {
+            transform: "scale(0.8)",
+          },
+          "100%": {
+            transform: "scale(1)",
           },
         },
       },
