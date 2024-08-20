@@ -28,6 +28,8 @@ export interface StepCircularProps {
 }
 
 export function Stepper({ children, className }: StepperProps) {
+  console.log("stepper", children);
+
   return (
     <div className={twMerge("flex flex-col md:flex-row gap-2", className)}>
       {children}
@@ -54,6 +56,8 @@ export function Step({
       setState("complete");
     }
   }, [currentActiveStep]);
+
+  console.log(state, currentActiveStep, step, totalSteps);
 
   return (
     <div
