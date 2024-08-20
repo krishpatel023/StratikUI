@@ -1,15 +1,10 @@
 "use client";
 
 import { IconProps } from "@registry/utils/types";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { twMerge } from "tailwind-merge";
 
-export interface StepperProps {
-  children: React.ReactNode;
-  className?: string;
-  onChange?: (step: number) => void;
-  currentStep?: number;
-}
+export interface StepperProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export interface StepLineProps {
   className?: string;
@@ -21,9 +16,6 @@ export interface StepLineProps {
 export interface StepProps {
   children?: React.ReactNode;
   className?: string;
-}
-
-export interface StepInternalProps extends StepProps {
   currentActiveStep: number;
   step: number;
   totalSteps: number;
@@ -35,68 +27,21 @@ export interface StepCircularProps {
   state: "active" | "complete" | "incomplete";
 }
 
-export function Stepper({
-  children,
-  className,
-  currentStep,
-  onChange,
-}: StepperProps) {
-  const [currentActiveStep, setCurrentActiveStep] = useState(currentStep || 0);
-
-  const totalSteps = useMemo(
-    () => (Array.isArray(children) ? children.length : 0),
-    [children]
-  );
-
-  const newChildren = useMemo(
-    () => replaceChildren(children, currentStep || 0),
-    [children]
-  );
-
-  function replaceChildren(children: React.ReactNode, currentStep: number) {
-    if (!children || !Array.isArray(children)) return;
-    return children.map((child, index) => {
-      return (
-        <StepInternal
-          key={index}
-          {...child.props}
-          currentActiveStep={currentStep}
-          step={index}
-          totalSteps={totalSteps}
-        />
-      );
-    });
-  }
-
-  function handleStepChange(step: number) {
-    const newStep = step < 0 || step > totalSteps ? currentActiveStep : step;
-    setCurrentActiveStep(newStep);
-    onChange && onChange(newStep);
-  }
-
-  useEffect(() => {
-    if (currentStep === undefined) return;
-    handleStepChange(currentStep);
-  }, [currentStep]);
-
+export function Stepper({ children, className }: StepperProps) {
   return (
     <div className={twMerge("flex flex-col md:flex-row gap-2", className)}>
-      {newChildren}
+      {children}
     </div>
   );
 }
 
-export function Step({ children, className }: StepProps) {
-  return <div className={className}>{children}</div>;
-}
-
-export function StepInternal({
+export function Step({
   children,
   className,
   currentActiveStep,
   step,
   totalSteps,
-}: StepInternalProps) {
+}: StepProps) {
   const state = useMemo(() => {
     if (currentActiveStep === step) {
       return "active";
