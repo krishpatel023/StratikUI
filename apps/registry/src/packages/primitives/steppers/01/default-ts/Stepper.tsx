@@ -1,7 +1,7 @@
 "use client";
 
 import { IconProps } from "@registry/utils/types";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 export interface StepperProps extends React.HTMLAttributes<HTMLDivElement> {}
@@ -42,14 +42,17 @@ export function Step({
   step,
   totalSteps,
 }: StepProps) {
-  const state = useMemo(() => {
+  const [state, setState] = useState<"active" | "complete" | "incomplete">(
+    "incomplete"
+  );
+
+  useEffect(() => {
     if (currentActiveStep === step) {
-      return "active";
+      setState("active");
     }
     if (currentActiveStep > step) {
-      return "complete";
+      setState("complete");
     }
-    return "incomplete";
   }, [currentActiveStep]);
 
   return (
