@@ -19,8 +19,8 @@ export default function MeterImplementation() {
   }
 
   return (
-    <div className="grid grid-cols-1 @md:grid-cols gap-4">
-      <div className="w-60 @md:w-80 flex flex-col gap-8 text-foreground">
+    <div className="grid grid-cols-1 md:grid-cols gap-4">
+      <div className="w-60 md:w-80 flex flex-col gap-8 text-foreground">
         <Meter value={value}>
           <Label>Primary</Label>
         </Meter>

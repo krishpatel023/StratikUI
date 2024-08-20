@@ -45,7 +45,7 @@ export function Stepper({ children, className, currentStep, onChange }) {
   }, [currentStep]);
 
   return (
-    <div className={twMerge("flex flex-col @md:flex-row gap-2 ", className)}>
+    <div className={twMerge("flex flex-col md:flex-row gap-2 ", className)}>
       {newChildren}
     </div>
   );
@@ -75,12 +75,12 @@ export function StepInternal({
   return (
     <div
       className={twMerge(
-        "group text-foreground flex @md:flex-col gap-2 relative",
+        "group text-foreground flex md:flex-col gap-2 relative",
         className
       )}
       data-state={state}
     >
-      <div className="min-h-full @md:min-h-max @md:h-auto @md:w-full flex flex-col items-center @md:flex-row @md:justify-start @md:items-center gap-2">
+      <div className="min-h-full md:min-h-max md:h-auto md:w-full flex flex-col items-center md:flex-row md:justify-start md:items-center gap-2">
         <StepCircular step={step} state={state} />
         <StepLine step={step} totalSteps={totalSteps} state={state} />
       </div>
@@ -96,12 +96,12 @@ export function StepLine({ className, step, totalSteps, state }) {
       {showConnectingLine && (
         <div
           className={twMerge(
-            "w-1 h-full @md:h-1 @md:w-full rounded-full bg-secondary overflow-hidden pointer-events-none ",
+            "w-1 h-full md:h-1 md:w-full rounded-full bg-secondary overflow-hidden pointer-events-none ",
             className
           )}
         >
           <div
-            className="h-full w-full bg-accent transition-all duration-500 -translate-y-full data-[show=complete]:translate-y-0 @md:translate-y-0 @md:-translate-x-full @md:data-[show=complete]:translate-x-0"
+            className="h-full w-full bg-accent transition-all duration-500 -translate-y-full data-[show=complete]:translate-y-0 md:translate-y-0 md:-translate-x-full md:data-[show=complete]:translate-x-0"
             data-show={state}
           />
         </div>

@@ -18,7 +18,7 @@ export default function StepperImplementation() {
 
   return (
     <div className="flex flex-col justify-center items-center gap-20 px-6">
-      <div className="max-w-60 @sm:max-w-full">
+      <div className="max-w-60 sm:max-w-full">
         <h1 className="text-foreground font-semibold text-xl mb-2">
           Getting Started
         </h1>
@@ -29,7 +29,7 @@ export default function StepperImplementation() {
           value={activeStep}
           maxValue={totalSteps}
           variant="accent"
-          className="@sm:h-4"
+          className="sm:h-4"
         >
           <div className="flex justify-between mb-3 text-foreground font-medium text-sm">
             <Label>Steps</Label>

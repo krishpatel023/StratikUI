@@ -50,7 +50,7 @@ export function CommandPaletteTrigger({
       <Input
         type="text"
         className={twMerge(
-          " w-80 @md:w-[25rem] my-1 text-primary-foreground placeholder:text-secondary-foreground py-2 pr-24 pl-4 rounded-md bg-primary border-[2px] hover:border-outline border-outline-secondary focus:outline-none",
+          " w-80 md:w-[25rem] my-1 text-primary-foreground placeholder:text-secondary-foreground py-2 pr-24 pl-4 rounded-md bg-primary border-[2px] hover:border-outline border-outline-secondary focus:outline-none",
           className as string
         )}
         ref={ref}
@@ -71,7 +71,7 @@ export function CommandPaletteItem({
   return (
     <Button
       className={twMerge(
-        "w-full h-12 px-2 @md:px-4 rounded-md flex justify-between items-center text-base focus:outline-none focus:bg-secondary hover:bg-secondary",
+        "w-full h-12 px-2 md:px-4 rounded-md flex justify-between items-center text-base focus:outline-none focus:bg-secondary hover:bg-secondary",
         className as string
       )}
       data-menu-item
