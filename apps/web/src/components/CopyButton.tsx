@@ -24,7 +24,7 @@ export function CopyButton({ text, className, ...props }: CopyButtonProps) {
   return (
     <Button
       className={twMerge(
-        "group/copy pressed:scale-95 hover:scale-110 text-foreground outline-none transition-all duration-300 relative",
+        "group/copy pressed:animate-press hover:scale-110 text-foreground outline-none transition-all duration-300 relative",
         className as string
       )}
       data-copied={copied}

@@ -111,7 +111,7 @@ export function StepCircular({ className, step, state }) {
   return (
     <div
       className={twMerge(
-        "min-h-8 min-w-8 @sm:min-w-12 @sm:min-h-12  rounded-full flex items-center justify-center border-[3px] text-lg @sm:text-2xl font-semibold transition-all delay-300 ",
+        "min-h-8 min-w-8 sm:min-w-12 sm:min-h-12  rounded-full flex items-center justify-center border-[3px] text-lg sm:text-2xl font-semibold transition-all delay-300 ",
         state === "active" && "border-accent text-accent",
         state === "complete" &&
           "bg-accent border-accent text-accent-foreground",

@@ -2,7 +2,7 @@ import { Switch } from "@registry/packages/primitives/switch/01/react_aria-ts/Sw
 
 export default function SwitchImplementation() {
   return (
-    <div className="grid grid-cols-1 @md:grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <Switch variant="primary">Primary Switch</Switch>
       <Switch variant="primary" isDisabled>
         Disabled Primary Switch
