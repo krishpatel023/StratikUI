@@ -55,19 +55,15 @@ export function Stepper({
 
   function replaceChildren(children: React.ReactNode, currentStep: number) {
     if (!children || !Array.isArray(children)) return;
-    return children.map((child, index) => {
-      if (child.type?.name === "Step") {
-        return (
-          <StepInternal
-            key={index}
-            {...child.props}
-            currentActiveStep={currentStep}
-            step={index}
-            totalSteps={totalSteps}
-          />
-        );
-      }
-    });
+    return children.map((child, index) => (
+      <StepInternal
+        key={index}
+        {...child.props}
+        currentActiveStep={currentStep}
+        step={index}
+        totalSteps={totalSteps}
+      />
+    ));
   }
 
   function handleStepChange(step: number) {
