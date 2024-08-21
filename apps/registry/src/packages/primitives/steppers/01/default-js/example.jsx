@@ -23,10 +23,10 @@ export default function StepperImplementation() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center gap-10 min-h-[30rem]">
+    <div className="flex flex-col justify-center items-center gap-10 min-h-[30rem] relative">
       <Stepper currentStep={activeStep} onChange={handleStepChange}>
         <Step>
-          <div className="max-w-40  text-center ">
+          <div className="max-w-40  text-center">
             <h1 className="text-lg">Login</h1>
             <p className="text-secondary-foreground">
               You need to login to you account

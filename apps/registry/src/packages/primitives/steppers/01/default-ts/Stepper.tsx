@@ -55,19 +55,15 @@ export function Stepper({
 
   function replaceChildren(children: React.ReactNode, currentStep: number) {
     if (!children || !Array.isArray(children)) return;
-    return children.map((child, index) => {
-      if (child.type?.name === "Step") {
-        return (
-          <StepInternal
-            key={index}
-            {...child.props}
-            currentActiveStep={currentStep}
-            step={index}
-            totalSteps={totalSteps}
-          />
-        );
-      }
-    });
+    return children.map((child, index) => (
+      <StepInternal
+        key={index}
+        {...child.props}
+        currentActiveStep={currentStep}
+        step={index}
+        totalSteps={totalSteps}
+      />
+    ));
   }
 
   function handleStepChange(step: number) {
@@ -82,7 +78,9 @@ export function Stepper({
   }, [currentStep]);
 
   return (
-    <div className={twMerge("flex flex-col md:flex-row gap-2", className)}>
+    <div
+      className={twMerge("flex flex-col md:flex-row gap-2 relative", className)}
+    >
       {newChildren}
     </div>
   );
@@ -117,7 +115,12 @@ export function StepInternal({
       )}
       data-state={state}
     >
-      <div className="min-h-full md:min-h-max md:h-auto md:w-full flex flex-col items-center md:flex-row md:justify-start md:items-center gap-2 relative md:left-[calc(50%-1.5rem)] ">
+      <div
+        className={twMerge(
+          "min-h-full md:min-h-max md:h-auto md:w-full flex flex-col items-center md:flex-row md:justify-start md:items-center gap-2 relative md:left-[calc(50%-1.5rem)]",
+          step + 1 === totalSteps && "md:w-max"
+        )}
+      >
         <StepCircular step={step} state={state} />
         <StepLine step={step} totalSteps={totalSteps} state={state} />
       </div>

@@ -23,8 +23,7 @@ export default function StepperImplementation() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center gap-10">
-      {/* <Stepper currentStep={activeStep} steps={steps} /> */}
+    <div className="flex flex-col justify-center items-center gap-10 relative">
       <Stepper currentStep={activeStep} onChange={handleStepChange}>
         <Step>
           <div className="max-w-60   ">
