@@ -9,23 +9,24 @@ import Button from "@registry/ui/Button";
 
 export default function StepperImplementation() {
   const [activeStep, setActiveStep] = useState(0);
-  const totalSteps = 4;
 
   const handleNext = () => {
-    if (activeStep >= totalSteps) return;
     setActiveStep(activeStep + 1);
   };
 
   const handlePrev = () => {
-    if (activeStep <= 0) return;
     setActiveStep(activeStep - 1);
   };
 
+  const handleStepChange = (step: number) => {
+    setActiveStep(step);
+  };
+
   return (
-    <div className="flex flex-col justify-center items-center gap-10 h-[40rem] relative">
-      <Stepper>
-        <Step currentActiveStep={activeStep} step={0} totalSteps={totalSteps}>
-          <div className="max-w-40  text-center ">
+    <div className="flex flex-col justify-center items-center gap-10 min-h-[30rem] relative">
+      <Stepper currentStep={activeStep} onChange={handleStepChange}>
+        <Step>
+          <div className="max-w-40  text-center">
             <h1 className="text-lg">Login</h1>
             <p className="text-secondary-foreground">
               You need to login to you account
@@ -41,7 +42,7 @@ export default function StepperImplementation() {
             </span>
           </div>
         </Step>
-        <Step currentActiveStep={activeStep} step={1} totalSteps={totalSteps}>
+        <Step>
           <div className="max-w-40  text-center ">
             <h1 className="text-lg">Add your wallet</h1>
             <p className="text-secondary-foreground">
@@ -58,7 +59,7 @@ export default function StepperImplementation() {
             </span>
           </div>
         </Step>
-        <Step currentActiveStep={activeStep} step={2} totalSteps={totalSteps}>
+        <Step>
           <div className="max-w-40  text-center ">
             <h1 className="text-lg">Verify the plan</h1>
             <p className="text-secondary-foreground">
@@ -75,7 +76,7 @@ export default function StepperImplementation() {
             </span>
           </div>
         </Step>
-        <Step currentActiveStep={activeStep} step={3} totalSteps={totalSteps}>
+        <Step>
           <div className="max-w-40  text-center ">
             <h1 className="text-lg">Purchase</h1>
             <p className="text-secondary-foreground">
