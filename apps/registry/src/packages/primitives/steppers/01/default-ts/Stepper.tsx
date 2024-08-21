@@ -27,8 +27,8 @@ export interface StepCircularProps {
   state: "active" | "complete" | "incomplete";
 }
 
-export function Stepper({ children, className }: StepperProps) {
-  console.log("stepper", children);
+export function Stepper({ className, ...props }: StepperProps) {
+  console.log("stepper", props.children);
 
   return (
     <div
@@ -36,9 +36,8 @@ export function Stepper({ children, className }: StepperProps) {
         "w-full h-max flex flex-col md:flex-row gap-2",
         className
       )}
-    >
-      {children}
-    </div>
+      {...props}
+    />
   );
 }
 
@@ -60,27 +59,31 @@ export function Step({
     if (currentActiveStep > step) {
       setState("complete");
     }
-  }, [currentActiveStep]);
+  }, [currentActiveStep, step]);
 
   console.log(state, currentActiveStep, step, totalSteps);
 
   return (
-    <div
-      className={twMerge(
-        "group text-foreground flex md:flex-col gap-2 relative",
-        className
-      )}
-      data-state={state}
-    >
-      <div className="min-h-full md:min-h-max md:h-auto md:w-full flex flex-col items-center md:flex-row md:justify-start md:items-center gap-2 relative md:left-[calc(50%-1.5rem)] ">
-        <StepCircular step={step} state={state} />
-        <StepLine step={step} totalSteps={totalSteps} state={state} />
+    <>
+      <div
+        className={twMerge(
+          "group text-foreground flex md:flex-col gap-2 relative",
+          className
+        )}
+        data-state={state}
+      >
+        <div className="min-h-full md:min-h-max md:h-auto md:w-full flex flex-col items-center md:flex-row md:justify-start md:items-center gap-2 relative md:left-[calc(50%-1.5rem)] ">
+          <StepCircular step={step} state={state} />
+          <StepLine step={step} totalSteps={totalSteps} state={state} />
+        </div>
+        <div>{children}</div>
       </div>
-      <div>{children}</div>
-      <span>
-        {step + 1} / {totalSteps}
-      </span>
-    </div>
+      <div>
+        <span>
+          {step + 1} / {totalSteps}
+        </span>
+      </div>
+    </>
   );
 }
 
