@@ -24,7 +24,7 @@ export default function StepperImplementation() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center gap-8">
+    <div className="flex flex-col justify-center items-center gap-8 relative">
       <div className="max-w-full px-6">
         <h1 className="text-foreground font-semibold text-xl mb-2">
           Getting Started

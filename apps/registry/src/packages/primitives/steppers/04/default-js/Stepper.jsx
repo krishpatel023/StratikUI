@@ -1,7 +1,6 @@
 "use client";
 
-import { IconProps } from "@registry/utils/types";
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 export function Stepper({ children, className, currentStep, onChange }) {
@@ -19,19 +18,15 @@ export function Stepper({ children, className, currentStep, onChange }) {
 
   function replaceChildren(children, currentStep) {
     if (!children || !Array.isArray(children)) return;
-    return children.map((child, index) => {
-      if (child.type?.name === "Step") {
-        return (
-          <StepInternal
-            key={index}
-            {...child.props}
-            currentActiveStep={currentStep}
-            step={index}
-            totalSteps={totalSteps}
-          />
-        );
-      }
-    });
+    return children.map((child, index) => (
+      <StepInternal
+        key={index}
+        {...child.props}
+        currentActiveStep={currentStep}
+        step={index}
+        totalSteps={totalSteps}
+      />
+    ));
   }
 
   function handleStepChange(step) {
@@ -46,7 +41,7 @@ export function Stepper({ children, className, currentStep, onChange }) {
   }, [currentStep]);
 
   return (
-    <div className={twMerge("flex flex-col gap-4", className)}>
+    <div className={twMerge("flex flex-col gap-4 relative", className)}>
       {newChildren}
     </div>
   );
