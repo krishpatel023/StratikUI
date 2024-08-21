@@ -31,7 +31,12 @@ export function Stepper({ children, className }: StepperProps) {
   console.log("stepper", children);
 
   return (
-    <div className={twMerge("flex flex-col md:flex-row gap-2", className)}>
+    <div
+      className={twMerge(
+        "w-full h-max flex flex-col md:flex-row gap-2",
+        className
+      )}
+    >
       {children}
     </div>
   );
@@ -72,6 +77,9 @@ export function Step({
         <StepLine step={step} totalSteps={totalSteps} state={state} />
       </div>
       <div>{children}</div>
+      <span>
+        {step + 1} / {totalSteps}
+      </span>
     </div>
   );
 }

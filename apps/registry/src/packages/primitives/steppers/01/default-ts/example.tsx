@@ -23,8 +23,9 @@ export default function StepperImplementation() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center gap-10 min-h-[30rem]">
-      <Stepper>
+    <div className="flex flex-col justify-center items-center gap-10 h-[40rem]">
+      <Stepper className="bg-secondary">
+        <span>Inside Stepper</span>
         <Step currentActiveStep={activeStep} step={0} totalSteps={4}>
           <div className="max-w-40  text-center ">
             <h1 className="text-lg">Login</h1>
