@@ -4,12 +4,7 @@ import { IconProps } from "@registry/utils/types";
 import React, { useEffect, useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
-export interface StepperProps {
-  children: React.ReactNode;
-  className?: string;
-  onChange?: (step: number) => void;
-  currentStep?: number;
-}
+export interface StepperProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export interface StepLineProps {
   className?: string;
@@ -21,9 +16,6 @@ export interface StepLineProps {
 export interface StepProps {
   children?: React.ReactNode;
   className?: string;
-}
-
-export interface StepInternalProps extends StepProps {
   currentActiveStep: number;
   step: number;
   totalSteps: number;
@@ -35,77 +27,38 @@ export interface StepCircularProps {
   state: "active" | "complete" | "incomplete";
 }
 
-export function Stepper({
-  children,
-  className,
-  currentStep,
-  onChange,
-}: StepperProps) {
-  const [currentActiveStep, setCurrentActiveStep] = useState(currentStep || 0);
-
-  const totalSteps = useMemo(
-    () => (Array.isArray(children) ? children.length : 0),
-    [children]
-  );
-
-  const newChildren = useMemo(
-    () => replaceChildren(children, currentStep || 0),
-    [children]
-  );
-
-  function replaceChildren(children: React.ReactNode, currentStep: number) {
-    if (!children || !Array.isArray(children)) return;
-    return children.map((child, index) => (
-      <StepInternal
-        key={index}
-        {...child.props}
-        currentActiveStep={currentStep}
-        step={index}
-        totalSteps={totalSteps}
-      />
-    ));
-  }
-
-  function handleStepChange(step: number) {
-    const newStep = step < 0 || step > totalSteps ? currentActiveStep : step;
-    setCurrentActiveStep(newStep);
-    onChange && onChange(newStep);
-  }
-
-  useEffect(() => {
-    if (currentStep === undefined) return;
-    handleStepChange(currentStep);
-  }, [currentStep]);
-
+export function Stepper({ className, ...props }: StepperProps) {
   return (
     <div
-      className={twMerge("flex flex-col md:flex-row gap-2 relative", className)}
-    >
-      {newChildren}
-    </div>
+      className={twMerge(
+        "w-full h-max flex flex-col md:flex-row gap-2",
+        className
+      )}
+      {...props}
+    />
   );
 }
 
-export function Step({ children, className }: StepProps) {
-  return <div className={className}>{children}</div>;
-}
-
-export function StepInternal({
+export function Step({
   children,
   className,
   currentActiveStep,
   step,
   totalSteps,
-}: StepInternalProps) {
-  const state = useMemo(() => {
+}: StepProps) {
+  const [state, setState] = useState<"active" | "complete" | "incomplete">(
+    "incomplete"
+  );
+
+  useEffect(() => {
     if (currentActiveStep === step) {
-      return "active";
+      setState("active");
+    } else if (currentActiveStep > step) {
+      setState("complete");
+    } else {
+      setState("incomplete");
     }
-    if (currentActiveStep > step) {
-      return "complete";
-    }
-    return "incomplete";
-  }, [currentActiveStep]);
+  }, [currentActiveStep, step]);
 
   return (
     <div
@@ -117,7 +70,7 @@ export function StepInternal({
     >
       <div
         className={twMerge(
-          "min-h-full md:min-h-max md:h-auto md:w-full flex flex-col items-center md:flex-row md:justify-start md:items-center gap-2 relative md:left-[calc(50%-1.5rem)]",
+          "min-h-full md:min-h-max md:h-auto md:w-full flex flex-col items-center md:flex-row md:justify-start md:items-center gap-2 relative md:left-[calc(50%-1.5rem)] ",
           step + 1 === totalSteps && "md:w-max"
         )}
       >
