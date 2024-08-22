@@ -20,8 +20,25 @@
             ]
         },
         "lint": {
+            "outputs": [],
+            "cache": true,
             "dependsOn": [
                 "^lint"
+            ],
+            "inputs": [
+                "apps/registry/src/**/*.{ts,tsx,js,jsx,json}",
+                "apps/web/src/**/*.{ts,tsx,js,jsx,json}"
+            ]
+        },
+        "lint:fix": {
+            "outputs": [],
+            "cache": false,
+            "dependsOn": [
+                "^lint:fix"
+            ],
+            "inputs": [
+                "apps/registry/src/**/*.{ts,tsx,js,jsx,json}",
+                "apps/web/src/**/*.{ts,tsx,js,jsx,json}"
             ]
         },
         "dev": {
