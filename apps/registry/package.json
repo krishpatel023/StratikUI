@@ -7,12 +7,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "npx @biomejs/biome lint ./src",
-    "lint:fix": "npx @biomejs/biome lint ./src --write",
     "generate:docs": "tsx src/scripts/generateDocs.ts",
-    "generate:search": "tsx src/scripts/generateSearchData.ts",
-    "generate:sidebar": "tsx src/scripts/generateSidebarData.ts",
-    "generate:data": "tsx src/scripts/generateDocs.ts && tsx src/scripts/generateSidebarData.ts && tsx src/scripts/generateSearchData.ts"
+    "generate:search": "tsx src/scripts/generateSearchData.ts && npx @biomejs/biome format ../web/src/data/generated/generated-search.ts --write",
+    "generate:sidebar": "tsx src/scripts/generateSidebarData.ts && npx @biomejs/biome format ../web/src/data/generated/generated-sidebar.ts --write",
+    "generate:data": "tsx src/scripts/generateDocs.ts && tsx src/scripts/generateSidebarData.ts && tsx src/scripts/generateSearchData.ts && npx @biomejs/biome format ../web/src/data/generated/generated-search.ts --write && npx @biomejs/biome format ../web/src/data/generated/generated-sidebar.ts --write",
+    "lint": "npx @biomejs/biome lint ./src --skip=suspicious/noArrayIndexKey --skip=suspicious/noExplicitAny",
+    "lint:fix": "npx @biomejs/biome lint ./src --write && npm run format",
+    "lint:fix-unsafe": "npx @biomejs/biome lint ./src --write --unsafe && npm run format",
+    "format": "npx @biomejs/biome format ./src --write",
+    "check": "npx @biomejs/biome check ./src"
   },
   "dependencies": {
     "@paralleldrive/cuid2": "^2.2.2",

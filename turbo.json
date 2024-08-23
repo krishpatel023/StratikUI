@@ -26,8 +26,7 @@
                 "^lint"
             ],
             "inputs": [
-                "apps/registry/src/**/*.{ts,tsx,js,jsx,json}",
-                "apps/web/src/**/*.{ts,tsx,js,jsx,json}"
+                "./**/*.{ts,tsx,js,jsx,json}"
             ]
         },
         "lint:fix": {
@@ -37,13 +36,23 @@
                 "^lint:fix"
             ],
             "inputs": [
-                "apps/registry/src/**/*.{ts,tsx,js,jsx,json}",
-                "apps/web/src/**/*.{ts,tsx,js,jsx,json}"
+                "./**/*.{ts,tsx,js,jsx,json}"
+            ]
+        },
+        "format": {
+            "outputs": [],
+            "cache": false,
+            "inputs": [
+                "./**/*.{ts,tsx,js,jsx,json,md}"
             ]
         },
         "dev": {
             "persistent": true,
-            "cache": false
+            "cache": false,
+            "dependsOn": [
+                "^build",
+                "^check-types"
+            ]
         }
     }
 }

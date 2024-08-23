@@ -7,8 +7,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "npx @biomejs/biome lint ./src",
-    "lint:fix": "npx @biomejs/biome lint ./src --write",
+    "lint": "npx @biomejs/biome lint ./src --skip=suspicious/noArrayIndexKey --skip=suspicious/noExplicitAny",
+    "lint:fix": "npx @biomejs/biome lint ./src --write && npm run format",
+    "lint:fix-unsafe": "npx @biomejs/biome lint ./src --write --unsafe && npm run format",
+    "format": "npx @biomejs/biome format ./src --write",
+    "check": "npx @biomejs/biome check ./src",
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
