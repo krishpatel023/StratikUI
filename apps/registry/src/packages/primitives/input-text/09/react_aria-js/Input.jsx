@@ -1,56 +1,56 @@
 "use client";
 
 import {
-  FieldError,
-  Label,
-  Input as ReactAriaInput,
-  TextField,
+	FieldError,
+	Label,
+	Input as ReactAriaInput,
+	TextField,
 } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
 
 export function Field({ className, ...props }) {
-  return (
-    <TextField className={twMerge("flex flex-col", className)} {...props} />
-  );
+	return (
+		<TextField className={twMerge("flex flex-col", className)} {...props} />
+	);
 }
 
 export function InputLabel({ className, ...props }) {
-  return (
-    <Label
-      className={twMerge("text-foreground text-sm font-medium", className)}
-    >
-      {props.children}
-    </Label>
-  );
+	return (
+		<Label
+			className={twMerge("text-foreground text-sm font-medium", className)}
+		>
+			{props.children}
+		</Label>
+	);
 }
 
 export function InputBox({ className, ...props }) {
-  return (
-    <ReactAriaInput
-      className={twMerge(
-        "w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 mt-1",
-        "text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
-        className
-      )}
-      {...props}
-    />
-  );
+	return (
+		<ReactAriaInput
+			className={twMerge(
+				"w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 mt-1",
+				"text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
+				className,
+			)}
+			{...props}
+		/>
+	);
 }
 
 export function Input({ label, isRequired, isReadOnly, className, ...props }) {
-  return (
-    <Field
-      isReadOnly={isReadOnly}
-      isRequired={isRequired}
-      name={props.name}
-      type={props.type}
-    >
-      <InputLabel className="absolute px-4 mt-4 text-xs">{label}</InputLabel>
-      <InputBox
-        {...props}
-        className={twMerge("pt-6 h-[4.25rem] rounded-lg", className)}
-      />
-      <FieldError />
-    </Field>
-  );
+	return (
+		<Field
+			isReadOnly={isReadOnly}
+			isRequired={isRequired}
+			name={props.name}
+			type={props.type}
+		>
+			<InputLabel className="absolute px-4 mt-4 text-xs">{label}</InputLabel>
+			<InputBox
+				{...props}
+				className={twMerge("pt-6 h-[4.25rem] rounded-lg", className)}
+			/>
+			<FieldError />
+		</Field>
+	);
 }

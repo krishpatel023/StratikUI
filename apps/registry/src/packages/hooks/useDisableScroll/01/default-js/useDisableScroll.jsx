@@ -2,26 +2,28 @@
 import { useEffect, useState } from "react";
 
 export default function useDisableScroll(isModalOpen, reference) {
-  const [item, setItem] = useState(null);
-  useEffect(() => {
-    if (reference && typeof reference === "string")
-      setItem(document.getElementById(reference));
-    else if (reference && typeof reference === "object")
-      setItem(reference.current);
-    else setItem(document.body);
+	const [item, setItem] = useState(null);
 
-    if (!item) return;
+	// biome-ignore lint/correctness/useExhaustiveDependencies: Addition of item will cause the component to re-render many times
+	useEffect(() => {
+		if (reference && typeof reference === "string")
+			setItem(document.getElementById(reference));
+		else if (reference && typeof reference === "object")
+			setItem(reference.current);
+		else setItem(document.body);
 
-    const handleScroll = () => {
-      item.style.overflow = isModalOpen ? "hidden" : "auto";
-    };
+		if (!item) return;
 
-    handleScroll();
+		const handleScroll = () => {
+			item.style.overflow = isModalOpen ? "hidden" : "auto";
+		};
 
-    return () => {
-      if (item) {
-        item.style.overflow = "auto";
-      }
-    };
-  }, [isModalOpen, reference]);
+		handleScroll();
+
+		return () => {
+			if (item) {
+				item.style.overflow = "auto";
+			}
+		};
+	}, [isModalOpen, reference]);
 }

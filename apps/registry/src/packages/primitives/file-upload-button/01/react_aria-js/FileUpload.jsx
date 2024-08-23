@@ -4,22 +4,22 @@ import { Button } from "@registry/packages/primitives/buttons/01/react_aria-js/B
 import { FileTrigger } from "react-aria-components";
 
 export function FileUploadButton({
-  className,
-  children,
-  getFiles,
-  variant = "primary",
-  ...props
+	className,
+	children,
+	getFiles,
+	variant = "primary",
+	...props
 }) {
-  function handleFileUpload(e) {
-    let files = Array.from(e);
-    getFiles && getFiles(files);
-  }
+	function handleFileUpload(e) {
+		const files = Array.from(e);
+		getFiles?.(files);
+	}
 
-  return (
-    <FileTrigger onSelect={(e) => handleFileUpload(e)} {...props}>
-      <Button className={className} variant={variant}>
-        {children}
-      </Button>
-    </FileTrigger>
-  );
+	return (
+		<FileTrigger onSelect={(e) => handleFileUpload(e)} {...props}>
+			<Button className={className} variant={variant}>
+				{children}
+			</Button>
+		</FileTrigger>
+	);
 }

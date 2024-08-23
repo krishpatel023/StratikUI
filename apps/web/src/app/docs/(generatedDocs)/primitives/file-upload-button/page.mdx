@@ -28,7 +28,7 @@ export const Primitives_file_upload_button_00 = lazy(() => import("@registry/pac
 
 <Implementation>
 
-<TechnologyUsed technologies={["react-aria-components"]} />
+undefined
 <CodeBlock>
 
 ```default|js|example.jsx
@@ -38,23 +38,23 @@ import { useState } from "react";
 import { FileUploadButton } from "@registry/packages/primitives/file-upload-button/00/default-js/FileUpload";
 
 export default function FileUploadButtonImplementation() {
-  const [files, setFiles] = useState([]);
+	const [files, setFiles] = useState([]);
 
-  return (
-    <div className="w-full flex justify-center items-center text-foreground flex-col gap-4">
-      <FileUploadButton getFiles={(files) => setFiles(files)} allowsMultiple>
-        Choose a file
-      </FileUploadButton>
-      <div className="text-center flex flex-col ">
-        <h1 className="text-primary-foreground font-semibold underline underline-offset-1 mb-4">
-          Selected Files
-        </h1>
-        {files.map((file, index) => (
-          <span key={file.name + index}>{file.name}</span>
-        ))}
-      </div>
-    </div>
-  );
+	return (
+		<div className="w-full flex justify-center items-center text-foreground flex-col gap-4">
+			<FileUploadButton getFiles={(files) => setFiles(files)} allowsMultiple>
+				Choose a file
+			</FileUploadButton>
+			<div className="text-center flex flex-col ">
+				<h1 className="text-primary-foreground font-semibold underline underline-offset-1 mb-4">
+					Selected Files
+				</h1>
+				{files.map((file, index) => (
+					<span key={file.name + index}>{file.name}</span>
+				))}
+			</div>
+		</div>
+	);
 }
 
 ```
@@ -65,50 +65,50 @@ export default function FileUploadButtonImplementation() {
 import { useRef } from "react";
 
 export function FileUploadButton({
-  children,
-  getFiles,
-  allowsMultiple,
-  acceptedFileTypes,
-  className,
-  ...props
+	children,
+	getFiles,
+	allowsMultiple,
+	acceptedFileTypes,
+	className,
+	...props
 }) {
-  function handleFileUpload(e) {
-    e.preventDefault();
-    const target = e.target;
+	function handleFileUpload(e) {
+		e.preventDefault();
+		const target = e.target;
 
-    let Files = [];
+		let Files = [];
 
-    if (allowsMultiple) {
-      Files = Array.from(target.files ? target.files : []);
-    } else {
-      const file = target.files?.[0];
-      Files = file ? [file] : [];
-    }
-    getFiles && getFiles(Files);
-  }
+		if (allowsMultiple) {
+			Files = Array.from(target.files ? target.files : []);
+		} else {
+			const file = target.files?.[0];
+			Files = file ? [file] : [];
+		}
+		getFiles?.(Files);
+	}
 
-  const inputRef = useRef(null);
+	const inputRef = useRef(null);
 
-  function handleClick() {
-    inputRef.current?.click();
-  }
+	function handleClick() {
+		inputRef.current?.click();
+	}
 
-  return (
-    <>
-      <input
-        type="file"
-        ref={inputRef}
-        className="hidden"
-        onChange={(e) => handleFileUpload(e)}
-        multiple={allowsMultiple}
-        accept={acceptedFileTypes?.join(",")}
-        {...props}
-      />
-      <button className={className} onClick={handleClick}>
-        {children}
-      </button>
-    </>
-  );
+	return (
+		<>
+			<input
+				type="file"
+				ref={inputRef}
+				className="hidden"
+				onChange={(e) => handleFileUpload(e)}
+				multiple={allowsMultiple}
+				accept={acceptedFileTypes?.join(",")}
+				{...props}
+			/>
+			<button type="button" className={className} onClick={handleClick}>
+				{children}
+			</button>
+		</>
+	);
 }
 
 ```
@@ -120,27 +120,27 @@ import { useState } from "react";
 import { FileUploadButton } from "@registry/packages/primitives/file-upload-button/00/default-ts/FileUpload";
 
 export default function FileUploadButtonImplementation() {
-  const [files, setFiles] = useState<File[]>([]);
+	const [files, setFiles] = useState<File[]>([]);
 
-  return (
-    <div className="w-full flex justify-center items-center text-foreground flex-col gap-4">
-      <FileUploadButton
-        getFiles={(files) => setFiles(files)}
-        allowsMultiple
-        acceptedFileTypes={[".png", ".pdf"]}
-      >
-        Choose a file
-      </FileUploadButton>
-      <div className="text-center flex flex-col ">
-        <h1 className="text-primary-foreground font-semibold underline underline-offset-1 mb-4">
-          Selected Files
-        </h1>
-        {files.map((file, index) => (
-          <span key={file.name + index}>{file.name}</span>
-        ))}
-      </div>
-    </div>
-  );
+	return (
+		<div className="w-full flex justify-center items-center text-foreground flex-col gap-4">
+			<FileUploadButton
+				getFiles={(files) => setFiles(files)}
+				allowsMultiple
+				acceptedFileTypes={[".png", ".pdf"]}
+			>
+				Choose a file
+			</FileUploadButton>
+			<div className="text-center flex flex-col ">
+				<h1 className="text-primary-foreground font-semibold underline underline-offset-1 mb-4">
+					Selected Files
+				</h1>
+				{files.map((file, index) => (
+					<span key={file.name + index}>{file.name}</span>
+				))}
+			</div>
+		</div>
+	);
 }
 
 ```
@@ -149,67 +149,67 @@ export default function FileUploadButtonImplementation() {
 "use client";
 
 import {
-  ChangeEvent,
-  DetailedHTMLProps,
-  InputHTMLAttributes,
-  useRef,
+	type ChangeEvent,
+	type DetailedHTMLProps,
+	type InputHTMLAttributes,
+	useRef,
 } from "react";
 
 export interface FileUploadButtonProps
-  extends DetailedHTMLProps<
-    InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
-  > {
-  getFiles?: (files: File[]) => void;
-  allowsMultiple?: boolean;
-  acceptedFileTypes?: InputHTMLAttributes<HTMLInputElement>["accept"][];
+	extends DetailedHTMLProps<
+		InputHTMLAttributes<HTMLInputElement>,
+		HTMLInputElement
+	> {
+	getFiles?: (files: File[]) => void;
+	allowsMultiple?: boolean;
+	acceptedFileTypes?: InputHTMLAttributes<HTMLInputElement>["accept"][];
 }
 
 export function FileUploadButton({
-  children,
-  getFiles,
-  allowsMultiple,
-  acceptedFileTypes,
-  className,
-  ...props
+	children,
+	getFiles,
+	allowsMultiple,
+	acceptedFileTypes,
+	className,
+	...props
 }: FileUploadButtonProps) {
-  function handleFileUpload(e: ChangeEvent<HTMLInputElement>) {
-    e.preventDefault();
-    const target = e.target as HTMLInputElement;
+	function handleFileUpload(e: ChangeEvent<HTMLInputElement>) {
+		e.preventDefault();
+		const target = e.target as HTMLInputElement;
 
-    let Files: File[] = [];
+		let Files: File[] = [];
 
-    if (allowsMultiple) {
-      Files = Array.from(target.files ? target.files : []);
-    } else {
-      const file = target.files?.[0];
-      Files = file ? [file] : [];
-    }
-    getFiles && getFiles(Files);
-  }
+		if (allowsMultiple) {
+			Files = Array.from(target.files ? target.files : []);
+		} else {
+			const file = target.files?.[0];
+			Files = file ? [file] : [];
+		}
+		getFiles?.(Files);
+	}
 
-  const inputRef = useRef<HTMLInputElement>(null);
+	const inputRef = useRef<HTMLInputElement>(null);
 
-  function handleClick() {
-    inputRef.current?.click();
-  }
+	function handleClick() {
+		inputRef.current?.click();
+	}
 
-  return (
-    <>
-      <input
-        type="file"
-        ref={inputRef}
-        className="hidden"
-        onChange={(e) => handleFileUpload(e)}
-        multiple={allowsMultiple}
-        accept={acceptedFileTypes?.join(",")}
-        {...props}
-      />
-      <button className={className} onClick={handleClick}>
-        {children}
-      </button>
-    </>
-  );
+	return (
+		<>
+			<input
+				type="file"
+				ref={inputRef}
+				className="hidden"
+				onChange={(e) => handleFileUpload(e)}
+				multiple={allowsMultiple}
+				accept={acceptedFileTypes?.join(",")}
+				{...props}
+			/>
+			<button type="button" className={className} onClick={handleClick}>
+				{children}
+			</button>
+		</>
+	);
 }
 
 ```
@@ -221,23 +221,23 @@ import { useState } from "react";
 import { FileUploadButton } from "@registry/packages/primitives/file-upload-button/00/react_aria-js/FileUpload";
 
 export default function FileUploadButtonImplementation() {
-  const [files, setFiles] = useState([]);
+	const [files, setFiles] = useState([]);
 
-  return (
-    <div className="w-full flex justify-center items-center text-foreground flex-col gap-4">
-      <FileUploadButton getFiles={(files) => setFiles(files)} allowsMultiple>
-        Choose a file
-      </FileUploadButton>
-      <div className="text-center flex flex-col ">
-        <h1 className="text-primary-foreground font-semibold underline underline-offset-1 mb-4">
-          Selected Files
-        </h1>
-        {files.map((file, index) => (
-          <span key={file.name + index}>{file.name}</span>
-        ))}
-      </div>
-    </div>
-  );
+	return (
+		<div className="w-full flex justify-center items-center text-foreground flex-col gap-4">
+			<FileUploadButton getFiles={(files) => setFiles(files)} allowsMultiple>
+				Choose a file
+			</FileUploadButton>
+			<div className="text-center flex flex-col ">
+				<h1 className="text-primary-foreground font-semibold underline underline-offset-1 mb-4">
+					Selected Files
+				</h1>
+				{files.map((file, index) => (
+					<span key={file.name + index}>{file.name}</span>
+				))}
+			</div>
+		</div>
+	);
 }
 
 ```
@@ -248,16 +248,16 @@ export default function FileUploadButtonImplementation() {
 import { Button, FileTrigger } from "react-aria-components";
 
 export function FileUploadButton({ className, children, getFiles, ...props }) {
-  function handleFileUpload(e) {
-    let files = Array.from(e);
-    getFiles && getFiles(files);
-  }
+	function handleFileUpload(e) {
+		const files = Array.from(e);
+		getFiles?.(files);
+	}
 
-  return (
-    <FileTrigger onSelect={(e) => handleFileUpload(e)} {...props}>
-      <Button className={className}>{children}</Button>
-    </FileTrigger>
-  );
+	return (
+		<FileTrigger onSelect={(e) => handleFileUpload(e)} {...props}>
+			<Button className={className}>{children}</Button>
+		</FileTrigger>
+	);
 }
 
 ```
@@ -269,23 +269,23 @@ import { useState } from "react";
 import { FileUploadButton } from "@registry/packages/primitives/file-upload-button/00/react_aria-ts/FileUpload";
 
 export default function FileUploadButtonImplementation() {
-  const [files, setFiles] = useState<File[]>([]);
+	const [files, setFiles] = useState<File[]>([]);
 
-  return (
-    <div className="w-full flex justify-center items-center text-foreground flex-col gap-4">
-      <FileUploadButton getFiles={(files) => setFiles(files)} allowsMultiple>
-        Choose a file
-      </FileUploadButton>
-      <div className="text-center flex flex-col ">
-        <h1 className="text-primary-foreground font-semibold underline underline-offset-1 mb-4">
-          Selected Files
-        </h1>
-        {files.map((file, index) => (
-          <span key={file.name + index}>{file.name}</span>
-        ))}
-      </div>
-    </div>
-  );
+	return (
+		<div className="w-full flex justify-center items-center text-foreground flex-col gap-4">
+			<FileUploadButton getFiles={(files) => setFiles(files)} allowsMultiple>
+				Choose a file
+			</FileUploadButton>
+			<div className="text-center flex flex-col ">
+				<h1 className="text-primary-foreground font-semibold underline underline-offset-1 mb-4">
+					Selected Files
+				</h1>
+				{files.map((file, index) => (
+					<span key={file.name + index}>{file.name}</span>
+				))}
+			</div>
+		</div>
+	);
 }
 
 ```
@@ -293,29 +293,33 @@ export default function FileUploadButtonImplementation() {
 ```react_aria|ts|FileUpload.tsx
 "use client";
 
-import { FileTrigger, FileTriggerProps, Button } from "react-aria-components";
+import {
+	FileTrigger,
+	type FileTriggerProps,
+	Button,
+} from "react-aria-components";
 
 interface FileUploadButtonProps extends FileTriggerProps {
-  className?: string;
-  getFiles?: (files: File[]) => void;
+	className?: string;
+	getFiles?: (files: File[]) => void;
 }
 
 export function FileUploadButton({
-  className,
-  children,
-  getFiles,
-  ...props
+	className,
+	children,
+	getFiles,
+	...props
 }: FileUploadButtonProps) {
-  function handleFileUpload(e: FileList | null) {
-    let files = Array.from(e as FileList);
-    getFiles && getFiles(files);
-  }
+	function handleFileUpload(e: FileList | null) {
+		const files = Array.from(e as FileList);
+		getFiles?.(files);
+	}
 
-  return (
-    <FileTrigger onSelect={(e) => handleFileUpload(e)} {...props}>
-      <Button className={className}>{children}</Button>
-    </FileTrigger>
-  );
+	return (
+		<FileTrigger onSelect={(e) => handleFileUpload(e)} {...props}>
+			<Button className={className}>{children}</Button>
+		</FileTrigger>
+	);
 }
 
 ```
@@ -381,7 +385,7 @@ export const Primitives_file_upload_button_01 = lazy(() => import("@registry/pac
 
 <Implementation>
 
-<TechnologyUsed technologies={["react-aria-components"]} />
+undefined
 <CodeBlock>
 
 ```react_aria|js|example.jsx
@@ -391,23 +395,23 @@ import { useState } from "react";
 import { FileUploadButton } from "@registry/packages/primitives/file-upload-button/01/react_aria-js/FileUpload";
 
 export default function FileUploadButtonImplementation() {
-  const [files, setFiles] = useState([]);
+	const [files, setFiles] = useState([]);
 
-  return (
-    <div className="w-full flex justify-center items-center text-foreground flex-col gap-4">
-      <FileUploadButton getFiles={(files) => setFiles(files)} allowsMultiple>
-        Choose a file
-      </FileUploadButton>
-      <div className="text-center flex flex-col ">
-        <h1 className="text-primary-foreground font-semibold underline underline-offset-1 mb-4">
-          Selected Files
-        </h1>
-        {files.map((file, index) => (
-          <span key={file.name + index}>{file.name}</span>
-        ))}
-      </div>
-    </div>
-  );
+	return (
+		<div className="w-full flex justify-center items-center text-foreground flex-col gap-4">
+			<FileUploadButton getFiles={(files) => setFiles(files)} allowsMultiple>
+				Choose a file
+			</FileUploadButton>
+			<div className="text-center flex flex-col ">
+				<h1 className="text-primary-foreground font-semibold underline underline-offset-1 mb-4">
+					Selected Files
+				</h1>
+				{files.map((file, index) => (
+					<span key={file.name + index}>{file.name}</span>
+				))}
+			</div>
+		</div>
+	);
 }
 
 ```
@@ -419,24 +423,24 @@ import { Button } from "@registry/packages/primitives/buttons/01/react_aria-js/B
 import { FileTrigger } from "react-aria-components";
 
 export function FileUploadButton({
-  className,
-  children,
-  getFiles,
-  variant = "primary",
-  ...props
+	className,
+	children,
+	getFiles,
+	variant = "primary",
+	...props
 }) {
-  function handleFileUpload(e) {
-    let files = Array.from(e);
-    getFiles && getFiles(files);
-  }
+	function handleFileUpload(e) {
+		const files = Array.from(e);
+		getFiles?.(files);
+	}
 
-  return (
-    <FileTrigger onSelect={(e) => handleFileUpload(e)} {...props}>
-      <Button className={className} variant={variant}>
-        {children}
-      </Button>
-    </FileTrigger>
-  );
+	return (
+		<FileTrigger onSelect={(e) => handleFileUpload(e)} {...props}>
+			<Button className={className} variant={variant}>
+				{children}
+			</Button>
+		</FileTrigger>
+	);
 }
 
 ```
@@ -448,23 +452,23 @@ import { useState } from "react";
 import { FileUploadButton } from "@registry/packages/primitives/file-upload-button/01/react_aria-ts/FileUpload";
 
 export default function FileUploadButtonImplementation() {
-  const [files, setFiles] = useState<File[]>([]);
+	const [files, setFiles] = useState<File[]>([]);
 
-  return (
-    <div className="w-full flex justify-center items-center text-foreground flex-col gap-4">
-      <FileUploadButton getFiles={(files) => setFiles(files)} allowsMultiple>
-        Choose a file
-      </FileUploadButton>
-      <div className="text-center flex flex-col ">
-        <h1 className="text-primary-foreground font-semibold underline underline-offset-1 mb-4">
-          Selected Files
-        </h1>
-        {files.map((file, index) => (
-          <span key={file.name + index}>{file.name}</span>
-        ))}
-      </div>
-    </div>
-  );
+	return (
+		<div className="w-full flex justify-center items-center text-foreground flex-col gap-4">
+			<FileUploadButton getFiles={(files) => setFiles(files)} allowsMultiple>
+				Choose a file
+			</FileUploadButton>
+			<div className="text-center flex flex-col ">
+				<h1 className="text-primary-foreground font-semibold underline underline-offset-1 mb-4">
+					Selected Files
+				</h1>
+				{files.map((file, index) => (
+					<span key={file.name + index}>{file.name}</span>
+				))}
+			</div>
+		</div>
+	);
 }
 
 ```
@@ -473,36 +477,36 @@ export default function FileUploadButtonImplementation() {
 "use client";
 
 import {
-  Button,
-  ButtonProps,
+	Button,
+	type ButtonProps,
 } from "@registry/packages/primitives/buttons/01/react_aria-ts/Button";
-import { FileTrigger, FileTriggerProps } from "react-aria-components";
+import { FileTrigger, type FileTriggerProps } from "react-aria-components";
 
 interface FileUploadButtonProps extends FileTriggerProps {
-  className?: string;
-  getFiles?: (files: File[]) => void;
-  variant?: ButtonProps["variant"];
+	className?: string;
+	getFiles?: (files: File[]) => void;
+	variant?: ButtonProps["variant"];
 }
 
 export function FileUploadButton({
-  className,
-  children,
-  getFiles,
-  variant = "primary",
-  ...props
+	className,
+	children,
+	getFiles,
+	variant = "primary",
+	...props
 }: FileUploadButtonProps) {
-  function handleFileUpload(e: FileList | null) {
-    let files = Array.from(e as FileList);
-    getFiles && getFiles(files);
-  }
+	function handleFileUpload(e: FileList | null) {
+		const files = Array.from(e as FileList);
+		getFiles?.(files);
+	}
 
-  return (
-    <FileTrigger onSelect={(e) => handleFileUpload(e)} {...props}>
-      <Button className={className} variant={variant}>
-        {children}
-      </Button>
-    </FileTrigger>
-  );
+	return (
+		<FileTrigger onSelect={(e) => handleFileUpload(e)} {...props}>
+			<Button className={className} variant={variant}>
+				{children}
+			</Button>
+		</FileTrigger>
+	);
 }
 
 ```

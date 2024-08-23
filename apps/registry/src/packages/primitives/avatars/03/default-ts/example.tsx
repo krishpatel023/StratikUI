@@ -9,34 +9,34 @@ import ArrowHeading from "@registry/ui/ArrowHeading";
 import { AvatarStack } from "@registry/packages/primitives/avatars/03/default-ts/Avatar";
 
 export default function StackedAvatarImplementation() {
-  return (
-    <div className="flex flex-col justify-center items-center gap-4">
-      <ArrowHeading text="With Extension" />
-      <AvatarStack
-        avatars={[
-          { src: Dummy6, name: "Profile Picture" },
-          { src: Dummy2, name: "Profile Picture" },
-          { src: Dummy3, name: "Profile Picture" },
-          { src: Dummy4, name: "Profile Picture" },
-          { src: Dummy5, name: "Profile Picture" },
-          { src: Dummy1, name: "Profile Picture" },
-          { src: Dummy7, name: "Profile Picture" },
-        ]}
-        withExtension
-      />
+	return (
+		<div className="flex flex-col justify-center items-center gap-4">
+			<ArrowHeading text="With Extension" />
+			<AvatarStack
+				avatars={[
+					{ src: Dummy6, name: "Profile Picture" },
+					{ src: Dummy2, name: "Profile Picture" },
+					{ src: Dummy3, name: "Profile Picture" },
+					{ src: Dummy4, name: "Profile Picture" },
+					{ src: Dummy5, name: "Profile Picture" },
+					{ src: Dummy1, name: "Profile Picture" },
+					{ src: Dummy7, name: "Profile Picture" },
+				]}
+				withExtension
+			/>
 
-      <ArrowHeading text="Without Extension" />
-      <AvatarStack
-        avatars={[
-          { src: Dummy2, name: "Profile Picture" },
-          { src: Dummy3, name: "Profile Picture" },
-          { src: Dummy4, name: "Profile Picture" },
-          { src: Dummy7, name: "Profile Picture" },
-          { src: Dummy5, name: "Profile Picture" },
-          { src: Dummy6, name: "Profile Picture" },
-          { src: Dummy1, name: "Profile Picture" },
-        ]}
-      />
-    </div>
-  );
+			<ArrowHeading text="Without Extension" />
+			<AvatarStack
+				avatars={[
+					{ src: Dummy2, name: "Profile Picture" },
+					{ src: Dummy3, name: "Profile Picture" },
+					{ src: Dummy4, name: "Profile Picture" },
+					{ src: Dummy7, name: "Profile Picture" },
+					{ src: Dummy5, name: "Profile Picture" },
+					{ src: Dummy6, name: "Profile Picture" },
+					{ src: Dummy1, name: "Profile Picture" },
+				]}
+			/>
+		</div>
+	);
 }

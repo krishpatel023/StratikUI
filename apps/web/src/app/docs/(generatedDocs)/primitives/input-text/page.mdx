@@ -28,24 +28,24 @@ export const Primitives_input_text_01 = lazy(() => import("@registry/packages/pr
 
 <Implementation>
 
-<TechnologyUsed technologies={["tailwind-merge","react-aria-components"]} />
+undefined
 <CodeBlock>
 
 ```react_aria|js|example.jsx
 import { Input } from "@registry/packages/primitives/input-text/01/react_aria-js/Input";
 
 export default function InputImplementation() {
-  return (
-    <div className="w-full flex justify-center">
-      <Input
-        label="Name"
-        placeholder="Name"
-        name="Name"
-        type="text"
-        className="w-80"
-      />
-    </div>
-  );
+	return (
+		<div className="w-full flex justify-center">
+			<Input
+				label="Name"
+				placeholder="Name"
+				name="Name"
+				type="text"
+				className="w-80"
+			/>
+		</div>
+	);
 }
 
 ```
@@ -54,55 +54,55 @@ export default function InputImplementation() {
 "use client";
 
 import {
-  FieldError,
-  Label,
-  Input as ReactAriaInput,
-  TextField,
+	FieldError,
+	Label,
+	Input as ReactAriaInput,
+	TextField,
 } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
 
 export function Field({ className, ...props }) {
-  return (
-    <TextField className={twMerge("flex flex-col", className)} {...props} />
-  );
+	return (
+		<TextField className={twMerge("flex flex-col", className)} {...props} />
+	);
 }
 
 export function InputLabel({ className, ...props }) {
-  return (
-    <Label
-      className={twMerge("text-foreground text-sm font-medium", className)}
-    >
-      {props.children}
-    </Label>
-  );
+	return (
+		<Label
+			className={twMerge("text-foreground text-sm font-medium", className)}
+		>
+			{props.children}
+		</Label>
+	);
 }
 
 export function InputBox({ className, ...props }) {
-  return (
-    <ReactAriaInput
-      className={twMerge(
-        "w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 mt-1",
-        "text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
-        className
-      )}
-      {...props}
-    />
-  );
+	return (
+		<ReactAriaInput
+			className={twMerge(
+				"w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 mt-1",
+				"text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
+				className,
+			)}
+			{...props}
+		/>
+	);
 }
 
 export function Input({ label, isRequired, isReadOnly, ...props }) {
-  return (
-    <Field
-      isReadOnly={isReadOnly}
-      isRequired={isRequired}
-      name={props.name}
-      type={props.type}
-    >
-      <InputLabel>{label}</InputLabel>
-      <InputBox {...props} />
-      <FieldError />
-    </Field>
-  );
+	return (
+		<Field
+			isReadOnly={isReadOnly}
+			isRequired={isRequired}
+			name={props.name}
+			type={props.type}
+		>
+			<InputLabel>{label}</InputLabel>
+			<InputBox {...props} />
+			<FieldError />
+		</Field>
+	);
 }
 
 ```
@@ -111,17 +111,17 @@ export function Input({ label, isRequired, isReadOnly, ...props }) {
 import { Input } from "@registry/packages/primitives/input-text/01/react_aria-ts/Input";
 
 export default function InputImplementation() {
-  return (
-    <div className="w-full flex justify-center">
-      <Input
-        label="Name"
-        placeholder="Name"
-        name="Name"
-        type="text"
-        className="w-80"
-      />
-    </div>
-  );
+	return (
+		<div className="w-full flex justify-center">
+			<Input
+				label="Name"
+				placeholder="Name"
+				name="Name"
+				type="text"
+				className="w-80"
+			/>
+		</div>
+	);
 }
 
 ```
@@ -130,70 +130,70 @@ export default function InputImplementation() {
 "use client";
 
 import {
-  FieldError,
-  InputProps as ReactAriaInputProps,
-  Label,
-  LabelProps,
-  Input as ReactAriaInput,
-  TextField,
-  TextFieldProps,
+	FieldError,
+	type InputProps as ReactAriaInputProps,
+	Label,
+	type LabelProps,
+	Input as ReactAriaInput,
+	TextField,
+	type TextFieldProps,
 } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
 
 export function Field({ className, ...props }: TextFieldProps) {
-  return (
-    <TextField
-      className={twMerge("flex flex-col", className as string)}
-      {...props}
-    />
-  );
+	return (
+		<TextField
+			className={twMerge("flex flex-col", className as string)}
+			{...props}
+		/>
+	);
 }
 
 export function InputLabel({ className, ...props }: LabelProps) {
-  return (
-    <Label
-      className={twMerge(
-        "text-foreground text-sm font-medium",
-        className as string
-      )}
-    >
-      {props.children}
-    </Label>
-  );
+	return (
+		<Label
+			className={twMerge(
+				"text-foreground text-sm font-medium",
+				className as string,
+			)}
+		>
+			{props.children}
+		</Label>
+	);
 }
 
 export function InputBox({ className, ...props }: ReactAriaInputProps) {
-  return (
-    <ReactAriaInput
-      className={twMerge(
-        "w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 mt-1",
-        "text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
-        className as string
-      )}
-      {...props}
-    />
-  );
+	return (
+		<ReactAriaInput
+			className={twMerge(
+				"w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 mt-1",
+				"text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
+				className as string,
+			)}
+			{...props}
+		/>
+	);
 }
 
 export interface InputProps extends ReactAriaInputProps {
-  label?: string;
-  isRequired?: boolean;
-  isReadOnly?: boolean;
+	label?: string;
+	isRequired?: boolean;
+	isReadOnly?: boolean;
 }
 
 export function Input({ label, isRequired, isReadOnly, ...props }: InputProps) {
-  return (
-    <Field
-      isReadOnly={isReadOnly}
-      isRequired={isRequired}
-      name={props.name}
-      type={props.type}
-    >
-      <InputLabel>{label}</InputLabel>
-      <InputBox {...props} />
-      <FieldError />
-    </Field>
-  );
+	return (
+		<Field
+			isReadOnly={isReadOnly}
+			isRequired={isRequired}
+			name={props.name}
+			type={props.type}
+		>
+			<InputLabel>{label}</InputLabel>
+			<InputBox {...props} />
+			<FieldError />
+		</Field>
+	);
 }
 
 ```
@@ -268,7 +268,7 @@ export const Primitives_input_text_02 = lazy(() => import("@registry/packages/pr
 
 <Implementation>
 
-<TechnologyUsed technologies={["tailwind-merge","react-aria-components"]} />
+undefined
 <CodeBlock>
 
 ```react_aria|js|example.jsx
@@ -276,48 +276,48 @@ import ArrowHeading from "@registry/ui/ArrowHeading";
 import { Input } from "@registry/packages/primitives/input-text/02/react_aria-js/Input";
 
 export default function InputTextExample() {
-  return (
-    <div className="w-full flex flex-col items-center gap-6">
-      <span>
-        <ArrowHeading text="Default" className="mb-2" />
-        <Input name="Name" type="text" placeholder="Name" label="Name" />
-      </span>
+	return (
+		<div className="w-full flex flex-col items-center gap-6">
+			<span>
+				<ArrowHeading text="Default" className="mb-2" />
+				<Input name="Name" type="text" placeholder="Name" label="Name" />
+			</span>
 
-      <span>
-        <ArrowHeading text="Error" className="mb-2" />
-        <Input
-          name="Name"
-          type="text"
-          label="Name"
-          placeholder="Name"
-          state="isInvalid"
-        />
-      </span>
+			<span>
+				<ArrowHeading text="Error" className="mb-2" />
+				<Input
+					name="Name"
+					type="text"
+					label="Name"
+					placeholder="Name"
+					state="isInvalid"
+				/>
+			</span>
 
-      <span>
-        <ArrowHeading text="Disabled" className="mb-2" />
-        <Input
-          name="Name"
-          type="text"
-          label="Name"
-          placeholder="Name"
-          state="isDisabled"
-        />
-      </span>
+			<span>
+				<ArrowHeading text="Disabled" className="mb-2" />
+				<Input
+					name="Name"
+					type="text"
+					label="Name"
+					placeholder="Name"
+					state="isDisabled"
+				/>
+			</span>
 
-      <span>
-        <ArrowHeading text="ReadOnly" className="mb-2" />
-        <Input
-          name="Name"
-          type="text"
-          label="Name"
-          placeholder="Name"
-          isReadOnly
-          value={"John Doe"}
-        />
-      </span>
-    </div>
-  );
+			<span>
+				<ArrowHeading text="ReadOnly" className="mb-2" />
+				<Input
+					name="Name"
+					type="text"
+					label="Name"
+					placeholder="Name"
+					isReadOnly
+					value={"John Doe"}
+				/>
+			</span>
+		</div>
+	);
 }
 
 ```
@@ -326,75 +326,75 @@ export default function InputTextExample() {
 "use client";
 
 import {
-  FieldError,
-  Label,
-  Input as ReactAriaInput,
-  TextField,
+	FieldError,
+	Label,
+	Input as ReactAriaInput,
+	TextField,
 } from "react-aria-components";
 import { twJoin, twMerge } from "tailwind-merge";
 
 export function Field({ className, ...props }) {
-  return (
-    <TextField className={twMerge("flex flex-col", className)} {...props} />
-  );
+	return (
+		<TextField className={twMerge("flex flex-col", className)} {...props} />
+	);
 }
 
 export function InputLabel({ className, ...props }) {
-  return (
-    <Label
-      className={twMerge("text-foreground text-sm font-medium", className)}
-    >
-      {props.children}
-    </Label>
-  );
+	return (
+		<Label
+			className={twMerge("text-foreground text-sm font-medium", className)}
+		>
+			{props.children}
+		</Label>
+	);
 }
 export function InputError({ className, ...props }) {
-  return (
-    <FieldError className={twMerge("text-error", className)}>
-      {props.children}
-    </FieldError>
-  );
+	return (
+		<FieldError className={twMerge("text-error", className)}>
+			{props.children}
+		</FieldError>
+	);
 }
 
 export function InputBox({ className, ...props }) {
-  return (
-    <ReactAriaInput
-      className={twMerge(
-        twJoin(
-          "w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 my-1",
-          "text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
-          "disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
-          "invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error"
-        ),
-        className
-      )}
-      {...props}
-    />
-  );
+	return (
+		<ReactAriaInput
+			className={twMerge(
+				twJoin(
+					"w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 my-1",
+					"text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
+					"disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
+					"invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error",
+				),
+				className,
+			)}
+			{...props}
+		/>
+	);
 }
 
 export function Input({
-  state = "default",
-  label,
-  isRequired,
-  isReadOnly,
-  errorMessage,
-  ...props
+	state = "default",
+	label,
+	isRequired,
+	isReadOnly,
+	errorMessage,
+	...props
 }) {
-  return (
-    <Field
-      name={props.name}
-      type={props.type}
-      isInvalid={state === "isInvalid"}
-      isDisabled={state === "isDisabled"}
-      isReadOnly={isReadOnly}
-      isRequired={isRequired}
-    >
-      <InputLabel>{label}</InputLabel>
-      <InputBox {...props} />
-      <InputError>{errorMessage}</InputError>
-    </Field>
-  );
+	return (
+		<Field
+			name={props.name}
+			type={props.type}
+			isInvalid={state === "isInvalid"}
+			isDisabled={state === "isDisabled"}
+			isReadOnly={isReadOnly}
+			isRequired={isRequired}
+		>
+			<InputLabel>{label}</InputLabel>
+			<InputBox {...props} />
+			<InputError>{errorMessage}</InputError>
+		</Field>
+	);
 }
 
 ```
@@ -404,48 +404,48 @@ import ArrowHeading from "@registry/ui/ArrowHeading";
 import { Input } from "@registry/packages/primitives/input-text/02/react_aria-ts/Input";
 
 export default function InputTextExample() {
-  return (
-    <div className="w-full flex flex-col items-center gap-6">
-      <span>
-        <ArrowHeading text="Default" className="mb-2" />
-        <Input name="Name" type="text" placeholder="Name" label="Name" />
-      </span>
+	return (
+		<div className="w-full flex flex-col items-center gap-6">
+			<span>
+				<ArrowHeading text="Default" className="mb-2" />
+				<Input name="Name" type="text" placeholder="Name" label="Name" />
+			</span>
 
-      <span>
-        <ArrowHeading text="Error" className="mb-2" />
-        <Input
-          name="Name"
-          type="text"
-          label="Name"
-          placeholder="Name"
-          state="isInvalid"
-        />
-      </span>
+			<span>
+				<ArrowHeading text="Error" className="mb-2" />
+				<Input
+					name="Name"
+					type="text"
+					label="Name"
+					placeholder="Name"
+					state="isInvalid"
+				/>
+			</span>
 
-      <span>
-        <ArrowHeading text="Disabled" className="mb-2" />
-        <Input
-          name="Name"
-          type="text"
-          label="Name"
-          placeholder="Name"
-          state="isDisabled"
-        />
-      </span>
+			<span>
+				<ArrowHeading text="Disabled" className="mb-2" />
+				<Input
+					name="Name"
+					type="text"
+					label="Name"
+					placeholder="Name"
+					state="isDisabled"
+				/>
+			</span>
 
-      <span>
-        <ArrowHeading text="ReadOnly" className="mb-2" />
-        <Input
-          name="Name"
-          type="text"
-          label="Name"
-          placeholder="Name"
-          isReadOnly
-          value={"John Doe"}
-        />
-      </span>
-    </div>
-  );
+			<span>
+				<ArrowHeading text="ReadOnly" className="mb-2" />
+				<Input
+					name="Name"
+					type="text"
+					label="Name"
+					placeholder="Name"
+					isReadOnly
+					value={"John Doe"}
+				/>
+			</span>
+		</div>
+	);
 }
 
 ```
@@ -454,93 +454,93 @@ export default function InputTextExample() {
 "use client";
 
 import {
-  FieldError,
-  FieldErrorProps,
-  Input as ReactAriaInput,
-  InputProps as ReactAriaInputProps,
-  Label,
-  LabelProps,
-  TextField,
-  TextFieldProps,
+	FieldError,
+	type FieldErrorProps,
+	Input as ReactAriaInput,
+	type InputProps as ReactAriaInputProps,
+	Label,
+	type LabelProps,
+	TextField,
+	type TextFieldProps,
 } from "react-aria-components";
 import { twJoin, twMerge } from "tailwind-merge";
 
 export function Field({ className, ...props }: TextFieldProps) {
-  return (
-    <TextField
-      className={twMerge("flex flex-col", className as string)}
-      {...props}
-    />
-  );
+	return (
+		<TextField
+			className={twMerge("flex flex-col", className as string)}
+			{...props}
+		/>
+	);
 }
 
 export function InputLabel({ className, ...props }: LabelProps) {
-  return (
-    <Label
-      className={twMerge(
-        "text-foreground text-sm font-medium",
-        className as string
-      )}
-    >
-      {props.children}
-    </Label>
-  );
+	return (
+		<Label
+			className={twMerge(
+				"text-foreground text-sm font-medium",
+				className as string,
+			)}
+		>
+			{props.children}
+		</Label>
+	);
 }
 export function InputError({ className, ...props }: FieldErrorProps) {
-  return (
-    <FieldError className={twMerge("text-error", className as string)}>
-      {props.children}
-    </FieldError>
-  );
+	return (
+		<FieldError className={twMerge("text-error", className as string)}>
+			{props.children}
+		</FieldError>
+	);
 }
 
 export function InputBox({ className, ...props }: ReactAriaInputProps) {
-  return (
-    <ReactAriaInput
-      className={twMerge(
-        twJoin(
-          "w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 my-1",
-          "text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
-          "disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
-          "invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error"
-        ),
-        className as string
-      )}
-      {...props}
-    />
-  );
+	return (
+		<ReactAriaInput
+			className={twMerge(
+				twJoin(
+					"w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 my-1",
+					"text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
+					"disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
+					"invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error",
+				),
+				className as string,
+			)}
+			{...props}
+		/>
+	);
 }
 
 export interface InputProps extends ReactAriaInputProps {
-  state?: "default" | "isInvalid" | "isDisabled";
-  label?: string;
-  isRequired?: boolean;
-  isReadOnly?: boolean;
-  errorMessage?: string;
+	state?: "default" | "isInvalid" | "isDisabled";
+	label?: string;
+	isRequired?: boolean;
+	isReadOnly?: boolean;
+	errorMessage?: string;
 }
 
 export function Input({
-  state = "default",
-  label,
-  isRequired,
-  isReadOnly,
-  errorMessage,
-  ...props
+	state = "default",
+	label,
+	isRequired,
+	isReadOnly,
+	errorMessage,
+	...props
 }: InputProps) {
-  return (
-    <Field
-      name={props.name}
-      type={props.type}
-      isInvalid={state === "isInvalid"}
-      isDisabled={state === "isDisabled"}
-      isReadOnly={isReadOnly}
-      isRequired={isRequired}
-    >
-      <InputLabel>{label}</InputLabel>
-      <InputBox {...props} />
-      <InputError>{errorMessage}</InputError>
-    </Field>
-  );
+	return (
+		<Field
+			name={props.name}
+			type={props.type}
+			isInvalid={state === "isInvalid"}
+			isDisabled={state === "isDisabled"}
+			isReadOnly={isReadOnly}
+			isRequired={isRequired}
+		>
+			<InputLabel>{label}</InputLabel>
+			<InputBox {...props} />
+			<InputError>{errorMessage}</InputError>
+		</Field>
+	);
 }
 
 ```
@@ -624,165 +624,161 @@ export const Primitives_input_text_03 = lazy(() => import("@registry/packages/pr
 
 <Implementation>
 
-<TechnologyUsed technologies={["tailwind-merge","react-aria-components"]} />
+undefined
 <CodeBlock>
 
 ```react_aria|js|example.jsx
 import { Input } from "@registry/packages/primitives/input-text/03/react_aria-js/Input";
 
 export default function InputWithLeftIcon() {
-  return (
-    <div className="w-full flex flex-col items-center gap-6">
-      <Input
-        name="Email"
-        type="email"
-        placeholder="you@example.com"
-        label="Email"
-        icon={<Icon />}
-      />
-    </div>
-  );
+	return (
+		<div className="w-full flex flex-col items-center gap-6">
+			<Input
+				name="Email"
+				type="email"
+				placeholder="you@example.com"
+				label="Email"
+				icon={<Icon />}
+			/>
+		</div>
+	);
 }
 
 const Icon = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1.2em"
-    height="1.2em"
-    viewBox="0 0 16 16"
-    {...props}
-  >
-    <path
-      fill="currentColor"
-      fillRule="evenodd"
-      d="M14.95 3.684L8.637 8.912a1 1 0 0 1-1.276 0l-6.31-5.228A.999.999 0 0 0 1 4v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a.999.999 0 0 0-.05-.316M2 2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2m-.21 1l5.576 4.603a1 1 0 0 0 1.27.003L14.268 3z"
-    ></path>
-  </svg>
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		width="1.2em"
+		height="1.2em"
+		viewBox="0 0 16 16"
+		{...props}
+	>
+		<title>Icon</title>
+		<path
+			fill="currentColor"
+			fillRule="evenodd"
+			d="M14.95 3.684L8.637 8.912a1 1 0 0 1-1.276 0l-6.31-5.228A.999.999 0 0 0 1 4v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a.999.999 0 0 0-.05-.316M2 2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2m-.21 1l5.576 4.603a1 1 0 0 0 1.27.003L14.268 3z"
+		/>
+	</svg>
 );
 
 ```
 
 ```react_aria|js|Input.jsx
 "use client";
-
-import React from "react";
 import {
-  FieldError,
-  FieldErrorProps,
-  Label,
-  LabelProps,
-  Input as ReactAriaInput,
-  InputProps as ReactAriaInputProps,
-  TextField,
-  TextFieldProps,
+	FieldError,
+	Label,
+	Input as ReactAriaInput,
+	TextField,
 } from "react-aria-components";
 import { twJoin, twMerge } from "tailwind-merge";
 
 export function Field({ className, ...props }) {
-  return (
-    <TextField className={twMerge("flex flex-col", className)} {...props} />
-  );
+	return (
+		<TextField className={twMerge("flex flex-col", className)} {...props} />
+	);
 }
 
 export function InputLabel({ className, ...props }) {
-  return (
-    <Label
-      className={twMerge("text-foreground text-sm font-medium", className)}
-    >
-      {props.children}
-    </Label>
-  );
+	return (
+		<Label
+			className={twMerge("text-foreground text-sm font-medium", className)}
+		>
+			{props.children}
+		</Label>
+	);
 }
 export function InputError({ className, ...props }) {
-  return (
-    <FieldError className={twMerge("text-error", className)}>
-      {props.children}
-    </FieldError>
-  );
+	return (
+		<FieldError className={twMerge("text-error", className)}>
+			{props.children}
+		</FieldError>
+	);
 }
 
 export function InputBox({ className, ...props }) {
-  return (
-    <ReactAriaInput
-      className={twMerge(
-        twJoin(
-          "w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 my-1",
-          "text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
-          "disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
-          "invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error"
-        ),
-        className
-      )}
-      {...props}
-    />
-  );
+	return (
+		<ReactAriaInput
+			className={twMerge(
+				twJoin(
+					"w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 my-1",
+					"text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
+					"disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
+					"invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error",
+				),
+				className,
+			)}
+			{...props}
+		/>
+	);
 }
 
 export function Input({
-  state = "default",
-  label,
-  isRequired,
-  isReadOnly,
-  icon,
-  className,
-  ...props
+	state = "default",
+	label,
+	isRequired,
+	isReadOnly,
+	icon,
+	className,
+	...props
 }) {
-  return (
-    <Field
-      name={props.name}
-      type={props.type}
-      className="w-80"
-      isInvalid={state === "isInvalid"}
-      isDisabled={state === "isDisabled"}
-      isReadOnly={isReadOnly}
-      isRequired={isRequired}
-    >
-      <InputLabel>{label}</InputLabel>
-      <div className="relative">
-        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center px-4 text-foreground">
-          {icon}
-        </div>
-        <InputBox className={twMerge("pl-12", className)} {...props} />
-      </div>
-      <InputError>Error Message </InputError>
-    </Field>
-  );
+	return (
+		<Field
+			name={props.name}
+			type={props.type}
+			className="w-80"
+			isInvalid={state === "isInvalid"}
+			isDisabled={state === "isDisabled"}
+			isReadOnly={isReadOnly}
+			isRequired={isRequired}
+		>
+			<InputLabel>{label}</InputLabel>
+			<div className="relative">
+				<div className="pointer-events-none absolute inset-y-0 left-0 flex items-center px-4 text-foreground">
+					{icon}
+				</div>
+				<InputBox className={twMerge("pl-12", className)} {...props} />
+			</div>
+			<InputError>Error Message </InputError>
+		</Field>
+	);
 }
 
 ```
 
 ```react_aria|ts|example.tsx
 import { Input } from "@registry/packages/primitives/input-text/03/react_aria-ts/Input";
-import { IconProps } from "@registry/utils/types";
+import type { IconProps } from "@registry/utils/types";
 
 export default function InputWithLeftIcon() {
-  return (
-    <div className="w-full flex flex-col items-center gap-6">
-      <Input
-        name="Email"
-        type="email"
-        placeholder="you@example.com"
-        label="Email"
-        icon={<Icon />}
-      />
-    </div>
-  );
+	return (
+		<div className="w-full flex flex-col items-center gap-6">
+			<Input
+				name="Email"
+				type="email"
+				placeholder="you@example.com"
+				label="Email"
+				icon={<Icon />}
+			/>
+		</div>
+	);
 }
 
 const Icon = (props: IconProps) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1.2em"
-    height="1.2em"
-    viewBox="0 0 16 16"
-    {...props}
-  >
-    <path
-      fill="currentColor"
-      fillRule="evenodd"
-      d="M14.95 3.684L8.637 8.912a1 1 0 0 1-1.276 0l-6.31-5.228A.999.999 0 0 0 1 4v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a.999.999 0 0 0-.05-.316M2 2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2m-.21 1l5.576 4.603a1 1 0 0 0 1.27.003L14.268 3z"
-    ></path>
-  </svg>
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		width="1.2em"
+		height="1.2em"
+		viewBox="0 0 16 16"
+		{...props}
+	>
+		<title>Icon</title>
+		<path
+			fill="currentColor"
+			fillRule="evenodd"
+			d="M14.95 3.684L8.637 8.912a1 1 0 0 1-1.276 0l-6.31-5.228A.999.999 0 0 0 1 4v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a.999.999 0 0 0-.05-.316M2 2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2m-.21 1l5.576 4.603a1 1 0 0 0 1.27.003L14.268 3z"
+		/>
+	</svg>
 );
 
 ```
@@ -790,105 +786,105 @@ const Icon = (props: IconProps) => (
 ```react_aria|ts|Input.tsx
 "use client";
 
-import React from "react";
+import type React from "react";
 import {
-  FieldError,
-  FieldErrorProps,
-  Label,
-  LabelProps,
-  Input as ReactAriaInput,
-  InputProps as ReactAriaInputProps,
-  TextField,
-  TextFieldProps,
+	FieldError,
+	type FieldErrorProps,
+	Label,
+	type LabelProps,
+	Input as ReactAriaInput,
+	type InputProps as ReactAriaInputProps,
+	TextField,
+	type TextFieldProps,
 } from "react-aria-components";
 import { twJoin, twMerge } from "tailwind-merge";
 
 export function Field({ className, ...props }: TextFieldProps) {
-  return (
-    <TextField
-      className={twMerge("flex flex-col", className as string)}
-      {...props}
-    />
-  );
+	return (
+		<TextField
+			className={twMerge("flex flex-col", className as string)}
+			{...props}
+		/>
+	);
 }
 
 export function InputLabel({ className, ...props }: LabelProps) {
-  return (
-    <Label
-      className={twMerge(
-        "text-foreground text-sm font-medium",
-        className as string
-      )}
-    >
-      {props.children}
-    </Label>
-  );
+	return (
+		<Label
+			className={twMerge(
+				"text-foreground text-sm font-medium",
+				className as string,
+			)}
+		>
+			{props.children}
+		</Label>
+	);
 }
 export function InputError({ className, ...props }: FieldErrorProps) {
-  return (
-    <FieldError className={twMerge("text-error", className as string)}>
-      {props.children}
-    </FieldError>
-  );
+	return (
+		<FieldError className={twMerge("text-error", className as string)}>
+			{props.children}
+		</FieldError>
+	);
 }
 
 export function InputBox({ className, ...props }: ReactAriaInputProps) {
-  return (
-    <ReactAriaInput
-      className={twMerge(
-        twJoin(
-          "w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 my-1",
-          "text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
-          "disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
-          "invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error"
-        ),
-        className as string
-      )}
-      {...props}
-    />
-  );
+	return (
+		<ReactAriaInput
+			className={twMerge(
+				twJoin(
+					"w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 my-1",
+					"text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
+					"disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
+					"invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error",
+				),
+				className as string,
+			)}
+			{...props}
+		/>
+	);
 }
 
 export interface InputProps extends ReactAriaInputProps {
-  state?: "default" | "isInvalid" | "isDisabled";
-  label?: string;
-  isRequired?: boolean;
-  isReadOnly?: boolean;
-  icon: React.ReactNode;
+	state?: "default" | "isInvalid" | "isDisabled";
+	label?: string;
+	isRequired?: boolean;
+	isReadOnly?: boolean;
+	icon: React.ReactNode;
 }
 
 export function Input({
-  state = "default",
-  label,
-  isRequired,
-  isReadOnly,
-  icon,
-  className,
-  ...props
+	state = "default",
+	label,
+	isRequired,
+	isReadOnly,
+	icon,
+	className,
+	...props
 }: InputProps) {
-  return (
-    <Field
-      name={props.name}
-      type={props.type}
-      className="w-80"
-      isInvalid={state === "isInvalid"}
-      isDisabled={state === "isDisabled"}
-      isReadOnly={isReadOnly}
-      isRequired={isRequired}
-    >
-      <InputLabel>{label}</InputLabel>
-      <div className="relative">
-        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center px-4 text-foreground">
-          {icon}
-        </div>
-        <InputBox
-          className={twMerge("pl-12", className as string)}
-          {...props}
-        />
-      </div>
-      <InputError>Error Message </InputError>
-    </Field>
-  );
+	return (
+		<Field
+			name={props.name}
+			type={props.type}
+			className="w-80"
+			isInvalid={state === "isInvalid"}
+			isDisabled={state === "isDisabled"}
+			isReadOnly={isReadOnly}
+			isRequired={isRequired}
+		>
+			<InputLabel>{label}</InputLabel>
+			<div className="relative">
+				<div className="pointer-events-none absolute inset-y-0 left-0 flex items-center px-4 text-foreground">
+					{icon}
+				</div>
+				<InputBox
+					className={twMerge("pl-12", className as string)}
+					{...props}
+				/>
+			</div>
+			<InputError>Error Message </InputError>
+		</Field>
+	);
 }
 
 ```
@@ -972,39 +968,40 @@ export const Primitives_input_text_04 = lazy(() => import("@registry/packages/pr
 
 <Implementation>
 
-<TechnologyUsed technologies={["tailwind-merge","react-aria-components"]} />
+undefined
 <CodeBlock>
 
 ```react_aria|js|example.jsx
 import { Input } from "@registry/packages/primitives/input-text/04/react_aria-js/Input";
 
 export default function InputWithRightIcon() {
-  return (
-    <div className="w-full flex flex-col items-center gap-6">
-      <Input
-        name="Name"
-        type="text"
-        placeholder="Name"
-        label="Name"
-        icon={<Icon />}
-      />
-    </div>
-  );
+	return (
+		<div className="w-full flex flex-col items-center gap-6">
+			<Input
+				name="Name"
+				type="text"
+				placeholder="Name"
+				label="Name"
+				icon={<Icon />}
+			/>
+		</div>
+	);
 }
 
 const Icon = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1.2em"
-    height="1.2em"
-    viewBox="0 0 1024 1024"
-    {...props}
-  >
-    <path
-      fill="currentColor"
-      d="M512 0C229.232 0 0 229.232 0 512c0 282.784 229.232 512 512 512c282.784 0 512.017-229.216 512.017-512C1024.017 229.232 794.785 0 512 0zm0 961.008c-247.024 0-448-201.984-448-449.01c0-247.024 200.976-448 448-448s448.017 200.977 448.017 448S759.025 961.009 512 961.009zm-47.056-160.529h80.512v-81.248h-80.512zm46.112-576.944c-46.88 0-85.503 12.64-115.839 37.889c-30.336 25.263-45.088 75.855-44.336 117.775l1.184 2.336h73.44c0-25.008 8.336-60.944 25.008-73.84c16.656-12.88 36.848-19.328 60.56-19.328c27.328 0 48.336 7.424 63.073 22.271c14.72 14.848 22.063 36.08 22.063 63.664c0 23.184-5.44 42.976-16.368 59.376c-10.96 16.4-29.328 39.841-55.088 70.322c-26.576 23.967-42.992 43.231-49.232 57.807c-6.256 14.592-9.504 40.768-9.744 78.512h76.96c0-23.68 1.503-41.136 4.496-52.336c2.975-11.184 11.504-23.823 25.568-37.888c30.224-29.152 54.496-57.664 72.88-85.551c18.336-27.857 27.52-58.593 27.52-92.193c0-46.88-14.176-83.408-42.577-109.568c-28.416-26.176-68.272-39.248-119.568-39.248z"
-    ></path>
-  </svg>
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		width="1.2em"
+		height="1.2em"
+		viewBox="0 0 1024 1024"
+		{...props}
+	>
+		<title>Icon</title>
+		<path
+			fill="currentColor"
+			d="M512 0C229.232 0 0 229.232 0 512c0 282.784 229.232 512 512 512c282.784 0 512.017-229.216 512.017-512C1024.017 229.232 794.785 0 512 0zm0 961.008c-247.024 0-448-201.984-448-449.01c0-247.024 200.976-448 448-448s448.017 200.977 448.017 448S759.025 961.009 512 961.009zm-47.056-160.529h80.512v-81.248h-80.512zm46.112-576.944c-46.88 0-85.503 12.64-115.839 37.889c-30.336 25.263-45.088 75.855-44.336 117.775l1.184 2.336h73.44c0-25.008 8.336-60.944 25.008-73.84c16.656-12.88 36.848-19.328 60.56-19.328c27.328 0 48.336 7.424 63.073 22.271c14.72 14.848 22.063 36.08 22.063 63.664c0 23.184-5.44 42.976-16.368 59.376c-10.96 16.4-29.328 39.841-55.088 70.322c-26.576 23.967-42.992 43.231-49.232 57.807c-6.256 14.592-9.504 40.768-9.744 78.512h76.96c0-23.68 1.503-41.136 4.496-52.336c2.975-11.184 11.504-23.823 25.568-37.888c30.224-29.152 54.496-57.664 72.88-85.551c18.336-27.857 27.52-58.593 27.52-92.193c0-46.88-14.176-83.408-42.577-109.568c-28.416-26.176-68.272-39.248-119.568-39.248z"
+		/>
+	</svg>
 );
 
 ```
@@ -1013,117 +1010,118 @@ const Icon = (props) => (
 "use client";
 
 import {
-  FieldError,
-  Label,
-  Input as ReactAriaInput,
-  TextField,
+	FieldError,
+	Label,
+	Input as ReactAriaInput,
+	TextField,
 } from "react-aria-components";
 import { twJoin, twMerge } from "tailwind-merge";
 
 export function Field({ className, ...props }) {
-  return (
-    <TextField className={twMerge("flex flex-col", className)} {...props} />
-  );
+	return (
+		<TextField className={twMerge("flex flex-col", className)} {...props} />
+	);
 }
 
 export function InputLabel({ className, ...props }) {
-  return (
-    <Label
-      className={twMerge("text-foreground text-sm font-medium", className)}
-    >
-      {props.children}
-    </Label>
-  );
+	return (
+		<Label
+			className={twMerge("text-foreground text-sm font-medium", className)}
+		>
+			{props.children}
+		</Label>
+	);
 }
 export function InputError({ className, ...props }) {
-  return (
-    <FieldError className={twMerge("text-error", className)}>
-      {props.children}
-    </FieldError>
-  );
+	return (
+		<FieldError className={twMerge("text-error", className)}>
+			{props.children}
+		</FieldError>
+	);
 }
 
 export function InputBox({ className, ...props }) {
-  return (
-    <ReactAriaInput
-      className={twMerge(
-        twJoin(
-          "w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 my-1",
-          "text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
-          "disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
-          "invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error"
-        ),
-        className
-      )}
-      {...props}
-    />
-  );
+	return (
+		<ReactAriaInput
+			className={twMerge(
+				twJoin(
+					"w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 my-1",
+					"text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
+					"disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
+					"invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error",
+				),
+				className,
+			)}
+			{...props}
+		/>
+	);
 }
 
 export function Input({
-  state = "default",
-  label,
-  isRequired,
-  isReadOnly,
-  icon,
-  className,
-  ...props
+	state = "default",
+	label,
+	isRequired,
+	isReadOnly,
+	icon,
+	className,
+	...props
 }) {
-  return (
-    <Field
-      name={props.name}
-      type={props.type}
-      className="w-80"
-      isInvalid={state === "isInvalid"}
-      isDisabled={state === "isDisabled"}
-      isReadOnly={isReadOnly}
-      isRequired={isRequired}
-    >
-      <InputLabel>{label}</InputLabel>
-      <div className="relative">
-        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-foreground">
-          {icon}
-        </div>
-        <InputBox className={twMerge("pr-12", className)} {...props} />
-      </div>
-      <InputError>Error Message </InputError>
-    </Field>
-  );
+	return (
+		<Field
+			name={props.name}
+			type={props.type}
+			className="w-80"
+			isInvalid={state === "isInvalid"}
+			isDisabled={state === "isDisabled"}
+			isReadOnly={isReadOnly}
+			isRequired={isRequired}
+		>
+			<InputLabel>{label}</InputLabel>
+			<div className="relative">
+				<div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-foreground">
+					{icon}
+				</div>
+				<InputBox className={twMerge("pr-12", className)} {...props} />
+			</div>
+			<InputError>Error Message </InputError>
+		</Field>
+	);
 }
 
 ```
 
 ```react_aria|ts|example.tsx
-import { IconProps } from "@registry/utils/types";
+import type { IconProps } from "@registry/utils/types";
 import { Input } from "@registry/packages/primitives/input-text/04/react_aria-ts/Input";
 
 export default function InputWithRightIcon() {
-  return (
-    <div className="w-full flex flex-col items-center gap-6">
-      <Input
-        name="Name"
-        type="text"
-        placeholder="Name"
-        label="Name"
-        icon={<Icon />}
-      />
-    </div>
-  );
+	return (
+		<div className="w-full flex flex-col items-center gap-6">
+			<Input
+				name="Name"
+				type="text"
+				placeholder="Name"
+				label="Name"
+				icon={<Icon />}
+			/>
+		</div>
+	);
 }
 
 const Icon = (props: IconProps) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1.2em"
-    height="1.2em"
-    viewBox="0 0 1024 1024"
-    {...props}
-  >
-    <path
-      fill="currentColor"
-      d="M512 0C229.232 0 0 229.232 0 512c0 282.784 229.232 512 512 512c282.784 0 512.017-229.216 512.017-512C1024.017 229.232 794.785 0 512 0zm0 961.008c-247.024 0-448-201.984-448-449.01c0-247.024 200.976-448 448-448s448.017 200.977 448.017 448S759.025 961.009 512 961.009zm-47.056-160.529h80.512v-81.248h-80.512zm46.112-576.944c-46.88 0-85.503 12.64-115.839 37.889c-30.336 25.263-45.088 75.855-44.336 117.775l1.184 2.336h73.44c0-25.008 8.336-60.944 25.008-73.84c16.656-12.88 36.848-19.328 60.56-19.328c27.328 0 48.336 7.424 63.073 22.271c14.72 14.848 22.063 36.08 22.063 63.664c0 23.184-5.44 42.976-16.368 59.376c-10.96 16.4-29.328 39.841-55.088 70.322c-26.576 23.967-42.992 43.231-49.232 57.807c-6.256 14.592-9.504 40.768-9.744 78.512h76.96c0-23.68 1.503-41.136 4.496-52.336c2.975-11.184 11.504-23.823 25.568-37.888c30.224-29.152 54.496-57.664 72.88-85.551c18.336-27.857 27.52-58.593 27.52-92.193c0-46.88-14.176-83.408-42.577-109.568c-28.416-26.176-68.272-39.248-119.568-39.248z"
-    ></path>
-  </svg>
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		width="1.2em"
+		height="1.2em"
+		viewBox="0 0 1024 1024"
+		{...props}
+	>
+		<title>Icon</title>
+		<path
+			fill="currentColor"
+			d="M512 0C229.232 0 0 229.232 0 512c0 282.784 229.232 512 512 512c282.784 0 512.017-229.216 512.017-512C1024.017 229.232 794.785 0 512 0zm0 961.008c-247.024 0-448-201.984-448-449.01c0-247.024 200.976-448 448-448s448.017 200.977 448.017 448S759.025 961.009 512 961.009zm-47.056-160.529h80.512v-81.248h-80.512zm46.112-576.944c-46.88 0-85.503 12.64-115.839 37.889c-30.336 25.263-45.088 75.855-44.336 117.775l1.184 2.336h73.44c0-25.008 8.336-60.944 25.008-73.84c16.656-12.88 36.848-19.328 60.56-19.328c27.328 0 48.336 7.424 63.073 22.271c14.72 14.848 22.063 36.08 22.063 63.664c0 23.184-5.44 42.976-16.368 59.376c-10.96 16.4-29.328 39.841-55.088 70.322c-26.576 23.967-42.992 43.231-49.232 57.807c-6.256 14.592-9.504 40.768-9.744 78.512h76.96c0-23.68 1.503-41.136 4.496-52.336c2.975-11.184 11.504-23.823 25.568-37.888c30.224-29.152 54.496-57.664 72.88-85.551c18.336-27.857 27.52-58.593 27.52-92.193c0-46.88-14.176-83.408-42.577-109.568c-28.416-26.176-68.272-39.248-119.568-39.248z"
+		/>
+	</svg>
 );
 
 ```
@@ -1131,105 +1129,105 @@ const Icon = (props: IconProps) => (
 ```react_aria|ts|Input.tsx
 "use client";
 
-import React from "react";
+import type React from "react";
 import {
-  FieldError,
-  FieldErrorProps,
-  Label,
-  LabelProps,
-  Input as ReactAriaInput,
-  InputProps as ReactAriaInputProps,
-  TextField,
-  TextFieldProps,
+	FieldError,
+	type FieldErrorProps,
+	Label,
+	type LabelProps,
+	Input as ReactAriaInput,
+	type InputProps as ReactAriaInputProps,
+	TextField,
+	type TextFieldProps,
 } from "react-aria-components";
 import { twJoin, twMerge } from "tailwind-merge";
 
 export function Field({ className, ...props }: TextFieldProps) {
-  return (
-    <TextField
-      className={twMerge("flex flex-col", className as string)}
-      {...props}
-    />
-  );
+	return (
+		<TextField
+			className={twMerge("flex flex-col", className as string)}
+			{...props}
+		/>
+	);
 }
 
 export function InputLabel({ className, ...props }: LabelProps) {
-  return (
-    <Label
-      className={twMerge(
-        "text-foreground text-sm font-medium",
-        className as string
-      )}
-    >
-      {props.children}
-    </Label>
-  );
+	return (
+		<Label
+			className={twMerge(
+				"text-foreground text-sm font-medium",
+				className as string,
+			)}
+		>
+			{props.children}
+		</Label>
+	);
 }
 export function InputError({ className, ...props }: FieldErrorProps) {
-  return (
-    <FieldError className={twMerge("text-error", className as string)}>
-      {props.children}
-    </FieldError>
-  );
+	return (
+		<FieldError className={twMerge("text-error", className as string)}>
+			{props.children}
+		</FieldError>
+	);
 }
 
 export function InputBox({ className, ...props }: ReactAriaInputProps) {
-  return (
-    <ReactAriaInput
-      className={twMerge(
-        twJoin(
-          "w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 my-1",
-          "text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
-          "disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
-          "invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error"
-        ),
-        className as string
-      )}
-      {...props}
-    />
-  );
+	return (
+		<ReactAriaInput
+			className={twMerge(
+				twJoin(
+					"w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 my-1",
+					"text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
+					"disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
+					"invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error",
+				),
+				className as string,
+			)}
+			{...props}
+		/>
+	);
 }
 
 export interface InputProps extends ReactAriaInputProps {
-  state?: "default" | "isInvalid" | "isDisabled";
-  label?: string;
-  isRequired?: boolean;
-  isReadOnly?: boolean;
-  icon: React.ReactNode;
+	state?: "default" | "isInvalid" | "isDisabled";
+	label?: string;
+	isRequired?: boolean;
+	isReadOnly?: boolean;
+	icon: React.ReactNode;
 }
 
 export function Input({
-  state = "default",
-  label,
-  isRequired,
-  isReadOnly,
-  icon,
-  className,
-  ...props
+	state = "default",
+	label,
+	isRequired,
+	isReadOnly,
+	icon,
+	className,
+	...props
 }: InputProps) {
-  return (
-    <Field
-      name={props.name}
-      type={props.type}
-      className="w-80"
-      isInvalid={state === "isInvalid"}
-      isDisabled={state === "isDisabled"}
-      isReadOnly={isReadOnly}
-      isRequired={isRequired}
-    >
-      <InputLabel>{label}</InputLabel>
-      <div className="relative">
-        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-foreground">
-          {icon}
-        </div>
-        <InputBox
-          className={twMerge("pr-12", className as string)}
-          {...props}
-        />
-      </div>
-      <InputError>Error Message </InputError>
-    </Field>
-  );
+	return (
+		<Field
+			name={props.name}
+			type={props.type}
+			className="w-80"
+			isInvalid={state === "isInvalid"}
+			isDisabled={state === "isDisabled"}
+			isReadOnly={isReadOnly}
+			isRequired={isRequired}
+		>
+			<InputLabel>{label}</InputLabel>
+			<div className="relative">
+				<div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-foreground">
+					{icon}
+				</div>
+				<InputBox
+					className={twMerge("pr-12", className as string)}
+					{...props}
+				/>
+			</div>
+			<InputError>Error Message </InputError>
+		</Field>
+	);
 }
 
 ```
@@ -1313,23 +1311,23 @@ export const Primitives_input_text_05 = lazy(() => import("@registry/packages/pr
 
 <Implementation>
 
-<TechnologyUsed technologies={["tailwind-merge","react-aria-components"]} />
+undefined
 <CodeBlock>
 
 ```react_aria|js|example.jsx
 import { Input } from "@registry/packages/primitives/input-text/05/react_aria-js/Input";
 
 export default function InputWithFloatingLabel() {
-  return (
-    <div className="w-full flex flex-col items-center gap-6">
-      <Input
-        name="Name"
-        type="text"
-        placeholder="Enter your name"
-        label="Name"
-      />
-    </div>
-  );
+	return (
+		<div className="w-full flex flex-col items-center gap-6">
+			<Input
+				name="Name"
+				type="text"
+				placeholder="Enter your name"
+				label="Name"
+			/>
+		</div>
+	);
 }
 
 ```
@@ -1338,90 +1336,86 @@ export default function InputWithFloatingLabel() {
 "use client";
 
 import {
-  FieldError,
-  FieldErrorProps,
-  Input as ReactAriaInput,
-  InputProps as ReactAriaInputProps,
-  Label,
-  LabelProps,
-  TextField,
-  TextFieldProps,
+	FieldError,
+	Input as ReactAriaInput,
+	Label,
+	TextField,
 } from "react-aria-components";
 import { twJoin, twMerge } from "tailwind-merge";
 
 export function Field({ className, ...props }) {
-  return (
-    <TextField className={twMerge("flex flex-col", className)} {...props} />
-  );
+	return (
+		<TextField className={twMerge("flex flex-col", className)} {...props} />
+	);
 }
 
 export function InputLabel({ className, ...props }) {
-  return (
-    <Label
-      className={twMerge("text-foreground text-sm font-medium", className)}
-    >
-      {props.children}
-    </Label>
-  );
+	return (
+		<Label
+			className={twMerge("text-foreground text-sm font-medium", className)}
+		>
+			{props.children}
+		</Label>
+	);
 }
 export function InputError({ className, ...props }) {
-  return (
-    <FieldError className={twMerge("text-error", className)}>
-      {props.children}
-    </FieldError>
-  );
+	return (
+		<FieldError className={twMerge("text-error", className)}>
+			{props.children}
+		</FieldError>
+	);
 }
 
 export function InputBox({ className, ...props }) {
-  return (
-    <ReactAriaInput
-      className={twMerge(
-        twJoin(
-          "w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 my-1",
-          "text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
-          "disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
-          "invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error"
-        ),
-        className
-      )}
-      {...props}
-    />
-  );
+	return (
+		<ReactAriaInput
+			className={twMerge(
+				twJoin(
+					"w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 my-1",
+					"text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
+					"disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
+					"invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error",
+				),
+				className,
+			)}
+			{...props}
+		/>
+	);
 }
 
 export function Input({
-  state = "default",
-  label,
-  isRequired,
-  isReadOnly,
-  className,
-  ...props
+	state = "default",
+	label,
+	isRequired,
+	isReadOnly,
+	className,
+	...props
 }) {
-  return (
-    <Field
-      name={props.name}
-      type={props.type}
-      className="w-80"
-      isInvalid={state === "isInvalid"}
-      isDisabled={state === "isDisabled"}
-      isReadOnly={isReadOnly}
-      isRequired={isRequired}
-    >
-      <div className="relative">
-        <InputBox
-          {...props}
-          className={twMerge(
-            "peer transition-all duration-300 placeholder:text-transparent placeholder:select-none focus:placeholder:text-foreground",
-            className
-          )}
-        />
-        <InputLabel className=" absolute left-2  z-10  transform px-2 text-sm transition-all duration-300 peer-placeholder-shown:translate-y-[0.90rem] peer-focus:-translate-y-1 bg-background peer-focus:text-xs peer-disabled:bg-transparent peer-f">
-          {label}
-        </InputLabel>
-        <InputError>Error Message </InputError>
-      </div>
-    </Field>
-  );
+	return (
+		<Field
+			name={props.name}
+			type={props.type}
+			className="w-80"
+			isInvalid={state === "isInvalid"}
+			isDisabled={state === "isDisabled"}
+			isReadOnly={isReadOnly}
+			isRequired={isRequired}
+		>
+			<div className="relative">
+				<InputBox
+					{...props}
+					className={twMerge(
+						"peer transition-all duration-300 placeholder:text-transparent placeholder:select-none focus:placeholder:text-foreground",
+						className,
+					)}
+				/>
+				<InputLabel className=" absolute left-2  z-10  transform px-2 text-sm transition-all duration-300 peer-placeholder-shown:translate-y-[0.90rem] peer-focus:-translate-y-1 bg-background peer-focus:text-xs peer-disabled:bg-transparent peer-f">
+					{label}
+				</InputLabel>
+				<InputError>Error Message </InputError>
+			</div>
+		</Field>
+	);
 }
 
 ```
@@ -1430,16 +1424,16 @@ export function Input({
 import { Input } from "@registry/packages/primitives/input-text/05/react_aria-ts/Input";
 
 export default function InputWithFloatingLabel() {
-  return (
-    <div className="w-full flex flex-col items-center gap-6">
-      <Input
-        name="Name"
-        type="text"
-        placeholder="Enter your name"
-        label="Name"
-      />
-    </div>
-  );
+	return (
+		<div className="w-full flex flex-col items-center gap-6">
+			<Input
+				name="Name"
+				type="text"
+				placeholder="Enter your name"
+				label="Name"
+			/>
+		</div>
+	);
 }
 
 ```
@@ -1448,103 +1442,103 @@ export default function InputWithFloatingLabel() {
 "use client";
 
 import {
-  FieldError,
-  FieldErrorProps,
-  Input as ReactAriaInput,
-  InputProps as ReactAriaInputProps,
-  Label,
-  LabelProps,
-  TextField,
-  TextFieldProps,
+	FieldError,
+	type FieldErrorProps,
+	Input as ReactAriaInput,
+	type InputProps as ReactAriaInputProps,
+	Label,
+	type LabelProps,
+	TextField,
+	type TextFieldProps,
 } from "react-aria-components";
 import { twJoin, twMerge } from "tailwind-merge";
 
 export function Field({ className, ...props }: TextFieldProps) {
-  return (
-    <TextField
-      className={twMerge("flex flex-col", className as string)}
-      {...props}
-    />
-  );
+	return (
+		<TextField
+			className={twMerge("flex flex-col", className as string)}
+			{...props}
+		/>
+	);
 }
 
 export function InputLabel({ className, ...props }: LabelProps) {
-  return (
-    <Label
-      className={twMerge(
-        "text-foreground text-sm font-medium",
-        className as string
-      )}
-    >
-      {props.children}
-    </Label>
-  );
+	return (
+		<Label
+			className={twMerge(
+				"text-foreground text-sm font-medium",
+				className as string,
+			)}
+		>
+			{props.children}
+		</Label>
+	);
 }
 export function InputError({ className, ...props }: FieldErrorProps) {
-  return (
-    <FieldError className={twMerge("text-error", className as string)}>
-      {props.children}
-    </FieldError>
-  );
+	return (
+		<FieldError className={twMerge("text-error", className as string)}>
+			{props.children}
+		</FieldError>
+	);
 }
 
 export function InputBox({ className, ...props }: ReactAriaInputProps) {
-  return (
-    <ReactAriaInput
-      className={twMerge(
-        twJoin(
-          "w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 my-1",
-          "text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
-          "disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
-          "invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error"
-        ),
-        className as string
-      )}
-      {...props}
-    />
-  );
+	return (
+		<ReactAriaInput
+			className={twMerge(
+				twJoin(
+					"w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 my-1",
+					"text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
+					"disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
+					"invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error",
+				),
+				className as string,
+			)}
+			{...props}
+		/>
+	);
 }
 
 export interface InputProps extends ReactAriaInputProps {
-  state?: "default" | "isInvalid" | "isDisabled";
-  label?: string;
-  isRequired?: boolean;
-  isReadOnly?: boolean;
+	state?: "default" | "isInvalid" | "isDisabled";
+	label?: string;
+	isRequired?: boolean;
+	isReadOnly?: boolean;
 }
 
 export function Input({
-  state = "default",
-  label,
-  isRequired,
-  isReadOnly,
-  className,
-  ...props
+	state = "default",
+	label,
+	isRequired,
+	isReadOnly,
+	className,
+	...props
 }: InputProps) {
-  return (
-    <Field
-      name={props.name}
-      type={props.type}
-      className="w-80"
-      isInvalid={state === "isInvalid"}
-      isDisabled={state === "isDisabled"}
-      isReadOnly={isReadOnly}
-      isRequired={isRequired}
-    >
-      <div className="relative">
-        <InputBox
-          {...props}
-          className={twMerge(
-            "peer transition-all duration-300 placeholder:text-transparent placeholder:select-none focus:placeholder:text-foreground",
-            className as string
-          )}
-        />
-        <InputLabel className=" absolute left-2  z-10  transform px-2 text-sm transition-all duration-300 peer-placeholder-shown:translate-y-[0.90rem] peer-focus:-translate-y-1 bg-background peer-focus:text-xs peer-disabled:bg-transparent peer-f">
-          {label}
-        </InputLabel>
-        <InputError>Error Message </InputError>
-      </div>
-    </Field>
-  );
+	return (
+		<Field
+			name={props.name}
+			type={props.type}
+			className="w-80"
+			isInvalid={state === "isInvalid"}
+			isDisabled={state === "isDisabled"}
+			isReadOnly={isReadOnly}
+			isRequired={isRequired}
+		>
+			<div className="relative">
+				<InputBox
+					{...props}
+					className={twMerge(
+						"peer transition-all duration-300 placeholder:text-transparent placeholder:select-none focus:placeholder:text-foreground",
+						className as string,
+					)}
+				/>
+				<InputLabel className=" absolute left-2  z-10  transform px-2 text-sm transition-all duration-300 peer-placeholder-shown:translate-y-[0.90rem] peer-focus:-translate-y-1 bg-background peer-focus:text-xs peer-disabled:bg-transparent peer-f">
+					{label}
+				</InputLabel>
+				<InputError>Error Message </InputError>
+			</div>
+		</Field>
+	);
 }
 
 ```
@@ -1627,18 +1621,18 @@ export const Primitives_input_text_06 = lazy(() => import("@registry/packages/pr
 
 <Implementation>
 
-<TechnologyUsed technologies={["tailwind-merge","react-aria-components"]} />
+undefined
 <CodeBlock>
 
 ```react_aria|js|example.jsx
 import { Input } from "@registry/packages/primitives/input-text/06/react_aria-js/Input";
 
 export default function InputPasswordToggle() {
-  return (
-    <div className="w-full flex flex-col items-center gap-6">
-      <Input name="Password" placeholder="Password" label="Password" />
-    </div>
-  );
+	return (
+		<div className="w-full flex flex-col items-center gap-6">
+			<Input name="Password" placeholder="Password" label="Password" />
+		</div>
+	);
 }
 
 ```
@@ -1648,126 +1642,128 @@ export default function InputPasswordToggle() {
 
 import { useState } from "react";
 import {
-  Button,
-  FieldError,
-  Label,
-  Input as ReactAriaInput,
-  TextField,
+	Button,
+	FieldError,
+	Label,
+	Input as ReactAriaInput,
+	TextField,
 } from "react-aria-components";
 import { twJoin, twMerge } from "tailwind-merge";
 
 export function Field({ className, ...props }) {
-  return (
-    <TextField className={twMerge("flex flex-col", className)} {...props} />
-  );
+	return (
+		<TextField className={twMerge("flex flex-col", className)} {...props} />
+	);
 }
 
 export function InputLabel({ className, ...props }) {
-  return (
-    <Label
-      className={twMerge("text-foreground text-sm font-medium", className)}
-    >
-      {props.children}
-    </Label>
-  );
+	return (
+		<Label
+			className={twMerge("text-foreground text-sm font-medium", className)}
+		>
+			{props.children}
+		</Label>
+	);
 }
 export function InputError({ className, ...props }) {
-  return (
-    <FieldError className={twMerge("text-error", className)}>
-      {props.children}
-    </FieldError>
-  );
+	return (
+		<FieldError className={twMerge("text-error", className)}>
+			{props.children}
+		</FieldError>
+	);
 }
 
 export function InputBox({ className, ...props }) {
-  return (
-    <ReactAriaInput
-      className={twMerge(
-        twJoin(
-          "w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 my-1",
-          "text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
-          "disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
-          "invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error"
-        ),
-        className
-      )}
-      {...props}
-    />
-  );
+	return (
+		<ReactAriaInput
+			className={twMerge(
+				twJoin(
+					"w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 my-1",
+					"text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
+					"disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
+					"invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error",
+				),
+				className,
+			)}
+			{...props}
+		/>
+	);
 }
 
 export function Input({
-  state = "default",
-  label,
-  isRequired,
-  isReadOnly,
-  className,
-  ...props
+	state = "default",
+	label,
+	isRequired,
+	isReadOnly,
+	className,
+	...props
 }) {
-  const [active, setActive] = useState(false);
+	const [active, setActive] = useState(false);
 
-  return (
-    <Field
-      name={props.name}
-      type={props.type}
-      isInvalid={state === "isInvalid"}
-      isDisabled={state === "isDisabled"}
-      isReadOnly={isReadOnly}
-      isRequired={isRequired}
-    >
-      <InputLabel>{label}</InputLabel>
-      <div className="relative">
-        <Button
-          className="disabled:pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-foreground h-2/3 my-auto outline-none"
-          onPress={() => setActive(!active)}
-        >
-          {active ? (
-            <Icon.PasswordVisible className="w-4 h-4" />
-          ) : (
-            <Icon.PasswordHidden className="w-4 h-4" />
-          )}
-        </Button>
-        <InputBox
-          className={twMerge("pr-12 z-0", className)}
-          {...props}
-          type={active ? "text" : "password"}
-        />
-      </div>
-      <InputError>Error Message </InputError>
-    </Field>
-  );
+	return (
+		<Field
+			name={props.name}
+			type={props.type}
+			isInvalid={state === "isInvalid"}
+			isDisabled={state === "isDisabled"}
+			isReadOnly={isReadOnly}
+			isRequired={isRequired}
+		>
+			<InputLabel>{label}</InputLabel>
+			<div className="relative">
+				<Button
+					className="disabled:pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-foreground h-2/3 my-auto outline-none"
+					onPress={() => setActive(!active)}
+				>
+					{active ? (
+						<Icon.PasswordVisible className="w-4 h-4" />
+					) : (
+						<Icon.PasswordHidden className="w-4 h-4" />
+					)}
+				</Button>
+				<InputBox
+					className={twMerge("pr-12 z-0", className)}
+					{...props}
+					type={active ? "text" : "password"}
+				/>
+			</div>
+			<InputError>Error Message </InputError>
+		</Field>
+	);
 }
 
 const Icon = {
-  PasswordVisible: (props) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 16 16"
-      {...props}
-    >
-      <path
-        fill="currentColor"
-        d="M15.98 7.873c.013.03.02.064.02.098v.06a.24.24 0 0 1-.02.097C15.952 8.188 13.291 14 8 14S.047 8.188.02 8.128A.24.24 0 0 1 0 8.03v-.059c0-.034.007-.068.02-.098C.048 7.813 2.709 2 8 2s7.953 5.813 7.98 5.873m-1.37-.424a12.097 12.097 0 0 0-1.385-1.862C11.739 3.956 9.999 3 8 3c-2 0-3.74.956-5.225 2.587a12.098 12.098 0 0 0-1.701 2.414a12.095 12.095 0 0 0 1.7 2.413C4.26 12.043 6.002 13 8 13s3.74-.956 5.225-2.587A12.097 12.097 0 0 0 14.926 8c-.08-.15-.189-.343-.315-.551M8 4.75A3.253 3.253 0 0 1 11.25 8A3.254 3.254 0 0 1 8 11.25A3.253 3.253 0 0 1 4.75 8A3.252 3.252 0 0 1 8 4.75m0 1C6.76 5.75 5.75 6.76 5.75 8S6.76 10.25 8 10.25S10.25 9.24 10.25 8S9.24 5.75 8 5.75m0 1.5a.75.75 0 1 0 0 1.5a.75.75 0 0 0 0-1.5"
-      ></path>
-    </svg>
-  ),
-  PasswordHidden: (props) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 16 16"
-      {...props}
-    >
-      <g fill="currentColor">
-        <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288c-.335.48-.83 1.12-1.465 1.755c-.165.165-.337.328-.517.486l.708.709z"></path>
-        <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299l.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"></path>
-        <path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884l-12-12l.708-.708l12 12l-.708.708z"></path>
-      </g>
-    </svg>
-  ),
+	PasswordVisible: (props) => (
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			width="1em"
+			height="1em"
+			viewBox="0 0 16 16"
+			{...props}
+		>
+			<title>Eye open icon</title>
+			<path
+				fill="currentColor"
+				d="M15.98 7.873c.013.03.02.064.02.098v.06a.24.24 0 0 1-.02.097C15.952 8.188 13.291 14 8 14S.047 8.188.02 8.128A.24.24 0 0 1 0 8.03v-.059c0-.034.007-.068.02-.098C.048 7.813 2.709 2 8 2s7.953 5.813 7.98 5.873m-1.37-.424a12.097 12.097 0 0 0-1.385-1.862C11.739 3.956 9.999 3 8 3c-2 0-3.74.956-5.225 2.587a12.098 12.098 0 0 0-1.701 2.414a12.095 12.095 0 0 0 1.7 2.413C4.26 12.043 6.002 13 8 13s3.74-.956 5.225-2.587A12.097 12.097 0 0 0 14.926 8c-.08-.15-.189-.343-.315-.551M8 4.75A3.253 3.253 0 0 1 11.25 8A3.254 3.254 0 0 1 8 11.25A3.253 3.253 0 0 1 4.75 8A3.252 3.252 0 0 1 8 4.75m0 1C6.76 5.75 5.75 6.76 5.75 8S6.76 10.25 8 10.25S10.25 9.24 10.25 8S9.24 5.75 8 5.75m0 1.5a.75.75 0 1 0 0 1.5a.75.75 0 0 0 0-1.5"
+			/>
+		</svg>
+	),
+	PasswordHidden: (props) => (
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			width="1em"
+			height="1em"
+			viewBox="0 0 16 16"
+			{...props}
+		>
+			<title>Eye close icon</title>
+			<g fill="currentColor">
+				<path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288c-.335.48-.83 1.12-1.465 1.755c-.165.165-.337.328-.517.486l.708.709z" />
+				<path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299l.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z" />
+				<path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884l-12-12l.708-.708l12 12l-.708.708z" />
+			</g>
+		</svg>
+	),
 };
 
 ```
@@ -1776,11 +1772,11 @@ const Icon = {
 import { Input } from "@registry/packages/primitives/input-text/06/react_aria-ts/Input";
 
 export default function InputPasswordToggle() {
-  return (
-    <div className="w-full flex flex-col items-center gap-6">
-      <Input name="Password" placeholder="Password" label="Password" />
-    </div>
-  );
+	return (
+		<div className="w-full flex flex-col items-center gap-6">
+			<Input name="Password" placeholder="Password" label="Password" />
+		</div>
+	);
 }
 
 ```
@@ -1788,146 +1784,148 @@ export default function InputPasswordToggle() {
 ```react_aria|ts|Input.tsx
 "use client";
 
-import { IconProps } from "@registry/utils/types";
+import type { IconProps } from "@registry/utils/types";
 import { useState } from "react";
 import {
-  Button,
-  FieldError,
-  FieldErrorProps,
-  Label,
-  LabelProps,
-  Input as ReactAriaInput,
-  InputProps as ReactAriaInputProps,
-  TextField,
-  TextFieldProps,
+	Button,
+	FieldError,
+	type FieldErrorProps,
+	Label,
+	type LabelProps,
+	Input as ReactAriaInput,
+	type InputProps as ReactAriaInputProps,
+	TextField,
+	type TextFieldProps,
 } from "react-aria-components";
 import { twJoin, twMerge } from "tailwind-merge";
 
 export function Field({ className, ...props }: TextFieldProps) {
-  return (
-    <TextField
-      className={twMerge("flex flex-col", className as string)}
-      {...props}
-    />
-  );
+	return (
+		<TextField
+			className={twMerge("flex flex-col", className as string)}
+			{...props}
+		/>
+	);
 }
 
 export function InputLabel({ className, ...props }: LabelProps) {
-  return (
-    <Label
-      className={twMerge(
-        "text-foreground text-sm font-medium",
-        className as string
-      )}
-    >
-      {props.children}
-    </Label>
-  );
+	return (
+		<Label
+			className={twMerge(
+				"text-foreground text-sm font-medium",
+				className as string,
+			)}
+		>
+			{props.children}
+		</Label>
+	);
 }
 export function InputError({ className, ...props }: FieldErrorProps) {
-  return (
-    <FieldError className={twMerge("text-error", className as string)}>
-      {props.children}
-    </FieldError>
-  );
+	return (
+		<FieldError className={twMerge("text-error", className as string)}>
+			{props.children}
+		</FieldError>
+	);
 }
 
 export function InputBox({ className, ...props }: ReactAriaInputProps) {
-  return (
-    <ReactAriaInput
-      className={twMerge(
-        twJoin(
-          "w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 my-1",
-          "text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
-          "disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
-          "invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error"
-        ),
-        className as string
-      )}
-      {...props}
-    />
-  );
+	return (
+		<ReactAriaInput
+			className={twMerge(
+				twJoin(
+					"w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 my-1",
+					"text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
+					"disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
+					"invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error",
+				),
+				className as string,
+			)}
+			{...props}
+		/>
+	);
 }
 
 export interface InputProps extends ReactAriaInputProps {
-  state?: "default" | "isInvalid" | "isDisabled";
-  label?: string;
-  isRequired?: boolean;
-  isReadOnly?: boolean;
+	state?: "default" | "isInvalid" | "isDisabled";
+	label?: string;
+	isRequired?: boolean;
+	isReadOnly?: boolean;
 }
 
 export function Input({
-  state = "default",
-  label,
-  isRequired,
-  isReadOnly,
-  className,
-  ...props
+	state = "default",
+	label,
+	isRequired,
+	isReadOnly,
+	className,
+	...props
 }: InputProps) {
-  const [active, setActive] = useState(false);
+	const [active, setActive] = useState(false);
 
-  return (
-    <Field
-      name={props.name}
-      type={props.type}
-      isInvalid={state === "isInvalid"}
-      isDisabled={state === "isDisabled"}
-      isReadOnly={isReadOnly}
-      isRequired={isRequired}
-    >
-      <InputLabel>{label}</InputLabel>
-      <div className="relative">
-        <Button
-          className="disabled:pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-foreground h-2/3 my-auto outline-none"
-          onPress={() => setActive(!active)}
-        >
-          {active ? (
-            <Icon.PasswordVisible className="w-4 h-4" />
-          ) : (
-            <Icon.PasswordHidden className="w-4 h-4" />
-          )}
-        </Button>
-        <InputBox
-          className={twMerge("pr-12 z-0", className as string)}
-          {...props}
-          type={active ? "text" : "password"}
-        />
-      </div>
-      <InputError>Error Message </InputError>
-    </Field>
-  );
+	return (
+		<Field
+			name={props.name}
+			type={props.type}
+			isInvalid={state === "isInvalid"}
+			isDisabled={state === "isDisabled"}
+			isReadOnly={isReadOnly}
+			isRequired={isRequired}
+		>
+			<InputLabel>{label}</InputLabel>
+			<div className="relative">
+				<Button
+					className="disabled:pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-foreground h-2/3 my-auto outline-none"
+					onPress={() => setActive(!active)}
+				>
+					{active ? (
+						<Icon.PasswordVisible className="w-4 h-4" />
+					) : (
+						<Icon.PasswordHidden className="w-4 h-4" />
+					)}
+				</Button>
+				<InputBox
+					className={twMerge("pr-12 z-0", className as string)}
+					{...props}
+					type={active ? "text" : "password"}
+				/>
+			</div>
+			<InputError>Error Message </InputError>
+		</Field>
+	);
 }
 
 const Icon = {
-  PasswordVisible: (props: IconProps) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 16 16"
-      {...props}
-    >
-      <path
-        fill="currentColor"
-        d="M15.98 7.873c.013.03.02.064.02.098v.06a.24.24 0 0 1-.02.097C15.952 8.188 13.291 14 8 14S.047 8.188.02 8.128A.24.24 0 0 1 0 8.03v-.059c0-.034.007-.068.02-.098C.048 7.813 2.709 2 8 2s7.953 5.813 7.98 5.873m-1.37-.424a12.097 12.097 0 0 0-1.385-1.862C11.739 3.956 9.999 3 8 3c-2 0-3.74.956-5.225 2.587a12.098 12.098 0 0 0-1.701 2.414a12.095 12.095 0 0 0 1.7 2.413C4.26 12.043 6.002 13 8 13s3.74-.956 5.225-2.587A12.097 12.097 0 0 0 14.926 8c-.08-.15-.189-.343-.315-.551M8 4.75A3.253 3.253 0 0 1 11.25 8A3.254 3.254 0 0 1 8 11.25A3.253 3.253 0 0 1 4.75 8A3.252 3.252 0 0 1 8 4.75m0 1C6.76 5.75 5.75 6.76 5.75 8S6.76 10.25 8 10.25S10.25 9.24 10.25 8S9.24 5.75 8 5.75m0 1.5a.75.75 0 1 0 0 1.5a.75.75 0 0 0 0-1.5"
-      ></path>
-    </svg>
-  ),
-  PasswordHidden: (props: IconProps) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 16 16"
-      {...props}
-    >
-      <g fill="currentColor">
-        <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288c-.335.48-.83 1.12-1.465 1.755c-.165.165-.337.328-.517.486l.708.709z"></path>
-        <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299l.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z"></path>
-        <path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884l-12-12l.708-.708l12 12l-.708.708z"></path>
-      </g>
-    </svg>
-  ),
+	PasswordVisible: (props: IconProps) => (
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			width="1em"
+			height="1em"
+			viewBox="0 0 16 16"
+			{...props}
+		>
+			<title>Eye open icon</title>
+			<path
+				fill="currentColor"
+				d="M15.98 7.873c.013.03.02.064.02.098v.06a.24.24 0 0 1-.02.097C15.952 8.188 13.291 14 8 14S.047 8.188.02 8.128A.24.24 0 0 1 0 8.03v-.059c0-.034.007-.068.02-.098C.048 7.813 2.709 2 8 2s7.953 5.813 7.98 5.873m-1.37-.424a12.097 12.097 0 0 0-1.385-1.862C11.739 3.956 9.999 3 8 3c-2 0-3.74.956-5.225 2.587a12.098 12.098 0 0 0-1.701 2.414a12.095 12.095 0 0 0 1.7 2.413C4.26 12.043 6.002 13 8 13s3.74-.956 5.225-2.587A12.097 12.097 0 0 0 14.926 8c-.08-.15-.189-.343-.315-.551M8 4.75A3.253 3.253 0 0 1 11.25 8A3.254 3.254 0 0 1 8 11.25A3.253 3.253 0 0 1 4.75 8A3.252 3.252 0 0 1 8 4.75m0 1C6.76 5.75 5.75 6.76 5.75 8S6.76 10.25 8 10.25S10.25 9.24 10.25 8S9.24 5.75 8 5.75m0 1.5a.75.75 0 1 0 0 1.5a.75.75 0 0 0 0-1.5"
+			/>
+		</svg>
+	),
+	PasswordHidden: (props: IconProps) => (
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			width="1em"
+			height="1em"
+			viewBox="0 0 16 16"
+			{...props}
+		>
+			<title>Eye close icon</title>
+			<g fill="currentColor">
+				<path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7.028 7.028 0 0 0-2.79.588l.77.771A5.944 5.944 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.134 13.134 0 0 1 14.828 8c-.058.087-.122.183-.195.288c-.335.48-.83 1.12-1.465 1.755c-.165.165-.337.328-.517.486l.708.709z" />
+				<path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829l.822.822zm-2.943 1.299l.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829z" />
+				<path d="M3.35 5.47c-.18.16-.353.322-.518.487A13.134 13.134 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7.029 7.029 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884l-12-12l.708-.708l12 12l-.708.708z" />
+			</g>
+		</svg>
+	),
 };
 
 ```
@@ -2010,24 +2008,24 @@ export const Primitives_input_text_07 = lazy(() => import("@registry/packages/pr
 
 <Implementation>
 
-<TechnologyUsed technologies={["tailwind-merge","react-aria-components"]} />
+undefined
 <CodeBlock>
 
 ```react_aria|js|example.jsx
 import { Input } from "@registry/packages/primitives/input-text/07/react_aria-js/Input";
 
 export default function DefaultLinedInputComponent() {
-  return (
-    <div className="w-full flex justify-center">
-      <Input
-        label="Name"
-        placeholder="Full Name"
-        name="Name"
-        type="text"
-        className="w-80"
-      />
-    </div>
-  );
+	return (
+		<div className="w-full flex justify-center">
+			<Input
+				label="Name"
+				placeholder="Full Name"
+				name="Name"
+				type="text"
+				className="w-80"
+			/>
+		</div>
+	);
 }
 
 ```
@@ -2036,55 +2034,55 @@ export default function DefaultLinedInputComponent() {
 "use client";
 
 import {
-  FieldError,
-  Label,
-  Input as ReactAriaInput,
-  TextField,
+	FieldError,
+	Label,
+	Input as ReactAriaInput,
+	TextField,
 } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
 
 export function Field({ className, ...props }) {
-  return (
-    <TextField className={twMerge("flex flex-col", className)} {...props} />
-  );
+	return (
+		<TextField className={twMerge("flex flex-col", className)} {...props} />
+	);
 }
 
 export function InputLabel({ className, ...props }) {
-  return (
-    <Label
-      className={twMerge("text-foreground text-sm font-medium", className)}
-    >
-      {props.children}
-    </Label>
-  );
+	return (
+		<Label
+			className={twMerge("text-foreground text-sm font-medium", className)}
+		>
+			{props.children}
+		</Label>
+	);
 }
 
 export function InputBox({ className, ...props }) {
-  return (
-    <ReactAriaInput
-      className={twMerge(
-        "w-full py-2 px-1 bg-transparent border-b-2 focus:outline-none mt-1",
-        "text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
-        className
-      )}
-      {...props}
-    />
-  );
+	return (
+		<ReactAriaInput
+			className={twMerge(
+				"w-full py-2 px-1 bg-transparent border-b-2 focus:outline-none mt-1",
+				"text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
+				className,
+			)}
+			{...props}
+		/>
+	);
 }
 
 export function Input({ label, isRequired, isReadOnly, ...props }) {
-  return (
-    <Field
-      isReadOnly={isReadOnly}
-      isRequired={isRequired}
-      name={props.name}
-      type={props.type}
-    >
-      <InputLabel>{label}</InputLabel>
-      <InputBox {...props} />
-      <FieldError />
-    </Field>
-  );
+	return (
+		<Field
+			isReadOnly={isReadOnly}
+			isRequired={isRequired}
+			name={props.name}
+			type={props.type}
+		>
+			<InputLabel>{label}</InputLabel>
+			<InputBox {...props} />
+			<FieldError />
+		</Field>
+	);
 }
 
 ```
@@ -2093,17 +2091,17 @@ export function Input({ label, isRequired, isReadOnly, ...props }) {
 import { Input } from "@registry/packages/primitives/input-text/07/react_aria-ts/Input";
 
 export default function DefaultLinedInputComponent() {
-  return (
-    <div className="w-full flex justify-center">
-      <Input
-        label="Name"
-        placeholder="Full Name"
-        name="Name"
-        type="text"
-        className="w-80"
-      />
-    </div>
-  );
+	return (
+		<div className="w-full flex justify-center">
+			<Input
+				label="Name"
+				placeholder="Full Name"
+				name="Name"
+				type="text"
+				className="w-80"
+			/>
+		</div>
+	);
 }
 
 ```
@@ -2112,70 +2110,70 @@ export default function DefaultLinedInputComponent() {
 "use client";
 
 import {
-  FieldError,
-  Input as ReactAriaInput,
-  InputProps as ReactAriaInputProps,
-  Label,
-  LabelProps,
-  TextField,
-  TextFieldProps,
+	FieldError,
+	Input as ReactAriaInput,
+	type InputProps as ReactAriaInputProps,
+	Label,
+	type LabelProps,
+	TextField,
+	type TextFieldProps,
 } from "react-aria-components";
-import { twJoin, twMerge } from "tailwind-merge";
+import { twMerge } from "tailwind-merge";
 
 export function Field({ className, ...props }: TextFieldProps) {
-  return (
-    <TextField
-      className={twMerge("flex flex-col", className as string)}
-      {...props}
-    />
-  );
+	return (
+		<TextField
+			className={twMerge("flex flex-col", className as string)}
+			{...props}
+		/>
+	);
 }
 
 export function InputLabel({ className, ...props }: LabelProps) {
-  return (
-    <Label
-      className={twMerge(
-        "text-foreground text-sm font-medium",
-        className as string
-      )}
-    >
-      {props.children}
-    </Label>
-  );
+	return (
+		<Label
+			className={twMerge(
+				"text-foreground text-sm font-medium",
+				className as string,
+			)}
+		>
+			{props.children}
+		</Label>
+	);
 }
 
 export function InputBox({ className, ...props }: ReactAriaInputProps) {
-  return (
-    <ReactAriaInput
-      className={twMerge(
-        "w-full py-2 px-1 bg-transparent border-b-2 focus:outline-none mt-1",
-        "text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
-        className as string
-      )}
-      {...props}
-    />
-  );
+	return (
+		<ReactAriaInput
+			className={twMerge(
+				"w-full py-2 px-1 bg-transparent border-b-2 focus:outline-none mt-1",
+				"text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
+				className as string,
+			)}
+			{...props}
+		/>
+	);
 }
 
 export interface InputProps extends ReactAriaInputProps {
-  label?: string;
-  isRequired?: boolean;
-  isReadOnly?: boolean;
+	label?: string;
+	isRequired?: boolean;
+	isReadOnly?: boolean;
 }
 
 export function Input({ label, isRequired, isReadOnly, ...props }: InputProps) {
-  return (
-    <Field
-      isReadOnly={isReadOnly}
-      isRequired={isRequired}
-      name={props.name}
-      type={props.type}
-    >
-      <InputLabel>{label}</InputLabel>
-      <InputBox {...props} />
-      <FieldError />
-    </Field>
-  );
+	return (
+		<Field
+			isReadOnly={isReadOnly}
+			isRequired={isRequired}
+			name={props.name}
+			type={props.type}
+		>
+			<InputLabel>{label}</InputLabel>
+			<InputBox {...props} />
+			<FieldError />
+		</Field>
+	);
 }
 
 ```
@@ -2250,7 +2248,7 @@ export const Primitives_input_text_08 = lazy(() => import("@registry/packages/pr
 
 <Implementation>
 
-<TechnologyUsed technologies={["tailwind-merge","react-aria-components"]} />
+undefined
 <CodeBlock>
 
 ```react_aria|js|example.jsx
@@ -2258,48 +2256,48 @@ import ArrowHeading from "@registry/ui/ArrowHeading";
 import { Input } from "@registry/packages/primitives/input-text/08/react_aria-js/Input";
 
 export default function StatefulLinedInputComponent() {
-  return (
-    <div className="w-full flex flex-col items-center gap-6">
-      <span>
-        <ArrowHeading text="Default" className="mb-2" />
-        <Input name="Name" type="text" placeholder="Name" label="Name" />
-      </span>
+	return (
+		<div className="w-full flex flex-col items-center gap-6">
+			<span>
+				<ArrowHeading text="Default" className="mb-2" />
+				<Input name="Name" type="text" placeholder="Name" label="Name" />
+			</span>
 
-      <span>
-        <ArrowHeading text="Error" className="mb-2" />
-        <Input
-          name="Name"
-          type="text"
-          label="Name"
-          placeholder="Name"
-          state="isInvalid"
-        />
-      </span>
+			<span>
+				<ArrowHeading text="Error" className="mb-2" />
+				<Input
+					name="Name"
+					type="text"
+					label="Name"
+					placeholder="Name"
+					state="isInvalid"
+				/>
+			</span>
 
-      <span>
-        <ArrowHeading text="Disabled" className="mb-2" />
-        <Input
-          name="Name"
-          type="text"
-          label="Name"
-          placeholder="Name"
-          state="isDisabled"
-        />
-      </span>
+			<span>
+				<ArrowHeading text="Disabled" className="mb-2" />
+				<Input
+					name="Name"
+					type="text"
+					label="Name"
+					placeholder="Name"
+					state="isDisabled"
+				/>
+			</span>
 
-      <span>
-        <ArrowHeading text="ReadOnly" className="mb-2" />
-        <Input
-          name="Name"
-          type="text"
-          label="Name"
-          placeholder="Name"
-          isReadOnly
-          value={"John Doe"}
-        />
-      </span>
-    </div>
-  );
+			<span>
+				<ArrowHeading text="ReadOnly" className="mb-2" />
+				<Input
+					name="Name"
+					type="text"
+					label="Name"
+					placeholder="Name"
+					isReadOnly
+					value={"John Doe"}
+				/>
+			</span>
+		</div>
+	);
 }
 
 ```
@@ -2308,75 +2306,75 @@ export default function StatefulLinedInputComponent() {
 "use client";
 
 import {
-  FieldError,
-  Label,
-  Input as ReactAriaInput,
-  TextField,
+	FieldError,
+	Label,
+	Input as ReactAriaInput,
+	TextField,
 } from "react-aria-components";
 import { twJoin, twMerge } from "tailwind-merge";
 
 export function Field({ className, ...props }) {
-  return (
-    <TextField className={twMerge("flex flex-col", className)} {...props} />
-  );
+	return (
+		<TextField className={twMerge("flex flex-col", className)} {...props} />
+	);
 }
 
 export function InputLabel({ className, ...props }) {
-  return (
-    <Label
-      className={twMerge("text-foreground text-sm font-medium", className)}
-    >
-      {props.children}
-    </Label>
-  );
+	return (
+		<Label
+			className={twMerge("text-foreground text-sm font-medium", className)}
+		>
+			{props.children}
+		</Label>
+	);
 }
 export function InputError({ className, ...props }) {
-  return (
-    <FieldError className={twMerge("text-error", className)}>
-      {props.children}
-    </FieldError>
-  );
+	return (
+		<FieldError className={twMerge("text-error", className)}>
+			{props.children}
+		</FieldError>
+	);
 }
 
 export function InputBox({ className, ...props }) {
-  return (
-    <ReactAriaInput
-      className={twMerge(
-        twJoin(
-          "w-full py-2 px-1 bg-transparent border-b-2 focus:outline-none my-1",
-          "text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
-          "disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
-          "invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error"
-        ),
-        className
-      )}
-      {...props}
-    />
-  );
+	return (
+		<ReactAriaInput
+			className={twMerge(
+				twJoin(
+					"w-full py-2 px-1 bg-transparent border-b-2 focus:outline-none my-1",
+					"text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
+					"disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
+					"invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error",
+				),
+				className,
+			)}
+			{...props}
+		/>
+	);
 }
 
 export function Input({
-  state = "default",
-  label,
-  isRequired,
-  isReadOnly,
-  ...props
+	state = "default",
+	label,
+	isRequired,
+	isReadOnly,
+	...props
 }) {
-  return (
-    <Field
-      name={props.name}
-      type={props.type}
-      className="w-80"
-      isInvalid={state === "isInvalid"}
-      isDisabled={state === "isDisabled"}
-      isReadOnly={isReadOnly}
-      isRequired={isRequired}
-    >
-      <InputLabel>{label}</InputLabel>
-      <InputBox {...props} />
-      <InputError>Error Message </InputError>
-    </Field>
-  );
+	return (
+		<Field
+			name={props.name}
+			type={props.type}
+			className="w-80"
+			isInvalid={state === "isInvalid"}
+			isDisabled={state === "isDisabled"}
+			isReadOnly={isReadOnly}
+			isRequired={isRequired}
+		>
+			<InputLabel>{label}</InputLabel>
+			<InputBox {...props} />
+			<InputError>Error Message </InputError>
+		</Field>
+	);
 }
 
 ```
@@ -2386,48 +2384,48 @@ import ArrowHeading from "@registry/ui/ArrowHeading";
 import { Input } from "@registry/packages/primitives/input-text/08/react_aria-ts/Input";
 
 export default function StatefulLinedInputComponent() {
-  return (
-    <div className="w-full flex flex-col items-center gap-6">
-      <span>
-        <ArrowHeading text="Default" className="mb-2" />
-        <Input name="Name" type="text" placeholder="Name" label="Name" />
-      </span>
+	return (
+		<div className="w-full flex flex-col items-center gap-6">
+			<span>
+				<ArrowHeading text="Default" className="mb-2" />
+				<Input name="Name" type="text" placeholder="Name" label="Name" />
+			</span>
 
-      <span>
-        <ArrowHeading text="Error" className="mb-2" />
-        <Input
-          name="Name"
-          type="text"
-          label="Name"
-          placeholder="Name"
-          state="isInvalid"
-        />
-      </span>
+			<span>
+				<ArrowHeading text="Error" className="mb-2" />
+				<Input
+					name="Name"
+					type="text"
+					label="Name"
+					placeholder="Name"
+					state="isInvalid"
+				/>
+			</span>
 
-      <span>
-        <ArrowHeading text="Disabled" className="mb-2" />
-        <Input
-          name="Name"
-          type="text"
-          label="Name"
-          placeholder="Name"
-          state="isDisabled"
-        />
-      </span>
+			<span>
+				<ArrowHeading text="Disabled" className="mb-2" />
+				<Input
+					name="Name"
+					type="text"
+					label="Name"
+					placeholder="Name"
+					state="isDisabled"
+				/>
+			</span>
 
-      <span>
-        <ArrowHeading text="ReadOnly" className="mb-2" />
-        <Input
-          name="Name"
-          type="text"
-          label="Name"
-          placeholder="Name"
-          isReadOnly
-          value={"John Doe"}
-        />
-      </span>
-    </div>
-  );
+			<span>
+				<ArrowHeading text="ReadOnly" className="mb-2" />
+				<Input
+					name="Name"
+					type="text"
+					label="Name"
+					placeholder="Name"
+					isReadOnly
+					value={"John Doe"}
+				/>
+			</span>
+		</div>
+	);
 }
 
 ```
@@ -2436,92 +2434,92 @@ export default function StatefulLinedInputComponent() {
 "use client";
 
 import {
-  FieldError,
-  FieldErrorProps,
-  Label,
-  LabelProps,
-  Input as ReactAriaInput,
-  InputProps as ReactAriaInputProps,
-  TextField,
-  TextFieldProps,
+	FieldError,
+	type FieldErrorProps,
+	Label,
+	type LabelProps,
+	Input as ReactAriaInput,
+	type InputProps as ReactAriaInputProps,
+	TextField,
+	type TextFieldProps,
 } from "react-aria-components";
 import { twJoin, twMerge } from "tailwind-merge";
 
 export function Field({ className, ...props }: TextFieldProps) {
-  return (
-    <TextField
-      className={twMerge("flex flex-col", className as string)}
-      {...props}
-    />
-  );
+	return (
+		<TextField
+			className={twMerge("flex flex-col", className as string)}
+			{...props}
+		/>
+	);
 }
 
 export function InputLabel({ className, ...props }: LabelProps) {
-  return (
-    <Label
-      className={twMerge(
-        "text-foreground text-sm font-medium",
-        className as string
-      )}
-    >
-      {props.children}
-    </Label>
-  );
+	return (
+		<Label
+			className={twMerge(
+				"text-foreground text-sm font-medium",
+				className as string,
+			)}
+		>
+			{props.children}
+		</Label>
+	);
 }
 export function InputError({ className, ...props }: FieldErrorProps) {
-  return (
-    <FieldError className={twMerge("text-error", className as string)}>
-      {props.children}
-    </FieldError>
-  );
+	return (
+		<FieldError className={twMerge("text-error", className as string)}>
+			{props.children}
+		</FieldError>
+	);
 }
 
 export function InputBox({ className, ...props }: ReactAriaInputProps) {
-  return (
-    <ReactAriaInput
-      className={twMerge(
-        twJoin(
-          "w-full py-2 px-1 bg-transparent border-b-2 focus:outline-none my-1",
-          "text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
-          "disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
-          "invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error"
-        ),
-        className as string
-      )}
-      {...props}
-    />
-  );
+	return (
+		<ReactAriaInput
+			className={twMerge(
+				twJoin(
+					"w-full py-2 px-1 bg-transparent border-b-2 focus:outline-none my-1",
+					"text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
+					"disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
+					"invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error",
+				),
+				className as string,
+			)}
+			{...props}
+		/>
+	);
 }
 
 export interface InputProps extends ReactAriaInputProps {
-  state?: "default" | "isInvalid" | "isDisabled";
-  label?: string;
-  isRequired?: boolean;
-  isReadOnly?: boolean;
+	state?: "default" | "isInvalid" | "isDisabled";
+	label?: string;
+	isRequired?: boolean;
+	isReadOnly?: boolean;
 }
 
 export function Input({
-  state = "default",
-  label,
-  isRequired,
-  isReadOnly,
-  ...props
+	state = "default",
+	label,
+	isRequired,
+	isReadOnly,
+	...props
 }: InputProps) {
-  return (
-    <Field
-      name={props.name}
-      type={props.type}
-      className="w-80"
-      isInvalid={state === "isInvalid"}
-      isDisabled={state === "isDisabled"}
-      isReadOnly={isReadOnly}
-      isRequired={isRequired}
-    >
-      <InputLabel>{label}</InputLabel>
-      <InputBox {...props} />
-      <InputError>Error Message </InputError>
-    </Field>
-  );
+	return (
+		<Field
+			name={props.name}
+			type={props.type}
+			className="w-80"
+			isInvalid={state === "isInvalid"}
+			isDisabled={state === "isDisabled"}
+			isReadOnly={isReadOnly}
+			isRequired={isRequired}
+		>
+			<InputLabel>{label}</InputLabel>
+			<InputBox {...props} />
+			<InputError>Error Message </InputError>
+		</Field>
+	);
 }
 
 ```
@@ -2602,24 +2600,24 @@ export const Primitives_input_text_09 = lazy(() => import("@registry/packages/pr
 
 <Implementation>
 
-<TechnologyUsed technologies={["tailwind-merge","react-aria-components"]} />
+undefined
 <CodeBlock>
 
 ```react_aria|js|example.jsx
 import { Input } from "@registry/packages/primitives/input-text/09/react_aria-js/Input";
 
 export default function DefaultLabelCoveredInputComponent() {
-  return (
-    <div className="w-full flex justify-center">
-      <Input
-        label="Full Name"
-        placeholder="Your Name"
-        name="Name"
-        type="text"
-        className="w-80"
-      />
-    </div>
-  );
+	return (
+		<div className="w-full flex justify-center">
+			<Input
+				label="Full Name"
+				placeholder="Your Name"
+				name="Name"
+				type="text"
+				className="w-80"
+			/>
+		</div>
+	);
 }
 
 ```
@@ -2628,58 +2626,58 @@ export default function DefaultLabelCoveredInputComponent() {
 "use client";
 
 import {
-  FieldError,
-  Label,
-  Input as ReactAriaInput,
-  TextField,
+	FieldError,
+	Label,
+	Input as ReactAriaInput,
+	TextField,
 } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
 
 export function Field({ className, ...props }) {
-  return (
-    <TextField className={twMerge("flex flex-col", className)} {...props} />
-  );
+	return (
+		<TextField className={twMerge("flex flex-col", className)} {...props} />
+	);
 }
 
 export function InputLabel({ className, ...props }) {
-  return (
-    <Label
-      className={twMerge("text-foreground text-sm font-medium", className)}
-    >
-      {props.children}
-    </Label>
-  );
+	return (
+		<Label
+			className={twMerge("text-foreground text-sm font-medium", className)}
+		>
+			{props.children}
+		</Label>
+	);
 }
 
 export function InputBox({ className, ...props }) {
-  return (
-    <ReactAriaInput
-      className={twMerge(
-        "w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 mt-1",
-        "text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
-        className
-      )}
-      {...props}
-    />
-  );
+	return (
+		<ReactAriaInput
+			className={twMerge(
+				"w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 mt-1",
+				"text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
+				className,
+			)}
+			{...props}
+		/>
+	);
 }
 
 export function Input({ label, isRequired, isReadOnly, className, ...props }) {
-  return (
-    <Field
-      isReadOnly={isReadOnly}
-      isRequired={isRequired}
-      name={props.name}
-      type={props.type}
-    >
-      <InputLabel className="absolute px-4 mt-4 text-xs">{label}</InputLabel>
-      <InputBox
-        {...props}
-        className={twMerge("pt-6 h-[4.25rem] rounded-lg", className)}
-      />
-      <FieldError />
-    </Field>
-  );
+	return (
+		<Field
+			isReadOnly={isReadOnly}
+			isRequired={isRequired}
+			name={props.name}
+			type={props.type}
+		>
+			<InputLabel className="absolute px-4 mt-4 text-xs">{label}</InputLabel>
+			<InputBox
+				{...props}
+				className={twMerge("pt-6 h-[4.25rem] rounded-lg", className)}
+			/>
+			<FieldError />
+		</Field>
+	);
 }
 
 ```
@@ -2688,17 +2686,17 @@ export function Input({ label, isRequired, isReadOnly, className, ...props }) {
 import { Input } from "@registry/packages/primitives/input-text/09/react_aria-ts/Input";
 
 export default function DefaultLabelCoveredInputComponent() {
-  return (
-    <div className="w-full flex justify-center">
-      <Input
-        label="Full Name"
-        placeholder="Your Name"
-        name="Name"
-        type="text"
-        className="w-80"
-      />
-    </div>
-  );
+	return (
+		<div className="w-full flex justify-center">
+			<Input
+				label="Full Name"
+				placeholder="Your Name"
+				name="Name"
+				type="text"
+				className="w-80"
+			/>
+		</div>
+	);
 }
 
 ```
@@ -2707,79 +2705,79 @@ export default function DefaultLabelCoveredInputComponent() {
 "use client";
 
 import {
-  FieldError,
-  Label,
-  LabelProps,
-  Input as ReactAriaInput,
-  InputProps as ReactAriaInputProps,
-  TextField,
-  TextFieldProps,
+	FieldError,
+	Label,
+	type LabelProps,
+	Input as ReactAriaInput,
+	type InputProps as ReactAriaInputProps,
+	TextField,
+	type TextFieldProps,
 } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
 
 export function Field({ className, ...props }: TextFieldProps) {
-  return (
-    <TextField
-      className={twMerge("flex flex-col", className as string)}
-      {...props}
-    />
-  );
+	return (
+		<TextField
+			className={twMerge("flex flex-col", className as string)}
+			{...props}
+		/>
+	);
 }
 
 export function InputLabel({ className, ...props }: LabelProps) {
-  return (
-    <Label
-      className={twMerge(
-        "text-foreground text-sm font-medium",
-        className as string
-      )}
-    >
-      {props.children}
-    </Label>
-  );
+	return (
+		<Label
+			className={twMerge(
+				"text-foreground text-sm font-medium",
+				className as string,
+			)}
+		>
+			{props.children}
+		</Label>
+	);
 }
 
 export function InputBox({ className, ...props }: ReactAriaInputProps) {
-  return (
-    <ReactAriaInput
-      className={twMerge(
-        "w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 mt-1",
-        "text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
-        className as string
-      )}
-      {...props}
-    />
-  );
+	return (
+		<ReactAriaInput
+			className={twMerge(
+				"w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 mt-1",
+				"text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
+				className as string,
+			)}
+			{...props}
+		/>
+	);
 }
 
 export interface InputProps extends ReactAriaInputProps {
-  label?: string;
-  isRequired?: boolean;
-  isReadOnly?: boolean;
+	label?: string;
+	isRequired?: boolean;
+	isReadOnly?: boolean;
 }
 
 export function Input({
-  label,
-  isRequired,
-  isReadOnly,
-  className,
-  ...props
+	label,
+	isRequired,
+	isReadOnly,
+	className,
+	...props
 }: InputProps) {
-  return (
-    <Field
-      isReadOnly={isReadOnly}
-      isRequired={isRequired}
-      name={props.name}
-      type={props.type}
-    >
-      <InputLabel className="absolute px-4 mt-4 text-xs">{label}</InputLabel>
-      <InputBox
-        {...props}
-        className={twMerge("pt-6 h-[4.25rem] rounded-lg", className as string)}
-      />
-      <FieldError />
-    </Field>
-  );
+	return (
+		<Field
+			isReadOnly={isReadOnly}
+			isRequired={isRequired}
+			name={props.name}
+			type={props.type}
+		>
+			<InputLabel className="absolute px-4 mt-4 text-xs">{label}</InputLabel>
+			<InputBox
+				{...props}
+				className={twMerge("pt-6 h-[4.25rem] rounded-lg", className as string)}
+			/>
+			<FieldError />
+		</Field>
+	);
 }
 
 ```
@@ -2854,7 +2852,7 @@ export const Primitives_input_text_10 = lazy(() => import("@registry/packages/pr
 
 <Implementation>
 
-<TechnologyUsed technologies={["tailwind-merge","react-aria-components"]} />
+undefined
 <CodeBlock>
 
 ```react_aria|js|example.jsx
@@ -2862,48 +2860,48 @@ import ArrowHeading from "@registry/ui/ArrowHeading";
 import { Input } from "@registry/packages/primitives/input-text/10/react_aria-js/Input";
 
 export default function StatefulLabelCoveredInputComponent() {
-  return (
-    <div className="w-full flex flex-col items-center gap-6">
-      <span>
-        <ArrowHeading text="Default" className="mb-2" />
-        <Input name="Name" type="text" placeholder="Name" label="Name" />
-      </span>
+	return (
+		<div className="w-full flex flex-col items-center gap-6">
+			<span>
+				<ArrowHeading text="Default" className="mb-2" />
+				<Input name="Name" type="text" placeholder="Name" label="Name" />
+			</span>
 
-      <span>
-        <ArrowHeading text="Error" className="mb-2" />
-        <Input
-          name="Name"
-          type="text"
-          label="Name"
-          placeholder="Name"
-          state="isInvalid"
-        />
-      </span>
+			<span>
+				<ArrowHeading text="Error" className="mb-2" />
+				<Input
+					name="Name"
+					type="text"
+					label="Name"
+					placeholder="Name"
+					state="isInvalid"
+				/>
+			</span>
 
-      <span>
-        <ArrowHeading text="Disabled" className="mb-2" />
-        <Input
-          name="Name"
-          type="text"
-          label="Name"
-          placeholder="Name"
-          state="isDisabled"
-        />
-      </span>
+			<span>
+				<ArrowHeading text="Disabled" className="mb-2" />
+				<Input
+					name="Name"
+					type="text"
+					label="Name"
+					placeholder="Name"
+					state="isDisabled"
+				/>
+			</span>
 
-      <span>
-        <ArrowHeading text="ReadOnly" className="mb-2" />
-        <Input
-          name="Name"
-          type="text"
-          label="Name"
-          placeholder="Name"
-          isReadOnly
-          value={"John Doe"}
-        />
-      </span>
-    </div>
-  );
+			<span>
+				<ArrowHeading text="ReadOnly" className="mb-2" />
+				<Input
+					name="Name"
+					type="text"
+					label="Name"
+					placeholder="Name"
+					isReadOnly
+					value={"John Doe"}
+				/>
+			</span>
+		</div>
+	);
 }
 
 ```
@@ -2912,79 +2910,79 @@ export default function StatefulLabelCoveredInputComponent() {
 "use client";
 
 import {
-  FieldError,
-  Label,
-  Input as ReactAriaInput,
-  TextField,
+	FieldError,
+	Label,
+	Input as ReactAriaInput,
+	TextField,
 } from "react-aria-components";
 import { twJoin, twMerge } from "tailwind-merge";
 
 export function Field({ className, ...props }) {
-  return (
-    <TextField className={twMerge("flex flex-col", className)} {...props} />
-  );
+	return (
+		<TextField className={twMerge("flex flex-col", className)} {...props} />
+	);
 }
 
 export function InputLabel({ className, ...props }) {
-  return (
-    <Label
-      className={twMerge("text-foreground text-sm font-medium", className)}
-    >
-      {props.children}
-    </Label>
-  );
+	return (
+		<Label
+			className={twMerge("text-foreground text-sm font-medium", className)}
+		>
+			{props.children}
+		</Label>
+	);
 }
 export function InputError({ className, ...props }) {
-  return (
-    <FieldError className={twMerge("text-error", className)}>
-      {props.children}
-    </FieldError>
-  );
+	return (
+		<FieldError className={twMerge("text-error", className)}>
+			{props.children}
+		</FieldError>
+	);
 }
 
 export function InputBox({ className, ...props }) {
-  return (
-    <ReactAriaInput
-      className={twMerge(
-        twJoin(
-          "w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 my-1",
-          "text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
-          "disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
-          "invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error"
-        ),
-        className
-      )}
-      {...props}
-    />
-  );
+	return (
+		<ReactAriaInput
+			className={twMerge(
+				twJoin(
+					"w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 my-1",
+					"text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
+					"disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
+					"invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error",
+				),
+				className,
+			)}
+			{...props}
+		/>
+	);
 }
 
 export function Input({
-  state = "default",
-  label,
-  isRequired,
-  isReadOnly,
-  className,
-  ...props
+	state = "default",
+	label,
+	isRequired,
+	isReadOnly,
+	className,
+	...props
 }) {
-  return (
-    <Field
-      name={props.name}
-      type={props.type}
-      className="w-80"
-      isInvalid={state === "isInvalid"}
-      isDisabled={state === "isDisabled"}
-      isReadOnly={isReadOnly}
-      isRequired={isRequired}
-    >
-      <InputLabel className="absolute px-4 mt-4 text-xs">{label}</InputLabel>
-      <InputBox
-        {...props}
-        className={twMerge("pt-6 h-[4.25rem] rounded-lg", className)}
-      />
-      <InputError>Error Message </InputError>
-    </Field>
-  );
+	return (
+		<Field
+			name={props.name}
+			type={props.type}
+			className="w-80"
+			isInvalid={state === "isInvalid"}
+			isDisabled={state === "isDisabled"}
+			isReadOnly={isReadOnly}
+			isRequired={isRequired}
+		>
+			<InputLabel className="absolute px-4 mt-4 text-xs">{label}</InputLabel>
+			<InputBox
+				{...props}
+				className={twMerge("pt-6 h-[4.25rem] rounded-lg", className)}
+			/>
+			<InputError>Error Message </InputError>
+		</Field>
+	);
 }
 
 ```
@@ -2994,48 +2992,48 @@ import ArrowHeading from "@registry/ui/ArrowHeading";
 import { Input } from "@registry/packages/primitives/input-text/10/react_aria-ts/Input";
 
 export default function StatefulLabelCoveredInputComponent() {
-  return (
-    <div className="w-full flex flex-col items-center gap-6">
-      <span>
-        <ArrowHeading text="Default" className="mb-2" />
-        <Input name="Name" type="text" placeholder="Name" label="Name" />
-      </span>
+	return (
+		<div className="w-full flex flex-col items-center gap-6">
+			<span>
+				<ArrowHeading text="Default" className="mb-2" />
+				<Input name="Name" type="text" placeholder="Name" label="Name" />
+			</span>
 
-      <span>
-        <ArrowHeading text="Error" className="mb-2" />
-        <Input
-          name="Name"
-          type="text"
-          label="Name"
-          placeholder="Name"
-          state="isInvalid"
-        />
-      </span>
+			<span>
+				<ArrowHeading text="Error" className="mb-2" />
+				<Input
+					name="Name"
+					type="text"
+					label="Name"
+					placeholder="Name"
+					state="isInvalid"
+				/>
+			</span>
 
-      <span>
-        <ArrowHeading text="Disabled" className="mb-2" />
-        <Input
-          name="Name"
-          type="text"
-          label="Name"
-          placeholder="Name"
-          state="isDisabled"
-        />
-      </span>
+			<span>
+				<ArrowHeading text="Disabled" className="mb-2" />
+				<Input
+					name="Name"
+					type="text"
+					label="Name"
+					placeholder="Name"
+					state="isDisabled"
+				/>
+			</span>
 
-      <span>
-        <ArrowHeading text="ReadOnly" className="mb-2" />
-        <Input
-          name="Name"
-          type="text"
-          label="Name"
-          placeholder="Name"
-          isReadOnly
-          value={"John Doe"}
-        />
-      </span>
-    </div>
-  );
+			<span>
+				<ArrowHeading text="ReadOnly" className="mb-2" />
+				<Input
+					name="Name"
+					type="text"
+					label="Name"
+					placeholder="Name"
+					isReadOnly
+					value={"John Doe"}
+				/>
+			</span>
+		</div>
+	);
 }
 
 ```
@@ -3044,96 +3042,96 @@ export default function StatefulLabelCoveredInputComponent() {
 "use client";
 
 import {
-  FieldError,
-  FieldErrorProps,
-  Label,
-  LabelProps,
-  Input as ReactAriaInput,
-  InputProps as ReactAriaInputProps,
-  TextField,
-  TextFieldProps,
+	FieldError,
+	type FieldErrorProps,
+	Label,
+	type LabelProps,
+	Input as ReactAriaInput,
+	type InputProps as ReactAriaInputProps,
+	TextField,
+	type TextFieldProps,
 } from "react-aria-components";
 import { twJoin, twMerge } from "tailwind-merge";
 
 export function Field({ className, ...props }: TextFieldProps) {
-  return (
-    <TextField
-      className={twMerge("flex flex-col", className as string)}
-      {...props}
-    />
-  );
+	return (
+		<TextField
+			className={twMerge("flex flex-col", className as string)}
+			{...props}
+		/>
+	);
 }
 
 export function InputLabel({ className, ...props }: LabelProps) {
-  return (
-    <Label
-      className={twMerge(
-        "text-foreground text-sm font-medium",
-        className as string
-      )}
-    >
-      {props.children}
-    </Label>
-  );
+	return (
+		<Label
+			className={twMerge(
+				"text-foreground text-sm font-medium",
+				className as string,
+			)}
+		>
+			{props.children}
+		</Label>
+	);
 }
 export function InputError({ className, ...props }: FieldErrorProps) {
-  return (
-    <FieldError className={twMerge("text-error", className as string)}>
-      {props.children}
-    </FieldError>
-  );
+	return (
+		<FieldError className={twMerge("text-error", className as string)}>
+			{props.children}
+		</FieldError>
+	);
 }
 
 export function InputBox({ className, ...props }: ReactAriaInputProps) {
-  return (
-    <ReactAriaInput
-      className={twMerge(
-        twJoin(
-          "w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 my-1",
-          "text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
-          "disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
-          "invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error"
-        ),
-        className as string
-      )}
-      {...props}
-    />
-  );
+	return (
+		<ReactAriaInput
+			className={twMerge(
+				twJoin(
+					"w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 my-1",
+					"text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
+					"disabled:cursor-not-allowed disabled:opacity-50 disabled:border-muted-secondary disabled:hover:border-muted-secondary",
+					"invalid:border-error invalid:hover:border-error-secondary invalid:focus:ring-error-secondary invalid:focus:border-error",
+				),
+				className as string,
+			)}
+			{...props}
+		/>
+	);
 }
 
 export interface InputProps extends ReactAriaInputProps {
-  state?: "default" | "isInvalid" | "isDisabled";
-  label?: string;
-  isRequired?: boolean;
-  isReadOnly?: boolean;
+	state?: "default" | "isInvalid" | "isDisabled";
+	label?: string;
+	isRequired?: boolean;
+	isReadOnly?: boolean;
 }
 
 export function Input({
-  state = "default",
-  label,
-  isRequired,
-  isReadOnly,
-  className,
-  ...props
+	state = "default",
+	label,
+	isRequired,
+	isReadOnly,
+	className,
+	...props
 }: InputProps) {
-  return (
-    <Field
-      name={props.name}
-      type={props.type}
-      className="w-80"
-      isInvalid={state === "isInvalid"}
-      isDisabled={state === "isDisabled"}
-      isReadOnly={isReadOnly}
-      isRequired={isRequired}
-    >
-      <InputLabel className="absolute px-4 mt-4 text-xs">{label}</InputLabel>
-      <InputBox
-        {...props}
-        className={twMerge("pt-6 h-[4.25rem] rounded-lg", className as string)}
-      />
-      <InputError>Error Message </InputError>
-    </Field>
-  );
+	return (
+		<Field
+			name={props.name}
+			type={props.type}
+			className="w-80"
+			isInvalid={state === "isInvalid"}
+			isDisabled={state === "isDisabled"}
+			isReadOnly={isReadOnly}
+			isRequired={isRequired}
+		>
+			<InputLabel className="absolute px-4 mt-4 text-xs">{label}</InputLabel>
+			<InputBox
+				{...props}
+				className={twMerge("pt-6 h-[4.25rem] rounded-lg", className as string)}
+			/>
+			<InputError>Error Message </InputError>
+		</Field>
+	);
 }
 
 ```

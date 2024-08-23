@@ -28,31 +28,31 @@ export const Primitives_popover_01 = lazy(() => import("@registry/packages/primi
 
 <Implementation>
 
-<TechnologyUsed technologies={["tailwind-merge","react-aria-components"]} />
+undefined
 <CodeBlock>
 
 ```react_aria|js|example.jsx
 import Button from "@registry/ui/Button";
 import {
-  Popover,
-  PopoverTrigger,
+	Popover,
+	PopoverTrigger,
 } from "@registry/packages/primitives/popover/01/react_aria-js/Popover";
 
 export default function PopoverImplementation() {
-  return (
-    <PopoverTrigger>
-      <Button className="my-8"> Open Popover</Button>
-      <Popover>
-        <div className="flex flex-col justify-center gap-2 max-w-40">
-          <h1 className="text-xl font-bold">Popover</h1>
-          <span>
-            This is a popover where you can place anything like a message, a
-            form, or anything else.
-          </span>
-        </div>
-      </Popover>
-    </PopoverTrigger>
-  );
+	return (
+		<PopoverTrigger>
+			<Button className="my-8"> Open Popover</Button>
+			<Popover>
+				<div className="flex flex-col justify-center gap-2 max-w-40">
+					<h1 className="text-xl font-bold">Popover</h1>
+					<span>
+						This is a popover where you can place anything like a message, a
+						form, or anything else.
+					</span>
+				</div>
+			</Popover>
+		</PopoverTrigger>
+	);
 }
 
 ```
@@ -61,29 +61,29 @@ export default function PopoverImplementation() {
 "use client";
 
 import {
-  Dialog,
-  DialogTrigger,
-  Popover as ReactAriaPopover,
+	Dialog,
+	DialogTrigger,
+	Popover as ReactAriaPopover,
 } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
 
 export function PopoverTrigger({ children, ...props }) {
-  return <DialogTrigger {...props}>{children}</DialogTrigger>;
+	return <DialogTrigger {...props}>{children}</DialogTrigger>;
 }
 
 export function Popover({ children, className, ...props }) {
-  return (
-    <ReactAriaPopover {...props}>
-      <Dialog
-        className={twMerge(
-          "bg-primary p-4 rounded border border-outline-secondary text-primary-foreground outline-none",
-          className
-        )}
-      >
-        <>{children}</>
-      </Dialog>
-    </ReactAriaPopover>
-  );
+	return (
+		<ReactAriaPopover {...props}>
+			<Dialog
+				className={twMerge(
+					"bg-primary p-4 rounded border border-outline-secondary text-primary-foreground outline-none",
+					className,
+				)}
+			>
+				{children}
+			</Dialog>
+		</ReactAriaPopover>
+	);
 }
 
 ```
@@ -91,25 +91,25 @@ export function Popover({ children, className, ...props }) {
 ```react_aria|ts|example.tsx
 import Button from "@registry/ui/Button";
 import {
-  Popover,
-  PopoverTrigger,
+	Popover,
+	PopoverTrigger,
 } from "@registry/packages/primitives/popover/01/react_aria-ts/Popover";
 
 export default function PopoverImplementation() {
-  return (
-    <PopoverTrigger>
-      <Button className="my-8"> Open Popover</Button>
-      <Popover>
-        <div className="flex flex-col justify-center gap-2 max-w-40">
-          <h1 className="text-xl font-bold">Popover</h1>
-          <span>
-            This is a popover where you can place anything like a message, a
-            form, or anything else.
-          </span>
-        </div>
-      </Popover>
-    </PopoverTrigger>
-  );
+	return (
+		<PopoverTrigger>
+			<Button className="my-8"> Open Popover</Button>
+			<Popover>
+				<div className="flex flex-col justify-center gap-2 max-w-40">
+					<h1 className="text-xl font-bold">Popover</h1>
+					<span>
+						This is a popover where you can place anything like a message, a
+						form, or anything else.
+					</span>
+				</div>
+			</Popover>
+		</PopoverTrigger>
+	);
 }
 
 ```
@@ -118,36 +118,35 @@ export default function PopoverImplementation() {
 "use client";
 
 import {
-  Button,
-  Dialog,
-  DialogTrigger,
-  DialogTriggerProps,
-  PopoverProps as ReactAriaPopoverProps,
-  Popover as ReactAriaPopover,
+	Dialog,
+	DialogTrigger,
+	type DialogTriggerProps,
+	type PopoverProps as ReactAriaPopoverProps,
+	Popover as ReactAriaPopover,
 } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
 
 export interface PopoverTriggerProps extends DialogTriggerProps {}
 
 export function PopoverTrigger({ children, ...props }: PopoverTriggerProps) {
-  return <DialogTrigger {...props}>{children}</DialogTrigger>;
+	return <DialogTrigger {...props}>{children}</DialogTrigger>;
 }
 
 export interface PopoverProps extends ReactAriaPopoverProps {}
 
 export function Popover({ children, className, ...props }: PopoverProps) {
-  return (
-    <ReactAriaPopover {...props}>
-      <Dialog
-        className={twMerge(
-          "bg-primary p-4 rounded border border-outline-secondary text-primary-foreground outline-none",
-          className as string
-        )}
-      >
-        <>{children}</>
-      </Dialog>
-    </ReactAriaPopover>
-  );
+	return (
+		<ReactAriaPopover {...props}>
+			<Dialog
+				className={twMerge(
+					"bg-primary p-4 rounded border border-outline-secondary text-primary-foreground outline-none",
+					className as string,
+				)}
+			>
+				{children as React.ReactElement}
+			</Dialog>
+		</ReactAriaPopover>
+	);
 }
 
 ```

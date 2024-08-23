@@ -16,18 +16,16 @@ import { CodeBlock } from "@/components/mdx/MDXClientImports"
 
 ```default|js|example.jsx
 "use client";
-
-import React from "react";
 import { useOS } from "@registry/packages/hooks/useOS/01/default-js/useOS";
 
 export default function UseOSExample() {
-  const os = useOS();
+	const os = useOS();
 
-  return (
-    <div className="w-full h-60 flex flex-col justify-center items-center text-foreground">
-      <p>Your operating system is: {os}</p>
-    </div>
-  );
+	return (
+		<div className="w-full h-60 flex flex-col justify-center items-center text-foreground">
+			<p>Your operating system is: {os}</p>
+		</div>
+	);
 }
 
 ```
@@ -38,52 +36,50 @@ export default function UseOSExample() {
 import { useState, useEffect } from "react";
 
 export const useOS = () => {
-  const [os, setOS] = useState("Unknown");
+	const [os, setOS] = useState("Unknown");
 
-  useEffect(() => {
-    const userAgent = window.navigator.userAgent;
+	useEffect(() => {
+		const userAgent = window.navigator.userAgent;
 
-    const detectOS = () => {
-      if (/Windows/i.test(userAgent)) {
-        return "Windows";
-      }
-      if (/Macintosh|MacIntel|MacPPC|Mac68K/i.test(userAgent)) {
-        return "MacOS";
-      }
-      if (/Linux/i.test(userAgent)) {
-        return "Linux";
-      }
-      if (/Android/i.test(userAgent)) {
-        return "Android";
-      }
-      if (/iPhone|iPad|iPod/i.test(userAgent)) {
-        return "iOS";
-      }
-      return "Unknown";
-    };
+		const detectOS = () => {
+			if (/Windows/i.test(userAgent)) {
+				return "Windows";
+			}
+			if (/Macintosh|MacIntel|MacPPC|Mac68K/i.test(userAgent)) {
+				return "MacOS";
+			}
+			if (/Linux/i.test(userAgent)) {
+				return "Linux";
+			}
+			if (/Android/i.test(userAgent)) {
+				return "Android";
+			}
+			if (/iPhone|iPad|iPod/i.test(userAgent)) {
+				return "iOS";
+			}
+			return "Unknown";
+		};
 
-    setOS(detectOS());
-  }, []);
+		setOS(detectOS());
+	}, []);
 
-  return os;
+	return os;
 };
 
 ```
 
 ```default|ts|example.tsx
 "use client";
-
-import React from "react";
 import { useOS } from "@registry/packages/hooks/useOS/01/default-ts/useOS";
 
 export default function UseOSExample() {
-  const os = useOS();
+	const os = useOS();
 
-  return (
-    <div className="w-full h-60 flex flex-col justify-center items-center text-foreground">
-      <p>Your operating system is: {os}</p>
-    </div>
-  );
+	return (
+		<div className="w-full h-60 flex flex-col justify-center items-center text-foreground">
+			<p>Your operating system is: {os}</p>
+		</div>
+	);
 }
 
 ```
@@ -96,34 +92,34 @@ import { useState, useEffect } from "react";
 export type OS = "Windows" | "MacOS" | "Linux" | "Android" | "iOS" | "Unknown";
 
 export const useOS = (): OS => {
-  const [os, setOS] = useState<OS>("Unknown");
+	const [os, setOS] = useState<OS>("Unknown");
 
-  useEffect(() => {
-    const userAgent = window.navigator.userAgent;
+	useEffect(() => {
+		const userAgent = window.navigator.userAgent;
 
-    const detectOS = (): OS => {
-      if (/Windows/i.test(userAgent)) {
-        return "Windows";
-      }
-      if (/Macintosh|MacIntel|MacPPC|Mac68K/i.test(userAgent)) {
-        return "MacOS";
-      }
-      if (/Linux/i.test(userAgent)) {
-        return "Linux";
-      }
-      if (/Android/i.test(userAgent)) {
-        return "Android";
-      }
-      if (/iPhone|iPad|iPod/i.test(userAgent)) {
-        return "iOS";
-      }
-      return "Unknown";
-    };
+		const detectOS = (): OS => {
+			if (/Windows/i.test(userAgent)) {
+				return "Windows";
+			}
+			if (/Macintosh|MacIntel|MacPPC|Mac68K/i.test(userAgent)) {
+				return "MacOS";
+			}
+			if (/Linux/i.test(userAgent)) {
+				return "Linux";
+			}
+			if (/Android/i.test(userAgent)) {
+				return "Android";
+			}
+			if (/iPhone|iPad|iPod/i.test(userAgent)) {
+				return "iOS";
+			}
+			return "Unknown";
+		};
 
-    setOS(detectOS());
-  }, []);
+		setOS(detectOS());
+	}, []);
 
-  return os;
+	return os;
 };
 
 ```

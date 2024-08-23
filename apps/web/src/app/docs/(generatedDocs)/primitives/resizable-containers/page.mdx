@@ -28,7 +28,7 @@ export const Primitives_resizable_containers_01 = lazy(() => import("@registry/p
 
 <Implementation>
 
-<TechnologyUsed technologies={["tailwind-merge"]} />
+undefined
 <CodeBlock>
 
 ```default|js|example.jsx
@@ -36,143 +36,141 @@ export const Primitives_resizable_containers_01 = lazy(() => import("@registry/p
 
 import { useRef } from "react";
 import {
-  ResizableContainer,
-  ResizeBoundingElement,
+	ResizableContainer,
+	ResizeBoundingElement,
 } from "@registry/packages/primitives/resizable-containers/01/default-js/Resizable";
 import useResizable from "@registry/packages/hooks/useResizable/01/default-js/useResizable";
 import ArrowHeading from "@registry/ui/ArrowHeading";
 
 export default function ResizeImplementation() {
-  const containerRef = useRef(null);
-  const resizableRef = useRef(null);
+	const containerRef = useRef(null);
+	const resizableRef = useRef(null);
 
-  const options = {
-    minWidth: "100px",
-    minHeight: "100px",
-  };
-  const { handleResize } = useResizable(containerRef, resizableRef, options);
+	const options = {
+		minWidth: "100px",
+		minHeight: "100px",
+	};
+	const { handleResize } = useResizable(containerRef, resizableRef, options);
 
-  return (
-    <div className="flex justify-center items-center flex-col gap-4 w-full">
-      <ArrowHeading
-        text="Bounding Element - can't resize outside this. However it can be expanded but the resize won't work outside this. This property can be adjusted in the options."
-        className="text-center px-4"
-      />
-      <div className="w-full">
-        <ResizeBoundingElement
-          containerRef={containerRef}
-          className="min-h-[400px] max-w-[90%] mx-auto bg-primary rounded-lg border-2 border-dashed border-outline"
-        >
-          <ResizableContainer
-            minWidth={100}
-            minHeight={100}
-            direction={["right", "bottom", "top", "left"]}
-            className="min-h-[600px] max-w-[95%] bg-secondary"
-            handleResize={handleResize}
-            resizableRef={resizableRef}
-          >
-            <div className="border text-foreground w-full h-full text-center flex justify-center items-center">
-              <h1>This is a resizable container</h1>
-            </div>
-          </ResizableContainer>
-        </ResizeBoundingElement>
-      </div>
-    </div>
-  );
+	return (
+		<div className="flex justify-center items-center flex-col gap-4 w-full">
+			<ArrowHeading
+				text="Bounding Element - can't resize outside this. However it can be expanded but the resize won't work outside this. This property can be adjusted in the options."
+				className="text-center px-4"
+			/>
+			<div className="w-full">
+				<ResizeBoundingElement
+					containerRef={containerRef}
+					className="min-h-[400px] max-w-[90%] mx-auto bg-primary rounded-lg border-2 border-dashed border-outline"
+				>
+					<ResizableContainer
+						minWidth={100}
+						minHeight={100}
+						direction={["right", "bottom", "top", "left"]}
+						className="min-h-[600px] max-w-[95%] bg-secondary"
+						handleResize={handleResize}
+						resizableRef={resizableRef}
+					>
+						<div className="border text-foreground w-full h-full text-center flex justify-center items-center">
+							<h1>This is a resizable container</h1>
+						</div>
+					</ResizableContainer>
+				</ResizeBoundingElement>
+			</div>
+		</div>
+	);
 }
 
 ```
 
 ```default|js|Resizable.jsx
 "use client";
-
-import React from "react";
 import { twMerge } from "tailwind-merge";
 
 export function ResizeBoundingElement({ containerRef, className, children }) {
-  return (
-    <div ref={containerRef} className={twMerge("w-full", className)}>
-      {children}
-    </div>
-  );
+	return (
+		<div ref={containerRef} className={twMerge("w-full", className)}>
+			{children}
+		</div>
+	);
 }
 
 export function ResizableContainer({
-  children,
-  minWidth,
-  minHeight,
-  direction,
-  handleResize,
-  resizableRef,
-  className,
+	children,
+	minWidth,
+	minHeight,
+	direction,
+	handleResize,
+	resizableRef,
+	className,
 }) {
-  return (
-    <div className="w-max">
-      <Handle
-        direction="top"
-        directionArr={direction}
-        handleResize={handleResize}
-      />
-      <div className="h-full flex">
-        <Handle
-          direction="left"
-          directionArr={direction}
-          handleResize={handleResize}
-        />
-        <div
-          ref={resizableRef}
-          style={{
-            minWidth: `${minWidth}px`,
-            minHeight: `${minHeight}px`,
-          }}
-          className={className}
-        >
-          {children}
-        </div>
-        <Handle
-          direction="right"
-          directionArr={direction}
-          handleResize={handleResize}
-        />
-      </div>
-      <Handle
-        direction="bottom"
-        directionArr={direction}
-        handleResize={handleResize}
-      />
-    </div>
-  );
+	return (
+		<div className="w-max">
+			<Handle
+				direction="top"
+				directionArr={direction}
+				handleResize={handleResize}
+			/>
+			<div className="h-full flex">
+				<Handle
+					direction="left"
+					directionArr={direction}
+					handleResize={handleResize}
+				/>
+				<div
+					ref={resizableRef}
+					style={{
+						minWidth: `${minWidth}px`,
+						minHeight: `${minHeight}px`,
+					}}
+					className={className}
+				>
+					{children}
+				</div>
+				<Handle
+					direction="right"
+					directionArr={direction}
+					handleResize={handleResize}
+				/>
+			</div>
+			<Handle
+				direction="bottom"
+				directionArr={direction}
+				handleResize={handleResize}
+			/>
+		</div>
+	);
 }
 
 export function Handle({ direction, directionArr, handleResize }) {
-  return (
-    <>
-      {directionArr.includes(direction) && (
-        <>
-          {(direction === "right" || direction === "left") && (
-            <div
-              className="w-4 flex justify-center items-center cursor-col-resize z-10"
-              aria-label={`Resize ${direction}`}
-              onMouseDown={(e) => handleResize(e, direction)}
-              onTouchStart={(e) => handleResize(e, direction)}
-            >
-              <div className="min-h-8 bg-foreground rounded-full min-w-[0.25rem]"></div>
-            </div>
-          )}
-          {(direction === "top" || direction === "bottom") && (
-            <div
-              className="h-4 flex justify-center items-center cursor-row-resize z-10"
-              aria-label={`Resize ${direction}`}
-              onMouseDown={(e) => handleResize(e, direction)}
-              onTouchStart={(e) => handleResize(e, direction)}
-            >
-              <div className="min-w-8 bg-foreground rounded-full min-h-[0.25rem]"></div>
-            </div>
-          )}
-        </>
-      )}
-    </>
-  );
+	return (
+		<>
+			{directionArr.includes(direction) && (
+				<>
+					{(direction === "right" || direction === "left") && (
+						<div
+							className="w-4 flex justify-center items-center cursor-col-resize z-10"
+							aria-label={`Resize ${direction}`}
+							onMouseDown={(e) => handleResize(e, direction)}
+							onTouchStart={(e) => handleResize(e, direction)}
+						>
+							<div className="min-h-8 bg-foreground rounded-full min-w-[0.25rem]" />
+						</div>
+					)}
+					{(direction === "top" || direction === "bottom") && (
+						<div
+							className="h-4 flex justify-center items-center cursor-row-resize z-10"
+							aria-label={`Resize ${direction}`}
+							onMouseDown={(e) => handleResize(e, direction)}
+							onTouchStart={(e) => handleResize(e, direction)}
+						>
+							<div className="min-w-8 bg-foreground rounded-full min-h-[0.25rem]" />
+						</div>
+					)}
+				</>
+			)}
+		</>
+	);
 }
 
 ```
@@ -182,49 +180,49 @@ export function Handle({ direction, directionArr, handleResize }) {
 
 import { useRef } from "react";
 import {
-  ResizableContainer,
-  ResizeBoundingElement,
+	ResizableContainer,
+	ResizeBoundingElement,
 } from "@registry/packages/primitives/resizable-containers/01/default-ts/Resizable";
 import useResizable from "@registry/packages/hooks/useResizable/01/default-ts/useResizable";
 import ArrowHeading from "@registry/ui/ArrowHeading";
 
 export default function ResizeImplementation() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const resizableRef = useRef<HTMLDivElement>(null);
+	const containerRef = useRef<HTMLDivElement>(null);
+	const resizableRef = useRef<HTMLDivElement>(null);
 
-  const options = {
-    minWidth: "100px",
-    minHeight: "100px",
-  };
-  const { handleResize } = useResizable(containerRef, resizableRef, options);
+	const options = {
+		minWidth: "100px",
+		minHeight: "100px",
+	};
+	const { handleResize } = useResizable(containerRef, resizableRef, options);
 
-  return (
-    <div className="flex justify-center items-center flex-col gap-4 w-full">
-      <ArrowHeading
-        text="Bounding Element - can't resize outside this. However it can be expanded but the resize won't work outside this. This property can be adjusted in the options."
-        className="text-center px-4"
-      />
-      <div className="w-full">
-        <ResizeBoundingElement
-          containerRef={containerRef}
-          className="min-h-[400px] max-w-[90%] mx-auto bg-primary rounded-lg border-2 border-dashed border-outline"
-        >
-          <ResizableContainer
-            minWidth={100}
-            minHeight={100}
-            direction={["right", "bottom", "top", "left"]}
-            className="min-h-[600px] max-w-[95%] bg-secondary"
-            handleResize={handleResize}
-            resizableRef={resizableRef}
-          >
-            <div className="border text-foreground w-full h-full text-center flex justify-center items-center">
-              <h1>This is a resizable container</h1>
-            </div>
-          </ResizableContainer>
-        </ResizeBoundingElement>
-      </div>
-    </div>
-  );
+	return (
+		<div className="flex justify-center items-center flex-col gap-4 w-full">
+			<ArrowHeading
+				text="Bounding Element - can't resize outside this. However it can be expanded but the resize won't work outside this. This property can be adjusted in the options."
+				className="text-center px-4"
+			/>
+			<div className="w-full">
+				<ResizeBoundingElement
+					containerRef={containerRef}
+					className="min-h-[400px] max-w-[90%] mx-auto bg-primary rounded-lg border-2 border-dashed border-outline"
+				>
+					<ResizableContainer
+						minWidth={100}
+						minHeight={100}
+						direction={["right", "bottom", "top", "left"]}
+						className="min-h-[600px] max-w-[95%] bg-secondary"
+						handleResize={handleResize}
+						resizableRef={resizableRef}
+					>
+						<div className="border text-foreground w-full h-full text-center flex justify-center items-center">
+							<h1>This is a resizable container</h1>
+						</div>
+					</ResizableContainer>
+				</ResizeBoundingElement>
+			</div>
+		</div>
+	);
 }
 
 ```
@@ -232,126 +230,126 @@ export default function ResizeImplementation() {
 ```default|ts|Resizable.tsx
 "use client";
 
-import React from "react";
+import type React from "react";
 import { twMerge } from "tailwind-merge";
 
 export interface ResizableBoundingElementProps {
-  containerRef: React.RefObject<HTMLDivElement>;
-  className?: string;
-  children: React.ReactNode;
+	containerRef: React.RefObject<HTMLDivElement>;
+	className?: string;
+	children: React.ReactNode;
 }
 export function ResizeBoundingElement({
-  containerRef,
-  className,
-  children,
+	containerRef,
+	className,
+	children,
 }: ResizableBoundingElementProps) {
-  return (
-    <div ref={containerRef} className={twMerge("w-full", className)}>
-      {children}
-    </div>
-  );
+	return (
+		<div ref={containerRef} className={twMerge("w-full", className)}>
+			{children}
+		</div>
+	);
 }
 
 export interface ResizableContainerProps {
-  children: React.ReactNode;
-  minWidth: number;
-  minHeight: number;
-  direction: ("right" | "bottom" | "top" | "left")[];
-  className?: string;
-  handleResize: (
-    e:
-      | React.MouseEvent<HTMLDivElement, MouseEvent>
-      | React.TouchEvent<HTMLDivElement>,
-    direction: "right" | "bottom" | "top" | "left"
-  ) => void;
-  resizableRef: React.RefObject<HTMLDivElement>;
+	children: React.ReactNode;
+	minWidth: number;
+	minHeight: number;
+	direction: ("right" | "bottom" | "top" | "left")[];
+	className?: string;
+	handleResize: (
+		e:
+			| React.MouseEvent<HTMLDivElement, MouseEvent>
+			| React.TouchEvent<HTMLDivElement>,
+		direction: "right" | "bottom" | "top" | "left",
+	) => void;
+	resizableRef: React.RefObject<HTMLDivElement>;
 }
 
 export function ResizableContainer({
-  children,
-  minWidth,
-  minHeight,
-  direction,
-  handleResize,
-  resizableRef,
-  className,
+	children,
+	minWidth,
+	minHeight,
+	direction,
+	handleResize,
+	resizableRef,
+	className,
 }: ResizableContainerProps) {
-  return (
-    <div className="w-max">
-      <Handle
-        direction="top"
-        directionArr={direction}
-        handleResize={handleResize}
-      />
-      <div className="h-full flex">
-        <Handle
-          direction="left"
-          directionArr={direction}
-          handleResize={handleResize}
-        />
-        <div
-          ref={resizableRef}
-          style={{
-            minWidth: `${minWidth}px`,
-            minHeight: `${minHeight}px`,
-          }}
-          className={className}
-        >
-          {children}
-        </div>
-        <Handle
-          direction="right"
-          directionArr={direction}
-          handleResize={handleResize}
-        />
-      </div>
-      <Handle
-        direction="bottom"
-        directionArr={direction}
-        handleResize={handleResize}
-      />
-    </div>
-  );
+	return (
+		<div className="w-max">
+			<Handle
+				direction="top"
+				directionArr={direction}
+				handleResize={handleResize}
+			/>
+			<div className="h-full flex">
+				<Handle
+					direction="left"
+					directionArr={direction}
+					handleResize={handleResize}
+				/>
+				<div
+					ref={resizableRef}
+					style={{
+						minWidth: `${minWidth}px`,
+						minHeight: `${minHeight}px`,
+					}}
+					className={className}
+				>
+					{children}
+				</div>
+				<Handle
+					direction="right"
+					directionArr={direction}
+					handleResize={handleResize}
+				/>
+			</div>
+			<Handle
+				direction="bottom"
+				directionArr={direction}
+				handleResize={handleResize}
+			/>
+		</div>
+	);
 }
 
 export interface HandleProps {
-  direction: "right" | "bottom" | "top" | "left";
-  directionArr: ("right" | "bottom" | "top" | "left")[];
-  handleResize: (
-    e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
-    directions: "right" | "left" | "top" | "bottom"
-  ) => void;
+	direction: "right" | "bottom" | "top" | "left";
+	directionArr: ("right" | "bottom" | "top" | "left")[];
+	handleResize: (
+		e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
+		directions: "right" | "left" | "top" | "bottom",
+	) => void;
 }
 
 export function Handle({ direction, directionArr, handleResize }: HandleProps) {
-  return (
-    <>
-      {directionArr.includes(direction) && (
-        <>
-          {(direction === "right" || direction === "left") && (
-            <div
-              className="w-4 flex justify-center items-center cursor-col-resize z-10"
-              aria-label={`Resize ${direction}`}
-              onMouseDown={(e) => handleResize(e, direction)}
-              onTouchStart={(e) => handleResize(e, direction)}
-            >
-              <div className="min-h-8 bg-foreground rounded-full min-w-[0.25rem]"></div>
-            </div>
-          )}
-          {(direction === "top" || direction === "bottom") && (
-            <div
-              className="h-4 flex justify-center items-center cursor-row-resize z-10"
-              aria-label={`Resize ${direction}`}
-              onMouseDown={(e) => handleResize(e, direction)}
-              onTouchStart={(e) => handleResize(e, direction)}
-            >
-              <div className="min-w-8 bg-foreground rounded-full min-h-[0.25rem]"></div>
-            </div>
-          )}
-        </>
-      )}
-    </>
-  );
+	return (
+		<>
+			{directionArr.includes(direction) && (
+				<>
+					{(direction === "right" || direction === "left") && (
+						<div
+							className="w-4 flex justify-center items-center cursor-col-resize z-10"
+							aria-label={`Resize ${direction}`}
+							onMouseDown={(e) => handleResize(e, direction)}
+							onTouchStart={(e) => handleResize(e, direction)}
+						>
+							<div className="min-h-8 bg-foreground rounded-full min-w-[0.25rem]" />
+						</div>
+					)}
+					{(direction === "top" || direction === "bottom") && (
+						<div
+							className="h-4 flex justify-center items-center cursor-row-resize z-10"
+							aria-label={`Resize ${direction}`}
+							onMouseDown={(e) => handleResize(e, direction)}
+							onTouchStart={(e) => handleResize(e, direction)}
+						>
+							<div className="min-w-8 bg-foreground rounded-full min-h-[0.25rem]" />
+						</div>
+					)}
+				</>
+			)}
+		</>
+	);
 }
 
 ```
@@ -419,7 +417,7 @@ export const Primitives_resizable_containers_02 = lazy(() => import("@registry/p
 
 <Implementation>
 
-<TechnologyUsed technologies={["tailwind-merge"]} />
+undefined
 <CodeBlock>
 
 ```default|js|example.jsx
@@ -427,146 +425,144 @@ export const Primitives_resizable_containers_02 = lazy(() => import("@registry/p
 
 import useResizable from "@registry/packages/hooks/useResizable/01/default-js/useResizable";
 import {
-  ResizableContainer,
-  ResizeBoundingElement,
+	ResizableContainer,
+	ResizeBoundingElement,
 } from "@registry/packages/primitives/resizable-containers/02/default-js/Resizable";
 import { useRef } from "react";
 
 export default function ResizeImplementation() {
-  const containerRef = useRef(null);
-  const resizableRef = useRef(null);
+	const containerRef = useRef(null);
+	const resizableRef = useRef(null);
 
-  const options = {
-    minWidth: "100px",
-    minHeight: "100px",
-    maxWidth: "70%",
-    maxHeight: "100%",
-    expandBoundingElement: false,
-  };
+	const options = {
+		minWidth: "100px",
+		minHeight: "100px",
+		maxWidth: "70%",
+		maxHeight: "100%",
+		expandBoundingElement: false,
+	};
 
-  const { handleResize } = useResizable(containerRef, resizableRef, options);
+	const { handleResize } = useResizable(containerRef, resizableRef, options);
 
-  return (
-    <div className="flex justify-center items-center gap-4 w-full ">
-      <ResizeBoundingElement
-        containerRef={containerRef}
-        className="h-80 w-[35rem] max-w-[35rem] bg-accent flex"
-      >
-        <ResizableContainer
-          minWidth={100}
-          minHeight={100}
-          direction={["right"]}
-          className="h-full bg-secondary"
-          handleResize={handleResize}
-          resizableRef={resizableRef}
-        >
-          <div className="text-foreground h-80 text-center flex justify-center items-center">
-            <h1>This is a resizable container</h1>
-          </div>
-        </ResizableContainer>
-        <div className="w-full h-full bg-secondary text-secondary-foreground text-center flex justify-center items-center px-2">
-          <h1>
-            This is not a resizable div but will take the remaining width in the
-            container.
-          </h1>
-        </div>
-      </ResizeBoundingElement>
-    </div>
-  );
+	return (
+		<div className="flex justify-center items-center gap-4 w-full ">
+			<ResizeBoundingElement
+				containerRef={containerRef}
+				className="h-80 w-[35rem] max-w-[35rem] bg-accent flex"
+			>
+				<ResizableContainer
+					minWidth={100}
+					minHeight={100}
+					direction={["right"]}
+					className="h-full bg-secondary"
+					handleResize={handleResize}
+					resizableRef={resizableRef}
+				>
+					<div className="text-foreground h-80 text-center flex justify-center items-center">
+						<h1>This is a resizable container</h1>
+					</div>
+				</ResizableContainer>
+				<div className="w-full h-full bg-secondary text-secondary-foreground text-center flex justify-center items-center px-2">
+					<h1>
+						This is not a resizable div but will take the remaining width in the
+						container.
+					</h1>
+				</div>
+			</ResizeBoundingElement>
+		</div>
+	);
 }
 
 ```
 
 ```default|js|Resizable.jsx
 "use client";
-
-import React from "react";
 import { twMerge } from "tailwind-merge";
 
 export function ResizeBoundingElement({ containerRef, className, children }) {
-  return (
-    <div ref={containerRef} className={twMerge("w-full", className)}>
-      {children}
-    </div>
-  );
+	return (
+		<div ref={containerRef} className={twMerge("w-full", className)}>
+			{children}
+		</div>
+	);
 }
 
 export function ResizableContainer({
-  children,
-  minWidth,
-  minHeight,
-  direction,
-  handleResize,
-  resizableRef,
-  className,
+	children,
+	minWidth,
+	minHeight,
+	direction,
+	handleResize,
+	resizableRef,
+	className,
 }) {
-  return (
-    <div className="w-max">
-      <Handle
-        direction="top"
-        directionArr={direction}
-        handleResize={handleResize}
-      />
-      <div className="h-full flex">
-        <Handle
-          direction="left"
-          directionArr={direction}
-          handleResize={handleResize}
-        />
-        <div
-          ref={resizableRef}
-          style={{
-            minWidth: `${minWidth}px`,
-            minHeight: `${minHeight}px`,
-          }}
-          className={className}
-        >
-          {children}
-        </div>
-        <Handle
-          direction="right"
-          directionArr={direction}
-          handleResize={handleResize}
-        />
-      </div>
-      <Handle
-        direction="bottom"
-        directionArr={direction}
-        handleResize={handleResize}
-      />
-    </div>
-  );
+	return (
+		<div className="w-max">
+			<Handle
+				direction="top"
+				directionArr={direction}
+				handleResize={handleResize}
+			/>
+			<div className="h-full flex">
+				<Handle
+					direction="left"
+					directionArr={direction}
+					handleResize={handleResize}
+				/>
+				<div
+					ref={resizableRef}
+					style={{
+						minWidth: `${minWidth}px`,
+						minHeight: `${minHeight}px`,
+					}}
+					className={className}
+				>
+					{children}
+				</div>
+				<Handle
+					direction="right"
+					directionArr={direction}
+					handleResize={handleResize}
+				/>
+			</div>
+			<Handle
+				direction="bottom"
+				directionArr={direction}
+				handleResize={handleResize}
+			/>
+		</div>
+	);
 }
 
 export function Handle({ direction, directionArr, handleResize }) {
-  return (
-    <>
-      {directionArr.includes(direction) && (
-        <>
-          {(direction === "right" || direction === "left") && (
-            <div
-              className="w-4 flex justify-center items-center cursor-col-resize z-10"
-              aria-label={`Resize ${direction}`}
-              onMouseDown={(e) => handleResize(e, direction)}
-              onTouchStart={(e) => handleResize(e, direction)}
-            >
-              <div className="min-h-8 bg-foreground rounded-full min-w-[0.25rem]"></div>
-            </div>
-          )}
-          {(direction === "top" || direction === "bottom") && (
-            <div
-              className="h-4 flex justify-center items-center cursor-row-resize z-10"
-              aria-label={`Resize ${direction}`}
-              onMouseDown={(e) => handleResize(e, direction)}
-              onTouchStart={(e) => handleResize(e, direction)}
-            >
-              <div className="min-w-8 bg-foreground rounded-full min-h-[0.25rem]"></div>
-            </div>
-          )}
-        </>
-      )}
-    </>
-  );
+	return (
+		<>
+			{directionArr.includes(direction) && (
+				<>
+					{(direction === "right" || direction === "left") && (
+						<div
+							className="w-4 flex justify-center items-center cursor-col-resize z-10"
+							aria-label={`Resize ${direction}`}
+							onMouseDown={(e) => handleResize(e, direction)}
+							onTouchStart={(e) => handleResize(e, direction)}
+						>
+							<div className="min-h-8 bg-foreground rounded-full min-w-[0.25rem]" />
+						</div>
+					)}
+					{(direction === "top" || direction === "bottom") && (
+						<div
+							className="h-4 flex justify-center items-center cursor-row-resize z-10"
+							aria-label={`Resize ${direction}`}
+							onMouseDown={(e) => handleResize(e, direction)}
+							onTouchStart={(e) => handleResize(e, direction)}
+						>
+							<div className="min-w-8 bg-foreground rounded-full min-h-[0.25rem]" />
+						</div>
+					)}
+				</>
+			)}
+		</>
+	);
 }
 
 ```
@@ -576,54 +572,54 @@ export function Handle({ direction, directionArr, handleResize }) {
 
 import { useRef } from "react";
 import {
-  ResizableContainer,
-  ResizeBoundingElement,
+	ResizableContainer,
+	ResizeBoundingElement,
 } from "@registry/packages/primitives/resizable-containers/02/default-ts/Resizable";
 import useResizable, {
-  ResizableOptions,
+	type ResizableOptions,
 } from "@registry/packages/hooks/useResizable/01/default-ts/useResizable";
 
 export default function ResizeImplementation() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const resizableRef = useRef<HTMLDivElement>(null);
+	const containerRef = useRef<HTMLDivElement>(null);
+	const resizableRef = useRef<HTMLDivElement>(null);
 
-  const options: ResizableOptions = {
-    minWidth: "100px",
-    minHeight: "100px",
-    maxWidth: "70%",
-    maxHeight: "100%",
-    expandBoundingElement: false,
-  };
+	const options: ResizableOptions = {
+		minWidth: "100px",
+		minHeight: "100px",
+		maxWidth: "70%",
+		maxHeight: "100%",
+		expandBoundingElement: false,
+	};
 
-  const { handleResize } = useResizable(containerRef, resizableRef, options);
+	const { handleResize } = useResizable(containerRef, resizableRef, options);
 
-  return (
-    <div className="flex justify-center items-center gap-4 w-full ">
-      <ResizeBoundingElement
-        containerRef={containerRef}
-        className="h-80 w-[35rem] max-w-[35rem] bg-accent flex"
-      >
-        <ResizableContainer
-          minWidth={100}
-          minHeight={100}
-          direction={["right"]}
-          className="h-full bg-secondary"
-          handleResize={handleResize}
-          resizableRef={resizableRef}
-        >
-          <div className="text-foreground h-80 text-center flex justify-center items-center">
-            <h1>This is a resizable container</h1>
-          </div>
-        </ResizableContainer>
-        <div className="w-full h-full bg-secondary text-secondary-foreground text-center flex justify-center items-center px-2">
-          <h1>
-            This is not a resizable div but will take the remaining width in the
-            container.
-          </h1>
-        </div>
-      </ResizeBoundingElement>
-    </div>
-  );
+	return (
+		<div className="flex justify-center items-center gap-4 w-full ">
+			<ResizeBoundingElement
+				containerRef={containerRef}
+				className="h-80 w-[35rem] max-w-[35rem] bg-accent flex"
+			>
+				<ResizableContainer
+					minWidth={100}
+					minHeight={100}
+					direction={["right"]}
+					className="h-full bg-secondary"
+					handleResize={handleResize}
+					resizableRef={resizableRef}
+				>
+					<div className="text-foreground h-80 text-center flex justify-center items-center">
+						<h1>This is a resizable container</h1>
+					</div>
+				</ResizableContainer>
+				<div className="w-full h-full bg-secondary text-secondary-foreground text-center flex justify-center items-center px-2">
+					<h1>
+						This is not a resizable div but will take the remaining width in the
+						container.
+					</h1>
+				</div>
+			</ResizeBoundingElement>
+		</div>
+	);
 }
 
 ```
@@ -631,126 +627,126 @@ export default function ResizeImplementation() {
 ```default|ts|Resizable.tsx
 "use client";
 
-import React from "react";
+import type React from "react";
 import { twMerge } from "tailwind-merge";
 
 export interface ResizableBoundingElementProps {
-  containerRef: React.RefObject<HTMLDivElement>;
-  className?: string;
-  children: React.ReactNode;
+	containerRef: React.RefObject<HTMLDivElement>;
+	className?: string;
+	children: React.ReactNode;
 }
 export function ResizeBoundingElement({
-  containerRef,
-  className,
-  children,
+	containerRef,
+	className,
+	children,
 }: ResizableBoundingElementProps) {
-  return (
-    <div ref={containerRef} className={twMerge("w-full", className)}>
-      {children}
-    </div>
-  );
+	return (
+		<div ref={containerRef} className={twMerge("w-full", className)}>
+			{children}
+		</div>
+	);
 }
 
 export interface ResizableContainerProps {
-  children: React.ReactNode;
-  minWidth: number;
-  minHeight: number;
-  direction: ("right" | "bottom" | "top" | "left")[];
-  className?: string;
-  handleResize: (
-    e:
-      | React.MouseEvent<HTMLDivElement, MouseEvent>
-      | React.TouchEvent<HTMLDivElement>,
-    direction: "right" | "bottom" | "top" | "left"
-  ) => void;
-  resizableRef: React.RefObject<HTMLDivElement>;
+	children: React.ReactNode;
+	minWidth: number;
+	minHeight: number;
+	direction: ("right" | "bottom" | "top" | "left")[];
+	className?: string;
+	handleResize: (
+		e:
+			| React.MouseEvent<HTMLDivElement, MouseEvent>
+			| React.TouchEvent<HTMLDivElement>,
+		direction: "right" | "bottom" | "top" | "left",
+	) => void;
+	resizableRef: React.RefObject<HTMLDivElement>;
 }
 
 export function ResizableContainer({
-  children,
-  minWidth,
-  minHeight,
-  direction,
-  handleResize,
-  resizableRef,
-  className,
+	children,
+	minWidth,
+	minHeight,
+	direction,
+	handleResize,
+	resizableRef,
+	className,
 }: ResizableContainerProps) {
-  return (
-    <div className="w-max">
-      <Handle
-        direction="top"
-        directionArr={direction}
-        handleResize={handleResize}
-      />
-      <div className="h-full flex">
-        <Handle
-          direction="left"
-          directionArr={direction}
-          handleResize={handleResize}
-        />
-        <div
-          ref={resizableRef}
-          style={{
-            minWidth: `${minWidth}px`,
-            minHeight: `${minHeight}px`,
-          }}
-          className={className}
-        >
-          {children}
-        </div>
-        <Handle
-          direction="right"
-          directionArr={direction}
-          handleResize={handleResize}
-        />
-      </div>
-      <Handle
-        direction="bottom"
-        directionArr={direction}
-        handleResize={handleResize}
-      />
-    </div>
-  );
+	return (
+		<div className="w-max">
+			<Handle
+				direction="top"
+				directionArr={direction}
+				handleResize={handleResize}
+			/>
+			<div className="h-full flex">
+				<Handle
+					direction="left"
+					directionArr={direction}
+					handleResize={handleResize}
+				/>
+				<div
+					ref={resizableRef}
+					style={{
+						minWidth: `${minWidth}px`,
+						minHeight: `${minHeight}px`,
+					}}
+					className={className}
+				>
+					{children}
+				</div>
+				<Handle
+					direction="right"
+					directionArr={direction}
+					handleResize={handleResize}
+				/>
+			</div>
+			<Handle
+				direction="bottom"
+				directionArr={direction}
+				handleResize={handleResize}
+			/>
+		</div>
+	);
 }
 
 export interface HandleProps {
-  direction: "right" | "bottom" | "top" | "left";
-  directionArr: ("right" | "bottom" | "top" | "left")[];
-  handleResize: (
-    e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
-    directions: "right" | "left" | "top" | "bottom"
-  ) => void;
+	direction: "right" | "bottom" | "top" | "left";
+	directionArr: ("right" | "bottom" | "top" | "left")[];
+	handleResize: (
+		e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
+		directions: "right" | "left" | "top" | "bottom",
+	) => void;
 }
 
 export function Handle({ direction, directionArr, handleResize }: HandleProps) {
-  return (
-    <>
-      {directionArr.includes(direction) && (
-        <>
-          {(direction === "right" || direction === "left") && (
-            <div
-              className="w-4 flex justify-center items-center cursor-col-resize z-10"
-              aria-label={`Resize ${direction}`}
-              onMouseDown={(e) => handleResize(e, direction)}
-              onTouchStart={(e) => handleResize(e, direction)}
-            >
-              <div className="min-h-8 bg-foreground rounded-full min-w-[0.25rem]"></div>
-            </div>
-          )}
-          {(direction === "top" || direction === "bottom") && (
-            <div
-              className="h-4 flex justify-center items-center cursor-row-resize z-10"
-              aria-label={`Resize ${direction}`}
-              onMouseDown={(e) => handleResize(e, direction)}
-              onTouchStart={(e) => handleResize(e, direction)}
-            >
-              <div className="min-w-8 bg-foreground rounded-full min-h-[0.25rem]"></div>
-            </div>
-          )}
-        </>
-      )}
-    </>
-  );
+	return (
+		<>
+			{directionArr.includes(direction) && (
+				<>
+					{(direction === "right" || direction === "left") && (
+						<div
+							className="w-4 flex justify-center items-center cursor-col-resize z-10"
+							aria-label={`Resize ${direction}`}
+							onMouseDown={(e) => handleResize(e, direction)}
+							onTouchStart={(e) => handleResize(e, direction)}
+						>
+							<div className="min-h-8 bg-foreground rounded-full min-w-[0.25rem]" />
+						</div>
+					)}
+					{(direction === "top" || direction === "bottom") && (
+						<div
+							className="h-4 flex justify-center items-center cursor-row-resize z-10"
+							aria-label={`Resize ${direction}`}
+							onMouseDown={(e) => handleResize(e, direction)}
+							onTouchStart={(e) => handleResize(e, direction)}
+						>
+							<div className="min-w-8 bg-foreground rounded-full min-h-[0.25rem]" />
+						</div>
+					)}
+				</>
+			)}
+		</>
+	);
 }
 
 ```

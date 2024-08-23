@@ -2,15 +2,15 @@ import { HeaderComponent } from "@registry/packages/components/headers/04/defaul
 import { HeroSection } from "@registry/packages/components/hero-section/03/default-js/Hero";
 
 export default function HeaderImplementation() {
-  return (
-    <div
-      className="w-full max-h-[698px] overflow-auto scrollbar-y relative"
-      id="targetElemForScroll"
-    >
-      <HeaderComponent />
-      <div className="min-h-[80rem] w-full">
-        <HeroSection />
-      </div>
-    </div>
-  );
+	return (
+		<div
+			className="w-full max-h-[698px] overflow-auto scrollbar-y relative"
+			id="targetElemForScroll"
+		>
+			<HeaderComponent />
+			<div className="min-h-[80rem] w-full">
+				<HeroSection />
+			</div>
+		</div>
+	);
 }

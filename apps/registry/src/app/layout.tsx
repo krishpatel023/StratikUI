@@ -9,31 +9,31 @@ import Header from "@/ui/Header";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "StratikUI Registry",
-  description:
-    "This is a registry for StratikUI components. It contains all components that are available on the website.",
+	title: "StratikUI Registry",
+	description:
+		"This is a registry for StratikUI components. It contains all components that are available on the website.",
 };
 
 export default function RootLayout({
-  children,
+	children,
 }: Readonly<{
-  children: React.ReactNode;
+	children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body
-        className={twMerge(
-          "bg-background dark scrollbar-y",
-          DEFAULT_THEME ? "dark" : null,
-          inter.className
-        )}
-        id="theme-toggle"
-      >
-        <Providers>
-          <Header />
-          {children}
-        </Providers>
-      </body>
-    </html>
-  );
+	return (
+		<html lang="en">
+			<body
+				className={twMerge(
+					"bg-background dark scrollbar-y",
+					DEFAULT_THEME ? "dark" : null,
+					inter.className,
+				)}
+				id="theme-toggle"
+			>
+				<Providers>
+					<Header />
+					{children}
+				</Providers>
+			</body>
+		</html>
+	);
 }

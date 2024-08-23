@@ -1,81 +1,82 @@
-import { IconProps } from "@/utils/constants";
-import React, { CSSProperties } from "react";
+import type { IconProps } from "@/utils/constants";
+import React, { type CSSProperties } from "react";
 import { twMerge } from "tailwind-merge";
 
 export default function OpenSource({ className }: { className?: string }) {
-  return (
-    <div
-      className={twMerge(
-        "absolute flex h-full w-full flex-col items-center justify-center",
-        className
-      )}
-    >
-      <p className="z-10 whitespace-pre-wrap text-center text-5xl font-medium tracking-tighter">
-        <GithubLogo className="size-20 text-foreground" />
-      </p>
-      <Ripple />
-    </div>
-  );
+	return (
+		<div
+			className={twMerge(
+				"absolute flex h-full w-full flex-col items-center justify-center",
+				className,
+			)}
+		>
+			<p className="z-10 whitespace-pre-wrap text-center text-5xl font-medium tracking-tighter">
+				<GithubLogo className="size-20 text-foreground" />
+			</p>
+			<Ripple />
+		</div>
+	);
 }
 
 interface RippleProps {
-  mainCircleSize?: number;
-  mainCircleOpacity?: number;
-  numCircles?: number;
+	mainCircleSize?: number;
+	mainCircleOpacity?: number;
+	numCircles?: number;
 }
 
 const Ripple = React.memo(function Ripple({
-  mainCircleSize = 120,
-  mainCircleOpacity = 0.24,
-  numCircles = 4,
+	mainCircleSize = 120,
+	mainCircleOpacity = 0.24,
+	numCircles = 4,
 }: RippleProps) {
-  return (
-    <div className="absolute inset-0 flex items-center justify-center [mask-image:linear-gradient(to_bottom,white,transparent)]">
-      {Array.from({ length: numCircles }, (_, i) => {
-        const size = mainCircleSize + i * 70;
-        const opacity = mainCircleOpacity - i * 0.03;
-        const animationDelay = `${i * 0.06}s`;
-        const borderStyle = i === numCircles - 1 ? "dashed" : "solid";
-        const borderOpacity = 5 + i * 5;
+	return (
+		<div className="absolute inset-0 flex items-center justify-center [mask-image:linear-gradient(to_bottom,white,transparent)]">
+			{Array.from({ length: numCircles }, (_, i) => {
+				const size = mainCircleSize + i * 70;
+				const opacity = mainCircleOpacity - i * 0.03;
+				const animationDelay = `${i * 0.06}s`;
+				const borderStyle = i === numCircles - 1 ? "dashed" : "solid";
+				const borderOpacity = 5 + i * 5;
 
-        return (
-          <div
-            key={i}
-            className={`absolute animate-ripple rounded-full bg-secondary-foreground shadow-xl border [--i:${i}]`}
-            style={
-              {
-                width: `${size}px`,
-                height: `${size}px`,
-                opacity,
-                animationDelay,
-                borderStyle,
-                borderWidth: "1px",
-                borderColor: `hsl(var(--foreground), ${borderOpacity / 100})`,
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%) scale(1)",
-              } as CSSProperties
-            }
-          />
-        );
-      })}
-    </div>
-  );
+				return (
+					<div
+						key={i}
+						className={`absolute animate-ripple rounded-full bg-secondary-foreground shadow-xl border [--i:${i}]`}
+						style={
+							{
+								width: `${size}px`,
+								height: `${size}px`,
+								opacity,
+								animationDelay,
+								borderStyle,
+								borderWidth: "1px",
+								borderColor: `hsl(var(--foreground), ${borderOpacity / 100})`,
+								top: "50%",
+								left: "50%",
+								transform: "translate(-50%, -50%) scale(1)",
+							} as CSSProperties
+						}
+					/>
+				);
+			})}
+		</div>
+	);
 });
 
 Ripple.displayName = "Ripple";
 
 export const GithubLogo = (props: IconProps) => (
-  <svg
-    height="200"
-    width="200"
-    viewBox="0 0 432 416"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <path
-      d="M213.5 0q88.5 0 151 62.5T427 213q0 70-41 125.5T281 416q-14 2-14-11v-58q0-27-15-40q44-5 70.5-27t26.5-77q0-34-22-58q11-26-2-57q-18-5-58 22q-26-7-54-7t-53 7q-18-12-32.5-17.5T107 88h-6q-12 31-2 57q-22 24-22 58q0 55 27 77t70 27q-11 10-13 29q-42 18-62-18q-12-20-33-22q-2 0-4.5.5t-5 3.5t8.5 9q14 7 23 31q1 2 2 4.5t6.5 9.5t13 10.5T130 371t30-2v36q0 13-14 11q-64-22-105-77.5T0 213q0-88 62.5-150.5T213.5 0z"
-      fill="currentColor"
-    />
-  </svg>
+	<svg
+		height="200"
+		width="200"
+		viewBox="0 0 432 416"
+		xmlns="http://www.w3.org/2000/svg"
+		{...props}
+	>
+		<title>Github Logo</title>
+		<path
+			d="M213.5 0q88.5 0 151 62.5T427 213q0 70-41 125.5T281 416q-14 2-14-11v-58q0-27-15-40q44-5 70.5-27t26.5-77q0-34-22-58q11-26-2-57q-18-5-58 22q-26-7-54-7t-53 7q-18-12-32.5-17.5T107 88h-6q-12 31-2 57q-22 24-22 58q0 55 27 77t70 27q-11 10-13 29q-42 18-62-18q-12-20-33-22q-2 0-4.5.5t-5 3.5t8.5 9q14 7 23 31q1 2 2 4.5t6.5 9.5t13 10.5T130 371t30-2v36q0 13-14 11q-64-22-105-77.5T0 213q0-88 62.5-150.5T213.5 0z"
+			fill="currentColor"
+		/>
+	</svg>
 );

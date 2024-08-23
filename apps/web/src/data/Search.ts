@@ -1,13 +1,13 @@
 import * as GENERATED_SEARCH from "./generated/generated-search";
 export interface SearchIndividualProps {
-  name: string;
-  category: string;
-  group: string;
-  description: string;
-  tags: string[];
-  link: string;
-  version_included: string;
-  flag: "hidden" | "experimental" | "deprecated" | "beta" | "default";
+	name: string;
+	category: string;
+	group: string;
+	description: string;
+	tags: string[];
+	link: string;
+	version_included: string;
+	flag: "hidden" | "experimental" | "deprecated" | "beta" | "default";
 }
 
 export type SearchProps = SearchIndividualProps[];

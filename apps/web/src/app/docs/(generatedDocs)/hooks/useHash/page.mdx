@@ -21,19 +21,19 @@ import Button from "@registry/ui/Button";
 import useHash from "@registry/packages/hooks/useHash/01/default-js/useHash";
 
 export default function UseHashExample() {
-  const { hash, addHash } = useHash();
+	const { hash, addHash } = useHash();
 
-  const handleAddition = () => {
-    addHash("demoHashValue");
-  };
-  return (
-    <div className="text-center">
-      <h1 className="text-foreground mb-4">
-        Hash Value : {hash ? hash : "null"}
-      </h1>
-      <Button onPress={handleAddition}> Add Hash </Button>
-    </div>
-  );
+	const handleAddition = () => {
+		addHash("demoHashValue");
+	};
+	return (
+		<div className="text-center">
+			<h1 className="text-foreground mb-4">
+				Hash Value : {hash ? hash : "null"}
+			</h1>
+			<Button onPress={handleAddition}> Add Hash </Button>
+		</div>
+	);
 }
 
 ```
@@ -44,32 +44,33 @@ export default function UseHashExample() {
 import { useState, useEffect } from "react";
 
 const useHash = () => {
-  const [hash, setHash] = useState(null);
+	const [hash, setHash] = useState(null);
 
-  const getHash = () => {
-    if (typeof window === "undefined") return null;
-    return window.location.hash.replace("#", "");
-  };
+	const getHash = () => {
+		if (typeof window === "undefined") return null;
+		return window.location.hash.replace("#", "");
+	};
 
-  const addHash = (hash) => {
-    window.location.hash = hash;
-  };
+	const addHash = (hash) => {
+		window.location.hash = hash;
+	};
 
-  useEffect(() => {
-    setHash(getHash());
+	
+	useEffect(() => {
+		setHash(getHash());
 
-    const handleHashChange = () => {
-      setHash(getHash());
-    };
+		const handleHashChange = () => {
+			setHash(getHash());
+		};
 
-    window.addEventListener("hashchange", handleHashChange);
+		window.addEventListener("hashchange", handleHashChange);
 
-    return () => {
-      window.removeEventListener("hashchange", handleHashChange);
-    };
-  }, []);
+		return () => {
+			window.removeEventListener("hashchange", handleHashChange);
+		};
+	}, []);
 
-  return { hash, addHash };
+	return { hash, addHash };
 };
 
 export default useHash;
@@ -83,19 +84,19 @@ import Button from "@registry/ui/Button";
 import useHash from "@registry/packages/hooks/useHash/01/default-ts/useHash";
 
 export default function UseHashExample() {
-  const { hash, addHash } = useHash();
+	const { hash, addHash } = useHash();
 
-  const handleAddition = () => {
-    addHash("demoHashValue");
-  };
-  return (
-    <div className="text-center">
-      <h1 className="text-foreground mb-4">
-        Hash Value : {hash ? hash : "null"}
-      </h1>
-      <Button onPress={handleAddition}> Add Hash </Button>
-    </div>
-  );
+	const handleAddition = () => {
+		addHash("demoHashValue");
+	};
+	return (
+		<div className="text-center">
+			<h1 className="text-foreground mb-4">
+				Hash Value : {hash ? hash : "null"}
+			</h1>
+			<Button onPress={handleAddition}> Add Hash </Button>
+		</div>
+	);
 }
 
 ```
@@ -106,32 +107,33 @@ export default function UseHashExample() {
 import { useState, useEffect } from "react";
 
 const useHash = () => {
-  const [hash, setHash] = useState<string | null>(null);
+	const [hash, setHash] = useState<string | null>(null);
 
-  const getHash = (): string | null => {
-    if (typeof window === "undefined") return null;
-    return window.location.hash.replace("#", "");
-  };
+	const getHash = (): string | null => {
+		if (typeof window === "undefined") return null;
+		return window.location.hash.replace("#", "");
+	};
 
-  const addHash = (hash: string) => {
-    window.location.hash = hash;
-  };
+	const addHash = (hash: string) => {
+		window.location.hash = hash;
+	};
 
-  useEffect(() => {
-    setHash(getHash());
+	
+	useEffect(() => {
+		setHash(getHash());
 
-    const handleHashChange = () => {
-      setHash(getHash());
-    };
+		const handleHashChange = () => {
+			setHash(getHash());
+		};
 
-    window.addEventListener("hashchange", handleHashChange);
+		window.addEventListener("hashchange", handleHashChange);
 
-    return () => {
-      window.removeEventListener("hashchange", handleHashChange);
-    };
-  }, []);
+		return () => {
+			window.removeEventListener("hashchange", handleHashChange);
+		};
+	}, []);
 
-  return { hash, addHash };
+	return { hash, addHash };
 };
 
 export default useHash;

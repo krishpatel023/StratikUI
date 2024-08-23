@@ -28,7 +28,7 @@ export const Primitives_text_01 = lazy(() => import("@registry/packages/primitiv
 
 <Implementation>
 
-<TechnologyUsed technologies={["tailwind-merge","react-aria-components"]} />
+undefined
 <CodeBlock>
 
 ```react_aria|js|example.jsx
@@ -36,22 +36,22 @@ import ArrowHeading from "@registry/ui/ArrowHeading";
 import { GradientText } from "@registry/packages/primitives/text/01/react_aria-js/Text";
 
 export default function GradientTextImplementation() {
-  return (
-    <div className="w-80 @lg:w-[40rem] flex flex-col gap-4">
-      <ArrowHeading text="Default" />
-      <GradientText className="bg-gradient-to-br text-3xl @lg:text-7xl font-bold">
-        Bring Gradients to your Text
-      </GradientText>
-      <ArrowHeading text="Triple Gradient" />
-      <GradientText className="from-blue-600 via-green-500 to-indigo-400 text-3xl @lg:text-7xl font-bold">
-        Bring Gradients to your Text
-      </GradientText>
-      <ArrowHeading text="In Different Direction" />
-      <GradientText className="bg-gradient-to-b from-blue-700 to-indigo-400 text-3xl @lg:text-7xl font-bold">
-        Bring Gradients to your Text
-      </GradientText>
-    </div>
-  );
+	return (
+		<div className="w-80 @lg:w-[40rem] flex flex-col gap-4">
+			<ArrowHeading text="Default" />
+			<GradientText className="bg-gradient-to-br text-3xl @lg:text-7xl font-bold">
+				Bring Gradients to your Text
+			</GradientText>
+			<ArrowHeading text="Triple Gradient" />
+			<GradientText className="from-blue-600 via-green-500 to-indigo-400 text-3xl @lg:text-7xl font-bold">
+				Bring Gradients to your Text
+			</GradientText>
+			<ArrowHeading text="In Different Direction" />
+			<GradientText className="bg-gradient-to-b from-blue-700 to-indigo-400 text-3xl @lg:text-7xl font-bold">
+				Bring Gradients to your Text
+			</GradientText>
+		</div>
+	);
 }
 
 ```
@@ -62,17 +62,17 @@ import { Text } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
 
 export function GradientText({ children, className, ...props }) {
-  return (
-    <Text
-      className={twMerge(
-        "bg-gradient-to-tr inline-block text-transparent bg-clip-text from-neutral-600 to-neutral-300",
-        className
-      )}
-      {...props}
-    >
-      {children}
-    </Text>
-  );
+	return (
+		<Text
+			className={twMerge(
+				"bg-gradient-to-tr inline-block text-transparent bg-clip-text from-neutral-600 to-neutral-300",
+				className,
+			)}
+			{...props}
+		>
+			{children}
+		</Text>
+	);
 }
 
 ```
@@ -82,43 +82,43 @@ import ArrowHeading from "@registry/ui/ArrowHeading";
 import { GradientText } from "@registry/packages/primitives/text/01/react_aria-ts/Text";
 
 export default function GradientTextImplementation() {
-  return (
-    <div className="w-80 @lg:w-[40rem] flex flex-col gap-4">
-      <ArrowHeading text="Default" />
-      <GradientText className="bg-gradient-to-br text-3xl @lg:text-7xl font-bold">
-        Bring Gradients to your Text
-      </GradientText>
-      <ArrowHeading text="Triple Gradient" />
-      <GradientText className="from-blue-600 via-green-500 to-indigo-400 text-3xl @lg:text-7xl font-bold">
-        Bring Gradients to your Text
-      </GradientText>
-      <ArrowHeading text="In Different Direction" />
-      <GradientText className="bg-gradient-to-b from-blue-700 to-indigo-400 text-3xl @lg:text-7xl font-bold">
-        Bring Gradients to your Text
-      </GradientText>
-    </div>
-  );
+	return (
+		<div className="w-80 @lg:w-[40rem] flex flex-col gap-4">
+			<ArrowHeading text="Default" />
+			<GradientText className="bg-gradient-to-br text-3xl @lg:text-7xl font-bold">
+				Bring Gradients to your Text
+			</GradientText>
+			<ArrowHeading text="Triple Gradient" />
+			<GradientText className="from-blue-600 via-green-500 to-indigo-400 text-3xl @lg:text-7xl font-bold">
+				Bring Gradients to your Text
+			</GradientText>
+			<ArrowHeading text="In Different Direction" />
+			<GradientText className="bg-gradient-to-b from-blue-700 to-indigo-400 text-3xl @lg:text-7xl font-bold">
+				Bring Gradients to your Text
+			</GradientText>
+		</div>
+	);
 }
 
 ```
 
 ```react_aria|ts|Text.tsx
 "use client";
-import { Text, TextProps } from "react-aria-components";
+import { Text, type TextProps } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
 
 export function GradientText({ children, className, ...props }: TextProps) {
-  return (
-    <Text
-      className={twMerge(
-        "bg-gradient-to-tr inline-block text-transparent bg-clip-text from-neutral-600 to-neutral-300",
-        className
-      )}
-      {...props}
-    >
-      {children}
-    </Text>
-  );
+	return (
+		<Text
+			className={twMerge(
+				"bg-gradient-to-tr inline-block text-transparent bg-clip-text from-neutral-600 to-neutral-300",
+				className,
+			)}
+			{...props}
+		>
+			{children}
+		</Text>
+	);
 }
 
 ```
