@@ -24,7 +24,7 @@ declare module "react-aria-components" {
 if (
   typeof window !== "undefined" &&
   env.NEXT_PUBLIC_NODE_ENV === "production" &&
-  !window.location.host.includes("localhost") &&
+  // !window.location.host.includes("localhost") &&
   !window.location.host.includes("127.0.0.1")
 ) {
   posthog.init(env.NEXT_PUBLIC_POSTHOG_KEY, {

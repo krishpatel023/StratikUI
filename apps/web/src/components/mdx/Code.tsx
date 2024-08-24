@@ -11,6 +11,7 @@ import type { BundledLanguage } from "shiki/bundle/web";
 import { twMerge } from "tailwind-merge";
 import CodeHighlight from "../ui/CodeHighlight";
 import { Tooltip, TooltipTrigger } from "../ui/Tooltip";
+import { useInternalPostHog } from "@/hooks/useInternalPostHog";
 
 export interface CodeIndividual {
   provider: "default" | "react_aria";
@@ -26,7 +27,7 @@ const ALLOWED_NOMENCLATURE = {
   themingOption: ["tailwind", "custom"],
 };
 
-export function CodeBlock({ children }: { children: ReactNode }) {
+export function CodeBlock({ variant, children }: { variant: string; children: ReactNode }) {
   function checkNomenclature(provider: string, type: string): boolean {
     if (ALLOWED_NOMENCLATURE.provider.includes(provider)) {
       if (ALLOWED_NOMENCLATURE.type.includes(type)) {
@@ -71,7 +72,7 @@ export function CodeBlock({ children }: { children: ReactNode }) {
 
   const result = processCodeBlock(Array.isArray(children) ? children : ([children] as ReactNode[]));
 
-  return <>{result && <CodeDisplay codeArray={result} />}</>;
+  return <>{result && <CodeDisplay codeArray={result} variant={variant} />}</>;
 }
 
 interface AvailableDataProps {
@@ -82,9 +83,11 @@ interface AvailableDataProps {
 function CodeDisplay({
   codeArray,
   withCounter = true,
+  variant,
 }: {
   codeArray: CodeIndividual[];
   withCounter?: boolean;
+  variant: string;
 }) {
   const { provider, language, setProvider, setLanguage, themingOption, setThemingOption } = useInternalState();
 
@@ -232,7 +235,11 @@ function CodeDisplay({
               displayClassName="md:hidden"
               className="w-40"
             />
-            <CopyButton copyText={activeFile?.content} />
+            <CopyButton
+              copyText={activeFile?.content}
+              variant={variant}
+              specifier={`${activeProvider}-${activeType}`}
+            />
           </div>
         </div>
       </div>
@@ -287,13 +294,15 @@ function SelectComponent({
   );
 }
 
-function CopyButton({ copyText }: { copyText: string }) {
+function CopyButton({ copyText, variant, specifier }: { copyText: string; variant: string; specifier: string }) {
   const [clicked, setClicked] = useState<boolean>(false);
+  const { CopyCodeEvent } = useInternalPostHog();
 
   const handleCopy = () => {
     if (!copyText) return;
     navigator.clipboard.writeText(copyText);
     setClicked(true);
+    CopyCodeEvent(variant, specifier);
     setTimeout(() => setClicked(false), 2000);
   };
 
