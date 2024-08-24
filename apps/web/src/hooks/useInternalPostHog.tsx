@@ -5,7 +5,7 @@ import { usePostHog } from "posthog-js/react";
 
 export interface UseInternalPostHogReturn {
   CopyCodeEvent: (variant: string, provider: string) => void;
-  VisitedSocials: (network: "twitter" | "github", category: "stratikui" | "personal") => void;
+  VisitedSocials: (network: "twitter" | "github", category: "stratikui" | "personal", position: string) => void;
 }
 
 export function useInternalPostHog(): UseInternalPostHogReturn {
@@ -26,12 +26,13 @@ export function useInternalPostHog(): UseInternalPostHogReturn {
     }
   };
 
-  function VisitedSocials(network: "twitter" | "github", category: "stratikui" | "personal") {
+  function VisitedSocials(network: "twitter" | "github", category: "stratikui" | "personal", position: string) {
     if (posthog) {
       posthog.capture("visited_socials", {
         network,
         category,
         url: `${window.origin}${pathname}`,
+        position,
       });
     }
   }

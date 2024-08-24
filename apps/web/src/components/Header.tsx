@@ -11,13 +11,14 @@ import useHash from "@/hooks/useHash";
 import useScrollToSection from "@/hooks/useScrollToSection";
 import dynamic from "next/dynamic";
 import { SearchField } from "./search/SearchField";
+import { useInternalPostHog } from "@/hooks/useInternalPostHog";
 
 const CommandPalette = dynamic(() => import("./search/Search"));
 
 export const Header = () => {
   const { theme, toggleTheme } = useTheme();
   const { sidebar, setSidebar, searchbar, setSearchbar } = useInternalState();
-
+  const { VisitedSocials } = useInternalPostHog();
   // Reading the hashed version
   const hash = useHash();
   const scrollToSection = useScrollToSection();
@@ -53,30 +54,32 @@ export const Header = () => {
             aria-label="Toggle Theme"
             variant="ghost"
           >
-            <a
+            <Link
               href={Links.stratikui.github}
               target="_blank"
               className="w-8 h-10 flex justify-center items-center rounded hover:bg-secondary text-foreground"
               rel="noreferrer"
               aria-label="Twitter Account Link"
+              onClick={() => VisitedSocials("github", "stratikui", "header")}
             >
               <Icons.gitHub className="w-5 h-5" />
-            </a>
+            </Link>
           </Button>
           <Button
             className="hover:bg-secondary w-8 h-10 flex justify-center items-center text-foreground"
             aria-label="Toggle Theme"
             variant="ghost"
           >
-            <a
+            <Link
               href={Links.personal.twitter}
               target="_blank"
               className="w-8 h-10 flex justify-center items-center rounded hover:bg-secondary text-foreground"
               rel="noreferrer"
               aria-label="Twitter Account Link"
+              onClick={() => VisitedSocials("twitter", "personal", "header")}
             >
               <Icons.twitter className="w-6 h-4" />
-            </a>
+            </Link>
           </Button>
 
           <Button

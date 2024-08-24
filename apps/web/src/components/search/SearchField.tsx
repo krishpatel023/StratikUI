@@ -31,7 +31,7 @@ export function SearchField({ keys, className, searchbar, setSearchbar, ...props
       <Input
         type="text"
         className={twMerge(
-          "hidden md:block w-80 my-1 text-primary-foreground placeholder:text-secondary-foreground py-2 pr-24 pl-4 rounded-lg bg-neutral-200/30 dark:bg-neutral-900/50 border-[2px] hover:border-outline border-outline-secondary focus:outline-none",
+          "hidden md:block w-80 my-1 text-primary-foreground placeholder:text-secondary-foreground py-2 pr-24 pl-4 rounded-lg bg-neutral-100/50 dark:bg-neutral-950/50 border-[2px] hover:border-outline border-outline-secondary focus:outline-none",
           className as string,
         )}
         placeholder="Search"

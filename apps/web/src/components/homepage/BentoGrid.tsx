@@ -1,17 +1,16 @@
 "use client";
-import { Links } from "@/utils/utils";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { twMerge } from "tailwind-merge";
 import { HighlightGroup, HighlighterItem } from "../ui/Gradient";
 import { GradientText } from "../ui/GradientText";
-import ShineLink from "../ui/Link-Shine";
 import CopyPaste from "./animations/copy-paste";
 import Imports from "./animations/imports";
 import JSX_TSX from "./animations/jsx-tsx";
 import ModeToggle from "./animations/mode-toggle";
 import OpenSource from "./animations/open-source";
 import WAI_ARIA from "./animations/wai-aria";
+import OpenSourceButton from "./animations/open-source-button";
 
 export function BentoGrid() {
   return (
@@ -27,9 +26,7 @@ export function BentoGrid() {
               We are open source and always looking for contributors. You can contribute to our codebase and help us
               make this library even better. Please leave a star on our Github repository if you like our work.
             </p>
-            <ShineLink className="w-max" href={Links.stratikui.github} target="_blank" rel="noreferrer noopener">
-              View on Github
-            </ShineLink>
+            <OpenSourceButton />
           </div>
           <OpenSource className="translate-y-1/4 left-0 md:left-auto md:translate-y-0 md:top-2 md:translate-x-1/4" />
         </BentoCard>

@@ -1,7 +1,12 @@
+"use client";
+
+import { useInternalPostHog } from "@/hooks/useInternalPostHog";
 import { Links } from "@/utils/utils";
 import Link from "next/link";
 
 export default function Footer() {
+  const { VisitedSocials } = useInternalPostHog();
+
   return (
     <>
       <div className="min-w-[80%] min-h-[1px] bg-gradient-to-r from-transparent via-neutral-700 to-transparent mt-40 mb-4" />
@@ -13,6 +18,7 @@ export default function Footer() {
           target="_blank"
           rel="noreferrer"
           aria-label="Krish Patel's GitHub Profile"
+          onClick={() => VisitedSocials("github", "personal", "footer")}
         >
           Krish Patel
         </Link>
