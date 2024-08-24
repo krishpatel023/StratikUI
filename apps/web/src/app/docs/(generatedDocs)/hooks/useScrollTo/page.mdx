@@ -22,28 +22,28 @@ import useScrollTo from "@registry/packages/hooks/useScrollTo/01/default-js/useS
 import { useRef } from "react";
 
 export default function UseScrollToExample() {
-	const { isVisible, scroll } = useScrollTo();
+  const { isVisible, scroll } = useScrollTo();
 
-	const handleScrollToTop = () => {
-		scroll(null);
-	};
+  const handleScrollToTop = () => {
+    scroll(null);
+  };
 
-	// This way you can scroll to an element with element-id
-	const handleScrollToElement = () => {
-		scroll("element");
-	};
+  // This way you can scroll to an element with element-id
+  const handleScrollToElement = () => {
+    scroll("element");
+  };
 
-	// This way you can scroll to an element with element-ref
-	const ref = useRef(null);
-	const handleScrollToRef = () => {
-		scroll(ref);
-	};
+  // This way you can scroll to an element with element-ref
+  const ref = useRef(null);
+  const handleScrollToRef = () => {
+    scroll(ref);
+  };
 
-	return (
-		<div className="flex flex-col items-center justify-center">
-			<Button onPress={handleScrollToTop}>Scroll To Top</Button>
-		</div>
-	);
+  return (
+    <div className="flex flex-col items-center justify-center">
+      <Button onPress={handleScrollToTop}>Scroll To Top</Button>
+    </div>
+  );
 }
 
 ```
@@ -53,46 +53,45 @@ export default function UseScrollToExample() {
 import { useEffect, useState } from "react";
 
 const useScrollTo = ({ threshold = 300 } = {}) => {
-	const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
-	const toggleVisibility = () => {
-		if (window.scrollY > threshold) {
-			setIsVisible(true);
-		} else {
-			setIsVisible(false);
-		}
-	};
+  const toggleVisibility = () => {
+    if (window.scrollY > threshold) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
+  };
 
-	const scroll = (element) => {
-		let targetElem = null;
+  const scroll = (element) => {
+    let targetElem = null;
 
-		if (typeof element === "string")
-			targetElem = document.getElementById(element);
-		else if (typeof element === "object") targetElem = element?.current;
-		else targetElem = null;
+    if (typeof element === "string") targetElem = document.getElementById(element);
+    else if (typeof element === "object") targetElem = element?.current;
+    else targetElem = null;
 
-		if (targetElem) {
-			// Scroll to element
-			targetElem.scrollIntoView({ behavior: "smooth" });
-		} else {
-			// Scroll to top
-			window.scrollTo({
-				top: 0,
-				behavior: "smooth",
-			});
-		}
-	};
+    if (targetElem) {
+      // Scroll to element
+      targetElem.scrollIntoView({ behavior: "smooth" });
+    } else {
+      // Scroll to top
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  };
 
-	
-	useEffect(() => {
-		window.addEventListener("scroll", toggleVisibility);
+  
+  useEffect(() => {
+    window.addEventListener("scroll", toggleVisibility);
 
-		return () => {
-			window.removeEventListener("scroll", toggleVisibility);
-		};
-	}, []);
+    return () => {
+      window.removeEventListener("scroll", toggleVisibility);
+    };
+  }, []);
 
-	return { isVisible, scroll };
+  return { isVisible, scroll };
 };
 
 export default useScrollTo;
@@ -107,28 +106,28 @@ import useScrollTo from "@registry/packages/hooks/useScrollTo/01/default-ts/useS
 import { useRef } from "react";
 
 export default function UseScrollToExample() {
-	const { isVisible, scroll } = useScrollTo();
+  const { isVisible, scroll } = useScrollTo();
 
-	const handleScrollToTop = () => {
-		scroll(null);
-	};
+  const handleScrollToTop = () => {
+    scroll(null);
+  };
 
-	// This way you can scroll to an element with element-id
-	const handleScrollToElement = () => {
-		scroll("element");
-	};
+  // This way you can scroll to an element with element-id
+  const handleScrollToElement = () => {
+    scroll("element");
+  };
 
-	// This way you can scroll to an element with element-ref
-	const ref = useRef(null);
-	const handleScrollToRef = () => {
-		scroll(ref);
-	};
+  // This way you can scroll to an element with element-ref
+  const ref = useRef(null);
+  const handleScrollToRef = () => {
+    scroll(ref);
+  };
 
-	return (
-		<div className="flex flex-col items-center justify-center">
-			<Button onPress={handleScrollToTop}>Scroll To Top</Button>
-		</div>
-	);
+  return (
+    <div className="flex flex-col items-center justify-center">
+      <Button onPress={handleScrollToTop}>Scroll To Top</Button>
+    </div>
+  );
 }
 
 ```
@@ -138,50 +137,49 @@ export default function UseScrollToExample() {
 import { type RefObject, useEffect, useState } from "react";
 
 interface UseScrollToProps {
-	threshold?: number;
+  threshold?: number;
 }
 
 const useScrollTo = ({ threshold = 300 }: UseScrollToProps = {}) => {
-	const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
-	const toggleVisibility = () => {
-		if (window.scrollY > threshold) {
-			setIsVisible(true);
-		} else {
-			setIsVisible(false);
-		}
-	};
+  const toggleVisibility = () => {
+    if (window.scrollY > threshold) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
+  };
 
-	const scroll = (element: RefObject<HTMLElement | null> | string | null) => {
-		let targetElem = null;
+  const scroll = (element: RefObject<HTMLElement | null> | string | null) => {
+    let targetElem = null;
 
-		if (typeof element === "string")
-			targetElem = document.getElementById(element);
-		else if (typeof element === "object") targetElem = element?.current;
-		else targetElem = null;
+    if (typeof element === "string") targetElem = document.getElementById(element);
+    else if (typeof element === "object") targetElem = element?.current;
+    else targetElem = null;
 
-		if (targetElem) {
-			// Scroll to element
-			targetElem.scrollIntoView({ behavior: "smooth" });
-		} else {
-			// Scroll to top
-			window.scrollTo({
-				top: 0,
-				behavior: "smooth",
-			});
-		}
-	};
+    if (targetElem) {
+      // Scroll to element
+      targetElem.scrollIntoView({ behavior: "smooth" });
+    } else {
+      // Scroll to top
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  };
 
-	
-	useEffect(() => {
-		window.addEventListener("scroll", toggleVisibility);
+  
+  useEffect(() => {
+    window.addEventListener("scroll", toggleVisibility);
 
-		return () => {
-			window.removeEventListener("scroll", toggleVisibility);
-		};
-	}, []);
+    return () => {
+      window.removeEventListener("scroll", toggleVisibility);
+    };
+  }, []);
 
-	return { isVisible, scroll };
+  return { isVisible, scroll };
 };
 
 export default useScrollTo;

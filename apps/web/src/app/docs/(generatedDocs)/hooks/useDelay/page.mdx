@@ -23,45 +23,43 @@ import useDelay from "@registry/packages/hooks/useDelay/01/default-js/useDelay";
 import { Modal } from "@registry/packages/primitives/modals/01/default-js/Modal";
 
 export default function UseDelayExample() {
-	const { isDelaying, delay, clearDelay } = useDelay(); // [!code highlight]
+  const { isDelaying, delay, clearDelay } = useDelay(); // [!code highlight]
 
-	const [active, setActive] = useState(false);
+  const [active, setActive] = useState(false);
 
-	// This way you can use it with async-await or .then
-	const handleDelay = async () => {
-		await delay(2000);
-		setActive(true);
-	};
+  // This way you can use it with async-await or .then
+  const handleDelay = async () => {
+    await delay(2000);
+    setActive(true);
+  };
 
-	// This way you can use it without async-await or .then
-	const handleDelayWithAction = () => {
-		delay(2000, () => {
-			setActive(true);
-		});
-	};
+  // This way you can use it without async-await or .then
+  const handleDelayWithAction = () => {
+    delay(2000, () => {
+      setActive(true);
+    });
+  };
 
-	const handleClearDelay = () => {
-		clearDelay();
-	};
+  const handleClearDelay = () => {
+    clearDelay();
+  };
 
-	return (
-		<div className="min-h-[35rem] flex flex-col justify-center items-center gap-6 text-center">
-			<Modal isOpen={active} setOpen={setActive} className="max-w-[30rem]">
-				<h1>This is the delayed action of your click.</h1>
-				<span className="mt-4">
-					<Button onPress={() => setActive(false)}>Close</Button>
-				</span>
-			</Modal>
-			<h1 className="text-2xl text-foreground">
-				{isDelaying ? "Delaying" : "Click to see the delayed action"}
-			</h1>
-			<div className="flex gap-4 flex-col @md:flex-row">
-				<Button onPress={handleDelay}>Delay with Async</Button>
-				<Button onPress={handleDelayWithAction}>Delay without Async</Button>
-				<Button onPress={handleClearDelay}>Clear Delay</Button>
-			</div>
-		</div>
-	);
+  return (
+    <div className="min-h-[35rem] flex flex-col justify-center items-center gap-6 text-center">
+      <Modal isOpen={active} setOpen={setActive} className="max-w-[30rem]">
+        <h1>This is the delayed action of your click.</h1>
+        <span className="mt-4">
+          <Button onPress={() => setActive(false)}>Close</Button>
+        </span>
+      </Modal>
+      <h1 className="text-2xl text-foreground">{isDelaying ? "Delaying" : "Click to see the delayed action"}</h1>
+      <div className="flex gap-4 flex-col @md:flex-row">
+        <Button onPress={handleDelay}>Delay with Async</Button>
+        <Button onPress={handleDelayWithAction}>Delay without Async</Button>
+        <Button onPress={handleClearDelay}>Clear Delay</Button>
+      </div>
+    </div>
+  );
 }
 
 ```
@@ -72,47 +70,47 @@ export default function UseDelayExample() {
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const useDelay = () => {
-	const timerRef = useRef(null);
-	const [isDelaying, setIsDelaying] = useState(false);
+  const timerRef = useRef(null);
+  const [isDelaying, setIsDelaying] = useState(false);
 
-	useEffect(() => {
-		return () => {
-			clearDelay();
-		};
-	}, []);
+  useEffect(() => {
+    return () => {
+      clearDelay();
+    };
+  }, []);
 
-	const delay = async (time, callback, options = {}) => {
-		const { immediate = false } = options;
-		const executableFunc = callback || (() => {});
+  const delay = async (time, callback, options = {}) => {
+    const { immediate = false } = options;
+    const executableFunc = callback || (() => {});
 
-		if (immediate) {
-			executableFunc();
-		}
+    if (immediate) {
+      executableFunc();
+    }
 
-		return new Promise((resolve) => {
-			clearDelay();
+    return new Promise((resolve) => {
+      clearDelay();
 
-			timerRef.current = setTimeout(() => {
-				if (!immediate) {
-					executableFunc();
-				}
-				setIsDelaying(false);
-				resolve();
-			}, time);
+      timerRef.current = setTimeout(() => {
+        if (!immediate) {
+          executableFunc();
+        }
+        setIsDelaying(false);
+        resolve();
+      }, time);
 
-			setIsDelaying(true);
-		});
-	};
+      setIsDelaying(true);
+    });
+  };
 
-	const clearDelay = useCallback(() => {
-		if (timerRef.current) {
-			clearTimeout(timerRef.current);
-			timerRef.current = null;
-			setIsDelaying(false);
-		}
-	}, []);
+  const clearDelay = useCallback(() => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+      setIsDelaying(false);
+    }
+  }, []);
 
-	return { isDelaying, delay, clearDelay };
+  return { isDelaying, delay, clearDelay };
 };
 
 export default useDelay;
@@ -128,45 +126,43 @@ import useDelay from "@registry/packages/hooks/useDelay/01/default-ts/useDelay";
 import { Modal } from "@registry/packages/primitives/modals/01/default-ts/Modal";
 
 export default function UseDelayExample() {
-	const { isDelaying, delay, clearDelay } = useDelay(); // [!code highlight]
+  const { isDelaying, delay, clearDelay } = useDelay(); // [!code highlight]
 
-	const [active, setActive] = useState<boolean>(false);
+  const [active, setActive] = useState<boolean>(false);
 
-	// This way you can use it with async-await or .then
-	const handleDelay = async () => {
-		await delay(2000);
-		setActive(true);
-	};
+  // This way you can use it with async-await or .then
+  const handleDelay = async () => {
+    await delay(2000);
+    setActive(true);
+  };
 
-	// This way you can use it without async-await or .then
-	const handleDelayWithAction = () => {
-		delay(2000, () => {
-			setActive(true);
-		});
-	};
+  // This way you can use it without async-await or .then
+  const handleDelayWithAction = () => {
+    delay(2000, () => {
+      setActive(true);
+    });
+  };
 
-	const handleClearDelay = () => {
-		clearDelay();
-	};
+  const handleClearDelay = () => {
+    clearDelay();
+  };
 
-	return (
-		<div className="min-h-[35rem] flex flex-col justify-center items-center gap-6 text-center">
-			<Modal isOpen={active} setOpen={setActive} className="max-w-[30rem]">
-				<h1>This is the delayed action of your click.</h1>
-				<span className="mt-4">
-					<Button onPress={() => setActive(false)}>Close</Button>
-				</span>
-			</Modal>
-			<h1 className="text-2xl text-foreground">
-				{isDelaying ? "Delaying" : "Click to see the delayed action"}
-			</h1>
-			<div className="flex gap-4 flex-col @md:flex-row">
-				<Button onPress={handleDelay}>Delay with Async</Button>
-				<Button onPress={handleDelayWithAction}>Delay without Async</Button>
-				<Button onPress={handleClearDelay}>Clear Delay</Button>
-			</div>
-		</div>
-	);
+  return (
+    <div className="min-h-[35rem] flex flex-col justify-center items-center gap-6 text-center">
+      <Modal isOpen={active} setOpen={setActive} className="max-w-[30rem]">
+        <h1>This is the delayed action of your click.</h1>
+        <span className="mt-4">
+          <Button onPress={() => setActive(false)}>Close</Button>
+        </span>
+      </Modal>
+      <h1 className="text-2xl text-foreground">{isDelaying ? "Delaying" : "Click to see the delayed action"}</h1>
+      <div className="flex gap-4 flex-col @md:flex-row">
+        <Button onPress={handleDelay}>Delay with Async</Button>
+        <Button onPress={handleDelayWithAction}>Delay without Async</Button>
+        <Button onPress={handleClearDelay}>Clear Delay</Button>
+      </div>
+    </div>
+  );
 }
 
 ```
@@ -177,65 +173,57 @@ export default function UseDelayExample() {
 import { useCallback, useEffect, useRef, useState } from "react";
 
 interface UseDelayOptions {
-	immediate?: boolean;
+  immediate?: boolean;
 }
 
 interface UseDelayReturn {
-	isDelaying: boolean;
-	delay: (
-		time: number,
-		callback?: () => void,
-		options?: UseDelayOptions,
-	) => void;
-	clearDelay: () => void;
+  isDelaying: boolean;
+  delay: (time: number, callback?: () => void, options?: UseDelayOptions) => void;
+  clearDelay: () => void;
 }
 
 const useDelay = (): UseDelayReturn => {
-	const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-	const [isDelaying, setIsDelaying] = useState<boolean>(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [isDelaying, setIsDelaying] = useState<boolean>(false);
 
-	useEffect(() => {
-		return () => {
-			clearDelay();
-		};
-	}, []);
+  useEffect(() => {
+    return () => {
+      clearDelay();
+    };
+  }, []);
 
-	const delay = async (
-		time: number,
-		callback?: () => void,
-		options: UseDelayOptions = {},
-	): Promise<void> => {
-		const { immediate = false } = options;
-		const executableFunc = callback || (() => {});
+  const delay = async (time: number, callback?: () => void, options: UseDelayOptions = {}): Promise<void> => {
+    const { immediate = false } = options;
+    const executableFunc = callback || (() => {});
 
-		if (immediate) {
-			executableFunc();
-		}
+    if (immediate) {
+      executableFunc();
+    }
 
-		return new Promise<void>((resolve) => {
-			clearDelay();
+    return new Promise<void>((resolve) => {
+      clearDelay();
 
-			timerRef.current = setTimeout(() => {
-				if (!immediate) {
-					executableFunc();
-				}
-				setIsDelaying(false);
-				resolve();
-			}, time);
+      timerRef.current = setTimeout(() => {
+        if (!immediate) {
+          executableFunc();
+        }
+        setIsDelaying(false);
+        resolve();
+      }, time);
 
-			setIsDelaying(true);
-		});
-	};
+      setIsDelaying(true);
+    });
+  };
 
-	const clearDelay = useCallback(() => {
-		if (timerRef.current) {
-			clearTimeout(timerRef.current);
-			timerRef.current = null;
-			setIsDelaying(false);
-		}
-	}, []);
+  const clearDelay = useCallback(() => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+      setIsDelaying(false);
+    }
+  }, []);
 
-	return { isDelaying, delay, clearDelay };
+  return { isDelaying, delay, clearDelay };
 };
 
 export default useDelay;

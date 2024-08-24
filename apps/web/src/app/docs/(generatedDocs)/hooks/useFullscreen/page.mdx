@@ -22,30 +22,30 @@ import { useFullscreen } from "@registry/packages/hooks/useFullscreen/01/default
 import Button from "@registry/ui/Button";
 
 export default function UseFullscreenExample() {
-	const { isFullscreen, requestFullscreen, exitFullscreen } = useFullscreen();
-	const elementRef = useRef(null);
+  const { isFullscreen, requestFullscreen, exitFullscreen } = useFullscreen();
+  const elementRef = useRef(null);
 
-	const handleEnterFullscreen = () => {
-		if (elementRef.current) {
-			requestFullscreen(elementRef.current);
-		}
-	};
+  const handleEnterFullscreen = () => {
+    if (elementRef.current) {
+      requestFullscreen(elementRef.current);
+    }
+  };
 
-	return (
-		<div className="w-full h-80 flex flex-col justify-center items-center gap-8 text-foreground">
-			<div
-				ref={elementRef}
-				className="w-1/2 min-w-60 h-60 bg-secondary text-secondary-foreground flex flex-col justify-center items-center text-center gap-6"
-			>
-				<p>This content can be viewed in full-screen mode.</p>
-				<p>Fullscreen status: {isFullscreen ? "Enabled" : "Disabled"}</p>
-				<Button onPress={exitFullscreen}>Exit Fullscreen</Button>
-			</div>
-			<div className="flex gap-4">
-				<Button onPress={handleEnterFullscreen}>Enter Fullscreen</Button>
-			</div>
-		</div>
-	);
+  return (
+    <div className="w-full h-80 flex flex-col justify-center items-center gap-8 text-foreground">
+      <div
+        ref={elementRef}
+        className="w-1/2 min-w-60 h-60 bg-secondary text-secondary-foreground flex flex-col justify-center items-center text-center gap-6"
+      >
+        <p>This content can be viewed in full-screen mode.</p>
+        <p>Fullscreen status: {isFullscreen ? "Enabled" : "Disabled"}</p>
+        <Button onPress={exitFullscreen}>Exit Fullscreen</Button>
+      </div>
+      <div className="flex gap-4">
+        <Button onPress={handleEnterFullscreen}>Enter Fullscreen</Button>
+      </div>
+    </div>
+  );
 }
 
 ```
@@ -56,69 +56,59 @@ export default function UseFullscreenExample() {
 import { useState, useCallback, useEffect } from "react";
 
 export const useFullscreen = () => {
-	const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
-	const requestFullscreen = useCallback((element) => {
-		if (element.requestFullscreen) {
-			element.requestFullscreen();
-		}
-		// This is for Safari
-		else if (element.webkitRequestFullscreen) {
-			element.webkitRequestFullscreen();
-		}
-		// This is for IE11
-		else if (element.msRequestFullscreen) {
-			element.msRequestFullscreen();
-		}
-	}, []);
+  const requestFullscreen = useCallback((element) => {
+    if (element.requestFullscreen) {
+      element.requestFullscreen();
+    }
+    // This is for Safari
+    else if (element.webkitRequestFullscreen) {
+      element.webkitRequestFullscreen();
+    }
+    // This is for IE11
+    else if (element.msRequestFullscreen) {
+      element.msRequestFullscreen();
+    }
+  }, []);
 
-	const exitFullscreen = useCallback(() => {
-		if (
-			document.fullscreenElement ||
-			document.webkitFullscreenElement ||
-			document.msFullscreenElement
-		) {
-			if (document.exitFullscreen) {
-				document.exitFullscreen();
-			}
-			// This is for Safari
-			else if (document.webkitExitFullscreen) {
-				document.webkitExitFullscreen();
-			}
-			// This is for IE11
-			else if (document.msExitFullscreen) {
-				document.msExitFullscreen();
-			}
-		}
-	}, []);
+  const exitFullscreen = useCallback(() => {
+    if (document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+      // This is for Safari
+      else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+      // This is for IE11
+      else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
+    }
+  }, []);
 
-	const handleFullscreenChange = useCallback(() => {
-		setIsFullscreen(!document.fullscreenElement);
-	}, []);
+  const handleFullscreenChange = useCallback(() => {
+    setIsFullscreen(!document.fullscreenElement);
+  }, []);
 
-	useEffect(() => {
-		document.addEventListener("fullscreenchange", handleFullscreenChange);
-		document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
-		document.addEventListener("msfullscreenchange", handleFullscreenChange);
+  useEffect(() => {
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+    document.addEventListener("msfullscreenchange", handleFullscreenChange);
 
-		return () => {
-			document.removeEventListener("fullscreenchange", handleFullscreenChange);
-			document.removeEventListener(
-				"webkitfullscreenchange",
-				handleFullscreenChange,
-			);
-			document.removeEventListener(
-				"msfullscreenchange",
-				handleFullscreenChange,
-			);
-		};
-	}, [handleFullscreenChange]);
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      document.removeEventListener("webkitfullscreenchange", handleFullscreenChange);
+      document.removeEventListener("msfullscreenchange", handleFullscreenChange);
+    };
+  }, [handleFullscreenChange]);
 
-	return {
-		isFullscreen,
-		requestFullscreen,
-		exitFullscreen,
-	};
+  return {
+    isFullscreen,
+    requestFullscreen,
+    exitFullscreen,
+  };
 };
 
 ```
@@ -131,30 +121,30 @@ import { useFullscreen } from "@registry/packages/hooks/useFullscreen/01/default
 import Button from "@registry/ui/Button";
 
 export default function UseFullscreenExample() {
-	const { isFullscreen, requestFullscreen, exitFullscreen } = useFullscreen();
-	const elementRef = useRef<HTMLDivElement>(null);
+  const { isFullscreen, requestFullscreen, exitFullscreen } = useFullscreen();
+  const elementRef = useRef<HTMLDivElement>(null);
 
-	const handleEnterFullscreen = () => {
-		if (elementRef.current) {
-			requestFullscreen(elementRef.current);
-		}
-	};
+  const handleEnterFullscreen = () => {
+    if (elementRef.current) {
+      requestFullscreen(elementRef.current);
+    }
+  };
 
-	return (
-		<div className="w-full h-80 flex flex-col justify-center items-center gap-8 text-foreground">
-			<div
-				ref={elementRef}
-				className="w-1/2 min-w-60 h-60 bg-secondary text-secondary-foreground flex flex-col justify-center items-center text-center gap-6"
-			>
-				<p>This content can be viewed in full-screen mode.</p>
-				<p>Fullscreen status: {isFullscreen ? "Enabled" : "Disabled"}</p>
-				<Button onPress={exitFullscreen}>Exit Fullscreen</Button>
-			</div>
-			<div className="flex gap-4">
-				<Button onPress={handleEnterFullscreen}>Enter Fullscreen</Button>
-			</div>
-		</div>
-	);
+  return (
+    <div className="w-full h-80 flex flex-col justify-center items-center gap-8 text-foreground">
+      <div
+        ref={elementRef}
+        className="w-1/2 min-w-60 h-60 bg-secondary text-secondary-foreground flex flex-col justify-center items-center text-center gap-6"
+      >
+        <p>This content can be viewed in full-screen mode.</p>
+        <p>Fullscreen status: {isFullscreen ? "Enabled" : "Disabled"}</p>
+        <Button onPress={exitFullscreen}>Exit Fullscreen</Button>
+      </div>
+      <div className="flex gap-4">
+        <Button onPress={handleEnterFullscreen}>Enter Fullscreen</Button>
+      </div>
+    </div>
+  );
 }
 
 ```
@@ -165,69 +155,63 @@ export default function UseFullscreenExample() {
 import { useState, useCallback, useEffect } from "react";
 
 export const useFullscreen = () => {
-	const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
-	const requestFullscreen = useCallback((element: HTMLElement) => {
-		if (element.requestFullscreen) {
-			element.requestFullscreen();
-		}
-		// This is for Safari
-		else if ((element as any).webkitRequestFullscreen) {
-			(element as any).webkitRequestFullscreen();
-		}
-		// This is for IE11
-		else if ((element as any).msRequestFullscreen) {
-			(element as any).msRequestFullscreen();
-		}
-	}, []);
+  const requestFullscreen = useCallback((element: HTMLElement) => {
+    if (element.requestFullscreen) {
+      element.requestFullscreen();
+    }
+    // This is for Safari
+    else if ((element as any).webkitRequestFullscreen) {
+      (element as any).webkitRequestFullscreen();
+    }
+    // This is for IE11
+    else if ((element as any).msRequestFullscreen) {
+      (element as any).msRequestFullscreen();
+    }
+  }, []);
 
-	const exitFullscreen = useCallback(() => {
-		if (
-			document.fullscreenElement ||
-			(document as any).webkitFullscreenElement ||
-			(document as any).msFullscreenElement
-		) {
-			if (document.exitFullscreen) {
-				document.exitFullscreen();
-			}
-			// This is for Safari
-			else if ((document as any).webkitExitFullscreen) {
-				(document as any).webkitExitFullscreen();
-			}
-			// This is for IE11
-			else if ((document as any).msExitFullscreen) {
-				(document as any).msExitFullscreen();
-			}
-		}
-	}, []);
+  const exitFullscreen = useCallback(() => {
+    if (
+      document.fullscreenElement ||
+      (document as any).webkitFullscreenElement ||
+      (document as any).msFullscreenElement
+    ) {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+      // This is for Safari
+      else if ((document as any).webkitExitFullscreen) {
+        (document as any).webkitExitFullscreen();
+      }
+      // This is for IE11
+      else if ((document as any).msExitFullscreen) {
+        (document as any).msExitFullscreen();
+      }
+    }
+  }, []);
 
-	const handleFullscreenChange = useCallback(() => {
-		setIsFullscreen(!document.fullscreenElement);
-	}, []);
+  const handleFullscreenChange = useCallback(() => {
+    setIsFullscreen(!document.fullscreenElement);
+  }, []);
 
-	useEffect(() => {
-		document.addEventListener("fullscreenchange", handleFullscreenChange);
-		document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
-		document.addEventListener("msfullscreenchange", handleFullscreenChange);
+  useEffect(() => {
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+    document.addEventListener("msfullscreenchange", handleFullscreenChange);
 
-		return () => {
-			document.removeEventListener("fullscreenchange", handleFullscreenChange);
-			document.removeEventListener(
-				"webkitfullscreenchange",
-				handleFullscreenChange,
-			);
-			document.removeEventListener(
-				"msfullscreenchange",
-				handleFullscreenChange,
-			);
-		};
-	}, [handleFullscreenChange]);
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      document.removeEventListener("webkitfullscreenchange", handleFullscreenChange);
+      document.removeEventListener("msfullscreenchange", handleFullscreenChange);
+    };
+  }, [handleFullscreenChange]);
 
-	return {
-		isFullscreen,
-		requestFullscreen,
-		exitFullscreen,
-	};
+  return {
+    isFullscreen,
+    requestFullscreen,
+    exitFullscreen,
+  };
 };
 
 ```

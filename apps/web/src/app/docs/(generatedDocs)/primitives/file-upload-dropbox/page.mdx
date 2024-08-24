@@ -37,133 +37,127 @@ export const Primitives_file_upload_dropbox_01 = lazy(() => import("@registry/pa
 import { useEffect, useRef, useState } from "react";
 
 export function Dropbox({
-	className,
-	children,
-	limitSize,
-	limitNumberOfFiles,
-	allowedFileTypes,
-	getFiles,
-	getError,
-	...props
+  className,
+  children,
+  limitSize,
+  limitNumberOfFiles,
+  allowedFileTypes,
+  getFiles,
+  getError,
+  ...props
 }) {
-	const [files, setFiles] = useState([]);
-	const [error, setError] = useState("");
-	const dropboxRef = useRef(null);
+  const [files, setFiles] = useState([]);
+  const [error, setError] = useState("");
+  const dropboxRef = useRef(null);
 
-	function handleValidation(file) {
-		// Size validation
-		if (limitSize && file.size > limitSize * 1024 * 1024) {
-			setError(
-				`${error}File named ${file.name} is too large. Max size is ${limitSize}MB.`,
-			);
-			return false;
-		}
+  function handleValidation(file) {
+    // Size validation
+    if (limitSize && file.size > limitSize * 1024 * 1024) {
+      setError(`${error}File named ${file.name} is too large. Max size is ${limitSize}MB.`);
+      return false;
+    }
 
-		// Number of files validation
-		if (limitNumberOfFiles && files.length >= limitNumberOfFiles) {
-			setError(
-				`${error}You can only upload ${limitNumberOfFiles} files at a time.`,
-			);
-			return false;
-		}
+    // Number of files validation
+    if (limitNumberOfFiles && files.length >= limitNumberOfFiles) {
+      setError(`${error}You can only upload ${limitNumberOfFiles} files at a time.`);
+      return false;
+    }
 
-		// File type validation
-		if (allowedFileTypes) {
-			let retType = false;
-			for (const type of allowedFileTypes) {
-				let isValid = false;
+    // File type validation
+    if (allowedFileTypes) {
+      let retType = false;
+      for (const type of allowedFileTypes) {
+        let isValid = false;
 
-				// For all types like image/*
-				const allType = type.includes("/*");
-				const typeExt = type.split(".")[1];
+        // For all types like image/*
+        const allType = type.includes("/*");
+        const typeExt = type.split(".")[1];
 
-				if (allType) {
-					const preVal = type.split("/")[0];
-					if (file.type.includes(preVal)) {
-						isValid = true;
-					}
-				}
+        if (allType) {
+          const preVal = type.split("/")[0];
+          if (file.type.includes(preVal)) {
+            isValid = true;
+          }
+        }
 
-				// For specific types like image/png
-				else if (file.type.includes(type)) {
-					isValid = true;
-				}
+        // For specific types like image/png
+        else if (file.type.includes(type)) {
+          isValid = true;
+        }
 
-				// For extension types like .png
-				else if (file.type.includes(typeExt) || file.name.endsWith(typeExt)) {
-					isValid = true;
-				}
+        // For extension types like .png
+        else if (file.type.includes(typeExt) || file.name.endsWith(typeExt)) {
+          isValid = true;
+        }
 
-				if (isValid === true) {
-					retType = true;
-					break;
-				}
-			}
+        if (isValid === true) {
+          retType = true;
+          break;
+        }
+      }
 
-			if (retType === false) {
-				setError(
-					`${error}File named ${file.name} is not allowed. Allowed types are ${allowedFileTypes.join(", ")} and the file you tried to upload is ${file.type}.`,
-				);
-				return false;
-			}
-		}
-		return true;
-	}
-	function handleDrop(e) {
-		e.preventDefault();
-		handleDragEnter("leave");
-		setError("");
-		const droppedFiles = e.dataTransfer.files;
+      if (retType === false) {
+        setError(
+          `${error}File named ${file.name} is not allowed. Allowed types are ${allowedFileTypes.join(", ")} and the file you tried to upload is ${file.type}.`,
+        );
+        return false;
+      }
+    }
+    return true;
+  }
+  function handleDrop(e) {
+    e.preventDefault();
+    handleDragEnter("leave");
+    setError("");
+    const droppedFiles = e.dataTransfer.files;
 
-		// Validation
+    // Validation
 
-		const validFilesArray = Array.from(droppedFiles).filter((file) =>
-			handleValidation(file),
-		);
-		setFiles((prevFiles) => [...prevFiles, ...validFilesArray]);
-	}
+    const validFilesArray = Array.from(droppedFiles).filter((file) => handleValidation(file));
+    setFiles((prevFiles) => [...prevFiles, ...validFilesArray]);
+  }
 
-	const handleDragOver = (e) => {
-		e.preventDefault();
-	};
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
 
-	const handleDragLeave = (e) => {
-		e.preventDefault();
-	};
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+  };
 
-	const handleDragEnter = (operation) => {
-		if (operation === "enter" && dropboxRef.current) {
-			dropboxRef.current.setAttribute("data-drag-hover", "true");
-		} else if (operation === "leave" && dropboxRef.current) {
-			dropboxRef.current.removeAttribute("data-drag-hover");
-		}
-	};
+  const handleDragEnter = (operation) => {
+    if (operation === "enter" && dropboxRef.current) {
+      dropboxRef.current.setAttribute("data-drag-hover", "true");
+    } else if (operation === "leave" && dropboxRef.current) {
+      dropboxRef.current.removeAttribute("data-drag-hover");
+    }
+  };
 
-	
-	useEffect(() => {
-		if (getFiles) {
-			getFiles(files);
-		}
-		if (getError) {
-			getError(error);
-		}
-	}, [files]);
+  
+  useEffect(() => {
+    if (getFiles) {
+      getFiles(files);
+    }
+    if (getError) {
+      getError(error);
+    }
+  }, [files]);
 
-	return (
-		<div
-			ref={dropboxRef}
-			onDragOver={handleDragOver}
-			onDragLeave={handleDragLeave}
-			onDrop={handleDrop}
-			onDragEnter={() => handleDragEnter("enter")}
-			onDragLeaveCapture={() => handleDragEnter("leave")}
-			className={className}
-			{...props}
-		>
-			{children}
-			{error && <p className="text-black">{error}</p>}
-		</div>
-	);
+  return (
+    <div
+      ref={dropboxRef}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+      onDragEnter={() => handleDragEnter("enter")}
+      onDragLeaveCapture={() => handleDragEnter("leave")}
+      className={className}
+      {...props}
+    >
+      {children}
+      {error && <p className="text-black">{error}</p>}
+    </div>
+  );
 }
 
 ```
@@ -177,65 +171,51 @@ import DemoImage from "@registry/assets/Images/Image_2.jpg";
 import Image from "next/image";
 
 export default function DropboxImplementation() {
-	const [files, setFiles] = useState([]);
-	const [error, setError] = useState("");
+  const [files, setFiles] = useState([]);
+  const [error, setError] = useState("");
 
-	function getFiles(files) {
-		setFiles(files);
-	}
-	function getError(err) {
-		setError(err);
-	}
+  function getFiles(files) {
+    setFiles(files);
+  }
+  function getError(err) {
+    setError(err);
+  }
 
-	return (
-		<div className="min-h-[30rem] flex flex-col items-center justify-center gap-4">
-			<DemoImageForDropbox />
-			<Dropbox
-				className="w-80 h-80 border border-outline-secondary border-dashed data-[drag-hover=true]:bg-secondary rounded-lg text-foreground flex justify-center items-center"
-				getFiles={getFiles}
-				getError={getError}
-			>
-				<h1>Drop your files here</h1>
-			</Dropbox>
-			<div className="min-h-40 flex flex-col items-center justify-center text-foreground">
-				<h1 className="underline underline-offset-2 mb-4">
-					Files you uploaded
-				</h1>
-				{files.map((file, i) => (
-					<div key={i} className="flex justify-center items-center gap-4">
-						<h2>Name: {file.name}</h2>
-						<p>Type : {file.type}</p>
-						<Image
-							className="h-20 w-auto"
-							src={URL.createObjectURL(file)}
-							alt={file.name}
-							width={200}
-							height={200}
-						/>
-					</div>
-				))}
-			</div>
-		</div>
-	);
+  return (
+    <div className="min-h-[30rem] flex flex-col items-center justify-center gap-4">
+      <DemoImageForDropbox />
+      <Dropbox
+        className="w-80 h-80 border border-outline-secondary border-dashed data-[drag-hover=true]:bg-secondary rounded-lg text-foreground flex justify-center items-center"
+        getFiles={getFiles}
+        getError={getError}
+      >
+        <h1>Drop your files here</h1>
+      </Dropbox>
+      <div className="min-h-40 flex flex-col items-center justify-center text-foreground">
+        <h1 className="underline underline-offset-2 mb-4">Files you uploaded</h1>
+        {files.map((file, i) => (
+          <div key={i} className="flex justify-center items-center gap-4">
+            <h2>Name: {file.name}</h2>
+            <p>Type : {file.type}</p>
+            <Image className="h-20 w-auto" src={URL.createObjectURL(file)} alt={file.name} width={200} height={200} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 function DemoImageForDropbox() {
-	const handleDragStart = (event) => {
-		event.dataTransfer.setData("text/plain", "Demo image data");
-	};
+  const handleDragStart = (event) => {
+    event.dataTransfer.setData("text/plain", "Demo image data");
+  };
 
-	return (
-		<div className="flex flex-col items-center justify-center text-foreground gap-2 mt-10">
-			<h1>Demo Image Drag this and upload</h1>
-			<Image
-				src={DemoImage}
-				alt="Demo"
-				draggable
-				onDragStart={handleDragStart}
-				className="h-20 w-auto"
-			/>
-		</div>
-	);
+  return (
+    <div className="flex flex-col items-center justify-center text-foreground gap-2 mt-10">
+      <h1>Demo Image Drag this and upload</h1>
+      <Image src={DemoImage} alt="Demo" draggable onDragStart={handleDragStart} className="h-20 w-auto" />
+    </div>
+  );
 }
 
 ```
@@ -246,140 +226,134 @@ function DemoImageForDropbox() {
 import { type DragEvent, useEffect, useRef, useState } from "react";
 
 export interface DropboxProps extends React.HTMLAttributes<HTMLDivElement> {
-	getFiles?: (files: File[]) => void;
-	getError?: (err: string) => void;
-	limitSize?: number;
-	limitNumberOfFiles?: number;
-	allowedFileTypes?: string[];
+  getFiles?: (files: File[]) => void;
+  getError?: (err: string) => void;
+  limitSize?: number;
+  limitNumberOfFiles?: number;
+  allowedFileTypes?: string[];
 }
 
 export function Dropbox({
-	className,
-	children,
-	limitSize,
-	limitNumberOfFiles,
-	allowedFileTypes,
-	getFiles,
-	getError,
-	...props
+  className,
+  children,
+  limitSize,
+  limitNumberOfFiles,
+  allowedFileTypes,
+  getFiles,
+  getError,
+  ...props
 }: DropboxProps) {
-	const [files, setFiles] = useState<File[]>([]);
-	const [error, setError] = useState<string>("");
-	const dropboxRef = useRef<HTMLDivElement>(null);
+  const [files, setFiles] = useState<File[]>([]);
+  const [error, setError] = useState<string>("");
+  const dropboxRef = useRef<HTMLDivElement>(null);
 
-	function handleValidation(file: File): boolean {
-		// Size validation
-		if (limitSize && file.size > limitSize * 1024 * 1024) {
-			setError(
-				`${error}File named ${file.name} is too large. Max size is ${limitSize}MB.`,
-			);
-			return false;
-		}
+  function handleValidation(file: File): boolean {
+    // Size validation
+    if (limitSize && file.size > limitSize * 1024 * 1024) {
+      setError(`${error}File named ${file.name} is too large. Max size is ${limitSize}MB.`);
+      return false;
+    }
 
-		// Number of files validation
-		if (limitNumberOfFiles && files.length >= limitNumberOfFiles) {
-			setError(
-				`${error}You can only upload ${limitNumberOfFiles} files at a time.`,
-			);
-			return false;
-		}
+    // Number of files validation
+    if (limitNumberOfFiles && files.length >= limitNumberOfFiles) {
+      setError(`${error}You can only upload ${limitNumberOfFiles} files at a time.`);
+      return false;
+    }
 
-		// File type validation
-		if (allowedFileTypes) {
-			let retType = false;
-			for (const type of allowedFileTypes) {
-				let isValid = false;
+    // File type validation
+    if (allowedFileTypes) {
+      let retType = false;
+      for (const type of allowedFileTypes) {
+        let isValid = false;
 
-				// For all types like image/*
-				const allType = type.includes("/*");
-				const typeExt = type.split(".")[1];
+        // For all types like image/*
+        const allType = type.includes("/*");
+        const typeExt = type.split(".")[1];
 
-				if (allType) {
-					const preVal = type.split("/")[0];
-					if (file.type.includes(preVal)) {
-						isValid = true;
-					}
-				}
+        if (allType) {
+          const preVal = type.split("/")[0];
+          if (file.type.includes(preVal)) {
+            isValid = true;
+          }
+        }
 
-				// For specific types like image/png
-				else if (file.type.includes(type)) {
-					isValid = true;
-				}
+        // For specific types like image/png
+        else if (file.type.includes(type)) {
+          isValid = true;
+        }
 
-				// For extension types like .png
-				else if (file.type.includes(typeExt) || file.name.endsWith(typeExt)) {
-					isValid = true;
-				}
+        // For extension types like .png
+        else if (file.type.includes(typeExt) || file.name.endsWith(typeExt)) {
+          isValid = true;
+        }
 
-				if (isValid === true) {
-					retType = true;
-					break;
-				}
-			}
+        if (isValid === true) {
+          retType = true;
+          break;
+        }
+      }
 
-			if (retType === false) {
-				setError(
-					`${error}File named ${file.name} is not allowed. Allowed types are ${allowedFileTypes.join(", ")} and the file you tried to upload is ${file.type}.`,
-				);
-				return false;
-			}
-		}
-		return true;
-	}
-	function handleDrop(e: DragEvent<HTMLDivElement>): void {
-		e.preventDefault();
-		handleDragEnter("leave");
-		setError("");
-		const droppedFiles = e.dataTransfer.files;
+      if (retType === false) {
+        setError(
+          `${error}File named ${file.name} is not allowed. Allowed types are ${allowedFileTypes.join(", ")} and the file you tried to upload is ${file.type}.`,
+        );
+        return false;
+      }
+    }
+    return true;
+  }
+  function handleDrop(e: DragEvent<HTMLDivElement>): void {
+    e.preventDefault();
+    handleDragEnter("leave");
+    setError("");
+    const droppedFiles = e.dataTransfer.files;
 
-		// Validation
+    // Validation
 
-		const validFilesArray = Array.from(droppedFiles).filter((file) =>
-			handleValidation(file),
-		);
-		setFiles((prevFiles) => [...prevFiles, ...validFilesArray]);
-	}
+    const validFilesArray = Array.from(droppedFiles).filter((file) => handleValidation(file));
+    setFiles((prevFiles) => [...prevFiles, ...validFilesArray]);
+  }
 
-	const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-		e.preventDefault();
-	};
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+  };
 
-	const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
-		e.preventDefault();
-	};
+  const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+  };
 
-	const handleDragEnter = (operation: "enter" | "leave") => {
-		if (operation === "enter" && dropboxRef.current) {
-			dropboxRef.current.setAttribute("data-drag-hover", "true");
-		} else if (operation === "leave" && dropboxRef.current) {
-			dropboxRef.current.removeAttribute("data-drag-hover");
-		}
-	};
+  const handleDragEnter = (operation: "enter" | "leave") => {
+    if (operation === "enter" && dropboxRef.current) {
+      dropboxRef.current.setAttribute("data-drag-hover", "true");
+    } else if (operation === "leave" && dropboxRef.current) {
+      dropboxRef.current.removeAttribute("data-drag-hover");
+    }
+  };
 
-	
-	useEffect(() => {
-		if (getFiles) {
-			getFiles(files);
-		}
-		if (getError) {
-			getError(error);
-		}
-	}, [files, error]);
-	return (
-		<div
-			ref={dropboxRef}
-			onDragOver={handleDragOver}
-			onDragLeave={handleDragLeave}
-			onDrop={handleDrop}
-			onDragEnter={() => handleDragEnter("enter")}
-			onDragLeaveCapture={() => handleDragEnter("leave")}
-			className={className}
-			{...props}
-		>
-			{children}
-			{error && <p className="text-black">{error}</p>}
-		</div>
-	);
+  
+  useEffect(() => {
+    if (getFiles) {
+      getFiles(files);
+    }
+    if (getError) {
+      getError(error);
+    }
+  }, [files, error]);
+  return (
+    <div
+      ref={dropboxRef}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+      onDragEnter={() => handleDragEnter("enter")}
+      onDragLeaveCapture={() => handleDragEnter("leave")}
+      className={className}
+      {...props}
+    >
+      {children}
+      {error && <p className="text-black">{error}</p>}
+    </div>
+  );
 }
 
 ```
@@ -393,65 +367,51 @@ import DemoImage from "@registry/assets/Images/Image_2.jpg";
 import Image from "next/image";
 
 export default function DropboxImplementation() {
-	const [files, setFiles] = useState<File[]>([]);
-	const [error, setError] = useState<string>("");
+  const [files, setFiles] = useState<File[]>([]);
+  const [error, setError] = useState<string>("");
 
-	function getFiles(files: File[]) {
-		setFiles(files);
-	}
-	function getError(err: string) {
-		setError(err);
-	}
+  function getFiles(files: File[]) {
+    setFiles(files);
+  }
+  function getError(err: string) {
+    setError(err);
+  }
 
-	return (
-		<div className="min-h-[30rem] flex flex-col items-center justify-center gap-4">
-			<DemoImageForDropbox />
-			<Dropbox
-				className="w-80 h-80 border border-outline-secondary border-dashed data-[drag-hover=true]:bg-secondary rounded-lg text-foreground flex justify-center items-center"
-				getFiles={getFiles}
-				getError={getError}
-			>
-				<h1>Drop your files here</h1>
-			</Dropbox>
-			<div className="min-h-40 flex flex-col items-center justify-center text-foreground">
-				<h1 className="underline underline-offset-2 mb-4">
-					Files you uploaded
-				</h1>
-				{files.map((file, i) => (
-					<div key={i} className="flex justify-center items-center gap-4">
-						<h2>Name: {file.name}</h2>
-						<p>Type : {file.type}</p>
-						<Image
-							className="h-20 w-auto"
-							src={URL.createObjectURL(file)}
-							alt={file.name}
-							width={200}
-							height={200}
-						/>
-					</div>
-				))}
-			</div>
-		</div>
-	);
+  return (
+    <div className="min-h-[30rem] flex flex-col items-center justify-center gap-4">
+      <DemoImageForDropbox />
+      <Dropbox
+        className="w-80 h-80 border border-outline-secondary border-dashed data-[drag-hover=true]:bg-secondary rounded-lg text-foreground flex justify-center items-center"
+        getFiles={getFiles}
+        getError={getError}
+      >
+        <h1>Drop your files here</h1>
+      </Dropbox>
+      <div className="min-h-40 flex flex-col items-center justify-center text-foreground">
+        <h1 className="underline underline-offset-2 mb-4">Files you uploaded</h1>
+        {files.map((file, i) => (
+          <div key={i} className="flex justify-center items-center gap-4">
+            <h2>Name: {file.name}</h2>
+            <p>Type : {file.type}</p>
+            <Image className="h-20 w-auto" src={URL.createObjectURL(file)} alt={file.name} width={200} height={200} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 function DemoImageForDropbox() {
-	const handleDragStart = (event: React.DragEvent<HTMLDivElement>) => {
-		event.dataTransfer.setData("text/plain", "Demo image data");
-	};
+  const handleDragStart = (event: React.DragEvent<HTMLDivElement>) => {
+    event.dataTransfer.setData("text/plain", "Demo image data");
+  };
 
-	return (
-		<div className="flex flex-col items-center justify-center text-foreground gap-2 mt-10">
-			<h1>Demo Image Drag this and upload</h1>
-			<Image
-				src={DemoImage}
-				alt="Demo"
-				draggable
-				onDragStart={handleDragStart}
-				className="h-20 w-auto"
-			/>
-		</div>
-	);
+  return (
+    <div className="flex flex-col items-center justify-center text-foreground gap-2 mt-10">
+      <h1>Demo Image Drag this and upload</h1>
+      <Image src={DemoImage} alt="Demo" draggable onDragStart={handleDragStart} className="h-20 w-auto" />
+    </div>
+  );
 }
 
 ```
