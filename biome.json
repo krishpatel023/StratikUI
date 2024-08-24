@@ -15,5 +15,10 @@
 				"noUnusedImports": "warn"
 			}
 		}
+	},
+	"formatter": {
+		"enabled": true,
+		"indentStyle": "space",
+		"lineWidth": 120
 	}
 }

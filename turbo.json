@@ -3,7 +3,8 @@
     "tasks": {
         "build": {
             "dependsOn": [
-                "^build"
+                "^build",
+                "^lint"
             ],
             "inputs": [
                 "$TURBO_DEFAULT$",
