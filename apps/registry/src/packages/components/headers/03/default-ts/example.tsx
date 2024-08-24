@@ -2,12 +2,12 @@ import { Header } from "@registry/packages/components/headers/03/default-ts/Head
 import { HeroSection } from "@registry/packages/components/hero-section/03/default-ts/Hero";
 
 export default function HeaderImplementation() {
-	return (
-		<div className="w-full">
-			<Header />
-			<div className="min-h-[80rem] w-full">
-				<HeroSection />
-			</div>
-		</div>
-	);
+  return (
+    <div className="w-full">
+      <Header />
+      <div className="min-h-[80rem] w-full">
+        <HeroSection />
+      </div>
+    </div>
+  );
 }

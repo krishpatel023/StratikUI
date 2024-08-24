@@ -1,4 +1,4 @@
-import { SearchProps } from "../Search";
+import type { SearchProps } from "../Search";
 
 const Search: SearchProps = [
 	{

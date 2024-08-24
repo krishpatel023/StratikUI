@@ -5,26 +5,26 @@ import useScrollTo from "@registry/packages/hooks/useScrollTo/01/default-ts/useS
 import { useRef } from "react";
 
 export default function UseScrollToExample() {
-	const { isVisible, scroll } = useScrollTo();
+  const { isVisible, scroll } = useScrollTo();
 
-	const handleScrollToTop = () => {
-		scroll(null);
-	};
+  const handleScrollToTop = () => {
+    scroll(null);
+  };
 
-	// This way you can scroll to an element with element-id
-	const handleScrollToElement = () => {
-		scroll("element");
-	};
+  // This way you can scroll to an element with element-id
+  const handleScrollToElement = () => {
+    scroll("element");
+  };
 
-	// This way you can scroll to an element with element-ref
-	const ref = useRef(null);
-	const handleScrollToRef = () => {
-		scroll(ref);
-	};
+  // This way you can scroll to an element with element-ref
+  const ref = useRef(null);
+  const handleScrollToRef = () => {
+    scroll(ref);
+  };
 
-	return (
-		<div className="flex flex-col items-center justify-center">
-			<Button onPress={handleScrollToTop}>Scroll To Top</Button>
-		</div>
-	);
+  return (
+    <div className="flex flex-col items-center justify-center">
+      <Button onPress={handleScrollToTop}>Scroll To Top</Button>
+    </div>
+  );
 }

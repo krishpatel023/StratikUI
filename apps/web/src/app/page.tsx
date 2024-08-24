@@ -5,13 +5,13 @@ import { Stats } from "@/components/homepage/Stats";
 import { TechnologiesUsed } from "@/components/homepage/TechnologiesUsed";
 
 export default function Home() {
-	return (
-		<div>
-			<Hero />
-			<TechnologiesUsed />
-			<BentoGrid />
-			<Stats />
-			<Footer />
-		</div>
-	);
+  return (
+    <div>
+      <Hero />
+      <TechnologiesUsed />
+      <BentoGrid />
+      <Stats />
+      <Footer />
+    </div>
+  );
 }

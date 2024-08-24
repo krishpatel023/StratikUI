@@ -1,4 +1,4 @@
-import { SidebarProps } from "../Sidebar";
+import type { SidebarProps } from "../Sidebar";
 
 const sidebar: SidebarProps = [
 	{

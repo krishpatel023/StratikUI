@@ -1,9 +1,9 @@
 import { Pricing } from "@registry/packages/components/pricing/04/default-js/Pricing";
 
 export default function PricingImplementation() {
-	return (
-		<div className="w-full min-h-[35rem] flex justify-center items-center py-10">
-			<Pricing />
-		</div>
-	);
+  return (
+    <div className="w-full min-h-[35rem] flex justify-center items-center py-10">
+      <Pricing />
+    </div>
+  );
 }
