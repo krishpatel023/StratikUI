@@ -50,14 +50,8 @@ export const useFullscreen = () => {
 
     return () => {
       document.removeEventListener("fullscreenchange", handleFullscreenChange);
-      document.removeEventListener(
-        "webkitfullscreenchange",
-        handleFullscreenChange
-      );
-      document.removeEventListener(
-        "msfullscreenchange",
-        handleFullscreenChange
-      );
+      document.removeEventListener("webkitfullscreenchange", handleFullscreenChange);
+      document.removeEventListener("msfullscreenchange", handleFullscreenChange);
     };
   }, [handleFullscreenChange]);
 

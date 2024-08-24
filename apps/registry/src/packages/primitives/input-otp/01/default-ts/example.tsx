@@ -10,9 +10,7 @@ export default function OTPImplementation() {
 
   return (
     <div className="w-full min-h-80 flex flex-col justify-center items-center text-center gap-4">
-      <Message className="static mb-10">
-        Paste this to check the paste functionality as well : 874352
-      </Message>
+      <Message className="static mb-10">Paste this to check the paste functionality as well : 874352</Message>
 
       <ArrowHeading text="OTP Input without partition" />
       <OTPInput length={6} setOTP={setOtp1} />

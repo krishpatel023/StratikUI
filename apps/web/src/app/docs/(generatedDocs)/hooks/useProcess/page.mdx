@@ -35,11 +35,7 @@ export default function UseProcessExample() {
 
   return (
     <div className="flex justify-center items-center gap-6 text-center py-10">
-      <Button
-        onPress={handleAction}
-        className="w-40 flex justify-center items-center"
-        isProcessing={isProcessing}
-      >
+      <Button onPress={handleAction} className="w-40 flex justify-center items-center" isProcessing={isProcessing}>
         Click me
       </Button>
     </div>
@@ -95,11 +91,7 @@ export default function UseProcessExample() {
 
   return (
     <div className="flex justify-center items-center gap-6 text-center py-10">
-      <Button
-        onPress={handleAction}
-        className="w-40 flex justify-center items-center"
-        isProcessing={isProcessing}
-      >
+      <Button onPress={handleAction} className="w-40 flex justify-center items-center" isProcessing={isProcessing}>
         Click me
       </Button>
     </div>
@@ -121,19 +113,16 @@ interface UseProcessReturn {
 const useProcess = (): UseProcessReturn => {
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
 
-  const executeProcess = useCallback(
-    async (callback: () => Promise<void>): Promise<void> => {
-      try {
-        setIsProcessing(true);
-        await callback();
-      } catch (error) {
-        console.error("Error executing process:", error);
-      } finally {
-        setIsProcessing(false);
-      }
-    },
-    []
-  );
+  const executeProcess = useCallback(async (callback: () => Promise<void>): Promise<void> => {
+    try {
+      setIsProcessing(true);
+      await callback();
+    } catch (error) {
+      console.error("Error executing process:", error);
+    } finally {
+      setIsProcessing(false);
+    }
+  }, []);
 
   return { isProcessing, executeProcess };
 };

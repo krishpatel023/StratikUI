@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { useFullscreen } from "@registry/packages/hooks/useFullscreen/01/default-ts/useFullscreen";
 import Button from "@registry/ui/Button";
 

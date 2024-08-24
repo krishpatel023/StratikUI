@@ -3,7 +3,8 @@
     "tasks": {
         "build": {
             "dependsOn": [
-                "^build"
+                "^build",
+                "^lint"
             ],
             "inputs": [
                 "$TURBO_DEFAULT$",
@@ -20,13 +21,39 @@
             ]
         },
         "lint": {
+            "outputs": [],
+            "cache": true,
             "dependsOn": [
                 "^lint"
+            ],
+            "inputs": [
+                "./**/*.{ts,tsx,js,jsx,json}"
+            ]
+        },
+        "lint:fix": {
+            "outputs": [],
+            "cache": false,
+            "dependsOn": [
+                "^lint:fix"
+            ],
+            "inputs": [
+                "./**/*.{ts,tsx,js,jsx,json}"
+            ]
+        },
+        "format": {
+            "outputs": [],
+            "cache": false,
+            "inputs": [
+                "./**/*.{ts,tsx,js,jsx,json,md}"
             ]
         },
         "dev": {
             "persistent": true,
-            "cache": false
+            "cache": false,
+            "dependsOn": [
+                "^build",
+                "^check-types"
+            ]
         }
     }
 }

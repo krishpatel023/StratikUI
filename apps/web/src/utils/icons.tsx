@@ -2,13 +2,8 @@ type IconProps = React.HTMLAttributes<SVGElement>;
 
 export const Icons = {
   twitter: (props: IconProps) => (
-    <svg
-      {...props}
-      height="23"
-      viewBox="0 0 1200 1227"
-      width="23"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg {...props} height="23" viewBox="0 0 1200 1227" width="23" xmlns="http://www.w3.org/2000/svg">
+      <title>Twitter</title>
       <path
         fill="currentColor"
         d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z"
@@ -17,61 +12,42 @@ export const Icons = {
   ),
   gitHub: (props: IconProps) => (
     <svg {...props} viewBox="0 0 438.549 438.549" width="23" height="23">
+      <title>GitHub</title>
       <path
         fill="currentColor"
         d="M409.132 114.573c-19.608-33.596-46.205-60.194-79.798-79.8-33.598-19.607-70.277-29.408-110.063-29.408-39.781 0-76.472 9.804-110.063 29.408-33.596 19.605-60.192 46.204-79.8 79.8C9.803 148.168 0 184.854 0 224.63c0 47.78 13.94 90.745 41.827 128.906 27.884 38.164 63.906 64.572 108.063 79.227 5.14.954 8.945.283 11.419-1.996 2.475-2.282 3.711-5.14 3.711-8.562 0-.571-.049-5.708-.144-15.417a2549.81 2549.81 0 01-.144-25.406l-6.567 1.136c-4.187.767-9.469 1.092-15.846 1-6.374-.089-12.991-.757-19.842-1.999-6.854-1.231-13.229-4.086-19.13-8.559-5.898-4.473-10.085-10.328-12.56-17.556l-2.855-6.57c-1.903-4.374-4.899-9.233-8.992-14.559-4.093-5.331-8.232-8.945-12.419-10.848l-1.999-1.431c-1.332-.951-2.568-2.098-3.711-3.429-1.142-1.331-1.997-2.663-2.568-3.997-.572-1.335-.098-2.43 1.427-3.289 1.525-.859 4.281-1.276 8.28-1.276l5.708.853c3.807.763 8.516 3.042 14.133 6.851 5.614 3.806 10.229 8.754 13.846 14.842 4.38 7.806 9.657 13.754 15.846 17.847 6.184 4.093 12.419 6.136 18.699 6.136 6.28 0 11.704-.476 16.274-1.423 4.565-.952 8.848-2.383 12.847-4.285 1.713-12.758 6.377-22.559 13.988-29.41-10.848-1.14-20.601-2.857-29.264-5.14-8.658-2.286-17.605-5.996-26.835-11.14-9.235-5.137-16.896-11.516-22.985-19.126-6.09-7.614-11.088-17.61-14.987-29.979-3.901-12.374-5.852-26.648-5.852-42.826 0-23.035 7.52-42.637 22.557-58.817-7.044-17.318-6.379-36.732 1.997-58.24 5.52-1.715 13.706-.428 24.554 3.853 10.85 4.283 18.794 7.952 23.84 10.994 5.046 3.041 9.089 5.618 12.135 7.708 17.705-4.947 35.976-7.421 54.818-7.421s37.117 2.474 54.823 7.421l10.849-6.849c7.419-4.57 16.18-8.758 26.262-12.565 10.088-3.805 17.802-4.853 23.134-3.138 8.562 21.509 9.325 40.922 2.279 58.24 15.036 16.18 22.559 35.787 22.559 58.817 0 16.178-1.958 30.497-5.853 42.966-3.9 12.471-8.941 22.457-15.125 29.979-6.191 7.521-13.901 13.85-23.131 18.986-9.232 5.14-18.182 8.85-26.84 11.136-8.662 2.286-18.415 4.004-29.263 5.146 9.894 8.562 14.842 22.077 14.842 40.539v60.237c0 3.422 1.19 6.279 3.572 8.562 2.379 2.279 6.136 2.95 11.276 1.995 44.163-14.653 80.185-41.062 108.068-79.226 27.88-38.161 41.825-81.126 41.825-128.906-.01-39.771-9.818-76.454-29.414-110.049z"
-      ></path>
+      />
     </svg>
   ),
   sun: (props: IconProps) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1.3em"
-      height="1.3em"
-      viewBox="0 0 21 21"
-      {...props}
-    >
-      <g
-        fill="none"
-        fillRule="evenodd"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
+    <svg xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 21 21" {...props}>
+      <title>Sun icon</title>
+      <g fill="none" fillRule="evenodd" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
         <path
           d="M10.5 14.5c2.219 0 4-1.763 4-3.982a4.003 4.003 0 0 0-4-4.018c-2.219 0-4 1.781-4 4c0 2.219 1.781 4 4 4zM4.136 4.136L5.55 5.55m9.9 9.9l1.414 1.414M1.5 10.5h2m14 0h2M4.135 16.863L5.55 15.45m9.899-9.9l1.414-1.415M10.5 19.5v-2m0-14v-2"
           opacity=".3"
-        ></path>
+        />
         <g transform="translate(-210 -1)">
-          <path d="M220.5 2.5v2m6.5.5l-1.5 1.5"></path>
+          <path d="M220.5 2.5v2m6.5.5l-1.5 1.5" />
+          {/* biome-ignore lint/style/useSelfClosingElements: Self-closing SVG elements are valid SVG */}
           <circle cx="220.5" cy="11.5" r="4"></circle>
-          <path d="m214 5l1.5 1.5m5 14v-2m6.5-.5l-1.5-1.5M214 18l1.5-1.5m-4-5h2m14 0h2"></path>
+          <path d="m214 5l1.5 1.5m5 14v-2m6.5-.5l-1.5-1.5M214 18l1.5-1.5m-4-5h2m14 0h2" />
         </g>
       </g>
     </svg>
   ),
   moon: (props: IconProps) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 56 56"
-      {...props}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 56 56" {...props}>
+      <title>Moon icon</title>
       <path
         fill="currentColor"
         d="M41.242 36.121c-12.937 0-20.953-7.781-20.953-20.273c0-3.563.61-6.703 1.477-8.391c.351-.68.398-1.008.398-1.476c0-.774-.703-1.688-1.687-1.688c-.188 0-.633.07-1.313.328c-8.648 3.516-14.742 12.656-14.742 22.5c0 14.227 10.313 24.586 24.539 24.586c10.219 0 18.469-5.344 22.29-14.11c.257-.609.327-1.124.327-1.382c0-.961-.843-1.617-1.547-1.617c-.398 0-.656.023-1.218.234c-1.922.773-4.782 1.29-7.57 1.29m-33.14-9.164c0-7.289 3.773-14.227 9.867-18.047c-.75 2.18-1.172 4.594-1.172 7.266c0 14.648 8.93 23.367 23.906 23.367c2.39 0 4.453-.281 6.375-.96c-3.562 5.882-10.43 9.468-17.953 9.468c-12.164 0-21.023-8.86-21.023-21.094"
-      ></path>
+      />
     </svg>
   ),
   desktop: (props: IconProps) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      {...props}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+      <title>Desktop icon</title>
       <path
         fill="none"
         stroke="currentColor"
@@ -79,33 +55,23 @@ export const Icons = {
         strokeLinejoin="round"
         strokeWidth="1.5"
         d="M9 20h3m3 0h-3m0 0v-3m0 0h7a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h7Z"
-      ></path>
+      />
     </svg>
   ),
 
   tablet: (props: IconProps) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 15 15"
-      {...props}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 15 15" {...props}>
+      <title>Tablet icon</title>
       <path
         fill="none"
         stroke="currentColor"
         d="M6 11.5h3m-6.5 3h10a1 1 0 0 0 1-1v-12a1 1 0 0 0-1-1h-10a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"
-      ></path>
+      />
     </svg>
   ),
   mobile: (props: IconProps) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      {...props}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+      <title>Mobile icon</title>
       <path
         fill="none"
         stroke="currentColor"
@@ -113,47 +79,33 @@ export const Icons = {
         strokeLinejoin="round"
         strokeWidth="1.5"
         d="M16.286 3H7.714C6.768 3 6 3.806 6 4.8v14.4c0 .994.768 1.8 1.714 1.8h8.572c.947 0 1.714-.806 1.714-1.8V4.8c0-.994-.767-1.8-1.714-1.8ZM10.5 6h3"
-      ></path>
+      />
     </svg>
   ),
   arrow: (props: IconProps) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 14 14"
-      {...props}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14" {...props}>
+      <title>Arrow icon</title>
       <path
         fill="none"
         stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
         d="M7 13.5V.5M10.5 4L7 .5L3.5 4"
-      ></path>
+      />
     </svg>
   ),
   tailwindcss: (props: IconProps) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 128 128"
-      {...props}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 128 128" {...props}>
+      <title>TailwindCSS Logo</title>
       <path
         fill="#38bdf8"
         d="M64.004 25.602c-17.067 0-27.73 8.53-32 25.597c6.398-8.531 13.867-11.73 22.398-9.597c4.871 1.214 8.352 4.746 12.207 8.66C72.883 56.629 80.145 64 96.004 64c17.066 0 27.73-8.531 32-25.602c-6.399 8.536-13.867 11.735-22.399 9.602c-4.87-1.215-8.347-4.746-12.207-8.66c-6.27-6.367-13.53-13.738-29.394-13.738zM32.004 64c-17.066 0-27.73 8.531-32 25.602C6.402 81.066 13.87 77.867 22.402 80c4.871 1.215 8.352 4.746 12.207 8.66c6.274 6.367 13.536 13.738 29.395 13.738c17.066 0 27.73-8.53 32-25.597c-6.399 8.531-13.867 11.73-22.399 9.597c-4.87-1.214-8.347-4.746-12.207-8.66C55.128 71.371 47.868 64 32.004 64zm0 0"
-      ></path>
+      />
     </svg>
   ),
   twMerge: (props: IconProps) => (
-    <svg
-      viewBox="0 0 66 45"
-      fill="#6366F1"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
+    <svg viewBox="0 0 66 45" fill="#6366F1" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <title>twMerge Logo</title>
       <path
         opacity="0.1"
         d="M39 12C31.8 12 27.3 15.6 25.5 22.8C28.2 19.2 31.35 17.85 34.95 18.75C37.004 19.263 38.472 20.754 40.097 22.403C42.744 25.09 45.808 28.2 52.5 28.2C59.7 28.2 64.2 24.6 66 17.4C63.3 21 60.15 22.35 56.55 21.45C54.496 20.937 53.028 19.446 51.403 17.797C48.756 15.11 45.692 12 39 12ZM25.5 28.2C18.3 28.2 13.8 31.8 12 39C14.7 35.4 17.85 34.05 21.45 34.95C23.504 35.464 24.972 36.954 26.597 38.603C29.244 41.29 32.308 44.4 39 44.4C46.2 44.4 50.7 40.8 52.5 33.6C49.8 37.2 46.65 38.55 43.05 37.65C40.996 37.137 39.528 35.646 37.903 33.997C35.256 31.31 32.192 28.2 25.5 28.2Z"
@@ -170,24 +122,14 @@ export const Icons = {
     </svg>
   ),
   framerMotion: (props: IconProps) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      {...props}
-    >
-      <path fill="currentColor" d="M4 0h16v8h-8zm0 8h8l8 8H4zm0 8h8v8z"></path>
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+      <title>Framer Motion Logo</title>
+      <path fill="currentColor" d="M4 0h16v8h-8zm0 8h8l8 8H4zm0 8h8v8z" />
     </svg>
   ),
   radixui: (props: IconProps) => (
-    <svg
-      height="200"
-      width="200"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
+    <svg height="200" width="200" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <title>Radix UI Logo</title>
       <path
         d="M11.52 24a7.68 7.68 0 0 1-7.68-7.68a7.68 7.68 0 0 1 7.68-7.68V24Zm0-24v7.68H3.84V0h7.68Zm4.8 7.68a3.84 3.84 0 1 1 0-7.68a3.84 3.84 0 0 1 0 7.68Z"
         fill="currentColor"
@@ -195,13 +137,8 @@ export const Icons = {
     </svg>
   ),
   reactAria: (props: IconProps) => (
-    <svg
-      height="200"
-      width="200"
-      viewBox="0 0 20 20"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
+    <svg height="200" width="200" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <title>React Aria Logo</title>
       <path
         d="M20 1v18.001L12.607 1H20ZM7.399 1L0 19.001V1h7.399Zm2.604 6.265L14.713 19h-3.086l-1.41-3.419H6.77l3.233-8.316Z"
         fill="currentColor"
@@ -210,97 +147,61 @@ export const Icons = {
     </svg>
   ),
   tick: (props: IconProps) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 15 15"
-      {...props}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 15 15" {...props}>
+      <title>Tick icon</title>
       <path
         fill="currentColor"
         fillRule="evenodd"
         d="M14.707 3L5.5 12.207L.293 7L1 6.293l4.5 4.5l8.5-8.5l.707.707Z"
         clipRule="evenodd"
-      ></path>
+      />
     </svg>
   ),
   copy: (props: IconProps) => (
-    <svg
-      height="200"
-      width="200"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
-      <g
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-      >
+    <svg height="200" width="200" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <title>Copy icon</title>
+      <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
         <path d="M8 10a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-8a2 2 0 0 1-2-2z" />
         <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" />
       </g>
     </svg>
   ),
   chevron: (props: IconProps) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 16 16"
-      {...props}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16" {...props}>
+      <title>Chevron icon</title>
       <path
         fill="currentColor"
         fillRule="evenodd"
         d="M6.22 4.22a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06l-3.25 3.25a.75.75 0 0 1-1.06-1.06L8.94 8L6.22 5.28a.75.75 0 0 1 0-1.06"
         clipRule="evenodd"
-      ></path>
+      />
     </svg>
   ),
   bars: (props: IconProps) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      {...props}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+      <title>Bars icon</title>
       <path
         fill="currentColor"
         fillRule="evenodd"
         d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75H12a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z"
         clipRule="evenodd"
-      ></path>
+      />
     </svg>
   ),
 
   cross: (props: IconProps) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 32 32"
-      {...props}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32" {...props}>
+      <title>Cross icon</title>
       <path
         fill="currentColor"
         d="M7.219 5.781L5.78 7.22L14.563 16L5.78 24.781l1.44 1.439L16 17.437l8.781 8.782l1.438-1.438L17.437 16l8.782-8.781L24.78 5.78L16 14.563z"
-      ></path>
+      />
     </svg>
   ),
 
   link: (props: IconProps) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 21 21"
-      {...props}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 21 21" {...props}>
+      <title>Link icon</title>
       <g
         fill="none"
         fillRule="evenodd"
@@ -309,8 +210,8 @@ export const Icons = {
         strokeLinejoin="round"
         strokeWidth={1.5}
       >
-        <path d="M9.5 11.5c.97 1.367 3.011 1.127 4.011 0l1.989-2c1.124-1.228 1.164-2.814 0-4c-1.136-1.157-2.864-1.157-4 0l-2 2"></path>
-        <path d="M11.5 10.57c-.97-1.367-3-1.197-4-.07l-2 1.975c-1.124 1.228-1.164 2.839 0 4.025c1.136 1.157 2.864 1.157 4 0l2-2"></path>
+        <path d="M9.5 11.5c.97 1.367 3.011 1.127 4.011 0l1.989-2c1.124-1.228 1.164-2.814 0-4c-1.136-1.157-2.864-1.157-4 0l-2 2" />
+        <path d="M11.5 10.57c-.97-1.367-3-1.197-4-.07l-2 1.975c-1.124 1.228-1.164 2.839 0 4.025c1.136 1.157 2.864 1.157 4 0l2-2" />
       </g>
     </svg>
   ),

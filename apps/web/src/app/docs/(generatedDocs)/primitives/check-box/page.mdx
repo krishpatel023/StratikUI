@@ -28,7 +28,7 @@ export const Primitives_check_box_01 = lazy(() => import("@registry/packages/pri
 
 <Implementation>
 
-<TechnologyUsed technologies={["tailwind-merge","react-aria-components"]} />
+undefined
 <CodeBlock>
 
 ```react_aria|js|CheckBox.jsx
@@ -40,10 +40,7 @@ import { twMerge } from "tailwind-merge";
 export default function Checkbox({ children, className, ...props }) {
   return (
     <ReactAriaCheckbox
-      className={twMerge(
-        "group text-foreground hover:cursor-pointer flex gap-2 ",
-        className
-      )}
+      className={twMerge("group text-foreground hover:cursor-pointer flex gap-2 ", className)}
       {...props}
     >
       <>
@@ -81,23 +78,13 @@ export default function CheckboxExample() {
 ```react_aria|ts|CheckBox.tsx
 "use client";
 
-import {
-  CheckboxProps,
-  Checkbox as ReactAriaCheckbox,
-} from "react-aria-components";
+import { type CheckboxProps, Checkbox as ReactAriaCheckbox } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
 
-export default function Checkbox({
-  children,
-  className,
-  ...props
-}: CheckboxProps) {
+export default function Checkbox({ children, className, ...props }: CheckboxProps) {
   return (
     <ReactAriaCheckbox
-      className={twMerge(
-        "group text-foreground hover:cursor-pointer flex gap-2 ",
-        className as string
-      )}
+      className={twMerge("group text-foreground hover:cursor-pointer flex gap-2 ", className as string)}
       {...props}
     >
       <>

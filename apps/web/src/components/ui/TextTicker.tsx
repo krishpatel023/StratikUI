@@ -25,24 +25,20 @@ export function Counter({
     if (isInView) {
       motionValue.set(direction === "down" ? 0 : value);
     }
-  }, [motionValue, isInView]);
+  }, [motionValue, isInView, direction, value]);
 
   useEffect(
     () =>
       springValue.on("change", (latest) => {
         if (ref.current) {
-          ref.current.textContent = Intl.NumberFormat("en-US").format(
-            latest.toFixed(0)
-          );
+          ref.current.textContent = Intl.NumberFormat("en-US").format(latest.toFixed(0));
         }
       }),
-    [springValue]
+    [springValue],
   );
 
   return (
-    <div
-      className={twMerge("flex justify-center items-center gap-2", className)}
-    >
+    <div className={twMerge("flex justify-center items-center gap-2", className)}>
       <span ref={ref}>0</span>
       <span>+</span>
     </div>

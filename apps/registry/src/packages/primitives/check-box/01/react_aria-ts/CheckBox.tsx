@@ -1,22 +1,12 @@
 "use client";
 
-import {
-  CheckboxProps,
-  Checkbox as ReactAriaCheckbox,
-} from "react-aria-components";
+import { type CheckboxProps, Checkbox as ReactAriaCheckbox } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
 
-export default function Checkbox({
-  children,
-  className,
-  ...props
-}: CheckboxProps) {
+export default function Checkbox({ children, className, ...props }: CheckboxProps) {
   return (
     <ReactAriaCheckbox
-      className={twMerge(
-        "group text-foreground hover:cursor-pointer flex gap-2 ",
-        className as string
-      )}
+      className={twMerge("group text-foreground hover:cursor-pointer flex gap-2 ", className as string)}
       {...props}
     >
       <>

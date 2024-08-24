@@ -2,14 +2,7 @@
 
 import { useRef } from "react";
 
-export function FileUploadButton({
-  children,
-  getFiles,
-  allowsMultiple,
-  acceptedFileTypes,
-  className,
-  ...props
-}) {
+export function FileUploadButton({ children, getFiles, allowsMultiple, acceptedFileTypes, className, ...props }) {
   function handleFileUpload(e) {
     e.preventDefault();
     const target = e.target;
@@ -22,7 +15,7 @@ export function FileUploadButton({
       const file = target.files?.[0];
       Files = file ? [file] : [];
     }
-    getFiles && getFiles(Files);
+    getFiles?.(Files);
   }
 
   const inputRef = useRef(null);
@@ -42,7 +35,7 @@ export function FileUploadButton({
         accept={acceptedFileTypes?.join(",")}
         {...props}
       />
-      <button className={className} onClick={handleClick}>
+      <button type="button" className={className} onClick={handleClick}>
         {children}
       </button>
     </>

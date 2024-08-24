@@ -21,6 +21,7 @@ const useCookies = () => {
     localStorage.setItem("cookiePreferences", JSON.stringify(pref));
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     handlePrefLoad();
   }, []);
@@ -76,7 +77,7 @@ const useCookies = () => {
     category,
     options = {
       path: "/",
-    }
+    },
   ) => {
     if (cookiePreferences[category]) {
       const date = new Date();
@@ -100,13 +101,13 @@ const useCookies = () => {
     if (cookiePreferences[category]) {
       const cookiesForCategory = document.cookie.split(";");
 
-      cookiesForCategory.forEach((cookie) => {
+      for (const cookie of cookiesForCategory) {
         const cookieName = cookie.split("=")[0].trim();
         if (cookieName === name) {
-          const expires = `expires=Thu, 01 Jan 1970 00:00:00 UTC`;
+          const expires = "expires=Thu, 01 Jan 1970 00:00:00 UTC";
           document.cookie = `${cookieName}=; ${expires}; path=/; ${category}`;
         }
-      });
+      }
     }
   };
 

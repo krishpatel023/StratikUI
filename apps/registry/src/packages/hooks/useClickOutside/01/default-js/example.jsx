@@ -10,8 +10,8 @@ export default function UseClickOutsideExample() {
     <div className="min-h-80 flex justify-center items-center">
       <Modal isOpen={active} setOpen={setActive} className="max-w-[30rem]">
         <h1>
-          First click inside the modal to check that it {"won't"} close. Now,
-          click outside the modal to close and see how the hook works.
+          First click inside the modal to check that it {"won't"} close. Now, click outside the modal to close and see
+          how the hook works.
         </h1>
       </Modal>
       <Button onPress={() => setActive(true)}>Open Modal</Button>

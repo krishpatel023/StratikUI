@@ -27,10 +27,7 @@ export default function UseClipboardExample() {
       </div>
 
       <h1 className="text-2xl underline">Copied Value</h1>
-      <Message>
-        First Press Copy or copy anything you want and then press the read
-        button.
-      </Message>
+      <Message>First Press Copy or copy anything you want and then press the read button.</Message>
       <p>{value}</p>
     </div>
   );

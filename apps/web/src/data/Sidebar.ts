@@ -68,9 +68,6 @@ const defaultSidebar: SidebarProps = [
   },
 ];
 
-const SidebarData: SidebarProps = [
-  ...defaultSidebar,
-  ...GENERATED_SIDEBAR.default,
-];
+const SidebarData: SidebarProps = [...defaultSidebar, ...GENERATED_SIDEBAR.default];
 
 export default SidebarData;

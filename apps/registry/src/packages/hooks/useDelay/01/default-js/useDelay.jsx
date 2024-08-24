@@ -10,7 +10,7 @@ const useDelay = () => {
     return () => {
       clearDelay();
     };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   const delay = async (time, callback, options = {}) => {
     const { immediate = false } = options;

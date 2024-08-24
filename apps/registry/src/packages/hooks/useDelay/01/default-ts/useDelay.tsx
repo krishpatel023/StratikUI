@@ -8,11 +8,7 @@ interface UseDelayOptions {
 
 interface UseDelayReturn {
   isDelaying: boolean;
-  delay: (
-    time: number,
-    callback?: () => void,
-    options?: UseDelayOptions
-  ) => void;
+  delay: (time: number, callback?: () => void, options?: UseDelayOptions) => void;
   clearDelay: () => void;
 }
 
@@ -24,13 +20,9 @@ const useDelay = (): UseDelayReturn => {
     return () => {
       clearDelay();
     };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
-  const delay = async (
-    time: number,
-    callback?: () => void,
-    options: UseDelayOptions = {}
-  ): Promise<void> => {
+  const delay = async (time: number, callback?: () => void, options: UseDelayOptions = {}): Promise<void> => {
     const { immediate = false } = options;
     const executableFunc = callback || (() => {});
 

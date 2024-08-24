@@ -14,6 +14,7 @@ const useHash = () => {
     window.location.hash = hash;
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Addition of getHash will cause the component to re-render many times
   useEffect(() => {
     setHash(getHash());
 

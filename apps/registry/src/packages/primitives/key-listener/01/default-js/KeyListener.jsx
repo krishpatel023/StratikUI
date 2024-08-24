@@ -1,13 +1,8 @@
 "use client";
-import React, { useCallback, useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { twMerge } from "tailwind-merge";
 
-export const KeyListener = ({
-  keys,
-  onKeyDown,
-  children,
-  focusPermitted = true,
-}) => {
+export const KeyListener = ({ keys, onKeyDown, children, focusPermitted = true }) => {
   const handleKeyDown = useCallback(
     (event) => {
       const isCtrlPressed = event.ctrlKey || event.metaKey;
@@ -28,8 +23,8 @@ export const KeyListener = ({
         isShiftPressed && "Shift",
         isAltPressed && "Alt",
 
-        alphabetMatch && alphabetMatch[1].toLocaleLowerCase(),
-        digitsMatch && digitsMatch[1],
+        alphabetMatch?.[1].toLocaleLowerCase(),
+        digitsMatch?.[1],
         functionKeyMatch && `F${event.code.slice(1)}`,
 
         event.code === "Escape" && "Esc",
@@ -52,7 +47,7 @@ export const KeyListener = ({
         onKeyDown(event);
       }
     },
-    [keys, onKeyDown]
+    [keys, onKeyDown],
   );
 
   useEffect(() => {
@@ -61,7 +56,7 @@ export const KeyListener = ({
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [handleKeyDown]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [handleKeyDown, focusPermitted]);
 
   return <>{children}</>;
 };
@@ -143,7 +138,7 @@ export function KeyListenerDisplay({ keys, className }) {
           key={index}
           className={twMerge(
             "w-max text-xs rounded py-1 px-2 border border-outline bg-primary text-primary-foreground",
-            className
+            className,
           )}
         >
           {Icons[key] || key}

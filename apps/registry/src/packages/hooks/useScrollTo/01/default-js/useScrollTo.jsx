@@ -15,8 +15,7 @@ const useScrollTo = ({ threshold = 300 } = {}) => {
   const scroll = (element) => {
     let targetElem = null;
 
-    if (typeof element === "string")
-      targetElem = document.getElementById(element);
+    if (typeof element === "string") targetElem = document.getElementById(element);
     else if (typeof element === "object") targetElem = element?.current;
     else targetElem = null;
 
@@ -32,13 +31,14 @@ const useScrollTo = ({ threshold = 300 } = {}) => {
     }
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Addition of others will cause the component to re-render many times
   useEffect(() => {
     window.addEventListener("scroll", toggleVisibility);
 
     return () => {
       window.removeEventListener("scroll", toggleVisibility);
     };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   return { isVisible, scroll };
 };

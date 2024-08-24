@@ -1,6 +1,6 @@
 "use client";
 
-import { RefObject, useEffect, useState } from "react";
+import { type RefObject, useEffect, useState } from "react";
 
 export interface ResizableOptions {
   minWidth?: string;
@@ -16,7 +16,7 @@ export interface ResizableOptions {
 const useResizable = (
   containerRef: RefObject<HTMLDivElement>,
   resizableRef: RefObject<HTMLDivElement>,
-  options: ResizableOptions = {}
+  options: ResizableOptions = {},
 ) => {
   const {
     minWidth,
@@ -33,7 +33,8 @@ const useResizable = (
   const handleValue = (value: string) => {
     if (value.includes("px")) {
       return Number(value.replace("px", ""));
-    } else if (value.includes("%")) {
+    }
+    if (value.includes("%")) {
       const percentage = Number(value.replace("%", ""));
       const containerRect = containerRef.current?.getBoundingClientRect();
       if (!containerRect) return 0;
@@ -54,9 +55,7 @@ const useResizable = (
     width: boundingDimensions.minWidth,
     height: boundingDimensions.minHeight,
   });
-  const [activeHandle, setActiveHandle] = useState<
-    "right" | "left" | "top" | "bottom" | null
-  >(null);
+  const [activeHandle, setActiveHandle] = useState<"right" | "left" | "top" | "bottom" | null>(null);
 
   const stopSelection = () => {
     if (containerRef.current) {
@@ -104,40 +103,23 @@ const useResizable = (
 
     if (activeHandle === "bottom") {
       const deltaY = currentY - startY - initialHeight;
-      newHeight = Math.max(
-        initialHeight + deltaY,
-        boundingDimensions.minHeight
-      );
+      newHeight = Math.max(initialHeight + deltaY, boundingDimensions.minHeight);
     }
 
     if (activeHandle === "top") {
       const deltaY = startY - currentY;
-      newHeight = Math.max(
-        initialHeight + deltaY,
-        boundingDimensions.minHeight
-      );
+      newHeight = Math.max(initialHeight + deltaY, boundingDimensions.minHeight);
     }
 
-    const widthFinal = Math.min(
-      newWidth,
-      containerRef.current?.clientWidth || Infinity
-    );
-    const heightFinal = Math.min(
-      newHeight,
-      containerRef.current?.clientHeight || Infinity
-    );
+    const widthFinal = Math.min(newWidth, containerRef.current?.clientWidth || Number.POSITIVE_INFINITY);
+    const heightFinal = Math.min(newHeight, containerRef.current?.clientHeight || Number.POSITIVE_INFINITY);
 
     // This will prevent the bounding element from being expanded.
     if (!expandBoundingElement && containerRef.current) {
-      if (
-        widthFinal >= boundingDimensions.maxWidth ||
-        heightFinal >= boundingDimensions.maxHeight
-      )
-        return;
+      if (widthFinal >= boundingDimensions.maxWidth || heightFinal >= boundingDimensions.maxHeight) return;
     }
 
-    if (activeHandle === "right" || activeHandle === "left")
-      resizableRef.current.style.width = `${widthFinal}px`;
+    if (activeHandle === "right" || activeHandle === "left") resizableRef.current.style.width = `${widthFinal}px`;
     else if (activeHandle === "bottom" || activeHandle === "top")
       resizableRef.current.style.height = `${heightFinal}px`;
 
@@ -151,7 +133,7 @@ const useResizable = (
 
   const handleResize = (
     e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
-    direction: "right" | "left" | "top" | "bottom"
+    direction: "right" | "left" | "top" | "bottom",
   ) => {
     setActiveHandle(direction);
     setIsResizing(true);
@@ -166,6 +148,7 @@ const useResizable = (
     startSelection();
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Addition of handleMove and stopResize will cause the component to re-render many times
   useEffect(() => {
     containerRef.current?.addEventListener("touchmove", handleMove, {
       passive: false,
@@ -182,6 +165,7 @@ const useResizable = (
       containerRef.current?.removeEventListener("mousemove", handleMove);
       containerRef.current?.removeEventListener("mouseup", stopResize);
     };
+    // biome-ignore lint/correctness/useExhaustiveDependencies: needed for the rerendering
   }, [handleMove, stopResize]);
 
   return {

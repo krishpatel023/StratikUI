@@ -27,20 +27,12 @@ export default function DropboxImplementation() {
         <h1>Drop your files here</h1>
       </Dropbox>
       <div className="min-h-40 flex flex-col items-center justify-center text-foreground">
-        <h1 className="underline underline-offset-2 mb-4">
-          Files you uploaded
-        </h1>
+        <h1 className="underline underline-offset-2 mb-4">Files you uploaded</h1>
         {files.map((file, i) => (
           <div key={i} className="flex justify-center items-center gap-4">
             <h2>Name: {file.name}</h2>
             <p>Type : {file.type}</p>
-            <Image
-              className="h-20 w-auto"
-              src={URL.createObjectURL(file)}
-              alt={file.name}
-              width={200}
-              height={200}
-            />
+            <Image className="h-20 w-auto" src={URL.createObjectURL(file)} alt={file.name} width={200} height={200} />
           </div>
         ))}
       </div>
@@ -56,13 +48,7 @@ function DemoImageForDropbox() {
   return (
     <div className="flex flex-col items-center justify-center text-foreground gap-2 mt-10">
       <h1>Demo Image Drag this and upload</h1>
-      <Image
-        src={DemoImage}
-        alt="Demo"
-        draggable
-        onDragStart={handleDragStart}
-        className="h-20 w-auto"
-      />
+      <Image src={DemoImage} alt="Demo" draggable onDragStart={handleDragStart} className="h-20 w-auto" />
     </div>
   );
 }

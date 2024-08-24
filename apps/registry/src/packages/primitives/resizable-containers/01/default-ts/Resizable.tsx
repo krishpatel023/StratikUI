@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import type React from "react";
 import { twMerge } from "tailwind-merge";
 
 export interface ResizableBoundingElementProps {
@@ -8,11 +8,7 @@ export interface ResizableBoundingElementProps {
   className?: string;
   children: React.ReactNode;
 }
-export function ResizeBoundingElement({
-  containerRef,
-  className,
-  children,
-}: ResizableBoundingElementProps) {
+export function ResizeBoundingElement({ containerRef, className, children }: ResizableBoundingElementProps) {
   return (
     <div ref={containerRef} className={twMerge("w-full", className)}>
       {children}
@@ -27,10 +23,8 @@ export interface ResizableContainerProps {
   direction: ("right" | "bottom" | "top" | "left")[];
   className?: string;
   handleResize: (
-    e:
-      | React.MouseEvent<HTMLDivElement, MouseEvent>
-      | React.TouchEvent<HTMLDivElement>,
-    direction: "right" | "bottom" | "top" | "left"
+    e: React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement>,
+    direction: "right" | "bottom" | "top" | "left",
   ) => void;
   resizableRef: React.RefObject<HTMLDivElement>;
 }
@@ -46,17 +40,9 @@ export function ResizableContainer({
 }: ResizableContainerProps) {
   return (
     <div className="w-max">
-      <Handle
-        direction="top"
-        directionArr={direction}
-        handleResize={handleResize}
-      />
+      <Handle direction="top" directionArr={direction} handleResize={handleResize} />
       <div className="h-full flex">
-        <Handle
-          direction="left"
-          directionArr={direction}
-          handleResize={handleResize}
-        />
+        <Handle direction="left" directionArr={direction} handleResize={handleResize} />
         <div
           ref={resizableRef}
           style={{
@@ -67,17 +53,9 @@ export function ResizableContainer({
         >
           {children}
         </div>
-        <Handle
-          direction="right"
-          directionArr={direction}
-          handleResize={handleResize}
-        />
+        <Handle direction="right" directionArr={direction} handleResize={handleResize} />
       </div>
-      <Handle
-        direction="bottom"
-        directionArr={direction}
-        handleResize={handleResize}
-      />
+      <Handle direction="bottom" directionArr={direction} handleResize={handleResize} />
     </div>
   );
 }
@@ -87,7 +65,7 @@ export interface HandleProps {
   directionArr: ("right" | "bottom" | "top" | "left")[];
   handleResize: (
     e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
-    directions: "right" | "left" | "top" | "bottom"
+    directions: "right" | "left" | "top" | "bottom",
   ) => void;
 }
 
@@ -103,7 +81,7 @@ export function Handle({ direction, directionArr, handleResize }: HandleProps) {
               onMouseDown={(e) => handleResize(e, direction)}
               onTouchStart={(e) => handleResize(e, direction)}
             >
-              <div className="min-h-8 bg-foreground rounded-full min-w-[0.25rem]"></div>
+              <div className="min-h-8 bg-foreground rounded-full min-w-[0.25rem]" />
             </div>
           )}
           {(direction === "top" || direction === "bottom") && (
@@ -113,7 +91,7 @@ export function Handle({ direction, directionArr, handleResize }: HandleProps) {
               onMouseDown={(e) => handleResize(e, direction)}
               onTouchStart={(e) => handleResize(e, direction)}
             >
-              <div className="min-w-8 bg-foreground rounded-full min-h-[0.25rem]"></div>
+              <div className="min-w-8 bg-foreground rounded-full min-h-[0.25rem]" />
             </div>
           )}
         </>

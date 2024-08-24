@@ -28,14 +28,11 @@ export const Primitives_tooltip_01 = lazy(() => import("@registry/packages/primi
 
 <Implementation>
 
-<TechnologyUsed technologies={["tailwind-merge","react-aria-components"]} />
+undefined
 <CodeBlock>
 
 ```react_aria|js|example.jsx
-import {
-  Tooltip,
-  TooltipTrigger,
-} from "@registry/packages/primitives/tooltip/01/react_aria-js/Tooltip";
+import { Tooltip, TooltipTrigger } from "@registry/packages/primitives/tooltip/01/react_aria-js/Tooltip";
 import Button from "@registry/ui/Button";
 
 export default function TooltipImplementation() {
@@ -52,8 +49,8 @@ export default function TooltipImplementation() {
         <Button>Hover Me</Button>
         <Tooltip placement="right">
           <h1>
-            This is a tooltip message to demonstrate it can deal with long text
-            messages easily. Making this message a little bit longer.
+            This is a tooltip message to demonstrate it can deal with long text messages easily. Making this message a
+            little bit longer.
           </h1>
         </Tooltip>
       </TooltipTrigger>
@@ -69,8 +66,8 @@ export default function TooltipImplementation() {
         <Button>Hover Me</Button>
         <Tooltip placement="bottom">
           <h1>
-            This is a tooltip message to demonstrate it can deal with long text
-            messages easily. Making this message a little bit longer.
+            This is a tooltip message to demonstrate it can deal with long text messages easily. Making this message a
+            little bit longer.
           </h1>
         </Tooltip>
       </TooltipTrigger>
@@ -102,13 +99,11 @@ export function OverlayArrow({ position = "top", ...props }) {
         className={twMerge(
           position?.split(" ")[0] === "bottom" && "rotate-180",
           position?.split(" ")[0] === "left" && "-rotate-90",
-          position?.split(" ")[0] === "right" && "rotate-90"
+          position?.split(" ")[0] === "right" && "rotate-90",
         )}
       >
-        <path
-          d="M0 0 L4 4 L8 0"
-          className="fill-primary stroke-outline-secondary"
-        />
+        <title>Tooltip arrow</title>
+        <path d="M0 0 L4 4 L8 0" className="fill-primary stroke-outline-secondary" />
       </svg>
     </OverlayArrowAria>
   );
@@ -124,7 +119,7 @@ export function Tooltip({ children, className, ...props }) {
         props.placement?.split(" ")[0] === "bottom" && "mt-2",
         props.placement?.split(" ")[0] === "left" && "mr-2",
         props.placement?.split(" ")[0] === "right" && "ml-2",
-        className
+        className,
       )}
       {...props}
     >
@@ -139,10 +134,7 @@ export function Tooltip({ children, className, ...props }) {
 ```
 
 ```react_aria|ts|example.tsx
-import {
-  Tooltip,
-  TooltipTrigger,
-} from "@registry/packages/primitives/tooltip/01/react_aria-ts/Tooltip";
+import { Tooltip, TooltipTrigger } from "@registry/packages/primitives/tooltip/01/react_aria-ts/Tooltip";
 import Button from "@registry/ui/Button";
 
 export default function TooltipImplementation() {
@@ -159,8 +151,8 @@ export default function TooltipImplementation() {
         <Button>Hover Me</Button>
         <Tooltip placement="right">
           <h1>
-            This is a tooltip message to demonstrate it can deal with long text
-            messages easily. Making this message a little bit longer.
+            This is a tooltip message to demonstrate it can deal with long text messages easily. Making this message a
+            little bit longer.
           </h1>
         </Tooltip>
       </TooltipTrigger>
@@ -176,8 +168,8 @@ export default function TooltipImplementation() {
         <Button>Hover Me</Button>
         <Tooltip placement="bottom">
           <h1>
-            This is a tooltip message to demonstrate it can deal with long text
-            messages easily. Making this message a little bit longer.
+            This is a tooltip message to demonstrate it can deal with long text messages easily. Making this message a
+            little bit longer.
           </h1>
         </Tooltip>
       </TooltipTrigger>
@@ -191,11 +183,10 @@ export default function TooltipImplementation() {
 "use client";
 
 import {
-  Button,
   OverlayArrow as OverlayArrowAria,
-  OverlayArrowProps as OverlayArrowPropsAria,
+  type OverlayArrowProps as OverlayArrowPropsAria,
   Tooltip as TooltipAria,
-  TooltipProps,
+  type TooltipProps,
   TooltipTrigger as TooltipTriggerAria,
 } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
@@ -206,10 +197,7 @@ export interface OverlayArrowProps extends OverlayArrowPropsAria {
   position: TooltipProps["placement"];
 }
 
-export function OverlayArrow({
-  position = "top",
-  ...props
-}: OverlayArrowProps) {
+export function OverlayArrow({ position = "top", ...props }: OverlayArrowProps) {
   return (
     <OverlayArrowAria {...props}>
       <svg
@@ -219,13 +207,11 @@ export function OverlayArrow({
         className={twMerge(
           (position as string)?.split(" ")[0] === "bottom" && "rotate-180",
           (position as string)?.split(" ")[0] === "left" && "-rotate-90",
-          (position as string)?.split(" ")[0] === "right" && "rotate-90"
+          (position as string)?.split(" ")[0] === "right" && "rotate-90",
         )}
       >
-        <path
-          d="M0 0 L4 4 L8 0"
-          className="fill-primary stroke-outline-secondary"
-        />
+        <title>Tooltip arrow</title>
+        <path d="M0 0 L4 4 L8 0" className="fill-primary stroke-outline-secondary" />
       </svg>
     </OverlayArrowAria>
   );
@@ -241,7 +227,7 @@ export function Tooltip({ children, className, ...props }: TooltipProps) {
         (props.placement as string)?.split(" ")[0] === "bottom" && "mt-2",
         (props.placement as string)?.split(" ")[0] === "left" && "mr-2",
         (props.placement as string)?.split(" ")[0] === "right" && "ml-2",
-        className as string
+        className as string,
       )}
       {...props}
     >

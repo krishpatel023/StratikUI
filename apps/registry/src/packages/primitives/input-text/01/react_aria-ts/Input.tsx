@@ -2,34 +2,22 @@
 
 import {
   FieldError,
-  InputProps as ReactAriaInputProps,
+  type InputProps as ReactAriaInputProps,
   Label,
-  LabelProps,
+  type LabelProps,
   Input as ReactAriaInput,
   TextField,
-  TextFieldProps,
+  type TextFieldProps,
 } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
 
 export function Field({ className, ...props }: TextFieldProps) {
-  return (
-    <TextField
-      className={twMerge("flex flex-col", className as string)}
-      {...props}
-    />
-  );
+  return <TextField className={twMerge("flex flex-col", className as string)} {...props} />;
 }
 
 export function InputLabel({ className, ...props }: LabelProps) {
   return (
-    <Label
-      className={twMerge(
-        "text-foreground text-sm font-medium",
-        className as string
-      )}
-    >
-      {props.children}
-    </Label>
+    <Label className={twMerge("text-foreground text-sm font-medium", className as string)}>{props.children}</Label>
   );
 }
 
@@ -39,7 +27,7 @@ export function InputBox({ className, ...props }: ReactAriaInputProps) {
       className={twMerge(
         "w-full py-2 px-4 bg-transparent border-2 rounded focus:outline-none focus:ring-2 mt-1",
         "text-foreground placeholder:text-secondary-foreground border-outline-secondary  hover:border-outline focus:border-accent",
-        className as string
+        className as string,
       )}
       {...props}
     />
@@ -54,12 +42,7 @@ export interface InputProps extends ReactAriaInputProps {
 
 export function Input({ label, isRequired, isReadOnly, ...props }: InputProps) {
   return (
-    <Field
-      isReadOnly={isReadOnly}
-      isRequired={isRequired}
-      name={props.name}
-      type={props.type}
-    >
+    <Field isReadOnly={isReadOnly} isRequired={isRequired} name={props.name} type={props.type}>
       <InputLabel>{label}</InputLabel>
       <InputBox {...props} />
       <FieldError />

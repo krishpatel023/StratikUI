@@ -1,6 +1,4 @@
 "use client";
-
-import React from "react";
 import { twMerge } from "tailwind-merge";
 
 export function ResizeBoundingElement({ containerRef, className, children }) {
@@ -22,17 +20,9 @@ export function ResizableContainer({
 }) {
   return (
     <div className="w-max">
-      <Handle
-        direction="top"
-        directionArr={direction}
-        handleResize={handleResize}
-      />
+      <Handle direction="top" directionArr={direction} handleResize={handleResize} />
       <div className="h-full flex">
-        <Handle
-          direction="left"
-          directionArr={direction}
-          handleResize={handleResize}
-        />
+        <Handle direction="left" directionArr={direction} handleResize={handleResize} />
         <div
           ref={resizableRef}
           style={{
@@ -43,17 +33,9 @@ export function ResizableContainer({
         >
           {children}
         </div>
-        <Handle
-          direction="right"
-          directionArr={direction}
-          handleResize={handleResize}
-        />
+        <Handle direction="right" directionArr={direction} handleResize={handleResize} />
       </div>
-      <Handle
-        direction="bottom"
-        directionArr={direction}
-        handleResize={handleResize}
-      />
+      <Handle direction="bottom" directionArr={direction} handleResize={handleResize} />
     </div>
   );
 }
@@ -70,7 +52,7 @@ export function Handle({ direction, directionArr, handleResize }) {
               onMouseDown={(e) => handleResize(e, direction)}
               onTouchStart={(e) => handleResize(e, direction)}
             >
-              <div className="min-h-8 bg-foreground rounded-full min-w-[0.25rem]"></div>
+              <div className="min-h-8 bg-foreground rounded-full min-w-[0.25rem]" />
             </div>
           )}
           {(direction === "top" || direction === "bottom") && (
@@ -80,7 +62,7 @@ export function Handle({ direction, directionArr, handleResize }) {
               onMouseDown={(e) => handleResize(e, direction)}
               onTouchStart={(e) => handleResize(e, direction)}
             >
-              <div className="min-w-8 bg-foreground rounded-full min-h-[0.25rem]"></div>
+              <div className="min-w-8 bg-foreground rounded-full min-h-[0.25rem]" />
             </div>
           )}
         </>

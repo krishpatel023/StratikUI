@@ -3,9 +3,9 @@
 import {
   Button,
   Dialog,
-  DialogProps,
+  type DialogProps,
   DialogTrigger,
-  DialogTriggerProps,
+  type DialogTriggerProps,
   Modal as ModalAria,
   ModalOverlay,
 } from "react-aria-components";
@@ -39,25 +39,23 @@ export function Modal({
       isDismissable={isDismissable}
       className={twMerge(
         "z-[99999] w-[100dvw] h-[100dvh] top-0 fixed data-[entering=true]:animate-fade-in data-[exiting=true]:animate-fade-out",
-        isBGBlur && "bg-neutral-700/60 dark:bg-black/60"
+        isBGBlur && "bg-neutral-700/60 dark:bg-black/60",
       )}
     >
       <ModalAria className="outline-none ">
         <Dialog
           className={twMerge(
             "absolute w-full h-max py-6 px-6 rounded bg-primary border border-outline-secondary text-primary-foreground outline-none data-[entering=true]:animate-modal-zoom",
-            position === "center center" &&
-              "top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2",
+            position === "center center" && "top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2",
             position === "center top" && "top-6 left-1/2 -translate-x-1/2",
-            position === "center bottom" &&
-              "bottom-6 left-1/2 -translate-x-1/2",
+            position === "center bottom" && "bottom-6 left-1/2 -translate-x-1/2",
             position === "left top" && "top-6 left-6",
             position === "left center" && "top-1/2 left-6 -translate-y-1/2",
             position === "left bottom" && "bottom-6 left-6",
             position === "right top" && "top-6 right-6",
             position === "right bottom" && "bottom-6 right-6",
             position === "right center" && "top-1/2 right-6 -translate-y-1/2",
-            className
+            className,
           )}
           {...props}
         >

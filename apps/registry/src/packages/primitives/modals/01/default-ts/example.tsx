@@ -11,14 +11,8 @@ export default function ModalImplementation() {
       <Button className="mt-4" onPress={() => setIsOpen(true)}>
         Open Modal
       </Button>
-      <Modal
-        className="max-w-[30rem]"
-        isOpen={isOpen}
-        setOpen={() => setIsOpen(false)}
-      >
-        <h1 className="text-xl font-semibold text-primary-foreground mb-4">
-          This is a modal
-        </h1>
+      <Modal className="max-w-[30rem]" isOpen={isOpen} setOpen={() => setIsOpen(false)}>
+        <h1 className="text-xl font-semibold text-primary-foreground mb-4">This is a modal</h1>
         <span>It has various various positions and can be dismissed by:</span>
         <ul className="list-disc ml-4 mt-4">
           <li>Clicking outside the modal</li>

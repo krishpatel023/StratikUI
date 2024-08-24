@@ -6,14 +6,14 @@ import {
   Label,
   Menu,
   MenuItem,
-  MenuItemProps,
-  MenuProps,
+  type MenuItemProps,
+  type MenuProps,
   MenuTrigger as MenuTriggerAria,
-  MenuTriggerProps,
+  type MenuTriggerProps,
   Popover,
   Separator,
   SubmenuTrigger as SubmenuTriggerAria,
-  SubmenuTriggerProps,
+  type SubmenuTriggerProps,
   Text,
 } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
@@ -28,31 +28,20 @@ export function DropdownTrigger({ children, ...props }: DropdownTriggerProps) {
   return (
     <MenuTriggerAria aria-label={props.label || "Dropdown"} {...props}>
       <div className="flex flex-col gap-1">
-        {props.label && (
-          <Label className="text-primary-foreground text-sm">
-            {props.label}
-          </Label>
-        )}
+        {props.label && <Label className="text-primary-foreground text-sm">{props.label}</Label>}
         {children}
         {props.description && (
           <Text slot="description" className="text-primary-foreground text-sm">
             {props.description}
           </Text>
         )}
-        <FieldError className="text-sm text-error">
-          {props.errorMessage}
-        </FieldError>
+        <FieldError className="text-sm text-error">{props.errorMessage}</FieldError>
       </div>
     </MenuTriggerAria>
   );
 }
 
-export function Dropdown({
-  items,
-  children,
-  className,
-  ...props
-}: MenuProps<any>) {
+export function Dropdown({ items, children, className, ...props }: MenuProps<any>) {
   return (
     <>
       <Popover>
@@ -60,13 +49,11 @@ export function Dropdown({
           items={items}
           className={twMerge(
             "w-full bg-primary border border-outline-secondary py-1 rounded outline-none focus-visible:outline-none",
-            className as string
+            className as string,
           )}
           {...props}
         >
-          {/* <Section> */}
-          <>{children}</>
-          {/* </Section> */}
+          {children}
         </Menu>
       </Popover>
     </>
@@ -79,7 +66,7 @@ export function DropdownItem({ className, ...props }: MenuItemProps) {
       aria-label="Dropdown Item"
       className={twMerge(
         "p-1 mx-1 rounded hover:bg-secondary hover:outline-none focus:bg-secondary focus:outline-none text-primary-foreground disabled:opacity-50 transition-colors duration-100 ease-linear hover:cursor-pointer",
-        className as string
+        className as string,
       )}
       {...props}
     >
@@ -95,24 +82,11 @@ export function DropdownHeader({
   children: React.ReactNode;
   className?: string;
 }) {
-  return (
-    <Header
-      className={twMerge("text-primary-foreground p-1 mx-1 mb-2", className)}
-    >
-      {children}
-    </Header>
-  );
+  return <Header className={twMerge("text-primary-foreground p-1 mx-1 mb-2", className)}>{children}</Header>;
 }
 
 export function DropdownDivider({ className }: { className?: string }) {
-  return (
-    <Separator
-      className={twMerge(
-        "min-w-full min-h-[2px] border-b border-outline my-2",
-        className
-      )}
-    />
-  );
+  return <Separator className={twMerge("min-w-full min-h-[2px] border-b border-outline my-2", className)} />;
 }
 
 export const SubmenuTrigger = (props: SubmenuTriggerProps) => {

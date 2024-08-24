@@ -24,17 +24,9 @@ export function CommandPaletteBox() {
 
   return (
     <>
-      <CommandPaletteTrigger
-        placeholder="Search"
-        setActive={setActive}
-        keys={["Control", "j"]}
-        className="md:w-60"
-      />
+      <CommandPaletteTrigger placeholder="Search" setActive={setActive} keys={["Control", "j"]} className="md:w-60" />
       <CommandPalette isOpen={active} onOpenChange={(val) => setActive(val)}>
-        <CommandPaletteSearchBar
-          placeholder="Search for something"
-          onChange={() => simulateSearch()}
-        />
+        <CommandPaletteSearchBar placeholder="Search for something" onChange={() => simulateSearch()} />
         <CommandPaletteDivider />
         <CommandPaletteMenu isLoading={isLoading}>
           {/* This is a sample data. You can add dynamic data here and manage the loading & empty states accordingly */}

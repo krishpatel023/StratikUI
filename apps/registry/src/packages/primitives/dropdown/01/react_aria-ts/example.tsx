@@ -10,14 +10,11 @@ import {
   SubmenuTrigger,
 } from "@registry/packages/primitives/dropdown/01/react_aria-ts/Dropdown";
 import { Section } from "react-aria-components";
-import { IconProps } from "@registry/utils/types";
+import type { IconProps } from "@registry/utils/types";
 
 export default function DropdownImplementation() {
   return (
-    <DropdownTrigger
-      label="User Settings"
-      description="This is an user settings dropdown"
-    >
+    <DropdownTrigger label="User Settings" description="This is an user settings dropdown">
       <Button>Settings</Button>
       <Dropdown className="min-w-60">
         <Section>
@@ -54,9 +51,7 @@ export default function DropdownImplementation() {
           <DropdownItem>Support</DropdownItem>
         </Section>
         <DropdownDivider />
-        <DropdownItem className="hover:bg-error focus:bg-error">
-          Logout
-        </DropdownItem>
+        <DropdownItem className="hover:bg-error focus:bg-error">Logout</DropdownItem>
       </Dropdown>
     </DropdownTrigger>
   );
@@ -64,19 +59,14 @@ export default function DropdownImplementation() {
 
 const Icons = {
   chevron: (props: IconProps) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 16 16"
-      {...props}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16" {...props}>
+      <title>Chevron</title>
       <path
         fill="currentColor"
         fillRule="evenodd"
         d="M6.22 4.22a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06l-3.25 3.25a.75.75 0 0 1-1.06-1.06L8.94 8L6.22 5.28a.75.75 0 0 1 0-1.06"
         clipRule="evenodd"
-      ></path>
+      />
     </svg>
   ),
 };

@@ -1,4 +1,4 @@
-// !skip-line: [41]
+// !skip-line: [44]
 import { Logo } from "./Logo";
 
 export function BrandWall() {
@@ -19,19 +19,19 @@ export function BrandWall() {
         {/* CENTRAL TEXT */}
         <div className="z-30 w-full h-full absolute top-0 left-0 flex justify-center items-center">
           <div className="size-80   flex flex-col justify-center items-center text-center text-primary-foreground gap-10">
-            <h1 className="text-4xl font-bold">
-              Connect with your favorite apps
-            </h1>
+            <h1 className="text-4xl font-bold">Connect with your favorite apps</h1>
             <h3 className="text-xl font-medium">
-              We provide integration with more than 100+ apps so that your
-              business can grow.
+              We provide integration with more than 100+ apps so that your business can grow.
             </h3>
-            <button className="border-2  py-2 px-8 rounded border-foreground text-foreground hover:bg-foreground hover:text-background">
+            <button
+              className="border-2  py-2 px-8 rounded border-foreground text-foreground hover:bg-foreground hover:text-background"
+              type="button"
+            >
               View All
             </button>
           </div>
           {/* RADIAL CIRCLE */}
-          <div className="-z-20 absolute -top-[0%] -left-[0%] w-[100%] h-[100%] bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white dark:from-black via-white/80 dark:via-black/80 to-white/40 dark:to-black/40"></div>
+          <div className="-z-20 absolute -top-[0%] -left-[0%] w-[100%] h-[100%] bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white dark:from-black via-white/80 dark:via-black/80 to-white/40 dark:to-black/40" />
         </div>
       </div>
     </>

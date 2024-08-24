@@ -24,9 +24,7 @@ function StatGroup({ title, value }: { title: string; value: number }) {
         direction="up"
         className="text-5xl font-semibold text-neutral-700 dark:text-neutral-400 "
       />
-      <h1 className="text-2xl text-neutral-700 dark:text-neutral-400">
-        {title}
-      </h1>
+      <h1 className="text-2xl text-neutral-700 dark:text-neutral-400">{title}</h1>
     </div>
   );
 }

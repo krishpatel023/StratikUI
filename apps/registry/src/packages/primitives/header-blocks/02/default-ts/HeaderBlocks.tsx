@@ -1,17 +1,10 @@
 "use client";
 
-import {
-  DetailedHTMLProps,
-  HTMLAttributes,
-  LegacyRef,
-  useEffect,
-  useState,
-} from "react";
-import { Button, ButtonProps } from "react-aria-components";
+import { type DetailedHTMLProps, type HTMLAttributes, type LegacyRef, useEffect, useState } from "react";
+import { Button, type ButtonProps } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
 
-export interface HeaderProps
-  extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> {}
+export interface HeaderProps extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> {}
 
 export function Header({ className, children, ...props }: HeaderProps) {
   return (
@@ -42,36 +35,37 @@ export function HeaderItem({
 }: HeaderItemProps) {
   const [internalOpen, setInternalOpen] = useState(open);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: addition of onChange() will cause the component to re-render many times
   useEffect(() => {
-    onChange && onChange(internalOpen);
-  }, [internalOpen]); // eslint-disable-line react-hooks/exhaustive-deps
+    onChange?.(internalOpen);
+  }, [internalOpen]);
 
   return (
     <Button
       className={twMerge(
         "relative flex flex-col justify-center text-center items-center gap-4 group/headerItem h-full text-foreground",
-        className
+        className,
       )}
       {...props}
       data-open={internalOpen}
       onPress={(e) => {
         setInternalOpen(!open);
-        onPress && onPress(e);
+        onPress?.(e);
       }}
       onHoverStart={(e) => {
-        onHoverStart && onHoverStart(e);
+        onHoverStart?.(e);
         setInternalOpen(true);
       }}
       onHoverEnd={(e) => {
-        onHoverEnd && onHoverEnd(e);
+        onHoverEnd?.(e);
         setInternalOpen(false);
       }}
       onFocus={(e) => {
-        onFocus && onFocus(e);
+        onFocus?.(e);
         setInternalOpen(true);
       }}
       onBlur={(e) => {
-        onBlur && onBlur(e);
+        onBlur?.(e);
         setInternalOpen(false);
       }}
     >
@@ -80,20 +74,15 @@ export function HeaderItem({
   );
 }
 
-export interface HeaderDropdownProps
-  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}
+export interface HeaderDropdownProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}
 
-export function HeaderDropdown({
-  className,
-  children,
-  ...props
-}: HeaderDropdownProps) {
+export function HeaderDropdown({ className, children, ...props }: HeaderDropdownProps) {
   return (
     <div className="w-max transition-all duration-300 ease-linear group-data-[open=false]/headerItem:hidden absolute top-full">
       <div
         className={twMerge(
           "bg-primary text-primary-foreground p-4 rounded border border-outline-secondary mt-2",
-          className
+          className,
         )}
         {...props}
       >

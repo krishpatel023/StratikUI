@@ -14,12 +14,9 @@ export default function BannerImplementation() {
         open={open}
         type="fixed"
       >
-        <h1 className="font-semibold">
-          Checkout the latest release of the components that are available for
-          free.
-        </h1>
+        <h1 className="font-semibold">Checkout the latest release of the components that are available for free.</h1>
         <GradientBackground>
-          <button className="py-2 px-4 rounded-md bg-background text-foreground z-10 relative">
+          <button className="py-2 px-4 rounded-md bg-background text-foreground z-10 relative" type="button">
             Get Started
           </button>
         </GradientBackground>
@@ -35,7 +32,7 @@ export default function BannerImplementation() {
 const Background = () => {
   return (
     <div className="absolute top-0 left-0 -z-10 h-full w-full bg-white dark:bg-black">
-      <div className="absolute bottom-auto left-auto right-0 top-0 h-[500px] w-[500px] -translate-x-[30%] translate-y-[20%] rounded-full bg-[rgba(173,109,244,0.5)] dark:bg-[rgba(73,89,123,0.5)] opacity-50 blur-[80px]"></div>
+      <div className="absolute bottom-auto left-auto right-0 top-0 h-[500px] w-[500px] -translate-x-[30%] translate-y-[20%] rounded-full bg-[rgba(173,109,244,0.5)] dark:bg-[rgba(73,89,123,0.5)] opacity-50 blur-[80px]" />
     </div>
   );
 };

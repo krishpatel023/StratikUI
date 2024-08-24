@@ -11,12 +11,7 @@ export type PaginationProps = {
   pageChangeHandler?: (page: number) => void;
 };
 
-export function Pagination({
-  initialPage,
-  totalPage,
-  limit = 5,
-  pageChangeHandler,
-}: PaginationProps) {
+export function Pagination({ initialPage, totalPage, limit = 5, pageChangeHandler }: PaginationProps) {
   const [currentPage, setCurrentPage] = useState<number>(initialPage);
 
   const handleNext = () => {
@@ -28,7 +23,7 @@ export function Pagination({
 
   const pageHandler = (value: number) => {
     setCurrentPage(value);
-    pageChangeHandler && pageChangeHandler(value);
+    pageChangeHandler?.(value);
   };
   return (
     <Group className="flex justify-center  text-primary-foreground border-[1px] border-outline  rounded-md bg-primary focus-within:ring-2 focus-within:ring-secondary">
@@ -49,8 +44,7 @@ export function Pagination({
       />
       {new Array(limit).fill(0).map((val, index) => (
         <Fragment key={index}>
-          {limit * Math.floor((currentPage - 1) / limit) + index + 1 <=
-            totalPage && (
+          {limit * Math.floor((currentPage - 1) / limit) + index + 1 <= totalPage && (
             <SoloPage
               value={limit * Math.floor((currentPage - 1) / limit) + index + 1}
               currentPage={currentPage}
@@ -90,7 +84,7 @@ function SoloPage({ value, currentPage, pageHandler }: SoloPageProps) {
       onPress={() => pageHandler(value)}
       className={twMerge(
         "w-6 px-4 flex justify-center items-center hover:bg-secondary transition-colors duration-200 ease-linear",
-        value === currentPage && "bg-secondary"
+        value === currentPage && "bg-secondary",
       )}
     >
       {value}
@@ -106,39 +100,25 @@ export type SeriesButtonProps = {
   pageHandler: (page: number) => void;
 };
 
-function SeriesButton({
-  state,
-  currentPage,
-  limit,
-  totalPage,
-  pageHandler,
-}: SeriesButtonProps) {
+function SeriesButton({ state, currentPage, limit, totalPage, pageHandler }: SeriesButtonProps) {
   return (
     <>
       {state === "prev" && currentPage > limit && totalPage > limit && (
         <Button
           onPress={() => pageHandler(Math.floor(currentPage / limit) * limit)}
-          className={twMerge(
-            "w-6 px-4 flex justify-center items-center hover:bg-secondary"
-          )}
+          className={twMerge("w-6 px-4 flex justify-center items-center hover:bg-secondary")}
         >
           ...
         </Button>
       )}
-      {state === "next" &&
-        Math.ceil(currentPage / limit) < Math.ceil(totalPage / limit) &&
-        totalPage > limit && (
-          <Button
-            onPress={() =>
-              pageHandler(Math.ceil(currentPage / limit) * limit + 1)
-            }
-            className={twMerge(
-              "w-6 h-full px-4 flex justify-center items-center hover:bg-secondary"
-            )}
-          >
-            ...
-          </Button>
-        )}
+      {state === "next" && Math.ceil(currentPage / limit) < Math.ceil(totalPage / limit) && totalPage > limit && (
+        <Button
+          onPress={() => pageHandler(Math.ceil(currentPage / limit) * limit + 1)}
+          className={twMerge("w-6 h-full px-4 flex justify-center items-center hover:bg-secondary")}
+        >
+          ...
+        </Button>
+      )}
     </>
   );
 }

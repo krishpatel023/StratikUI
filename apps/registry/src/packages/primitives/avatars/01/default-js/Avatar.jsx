@@ -14,17 +14,13 @@ export const Avatar = ({ src, alt, name, className, isDisabled }) => {
     <div
       className={twMerge(
         "size-12 rounded-full flex justify-center items-center group aria-disabled: bg-gradient-to-r from-blue-500 to-purple-500",
-        className
+        className,
       )}
       aria-disabled={isDisabled}
       aria-label="avatar"
     >
       {src ? (
-        <Image
-          src={src}
-          alt={alt || "avatar"}
-          className="rounded-[inherit] size-full"
-        />
+        <Image src={src} alt={alt || "avatar"} className="rounded-[inherit] size-full" />
       ) : (
         <h1 aria-label="initials" className="text-2xl text-primary-foreground">
           {initials}

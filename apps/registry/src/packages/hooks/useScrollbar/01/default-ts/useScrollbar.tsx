@@ -1,9 +1,7 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
 
-const useScrollbar = (
-  elementIdOrRef?: string | React.RefObject<HTMLElement>
-) => {
+const useScrollbar = (elementIdOrRef?: string | React.RefObject<HTMLElement>) => {
   const [scrollPosition, setScrollPosition] = useState({ x: 0, y: 0 });
   const [directionX, setDirectionX] = useState<boolean | null>(null);
   const [directionY, setDirectionY] = useState<boolean | null>(null);
@@ -21,8 +19,8 @@ const useScrollbar = (
   };
 
   const findPositionForWindow = () => {
-    const xpos = parseFloat(window.scrollX.toFixed(2));
-    const ypos = parseFloat(window.scrollY.toFixed(2));
+    const xpos = Number.parseFloat(window.scrollX.toFixed(2));
+    const ypos = Number.parseFloat(window.scrollY.toFixed(2));
     const prevXpos = scrollPosition.x;
     const prevYpos = scrollPosition.y;
     if (prevXpos <= xpos) setDirectionX(true);
@@ -32,6 +30,7 @@ const useScrollbar = (
     setScrollPosition({ x: xpos, y: ypos });
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Addition of others will cause the component to re-render many times
   const handleScroll = useCallback(() => {
     const element = getElement();
     if (element.type === "element" && element.element) {
@@ -47,15 +46,16 @@ const useScrollbar = (
         type: "element",
         element: document.getElementById(elementIdOrRef),
       };
-    else if (elementIdOrRef && typeof elementIdOrRef === "object")
+    if (elementIdOrRef && typeof elementIdOrRef === "object")
       return { type: "element", element: elementIdOrRef.current };
-    else
-      return {
-        type: "window",
-        element: document.documentElement || document.body,
-      };
+
+    return {
+      type: "window",
+      element: document.documentElement || document.body,
+    };
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Addition of others will cause the component to re-render many times
   useEffect(() => {
     const element = getElement();
     const handleScrollEvent = () => handleScroll();
@@ -65,7 +65,8 @@ const useScrollbar = (
       return () => {
         window.removeEventListener("scroll", handleScrollEvent);
       };
-    } else if (element.type === "element" && element.element) {
+    }
+    if (element.type === "element" && element.element) {
       element.element.addEventListener("scroll", handleScroll, {
         passive: true,
       });

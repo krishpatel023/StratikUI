@@ -1,6 +1,6 @@
 "use client";
 
-import { DragEvent, useEffect, useRef, useState } from "react";
+import { type DragEvent, useEffect, useRef, useState } from "react";
 
 export interface DropboxProps extends React.HTMLAttributes<HTMLDivElement> {
   getFiles?: (files: File[]) => void;
@@ -27,18 +27,13 @@ export function Dropbox({
   function handleValidation(file: File): boolean {
     // Size validation
     if (limitSize && file.size > limitSize * 1024 * 1024) {
-      setError(
-        error +
-          `File named ${file.name} is too large. Max size is ${limitSize}MB.`
-      );
+      setError(`${error}File named ${file.name} is too large. Max size is ${limitSize}MB.`);
       return false;
     }
 
     // Number of files validation
     if (limitNumberOfFiles && files.length >= limitNumberOfFiles) {
-      setError(
-        error + `You can only upload ${limitNumberOfFiles} files at a time.`
-      );
+      setError(`${error}You can only upload ${limitNumberOfFiles} files at a time.`);
       return false;
     }
 
@@ -46,7 +41,7 @@ export function Dropbox({
     if (allowedFileTypes) {
       let retType = false;
       for (const type of allowedFileTypes) {
-        let isValid: boolean = false;
+        let isValid = false;
 
         // For all types like image/*
         const allType = type.includes("/*");
@@ -77,8 +72,7 @@ export function Dropbox({
 
       if (retType === false) {
         setError(
-          error +
-            `File named ${file.name} is not allowed. Allowed types are ${allowedFileTypes.join(", ")} and the file you tried to upload is ${file.type}.`
+          `${error}File named ${file.name} is not allowed. Allowed types are ${allowedFileTypes.join(", ")} and the file you tried to upload is ${file.type}.`,
         );
         return false;
       }
@@ -93,9 +87,7 @@ export function Dropbox({
 
     // Validation
 
-    const validFilesArray = Array.from(droppedFiles).filter((file) =>
-      handleValidation(file)
-    );
+    const validFilesArray = Array.from(droppedFiles).filter((file) => handleValidation(file));
     setFiles((prevFiles) => [...prevFiles, ...validFilesArray]);
   }
 
@@ -115,6 +107,7 @@ export function Dropbox({
     }
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Necessary for the component to work
   useEffect(() => {
     if (getFiles) {
       getFiles(files);
@@ -122,7 +115,7 @@ export function Dropbox({
     if (getError) {
       getError(error);
     }
-  }, [files]);
+  }, [files, error]);
   return (
     <div
       ref={dropboxRef}

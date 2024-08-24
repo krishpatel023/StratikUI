@@ -2,16 +2,10 @@
 import { Button } from "@registry/packages/primitives/buttons/02/default-ts/Button";
 import useMousePosition from "@registry/packages/hooks/useMousePosition/01/default-ts/useMousePosition";
 import { useEffect, useRef, useState } from "react";
-import {
-  Button as ReactAriaButton,
-  ButtonProps as ReactAriaButtonProps,
-} from "react-aria-components";
+import { Button as ReactAriaButton, type ButtonProps as ReactAriaButtonProps } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
 
-export function BorderAnimationButton({
-  children,
-  className,
-}: ReactAriaButtonProps) {
+export function BorderAnimationButton({ children, className }: ReactAriaButtonProps) {
   const { x, y } = useMousePosition();
   const [relativeX, setRelativeX] = useState(0);
 
@@ -26,10 +20,9 @@ export function BorderAnimationButton({
       const rect = containerRef.current.getBoundingClientRect();
 
       const dist = x - rect.left;
-      if (y > rect.top && y < rect.bottom && dist > 0 && dist < rect.width)
-        setRelativeX(dist);
+      if (y > rect.top && y < rect.bottom && dist > 0 && dist < rect.width) setRelativeX(dist);
     }
-  }, [x]);
+  }, [x, y]);
 
   return (
     <ReactAriaButton
@@ -37,13 +30,8 @@ export function BorderAnimationButton({
       ref={containerRef}
       onHoverEnd={handleMouseLeave}
     >
-      <div
-        className={twMerge(
-          "z-10 bg-background relative rounded-[inherit]",
-          className as string
-        )}
-      >
-        <>{children}</>
+      <div className={twMerge("z-10 bg-background relative rounded-[inherit]", className as string)}>
+        {children as React.ReactNode}
       </div>
       <div
         className="z-0 m-1 mx-auto my-auto w-full h-full  absolute top-0 -left-1/2   bg-gradient-to-r from-transparent via-accent to-transparent opacity-40 group-hover:opacity-100 group-hover:transition-opacity hover:duration-500 transition-all duration-500"
@@ -56,7 +44,7 @@ export function BorderAnimationButton({
 export function Background() {
   return (
     <div className="absolute top-0 left-0 -z-10 h-full w-full bg-white dark:bg-black">
-      <div className="absolute bottom-auto left-auto right-0 top-0 h-[500px] w-[500px] -translate-x-[30%] translate-y-[20%] rounded-full bg-[rgba(173,109,244,0.5)] dark:bg-[rgba(73,89,123,0.5)] opacity-50 blur-[80px]"></div>
+      <div className="absolute bottom-auto left-auto right-0 top-0 h-[500px] w-[500px] -translate-x-[30%] translate-y-[20%] rounded-full bg-[rgba(173,109,244,0.5)] dark:bg-[rgba(73,89,123,0.5)] opacity-50 blur-[80px]" />
     </div>
   );
 }
@@ -73,8 +61,8 @@ export function HeroSection() {
           This is the best library for functional components.
         </h1>
         <span className="text-2xl font-medium w-[90%] @lg:w-3/4 text-secondary-foreground">
-          Beautifully designed components that you can copy and paste into your
-          apps. Accessible. Customizable. Developer Friendly.
+          Beautifully designed components that you can copy and paste into your apps. Accessible. Customizable.
+          Developer Friendly.
         </span>
         <div className="flex gap-8">
           <Button variant="accent" className="w-32">

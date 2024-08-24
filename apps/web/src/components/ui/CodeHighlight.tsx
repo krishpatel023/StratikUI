@@ -2,11 +2,8 @@
 
 import "@/assets/Styles/shiki.css";
 import { codeToHtml } from "shiki/bundle/web";
-import {
-  transformerNotationHighlight,
-  transformerNotationDiff,
-} from "@shikijs/transformers";
-import type { BundledLanguage, BundledTheme } from "shiki";
+import { transformerNotationHighlight, transformerNotationDiff } from "@shikijs/transformers";
+import type { BundledLanguage } from "shiki";
 import { useEffect, useState } from "react";
 import { Skeleton } from "./Skeleton";
 import { twMerge } from "tailwind-merge";
@@ -24,6 +21,8 @@ export default function CodeHighlight({
   skeletonClassName = "",
 }: Props) {
   const [html, setHtml] = useState("");
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: will cause re-renders
   useEffect(() => {
     const callFunc = async () => {
       const val = await getHtml();
@@ -31,7 +30,7 @@ export default function CodeHighlight({
     };
 
     callFunc();
-  }, [code]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [code]);
 
   async function getHtml() {
     return await codeToHtml(code, {
@@ -50,15 +49,16 @@ export default function CodeHighlight({
         <div className="w-full mx-auto overflow-hidden">
           <div
             className={`${withCounter ? "with-counter" : ""} text-sm [&>pre]:overflow-x-auto  dark:[&>pre]:!bg-neutral-900/70 [&>pre]:!bg-gray-50  [&>pre]:py-4 [&>pre]:pl-4 [&>pre]:pr-5 [&>pre]:leading-snug [&_code]:block [&_code]:w-fit [&_code]:min-w-full`}
+            // biome-ignore lint/security/noDangerouslySetInnerHtml: needed for code highlighting
             dangerouslySetInnerHTML={{ __html: html }}
-          ></div>
+          />
         </div>
       ) : (
         <Skeleton
           className={twMerge(
             "w-full bg-slate-50 dark:bg-neutral-950",
             withCounter ? "min-h-60" : "min-h-10",
-            skeletonClassName
+            skeletonClassName,
           )}
         />
       )}

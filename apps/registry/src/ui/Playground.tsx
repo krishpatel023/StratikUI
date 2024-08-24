@@ -14,7 +14,7 @@ export function Display({ children, category }: DisplayProps) {
       ) : (
         <div
           className={twMerge(
-            "w-[90%] mx-auto h-max flex justify-center items-center  border border-outline-secondary rounded-lg"
+            "w-[90%] mx-auto h-max flex justify-center items-center  border border-outline-secondary rounded-lg",
           )}
         >
           {children}
@@ -33,10 +33,9 @@ export default function Playground({ children, category }: PlaygroundProps) {
         Welcome to the Playground
       </h1>
       <h2 className="text-secondary-foreground max-w-[50rem] px-4 mx-auto pt-4 text-center">
-        <span className="underline underline-offset-2">NOTE:</span> Adjust the
-        category of the Playground component. The primitives and hooks have
-        different display layout than the components. Make sure to adjust the
-        category to the correct one.
+        <span className="underline underline-offset-2">NOTE:</span> Adjust the category of the Playground component. The
+        primitives and hooks have different display layout than the components. Make sure to adjust the category to the
+        correct one.
       </h2>
       <h2 className="text-secondary-foreground mt-2 mb-10 text-center">
         Please test the components here and DO NOT PUSH this page to production

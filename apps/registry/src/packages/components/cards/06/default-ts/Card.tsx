@@ -8,10 +8,7 @@ export function Card() {
 
       <div className="@md:w-1/2 px-6 py-6 flex flex-col gap-2">
         <h1 className="text-2xl font-semibold">Title</h1>
-        <h3>
-          This is something great. Design this according to your needs and make
-          it look great.
-        </h3>
+        <h3>This is something great. Design this according to your needs and make it look great.</h3>
         <Link
           href="#"
           target="_blank"

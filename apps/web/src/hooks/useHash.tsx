@@ -12,6 +12,7 @@ const useHash: useHashProps = () => {
 
   const [hash, setHash] = useState<string | null>(getHash());
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: no dependencies needed
   useEffect(() => {
     const handleHashChange = () => {
       setHash(getHash());

@@ -1,8 +1,5 @@
 import { Button } from "@registry/packages/primitives/buttons/02/default-js/Button";
-import {
-  HighlighterItem,
-  HighlightGroup,
-} from "@registry/packages/primitives/containers/03/default-js/Container";
+import { HighlighterItem, HighlightGroup } from "@registry/packages/primitives/containers/03/default-js/Container";
 import { twMerge } from "tailwind-merge";
 
 export function Pricing() {
@@ -25,12 +22,7 @@ export function Pricing() {
       name: "Business",
       description: "For Enterprises",
       price: 49,
-      features: [
-        "Unlimited Users",
-        "100 GB of storage",
-        "Help center access",
-        "Email support",
-      ],
+      features: ["Unlimited Users", "100 GB of storage", "Help center access", "Email support"],
       popular: false,
     },
   ];
@@ -46,29 +38,18 @@ export function Pricing() {
               </h1>
             </div>
           )}
-          <HighlighterItem
-            className={twMerge(
-              " w-80 h-[27rem]",
-              data.popular && " bg-secondary"
-            )}
-          >
+          <HighlighterItem className={twMerge(" w-80 h-[27rem]", data.popular && " bg-secondary")}>
             <div className="text-primary-foreground px-8 py-6 w-full h-full flex flex-col justify-between">
               <div>
                 <h1 className="text-3xl font-medium mb-2">{data.name}</h1>
                 <h2 className="text-md mb-4">{data.description}</h2>
-                <div className="w-full h-[1px] bg-outline "></div>
+                <div className="w-full h-[1px] bg-outline " />
                 <h1 className="text-4xl font-medium mb-8 mt-6">
-                  $ {data.price}{" "}
-                  <span className="text-secondary-foreground text-base">
-                    / Month
-                  </span>
+                  $ {data.price} <span className="text-secondary-foreground text-base">/ Month</span>
                 </h1>
                 <span className="flex flex-col gap-2">
                   {data.features.map((feature, j) => (
-                    <span
-                      className="flex justify-start items-center gap-2"
-                      key={j}
-                    >
+                    <span className="flex justify-start items-center gap-2" key={j}>
                       <Check /> {feature}
                     </span>
                   ))}
@@ -84,18 +65,13 @@ export function Pricing() {
 }
 
 export const Check = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 16 16"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16" {...props}>
+    <title>Tick Mark</title>
     <path
       fill="currentColor"
       fillRule="evenodd"
       d="M13.488 3.43a.75.75 0 0 1 .081 1.058l-6 7a.75.75 0 0 1-1.1.042l-3.5-3.5A.75.75 0 0 1 4.03 6.97l2.928 2.927l5.473-6.385a.75.75 0 0 1 1.057-.081Z"
       clipRule="evenodd"
-    ></path>
+    />
   </svg>
 );

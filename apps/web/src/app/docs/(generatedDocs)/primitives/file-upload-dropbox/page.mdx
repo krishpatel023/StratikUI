@@ -53,18 +53,13 @@ export function Dropbox({
   function handleValidation(file) {
     // Size validation
     if (limitSize && file.size > limitSize * 1024 * 1024) {
-      setError(
-        error +
-          `File named ${file.name} is too large. Max size is ${limitSize}MB.`
-      );
+      setError(`${error}File named ${file.name} is too large. Max size is ${limitSize}MB.`);
       return false;
     }
 
     // Number of files validation
     if (limitNumberOfFiles && files.length >= limitNumberOfFiles) {
-      setError(
-        error + `You can only upload ${limitNumberOfFiles} files at a time.`
-      );
+      setError(`${error}You can only upload ${limitNumberOfFiles} files at a time.`);
       return false;
     }
 
@@ -103,8 +98,7 @@ export function Dropbox({
 
       if (retType === false) {
         setError(
-          error +
-            `File named ${file.name} is not allowed. Allowed types are ${allowedFileTypes.join(", ")} and the file you tried to upload is ${file.type}.`
+          `${error}File named ${file.name} is not allowed. Allowed types are ${allowedFileTypes.join(", ")} and the file you tried to upload is ${file.type}.`,
         );
         return false;
       }
@@ -119,9 +113,7 @@ export function Dropbox({
 
     // Validation
 
-    const validFilesArray = Array.from(droppedFiles).filter((file) =>
-      handleValidation(file)
-    );
+    const validFilesArray = Array.from(droppedFiles).filter((file) => handleValidation(file));
     setFiles((prevFiles) => [...prevFiles, ...validFilesArray]);
   }
 
@@ -141,6 +133,7 @@ export function Dropbox({
     }
   };
 
+  
   useEffect(() => {
     if (getFiles) {
       getFiles(files);
@@ -199,20 +192,12 @@ export default function DropboxImplementation() {
         <h1>Drop your files here</h1>
       </Dropbox>
       <div className="min-h-40 flex flex-col items-center justify-center text-foreground">
-        <h1 className="underline underline-offset-2 mb-4">
-          Files you uploaded
-        </h1>
+        <h1 className="underline underline-offset-2 mb-4">Files you uploaded</h1>
         {files.map((file, i) => (
           <div key={i} className="flex justify-center items-center gap-4">
             <h2>Name: {file.name}</h2>
             <p>Type : {file.type}</p>
-            <Image
-              className="h-20 w-auto"
-              src={URL.createObjectURL(file)}
-              alt={file.name}
-              width={200}
-              height={200}
-            />
+            <Image className="h-20 w-auto" src={URL.createObjectURL(file)} alt={file.name} width={200} height={200} />
           </div>
         ))}
       </div>
@@ -228,13 +213,7 @@ function DemoImageForDropbox() {
   return (
     <div className="flex flex-col items-center justify-center text-foreground gap-2 mt-10">
       <h1>Demo Image Drag this and upload</h1>
-      <Image
-        src={DemoImage}
-        alt="Demo"
-        draggable
-        onDragStart={handleDragStart}
-        className="h-20 w-auto"
-      />
+      <Image src={DemoImage} alt="Demo" draggable onDragStart={handleDragStart} className="h-20 w-auto" />
     </div>
   );
 }
@@ -244,7 +223,7 @@ function DemoImageForDropbox() {
 ```default|ts|Dropbox.tsx
 "use client";
 
-import { DragEvent, useEffect, useRef, useState } from "react";
+import { type DragEvent, useEffect, useRef, useState } from "react";
 
 export interface DropboxProps extends React.HTMLAttributes<HTMLDivElement> {
   getFiles?: (files: File[]) => void;
@@ -271,18 +250,13 @@ export function Dropbox({
   function handleValidation(file: File): boolean {
     // Size validation
     if (limitSize && file.size > limitSize * 1024 * 1024) {
-      setError(
-        error +
-          `File named ${file.name} is too large. Max size is ${limitSize}MB.`
-      );
+      setError(`${error}File named ${file.name} is too large. Max size is ${limitSize}MB.`);
       return false;
     }
 
     // Number of files validation
     if (limitNumberOfFiles && files.length >= limitNumberOfFiles) {
-      setError(
-        error + `You can only upload ${limitNumberOfFiles} files at a time.`
-      );
+      setError(`${error}You can only upload ${limitNumberOfFiles} files at a time.`);
       return false;
     }
 
@@ -290,7 +264,7 @@ export function Dropbox({
     if (allowedFileTypes) {
       let retType = false;
       for (const type of allowedFileTypes) {
-        let isValid: boolean = false;
+        let isValid = false;
 
         // For all types like image/*
         const allType = type.includes("/*");
@@ -321,8 +295,7 @@ export function Dropbox({
 
       if (retType === false) {
         setError(
-          error +
-            `File named ${file.name} is not allowed. Allowed types are ${allowedFileTypes.join(", ")} and the file you tried to upload is ${file.type}.`
+          `${error}File named ${file.name} is not allowed. Allowed types are ${allowedFileTypes.join(", ")} and the file you tried to upload is ${file.type}.`,
         );
         return false;
       }
@@ -337,9 +310,7 @@ export function Dropbox({
 
     // Validation
 
-    const validFilesArray = Array.from(droppedFiles).filter((file) =>
-      handleValidation(file)
-    );
+    const validFilesArray = Array.from(droppedFiles).filter((file) => handleValidation(file));
     setFiles((prevFiles) => [...prevFiles, ...validFilesArray]);
   }
 
@@ -359,6 +330,7 @@ export function Dropbox({
     }
   };
 
+  
   useEffect(() => {
     if (getFiles) {
       getFiles(files);
@@ -366,7 +338,7 @@ export function Dropbox({
     if (getError) {
       getError(error);
     }
-  }, [files]);
+  }, [files, error]);
   return (
     <div
       ref={dropboxRef}
@@ -416,20 +388,12 @@ export default function DropboxImplementation() {
         <h1>Drop your files here</h1>
       </Dropbox>
       <div className="min-h-40 flex flex-col items-center justify-center text-foreground">
-        <h1 className="underline underline-offset-2 mb-4">
-          Files you uploaded
-        </h1>
+        <h1 className="underline underline-offset-2 mb-4">Files you uploaded</h1>
         {files.map((file, i) => (
           <div key={i} className="flex justify-center items-center gap-4">
             <h2>Name: {file.name}</h2>
             <p>Type : {file.type}</p>
-            <Image
-              className="h-20 w-auto"
-              src={URL.createObjectURL(file)}
-              alt={file.name}
-              width={200}
-              height={200}
-            />
+            <Image className="h-20 w-auto" src={URL.createObjectURL(file)} alt={file.name} width={200} height={200} />
           </div>
         ))}
       </div>
@@ -445,13 +409,7 @@ function DemoImageForDropbox() {
   return (
     <div className="flex flex-col items-center justify-center text-foreground gap-2 mt-10">
       <h1>Demo Image Drag this and upload</h1>
-      <Image
-        src={DemoImage}
-        alt="Demo"
-        draggable
-        onDragStart={handleDragStart}
-        className="h-20 w-auto"
-      />
+      <Image src={DemoImage} alt="Demo" draggable onDragStart={handleDragStart} className="h-20 w-auto" />
     </div>
   );
 }

@@ -2,11 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-export type CookieCategory =
-  | "essential"
-  | "functional"
-  | "analytics"
-  | "advertising";
+export type CookieCategory = "essential" | "functional" | "analytics" | "advertising";
 
 export interface CookiePreferences {
   [key: string]: boolean;
@@ -26,8 +22,7 @@ const useCookies = () => {
     analytics: true,
     advertising: true,
   };
-  const [cookiePreferences, setCookiePreferences] =
-    useState<CookiePreferences>(defaultValue);
+  const [cookiePreferences, setCookiePreferences] = useState<CookiePreferences>(defaultValue);
 
   const handlePrefLoad = () => {
     const storedPreferences = localStorage.getItem("cookiePreferences");
@@ -39,6 +34,7 @@ const useCookies = () => {
     localStorage.setItem("cookiePreferences", JSON.stringify(pref));
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     handlePrefLoad();
   }, []);
@@ -94,11 +90,11 @@ const useCookies = () => {
     category: CookieCategory,
     options: CookieOptions = {
       path: "/",
-    }
+    },
   ) => {
     if (cookiePreferences[category]) {
       const date = new Date();
-      const timeCalaculated = date.setTime(date.getTime() + time * 1000);
+      const timeCalculated = date.setTime(date.getTime() + time * 1000);
       const expires = `expires=${date.toUTCString()}`;
       const cookieOptions = Object.entries(options)
         .map(([key, value]) => `${key}=${value}`)
@@ -112,7 +108,7 @@ const useCookies = () => {
     name: string,
     value: string,
     days: number,
-    options: CookieOptions = {}
+    options: CookieOptions = {},
   ) => {
     if (cookiePreferences[category]) {
       removeCookie(name, category);
@@ -124,13 +120,13 @@ const useCookies = () => {
     if (cookiePreferences[category]) {
       const cookiesForCategory = document.cookie.split(";");
 
-      cookiesForCategory.forEach((cookie) => {
+      for (const cookie of cookiesForCategory) {
         const cookieName = cookie.split("=")[0].trim();
         if (cookieName === name) {
-          const expires = `expires=Thu, 01 Jan 1970 00:00:00 UTC`;
+          const expires = "expires=Thu, 01 Jan 1970 00:00:00 UTC";
           document.cookie = `${cookieName}=; ${expires}; path=/; ${category}`;
         }
-      });
+      }
     }
   };
 

@@ -1,7 +1,4 @@
-import {
-  Tooltip,
-  TooltipTrigger,
-} from "@registry/packages/primitives/tooltip/01/react_aria-ts/Tooltip";
+import { Tooltip, TooltipTrigger } from "@registry/packages/primitives/tooltip/01/react_aria-ts/Tooltip";
 import Button from "@registry/ui/Button";
 
 export default function TooltipImplementation() {
@@ -18,8 +15,8 @@ export default function TooltipImplementation() {
         <Button>Hover Me</Button>
         <Tooltip placement="right">
           <h1>
-            This is a tooltip message to demonstrate it can deal with long text
-            messages easily. Making this message a little bit longer.
+            This is a tooltip message to demonstrate it can deal with long text messages easily. Making this message a
+            little bit longer.
           </h1>
         </Tooltip>
       </TooltipTrigger>
@@ -35,8 +32,8 @@ export default function TooltipImplementation() {
         <Button>Hover Me</Button>
         <Tooltip placement="bottom">
           <h1>
-            This is a tooltip message to demonstrate it can deal with long text
-            messages easily. Making this message a little bit longer.
+            This is a tooltip message to demonstrate it can deal with long text messages easily. Making this message a
+            little bit longer.
           </h1>
         </Tooltip>
       </TooltipTrigger>

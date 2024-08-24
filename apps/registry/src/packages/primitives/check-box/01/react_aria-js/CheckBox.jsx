@@ -6,10 +6,7 @@ import { twMerge } from "tailwind-merge";
 export default function Checkbox({ children, className, ...props }) {
   return (
     <ReactAriaCheckbox
-      className={twMerge(
-        "group text-foreground hover:cursor-pointer flex gap-2 ",
-        className
-      )}
+      className={twMerge("group text-foreground hover:cursor-pointer flex gap-2 ", className)}
       {...props}
     >
       <>

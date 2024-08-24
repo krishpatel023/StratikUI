@@ -4,8 +4,8 @@ import { Button, FileTrigger } from "react-aria-components";
 
 export function FileUploadButton({ className, children, getFiles, ...props }) {
   function handleFileUpload(e) {
-    let files = Array.from(e);
-    getFiles && getFiles(files);
+    const files = Array.from(e);
+    getFiles?.(files);
   }
 
   return (

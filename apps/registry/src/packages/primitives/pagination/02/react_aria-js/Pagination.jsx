@@ -4,12 +4,7 @@ import { Fragment, useState } from "react";
 import { Button, Group } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
 
-export function Pagination({
-  initialPage,
-  totalPage,
-  limit = 5,
-  pageChangeHandler,
-}) {
+export function Pagination({ initialPage, totalPage, limit = 5, pageChangeHandler }) {
   const [currentPage, setCurrentPage] = useState(initialPage);
 
   const handleNext = () => {
@@ -21,7 +16,7 @@ export function Pagination({
 
   const pageHandler = (value) => {
     setCurrentPage(value);
-    pageChangeHandler && pageChangeHandler(value);
+    pageChangeHandler?.(value);
   };
   return (
     <Group className="flex justify-center  text-primary-foreground border-[1px] border-outline  rounded-md bg-primary focus-within:ring-2 focus-within:ring-secondary">
@@ -42,8 +37,7 @@ export function Pagination({
       />
       {new Array(limit).fill(0).map((val, index) => (
         <Fragment key={index}>
-          {limit * Math.floor((currentPage - 1) / limit) + index + 1 <=
-            totalPage && (
+          {limit * Math.floor((currentPage - 1) / limit) + index + 1 <= totalPage && (
             <SoloPage
               value={limit * Math.floor((currentPage - 1) / limit) + index + 1}
               currentPage={currentPage}
@@ -77,7 +71,7 @@ function SoloPage({ value, currentPage, pageHandler }) {
       onPress={() => pageHandler(value)}
       className={twMerge(
         "w-6 px-4 flex justify-center items-center hover:bg-secondary transition-colors duration-200 ease-linear",
-        value === currentPage && "bg-secondary"
+        value === currentPage && "bg-secondary",
       )}
     >
       {value}
@@ -91,27 +85,19 @@ function SeriesButton({ state, currentPage, limit, totalPage, pageHandler }) {
       {state === "prev" && currentPage > limit && totalPage > limit && (
         <Button
           onPress={() => pageHandler(Math.floor(currentPage / limit) * limit)}
-          className={twMerge(
-            "w-6 px-4 flex justify-center items-center hover:bg-secondary"
-          )}
+          className={twMerge("w-6 px-4 flex justify-center items-center hover:bg-secondary")}
         >
           ...
         </Button>
       )}
-      {state === "next" &&
-        Math.ceil(currentPage / limit) < Math.ceil(totalPage / limit) &&
-        totalPage > limit && (
-          <Button
-            onPress={() =>
-              pageHandler(Math.ceil(currentPage / limit) * limit + 1)
-            }
-            className={twMerge(
-              "w-6 h-full px-4 flex justify-center items-center hover:bg-secondary"
-            )}
-          >
-            ...
-          </Button>
-        )}
+      {state === "next" && Math.ceil(currentPage / limit) < Math.ceil(totalPage / limit) && totalPage > limit && (
+        <Button
+          onPress={() => pageHandler(Math.ceil(currentPage / limit) * limit + 1)}
+          className={twMerge("w-6 h-full px-4 flex justify-center items-center hover:bg-secondary")}
+        >
+          ...
+        </Button>
+      )}
     </>
   );
 }

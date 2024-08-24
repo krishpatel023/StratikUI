@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 export type ColorPaletteSettings = "custom" | "tailwind";
 
 // Just a few test cases to make sure the regex works as expected
@@ -15,10 +13,7 @@ const TEST_CASES = [
   "group-focus:ring-error",
 ];
 
-export default function StringCleaner(
-  str: string,
-  colorPalette: ColorPaletteSettings
-): string {
+export default function StringCleaner(str: string, colorPalette: ColorPaletteSettings): string {
   if (!str) return "";
   let output = convertContainerQueries(str);
 
@@ -29,18 +24,7 @@ export default function StringCleaner(
 }
 
 function convertContainerQueries(input: string): string {
-  const containerQueries = [
-    "sm",
-    "md",
-    "lg",
-    "xl",
-    "2xl",
-    "3xl",
-    "4xl",
-    "5xl",
-    "6xl",
-    "7xl",
-  ];
+  const containerQueries = ["sm", "md", "lg", "xl", "2xl", "3xl", "4xl", "5xl", "6xl", "7xl"];
   let output: string = input;
 
   for (const query of containerQueries) {
@@ -186,16 +170,10 @@ function replaceColorVariables(input: string): string {
   for (const tag of COLOR_TAGS) {
     for (const color of colorVariables) {
       // Regex for normal cases (no prefix)
-      const normalRegex = new RegExp(
-        `(?<![:\\w-])${tag}-${color}(?![\\w-])`,
-        "g"
-      );
+      const normalRegex = new RegExp(`(?<![:\\w-])${tag}-${color}(?![\\w-])`, "g");
 
       // Regex for prefixed cases, including complex prefixes like attribute selectors
-      const prefixedRegex = new RegExp(
-        `(^|\\s)([^\\s]+:)(\\S*${tag}-${color})(?=\\s|$)`,
-        "g"
-      );
+      const prefixedRegex = new RegExp(`(^|\\s)([^\\s]+:)(\\S*${tag}-${color})(?=\\s|$)`, "g");
 
       const normalPass = normalRegex.test(output);
       const prefixedPass = prefixedRegex.test(output);
@@ -211,16 +189,13 @@ function replaceColorVariables(input: string): string {
       }
       if (prefixedPass) {
         // Handle prefixed cases
-        output = output.replace(
-          prefixedRegex,
-          (match, space, prefix, className) => {
-            const lightColor = (lightComponent as any)[color];
-            const darkColor = (darkComponent as any)[color];
+        output = output.replace(prefixedRegex, (match, space, prefix, className) => {
+          const lightColor = (lightComponent as any)[color];
+          const darkColor = (darkComponent as any)[color];
 
-            // Ensure the prefix is correctly applied to both light and dark colors
-            return `${space}${prefix}${tag}-${lightColor} ${space}dark:${prefix}${tag}-${darkColor}`;
-          }
-        );
+          // Ensure the prefix is correctly applied to both light and dark colors
+          return `${space}${prefix}${tag}-${lightColor} ${space}dark:${prefix}${tag}-${darkColor}`;
+        });
       }
     }
   }

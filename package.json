@@ -8,9 +8,14 @@
         "build": "turbo build",
         "dev": "turbo dev",
         "lint": "turbo lint",
-        "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+        "lint:fix": "turbo lint:fix",
+        "format": "turbo format",
+        "check": "turbo check",
         "check-types": "tsc --noEmit",
-        "generate:data": "npm run generate:data --workspace=registry"
+        "generate:data": "npm run generate:data --workspace=registry",
+        "generate:docs": "npm run generate:docs --workspace=registry",
+        "generate:search": "npm run generate:search --workspace=registry",
+        "generate:sidebar": "npm run generate:sidebar --workspace=registry"
     },
     "workspaces": [
         "apps/*"
@@ -19,6 +24,7 @@
         "node": ">=18"
     },
     "devDependencies": {
+        "@biomejs/biome": "^1.8.3",
         "tailwind-merge": "^2.4.0",
         "turbo": "^2.0.7"
     },

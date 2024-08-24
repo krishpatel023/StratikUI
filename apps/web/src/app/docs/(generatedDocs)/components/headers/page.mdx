@@ -24,7 +24,7 @@ export const Components_headers_01 = lazy(() => import("@registry/packages/compo
 </Suspense>
 
 </Preview><Implementation>
-<TechnologyUsed technologies={["tailwind-merge","react-aria-components"]} />
+undefined
 <CodeBlock>
 
 ```default|js|example.jsx
@@ -61,27 +61,15 @@ export const HeaderComponent = () => {
 
   return (
     <>
-      <HeaderDrawer
-        open={open}
-        setOpen={setOpen}
-        className="bg-background border-b text-foreground border-outline"
-      >
+      <HeaderDrawer open={open} setOpen={setOpen} className="bg-background border-b text-foreground border-outline">
         <span className="hover:text-accent-secondary cursor-pointer">Home</span>
-        <span className="hover:text-accent-secondary cursor-pointer">
-          Pricing
-        </span>
-        <span className="hover:text-accent-secondary cursor-pointer">
-          Products
-        </span>
-        <span className="hover:text-accent-secondary cursor-pointer">
-          Services
-        </span>
-        <span className="hover:text-accent-secondary cursor-pointer">
-          About
-        </span>
+        <span className="hover:text-accent-secondary cursor-pointer">Pricing</span>
+        <span className="hover:text-accent-secondary cursor-pointer">Products</span>
+        <span className="hover:text-accent-secondary cursor-pointer">Services</span>
+        <span className="hover:text-accent-secondary cursor-pointer">About</span>
       </HeaderDrawer>
       <Header className="w-full h-16  flex justify-between px-6 @md:px-10 items-center bg-background shadow shadow-outline">
-        <a href="#" className="text-primary-foreground font-semibold text-lg">
+        <a href="/" className="text-primary-foreground font-semibold text-lg">
           LOGO
         </a>
         <div className="justify-center items-center gap-4 hidden @md:flex">
@@ -133,19 +121,14 @@ export const HeaderComponent = () => {
 };
 
 const Bars = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 24 24"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+    <title>Menu</title>
     <path
       fill="currentColor"
       fillRule="evenodd"
       d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75H12a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z"
       clipRule="evenodd"
-    ></path>
+    />
   </svg>
 );
 
@@ -158,14 +141,7 @@ import useClickOutside from "@registry/packages/hooks/useClickOutside/01/default
 import { useRef } from "react";
 import { twMerge } from "tailwind-merge";
 
-export const HeaderDrawer = ({
-  direction = "top",
-  cover = "half",
-  children,
-  open,
-  setOpen,
-  className,
-}) => {
+export const HeaderDrawer = ({ direction = "top", cover = "half", children, open, setOpen, className }) => {
   const ref = useRef(null);
   useClickOutside(ref, () => setOpen(false));
 
@@ -176,35 +152,23 @@ export const HeaderDrawer = ({
           "flex flex-col justify-center items-center gap-4 border-b absolute z-50 transition-all duration-300 ease-in-out",
 
           // INITIAL STATES
-          direction === "left" &&
-            cover === "full" &&
-            "w-full h-full top-0 -left-full",
-          direction === "left" &&
-            cover === "half" &&
-            "w-80 h-full top-0 -left-80",
-          direction === "right" &&
-            cover === "full" &&
-            "w-full h-full top-0 -right-full",
-          direction === "right" &&
-            cover === "half" &&
-            "w-80 h-full top-0 -right-80",
-          direction === "top" &&
-            cover === "half" &&
-            "w-full h-80 -top-80 left-0",
-          direction === "top" &&
-            cover === "full" &&
-            "w-full h-full -top-full left-0",
+          direction === "left" && cover === "full" && "w-full h-full top-0 -left-full",
+          direction === "left" && cover === "half" && "w-80 h-full top-0 -left-80",
+          direction === "right" && cover === "full" && "w-full h-full top-0 -right-full",
+          direction === "right" && cover === "half" && "w-80 h-full top-0 -right-80",
+          direction === "top" && cover === "half" && "w-full h-80 -top-80 left-0",
+          direction === "top" && cover === "full" && "w-full h-full -top-full left-0",
 
           // OPEN STATES
           direction === "left" && open && "left-0",
           direction === "right" && open && "right-0",
           direction === "top" && open && "top-0",
 
-          className
+          className,
         )}
       >
         <div className="w-full flex justify-end px-4 py-4 absolute top-0 left-0">
-          <button onClick={() => setOpen(false)}>
+          <button onClick={() => setOpen(false)} type="button">
             <Cross className="h-6 w-6" />
           </button>
         </div>
@@ -215,17 +179,12 @@ export const HeaderDrawer = ({
 };
 
 const Cross = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 32 32"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32" {...props}>
+    <title>Close</title>
     <path
       fill="currentColor"
       d="M7.219 5.781L5.78 7.22L14.563 16L5.78 24.781l1.44 1.439L16 17.437l8.781 8.782l1.438-1.438L17.437 16l8.782-8.781L24.78 5.78L16 14.563z"
-    ></path>
+    />
   </svg>
 );
 
@@ -256,7 +215,7 @@ import {
   HeaderItem,
   HeaderDropdown,
 } from "@registry/packages/primitives/header-blocks/01/default-ts/HeaderBlocks";
-import { IconProps } from "@registry/utils/types";
+import type { IconProps } from "@registry/utils/types";
 import { useState } from "react";
 import { Button } from "react-aria-components";
 import { HeaderDrawer } from "./HeaderDrawer";
@@ -266,27 +225,15 @@ export const HeaderComponent = () => {
 
   return (
     <>
-      <HeaderDrawer
-        open={open}
-        setOpen={setOpen}
-        className="bg-background border-b text-foreground border-outline"
-      >
+      <HeaderDrawer open={open} setOpen={setOpen} className="bg-background border-b text-foreground border-outline">
         <span className="hover:text-accent-secondary cursor-pointer">Home</span>
-        <span className="hover:text-accent-secondary cursor-pointer">
-          Pricing
-        </span>
-        <span className="hover:text-accent-secondary cursor-pointer">
-          Products
-        </span>
-        <span className="hover:text-accent-secondary cursor-pointer">
-          Services
-        </span>
-        <span className="hover:text-accent-secondary cursor-pointer">
-          About
-        </span>
+        <span className="hover:text-accent-secondary cursor-pointer">Pricing</span>
+        <span className="hover:text-accent-secondary cursor-pointer">Products</span>
+        <span className="hover:text-accent-secondary cursor-pointer">Services</span>
+        <span className="hover:text-accent-secondary cursor-pointer">About</span>
       </HeaderDrawer>
       <Header className="w-full h-16  flex justify-between px-6 @md:px-10 items-center bg-background shadow shadow-outline">
-        <a href="#" className="text-primary-foreground font-semibold text-lg">
+        <a href="/" className="text-primary-foreground font-semibold text-lg">
           LOGO
         </a>
         <div className="justify-center items-center gap-4 hidden @md:flex">
@@ -338,19 +285,14 @@ export const HeaderComponent = () => {
 };
 
 const Bars = (props: IconProps) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 24 24"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+    <title>Menu</title>
     <path
       fill="currentColor"
       fillRule="evenodd"
       d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75H12a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z"
       clipRule="evenodd"
-    ></path>
+    />
   </svg>
 );
 
@@ -360,7 +302,7 @@ const Bars = (props: IconProps) => (
 "use client";
 
 import useClickOutside from "@registry/packages/hooks/useClickOutside/01/default-ts/useClickOutside";
-import { IconProps } from "@registry/utils/types";
+import type { IconProps } from "@registry/utils/types";
 import { useRef } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -391,35 +333,23 @@ export const HeaderDrawer = ({
           "flex flex-col justify-center items-center gap-4 border-b absolute z-50 transition-all duration-300 ease-in-out",
 
           // INITIAL STATES
-          direction === "left" &&
-            cover === "full" &&
-            "w-full h-full top-0 -left-full",
-          direction === "left" &&
-            cover === "half" &&
-            "w-80 h-full top-0 -left-80",
-          direction === "right" &&
-            cover === "full" &&
-            "w-full h-full top-0 -right-full",
-          direction === "right" &&
-            cover === "half" &&
-            "w-80 h-full top-0 -right-80",
-          direction === "top" &&
-            cover === "half" &&
-            "w-full h-80 -top-80 left-0",
-          direction === "top" &&
-            cover === "full" &&
-            "w-full h-full -top-full left-0",
+          direction === "left" && cover === "full" && "w-full h-full top-0 -left-full",
+          direction === "left" && cover === "half" && "w-80 h-full top-0 -left-80",
+          direction === "right" && cover === "full" && "w-full h-full top-0 -right-full",
+          direction === "right" && cover === "half" && "w-80 h-full top-0 -right-80",
+          direction === "top" && cover === "half" && "w-full h-80 -top-80 left-0",
+          direction === "top" && cover === "full" && "w-full h-full -top-full left-0",
 
           // OPEN STATES
           direction === "left" && open && "left-0",
           direction === "right" && open && "right-0",
           direction === "top" && open && "top-0",
 
-          className
+          className,
         )}
       >
         <div className="w-full flex justify-end px-4 py-4 absolute top-0 left-0">
-          <button onClick={() => setOpen(false)}>
+          <button onClick={() => setOpen(false)} type="button">
             <Cross className="h-6 w-6" />
           </button>
         </div>
@@ -430,17 +360,12 @@ export const HeaderDrawer = ({
 };
 
 const Cross = (props: IconProps) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 32 32"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32" {...props}>
+    <title>Close</title>
     <path
       fill="currentColor"
       d="M7.219 5.781L5.78 7.22L14.563 16L5.78 24.781l1.44 1.439L16 17.437l8.781 8.782l1.438-1.438L17.437 16l8.782-8.781L24.78 5.78L16 14.563z"
-    ></path>
+    />
   </svg>
 );
 
@@ -477,7 +402,7 @@ export const Components_headers_02 = lazy(() => import("@registry/packages/compo
 </Suspense>
 
 </Preview><Implementation>
-<TechnologyUsed technologies={["tailwind-merge","react-aria-components"]} />
+undefined
 <CodeBlock>
 
 ```default|js|example.jsx
@@ -518,19 +443,17 @@ export const HeaderComponent = () => {
   const [activeIndex, setActiveIndex] = useState(null);
   const [prevActiveIndex, setPrevActiveIndex] = useState(null);
 
-  const [openCounter, setOpenCounter] = useState(
-    Array.from({ length: 5 }).fill(false)
-  );
+  const [openCounter, setOpenCounter] = useState(Array.from({ length: 5 }).fill(false));
   const handleIndexChange = (index, open) => {
     if (open) {
       setPrevActiveIndex(activeIndex);
       setActiveIndex(index);
-      let newOpenCounter = openCounter;
+      const newOpenCounter = openCounter;
       newOpenCounter[index] = open;
       setOpenCounter(newOpenCounter);
       setOpen(true);
     } else {
-      let newOpenCounter = openCounter;
+      const newOpenCounter = openCounter;
       newOpenCounter[index] = open;
       setOpenCounter(newOpenCounter);
       if (newOpenCounter.every((el) => el === false)) {
@@ -548,24 +471,16 @@ export const HeaderComponent = () => {
         className="bg-background border-b text-foreground border-outline"
       >
         <span className="hover:text-accent-secondary cursor-pointer">Home</span>
-        <span className="hover:text-accent-secondary cursor-pointer">
-          Pricing
-        </span>
-        <span className="hover:text-accent-secondary cursor-pointer">
-          Products
-        </span>
-        <span className="hover:text-accent-secondary cursor-pointer">
-          Services
-        </span>
-        <span className="hover:text-accent-secondary cursor-pointer">
-          About
-        </span>
+        <span className="hover:text-accent-secondary cursor-pointer">Pricing</span>
+        <span className="hover:text-accent-secondary cursor-pointer">Products</span>
+        <span className="hover:text-accent-secondary cursor-pointer">Services</span>
+        <span className="hover:text-accent-secondary cursor-pointer">About</span>
       </HeaderDrawer>
       <Header
         className="w-full h-16  flex justify-between px-6 @md:px-10 items-center bg-background shadow shadow-outline"
         onMouseLeave={() => setOpen(false)}
       >
-        <a href="#" className="text-primary-foreground font-semibold text-lg">
+        <a href="/" className="text-primary-foreground font-semibold text-lg">
           LOGO
         </a>
         <div className="justify-center items-center gap-4 hidden @md:flex h-full">
@@ -582,22 +497,13 @@ export const HeaderComponent = () => {
             }}
             className="h-full"
           >
-            <HeaderItem
-              className="hover:text-accent px-2"
-              onChange={(open) => handleIndexChange(0, open)}
-            >
+            <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(0, open)}>
               Home
             </HeaderItem>
-            <HeaderItem
-              className="hover:text-accent px-2"
-              onChange={(open) => handleIndexChange(1, open)}
-            >
+            <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(1, open)}>
               Pricing
             </HeaderItem>
-            <HeaderItem
-              className="hover:text-accent px-2"
-              onChange={(open) => handleIndexChange(2, open)}
-            >
+            <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(2, open)}>
               Products
               <HeaderDropdown className="flex flex-col items-start mt-2">
                 <span>View Best Sellers</span>
@@ -620,10 +526,7 @@ export const HeaderComponent = () => {
                 <span>Other Services</span>
               </HeaderDropdown>
             </HeaderItem>
-            <HeaderItem
-              className="hover:text-accent px-2"
-              onChange={(open) => handleIndexChange(4, open)}
-            >
+            <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(4, open)}>
               About
               <HeaderDropdown className="flex flex-col items-start mt-2">
                 <span>About Us</span>
@@ -652,19 +555,14 @@ export const HeaderComponent = () => {
 };
 
 const Bars = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 24 24"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+    <title>Menu</title>
     <path
       fill="currentColor"
       fillRule="evenodd"
       d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75H12a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z"
       clipRule="evenodd"
-    ></path>
+    />
   </svg>
 );
 
@@ -677,14 +575,7 @@ import useClickOutside from "@registry/packages/hooks/useClickOutside/01/default
 import { useRef } from "react";
 import { twMerge } from "tailwind-merge";
 
-export const HeaderDrawer = ({
-  direction = "top",
-  cover = "half",
-  children,
-  open,
-  setOpen,
-  className,
-}) => {
+export const HeaderDrawer = ({ direction = "top", cover = "half", children, open, setOpen, className }) => {
   const ref = useRef(null);
   useClickOutside(ref, () => setOpen(false));
 
@@ -695,35 +586,23 @@ export const HeaderDrawer = ({
           "flex flex-col justify-center items-center gap-4 border-b absolute z-50 transition-all duration-300 ease-in-out",
 
           // INITIAL STATES
-          direction === "left" &&
-            cover === "full" &&
-            "w-full h-full top-0 -left-full",
-          direction === "left" &&
-            cover === "half" &&
-            "w-80 h-full top-0 -left-80",
-          direction === "right" &&
-            cover === "full" &&
-            "w-full h-full top-0 -right-full",
-          direction === "right" &&
-            cover === "half" &&
-            "w-80 h-full top-0 -right-80",
-          direction === "top" &&
-            cover === "half" &&
-            "w-full h-80 -top-80 left-0",
-          direction === "top" &&
-            cover === "full" &&
-            "w-full h-full -top-full left-0",
+          direction === "left" && cover === "full" && "w-full h-full top-0 -left-full",
+          direction === "left" && cover === "half" && "w-80 h-full top-0 -left-80",
+          direction === "right" && cover === "full" && "w-full h-full top-0 -right-full",
+          direction === "right" && cover === "half" && "w-80 h-full top-0 -right-80",
+          direction === "top" && cover === "half" && "w-full h-80 -top-80 left-0",
+          direction === "top" && cover === "full" && "w-full h-full -top-full left-0",
 
           // OPEN STATES
           direction === "left" && open && "left-0",
           direction === "right" && open && "right-0",
           direction === "top" && open && "top-0",
 
-          className
+          className,
         )}
       >
         <div className="w-full flex justify-end px-4 py-4 absolute top-0 left-0">
-          <button onClick={() => setOpen(false)}>
+          <button type="button" onClick={() => setOpen(false)}>
             <Cross className="h-6 w-6" />
           </button>
         </div>
@@ -734,17 +613,12 @@ export const HeaderDrawer = ({
 };
 
 const Cross = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 32 32"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32" {...props}>
+    <title>Close</title>
     <path
       fill="currentColor"
       d="M7.219 5.781L5.78 7.22L14.563 16L5.78 24.781l1.44 1.439L16 17.437l8.781 8.782l1.438-1.438L17.437 16l8.782-8.781L24.78 5.78L16 14.563z"
-    ></path>
+    />
   </svg>
 );
 
@@ -770,7 +644,7 @@ export default function HeaderImplementation() {
 "use client";
 
 import { GradientBackground } from "@registry/packages/primitives/containers/01/default-ts/Container";
-import { IconProps } from "@registry/utils/types";
+import type { IconProps } from "@registry/utils/types";
 import { useState } from "react";
 import { Button } from "react-aria-components";
 import { HeaderDrawer } from "./HeaderDrawer";
@@ -789,19 +663,17 @@ export const HeaderComponent = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [prevActiveIndex, setPrevActiveIndex] = useState<number | null>(null);
 
-  const [openCounter, setOpenCounter] = useState(
-    Array.from({ length: 5 }).fill(false)
-  );
+  const [openCounter, setOpenCounter] = useState(Array.from({ length: 5 }).fill(false));
   const handleIndexChange = (index: number, open: boolean) => {
     if (open) {
       setPrevActiveIndex(activeIndex);
       setActiveIndex(index);
-      let newOpenCounter = openCounter;
+      const newOpenCounter = openCounter;
       newOpenCounter[index] = open;
       setOpenCounter(newOpenCounter);
       setOpen(true);
     } else {
-      let newOpenCounter = openCounter;
+      const newOpenCounter = openCounter;
       newOpenCounter[index] = open;
       setOpenCounter(newOpenCounter);
       if (newOpenCounter.every((el) => el === false)) {
@@ -819,24 +691,16 @@ export const HeaderComponent = () => {
         className="bg-background border-b text-foreground border-outline"
       >
         <span className="hover:text-accent-secondary cursor-pointer">Home</span>
-        <span className="hover:text-accent-secondary cursor-pointer">
-          Pricing
-        </span>
-        <span className="hover:text-accent-secondary cursor-pointer">
-          Products
-        </span>
-        <span className="hover:text-accent-secondary cursor-pointer">
-          Services
-        </span>
-        <span className="hover:text-accent-secondary cursor-pointer">
-          About
-        </span>
+        <span className="hover:text-accent-secondary cursor-pointer">Pricing</span>
+        <span className="hover:text-accent-secondary cursor-pointer">Products</span>
+        <span className="hover:text-accent-secondary cursor-pointer">Services</span>
+        <span className="hover:text-accent-secondary cursor-pointer">About</span>
       </HeaderDrawer>
       <Header
         className="w-full h-16  flex justify-between px-6 @md:px-10 items-center bg-background shadow shadow-outline"
         onMouseLeave={() => setOpen(false)}
       >
-        <a href="#" className="text-primary-foreground font-semibold text-lg">
+        <a href="/" className="text-primary-foreground font-semibold text-lg">
           LOGO
         </a>
         <div className="justify-center items-center gap-4 hidden @md:flex h-full">
@@ -853,22 +717,13 @@ export const HeaderComponent = () => {
             }}
             className="h-full"
           >
-            <HeaderItem
-              className="hover:text-accent px-2"
-              onChange={(open) => handleIndexChange(0, open)}
-            >
+            <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(0, open)}>
               Home
             </HeaderItem>
-            <HeaderItem
-              className="hover:text-accent px-2"
-              onChange={(open) => handleIndexChange(1, open)}
-            >
+            <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(1, open)}>
               Pricing
             </HeaderItem>
-            <HeaderItem
-              className="hover:text-accent px-2"
-              onChange={(open) => handleIndexChange(2, open)}
-            >
+            <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(2, open)}>
               Products
               <HeaderDropdown className="flex flex-col items-start mt-2">
                 <span>View Best Sellers</span>
@@ -891,10 +746,7 @@ export const HeaderComponent = () => {
                 <span>Other Services</span>
               </HeaderDropdown>
             </HeaderItem>
-            <HeaderItem
-              className="hover:text-accent px-2"
-              onChange={(open) => handleIndexChange(4, open)}
-            >
+            <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(4, open)}>
               About
               <HeaderDropdown className="flex flex-col items-start mt-2">
                 <span>About Us</span>
@@ -923,19 +775,14 @@ export const HeaderComponent = () => {
 };
 
 const Bars = (props: IconProps) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 24 24"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+    <title>Menu</title>
     <path
       fill="currentColor"
       fillRule="evenodd"
       d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75H12a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z"
       clipRule="evenodd"
-    ></path>
+    />
   </svg>
 );
 
@@ -945,7 +792,7 @@ const Bars = (props: IconProps) => (
 "use client";
 
 import useClickOutside from "@registry/packages/hooks/useClickOutside/01/default-ts/useClickOutside";
-import { IconProps } from "@registry/utils/types";
+import type { IconProps } from "@registry/utils/types";
 import { useRef } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -976,35 +823,23 @@ export const HeaderDrawer = ({
           "flex flex-col justify-center items-center gap-4 border-b absolute z-50 transition-all duration-300 ease-in-out",
 
           // INITIAL STATES
-          direction === "left" &&
-            cover === "full" &&
-            "w-full h-full top-0 -left-full",
-          direction === "left" &&
-            cover === "half" &&
-            "w-80 h-full top-0 -left-80",
-          direction === "right" &&
-            cover === "full" &&
-            "w-full h-full top-0 -right-full",
-          direction === "right" &&
-            cover === "half" &&
-            "w-80 h-full top-0 -right-80",
-          direction === "top" &&
-            cover === "half" &&
-            "w-full h-80 -top-80 left-0",
-          direction === "top" &&
-            cover === "full" &&
-            "w-full h-full -top-full left-0",
+          direction === "left" && cover === "full" && "w-full h-full top-0 -left-full",
+          direction === "left" && cover === "half" && "w-80 h-full top-0 -left-80",
+          direction === "right" && cover === "full" && "w-full h-full top-0 -right-full",
+          direction === "right" && cover === "half" && "w-80 h-full top-0 -right-80",
+          direction === "top" && cover === "half" && "w-full h-80 -top-80 left-0",
+          direction === "top" && cover === "full" && "w-full h-full -top-full left-0",
 
           // OPEN STATES
           direction === "left" && open && "left-0",
           direction === "right" && open && "right-0",
           direction === "top" && open && "top-0",
 
-          className
+          className,
         )}
       >
         <div className="w-full flex justify-end px-4 py-4 absolute top-0 left-0">
-          <button onClick={() => setOpen(false)}>
+          <button onClick={() => setOpen(false)} type="button">
             <Cross className="h-6 w-6" />
           </button>
         </div>
@@ -1015,17 +850,12 @@ export const HeaderDrawer = ({
 };
 
 const Cross = (props: IconProps) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 32 32"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32" {...props}>
+    <title>Close</title>
     <path
       fill="currentColor"
       d="M7.219 5.781L5.78 7.22L14.563 16L5.78 24.781l1.44 1.439L16 17.437l8.781 8.782l1.438-1.438L17.437 16l8.782-8.781L24.78 5.78L16 14.563z"
-    ></path>
+    />
   </svg>
 );
 
@@ -1062,7 +892,7 @@ export const Components_headers_03 = lazy(() => import("@registry/packages/compo
 </Suspense>
 
 </Preview><Implementation>
-<TechnologyUsed technologies={["framer-motion","tailwind-merge"]} />
+undefined
 <CodeBlock>
 
 ```default|js|example.jsx
@@ -1115,7 +945,7 @@ export const Header = () => {
     <>
       {/* ANIMATED ONE FOR LARGE SCREEN */}
       <ContainerGlassEffect className="w-[45rem] mx-auto hidden @md:flex h-16 px-10 border border-outline-secondary rounded-full  sticky top-10 items-center gap-16 justify-evenly">
-        <a href="#" className="text-foreground">
+        <a href="/" className="text-foreground">
           LOGO
         </a>
         <div className="h-full flex gap-6">
@@ -1132,20 +962,13 @@ export const Header = () => {
         className="@md:hidden bg-background border-b text-foreground border-outline-secondary"
       >
         {tabs.map((tab, i) => (
-          <a
-            key={i}
-            href="#"
-            className="text-foreground hover:text-accent-secondary font-medium"
-          >
+          <a key={i} href="/" className="text-foreground hover:text-accent-secondary font-medium">
             {tab.title}
           </a>
         ))}
       </HeaderDrawer>
       <div className="@md:hidden w-full h-16  flex justify-between px-6 @md:px-10 items-center">
-        <a
-          href="#"
-          className="text-foreground font-semibold text-lg bg-background"
-        >
+        <a href="/" className="text-foreground font-semibold text-lg bg-background">
           LOGO
         </a>
 
@@ -1154,6 +977,7 @@ export const Header = () => {
           onClick={() => {
             setOpen(!open);
           }}
+          type="button"
         >
           {open ? <Cross className="h-6 w-6" /> : <Bars className="h-6 w-6" />}
         </button>
@@ -1176,7 +1000,7 @@ const AnimatedAnchor = ({ title }) => {
         ease: "easeInOut",
         type: "spring",
         damping: 10,
-      }
+      },
     );
   };
 
@@ -1191,7 +1015,7 @@ const AnimatedAnchor = ({ title }) => {
         ease: "easeInOut",
         type: "spring",
         damping: 10,
-      }
+      },
     );
   };
   return (
@@ -1200,18 +1024,15 @@ const AnimatedAnchor = ({ title }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div
-        className="h-[200%] flex flex-col justify-center items-center"
-        ref={scope}
-      >
+      <div className="h-[200%] flex flex-col justify-center items-center" ref={scope}>
         <span className="h-full flex items-center">
-          <a href="#" className=" text-primary-foreground">
+          <a href="/" className=" text-primary-foreground">
             {title}
           </a>
         </span>
 
         <span className="h-full flex items-center">
-          <a href="#" className=" text-accent-secondary">
+          <a href="/" className=" text-accent-secondary">
             {title}
           </a>
         </span>
@@ -1232,7 +1053,7 @@ const AnimatedButton = () => {
       {
         duration: 0.5,
         ease: "easeInOut",
-      }
+      },
     );
   };
 
@@ -1244,7 +1065,7 @@ const AnimatedButton = () => {
       },
       {
         duration: 0.4,
-      }
+      },
     );
   };
   return (
@@ -1252,47 +1073,33 @@ const AnimatedButton = () => {
       className="relative bg-foreground text-background w-full @md:w-auto py-2 @md:px-4 rounded-full flex justify-center items-center overflow-hidden group"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      type="button"
     >
-      <h1 className="text-background font-semibold z-20 group-hover:text-primary-foreground">
-        Join the waitlist
-      </h1>
-      <div
-        className="min-w-60 min-h-60 absolute top-full rounded-full bg-primary text-foreground"
-        ref={scope}
-      ></div>
+      <h1 className="text-background font-semibold z-20 group-hover:text-primary-foreground">Join the waitlist</h1>
+      <div className="min-w-60 min-h-60 absolute top-full rounded-full bg-primary text-foreground" ref={scope} />
     </button>
   );
 };
 
 const Bars = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 24 24"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+    <title>Menu</title>
     <path
       fill="currentColor"
       fillRule="evenodd"
       d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75H12a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z"
       clipRule="evenodd"
-    ></path>
+    />
   </svg>
 );
 
 const Cross = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 32 32"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32" {...props}>
+    <title>Close</title>
     <path
       fill="currentColor"
       d="M7.219 5.781L5.78 7.22L14.563 16L5.78 24.781l1.44 1.439L16 17.437l8.781 8.782l1.438-1.438L17.437 16l8.782-8.781L24.78 5.78L16 14.563z"
-    ></path>
+    />
   </svg>
 );
 
@@ -1305,14 +1112,7 @@ import useClickOutside from "@registry/packages/hooks/useClickOutside/01/default
 import { useRef } from "react";
 import { twMerge } from "tailwind-merge";
 
-export const HeaderDrawer = ({
-  direction = "top",
-  cover = "half",
-  children,
-  open,
-  setOpen,
-  className,
-}) => {
+export const HeaderDrawer = ({ direction = "top", cover = "half", children, open, setOpen, className }) => {
   const ref = useRef(null);
   useClickOutside(ref, () => setOpen(false));
 
@@ -1323,35 +1123,23 @@ export const HeaderDrawer = ({
           "flex flex-col justify-center items-center gap-4 border-b absolute z-50 transition-all duration-300 ease-in-out",
 
           // INITIAL STATES
-          direction === "left" &&
-            cover === "full" &&
-            "w-full h-full top-0 -left-full",
-          direction === "left" &&
-            cover === "half" &&
-            "w-80 h-full top-0 -left-80",
-          direction === "right" &&
-            cover === "full" &&
-            "w-full h-full top-0 -right-full",
-          direction === "right" &&
-            cover === "half" &&
-            "w-80 h-full top-0 -right-80",
-          direction === "top" &&
-            cover === "half" &&
-            "w-full h-80 -top-80 left-0",
-          direction === "top" &&
-            cover === "full" &&
-            "w-full h-full -top-full left-0",
+          direction === "left" && cover === "full" && "w-full h-full top-0 -left-full",
+          direction === "left" && cover === "half" && "w-80 h-full top-0 -left-80",
+          direction === "right" && cover === "full" && "w-full h-full top-0 -right-full",
+          direction === "right" && cover === "half" && "w-80 h-full top-0 -right-80",
+          direction === "top" && cover === "half" && "w-full h-80 -top-80 left-0",
+          direction === "top" && cover === "full" && "w-full h-full -top-full left-0",
 
           // OPEN STATES
           direction === "left" && open && "left-0",
           direction === "right" && open && "right-0",
           direction === "top" && open && "top-0",
 
-          className
+          className,
         )}
       >
         <div className="w-full flex justify-end px-4 py-4 absolute top-0 left-0">
-          <button onClick={() => setOpen(false)}>
+          <button onClick={() => setOpen(false)} type="button">
             <Cross className="h-6 w-6" />
           </button>
         </div>
@@ -1362,17 +1150,12 @@ export const HeaderDrawer = ({
 };
 
 const Cross = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 32 32"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32" {...props}>
+    <title>Close</title>
     <path
       fill="currentColor"
       d="M7.219 5.781L5.78 7.22L14.563 16L5.78 24.781l1.44 1.439L16 17.437l8.781 8.782l1.438-1.438L17.437 16l8.782-8.781L24.78 5.78L16 14.563z"
-    ></path>
+    />
   </svg>
 );
 
@@ -1398,7 +1181,7 @@ export default function HeaderImplementation() {
 ```default|ts|Header.tsx
 "use client";
 
-import { IconProps } from "@registry/utils/types";
+import type { IconProps } from "@registry/utils/types";
 import { ContainerGlassEffect } from "@registry/packages/primitives/containers/06/default-ts/container";
 import { useAnimate } from "framer-motion";
 import { useState } from "react";
@@ -1429,7 +1212,7 @@ export const Header = () => {
     <>
       {/* ANIMATED ONE FOR LARGE SCREEN */}
       <ContainerGlassEffect className="w-[45rem] mx-auto hidden @md:flex h-16 px-10 border border-outline-secondary rounded-full  sticky top-10 items-center gap-16 justify-evenly">
-        <a href="#" className="text-foreground">
+        <a href="/" className="text-foreground">
           LOGO
         </a>
         <div className="h-full flex gap-6">
@@ -1446,20 +1229,13 @@ export const Header = () => {
         className="@md:hidden bg-background border-b text-foreground border-outline-secondary"
       >
         {tabs.map((tab, i) => (
-          <a
-            key={i}
-            href="#"
-            className="text-foreground hover:text-accent-secondary font-medium"
-          >
+          <a key={i} href="/" className="text-foreground hover:text-accent-secondary font-medium">
             {tab.title}
           </a>
         ))}
       </HeaderDrawer>
       <div className="@md:hidden w-full h-16  flex justify-between px-6 @md:px-10 items-center">
-        <a
-          href="#"
-          className="text-foreground font-semibold text-lg bg-background"
-        >
+        <a href="/" className="text-foreground font-semibold text-lg bg-background">
           LOGO
         </a>
 
@@ -1468,6 +1244,7 @@ export const Header = () => {
           onClick={() => {
             setOpen(!open);
           }}
+          type="button"
         >
           {open ? <Cross className="h-6 w-6" /> : <Bars className="h-6 w-6" />}
         </button>
@@ -1490,7 +1267,7 @@ const AnimatedAnchor = ({ title }: { title: string }) => {
         ease: "easeInOut",
         type: "spring",
         damping: 10,
-      }
+      },
     );
   };
 
@@ -1505,7 +1282,7 @@ const AnimatedAnchor = ({ title }: { title: string }) => {
         ease: "easeInOut",
         type: "spring",
         damping: 10,
-      }
+      },
     );
   };
   return (
@@ -1514,18 +1291,15 @@ const AnimatedAnchor = ({ title }: { title: string }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div
-        className="h-[200%] flex flex-col justify-center items-center"
-        ref={scope}
-      >
+      <div className="h-[200%] flex flex-col justify-center items-center" ref={scope}>
         <span className="h-full flex items-center">
-          <a href="#" className=" text-primary-foreground">
+          <a href="/" className=" text-primary-foreground">
             {title}
           </a>
         </span>
 
         <span className="h-full flex items-center">
-          <a href="#" className=" text-accent-secondary">
+          <a href="/" className=" text-accent-secondary">
             {title}
           </a>
         </span>
@@ -1546,7 +1320,7 @@ const AnimatedButton = () => {
       {
         duration: 0.5,
         ease: "easeInOut",
-      }
+      },
     );
   };
 
@@ -1558,7 +1332,7 @@ const AnimatedButton = () => {
       },
       {
         duration: 0.4,
-      }
+      },
     );
   };
   return (
@@ -1566,47 +1340,33 @@ const AnimatedButton = () => {
       className="relative bg-foreground text-background w-full @md:w-auto py-2 @md:px-4 rounded-full flex justify-center items-center overflow-hidden group"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      type="button"
     >
-      <h1 className="text-background font-semibold z-20 group-hover:text-primary-foreground">
-        Join the waitlist
-      </h1>
-      <div
-        className="min-w-60 min-h-60 absolute top-full rounded-full bg-primary text-foreground"
-        ref={scope}
-      ></div>
+      <h1 className="text-background font-semibold z-20 group-hover:text-primary-foreground">Join the waitlist</h1>
+      <div className="min-w-60 min-h-60 absolute top-full rounded-full bg-primary text-foreground" ref={scope} />
     </button>
   );
 };
 
 const Bars = (props: IconProps) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 24 24"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+    <title>Menu</title>
     <path
       fill="currentColor"
       fillRule="evenodd"
       d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75H12a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z"
       clipRule="evenodd"
-    ></path>
+    />
   </svg>
 );
 
 const Cross = (props: IconProps) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 32 32"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32" {...props}>
+    <title>Close</title>
     <path
       fill="currentColor"
       d="M7.219 5.781L5.78 7.22L14.563 16L5.78 24.781l1.44 1.439L16 17.437l8.781 8.782l1.438-1.438L17.437 16l8.782-8.781L24.78 5.78L16 14.563z"
-    ></path>
+    />
   </svg>
 );
 
@@ -1616,7 +1376,7 @@ const Cross = (props: IconProps) => (
 "use client";
 
 import useClickOutside from "@registry/packages/hooks/useClickOutside/01/default-ts/useClickOutside";
-import { IconProps } from "@registry/utils/types";
+import type { IconProps } from "@registry/utils/types";
 import { useRef } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -1647,35 +1407,23 @@ export const HeaderDrawer = ({
           "flex flex-col justify-center items-center gap-4 border-b absolute z-50 transition-all duration-300 ease-in-out",
 
           // INITIAL STATES
-          direction === "left" &&
-            cover === "full" &&
-            "w-full h-full top-0 -left-full",
-          direction === "left" &&
-            cover === "half" &&
-            "w-80 h-full top-0 -left-80",
-          direction === "right" &&
-            cover === "full" &&
-            "w-full h-full top-0 -right-full",
-          direction === "right" &&
-            cover === "half" &&
-            "w-80 h-full top-0 -right-80",
-          direction === "top" &&
-            cover === "half" &&
-            "w-full h-80 -top-80 left-0",
-          direction === "top" &&
-            cover === "full" &&
-            "w-full h-full -top-full left-0",
+          direction === "left" && cover === "full" && "w-full h-full top-0 -left-full",
+          direction === "left" && cover === "half" && "w-80 h-full top-0 -left-80",
+          direction === "right" && cover === "full" && "w-full h-full top-0 -right-full",
+          direction === "right" && cover === "half" && "w-80 h-full top-0 -right-80",
+          direction === "top" && cover === "half" && "w-full h-80 -top-80 left-0",
+          direction === "top" && cover === "full" && "w-full h-full -top-full left-0",
 
           // OPEN STATES
           direction === "left" && open && "left-0",
           direction === "right" && open && "right-0",
           direction === "top" && open && "top-0",
 
-          className
+          className,
         )}
       >
         <div className="w-full flex justify-end px-4 py-4 absolute top-0 left-0">
-          <button onClick={() => setOpen(false)}>
+          <button onClick={() => setOpen(false)} type="button">
             <Cross className="h-6 w-6" />
           </button>
         </div>
@@ -1686,17 +1434,12 @@ export const HeaderDrawer = ({
 };
 
 const Cross = (props: IconProps) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 32 32"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32" {...props}>
+    <title>Close</title>
     <path
       fill="currentColor"
       d="M7.219 5.781L5.78 7.22L14.563 16L5.78 24.781l1.44 1.439L16 17.437l8.781 8.782l1.438-1.438L17.437 16l8.782-8.781L24.78 5.78L16 14.563z"
-    ></path>
+    />
   </svg>
 );
 
@@ -1733,7 +1476,7 @@ export const Components_headers_04 = lazy(() => import("@registry/packages/compo
 </Suspense>
 
 </Preview><Implementation>
-<TechnologyUsed technologies={["tailwind-merge","react-aria-components"]} />
+undefined
 <CodeBlock>
 
 ```default|js|example.jsx
@@ -1742,10 +1485,7 @@ import { HeroSection } from "@registry/packages/components/hero-section/03/defau
 
 export default function HeaderImplementation() {
   return (
-    <div
-      className="w-full max-h-[698px] overflow-auto scrollbar-y relative"
-      id="targetElemForScroll"
-    >
+    <div className="w-full max-h-[698px] overflow-auto scrollbar-y relative" id="targetElemForScroll">
       <HeaderComponent />
       <div className="min-h-[80rem] w-full">
         <HeroSection />
@@ -1782,19 +1522,17 @@ export const HeaderComponent = () => {
   const [activeIndex, setActiveIndex] = useState(null);
   const [prevActiveIndex, setPrevActiveIndex] = useState(null);
 
-  const [openCounter, setOpenCounter] = useState(
-    Array.from({ length: 5 }).fill(false)
-  );
+  const [openCounter, setOpenCounter] = useState(Array.from({ length: 5 }).fill(false));
   const handleIndexChange = (index, open) => {
     if (open) {
       setPrevActiveIndex(activeIndex);
       setActiveIndex(index);
-      let newOpenCounter = openCounter;
+      const newOpenCounter = openCounter;
       newOpenCounter[index] = open;
       setOpenCounter(newOpenCounter);
       setOpen(true);
     } else {
-      let newOpenCounter = openCounter;
+      const newOpenCounter = openCounter;
       newOpenCounter[index] = open;
       setOpenCounter(newOpenCounter);
       if (newOpenCounter.every((el) => el === false)) {
@@ -1822,8 +1560,7 @@ export const HeaderComponent = () => {
           (state === "transitioning" || state === "hanging") &&
             "w-full @md:w-[45rem] mx-auto flex h-16 @md:rounded-full sticky items-center justify-between",
           state === "transitioning" && "@md:top-10 top-0",
-          state === "hanging" &&
-            (directionY === false ? "@md:top-10 top-0" : "@md:-top-full top-0")
+          state === "hanging" && (directionY === false ? "@md:top-10 top-0" : "@md:-top-full top-0"),
         )}
       >
         <HeaderDrawer
@@ -1831,27 +1568,17 @@ export const HeaderComponent = () => {
           setOpen={setHeaderDrawerOpen}
           className=" @md:hidden bg-background border-b text-foreground border-outline"
         >
-          <span className="hover:text-accent-secondary cursor-pointer">
-            Home
-          </span>
-          <span className="hover:text-accent-secondary cursor-pointer">
-            Pricing
-          </span>
-          <span className="hover:text-accent-secondary cursor-pointer">
-            Products
-          </span>
-          <span className="hover:text-accent-secondary cursor-pointer">
-            Services
-          </span>
-          <span className="hover:text-accent-secondary cursor-pointer">
-            About
-          </span>
+          <span className="hover:text-accent-secondary cursor-pointer">Home</span>
+          <span className="hover:text-accent-secondary cursor-pointer">Pricing</span>
+          <span className="hover:text-accent-secondary cursor-pointer">Products</span>
+          <span className="hover:text-accent-secondary cursor-pointer">Services</span>
+          <span className="hover:text-accent-secondary cursor-pointer">About</span>
         </HeaderDrawer>
         <Header
           className="w-full h-full flex justify-between items-center @md:border @md:border-outline-secondary rounded-[inherit] px-6 @md:px-10"
           onMouseLeave={() => setOpen(false)}
         >
-          <a href="#" className="text-primary-foreground">
+          <a href="/" className="text-primary-foreground">
             LOGO
           </a>
           <div className="justify-center items-center gap-4 hidden @md:flex h-full">
@@ -1868,22 +1595,13 @@ export const HeaderComponent = () => {
               }}
               className="h-full"
             >
-              <HeaderItem
-                className="hover:text-accent px-2"
-                onChange={(open) => handleIndexChange(0, open)}
-              >
+              <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(0, open)}>
                 Home
               </HeaderItem>
-              <HeaderItem
-                className="hover:text-accent px-2"
-                onChange={(open) => handleIndexChange(1, open)}
-              >
+              <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(1, open)}>
                 Pricing
               </HeaderItem>
-              <HeaderItem
-                className="hover:text-accent px-2"
-                onChange={(open) => handleIndexChange(2, open)}
-              >
+              <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(2, open)}>
                 Products
                 <HeaderDropdown
                   className="flex flex-col items-start mt-2"
@@ -1909,10 +1627,7 @@ export const HeaderComponent = () => {
                   <span>Other Services</span>
                 </HeaderDropdown>
               </HeaderItem>
-              <HeaderItem
-                className="hover:text-accent px-2"
-                onChange={(open) => handleIndexChange(4, open)}
-              >
+              <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(4, open)}>
                 About
                 <HeaderDropdown className="flex flex-col items-start mt-2">
                   <span>About Us</span>
@@ -1942,19 +1657,14 @@ export const HeaderComponent = () => {
 };
 
 const Bars = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 24 24"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+    <title>Menu</title>
     <path
       fill="currentColor"
       fillRule="evenodd"
       d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75H12a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z"
       clipRule="evenodd"
-    ></path>
+    />
   </svg>
 );
 
@@ -1967,14 +1677,7 @@ import useClickOutside from "@registry/packages/hooks/useClickOutside/01/default
 import { useRef } from "react";
 import { twMerge } from "tailwind-merge";
 
-export const HeaderDrawer = ({
-  direction = "top",
-  cover = "half",
-  children,
-  open,
-  setOpen,
-  className,
-}) => {
+export const HeaderDrawer = ({ direction = "top", cover = "half", children, open, setOpen, className }) => {
   const ref = useRef(null);
   useClickOutside(ref, () => setOpen(false));
 
@@ -1985,35 +1688,23 @@ export const HeaderDrawer = ({
           "flex flex-col justify-center items-center gap-4 border-b absolute z-50 transition-all duration-300 ease-in-out",
 
           // INITIAL STATES
-          direction === "left" &&
-            cover === "full" &&
-            "w-full h-full top-0 -left-full",
-          direction === "left" &&
-            cover === "half" &&
-            "w-80 h-full top-0 -left-80",
-          direction === "right" &&
-            cover === "full" &&
-            "w-full h-full top-0 -right-full",
-          direction === "right" &&
-            cover === "half" &&
-            "w-80 h-full top-0 -right-80",
-          direction === "top" &&
-            cover === "half" &&
-            "w-full h-80 -top-80 left-0",
-          direction === "top" &&
-            cover === "full" &&
-            "w-full h-full -top-full left-0",
+          direction === "left" && cover === "full" && "w-full h-full top-0 -left-full",
+          direction === "left" && cover === "half" && "w-80 h-full top-0 -left-80",
+          direction === "right" && cover === "full" && "w-full h-full top-0 -right-full",
+          direction === "right" && cover === "half" && "w-80 h-full top-0 -right-80",
+          direction === "top" && cover === "half" && "w-full h-80 -top-80 left-0",
+          direction === "top" && cover === "full" && "w-full h-full -top-full left-0",
 
           // OPEN STATES
           direction === "left" && open && "left-0",
           direction === "right" && open && "right-0",
           direction === "top" && open && "top-0",
 
-          className
+          className,
         )}
       >
         <div className="w-full flex justify-end px-4 py-4 absolute top-0 left-0">
-          <button onClick={() => setOpen(false)}>
+          <button onClick={() => setOpen(false)} type="button">
             <Cross className="h-6 w-6" />
           </button>
         </div>
@@ -2024,17 +1715,12 @@ export const HeaderDrawer = ({
 };
 
 const Cross = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 32 32"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32" {...props}>
+    <title>Close</title>
     <path
       fill="currentColor"
       d="M7.219 5.781L5.78 7.22L14.563 16L5.78 24.781l1.44 1.439L16 17.437l8.781 8.782l1.438-1.438L17.437 16l8.782-8.781L24.78 5.78L16 14.563z"
-    ></path>
+    />
   </svg>
 );
 
@@ -2046,10 +1732,7 @@ import { HeroSection } from "@registry/packages/components/hero-section/03/defau
 
 export default function HeaderImplementation() {
   return (
-    <div
-      className="w-full max-h-[698px] overflow-auto scrollbar-y relative"
-      id="targetElemForScroll"
-    >
+    <div className="w-full max-h-[698px] overflow-auto scrollbar-y relative" id="targetElemForScroll">
       <HeaderComponent />
       <div className="min-h-[80rem] w-full">
         <HeroSection />
@@ -2076,7 +1759,7 @@ import {
 } from "@registry/packages/primitives/header-blocks/03/default-ts/HeaderBlocks";
 import { Button } from "react-aria-components";
 import { HeaderDrawer } from "@registry/packages/components/headers/04/default-ts/HeaderDrawer";
-import { IconProps } from "@registry/utils/types";
+import type { IconProps } from "@registry/utils/types";
 
 export const HeaderComponent = () => {
   const { directionY, scrollPosition } = useScrollbar("targetElemForScroll");
@@ -2087,19 +1770,17 @@ export const HeaderComponent = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [prevActiveIndex, setPrevActiveIndex] = useState<number | null>(null);
 
-  const [openCounter, setOpenCounter] = useState(
-    Array.from({ length: 5 }).fill(false)
-  );
+  const [openCounter, setOpenCounter] = useState(Array.from({ length: 5 }).fill(false));
   const handleIndexChange = (index: number, open: boolean) => {
     if (open) {
       setPrevActiveIndex(activeIndex);
       setActiveIndex(index);
-      let newOpenCounter = openCounter;
+      const newOpenCounter = openCounter;
       newOpenCounter[index] = open;
       setOpenCounter(newOpenCounter);
       setOpen(true);
     } else {
-      let newOpenCounter = openCounter;
+      const newOpenCounter = openCounter;
       newOpenCounter[index] = open;
       setOpenCounter(newOpenCounter);
       if (newOpenCounter.every((el) => el === false)) {
@@ -2111,9 +1792,7 @@ export const HeaderComponent = () => {
 
   const [headerDrawerOpen, setHeaderDrawerOpen] = useState(false);
 
-  const [state, setState] = useState<"default" | "hanging" | "transitioning">(
-    "default"
-  );
+  const [state, setState] = useState<"default" | "hanging" | "transitioning">("default");
 
   useEffect(() => {
     if (scrollPosition.y < 60) setState("default");
@@ -2130,8 +1809,7 @@ export const HeaderComponent = () => {
           (state === "transitioning" || state === "hanging") &&
             "w-full @md:w-[45rem] mx-auto flex h-16 @md:rounded-full sticky items-center justify-between",
           state === "transitioning" && "@md:top-10 top-0",
-          state === "hanging" &&
-            (directionY === false ? "@md:top-10 top-0" : "@md:-top-full top-0")
+          state === "hanging" && (directionY === false ? "@md:top-10 top-0" : "@md:-top-full top-0"),
         )}
       >
         <HeaderDrawer
@@ -2139,27 +1817,17 @@ export const HeaderComponent = () => {
           setOpen={setHeaderDrawerOpen}
           className=" @md:hidden bg-background border-b text-foreground border-outline"
         >
-          <span className="hover:text-accent-secondary cursor-pointer">
-            Home
-          </span>
-          <span className="hover:text-accent-secondary cursor-pointer">
-            Pricing
-          </span>
-          <span className="hover:text-accent-secondary cursor-pointer">
-            Products
-          </span>
-          <span className="hover:text-accent-secondary cursor-pointer">
-            Services
-          </span>
-          <span className="hover:text-accent-secondary cursor-pointer">
-            About
-          </span>
+          <span className="hover:text-accent-secondary cursor-pointer">Home</span>
+          <span className="hover:text-accent-secondary cursor-pointer">Pricing</span>
+          <span className="hover:text-accent-secondary cursor-pointer">Products</span>
+          <span className="hover:text-accent-secondary cursor-pointer">Services</span>
+          <span className="hover:text-accent-secondary cursor-pointer">About</span>
         </HeaderDrawer>
         <Header
           className="w-full h-full flex justify-between items-center @md:border @md:border-outline-secondary rounded-[inherit] px-6 @md:px-10"
           onMouseLeave={() => setOpen(false)}
         >
-          <a href="#" className="text-primary-foreground">
+          <a href="/" className="text-primary-foreground">
             LOGO
           </a>
           <div className="justify-center items-center gap-4 hidden @md:flex h-full">
@@ -2176,22 +1844,13 @@ export const HeaderComponent = () => {
               }}
               className="h-full"
             >
-              <HeaderItem
-                className="hover:text-accent px-2"
-                onChange={(open) => handleIndexChange(0, open)}
-              >
+              <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(0, open)}>
                 Home
               </HeaderItem>
-              <HeaderItem
-                className="hover:text-accent px-2"
-                onChange={(open) => handleIndexChange(1, open)}
-              >
+              <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(1, open)}>
                 Pricing
               </HeaderItem>
-              <HeaderItem
-                className="hover:text-accent px-2"
-                onChange={(open) => handleIndexChange(2, open)}
-              >
+              <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(2, open)}>
                 Products
                 <HeaderDropdown
                   className="flex flex-col items-start mt-2"
@@ -2217,10 +1876,7 @@ export const HeaderComponent = () => {
                   <span>Other Services</span>
                 </HeaderDropdown>
               </HeaderItem>
-              <HeaderItem
-                className="hover:text-accent px-2"
-                onChange={(open) => handleIndexChange(4, open)}
-              >
+              <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(4, open)}>
                 About
                 <HeaderDropdown className="flex flex-col items-start mt-2">
                   <span>About Us</span>
@@ -2250,19 +1906,14 @@ export const HeaderComponent = () => {
 };
 
 const Bars = (props: IconProps) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 24 24"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+    <title>Menu</title>
     <path
       fill="currentColor"
       fillRule="evenodd"
       d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75H12a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z"
       clipRule="evenodd"
-    ></path>
+    />
   </svg>
 );
 
@@ -2272,7 +1923,7 @@ const Bars = (props: IconProps) => (
 "use client";
 
 import useClickOutside from "@registry/packages/hooks/useClickOutside/01/default-ts/useClickOutside";
-import { IconProps } from "@registry/utils/types";
+import type { IconProps } from "@registry/utils/types";
 import { useRef } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -2303,35 +1954,23 @@ export const HeaderDrawer = ({
           "flex flex-col justify-center items-center gap-4 border-b absolute z-50 transition-all duration-300 ease-in-out",
 
           // INITIAL STATES
-          direction === "left" &&
-            cover === "full" &&
-            "w-full h-full top-0 -left-full",
-          direction === "left" &&
-            cover === "half" &&
-            "w-80 h-full top-0 -left-80",
-          direction === "right" &&
-            cover === "full" &&
-            "w-full h-full top-0 -right-full",
-          direction === "right" &&
-            cover === "half" &&
-            "w-80 h-full top-0 -right-80",
-          direction === "top" &&
-            cover === "half" &&
-            "w-full h-80 -top-80 left-0",
-          direction === "top" &&
-            cover === "full" &&
-            "w-full h-full -top-full left-0",
+          direction === "left" && cover === "full" && "w-full h-full top-0 -left-full",
+          direction === "left" && cover === "half" && "w-80 h-full top-0 -left-80",
+          direction === "right" && cover === "full" && "w-full h-full top-0 -right-full",
+          direction === "right" && cover === "half" && "w-80 h-full top-0 -right-80",
+          direction === "top" && cover === "half" && "w-full h-80 -top-80 left-0",
+          direction === "top" && cover === "full" && "w-full h-full -top-full left-0",
 
           // OPEN STATES
           direction === "left" && open && "left-0",
           direction === "right" && open && "right-0",
           direction === "top" && open && "top-0",
 
-          className
+          className,
         )}
       >
         <div className="w-full flex justify-end px-4 py-4 absolute top-0 left-0">
-          <button onClick={() => setOpen(false)}>
+          <button onClick={() => setOpen(false)} type="button">
             <Cross className="h-6 w-6" />
           </button>
         </div>
@@ -2342,17 +1981,12 @@ export const HeaderDrawer = ({
 };
 
 const Cross = (props: IconProps) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 32 32"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32" {...props}>
+    <title>Close</title>
     <path
       fill="currentColor"
       d="M7.219 5.781L5.78 7.22L14.563 16L5.78 24.781l1.44 1.439L16 17.437l8.781 8.782l1.438-1.438L17.437 16l8.782-8.781L24.78 5.78L16 14.563z"
-    ></path>
+    />
   </svg>
 );
 
@@ -2389,7 +2023,7 @@ export const Components_headers_05 = lazy(() => import("@registry/packages/compo
 </Suspense>
 
 </Preview><Implementation>
-<TechnologyUsed technologies={["tailwind-merge","react-aria-components"]} />
+undefined
 <CodeBlock>
 
 ```default|js|CommandPalette.jsx
@@ -2419,17 +2053,9 @@ export function CommandPaletteBox() {
 
   return (
     <>
-      <CommandPaletteTrigger
-        placeholder="Search"
-        setActive={setActive}
-        keys={["Control", "j"]}
-        className="md:w-60"
-      />
+      <CommandPaletteTrigger placeholder="Search" setActive={setActive} keys={["Control", "j"]} className="md:w-60" />
       <CommandPalette isOpen={active} onOpenChange={(val) => setActive(val)}>
-        <CommandPaletteSearchBar
-          placeholder="Search for something"
-          onChange={() => simulateSearch()}
-        />
+        <CommandPaletteSearchBar placeholder="Search for something" onChange={() => simulateSearch()} />
         <CommandPaletteDivider />
         <CommandPaletteMenu isLoading={isLoading}>
           {/* This is a sample data. You can add dynamic data here and manage the loading & empty states accordingly */}
@@ -2491,19 +2117,17 @@ export const HeaderComponent = () => {
   const [activeIndex, setActiveIndex] = useState(null);
   const [prevActiveIndex, setPrevActiveIndex] = useState(null);
 
-  const [openCounter, setOpenCounter] = useState(
-    Array.from({ length: 5 }).fill(false)
-  );
+  const [openCounter, setOpenCounter] = useState(Array.from({ length: 5 }).fill(false));
   const handleIndexChange = (index, open) => {
     if (open) {
       setPrevActiveIndex(activeIndex);
       setActiveIndex(index);
-      let newOpenCounter = openCounter;
+      const newOpenCounter = openCounter;
       newOpenCounter[index] = open;
       setOpenCounter(newOpenCounter);
       setOpen(true);
     } else {
-      let newOpenCounter = openCounter;
+      const newOpenCounter = openCounter;
       newOpenCounter[index] = open;
       setOpenCounter(newOpenCounter);
       if (newOpenCounter.every((el) => el === false)) {
@@ -2521,24 +2145,16 @@ export const HeaderComponent = () => {
         className="bg-background border-b text-foreground border-outline"
       >
         <span className="hover:text-accent-secondary cursor-pointer">Home</span>
-        <span className="hover:text-accent-secondary cursor-pointer">
-          Pricing
-        </span>
-        <span className="hover:text-accent-secondary cursor-pointer">
-          Products
-        </span>
-        <span className="hover:text-accent-secondary cursor-pointer">
-          Services
-        </span>
-        <span className="hover:text-accent-secondary cursor-pointer">
-          About
-        </span>
+        <span className="hover:text-accent-secondary cursor-pointer">Pricing</span>
+        <span className="hover:text-accent-secondary cursor-pointer">Products</span>
+        <span className="hover:text-accent-secondary cursor-pointer">Services</span>
+        <span className="hover:text-accent-secondary cursor-pointer">About</span>
       </HeaderDrawer>
       <Header
         className="w-full h-16  flex justify-between px-6 @md:px-10 items-center bg-blur shadow shadow-outline-secondary"
         onMouseLeave={() => setOpen(false)}
       >
-        <a href="#" className="text-primary-foreground font-semibold text-lg">
+        <a href="/" className="text-primary-foreground font-semibold text-lg">
           LOGO
         </a>
         <div className="justify-center items-center gap-4 hidden @md:flex h-full">
@@ -2555,36 +2171,21 @@ export const HeaderComponent = () => {
             }}
             className="h-full"
           >
-            <HeaderItem
-              className="hover:text-accent px-2"
-              onChange={(open) => handleIndexChange(0, open)}
-            >
+            <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(0, open)}>
               Home
             </HeaderItem>
-            <HeaderItem
-              className="hover:text-accent px-2"
-              onChange={(open) => handleIndexChange(1, open)}
-            >
+            <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(1, open)}>
               Pricing
             </HeaderItem>
-            <HeaderItem
-              className="hover:text-accent px-2"
-              onChange={(open) => handleIndexChange(2, open)}
-            >
+            <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(2, open)}>
               Products
               <HeaderDropdown className="flex flex-col items-start mt-2">
                 <div>
                   <h4 className="font-semibold text-sm mb-4">Categories</h4>
                   <ul className="text-sm text-primary-foreground flex flex-col gap-2">
-                    <li className="hover:text-accent-secondary hover:cursor-pointer">
-                      Electronics
-                    </li>
-                    <li className="hover:text-accent-secondary hover:cursor-pointer">
-                      Clothing
-                    </li>
-                    <li className="hover:text-accent-secondary hover:cursor-pointer">
-                      Books
-                    </li>
+                    <li className="hover:text-accent-secondary hover:cursor-pointer">Electronics</li>
+                    <li className="hover:text-accent-secondary hover:cursor-pointer">Clothing</li>
+                    <li className="hover:text-accent-secondary hover:cursor-pointer">Books</li>
                   </ul>
                 </div>
               </HeaderDropdown>
@@ -2600,51 +2201,42 @@ export const HeaderComponent = () => {
                 <h4 className="font-semibold text-lg mb-4">Our Services</h4>
                 <div className="flex flex-col gap-6">
                   <div className="flex gap-4">
-                    <div className="min-w-40 h-28 bg-secondary rounded-lg"></div>
+                    <div className="min-w-40 h-28 bg-secondary rounded-lg" />
                     <div className="min-w-60">
                       <h1>Product 1</h1>
                       <p className="text-sm text-secondary-foreground mt-2">
-                        This is the most fabulous product in the world. The
-                        popularity of it is endless.
+                        This is the most fabulous product in the world. The popularity of it is endless.
                       </p>
                     </div>
                   </div>
                   <div className="flex gap-4">
-                    <div className="min-w-40 h-28 bg-secondary rounded-lg"></div>
+                    <div className="min-w-40 h-28 bg-secondary rounded-lg" />
                     <div className="min-w-60">
                       <h1>Product 2</h1>
                       <p className="text-sm text-secondary-foreground mt-2">
-                        This is the most fabulous product in the world. The
-                        popularity of it is endless.
+                        This is the most fabulous product in the world. The popularity of it is endless.
                       </p>
                     </div>
                   </div>
                   <div className="flex gap-4">
-                    <div className="min-w-40 h-28 bg-secondary rounded-lg"></div>
+                    <div className="min-w-40 h-28 bg-secondary rounded-lg" />
                     <div className="min-w-60">
                       <h1>Product 3</h1>
                       <p className="text-sm text-secondary-foreground mt-2">
-                        This is the most fabulous product in the world. The
-                        popularity of it is endless.
+                        This is the most fabulous product in the world. The popularity of it is endless.
                       </p>
                     </div>
                   </div>
                 </div>
               </HeaderDropdown>
             </HeaderItem>
-            <HeaderItem
-              className="hover:text-accent px-2"
-              onChange={(open) => handleIndexChange(4, open)}
-            >
+            <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(4, open)}>
               About
               <HeaderDropdown className="flex flex-col items-start mt-2 max-w-80">
-                <h4 className="font-semibold text-sm mb-4">
-                  About Our Company
-                </h4>
+                <h4 className="font-semibold text-sm mb-4">About Our Company</h4>
                 <p className="text-sm text-secondary-foreground">
-                  We are a leading provider of innovative solutions for
-                  businesses of all sizes. Our team of experts has years of
-                  experience in nothing {":)"}
+                  We are a leading provider of innovative solutions for businesses of all sizes. Our team of experts has
+                  years of experience in nothing {":)"}
                 </p>
               </HeaderDropdown>
             </HeaderItem>
@@ -2655,16 +2247,13 @@ export const HeaderComponent = () => {
           <button
             className="w-8 h-10 flex justify-center items-center rounded hover:bg-secondary text-foreground"
             onClick={() => setTheme(!theme)}
+            type="button"
           >
-            {theme ? (
-              <Icons.sun className="w-6 h-6" />
-            ) : (
-              <Icons.moon className="w-6 h-6" />
-            )}
+            {theme ? <Icons.sun className="w-6 h-6" /> : <Icons.moon className="w-6 h-6" />}
           </button>
 
           <GradientBackground>
-            <button className="text-foreground bg-background py-2 @md:px-4 rounded-lg hidden @md:block">
+            <button className="text-foreground bg-background py-2 @md:px-4 rounded-lg hidden @md:block" type="button">
               Get Started
             </button>
           </GradientBackground>
@@ -2684,60 +2273,39 @@ export const HeaderComponent = () => {
 
 const Icons = {
   Bars: (props) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      {...props}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+      <title>Bars</title>
       <path
         fill="currentColor"
         fillRule="evenodd"
         d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75H12a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z"
         clipRule="evenodd"
-      ></path>
+      />
     </svg>
   ),
   sun: (props) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1.3em"
-      height="1.3em"
-      viewBox="0 0 21 21"
-      {...props}
-    >
-      <g
-        fill="none"
-        fillRule="evenodd"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
+    <svg xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 21 21" {...props}>
+      <title>Sun Logo</title>
+      <g fill="none" fillRule="evenodd" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
         <path
           d="M10.5 14.5c2.219 0 4-1.763 4-3.982a4.003 4.003 0 0 0-4-4.018c-2.219 0-4 1.781-4 4c0 2.219 1.781 4 4 4zM4.136 4.136L5.55 5.55m9.9 9.9l1.414 1.414M1.5 10.5h2m14 0h2M4.135 16.863L5.55 15.45m9.899-9.9l1.414-1.415M10.5 19.5v-2m0-14v-2"
           opacity=".3"
-        ></path>
+        />
         <g transform="translate(-210 -1)">
-          <path d="M220.5 2.5v2m6.5.5l-1.5 1.5"></path>
-          <circle cx="220.5" cy="11.5" r="4"></circle>
-          <path d="m214 5l1.5 1.5m5 14v-2m6.5-.5l-1.5-1.5M214 18l1.5-1.5m-4-5h2m14 0h2"></path>
+          <path d="M220.5 2.5v2m6.5.5l-1.5 1.5" />
+          <circle cx="220.5" cy="11.5" r="4" />
+          <path d="m214 5l1.5 1.5m5 14v-2m6.5-.5l-1.5-1.5M214 18l1.5-1.5m-4-5h2m14 0h2" />
         </g>
       </g>
     </svg>
   ),
   moon: (props) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 56 56"
-      {...props}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 56 56" {...props}>
+      <title>Moon Logo</title>
       <path
         fill="currentColor"
         d="M41.242 36.121c-12.937 0-20.953-7.781-20.953-20.273c0-3.563.61-6.703 1.477-8.391c.351-.68.398-1.008.398-1.476c0-.774-.703-1.688-1.687-1.688c-.188 0-.633.07-1.313.328c-8.648 3.516-14.742 12.656-14.742 22.5c0 14.227 10.313 24.586 24.539 24.586c10.219 0 18.469-5.344 22.29-14.11c.257-.609.327-1.124.327-1.382c0-.961-.843-1.617-1.547-1.617c-.398 0-.656.023-1.218.234c-1.922.773-4.782 1.29-7.57 1.29m-33.14-9.164c0-7.289 3.773-14.227 9.867-18.047c-.75 2.18-1.172 4.594-1.172 7.266c0 14.648 8.93 23.367 23.906 23.367c2.39 0 4.453-.281 6.375-.96c-3.562 5.882-10.43 9.468-17.953 9.468c-12.164 0-21.023-8.86-21.023-21.094"
-      ></path>
+      />
     </svg>
   ),
 };
@@ -2751,14 +2319,7 @@ import useClickOutside from "@registry/packages/hooks/useClickOutside/01/default
 import { useRef } from "react";
 import { twMerge } from "tailwind-merge";
 
-export const HeaderDrawer = ({
-  direction = "top",
-  cover = "half",
-  children,
-  open,
-  setOpen,
-  className,
-}) => {
+export const HeaderDrawer = ({ direction = "top", cover = "half", children, open, setOpen, className }) => {
   const ref = useRef(null);
   useClickOutside(ref, () => setOpen(false));
 
@@ -2769,35 +2330,23 @@ export const HeaderDrawer = ({
           "flex flex-col justify-center items-center gap-4 border-b absolute z-50 transition-all duration-300 ease-in-out",
 
           // INITIAL STATES
-          direction === "left" &&
-            cover === "full" &&
-            "w-full h-full top-0 -left-full",
-          direction === "left" &&
-            cover === "half" &&
-            "w-80 h-full top-0 -left-80",
-          direction === "right" &&
-            cover === "full" &&
-            "w-full h-full top-0 -right-full",
-          direction === "right" &&
-            cover === "half" &&
-            "w-80 h-full top-0 -right-80",
-          direction === "top" &&
-            cover === "half" &&
-            "w-full h-80 -top-80 left-0",
-          direction === "top" &&
-            cover === "full" &&
-            "w-full h-full -top-full left-0",
+          direction === "left" && cover === "full" && "w-full h-full top-0 -left-full",
+          direction === "left" && cover === "half" && "w-80 h-full top-0 -left-80",
+          direction === "right" && cover === "full" && "w-full h-full top-0 -right-full",
+          direction === "right" && cover === "half" && "w-80 h-full top-0 -right-80",
+          direction === "top" && cover === "half" && "w-full h-80 -top-80 left-0",
+          direction === "top" && cover === "full" && "w-full h-full -top-full left-0",
 
           // OPEN STATES
           direction === "left" && open && "left-0",
           direction === "right" && open && "right-0",
           direction === "top" && open && "top-0",
 
-          className
+          className,
         )}
       >
         <div className="w-full flex justify-end px-4 py-4 absolute top-0 left-0">
-          <button onClick={() => setOpen(false)}>
+          <button onClick={() => setOpen(false)} type="button">
             <Cross className="h-6 w-6" />
           </button>
         </div>
@@ -2808,17 +2357,12 @@ export const HeaderDrawer = ({
 };
 
 const Cross = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 32 32"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32" {...props}>
+    <title>Close</title>
     <path
       fill="currentColor"
       d="M7.219 5.781L5.78 7.22L14.563 16L5.78 24.781l1.44 1.439L16 17.437l8.781 8.782l1.438-1.438L17.437 16l8.782-8.781L24.78 5.78L16 14.563z"
-    ></path>
+    />
   </svg>
 );
 
@@ -2836,7 +2380,7 @@ import {
   CommandPaletteSearchBar,
   CommandPaletteTrigger,
 } from "@registry/packages/primitives/command-palette/01/default-ts/CommandPalette";
-import { ChangeEvent, useState } from "react";
+import { type ChangeEvent, useState } from "react";
 
 export function CommandPaletteBox() {
   const [active, setActive] = useState<boolean>(false);
@@ -2851,17 +2395,9 @@ export function CommandPaletteBox() {
 
   return (
     <>
-      <CommandPaletteTrigger
-        placeholder="Search"
-        setActive={setActive}
-        keys={["Control", "j"]}
-        className="md:w-60"
-      />
+      <CommandPaletteTrigger placeholder="Search" setActive={setActive} keys={["Control", "j"]} className="md:w-60" />
       <CommandPalette isOpen={active} onOpenChange={(val) => setActive(val)}>
-        <CommandPaletteSearchBar
-          placeholder="Search for something"
-          onChange={(e) => simulateSearch(e)}
-        />
+        <CommandPaletteSearchBar placeholder="Search for something" onChange={(e) => simulateSearch(e)} />
         <CommandPaletteDivider />
         <CommandPaletteMenu isLoading={isLoading}>
           {/* This is a sample data. You can add dynamic data here and manage the loading & empty states accordingly */}
@@ -2908,7 +2444,7 @@ import {
   HeaderDropdown,
   HeaderItem,
 } from "@registry/packages/primitives/header-blocks/03/default-ts/HeaderBlocks";
-import { IconProps } from "@registry/utils/types";
+import type { IconProps } from "@registry/utils/types";
 import { useState } from "react";
 import { Button } from "react-aria-components";
 import { CommandPaletteBox } from "./CommandPalette";
@@ -2924,19 +2460,17 @@ export const HeaderComponent = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [prevActiveIndex, setPrevActiveIndex] = useState<number | null>(null);
 
-  const [openCounter, setOpenCounter] = useState(
-    Array.from({ length: 5 }).fill(false)
-  );
+  const [openCounter, setOpenCounter] = useState(Array.from({ length: 5 }).fill(false));
   const handleIndexChange = (index: number, open: boolean) => {
     if (open) {
       setPrevActiveIndex(activeIndex);
       setActiveIndex(index);
-      let newOpenCounter = openCounter;
+      const newOpenCounter = openCounter;
       newOpenCounter[index] = open;
       setOpenCounter(newOpenCounter);
       setOpen(true);
     } else {
-      let newOpenCounter = openCounter;
+      const newOpenCounter = openCounter;
       newOpenCounter[index] = open;
       setOpenCounter(newOpenCounter);
       if (newOpenCounter.every((el) => el === false)) {
@@ -2954,24 +2488,16 @@ export const HeaderComponent = () => {
         className="bg-background border-b text-foreground border-outline"
       >
         <span className="hover:text-accent-secondary cursor-pointer">Home</span>
-        <span className="hover:text-accent-secondary cursor-pointer">
-          Pricing
-        </span>
-        <span className="hover:text-accent-secondary cursor-pointer">
-          Products
-        </span>
-        <span className="hover:text-accent-secondary cursor-pointer">
-          Services
-        </span>
-        <span className="hover:text-accent-secondary cursor-pointer">
-          About
-        </span>
+        <span className="hover:text-accent-secondary cursor-pointer">Pricing</span>
+        <span className="hover:text-accent-secondary cursor-pointer">Products</span>
+        <span className="hover:text-accent-secondary cursor-pointer">Services</span>
+        <span className="hover:text-accent-secondary cursor-pointer">About</span>
       </HeaderDrawer>
       <Header
         className="w-full h-16  flex justify-between px-6 @md:px-10 items-center bg-blur shadow shadow-outline-secondary"
         onMouseLeave={() => setOpen(false)}
       >
-        <a href="#" className="text-primary-foreground font-semibold text-lg">
+        <a href="/" className="text-primary-foreground font-semibold text-lg">
           LOGO
         </a>
         <div className="justify-center items-center gap-4 hidden @md:flex h-full">
@@ -2988,36 +2514,21 @@ export const HeaderComponent = () => {
             }}
             className="h-full"
           >
-            <HeaderItem
-              className="hover:text-accent px-2"
-              onChange={(open) => handleIndexChange(0, open)}
-            >
+            <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(0, open)}>
               Home
             </HeaderItem>
-            <HeaderItem
-              className="hover:text-accent px-2"
-              onChange={(open) => handleIndexChange(1, open)}
-            >
+            <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(1, open)}>
               Pricing
             </HeaderItem>
-            <HeaderItem
-              className="hover:text-accent px-2"
-              onChange={(open) => handleIndexChange(2, open)}
-            >
+            <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(2, open)}>
               Products
               <HeaderDropdown className="flex flex-col items-start mt-2">
                 <div>
                   <h4 className="font-semibold text-sm mb-4">Categories</h4>
                   <ul className="text-sm text-primary-foreground flex flex-col gap-2">
-                    <li className="hover:text-accent-secondary hover:cursor-pointer">
-                      Electronics
-                    </li>
-                    <li className="hover:text-accent-secondary hover:cursor-pointer">
-                      Clothing
-                    </li>
-                    <li className="hover:text-accent-secondary hover:cursor-pointer">
-                      Books
-                    </li>
+                    <li className="hover:text-accent-secondary hover:cursor-pointer">Electronics</li>
+                    <li className="hover:text-accent-secondary hover:cursor-pointer">Clothing</li>
+                    <li className="hover:text-accent-secondary hover:cursor-pointer">Books</li>
                   </ul>
                 </div>
               </HeaderDropdown>
@@ -3033,51 +2544,42 @@ export const HeaderComponent = () => {
                 <h4 className="font-semibold text-lg mb-4">Our Services</h4>
                 <div className="flex flex-col gap-6">
                   <div className="flex gap-4">
-                    <div className="min-w-40 h-28 bg-secondary rounded-lg"></div>
+                    <div className="min-w-40 h-28 bg-secondary rounded-lg" />
                     <div className="min-w-60">
                       <h1>Product 1</h1>
                       <p className="text-sm text-secondary-foreground mt-2">
-                        This is the most fabulous product in the world. The
-                        popularity of it is endless.
+                        This is the most fabulous product in the world. The popularity of it is endless.
                       </p>
                     </div>
                   </div>
                   <div className="flex gap-4">
-                    <div className="min-w-40 h-28 bg-secondary rounded-lg"></div>
+                    <div className="min-w-40 h-28 bg-secondary rounded-lg" />
                     <div className="min-w-60">
                       <h1>Product 2</h1>
                       <p className="text-sm text-secondary-foreground mt-2">
-                        This is the most fabulous product in the world. The
-                        popularity of it is endless.
+                        This is the most fabulous product in the world. The popularity of it is endless.
                       </p>
                     </div>
                   </div>
                   <div className="flex gap-4">
-                    <div className="min-w-40 h-28 bg-secondary rounded-lg"></div>
+                    <div className="min-w-40 h-28 bg-secondary rounded-lg" />
                     <div className="min-w-60">
                       <h1>Product 3</h1>
                       <p className="text-sm text-secondary-foreground mt-2">
-                        This is the most fabulous product in the world. The
-                        popularity of it is endless.
+                        This is the most fabulous product in the world. The popularity of it is endless.
                       </p>
                     </div>
                   </div>
                 </div>
               </HeaderDropdown>
             </HeaderItem>
-            <HeaderItem
-              className="hover:text-accent px-2"
-              onChange={(open) => handleIndexChange(4, open)}
-            >
+            <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(4, open)}>
               About
               <HeaderDropdown className="flex flex-col items-start mt-2 max-w-80">
-                <h4 className="font-semibold text-sm mb-4">
-                  About Our Company
-                </h4>
+                <h4 className="font-semibold text-sm mb-4">About Our Company</h4>
                 <p className="text-sm text-secondary-foreground">
-                  We are a leading provider of innovative solutions for
-                  businesses of all sizes. Our team of experts has years of
-                  experience in nothing {":)"}
+                  We are a leading provider of innovative solutions for businesses of all sizes. Our team of experts has
+                  years of experience in nothing {":)"}
                 </p>
               </HeaderDropdown>
             </HeaderItem>
@@ -3086,18 +2588,15 @@ export const HeaderComponent = () => {
         <span className="gap-8 items-center justify-center hidden @lg:flex">
           <CommandPaletteBox />
           <button
+            type="button"
             className="w-8 h-10 flex justify-center items-center rounded hover:bg-secondary text-foreground"
             onClick={() => setTheme(!theme)}
           >
-            {theme ? (
-              <Icons.sun className="w-6 h-6" />
-            ) : (
-              <Icons.moon className="w-6 h-6" />
-            )}
+            {theme ? <Icons.sun className="w-6 h-6" /> : <Icons.moon className="w-6 h-6" />}
           </button>
 
           <GradientBackground>
-            <button className="text-foreground bg-background py-2 @md:px-4 rounded-lg hidden @md:block">
+            <button type="button" className="text-foreground bg-background py-2 @md:px-4 rounded-lg hidden @md:block">
               Get Started
             </button>
           </GradientBackground>
@@ -3117,60 +2616,39 @@ export const HeaderComponent = () => {
 
 const Icons = {
   Bars: (props: IconProps) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      {...props}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+      <title>Bars</title>
       <path
         fill="currentColor"
         fillRule="evenodd"
         d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75H12a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z"
         clipRule="evenodd"
-      ></path>
+      />
     </svg>
   ),
   sun: (props: IconProps) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1.3em"
-      height="1.3em"
-      viewBox="0 0 21 21"
-      {...props}
-    >
-      <g
-        fill="none"
-        fillRule="evenodd"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
+    <svg xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 21 21" {...props}>
+      <title>Sun Logo</title>
+      <g fill="none" fillRule="evenodd" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
         <path
           d="M10.5 14.5c2.219 0 4-1.763 4-3.982a4.003 4.003 0 0 0-4-4.018c-2.219 0-4 1.781-4 4c0 2.219 1.781 4 4 4zM4.136 4.136L5.55 5.55m9.9 9.9l1.414 1.414M1.5 10.5h2m14 0h2M4.135 16.863L5.55 15.45m9.899-9.9l1.414-1.415M10.5 19.5v-2m0-14v-2"
           opacity=".3"
-        ></path>
+        />
         <g transform="translate(-210 -1)">
-          <path d="M220.5 2.5v2m6.5.5l-1.5 1.5"></path>
-          <circle cx="220.5" cy="11.5" r="4"></circle>
-          <path d="m214 5l1.5 1.5m5 14v-2m6.5-.5l-1.5-1.5M214 18l1.5-1.5m-4-5h2m14 0h2"></path>
+          <path d="M220.5 2.5v2m6.5.5l-1.5 1.5" />
+          <circle cx="220.5" cy="11.5" r="4" />
+          <path d="m214 5l1.5 1.5m5 14v-2m6.5-.5l-1.5-1.5M214 18l1.5-1.5m-4-5h2m14 0h2" />
         </g>
       </g>
     </svg>
   ),
   moon: (props: IconProps) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 56 56"
-      {...props}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 56 56" {...props}>
+      <title>Moon Logo</title>
       <path
         fill="currentColor"
         d="M41.242 36.121c-12.937 0-20.953-7.781-20.953-20.273c0-3.563.61-6.703 1.477-8.391c.351-.68.398-1.008.398-1.476c0-.774-.703-1.688-1.687-1.688c-.188 0-.633.07-1.313.328c-8.648 3.516-14.742 12.656-14.742 22.5c0 14.227 10.313 24.586 24.539 24.586c10.219 0 18.469-5.344 22.29-14.11c.257-.609.327-1.124.327-1.382c0-.961-.843-1.617-1.547-1.617c-.398 0-.656.023-1.218.234c-1.922.773-4.782 1.29-7.57 1.29m-33.14-9.164c0-7.289 3.773-14.227 9.867-18.047c-.75 2.18-1.172 4.594-1.172 7.266c0 14.648 8.93 23.367 23.906 23.367c2.39 0 4.453-.281 6.375-.96c-3.562 5.882-10.43 9.468-17.953 9.468c-12.164 0-21.023-8.86-21.023-21.094"
-      ></path>
+      />
     </svg>
   ),
 };
@@ -3181,7 +2659,7 @@ const Icons = {
 "use client";
 
 import useClickOutside from "@registry/packages/hooks/useClickOutside/01/default-ts/useClickOutside";
-import { IconProps } from "@registry/utils/types";
+import type { IconProps } from "@registry/utils/types";
 import { useRef } from "react";
 import { twMerge } from "tailwind-merge";
 
@@ -3212,35 +2690,23 @@ export const HeaderDrawer = ({
           "flex flex-col justify-center items-center gap-4 border-b absolute z-50 transition-all duration-300 ease-in-out",
 
           // INITIAL STATES
-          direction === "left" &&
-            cover === "full" &&
-            "w-full h-full top-0 -left-full",
-          direction === "left" &&
-            cover === "half" &&
-            "w-80 h-full top-0 -left-80",
-          direction === "right" &&
-            cover === "full" &&
-            "w-full h-full top-0 -right-full",
-          direction === "right" &&
-            cover === "half" &&
-            "w-80 h-full top-0 -right-80",
-          direction === "top" &&
-            cover === "half" &&
-            "w-full h-80 -top-80 left-0",
-          direction === "top" &&
-            cover === "full" &&
-            "w-full h-full -top-full left-0",
+          direction === "left" && cover === "full" && "w-full h-full top-0 -left-full",
+          direction === "left" && cover === "half" && "w-80 h-full top-0 -left-80",
+          direction === "right" && cover === "full" && "w-full h-full top-0 -right-full",
+          direction === "right" && cover === "half" && "w-80 h-full top-0 -right-80",
+          direction === "top" && cover === "half" && "w-full h-80 -top-80 left-0",
+          direction === "top" && cover === "full" && "w-full h-full -top-full left-0",
 
           // OPEN STATES
           direction === "left" && open && "left-0",
           direction === "right" && open && "right-0",
           direction === "top" && open && "top-0",
 
-          className
+          className,
         )}
       >
         <div className="w-full flex justify-end px-4 py-4 absolute top-0 left-0">
-          <button onClick={() => setOpen(false)}>
+          <button onClick={() => setOpen(false)} type="button">
             <Cross className="h-6 w-6" />
           </button>
         </div>
@@ -3251,17 +2717,12 @@ export const HeaderDrawer = ({
 };
 
 const Cross = (props: IconProps) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 32 32"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 32 32" {...props}>
+    <title>Close</title>
     <path
       fill="currentColor"
       d="M7.219 5.781L5.78 7.22L14.563 16L5.78 24.781l1.44 1.439L16 17.437l8.781 8.782l1.438-1.438L17.437 16l8.782-8.781L24.78 5.78L16 14.563z"
-    ></path>
+    />
   </svg>
 );
 

@@ -1,17 +1,9 @@
 "use client";
 
-import {
-  ChangeEvent,
-  DetailedHTMLProps,
-  InputHTMLAttributes,
-  useRef,
-} from "react";
+import { type ChangeEvent, type DetailedHTMLProps, type InputHTMLAttributes, useRef } from "react";
 
 export interface FileUploadButtonProps
-  extends DetailedHTMLProps<
-    InputHTMLAttributes<HTMLInputElement>,
-    HTMLInputElement
-  > {
+  extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
   getFiles?: (files: File[]) => void;
   allowsMultiple?: boolean;
   acceptedFileTypes?: InputHTMLAttributes<HTMLInputElement>["accept"][];
@@ -37,7 +29,7 @@ export function FileUploadButton({
       const file = target.files?.[0];
       Files = file ? [file] : [];
     }
-    getFiles && getFiles(Files);
+    getFiles?.(Files);
   }
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -57,7 +49,7 @@ export function FileUploadButton({
         accept={acceptedFileTypes?.join(",")}
         {...props}
       />
-      <button className={className} onClick={handleClick}>
+      <button type="button" className={className} onClick={handleClick}>
         {children}
       </button>
     </>

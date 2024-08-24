@@ -1,6 +1,6 @@
 "use client";
 
-import { LegacyRef, useEffect, useRef, useState } from "react";
+import { type LegacyRef, useEffect, useRef, useState } from "react";
 import {
   Header,
   HeaderDropdown,
@@ -21,27 +21,19 @@ export default function HeaderBlocksImplementation() {
   const [shiftX, setShiftX] = useState(0);
 
   const changePosition = () => {
-    if (
-      open &&
-      activeIndex &&
-      containerRef &&
-      containerRef.current &&
-      dropdownRefs.current[activeIndex]
-    ) {
+    if (open && activeIndex && containerRef && containerRef.current && dropdownRefs.current[activeIndex]) {
       const outerBoxLength = containerRef.current.getBoundingClientRect();
-      const innerBoxLength =
-        dropdownRefs.current[activeIndex]?.getBoundingClientRect();
+      const innerBoxLength = dropdownRefs.current[activeIndex]?.getBoundingClientRect();
       if (!innerBoxLength) return;
 
-      setShiftX(
-        innerBoxLength.left + innerBoxLength.width / 2 - outerBoxLength.left
-      );
+      setShiftX(innerBoxLength.left + innerBoxLength.width / 2 - outerBoxLength.left);
     }
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: It will re-render multiple types on adding changePosition()
   useEffect(() => {
     changePosition();
-  }, [activeIndex]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [activeIndex]);
 
   return (
     <div className="w-full min-h-[25rem] flex justify-center items-center">
@@ -49,16 +41,10 @@ export default function HeaderBlocksImplementation() {
         className="flex justify-center items-center h-16 border border-outline px-10 rounded-lg"
         ref={containerRef}
       >
-        <HeaderItem
-          className="hover:text-accent px-2"
-          ref={dropdownRefs.current[0] as LegacyRef<HTMLButtonElement>}
-        >
+        <HeaderItem className="hover:text-accent px-2" ref={dropdownRefs.current[0] as LegacyRef<HTMLButtonElement>}>
           Home
         </HeaderItem>
-        <HeaderItem
-          className="hover:text-accent px-2"
-          ref={dropdownRefs.current[1] as LegacyRef<HTMLButtonElement>}
-        >
+        <HeaderItem className="hover:text-accent px-2" ref={dropdownRefs.current[1] as LegacyRef<HTMLButtonElement>}>
           Pricing
         </HeaderItem>
         <HeaderItem
@@ -70,10 +56,7 @@ export default function HeaderBlocksImplementation() {
           }}
         >
           Products
-          <HeaderDropdown
-            className="flex flex-col items-start"
-            style={{ transform: `translateX(${shiftX}px)` }}
-          >
+          <HeaderDropdown className="flex flex-col items-start" style={{ transform: `translateX(${shiftX}px)` }}>
             <span>View Best Sellers</span>
             <span>Electronics</span>
             <span>Clothing</span>
@@ -89,10 +72,7 @@ export default function HeaderBlocksImplementation() {
           }}
         >
           Services
-          <HeaderDropdown
-            className="flex flex-col items-start"
-            style={{ transform: `translateX(${shiftX}px)` }}
-          >
+          <HeaderDropdown className="flex flex-col items-start" style={{ transform: `translateX(${shiftX}px)` }}>
             <span>Web Design</span>
             <span>Web Development</span>
             <span>Mobile Development</span>
@@ -108,10 +88,7 @@ export default function HeaderBlocksImplementation() {
           }}
         >
           About
-          <HeaderDropdown
-            className="flex flex-col items-start"
-            style={{ transform: `translateX(${shiftX}px)` }}
-          >
+          <HeaderDropdown className="flex flex-col items-start" style={{ transform: `translateX(${shiftX}px)` }}>
             <span>About Us</span>
             <span>Careers</span>
             <span>Contact Us</span>

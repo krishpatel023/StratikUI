@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  Stepper,
-  Step,
-} from "@registry/packages/primitives/steppers/02/default-ts/Stepper";
+import { Stepper, Step } from "@registry/packages/primitives/steppers/02/default-ts/Stepper";
 import Button from "@registry/ui/Button";
 import { useState } from "react";
 

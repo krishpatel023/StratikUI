@@ -23,19 +23,17 @@ export const HeaderComponent = () => {
   const [activeIndex, setActiveIndex] = useState(null);
   const [prevActiveIndex, setPrevActiveIndex] = useState(null);
 
-  const [openCounter, setOpenCounter] = useState(
-    Array.from({ length: 5 }).fill(false)
-  );
+  const [openCounter, setOpenCounter] = useState(Array.from({ length: 5 }).fill(false));
   const handleIndexChange = (index, open) => {
     if (open) {
       setPrevActiveIndex(activeIndex);
       setActiveIndex(index);
-      let newOpenCounter = openCounter;
+      const newOpenCounter = openCounter;
       newOpenCounter[index] = open;
       setOpenCounter(newOpenCounter);
       setOpen(true);
     } else {
-      let newOpenCounter = openCounter;
+      const newOpenCounter = openCounter;
       newOpenCounter[index] = open;
       setOpenCounter(newOpenCounter);
       if (newOpenCounter.every((el) => el === false)) {
@@ -63,8 +61,7 @@ export const HeaderComponent = () => {
           (state === "transitioning" || state === "hanging") &&
             "w-full @md:w-[45rem] mx-auto flex h-16 @md:rounded-full sticky items-center justify-between",
           state === "transitioning" && "@md:top-10 top-0",
-          state === "hanging" &&
-            (directionY === false ? "@md:top-10 top-0" : "@md:-top-full top-0")
+          state === "hanging" && (directionY === false ? "@md:top-10 top-0" : "@md:-top-full top-0"),
         )}
       >
         <HeaderDrawer
@@ -72,27 +69,17 @@ export const HeaderComponent = () => {
           setOpen={setHeaderDrawerOpen}
           className=" @md:hidden bg-background border-b text-foreground border-outline"
         >
-          <span className="hover:text-accent-secondary cursor-pointer">
-            Home
-          </span>
-          <span className="hover:text-accent-secondary cursor-pointer">
-            Pricing
-          </span>
-          <span className="hover:text-accent-secondary cursor-pointer">
-            Products
-          </span>
-          <span className="hover:text-accent-secondary cursor-pointer">
-            Services
-          </span>
-          <span className="hover:text-accent-secondary cursor-pointer">
-            About
-          </span>
+          <span className="hover:text-accent-secondary cursor-pointer">Home</span>
+          <span className="hover:text-accent-secondary cursor-pointer">Pricing</span>
+          <span className="hover:text-accent-secondary cursor-pointer">Products</span>
+          <span className="hover:text-accent-secondary cursor-pointer">Services</span>
+          <span className="hover:text-accent-secondary cursor-pointer">About</span>
         </HeaderDrawer>
         <Header
           className="w-full h-full flex justify-between items-center @md:border @md:border-outline-secondary rounded-[inherit] px-6 @md:px-10"
           onMouseLeave={() => setOpen(false)}
         >
-          <a href="#" className="text-primary-foreground">
+          <a href="/" className="text-primary-foreground">
             LOGO
           </a>
           <div className="justify-center items-center gap-4 hidden @md:flex h-full">
@@ -109,22 +96,13 @@ export const HeaderComponent = () => {
               }}
               className="h-full"
             >
-              <HeaderItem
-                className="hover:text-accent px-2"
-                onChange={(open) => handleIndexChange(0, open)}
-              >
+              <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(0, open)}>
                 Home
               </HeaderItem>
-              <HeaderItem
-                className="hover:text-accent px-2"
-                onChange={(open) => handleIndexChange(1, open)}
-              >
+              <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(1, open)}>
                 Pricing
               </HeaderItem>
-              <HeaderItem
-                className="hover:text-accent px-2"
-                onChange={(open) => handleIndexChange(2, open)}
-              >
+              <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(2, open)}>
                 Products
                 <HeaderDropdown
                   className="flex flex-col items-start mt-2"
@@ -150,10 +128,7 @@ export const HeaderComponent = () => {
                   <span>Other Services</span>
                 </HeaderDropdown>
               </HeaderItem>
-              <HeaderItem
-                className="hover:text-accent px-2"
-                onChange={(open) => handleIndexChange(4, open)}
-              >
+              <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(4, open)}>
                 About
                 <HeaderDropdown className="flex flex-col items-start mt-2">
                   <span>About Us</span>
@@ -183,18 +158,13 @@ export const HeaderComponent = () => {
 };
 
 const Bars = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 24 24"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+    <title>Menu</title>
     <path
       fill="currentColor"
       fillRule="evenodd"
       d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75H12a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z"
       clipRule="evenodd"
-    ></path>
+    />
   </svg>
 );

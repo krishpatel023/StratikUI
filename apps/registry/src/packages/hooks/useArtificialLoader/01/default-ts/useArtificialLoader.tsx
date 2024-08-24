@@ -18,9 +18,7 @@ interface UseArtificialLoaderReturn {
 const useArtificialLoader = (): UseArtificialLoaderReturn => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [progress, setProgress] = useState<number>(0);
-  const [loaderTimeout, setLoaderTimeout] = useState<ReturnType<
-    typeof setTimeout
-  > | null>(null);
+  const [loaderTimeout, setLoaderTimeout] = useState<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     return () => {

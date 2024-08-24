@@ -2,10 +2,7 @@
 
 import useCookies from "@registry/packages/hooks/useCookies/01/default-js/useCookies";
 import { Button } from "@registry/packages/primitives/buttons/02/default-js/Button";
-import {
-  Modal,
-  ModalTrigger,
-} from "@registry/packages/primitives/modals/01/react_aria-js/Modal";
+import { Modal, ModalTrigger } from "@registry/packages/primitives/modals/01/react_aria-js/Modal";
 import { Switch } from "@registry/packages/primitives/switch/01/react_aria-js/Switch";
 import { useState } from "react";
 import { Button as ReactAriaButton } from "react-aria-components";
@@ -17,39 +14,28 @@ export const CookiePrompt = ({ active, setActive }) => {
     cookie:
       "Cookies are used to store information about your preferences and usage of the site. We use cookies to ensure that you get the best experience on our site.",
     details: {
-      essential:
-        "Essential cookies are necessary for the website to function properly and provide basic features.",
+      essential: "Essential cookies are necessary for the website to function properly and provide basic features.",
       functional:
         "Functional cookies enhance the website's functionality by remembering your preferences, such as language settings, display options, or recently viewed items.",
       analytics:
         "Analytics cookies collect data about your usage of the website, such as pages visited, time spent on the website, and interactions with site elements.",
-      advertising:
-        "These cookies often involve sharing your data with third-party advertisers and ad networks.",
+      advertising: "These cookies often involve sharing your data with third-party advertisers and ad networks.",
     },
   };
 
-  const {
-    cookiePreferences,
-    toggleCookieCategory,
-    rejectAllCookiePreferences,
-    acceptAllCookiePreferences,
-  } = useCookies();
+  const { cookiePreferences, toggleCookieCategory, rejectAllCookiePreferences, acceptAllCookiePreferences } =
+    useCookies();
 
   return (
     <>
-      <ModalTrigger
-        isOpen={active && !details}
-        onOpenChange={(open) => setActive(open)}
-      >
+      <ModalTrigger isOpen={active && !details} onOpenChange={(open) => setActive(open)}>
         <Modal
           position="center bottom"
           className="max-w-[35rem] md:max-w-[45rem] bg-background border border-outline-secondary"
         >
           <div className="w-full @md:max-w-80">
             <h1 className="text-xl font-medium mb-4">Privacy Policy</h1>
-            <p className="mb-8 text-secondary-foreground font-medium">
-              {message.cookie}
-            </p>
+            <p className="mb-8 text-secondary-foreground font-medium">{message.cookie}</p>
             <div className="flex gap-4">
               <Button
                 className="py-1 px-3 rounded-md font-medium bg-foreground text-background"
@@ -79,25 +65,15 @@ export const CookiePrompt = ({ active, setActive }) => {
           setDetails(false);
         }}
       >
-        <Modal
-          position="right bottom"
-          className="max-w-[25rem] bg-background border border-outline-secondary"
-        >
+        <Modal position="right bottom" className="max-w-[25rem] bg-background border border-outline-secondary">
           <div className="max-w-[23rem]">
             <h1 className="text-xl font-medium mb-4">Privacy Policy</h1>
             {Object.keys(cookiePreferences).map((key) => {
               return (
-                <div
-                  className="flex gap-2 justify-center items-center mb-4"
-                  key={key}
-                >
+                <div className="flex gap-2 justify-center items-center mb-4" key={key}>
                   <span className="w-[90%]">
-                    <h1 className="text-base font-semibold capitalize mb-1">
-                      {key}
-                    </h1>
-                    <p className="text-sm text-secondary-foreground font-medium">
-                      {message.details[key]}
-                    </p>
+                    <h1 className="text-base font-semibold capitalize mb-1">{key}</h1>
+                    <p className="text-sm text-secondary-foreground font-medium">{message.details[key]}</p>
                   </span>
                   <Switch
                     isSelected={cookiePreferences[key]}

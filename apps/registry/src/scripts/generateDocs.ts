@@ -9,9 +9,9 @@ import {
   sanitizeFilePath,
   terminalLink,
 } from "@/scripts/helperFunctions";
-import { TECH_USED, TechNames } from "@web/components/mdx/TechnologyUsed";
-import fs from "fs";
-import path from "path";
+import { TECH_USED, type TechNames } from "@web/components/mdx/TechnologyUsed";
+import fs from "node:fs";
+import path from "node:path";
 
 // Directories
 const { targetDir, packageDir } = DirPathFinder();
@@ -21,12 +21,7 @@ export const FOLDER_NOMENCLATURE = {
   docs: "docs.md",
   example: "example.tsx",
   default_example_folder: "react_aria-ts",
-  exampleFolders: [
-    "react_aria-ts",
-    "default-ts",
-    "default-js",
-    "react_aria-js",
-  ],
+  exampleFolders: ["react_aria-ts", "default-ts", "default-js", "react_aria-js"],
   docsAdditionalFolders: ["docs-react_aria.md", "docs-default.md"],
   registry_ref_name: "@registry",
 };
@@ -40,44 +35,36 @@ function addBuildLog(
   state: "default" | "error" | "success" | "warning" | "event",
   message: string,
   functionCalled?: string,
-  folderPath?: string
+  folderPath?: string,
 ) {
   const folderPathData = folderPath ? `\n${folderPath}\n` : "\n";
-  const functionCalledData = functionCalled
-    ? `\nfunction - ${functionCalled}`
-    : "";
+  const functionCalledData = functionCalled ? `\nfunction - ${functionCalled}` : "";
   BUILD_LOG += "\n";
   switch (state) {
     case "default":
-      BUILD_LOG += "📄 " + message + functionCalledData + folderPathData;
+      BUILD_LOG += `📄 ${message}${functionCalledData}${folderPathData}`;
       break;
     case "error":
-      BUILD_LOG += "❌ " + message + functionCalledData + folderPathData;
+      BUILD_LOG += `❌ ${message}${functionCalledData}${folderPathData}`;
       break;
     case "success":
-      BUILD_LOG += "✅ " + message + functionCalledData + folderPathData;
+      BUILD_LOG += `✅ ${message}${functionCalledData}${folderPathData}`;
       break;
     case "warning":
-      BUILD_LOG += "⚠️ " + message + functionCalledData + folderPathData;
+      BUILD_LOG += `⚠️ ${message}${functionCalledData}${folderPathData}`;
       break;
-    case "event":
+    case "event": {
       const date = new Date();
-      BUILD_LOG +=
-        "📢 [" +
-        date.toLocaleString() +
-        "] " +
-        message +
-        functionCalledData +
-        folderPathData;
+      BUILD_LOG += `📢 [${date.toLocaleString()}] ${message}${functionCalledData}${folderPathData}`;
       break;
+    }
     default:
-      BUILD_LOG += "📄 " + message + functionCalledData + folderPathData;
+      BUILD_LOG += `📄 ${message}${functionCalledData}${folderPathData}`;
   }
 }
 
 function publishBuildLog() {
-  const dashedPartition =
-    "--------------------------------------------------------------";
+  const dashedPartition = "--------------------------------------------------------------";
   const dirPath = path.join(process.cwd(), ".stratik-ui");
   const logPath = path.join(process.cwd(), ".stratik-ui", "log.txt");
 
@@ -88,14 +75,9 @@ function publishBuildLog() {
     fs.writeFileSync(logPath, "", "utf8");
   }
   const prevData = fs.readFileSync(logPath, "utf8");
-  const newData =
-    prevData +
-    (prevData === "" ? "" : "\n\n\n") +
-    dashedPartition +
-    "\nGENERATING THE DOCS\n" +
-    dashedPartition +
-    "\n\n\n" +
-    BUILD_LOG;
+  const newData = `${
+    prevData + (prevData === "" ? "" : "\n\n\n") + dashedPartition
+  }\nGENERATING THE DOCS\n${dashedPartition}\n\n\n${BUILD_LOG}`;
   fs.writeFileSync(logPath, newData, "utf8");
 }
 
@@ -105,7 +87,7 @@ function CodeBlockGenerator(folderPath: string) {
 
     //   get folders
     const folders = getFoldersInDir(folderPath);
-    folders?.forEach((folder) => {
+    for (const folder of folders ?? []) {
       // Eg: default-ts, default-js, etc
       const subFolderPath = path.join(folderPath, folder);
       const folderName = path.basename(subFolderPath).split("-")[0];
@@ -113,7 +95,7 @@ function CodeBlockGenerator(folderPath: string) {
 
       // Eg: example.tsx, input.tsx, etc
       const files = getFilesInDir(subFolderPath);
-      files?.forEach((file) => {
+      for (const file of files ?? []) {
         const filePath = path.join(subFolderPath, file);
         const fileExtension = path.extname(filePath);
         const fileName = path.basename(filePath).split(fileExtension)[0];
@@ -129,56 +111,48 @@ function CodeBlockGenerator(folderPath: string) {
         if (skipGenerationMatch && skipGenerationMatch[1] === "true") {
           addBuildLog(
             "default",
-            `!skip-generation: true flag in file. Skipped the file generation`,
+            "!skip-generation: true flag in file. Skipped the file generation",
             "CodeBlockGenerator",
-            folderPath
+            folderPath,
           );
           return;
         }
 
         // 2. Code Highlighting
         // !code-highlight: [1,2,5-6,10]
-        const CODE_HIGHLIGHT_REGEX =
-          /\/\/\s*!code-highlight:\s*\[([0-9,\-\s]*)\]/;
+        const CODE_HIGHLIGHT_REGEX = /\/\/\s*!code-highlight:\s*\[([0-9,\-\s]*)\]/;
         const codeHighlightMatch = fileData.match(CODE_HIGHLIGHT_REGEX);
 
         if (codeHighlightMatch) {
           addBuildLog(
             "default",
-            `!code-highlight flag in file. Skipped the file generation`,
+            "!code-highlight flag in file. Skipped the file generation",
             "CodeBlockGenerator",
-            folderPath
+            folderPath,
           );
-          const highlightOutput = codeHighlightMatch[1]
-            .split(",")
-            .map((item) => item.trim());
+          const highlightOutput = codeHighlightMatch[1].split(",").map((item) => item.trim());
           const lines = fileData.split(/\r?\n/);
 
-          highlightOutput.forEach((lineNumberStr) => {
+          for (const lineNumberStr of highlightOutput) {
             const lineNumberPreprocess = lineNumberStr.split("-");
             if (lineNumberPreprocess.length === 0) return;
-            else if (lineNumberPreprocess.length === 1) {
-              const lineNumber = parseInt(lineNumberStr);
+            if (lineNumberPreprocess.length === 1) {
+              const lineNumber = Number.parseInt(lineNumberStr);
               if (lines[lineNumber - 1]) {
-                if (lines[lineNumber - 1].includes("// [!code highlight]"))
-                  return;
-                lines[lineNumber - 1] =
-                  lines[lineNumber - 1] + " // [!code highlight]";
+                if (lines[lineNumber - 1].includes("// [!code highlight]")) return;
+                lines[lineNumber - 1] = `${lines[lineNumber - 1]} // [!code highlight]`;
               }
             } else if (lineNumberPreprocess.length === 2) {
-              const lineNumberStart = parseInt(lineNumberPreprocess[0]);
-              const lineNumberEnd = parseInt(lineNumberPreprocess[1]);
+              const lineNumberStart = Number.parseInt(lineNumberPreprocess[0]);
+              const lineNumberEnd = Number.parseInt(lineNumberPreprocess[1]);
 
               for (let i = lineNumberStart; i <= lineNumberEnd; i++) {
-                if (
-                  lines.length > i - 1 &&
-                  !lines[i - 1].includes(" // [!code highlight]")
-                ) {
-                  lines[i - 1] = lines[i - 1] + " // [!code highlight]";
+                if (lines.length > i - 1 && !lines[i - 1].includes(" // [!code highlight]")) {
+                  lines[i - 1] = `${lines[i - 1]} // [!code highlight]`;
                 }
               }
             }
-          });
+          }
 
           fileData = lines.join("\n");
         }
@@ -192,39 +166,33 @@ function CodeBlockGenerator(folderPath: string) {
         if (skipLinesMatch) {
           addBuildLog(
             "default",
-            `!skip-lines flag in file. Skipped the file generation`,
+            "!skip-lines flag in file. Skipped the file generation",
             "CodeBlockGenerator",
-            folderPath
+            folderPath,
           );
-          const highlightOutput = skipLinesMatch[1]
-            .split(",")
-            .map((item) => item.trim());
+          const highlightOutput = skipLinesMatch[1].split(",").map((item) => item.trim());
           const lines = fileData.split(/\r?\n/);
 
-          highlightOutput.forEach((lineNumberStr) => {
+          for (const lineNumberStr of highlightOutput) {
             const lineNumberPreprocess = lineNumberStr.split("-");
             if (lineNumberPreprocess.length === 0) return;
-            else if (lineNumberPreprocess.length === 1) {
-              const lineNumber = parseInt(lineNumberStr);
+            if (lineNumberPreprocess.length === 1) {
+              const lineNumber = Number.parseInt(lineNumberStr);
               if (lines[lineNumber - 1]) {
                 if (lines[lineNumber - 1].includes("// [!skip lines]")) return;
-                lines[lineNumber - 1] =
-                  lines[lineNumber - 1] + " // [!skip lines]";
+                lines[lineNumber - 1] = `${lines[lineNumber - 1]} // [!skip lines]`;
               }
             } else if (lineNumberPreprocess.length === 2) {
-              const lineNumberStart = parseInt(lineNumberPreprocess[0]);
-              const lineNumberEnd = parseInt(lineNumberPreprocess[1]);
+              const lineNumberStart = Number.parseInt(lineNumberPreprocess[0]);
+              const lineNumberEnd = Number.parseInt(lineNumberPreprocess[1]);
 
               for (let i = lineNumberStart; i <= lineNumberEnd; i++) {
-                if (
-                  lines.length > i - 1 &&
-                  !lines[i - 1].includes(" // [!skip lines]")
-                ) {
-                  lines[i - 1] = lines[i - 1] + " // [!skip lines]";
+                if (lines.length > i - 1 && !lines[i - 1].includes(" // [!skip lines]")) {
+                  lines[i - 1] = `${lines[i - 1]} // [!skip lines]`;
                 }
               }
             }
-          });
+          }
 
           fileData = lines
             .filter((line) => {
@@ -234,50 +202,38 @@ function CodeBlockGenerator(folderPath: string) {
         }
 
         // 4. Remove the Flag Comments
-        fileData = fileData.replace(
-          /\/\/\s*!skip-generation:\s*(true|false)\n/g,
-          ""
-        );
-        fileData = fileData.replace(
-          /\/\/\s*!code-highlight:\s*\[([0-9,\-\s]*)\]\n/g,
-          ""
-        );
-        fileData = fileData.replace(
-          /\/\/\s*!skip-lines:\s*\[([0-9,\-\s]*)\]\n/g,
-          ""
-        );
-        const name =
-          folderName +
-          "|" +
-          folderType +
-          "|" +
-          fileName +
-          "." +
-          fileExtension.split(".")[1];
-        // Returning the code of that file
-        const returnCode = "```" + name + "\n" + fileData + "\n```";
-        codeBlock += "\n" + returnCode + "\n";
-      });
-    });
+        fileData = fileData.replace(/\/\/\s*!skip-generation:\s*(true|false)\n/g, "");
+        fileData = fileData.replace(/\/\/\s*!code-highlight:\s*\[([0-9,\-\s]*)\]\n/g, "");
+        fileData = fileData.replace(/\/\/\s*!skip-lines:\s*\[([0-9,\-\s]*)\]\n/g, "");
 
-    codeBlock = "\n<CodeBlock>\n" + codeBlock + "\n</CodeBlock>\n";
+        // 5. Removing the // biome-ignore
+        const regexSingleLine = /\/\/\s*biome-ignore.*/g;
+        fileData = fileData.replace(regexSingleLine, "");
+
+        // 6. Removing the { /* biome-ignore */ }
+        const regexMultiLine = /\{\s*\/\*\s*biome-ignore\s*\*\/\s*\}/g;
+        fileData = fileData.replace(regexMultiLine, "");
+
+        const name = `${folderName}|${folderType}|${fileName}.${fileExtension.split(".")[1]}`;
+        // Returning the code of that file
+        const returnCode = `\`\`\`${name}\n${fileData}\n\`\`\``;
+        codeBlock += `\n${returnCode}\n`;
+      }
+    }
+
+    codeBlock = `\n<CodeBlock>\n${codeBlock}\n</CodeBlock>\n`;
     return codeBlock;
   } catch (err) {
-    const refPath =
-      "@/packages/" + getPathWithReferenceFromPackages(folderPath);
+    const refPath = `@/packages/${getPathWithReferenceFromPackages(folderPath)}`;
     log({
       state: "error",
-      message:
-        "Error while generating the code block for the component: " +
-        refPath +
-        "\nERROR: " +
-        err,
+      message: `Error while generating the code block for the component: ${refPath}\nERROR: ${err}`,
     });
     addBuildLog(
       "error",
       `Error while generating the code block for the component. Error: ${err}`,
       "CodeBlockGenerator",
-      folderPath
+      folderPath,
     );
     return "";
   }
@@ -290,14 +246,14 @@ function addDisplayElement(folderPath: string) {
       // 1. We need to locate default-ts or -ts folder
       const folders = getFoldersInDir(folderPath);
 
-      var exists: string[] = [];
-      folders?.forEach((folder) => {
+      const exists: string[] = [];
+      for (const folder of folders ?? []) {
         if (folder.includes("-ts")) {
           exists.push(folder);
         }
-      });
+      }
 
-      var exampleFolder: string = "";
+      let exampleFolder = "";
 
       if (exists.length === 0) {
         log({
@@ -307,63 +263,44 @@ function addDisplayElement(folderPath: string) {
         });
         addBuildLog(
           "error",
-          `No ts folder found in the path. This is the default folder to generate the example component. Eg. default-ts, react_aria-ts, etc. Check the contributing guide for more details.`,
+          "No ts folder found in the path. This is the default folder to generate the example component. Eg. default-ts, react_aria-ts, etc. Check the contributing guide for more details.",
           "addDisplayElement",
-          folderPath
+          folderPath,
         );
 
         return;
-      } else if (exists.includes(FOLDER_NOMENCLATURE.default_example_folder)) {
-        const folderName = exists.find((item) =>
-          item.includes(FOLDER_NOMENCLATURE.default_example_folder)
-        );
+      }
+      if (exists.includes(FOLDER_NOMENCLATURE.default_example_folder)) {
+        const folderName = exists.find((item) => item.includes(FOLDER_NOMENCLATURE.default_example_folder));
         if (!folderName) {
           addBuildLog(
             "error",
-            `No folder found in the path. This is the default folder to generate the example component. Eg. default-ts, react_aria-ts, etc. Check the contributing guide for more details.`,
+            "No folder found in the path. This is the default folder to generate the example component. Eg. default-ts, react_aria-ts, etc. Check the contributing guide for more details.",
             "addDisplayElement",
-            folderPath
+            folderPath,
           );
           return;
         }
         exampleFolder = path.join(folderPath, folderName);
-        addBuildLog(
-          "default",
-          `Found the default folder`,
-          "addDisplayElement",
-          exampleFolder
-        );
+        addBuildLog("default", "Found the default folder", "addDisplayElement", exampleFolder);
       } else {
         const folderName = exists.find((item) => item.includes("-ts"));
         if (!folderName) {
           addBuildLog(
             "error",
-            `No folder found in the path. This is the default folder to generate the example component. Eg. default-ts, react_aria-ts, etc. Check the contributing guide for more details.`,
+            "No folder found in the path. This is the default folder to generate the example component. Eg. default-ts, react_aria-ts, etc. Check the contributing guide for more details.",
             "addDisplayElement",
-            folderPath
+            folderPath,
           );
           return;
         }
         exampleFolder = path.join(folderPath, folderName);
-        addBuildLog(
-          "default",
-          `Found the default folder`,
-          "addDisplayElement",
-          exampleFolder
-        );
+        addBuildLog("default", "Found the default folder", "addDisplayElement", exampleFolder);
       }
 
       // 2. Name the component appropriately and its imports - uniquely
       const endingPath = folderPath.split(
-        path.sep +
-          "apps" +
-          path.sep +
-          "registry" +
-          path.sep +
-          "src" +
-          path.sep +
-          "packages" +
-          path.sep
+        `${path.sep}apps${path.sep}registry${path.sep}src${path.sep}packages${path.sep}`,
       )[1];
       const sanitizedName = capitalize(sanitizeFilePath(endingPath));
 
@@ -371,8 +308,7 @@ function addDisplayElement(folderPath: string) {
       const componentCall = `<${sanitizedName} />`;
 
       const category = endingPath.split(path.sep)[0];
-      const isResizable =
-        categoryHavingResizableDisplayElement.includes(category);
+      const isResizable = categoryHavingResizableDisplayElement.includes(category);
       const displayElement = isResizable
         ? `<ResizableDisplay>\n${componentCall}\n</ResizableDisplay>`
         : `<Display>\n${componentCall}\n</Display>`;
@@ -384,15 +320,7 @@ function addDisplayElement(folderPath: string) {
       else SkeletonClassName = "h-60 rounded-lg";
 
       const registryPath = exampleFolder
-        .split(
-          path.sep +
-            "apps" +
-            path.sep +
-            "registry" +
-            path.sep +
-            "src" +
-            path.sep
-        )[1]
+        .split(`${path.sep}apps${path.sep}registry${path.sep}src${path.sep}`)[1]
         .replaceAll(path.sep, "/");
 
       const displayData = `\n<Suspense fallback={<Skeleton className="${SkeletonClassName}" />}>\n${displayElement}\n</Suspense>\n`;
@@ -402,21 +330,16 @@ function addDisplayElement(folderPath: string) {
       return { importData, displayData };
     }
   } catch (err) {
-    const refPath =
-      "@/packages/" + getPathWithReferenceFromPackages(folderPath);
+    const refPath = `@/packages/${getPathWithReferenceFromPackages(folderPath)}`;
     log({
       state: "error",
-      message:
-        "Error while generating the display element for the component: " +
-        refPath +
-        "\nERROR: " +
-        err,
+      message: `Error while generating the display element for the component: ${refPath}\nERROR: ${err}`,
     });
     addBuildLog(
       "error",
       `Error while generating the display element for the component. Error: ${err}`,
       "addDisplayElement",
-      folderPath
+      folderPath,
     );
   }
 }
@@ -426,13 +349,12 @@ function otherDataProcessing(folderPath: string, defaultData: string): string {
     const files = getFilesInDir(folderPath);
     let data = "";
 
-    files?.forEach((file) => {
-      if (file === "docs.md") return;
+    for (const file of files ?? []) {
+      if (file === "docs.md") break;
 
-      const isPresent =
-        FOLDER_NOMENCLATURE.docsAdditionalFolders.includes(file);
+      const isPresent = FOLDER_NOMENCLATURE.docsAdditionalFolders.includes(file);
 
-      if (!isPresent) return;
+      if (!isPresent) break;
 
       const filePath = path.join(folderPath, file);
       const fileData = fs.readFileSync(filePath, "utf8");
@@ -440,24 +362,20 @@ function otherDataProcessing(folderPath: string, defaultData: string): string {
       const provider = file.split("docs-")[1].split(".md")[0];
 
       data += `<Provider tag="${provider}">\n${fileData}\n</Provider>\n`;
-    });
+    }
 
-    data = "<Details>\n" + defaultData + data + "\n</Details>";
+    data = `<Details>\n${defaultData}${data}\n</Details>`;
     return data;
   } catch (err) {
     log({
       state: "error",
-      message:
-        "Error while generating the documentation for the component - docs.md: " +
-        folderPath +
-        "\nERROR: " +
-        err,
+      message: `Error while generating the documentation for the component - docs.md: ${folderPath}\nERROR: ${err}`,
     });
     addBuildLog(
       "error",
       `Error while generating the documentation for the component - docs.md: Error: ${err}`,
       "otherDataProcessing",
-      folderPath
+      folderPath,
     );
     return "";
   }
@@ -477,19 +395,14 @@ function addDocumentationData(folderPath: string) {
         });
         addBuildLog(
           "error",
-          `No docs.md file found in the path. Skipping the generation`,
+          "No docs.md file found in the path. Skipping the generation",
           "addDocumentationData",
-          folderPath
+          folderPath,
         );
         return;
       }
 
-      addBuildLog(
-        "default",
-        `docs.md file found in the path`,
-        "addDocumentationData",
-        folderPath
-      );
+      addBuildLog("default", "docs.md file found in the path", "addDocumentationData", folderPath);
 
       // Read frontmatter
       const frontMatterRegex = /^---\s*([\s\S]*?)\s*---/;
@@ -500,10 +413,10 @@ function addDocumentationData(folderPath: string) {
       const frontMatterContent = match[1];
       const frontMatter: Record<string, string> = {};
 
-      frontMatterContent.split("\n").forEach((line) => {
+      for (const line of frontMatterContent.split("\n")) {
         const [key, ...value] = line.split(":");
         frontMatter[key.trim()] = value.join(":").trim();
-      });
+      }
 
       // 2. Read the description , name , version_included and tags
 
@@ -518,7 +431,7 @@ function addDocumentationData(folderPath: string) {
           "error",
           `No name found in the docs.md file. So we will write "name" at its place. Please add a name to the docs.md file so that it can be used in the documentation.`,
           "addDocumentationData",
-          folderPath
+          folderPath,
         );
         frontMatter.name = "Name Not Found";
       }
@@ -534,7 +447,7 @@ function addDocumentationData(folderPath: string) {
           "error",
           `No description found in the docs.md file. So we will write "description" at its place. Please add a description to the docs.md file so that it can be used in the documentation.`,
           "addDocumentationData",
-          folderPath
+          folderPath,
         );
         frontMatter.description = "Description Not Found";
       }
@@ -550,7 +463,7 @@ function addDocumentationData(folderPath: string) {
           "error",
           `No version_included found in the docs.md file. So we will write "version_included" at its place. Please add a version_included to the docs.md file so that it can be used in the documentation.`,
           "addDocumentationData",
-          folderPath
+          folderPath,
         );
         frontMatter.version_included = "0.0.0";
       }
@@ -570,21 +483,16 @@ function addDocumentationData(folderPath: string) {
       return returnData;
     }
   } catch (err) {
-    const refPath =
-      "@/packages/" + getPathWithReferenceFromPackages(folderPath);
+    const refPath = `@/packages/${getPathWithReferenceFromPackages(folderPath)}`;
     log({
       state: "error",
-      message:
-        "Error while generating the documentation for the component - docs.md: " +
-        refPath +
-        "\nERROR: " +
-        err,
+      message: `Error while generating the documentation for the component - docs.md: ${refPath}\nERROR: ${err}`,
     });
     addBuildLog(
       "error",
       `Error while generating the documentation for the component - docs.md: Error: ${err}`,
       "addDocumentationData",
-      folderPath
+      folderPath,
     );
   }
 }
@@ -595,48 +503,41 @@ function addTechnologyUsed(codeBlock: string, folderPath: string) {
     {
       const techAvailable: TechNames[] = Object.keys(TECH_USED) as TechNames[];
 
-      let techUsed: TechNames[] = [];
-      const importRegex =
-        /import\s+[\s\S]+?\s+from\s+['"][^'"]+['"];?|import\s+['"][^'"]+['"];?/g;
+      const techUsed: TechNames[] = [];
+      const importRegex = /import\s+[\s\S]+?\s+from\s+['"][^'"]+['"];?|import\s+['"][^'"]+['"];?/g;
 
       const importsMade = codeBlock.match(importRegex);
 
-      techAvailable.forEach((tech) => {
-        importsMade?.forEach((importItem) => {
+      for (const tech of techAvailable) {
+        for (const importItem of importsMade ?? []) {
           if (importItem.includes(tech) && !techUsed.includes(tech)) {
             techUsed.push(tech);
             return;
           }
-        });
-      });
+        }
+      }
 
       let techUsedString = "<TechnologyUsed technologies={[";
-      techUsed?.forEach((tech) => {
-        if (techUsedString !== "<TechnologyUsed technologies={[")
-          techUsedString += ",";
+      for (const tech of techUsed) {
+        if (techUsedString !== "<TechnologyUsed technologies={[") techUsedString += ",";
         techUsedString += `"${tech}"`;
-      });
+      }
 
       techUsedString += "]} />";
 
       return techUsedString;
     }
   } catch (err) {
-    const refPath =
-      "@/packages/" + getPathWithReferenceFromPackages(folderPath);
+    const refPath = `@/packages/${getPathWithReferenceFromPackages(folderPath)}`;
     log({
       state: "error",
-      message:
-        "Error while generating the tech used for the component: " +
-        refPath +
-        "\nERROR: " +
-        err,
+      message: `Error while generating the tech used for the component: ${refPath}\nERROR: ${err}`,
     });
     addBuildLog(
       "error",
       `Error while generating the tech used for the component Error: ${err}`,
       "addTechnologyUsed",
-      folderPath
+      folderPath,
     );
   }
 }
@@ -648,52 +549,26 @@ function generateIndividualDocument(folderPath: string) {
 
       const codeBlock = CodeBlockGenerator(folderPath);
       if (!codeBlock)
-        addBuildLog(
-          "default",
-          `No code block found in the path`,
-          "generateIndividualDocument",
-          folderPath
-        );
+        addBuildLog("default", "No code block found in the path", "generateIndividualDocument", folderPath);
 
       const value = addDisplayElement(folderPath);
       if (!value)
-        addBuildLog(
-          "default",
-          `No display element found in the path.`,
-          "generateIndividualDocument",
-          folderPath
-        );
+        addBuildLog("default", "No display element found in the path.", "generateIndividualDocument", folderPath);
 
       const importData = value?.importData;
       const displayData = value?.displayData;
       if (!displayData)
-        addBuildLog(
-          "default",
-          `No display generated in the path.`,
-          "generateIndividualDocument",
-          folderPath
-        );
+        addBuildLog("default", "No display generated in the path.", "generateIndividualDocument", folderPath);
 
       const docs = addDocumentationData(folderPath);
       const frontMatter = docs?.frontMatter;
       const otherData = docs?.otherData || "";
-      const techUsed = addTechnologyUsed(codeBlock, folderPath);
+      const techUsed = addTechnologyUsed(codeBlock ?? "", folderPath);
       if (!techUsed)
-        addBuildLog(
-          "default",
-          `No tech used found in the path.`,
-          "generateIndividualDocument",
-          folderPath
-        );
+        addBuildLog("default", "No tech used found in the path.", "generateIndividualDocument", folderPath);
 
       const flag = frontMatter?.flag || "";
-      if (!flag)
-        addBuildLog(
-          "default",
-          `No flag found in the path.`,
-          "generateIndividualDocument",
-          folderPath
-        );
+      if (!flag) addBuildLog("default", "No flag found in the path.", "generateIndividualDocument", folderPath);
 
       let flagData = "";
 
@@ -701,41 +576,25 @@ function generateIndividualDocument(folderPath: string) {
         if (flag === "hidden") {
           addBuildLog(
             "default",
-            `Flag-hidden found in the path. Skipping the generation.`,
+            "Flag-hidden found in the path. Skipping the generation.",
             "generateIndividualDocument",
-            folderPath
+            folderPath,
           );
           return "";
-        } else if (flag === "experimental") {
+        }
+        if (flag === "experimental") {
           flagData = "\n<ExperimentalWarning />\n";
-          addBuildLog(
-            "default",
-            `Flag-experimental found in the path.`,
-            "generateIndividualDocument",
-            folderPath
-          );
+          addBuildLog("default", "Flag-experimental found in the path.", "generateIndividualDocument", folderPath);
         } else if (flag === "deprecated") {
           flagData = "\n<DeprecatedWarning />\n";
-          addBuildLog(
-            "default",
-            `Flag-deprecated found in the path.`,
-            "generateIndividualDocument",
-            folderPath
-          );
+          addBuildLog("default", "Flag-deprecated found in the path.", "generateIndividualDocument", folderPath);
         } else if (flag === "beta") {
           flagData = "\n<BetaWarning />\n";
-          addBuildLog(
-            "default",
-            `Flag-beta found in the path.`,
-            "generateIndividualDocument",
-            folderPath
-          );
+          addBuildLog("default", "Flag-beta found in the path.", "generateIndividualDocument", folderPath);
         }
       }
 
-      const shortPath = folderPath.split(
-        "registry" + path.sep + "src" + path.sep + "packages" + path.sep
-      )[1];
+      const shortPath = folderPath.split(`registry${path.sep}src${path.sep}packages${path.sep}`)[1];
       const sanitizedShortPath = shortPath.replaceAll(path.sep, "/");
       const category = shortPath.split(path.sep)[0];
 
@@ -747,75 +606,36 @@ function generateIndividualDocument(folderPath: string) {
         const name = frontMatter?.name || "Name Not Found";
         const description = frontMatter?.description || "Description Not Found";
 
-        individualDocument +=
-          "\n" +
-          "<Wrapper>\n" +
-          flagData +
-          `<Title>${name}</Title>\n` +
-          `### ${description}\n` +
-          codeBlock +
-          otherData +
-          importData +
-          displayData +
-          "\n</Wrapper>\n";
+        individualDocument += `\n<Wrapper>\n${flagData}<Title>${name}</Title>\n### ${description}\n${codeBlock}${otherData}${importData}${displayData}\n</Wrapper>\n`;
       } else if (category === "components") {
         individualDocument = generatedMessage;
         const name = frontMatter?.name || "Name Not Found";
         const description = frontMatter?.description || "Description Not Found";
         const preview = `<Preview>\n${importData}\n${displayData}\n</Preview>`;
 
-        individualDocument +=
-          "\n" +
-          "<Wrapper>\n" +
-          flagData +
-          `<Title>${name}</Title>\n` +
-          `### ${description}\n` +
-          "<WrapperToggle>\n" +
-          preview +
-          "<Implementation>\n" +
-          techUsed +
-          codeBlock +
-          otherData +
-          "\n</Implementation>\n</WrapperToggle>\n</Wrapper>\n";
+        individualDocument += `\n<Wrapper>\n${flagData}<Title>${name}</Title>\n### ${description}\n<WrapperToggle>\n${preview}<Implementation>\n${techUsed}${codeBlock}${otherData}\n</Implementation>\n</WrapperToggle>\n</Wrapper>\n`;
       } else if (category === "primitives") {
         individualDocument = generatedMessage;
         const name = frontMatter?.name || "Name Not Found";
         const description = frontMatter?.description || "Description Not Found";
         const preview = `<Preview>\n${importData}\n${displayData}\n</Preview>`;
 
-        individualDocument +=
-          "\n" +
-          "<Wrapper>\n" +
-          flagData +
-          `<Title>${name}</Title>\n` +
-          `### ${description}\n` +
-          "\n<WrapperToggle >\n" +
-          preview +
-          "\n\n<Implementation>\n\n" +
-          techUsed +
-          codeBlock +
-          otherData +
-          "\n</Implementation>\n</WrapperToggle>\n</Wrapper>\n";
+        individualDocument += `\n<Wrapper>\n${flagData}<Title>${name}</Title>\n### ${description}\n\n<WrapperToggle >\n${preview}\n\n<Implementation>\n\n${techUsed}${codeBlock}${otherData}\n</Implementation>\n</WrapperToggle>\n</Wrapper>\n`;
       }
 
       return individualDocument;
     }
   } catch (err) {
-    const refPath =
-      "@/packages/" + getPathWithReferenceFromPackages(folderPath);
+    const refPath = `@/packages/${getPathWithReferenceFromPackages(folderPath)}`;
     log({
       state: "error",
-      message:
-        "Error while generating the individual document for the component: " +
-        refPath +
-        "\nERROR: " +
-        err,
+      message: `Error while generating the individual document for the component: ${refPath}\nERROR: ${err}`,
     });
     addBuildLog(
       "error",
       `Error while generating the individual document for the component. Error: ${err}`,
       "generateIndividualDocument",
-      folderPath
+      folderPath,
     );
   }
 }
@@ -826,40 +646,23 @@ function generateDocs() {
       // get all the folders in the package directory - category - hooks, components, and primitives folders
       const level_1_folders_array = getFoldersInDir(packageDir);
 
-      level_1_folders_array?.forEach((folder) => {
+      for (const folder of level_1_folders_array ?? []) {
         // get and create the folders
         const folder_level_1 = path.join(packageDir, folder);
         const target_folder_level_1 = path.join(targetDir, folder);
         createDirectory(target_folder_level_1);
-        addBuildLog(
-          "default",
-          `Created the folder. ${folder}`,
-          "generateDocs",
-          target_folder_level_1
-        );
+        addBuildLog("default", `Created the folder. ${folder}`, "generateDocs", target_folder_level_1);
 
         // get all the folders in the category - group - input-text, input-number, etc
         const level_2_folders_array = getFoldersInDir(folder_level_1);
         if (!level_2_folders_array)
-          addBuildLog(
-            "default",
-            `No folders found in the path.`,
-            "generateDocs",
-            folder_level_1
-          );
-        level_2_folders_array?.forEach((subFolder) => {
+          addBuildLog("default", "No folders found in the path.", "generateDocs", folder_level_1);
+
+        for (const subFolder of level_2_folders_array ?? []) {
           const folder_level_2 = path.join(folder_level_1, subFolder);
-          const target_folder_level_2 = path.join(
-            target_folder_level_1,
-            subFolder
-          );
+          const target_folder_level_2 = path.join(target_folder_level_1, subFolder);
           createDirectory(target_folder_level_2);
-          addBuildLog(
-            "default",
-            `Created the folder. ${subFolder}`,
-            "generateDocs",
-            target_folder_level_2
-          );
+          addBuildLog("default", `Created the folder. ${subFolder}`, "generateDocs", target_folder_level_2);
 
           // We have created the folders and subfolders. Now we need to create the files
 
@@ -868,41 +671,27 @@ function generateDocs() {
           // Here we will execute the logic for each variant - 01, 02, 03, etc
           const individualComponentFolders = getFoldersInDir(folder_level_2);
           if (!individualComponentFolders)
-            addBuildLog(
-              "default",
-              `No folders found in the path.`,
-              "generateDocs",
-              folder_level_2
-            );
+            addBuildLog("default", "No folders found in the path.", "generateDocs", folder_level_2);
 
-          individualComponentFolders?.forEach((componentFolder) => {
+          for (const componentFolder of individualComponentFolders ?? []) {
             addBuildLog(
               "default",
-              `Generating the individual document for the path.`,
+              "Generating the individual document for the path.",
               "generateDocs",
-              folder_level_2 + componentFolder
+              folder_level_2 + componentFolder,
             );
-            const individualFolderPath = path.join(
-              folder_level_2,
-              componentFolder
-            );
-            const individualDocument =
-              generateIndividualDocument(individualFolderPath);
+            const individualFolderPath = path.join(folder_level_2, componentFolder);
+            const individualDocument = generateIndividualDocument(individualFolderPath);
             if (!individualDocument)
-              addBuildLog(
-                "default",
-                `No document generated in the path.`,
-                "generateDocs",
-                individualFolderPath
-              );
+              addBuildLog("default", "No document generated in the path.", "generateDocs", individualFolderPath);
             megaDocument += individualDocument;
             addBuildLog(
               "default",
               `Generated the individual document for the path. ${componentFolder}`,
               "generateDocs",
-              folder_level_2 + componentFolder
+              folder_level_2 + componentFolder,
             );
-          });
+          }
 
           const INITIAL_STRING = {
             PRIMITIVES: `import React, { Suspense, lazy } from 'react';\nimport { Implementation, Preview, WrapperToggle, Display, TechnologyUsed, Wrapper, Skeleton, PARTITION, Details, Provider, Title } from "@/components/mdx/MDXServerImports"\nimport { CodeBlock } from "@/components/mdx/MDXClientImports"\n`,
@@ -930,43 +719,27 @@ function generateDocs() {
           const checkIfEmpty = megaDocument.replace(/\s/g, "");
           if (checkIfEmpty === "") {
             finalDocument = "";
-            addBuildLog(
-              "default",
-              `File Empty.`,
-              "generateDocs",
-              target_folder_level_2
-            );
+            addBuildLog("default", "File Empty.", "generateDocs", target_folder_level_2);
           } else {
             finalDocument += megaDocument;
           }
 
           // write the document (megaDocument) to the target folder
-          const target_document_file = path.join(
-            target_folder_level_2,
-            "page.mdx"
-          );
+          const target_document_file = path.join(target_folder_level_2, "page.mdx");
           fs.writeFileSync(target_document_file, finalDocument, "utf8");
-          addBuildLog(
-            "default",
-            `File Written.`,
-            "generateDocs",
-            target_document_file
-          );
-        });
-      });
+          addBuildLog("default", "File Written.", "generateDocs", target_document_file);
+        }
+      }
     }
   } catch (err) {
     log({
       state: "error",
-      message:
-        "Error while generating the docs for the component: " +
-        "\nERROR: " +
-        err,
+      message: `Error while generating the docs for the component: \nERROR: ${err}`,
     });
     addBuildLog(
       "error",
       `Error while generating the docs for the component - function generateDocs: ${err}`,
-      "generateDocs"
+      "generateDocs",
     );
   }
 }
@@ -981,9 +754,7 @@ function cleanup(dirPath: string) {
 
       for (const item of items) {
         const fullPath = path.join(dirPath, item);
-        const messagePath =
-          "@/packages" +
-          fullPath.split("src" + path.sep + "(generatedDocs)" + path.sep)[0];
+        const messagePath = `@/packages${fullPath.split(`src${path.sep}(generatedDocs)${path.sep}`)[0]}`;
         const stat = fs.statSync(fullPath);
 
         if (stat.isDirectory()) {
@@ -997,12 +768,7 @@ function cleanup(dirPath: string) {
               state: "warning",
               message: `Deleted empty directory: ${messagePath}`,
             });
-            addBuildLog(
-              "warning",
-              `Deleted empty directory ${messagePath}`,
-              "cleanup",
-              messagePath
-            );
+            addBuildLog("warning", `Deleted empty directory ${messagePath}`, "cleanup", messagePath);
           }
         } else if (stat.isFile()) {
           // Check if file is empty
@@ -1012,31 +778,22 @@ function cleanup(dirPath: string) {
               state: "warning",
               message: `Deleted empty directory: ${messagePath}`,
             });
-            addBuildLog(
-              "warning",
-              `Deleted empty directory ${messagePath}`,
-              "cleanup",
-              messagePath
-            );
+            addBuildLog("warning", `Deleted empty directory ${messagePath}`, "cleanup", messagePath);
           }
         }
       }
     }
   } catch (err) {
-    const refPath = "@/packages/" + getPathWithReferenceFromPackages(dirPath);
+    const refPath = `@/packages/${getPathWithReferenceFromPackages(dirPath)}`;
     log({
       state: "error",
-      message:
-        "Error while generating the docs for the component - function cleanup: " +
-        refPath +
-        "\nERROR: " +
-        err,
+      message: `Error while generating the docs for the component - function cleanup: ${refPath}\nERROR: ${err}`,
     });
     addBuildLog(
       "error",
       `Error while generating the docs for the component - function cleanup . Error: ${err}`,
       "cleanup",
-      dirPath
+      dirPath,
     );
   }
 }
@@ -1058,8 +815,7 @@ function main() {
   });
   log({
     state: "success",
-    message:
-      "DOCS / View the generated data " + terminalLink("here", targetDir),
+    message: `DOCS / View the generated data ${terminalLink("here", targetDir)}`,
   });
   addBuildLog("event", "Docs Generated", "main");
   publishBuildLog();

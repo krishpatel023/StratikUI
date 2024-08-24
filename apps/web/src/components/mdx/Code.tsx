@@ -1,22 +1,16 @@
 "use client";
 
-import { ReactNode, useEffect, useMemo, useState } from "react";
+import { type ReactNode, useEffect, useMemo, useState } from "react";
 
-import {
-  Section,
-  Select,
-  SelectHeader,
-  SelectItem,
-} from "@/components/ui/Select";
+import { Section, Select, SelectHeader, SelectItem } from "@/components/ui/Select";
 import { useInternalState } from "@/hooks/useInternalState";
 import { Icons } from "@/utils/icons";
-import StringCleaner, { ColorPaletteSettings } from "@/utils/StringCleaner";
-import { Button, Key } from "react-aria-components";
-import { BundledLanguage } from "shiki/bundle/web";
+import StringCleaner, { type ColorPaletteSettings } from "@/utils/StringCleaner";
+import { Button, type Key } from "react-aria-components";
+import type { BundledLanguage } from "shiki/bundle/web";
 import { twMerge } from "tailwind-merge";
 import CodeHighlight from "../ui/CodeHighlight";
 import { Tooltip, TooltipTrigger } from "../ui/Tooltip";
-import { Skeleton } from "@/components/ui/Skeleton";
 
 export interface CodeIndividual {
   provider: "default" | "react_aria";
@@ -43,8 +37,8 @@ export function CodeBlock({ children }: { children: ReactNode }) {
   }
 
   function processCodeBlock(blocks: ReactNode[]): CodeIndividual[] {
-    let result: CodeIndividual[] = [];
-    blocks.forEach((block) => {
+    const result: CodeIndividual[] = [];
+    for (const block of blocks) {
       const { props } = block as {
         props: { language: string; children: ReactNode };
       };
@@ -56,13 +50,13 @@ export function CodeBlock({ children }: { children: ReactNode }) {
       const fullName = languageArray[2];
 
       const extension = fullName.split(".").pop() || "";
-      const name = fullName.split("." + extension)[0];
+      const name = fullName.split(`.${extension}`)[0];
 
       const content = children as { props: { children: string } };
-      if (typeof content.props.children !== "string") return;
+      if (typeof content.props.children !== "string") break;
       const code = content.props.children?.replace(/\\n$/, "");
 
-      if (!checkNomenclature(provider, type)) return;
+      if (!checkNomenclature(provider, type)) break;
 
       result.push({
         provider: provider as CodeIndividual["provider"],
@@ -71,13 +65,11 @@ export function CodeBlock({ children }: { children: ReactNode }) {
         language: extension as BundledLanguage,
         content: code,
       });
-    });
+    }
     return result;
   }
 
-  const result = processCodeBlock(
-    Array.isArray(children) ? children : ([children] as ReactNode[])
-  );
+  const result = processCodeBlock(Array.isArray(children) ? children : ([children] as ReactNode[]));
 
   return <>{result && <CodeDisplay codeArray={result} />}</>;
 }
@@ -94,14 +86,7 @@ function CodeDisplay({
   codeArray: CodeIndividual[];
   withCounter?: boolean;
 }) {
-  const {
-    provider,
-    language,
-    setProvider,
-    setLanguage,
-    themingOption,
-    setThemingOption,
-  } = useInternalState();
+  const { provider, language, setProvider, setLanguage, themingOption, setThemingOption } = useInternalState();
 
   const [files, setFiles] = useState<CodeIndividual[]>([]);
   const [availableData, setAvailableData] = useState<AvailableDataProps>({
@@ -109,20 +94,15 @@ function CodeDisplay({
     types: [],
   });
 
-  const [activeProvider, setActiveProvider] =
-    useState<CodeIndividual["provider"]>(provider);
-  const [activeType, setActiveType] =
-    useState<CodeIndividual["type"]>(language);
+  const [activeProvider, setActiveProvider] = useState<CodeIndividual["provider"]>(provider);
+  const [activeType, setActiveType] = useState<CodeIndividual["type"]>(language);
   const [activeFile, setActiveFile] = useState<CodeIndividual>(
-    files[0] || { name: "", content: [], provider: "", type: "", language: "" }
+    files[0] || { name: "", content: [], provider: "", type: "", language: "" },
   );
-  const [activeColorTheme, setActiveColorTheme] =
-    useState<ColorPaletteSettings>("tailwind");
+  const [activeColorTheme, setActiveColorTheme] = useState<ColorPaletteSettings>("tailwind");
 
   function getAvailableData() {
-    const providers = Array.from(
-      new Set(codeArray.map((item) => item.provider))
-    );
+    const providers = Array.from(new Set(codeArray.map((item) => item.provider)));
     const types = Array.from(new Set(codeArray.map((item) => item.type)));
     setAvailableData({
       providers,
@@ -131,10 +111,7 @@ function CodeDisplay({
     return { providers, types };
   }
 
-  function filterByProvider(
-    provider: CodeIndividual["provider"],
-    files: CodeIndividual[]
-  ) {
+  function filterByProvider(provider: CodeIndividual["provider"], files: CodeIndividual[]) {
     return files.filter((item) => item.provider === provider);
   }
 
@@ -146,24 +123,22 @@ function CodeDisplay({
     const filteredByProvider = filterByProvider(activeProvider, codeArray);
     const filteredByType = filterByType(activeType, filteredByProvider);
     setFiles(filteredByType);
-    const activeFilePrev = filteredByType.find(
-      (item) => item.name === activeFile.name
-    );
+    const activeFilePrev = filteredByType.find((item) => item.name === activeFile.name);
     if (!filteredByType || filteredByType.length === 0) return;
     setActiveFile(activeFilePrev ? activeFilePrev : filteredByType[0]);
   }
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     const availableData = getAvailableData();
-    if (!availableData.providers.includes(provider))
-      setActiveProvider(availableData.providers[0]);
+    if (!availableData.providers.includes(provider)) setActiveProvider(availableData.providers[0]);
     else setProvider(provider);
-    if (!availableData.types.includes(language))
-      setActiveType(availableData.types[0]);
+    if (!availableData.types.includes(language)) setActiveType(availableData.types[0]);
     else setActiveType(language);
     changeData();
   }, [codeArray, provider, language]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     changeData();
   }, [activeProvider, activeType, codeArray, provider, language]);
@@ -188,7 +163,7 @@ function CodeDisplay({
 
   const code = useMemo(
     () => StringCleaner(activeFile?.content, activeColorTheme),
-    [activeFile?.content, activeColorTheme]
+    [activeFile?.content, activeColorTheme],
   );
 
   return (
@@ -200,6 +175,7 @@ function CodeDisplay({
         <div className="hidden md:flex gap-2 px-4 h-full">
           {files?.map((file, i) => (
             <button
+              type="button"
               key={i}
               className={
                 activeFile.name === file.name
@@ -214,12 +190,7 @@ function CodeDisplay({
         </div>
         {/* OPERATOR */}
         <div className="md:px-2 px-4 flex flex-col-reverse md:flex-row w-full items-start md:items-center md:w-max pb-2 gap-2">
-          <div
-            className={twMerge(
-              "w-full md:flex gap-2 flex-row hidden",
-              more && "flex flex-col md:flex-row"
-            )}
-          >
+          <div className={twMerge("w-full md:flex gap-2 flex-row hidden", more && "flex flex-col md:flex-row")}>
             <SelectComponent
               onChange={(val) => handleThemeChange(val as ColorPaletteSettings)}
               value={activeColorTheme}
@@ -229,9 +200,7 @@ function CodeDisplay({
               displayClassName="md:w-max"
             />
             <SelectComponent
-              onChange={(val) =>
-                handleProviderChange(val as CodeIndividual["provider"])
-              }
+              onChange={(val) => handleProviderChange(val as CodeIndividual["provider"])}
               value={activeProvider}
               label="Provider"
               items={availableData.providers}
@@ -239,9 +208,7 @@ function CodeDisplay({
               displayClassName="md:w-max"
             />
             <SelectComponent
-              onChange={(val) =>
-                handleTypeChange(val as CodeIndividual["type"])
-              }
+              onChange={(val) => handleTypeChange(val as CodeIndividual["type"])}
               value={activeType}
               label="Language"
               items={availableData.types}
@@ -257,11 +224,7 @@ function CodeDisplay({
           </Button>
           <div className="gap-2 flex w-full">
             <SelectComponent
-              onChange={(val) =>
-                setActiveFile(
-                  files.find((item) => item.name === val) as CodeIndividual
-                )
-              }
+              onChange={(val) => setActiveFile(files.find((item) => item.name === val) as CodeIndividual)}
               value={activeFile.name}
               label="File"
               items={files.map((item) => item.name)}
@@ -275,13 +238,7 @@ function CodeDisplay({
       </div>
       {/* CONTENT */}
       <div className="w-full">
-        {code && code.length > 0 && (
-          <CodeHighlight
-            code={code}
-            lang={activeFile?.language}
-            withCounter={withCounter}
-          />
-        )}
+        {code && code.length > 0 && <CodeHighlight code={code} lang={activeFile?.language} withCounter={withCounter} />}
       </div>
     </div>
   );
@@ -312,10 +269,7 @@ function SelectComponent({
         aria-label={label}
         selectedKey={value}
         onSelectionChange={(val: Key) => onChange(val.toString())}
-        className={twMerge(
-          "w-max text-sm p-0 px-0 py-0 focus-within:outline-none",
-          className
-        )}
+        className={twMerge("w-max text-sm p-0 px-0 py-0 focus-within:outline-none", className)}
         displayClassName={twMerge("", displayClassName)}
       >
         <Section>
@@ -328,9 +282,7 @@ function SelectComponent({
           ))}
         </Section>
       </Select>
-      {tooltipMessage && (
-        <Tooltip className="max-w-60">{tooltipMessage}</Tooltip>
-      )}
+      {tooltipMessage && <Tooltip className="max-w-60">{tooltipMessage}</Tooltip>}
     </TooltipTrigger>
   );
 }
@@ -348,17 +300,10 @@ function CopyButton({ copyText }: { copyText: string }) {
   return (
     <TooltipTrigger delay={300}>
       <Button
-        className={twMerge(
-          "rounded text-sm w-7",
-          clicked ? "text-green-700 dark:text-green-400" : "text-foreground"
-        )}
+        className={twMerge("rounded text-sm w-7", clicked ? "text-green-700 dark:text-green-400" : "text-foreground")}
         onPress={!clicked ? handleCopy : undefined}
       >
-        {clicked ? (
-          <Icons.tick className="w-4 h-4" />
-        ) : (
-          <Icons.copy className="w-5 h-5" />
-        )}
+        {clicked ? <Icons.tick className="w-4 h-4" /> : <Icons.copy className="w-5 h-5" />}
       </Button>
       <Tooltip> {clicked ? "Copied!" : "Copy"}</Tooltip>
     </TooltipTrigger>

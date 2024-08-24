@@ -22,11 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={twMerge(
-          "bg-background dark scrollbar-y",
-          DEFAULT_THEME ? "dark" : null,
-          inter.className
-        )}
+        className={twMerge("bg-background dark scrollbar-y", DEFAULT_THEME ? "dark" : null, inter.className)}
         id="theme-toggle"
       >
         <Providers>

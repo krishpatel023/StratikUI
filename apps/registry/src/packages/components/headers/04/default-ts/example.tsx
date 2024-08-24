@@ -3,10 +3,7 @@ import { HeroSection } from "@registry/packages/components/hero-section/03/defau
 
 export default function HeaderImplementation() {
   return (
-    <div
-      className="w-full max-h-[698px] overflow-auto scrollbar-y relative"
-      id="targetElemForScroll"
-    >
+    <div className="w-full max-h-[698px] overflow-auto scrollbar-y relative" id="targetElemForScroll">
       <HeaderComponent />
       <div className="min-h-[80rem] w-full">
         <HeroSection />

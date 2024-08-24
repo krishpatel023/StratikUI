@@ -19,13 +19,11 @@ export function OverlayArrow({ position = "top", ...props }) {
         className={twMerge(
           position?.split(" ")[0] === "bottom" && "rotate-180",
           position?.split(" ")[0] === "left" && "-rotate-90",
-          position?.split(" ")[0] === "right" && "rotate-90"
+          position?.split(" ")[0] === "right" && "rotate-90",
         )}
       >
-        <path
-          d="M0 0 L4 4 L8 0"
-          className="fill-primary stroke-outline-secondary"
-        />
+        <title>Tooltip arrow</title>
+        <path d="M0 0 L4 4 L8 0" className="fill-primary stroke-outline-secondary" />
       </svg>
     </OverlayArrowAria>
   );
@@ -41,7 +39,7 @@ export function Tooltip({ children, className, ...props }) {
         props.placement?.split(" ")[0] === "bottom" && "mt-2",
         props.placement?.split(" ")[0] === "left" && "mr-2",
         props.placement?.split(" ")[0] === "right" && "ml-2",
-        className
+        className,
       )}
       {...props}
     >

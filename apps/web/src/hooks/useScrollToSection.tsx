@@ -1,7 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
-
 const useScrollToSection = () => {
   const scrollToComponent = (componentName: string) => {
     if (!componentName) return;

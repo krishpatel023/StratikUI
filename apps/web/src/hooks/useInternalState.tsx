@@ -36,14 +36,10 @@ export const InternalStateProvider = ({
   const [sidebar, setSidebar] = useState<boolean>(false);
   const [searchbar, setSearchbar] = useState<boolean>(false);
 
-  const [provider, setProvider] = useState<"default" | "react_aria">(
-    "react_aria"
-  );
+  const [provider, setProvider] = useState<"default" | "react_aria">("react_aria");
   const [language, setLanguage] = useState<"js" | "ts">("ts");
 
-  const [themingOption, setThemingOption] = useState<"tailwind" | "custom">(
-    "tailwind"
-  );
+  const [themingOption, setThemingOption] = useState<"tailwind" | "custom">("tailwind");
 
   return (
     <InternalStateContext.Provider

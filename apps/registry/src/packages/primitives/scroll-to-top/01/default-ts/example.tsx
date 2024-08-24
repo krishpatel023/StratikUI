@@ -6,8 +6,8 @@ export default function ScrollToTopImplementation() {
       <div className="flex flex-col items-center justify-center gap-4">
         <h1 className="text-4xl text-primary-foreground">Content</h1>
         <h2 className="text-xl text-primary-foreground">
-          It will only show up if a threshold is reached. You can change the
-          threshold by passing a value to the `threshold` prop.
+          It will only show up if a threshold is reached. You can change the threshold by passing a value to the
+          `threshold` prop.
         </h2>
       </div>
       <ScrollToTop />

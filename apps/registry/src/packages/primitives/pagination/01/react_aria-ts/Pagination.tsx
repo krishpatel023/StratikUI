@@ -9,11 +9,7 @@ export type PaginationProps = {
   pageChangeHandler?: (page: number) => void;
 };
 
-export function Pagination({
-  initialPage,
-  totalPage,
-  pageChangeHandler,
-}: PaginationProps) {
+export function Pagination({ initialPage, totalPage, pageChangeHandler }: PaginationProps) {
   const [currentPage, setCurrentPage] = useState<number>(initialPage);
 
   const handleNext = () => {

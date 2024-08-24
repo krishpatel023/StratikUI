@@ -80,13 +80,12 @@ export const OTPInput = ({ length, setOTP, partition = [length] }) => {
   const getPosition = (partitionIndex, index) => {
     if (partitionIndex === 0) {
       return index;
-    } else {
-      var place = 0;
-      for (var k = 0; k < partitionIndex; k++) {
-        place = place + partition[k];
-      }
-      return place + index;
     }
+    let place = 0;
+    for (let k = 0; k < partitionIndex; k++) {
+      place = place + partition[k];
+    }
+    return place + index;
   };
 
   return (
@@ -100,6 +99,7 @@ export const OTPInput = ({ length, setOTP, partition = [length] }) => {
                 key={position}
                 type="text"
                 maxLength={1}
+                // biome-ignore lint/suspicious/noAssignInExpressions: ref is necessary to be set for the input first then include it in the ref array
                 ref={(ref) => (inputRefs.current[position] = ref)}
                 onChange={(e) => handleChange(e, position)}
                 onKeyDown={(e) => handleKeyDown(e, position)}

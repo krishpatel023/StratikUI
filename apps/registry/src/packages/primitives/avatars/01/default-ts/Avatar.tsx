@@ -1,6 +1,6 @@
 "use client";
 
-import Image, { StaticImageData } from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import { twMerge } from "tailwind-merge";
 
 export interface AvatarProps {
@@ -11,13 +11,7 @@ export interface AvatarProps {
   isDisabled?: boolean;
 }
 
-export const Avatar = ({
-  src,
-  alt,
-  name,
-  className,
-  isDisabled,
-}: AvatarProps) => {
+export const Avatar = ({ src, alt, name, className, isDisabled }: AvatarProps) => {
   const initials = name
     .split(" ")
     .map((word) => word.charAt(0))
@@ -28,17 +22,13 @@ export const Avatar = ({
     <div
       className={twMerge(
         "size-12 rounded-full flex justify-center items-center group aria-disabled: bg-gradient-to-r from-blue-500 to-purple-500",
-        className
+        className,
       )}
       aria-disabled={isDisabled}
       aria-label="avatar"
     >
       {src ? (
-        <Image
-          src={src}
-          alt={alt || "avatar"}
-          className="rounded-[inherit] size-full"
-        />
+        <Image src={src} alt={alt || "avatar"} className="rounded-[inherit] size-full" />
       ) : (
         <h1 aria-label="initials" className="text-2xl text-primary-foreground">
           {initials}

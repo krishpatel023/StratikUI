@@ -12,9 +12,7 @@ export function Carousel({
         <ul
           className={twMerge(
             "flex items-center justify-center md:justify-start [&_li]:mx-8 @md:[&_li]:mx-16",
-            direction === "left"
-              ? "animate-infinite-scroll-left"
-              : "animate-infinite-scroll-right"
+            direction === "left" ? "animate-infinite-scroll-left" : "animate-infinite-scroll-right",
           )}
         >
           {Logo.map((item, i) => (
@@ -26,9 +24,7 @@ export function Carousel({
         <ul
           className={twMerge(
             "flex items-center justify-center md:justify-start [&_li]:mx-8 @md:[&_li]:mx-16",
-            direction === "left"
-              ? "animate-infinite-scroll-left"
-              : "animate-infinite-scroll-right"
+            direction === "left" ? "animate-infinite-scroll-left" : "animate-infinite-scroll-right",
           )}
         >
           {Logo.map((item, i) => (

@@ -1,18 +1,10 @@
 "use client";
-import {
-  KeyListener,
-  KeyListenerDisplay,
-} from "@registry/packages/primitives/key-listener/01/default-js/KeyListener";
+import { KeyListener, KeyListenerDisplay } from "@registry/packages/primitives/key-listener/01/default-js/KeyListener";
 import { Modal } from "@registry/packages/primitives/modals/01/default-js/Modal";
 import { useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
-export function CommandPaletteTrigger({
-  keys,
-  setActive,
-  className,
-  ...props
-}) {
+export function CommandPaletteTrigger({ keys, setActive, className, ...props }) {
   const ref = useRef(null);
 
   function handleFocus() {
@@ -32,7 +24,7 @@ export function CommandPaletteTrigger({
         type="text"
         className={twMerge(
           " w-80 md:w-[25rem] my-1 text-primary-foreground placeholder:text-secondary-foreground py-2 pr-24 pl-4 rounded-md bg-primary border-[2px] hover:border-outline border-outline-secondary focus:outline-none",
-          className
+          className,
         )}
         ref={ref}
         onFocus={handleFocus}
@@ -47,12 +39,12 @@ export function CommandPaletteItem({ children, className, ...props }) {
     <button
       className={twMerge(
         "w-full h-12 px-2 rounded-md flex justify-between items-center text-base focus:outline-none focus:bg-secondary hover:bg-secondary",
-        className
+        className,
       )}
       data-menu-item
       {...props}
     >
-      <>{children}</>
+      {children}
     </button>
   );
 }
@@ -60,6 +52,7 @@ export function CommandPaletteItem({ children, className, ...props }) {
 export function CommandPalette({ isOpen, onOpenChange, children, className }) {
   const [active, setActive] = useState(isOpen);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Addition of onOpenChange will cause the component to re-render many times
   useEffect(() => {
     if (onOpenChange) onOpenChange(active);
   }, [active]);
@@ -80,20 +73,14 @@ export function CommandPalette({ isOpen, onOpenChange, children, className }) {
   );
 }
 
-export function CommandPaletteMenu({
-  children,
-  isLoading,
-  isEmpty,
-  className,
-  ...props
-}) {
+export function CommandPaletteMenu({ children, isLoading, isEmpty, className, ...props }) {
   const menuRef = useRef(null);
   const [menuItems, setMenuItems] = useState([]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Both are necessary
   useEffect(() => {
     if (menuRef.current) {
-      const menuItemsFound =
-        menuRef.current.querySelectorAll("[data-menu-item]");
+      const menuItemsFound = menuRef.current.querySelectorAll("[data-menu-item]");
       const arr = Array.from(menuItemsFound);
 
       setMenuItems(arr);
@@ -119,10 +106,7 @@ export function CommandPaletteMenu({
   }
   return (
     <div
-      className={twMerge(
-        "w-full h-[calc(100%-3.25rem)] z-10 p-2 overflow-y-auto scrollbar-x scrollbar-y",
-        className
-      )}
+      className={twMerge("w-full h-[calc(100%-3.25rem)] z-10 p-2 overflow-y-auto scrollbar-x scrollbar-y", className)}
       ref={menuRef}
       {...props}
     >
@@ -141,7 +125,7 @@ export function CommandPaletteSearchBar({ className, ...props }) {
       type="text"
       className={twMerge(
         "my-1 w-full bg-transparent text-foreground py-2 px-4 rounded-md border-none focus:outline-none",
-        className
+        className,
       )}
       aria-label="Search box"
       {...props}
@@ -154,9 +138,7 @@ export function CommandPaletteGroup({ heading, children, className }) {
     <div className={twMerge("w-full flex flex-col", className)}>
       {heading && (
         <div>
-          <h1 className="ml-2 mt-4 mb-3 text-sm font-medium underline underline-offset-1">
-            {heading}
-          </h1>
+          <h1 className="ml-2 mt-4 mb-3 text-sm font-medium underline underline-offset-1">{heading}</h1>
         </div>
       )}
       {children}
@@ -177,34 +159,20 @@ export function CommandPaletteLoading() {
 export function CommandPaletteEmpty() {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
-      <div className="text-center text-sm font-medium text-foreground">
-        No results found
-      </div>
+      <div className="text-center text-sm font-medium text-foreground">No results found</div>
     </div>
   );
 }
 
 export function CommandPaletteDivider({ className }) {
-  return (
-    <div
-      className={twMerge("min-w-full border-[0.5px] border-outline", className)}
-    />
-  );
+  return <div className={twMerge("min-w-full border-[0.5px] border-outline", className)} />;
 }
 
 const Icons = {
   loading: (props) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      {...props}
-    >
-      <path
-        fill="currentColor"
-        d="M12 3a9 9 0 0 1 9 9h-2a7 7 0 0 0-7-7V3Z"
-      ></path>
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+      <title>Loading</title>
+      <path fill="currentColor" d="M12 3a9 9 0 0 1 9 9h-2a7 7 0 0 0-7-7V3Z" />
     </svg>
   ),
 };

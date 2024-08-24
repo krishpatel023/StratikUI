@@ -20,11 +20,7 @@ export const useFullscreen = () => {
   }, []);
 
   const exitFullscreen = useCallback(() => {
-    if (
-      document.fullscreenElement ||
-      document.webkitFullscreenElement ||
-      document.msFullscreenElement
-    ) {
+    if (document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
       if (document.exitFullscreen) {
         document.exitFullscreen();
       }
@@ -50,14 +46,8 @@ export const useFullscreen = () => {
 
     return () => {
       document.removeEventListener("fullscreenchange", handleFullscreenChange);
-      document.removeEventListener(
-        "webkitfullscreenchange",
-        handleFullscreenChange
-      );
-      document.removeEventListener(
-        "msfullscreenchange",
-        handleFullscreenChange
-      );
+      document.removeEventListener("webkitfullscreenchange", handleFullscreenChange);
+      document.removeEventListener("msfullscreenchange", handleFullscreenChange);
     };
   }, [handleFullscreenChange]);
 

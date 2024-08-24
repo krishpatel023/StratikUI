@@ -26,36 +26,37 @@ export function HeaderItem({
 }) {
   const [internalOpen, setInternalOpen] = useState(open);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Necessary for the component to work
   useEffect(() => {
-    onChange && onChange(internalOpen);
-  }, [internalOpen]); // eslint-disable-line react-hooks/exhaustive-deps
+    onChange?.(internalOpen);
+  }, [internalOpen]);
 
   return (
     <Button
       className={twMerge(
         "relative flex flex-col justify-center text-center items-center gap-4 group/headerItem h-full text-foreground",
-        className
+        className,
       )}
       {...props}
       data-open={internalOpen}
       onPress={(e) => {
         setInternalOpen(!open);
-        onPress && onPress(e);
+        onPress?.(e);
       }}
       onHoverStart={(e) => {
-        onHoverStart && onHoverStart(e);
+        onHoverStart?.(e);
         setInternalOpen(true);
       }}
       onHoverEnd={(e) => {
-        onHoverEnd && onHoverEnd(e);
+        onHoverEnd?.(e);
         setInternalOpen(false);
       }}
       onFocus={(e) => {
-        onFocus && onFocus(e);
+        onFocus?.(e);
         setInternalOpen(true);
       }}
       onBlur={(e) => {
-        onBlur && onBlur(e);
+        onBlur?.(e);
         setInternalOpen(false);
       }}
     >
@@ -70,7 +71,7 @@ export function HeaderDropdown({ className, children, ...props }) {
       <div
         className={twMerge(
           "bg-primary text-primary-foreground p-4 rounded border border-outline-secondary mt-2",
-          className
+          className,
         )}
         {...props}
       >

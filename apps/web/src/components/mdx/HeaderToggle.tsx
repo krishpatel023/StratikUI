@@ -2,7 +2,7 @@
 
 import { useTheme } from "@/hooks/Theme";
 import { Icons } from "@/utils/icons";
-import { ReactNode, useState } from "react";
+import { type ReactNode, useState } from "react";
 import { Button } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
 
@@ -60,7 +60,7 @@ const ToggleButton = ({
       <div
         className={twMerge(
           "min-h-8 bg-background rounded-md absolute transition-transform duration-300 z-10",
-          active ? "w-16 translate-x-20" : "w-20 left-1"
+          active ? "w-16 translate-x-20" : "w-20 left-1",
         )}
       />
     </div>
@@ -81,10 +81,7 @@ const Tab = ({
       onPress={() => {
         onPress();
       }}
-      className={twMerge(
-        "z-20 h-8 text-foreground outline-none pressed:animate-press",
-        className
-      )}
+      className={twMerge("z-20 h-8 text-foreground outline-none pressed:animate-press", className)}
     >
       {children}
     </Button>

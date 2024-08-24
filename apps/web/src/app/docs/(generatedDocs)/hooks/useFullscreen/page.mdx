@@ -17,7 +17,7 @@ import { CodeBlock } from "@/components/mdx/MDXClientImports"
 ```default|js|example.jsx
 "use client";
 
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { useFullscreen } from "@registry/packages/hooks/useFullscreen/01/default-js/useFullscreen";
 import Button from "@registry/ui/Button";
 
@@ -73,11 +73,7 @@ export const useFullscreen = () => {
   }, []);
 
   const exitFullscreen = useCallback(() => {
-    if (
-      document.fullscreenElement ||
-      document.webkitFullscreenElement ||
-      document.msFullscreenElement
-    ) {
+    if (document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
       if (document.exitFullscreen) {
         document.exitFullscreen();
       }
@@ -103,14 +99,8 @@ export const useFullscreen = () => {
 
     return () => {
       document.removeEventListener("fullscreenchange", handleFullscreenChange);
-      document.removeEventListener(
-        "webkitfullscreenchange",
-        handleFullscreenChange
-      );
-      document.removeEventListener(
-        "msfullscreenchange",
-        handleFullscreenChange
-      );
+      document.removeEventListener("webkitfullscreenchange", handleFullscreenChange);
+      document.removeEventListener("msfullscreenchange", handleFullscreenChange);
     };
   }, [handleFullscreenChange]);
 
@@ -126,7 +116,7 @@ export const useFullscreen = () => {
 ```default|ts|example.tsx
 "use client";
 
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { useFullscreen } from "@registry/packages/hooks/useFullscreen/01/default-ts/useFullscreen";
 import Button from "@registry/ui/Button";
 
@@ -212,14 +202,8 @@ export const useFullscreen = () => {
 
     return () => {
       document.removeEventListener("fullscreenchange", handleFullscreenChange);
-      document.removeEventListener(
-        "webkitfullscreenchange",
-        handleFullscreenChange
-      );
-      document.removeEventListener(
-        "msfullscreenchange",
-        handleFullscreenChange
-      );
+      document.removeEventListener("webkitfullscreenchange", handleFullscreenChange);
+      document.removeEventListener("msfullscreenchange", handleFullscreenChange);
     };
   }, [handleFullscreenChange]);
 

@@ -7,9 +7,7 @@ export interface MousePosition {
   y: number;
 }
 
-export default function useMousePosition(
-  element?: React.RefObject<HTMLElement> | string
-): MousePosition {
+export default function useMousePosition(element?: React.RefObject<HTMLElement> | string): MousePosition {
   const [mousePosition, setMousePosition] = useState<MousePosition>({
     x: 0,
     y: 0,

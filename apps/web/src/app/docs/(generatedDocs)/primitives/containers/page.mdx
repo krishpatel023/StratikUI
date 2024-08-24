@@ -28,7 +28,7 @@ export const Primitives_containers_01 = lazy(() => import("@registry/packages/pr
 
 <Implementation>
 
-<TechnologyUsed technologies={["tailwind-merge"]} />
+undefined
 <CodeBlock>
 
 ```default|js|Container.jsx
@@ -41,9 +41,9 @@ export function GradientBackground({ children, className }) {
       <div
         className={twMerge(
           "absolute z-0 -inset-0.5 bg-gradient-to-r from-blue-600 to-red-600 rounded-lg blur opacity-75 group-hover/gradient_bg:opacity-100 duration-200 transition-all",
-          className
+          className,
         )}
-      ></div>
+      />
     </div>
   );
 }
@@ -59,7 +59,7 @@ export default function ContainerImplementation() {
     <div className="flex flex-col items-center w-full">
       <ArrowHeading text="Button (Default Background)" className="mb-4" />
       <GradientBackground>
-        <button className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 md:max-w-[30rem]">
+        <button type="button" className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 md:max-w-[30rem]">
           Visit the latest collection now. | Developed With Tailwind
         </button>
       </GradientBackground>
@@ -69,11 +69,8 @@ export default function ContainerImplementation() {
         <div className="px-6 py-3 text-foreground rounded-lg bg-background flex justify-evenly items-center gap-6 max-w-80 md:max-w-[30rem]">
           <TailwindcssIcon className="w-20 h-20" />
           <div className="w-[20rem]">
-            <h1>
-              This entire component has been made with TailwindCSS and is a part
-              of Stratik UI Library.
-            </h1>
-            <button className="text-accent-secondary mt-4">
+            <h1>This entire component has been made with TailwindCSS and is a part of Stratik UI Library.</h1>
+            <button type="button" className="text-accent-secondary mt-4">
               Check out other components
             </button>
           </div>
@@ -82,7 +79,7 @@ export default function ContainerImplementation() {
 
       <ArrowHeading text="Button with Solo Color" className="mb-4 mt-10" />
       <GradientBackground className="from-blue-500 to-blue-500 ">
-        <button className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 md:max-w-[30rem]">
+        <button type="button" className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 md:max-w-[30rem]">
           Visit the latest collection now. | Developed With Tailwind
         </button>
       </GradientBackground>
@@ -91,24 +88,18 @@ export default function ContainerImplementation() {
 }
 
 const TailwindcssIcon = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 128 128"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 128 128" {...props}>
+    <title>Tailwind CSS</title>
     <path
       fill="#38bdf8"
       d="M64.004 25.602c-17.067 0-27.73 8.53-32 25.597c6.398-8.531 13.867-11.73 22.398-9.597c4.871 1.214 8.352 4.746 12.207 8.66C72.883 56.629 80.145 64 96.004 64c17.066 0 27.73-8.531 32-25.602c-6.399 8.536-13.867 11.735-22.399 9.602c-4.87-1.215-8.347-4.746-12.207-8.66c-6.27-6.367-13.53-13.738-29.394-13.738zM32.004 64c-17.066 0-27.73 8.531-32 25.602C6.402 81.066 13.87 77.867 22.402 80c4.871 1.215 8.352 4.746 12.207 8.66c6.274 6.367 13.536 13.738 29.395 13.738c17.066 0 27.73-8.53 32-25.597c-6.399 8.531-13.867 11.73-22.399 9.597c-4.87-1.214-8.347-4.746-12.207-8.66C55.128 71.371 47.868 64 32.004 64zm0 0"
-    ></path>
+    />
   </svg>
 );
 
 ```
 
 ```default|ts|Container.tsx
-import ArrowHeading from "@registry/ui/ArrowHeading";
 import { twMerge } from "tailwind-merge";
 
 export function GradientBackground({
@@ -124,9 +115,9 @@ export function GradientBackground({
       <div
         className={twMerge(
           "absolute z-0 -inset-0.5 bg-gradient-to-r from-blue-600 to-red-600 rounded-lg blur opacity-75 group-hover/gradient_bg:opacity-100 duration-200 transition-all",
-          className
+          className,
         )}
-      ></div>
+      />
     </div>
   );
 }
@@ -136,14 +127,14 @@ export function GradientBackground({
 ```default|ts|example.tsx
 import ArrowHeading from "@registry/ui/ArrowHeading";
 import { GradientBackground } from "@registry/packages/primitives/containers/01/default-ts/Container";
-import { IconProps } from "@registry/utils/types";
+import type { IconProps } from "@registry/utils/types";
 
 export default function ContainerImplementation() {
   return (
     <div className="flex flex-col items-center w-full">
       <ArrowHeading text="Button (Default Background)" className="mb-4" />
       <GradientBackground>
-        <button className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 md:max-w-[30rem]">
+        <button type="button" className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 md:max-w-[30rem]">
           Visit the latest collection now. | Developed With Tailwind
         </button>
       </GradientBackground>
@@ -153,11 +144,8 @@ export default function ContainerImplementation() {
         <div className="px-6 py-3 text-foreground rounded-lg bg-background flex justify-evenly items-center gap-6 max-w-80 md:max-w-[30rem]">
           <TailwindcssIcon className="w-20 h-20" />
           <div className="w-[20rem]">
-            <h1>
-              This entire component has been made with TailwindCSS and is a part
-              of Stratik UI Library.
-            </h1>
-            <button className="text-accent-secondary mt-4">
+            <h1>This entire component has been made with TailwindCSS and is a part of Stratik UI Library.</h1>
+            <button type="button" className="text-accent-secondary mt-4">
               Check out other components
             </button>
           </div>
@@ -166,7 +154,7 @@ export default function ContainerImplementation() {
 
       <ArrowHeading text="Button with Solo Color" className="mb-4 mt-10" />
       <GradientBackground className="from-blue-500 to-blue-500 ">
-        <button className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 md:max-w-[30rem]">
+        <button type="button" className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 md:max-w-[30rem]">
           Visit the latest collection now. | Developed With Tailwind
         </button>
       </GradientBackground>
@@ -175,17 +163,12 @@ export default function ContainerImplementation() {
 }
 
 const TailwindcssIcon = (props: IconProps) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 128 128"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 128 128" {...props}>
+    <title>Tailwind CSS</title>
     <path
       fill="#38bdf8"
       d="M64.004 25.602c-17.067 0-27.73 8.53-32 25.597c6.398-8.531 13.867-11.73 22.398-9.597c4.871 1.214 8.352 4.746 12.207 8.66C72.883 56.629 80.145 64 96.004 64c17.066 0 27.73-8.531 32-25.602c-6.399 8.536-13.867 11.735-22.399 9.602c-4.87-1.215-8.347-4.746-12.207-8.66c-6.27-6.367-13.53-13.738-29.394-13.738zM32.004 64c-17.066 0-27.73 8.531-32 25.602C6.402 81.066 13.87 77.867 22.402 80c4.871 1.215 8.352 4.746 12.207 8.66c6.274 6.367 13.536 13.738 29.395 13.738c17.066 0 27.73-8.53 32-25.597c-6.399 8.531-13.867 11.73-22.399 9.597c-4.87-1.214-8.347-4.746-12.207-8.66C55.128 71.371 47.868 64 32.004 64zm0 0"
-    ></path>
+    />
   </svg>
 );
 
@@ -233,7 +216,7 @@ export const Primitives_containers_02 = lazy(() => import("@registry/packages/pr
 
 <Implementation>
 
-<TechnologyUsed technologies={["tailwind-merge"]} />
+undefined
 <CodeBlock>
 
 ```default|js|Container.jsx
@@ -244,17 +227,14 @@ export function GradientBackground({ children, className, borderSize = 0.25 }) {
     <div className="relative group/gradient_bg">
       <div className="relative z-10 ">{children}</div>
       <div
-        className={twMerge(
-          "absolute bg-gradient-to-r  from-blue-500 to-red-500 -z-[5] rounded-xl",
-          className
-        )}
+        className={twMerge("absolute bg-gradient-to-r  from-blue-500 to-red-500 -z-[5] rounded-xl", className)}
         style={{
           top: `-${borderSize}rem`,
           left: `-${borderSize}rem`,
           minHeight: `calc(100% + ${2 * borderSize}rem)`,
           minWidth: `calc(100% + ${2 * borderSize}rem)`,
         }}
-      ></div>
+      />
     </div>
   );
 }
@@ -270,7 +250,7 @@ export default function ContainerImplementation() {
     <div className="flex flex-col items-center w-full">
       <ArrowHeading text="Button (Default Background)" className="mb-4" />
       <GradientBackground>
-        <button className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 md:max-w-[30rem]">
+        <button type="button" className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 md:max-w-[30rem]">
           Visit the latest collection now. | Developed With Tailwind
         </button>
       </GradientBackground>
@@ -280,11 +260,8 @@ export default function ContainerImplementation() {
         <div className="px-6 py-3 text-foreground rounded-lg bg-background flex justify-evenly items-center gap-6 max-w-80 md:max-w-[30rem]">
           <TailwindcssIcon className="w-20 h-20" />
           <div className="w-[20rem]">
-            <h1>
-              This entire component has been made with TailwindCSS and is a part
-              of Stratik UI Library.
-            </h1>
-            <button className="text-accent-secondary mt-4">
+            <h1>This entire component has been made with TailwindCSS and is a part of Stratik UI Library.</h1>
+            <button type="button" className="text-accent-secondary mt-4">
               Check out other components
             </button>
           </div>
@@ -293,17 +270,17 @@ export default function ContainerImplementation() {
 
       <ArrowHeading text="Button with Solo Color" className="mb-4 mt-10" />
       <GradientBackground className="from-blue-500 to-blue-500 ">
-        <button className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 md:max-w-[30rem]">
+        <button type="button" className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 md:max-w-[30rem]">
           Visit the latest collection now. | Developed With Tailwind
         </button>
       </GradientBackground>
 
-      <ArrowHeading
-        text="Button with Solo Color And Tranparent Border Effect"
-        className="mb-4 mt-10"
-      />
+      <ArrowHeading text="Button with Solo Color And Transparent Border Effect" className="mb-4 mt-10" />
       <GradientBackground className="from-gray-600/30 to-gray-500/10 border-gray-300/10 border-[1px]">
-        <button className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 md:max-w-[30rem] border-gray-200/30 border-[1px]">
+        <button
+          type="button"
+          className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 md:max-w-[30rem] border-gray-200/30 border-[1px]"
+        >
           Visit the latest collection now. | Developed With Tailwind
         </button>
       </GradientBackground>
@@ -312,17 +289,12 @@ export default function ContainerImplementation() {
 }
 
 const TailwindcssIcon = (props) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 128 128"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 128 128" {...props}>
+    <title>Tailwind CSS</title>
     <path
       fill="#38bdf8"
       d="M64.004 25.602c-17.067 0-27.73 8.53-32 25.597c6.398-8.531 13.867-11.73 22.398-9.597c4.871 1.214 8.352 4.746 12.207 8.66C72.883 56.629 80.145 64 96.004 64c17.066 0 27.73-8.531 32-25.602c-6.399 8.536-13.867 11.735-22.399 9.602c-4.87-1.215-8.347-4.746-12.207-8.66c-6.27-6.367-13.53-13.738-29.394-13.738zM32.004 64c-17.066 0-27.73 8.531-32 25.602C6.402 81.066 13.87 77.867 22.402 80c4.871 1.215 8.352 4.746 12.207 8.66c6.274 6.367 13.536 13.738 29.395 13.738c17.066 0 27.73-8.53 32-25.597c-6.399 8.531-13.867 11.73-22.399 9.597c-4.87-1.214-8.347-4.746-12.207-8.66C55.128 71.371 47.868 64 32.004 64zm0 0"
-    ></path>
+    />
   </svg>
 );
 
@@ -344,17 +316,14 @@ export function GradientBackground({
     <div className="relative group/gradient_bg">
       <div className="relative z-10 ">{children}</div>
       <div
-        className={twMerge(
-          "absolute bg-gradient-to-r  from-blue-500 to-red-500 -z-[5] rounded-xl",
-          className
-        )}
+        className={twMerge("absolute bg-gradient-to-r  from-blue-500 to-red-500 -z-[5] rounded-xl", className)}
         style={{
           top: `-${borderSize}rem`,
           left: `-${borderSize}rem`,
           minHeight: `calc(100% + ${2 * borderSize}rem)`,
           minWidth: `calc(100% + ${2 * borderSize}rem)`,
         }}
-      ></div>
+      />
     </div>
   );
 }
@@ -364,14 +333,14 @@ export function GradientBackground({
 ```default|ts|example.tsx
 import ArrowHeading from "@registry/ui/ArrowHeading";
 import { GradientBackground } from "@registry/packages/primitives/containers/02/default-ts/Container";
-import { IconProps } from "@registry/utils/types";
+import type { IconProps } from "@registry/utils/types";
 
 export default function ContainerImplementation() {
   return (
     <div className="flex flex-col items-center w-full">
       <ArrowHeading text="Button (Default Background)" className="mb-4" />
       <GradientBackground>
-        <button className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 md:max-w-[30rem]">
+        <button type="button" className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 md:max-w-[30rem]">
           Visit the latest collection now. | Developed With Tailwind
         </button>
       </GradientBackground>
@@ -381,11 +350,8 @@ export default function ContainerImplementation() {
         <div className="px-6 py-3 text-foreground rounded-lg bg-background flex justify-evenly items-center gap-6 max-w-80 md:max-w-[30rem]">
           <TailwindcssIcon className="w-20 h-20" />
           <div className="w-[20rem]">
-            <h1>
-              This entire component has been made with TailwindCSS and is a part
-              of Stratik UI Library.
-            </h1>
-            <button className="text-accent-secondary mt-4">
+            <h1>This entire component has been made with TailwindCSS and is a part of Stratik UI Library.</h1>
+            <button type="button" className="text-accent-secondary mt-4">
               Check out other components
             </button>
           </div>
@@ -394,17 +360,17 @@ export default function ContainerImplementation() {
 
       <ArrowHeading text="Button with Solo Color" className="mb-4 mt-10" />
       <GradientBackground className="from-blue-500 to-blue-500 ">
-        <button className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 md:max-w-[30rem]">
+        <button type="button" className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 md:max-w-[30rem]">
           Visit the latest collection now. | Developed With Tailwind
         </button>
       </GradientBackground>
 
-      <ArrowHeading
-        text="Button with Solo Color And Tranparent Border Effect"
-        className="mb-4 mt-10"
-      />
+      <ArrowHeading text="Button with Solo Color And Transparent Border Effect" className="mb-4 mt-10" />
       <GradientBackground className="from-gray-600/30 to-gray-500/10 border-gray-300/10 border-[1px]">
-        <button className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 md:max-w-[30rem] border-gray-200/30 border-[1px]">
+        <button
+          type="button"
+          className="px-6 py-3 text-foreground rounded-lg bg-background max-w-80 md:max-w-[30rem] border-gray-200/30 border-[1px]"
+        >
           Visit the latest collection now. | Developed With Tailwind
         </button>
       </GradientBackground>
@@ -413,17 +379,12 @@ export default function ContainerImplementation() {
 }
 
 const TailwindcssIcon = (props: IconProps) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    viewBox="0 0 128 128"
-    {...props}
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 128 128" {...props}>
+    <title>Tailwind CSS</title>
     <path
       fill="#38bdf8"
       d="M64.004 25.602c-17.067 0-27.73 8.53-32 25.597c6.398-8.531 13.867-11.73 22.398-9.597c4.871 1.214 8.352 4.746 12.207 8.66C72.883 56.629 80.145 64 96.004 64c17.066 0 27.73-8.531 32-25.602c-6.399 8.536-13.867 11.735-22.399 9.602c-4.87-1.215-8.347-4.746-12.207-8.66c-6.27-6.367-13.53-13.738-29.394-13.738zM32.004 64c-17.066 0-27.73 8.531-32 25.602C6.402 81.066 13.87 77.867 22.402 80c4.871 1.215 8.352 4.746 12.207 8.66c6.274 6.367 13.536 13.738 29.395 13.738c17.066 0 27.73-8.53 32-25.597c-6.399 8.531-13.867 11.73-22.399 9.597c-4.87-1.214-8.347-4.746-12.207-8.66C55.128 71.371 47.868 64 32.004 64zm0 0"
-    ></path>
+    />
   </svg>
 );
 
@@ -472,7 +433,7 @@ export const Primitives_containers_03 = lazy(() => import("@registry/packages/pr
 
 <Implementation>
 
-<TechnologyUsed technologies={["tailwind-merge"]} />
+undefined
 <CodeBlock>
 
 ```default|js|Container.css
@@ -501,11 +462,7 @@ import "@registry/packages/primitives/containers/03/default-js/Container.css";
 import { useEffect, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
-export const HighlightGroup = ({
-  children,
-  className = "",
-  refresh = false,
-}) => {
+export const HighlightGroup = ({ children, className = "", refresh = false }) => {
   const containerRef = useRef(null);
   const mousePosition = useMousePosition();
   const mouse = useRef({ x: 0, y: 0 });
@@ -513,8 +470,7 @@ export const HighlightGroup = ({
   const [boxes, setBoxes] = useState([]);
 
   useEffect(() => {
-    containerRef.current &&
-      setBoxes(Array.from(containerRef.current.children).map((el) => el));
+    containerRef.current && setBoxes(Array.from(containerRef.current.children).map((el) => el));
   }, []);
 
   useEffect(() => {
@@ -524,11 +480,12 @@ export const HighlightGroup = ({
     return () => {
       window.removeEventListener("resize", initContainer);
     };
-  }, [setBoxes]);
+  }, []);
 
+  
   useEffect(() => {
     onMouseMove();
-  }, [mousePosition]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [mousePosition]);
 
   useEffect(() => {
     initContainer();
@@ -554,12 +511,12 @@ export const HighlightGroup = ({
       if (inside) {
         mouse.current.x = x;
         mouse.current.y = y;
-        boxes.forEach((box) => {
+        for (const box of boxes) {
           const boxX = -(box.getBoundingClientRect().left - rect.left) + x;
           const boxY = -(box.getBoundingClientRect().top - rect.top) + y;
           box.style.setProperty("--mouse-x", `${boxX}px`);
           box.style.setProperty("--mouse-y", `${boxY}px`);
-        });
+        }
       }
     }
   };
@@ -576,13 +533,13 @@ export const HighlighterItem = ({ children, className = "" }) => {
     <>
       <div
         className={twMerge(
-          `ContainerEffect relative rounded-xl before:absolute before:w-96 before:h-96 before:-left-48 before:-top-48  before:rounded-full before:opacity-0 before:pointer-events-none before:transition-opacity before:duration-500 before:translate-x-[var(--mouse-x)] before:translate-y-[var(--mouse-y)] before:hover:opacity-20 before:z-30 before:blur-[100px] after:absolute after:inset-0 after:rounded-[inherit] after:opacity-0 after:transition-opacity after:duration-500 after:group-hover:opacity-100 after:z-10 overflow-hidden bg-[var(--container-border-initial)] p-[var(--container-border-size)] before:bg-[var(--container-gradient-color)] after:bg-[radial-gradient(250px_circle_at_var(--mouse-x)_var(--mouse-y),var(--container-border-active),transparent)]`,
-          className
+          "ContainerEffect relative rounded-xl before:absolute before:w-96 before:h-96 before:-left-48 before:-top-48  before:rounded-full before:opacity-0 before:pointer-events-none before:transition-opacity before:duration-500 before:translate-x-[var(--mouse-x)] before:translate-y-[var(--mouse-y)] before:hover:opacity-20 before:z-30 before:blur-[100px] after:absolute after:inset-0 after:rounded-[inherit] after:opacity-0 after:transition-opacity after:duration-500 after:group-hover:opacity-100 after:z-10 overflow-hidden bg-[var(--container-border-initial)] p-[var(--container-border-size)] before:bg-[var(--container-gradient-color)] after:bg-[radial-gradient(250px_circle_at_var(--mouse-x)_var(--mouse-y),var(--container-border-active),transparent)]",
+          className,
         )}
       >
         <div
           className={twMerge(
-            "ContainerEffect h-full w-full rounded-[inherit] relative z-20 overflow-hidden bg-[var(--container-background)]"
+            "ContainerEffect h-full w-full rounded-[inherit] relative z-20 overflow-hidden bg-[var(--container-background)]",
           )}
         >
           {children}
@@ -596,10 +553,7 @@ export const HighlighterItem = ({ children, className = "" }) => {
 
 ```default|js|example.jsx
 import ArrowHeading from "@registry/ui/ArrowHeading";
-import {
-  HighlighterItem,
-  HighlightGroup,
-} from "@registry/packages/primitives/containers/03/default-js/Container";
+import { HighlighterItem, HighlightGroup } from "@registry/packages/primitives/containers/03/default-js/Container";
 
 export default function ContainerImplementation() {
   return (
@@ -609,7 +563,7 @@ export default function ContainerImplementation() {
         <ArrowHeading text="Solo Button" className="mb-4" />
         <HighlightGroup className="h-full">
           <HighlighterItem className="rounded-full">
-            <button className="px-8 py-2 text-foreground text-sm md:text-base">
+            <button type="button" className="px-8 py-2 text-foreground text-sm md:text-base">
               Checkout the latest updates
             </button>
           </HighlighterItem>
@@ -619,24 +573,21 @@ export default function ContainerImplementation() {
         <ArrowHeading text="Solo Container" className="mb-4" />
         <HighlightGroup className="h-full ">
           <HighlighterItem>
-            <div className="min-h-60 min-w-60 md:min-h-80 md:min-w-80"></div>
+            <div className="min-h-60 min-w-60 md:min-h-80 md:min-w-80" />
           </HighlighterItem>
         </HighlightGroup>
       </div>
       <div className="w-full flex items-center flex-col">
-        <ArrowHeading
-          text="Multiple/Group Container"
-          className="mb-4 mx-auto"
-        />
+        <ArrowHeading text="Multiple/Group Container" className="mb-4 mx-auto" />
         <HighlightGroup className="w-full flex gap-6 flex-wrap justify-center items-center">
           <HighlighterItem>
-            <div className="min-h-60 min-w-60 md:min-h-80 md:min-w-80"></div>
+            <div className="min-h-60 min-w-60 md:min-h-80 md:min-w-80" />
           </HighlighterItem>
           <HighlighterItem>
-            <div className="min-h-60 min-w-60 md:min-h-80 md:min-w-80"></div>
+            <div className="min-h-60 min-w-60 md:min-h-80 md:min-w-80" />
           </HighlighterItem>{" "}
           <HighlighterItem>
-            <div className="min-h-60 min-w-60 md:min-h-80 md:min-w-80"></div>
+            <div className="min-h-60 min-w-60 md:min-h-80 md:min-w-80" />
           </HighlighterItem>
         </HighlightGroup>
       </div>
@@ -667,11 +618,11 @@ export default function ContainerImplementation() {
 ```default|ts|Container.tsx
 "use client";
 
-import React, { PropsWithChildren, useEffect, useRef, useState } from "react";
-import { twMerge } from "tailwind-merge";
 import useMousePosition from "@registry/packages/hooks/useMousePosition/01/default-ts/useMousePosition";
-import ArrowHeading from "@registry/ui/ArrowHeading";
 import "@registry/packages/primitives/containers/03/default-ts/Container.css";
+import type React from "react";
+import { type PropsWithChildren, useEffect, useRef, useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 type HighlightGroupProps = {
   children: React.ReactNode;
@@ -679,11 +630,7 @@ type HighlightGroupProps = {
   refresh?: boolean;
 };
 
-export const HighlightGroup: React.FC<HighlightGroupProps> = ({
-  children,
-  className = "",
-  refresh = false,
-}) => {
+export const HighlightGroup: React.FC<HighlightGroupProps> = ({ children, className = "", refresh = false }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const mousePosition = useMousePosition();
   const mouse = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
@@ -691,10 +638,7 @@ export const HighlightGroup: React.FC<HighlightGroupProps> = ({
   const [boxes, setBoxes] = useState<Array<HTMLElement>>([]);
 
   useEffect(() => {
-    containerRef.current &&
-      setBoxes(
-        Array.from(containerRef.current.children).map((el) => el as HTMLElement)
-      );
+    containerRef.current && setBoxes(Array.from(containerRef.current.children).map((el) => el as HTMLElement));
   }, []);
 
   useEffect(() => {
@@ -704,11 +648,12 @@ export const HighlightGroup: React.FC<HighlightGroupProps> = ({
     return () => {
       window.removeEventListener("resize", initContainer);
     };
-  }, [setBoxes]);
+  }, []);
 
+  
   useEffect(() => {
     onMouseMove();
-  }, [mousePosition]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [mousePosition]);
 
   useEffect(() => {
     initContainer();
@@ -734,12 +679,12 @@ export const HighlightGroup: React.FC<HighlightGroupProps> = ({
       if (inside) {
         mouse.current.x = x;
         mouse.current.y = y;
-        boxes.forEach((box) => {
+        for (const box of boxes) {
           const boxX = -(box.getBoundingClientRect().left - rect.left) + x;
           const boxY = -(box.getBoundingClientRect().top - rect.top) + y;
           box.style.setProperty("--mouse-x", `${boxX}px`);
           box.style.setProperty("--mouse-y", `${boxY}px`);
-        });
+        }
       }
     }
   };
@@ -757,20 +702,18 @@ type HighlighterItemProps = {
   backgroundProps?: string;
 };
 
-export const HighlighterItem: React.FC<
-  PropsWithChildren<HighlighterItemProps>
-> = ({ children, className = "" }) => {
+export const HighlighterItem: React.FC<PropsWithChildren<HighlighterItemProps>> = ({ children, className = "" }) => {
   return (
     <>
       <div
         className={twMerge(
-          `ContainerEffect relative rounded-xl before:absolute before:w-96 before:h-96 before:-left-48 before:-top-48  before:rounded-full before:opacity-0 before:pointer-events-none before:transition-opacity before:duration-500 before:translate-x-[var(--mouse-x)] before:translate-y-[var(--mouse-y)] before:hover:opacity-20 before:z-30 before:blur-[100px] after:absolute after:inset-0 after:rounded-[inherit] after:opacity-0 after:transition-opacity after:duration-500 after:group-hover:opacity-100 after:z-10 overflow-hidden bg-[var(--container-border-initial)] p-[var(--container-border-size)] before:bg-[var(--container-gradient-color)] after:bg-[radial-gradient(250px_circle_at_var(--mouse-x)_var(--mouse-y),var(--container-border-active),transparent)]`,
-          className
+          "ContainerEffect relative rounded-xl before:absolute before:w-96 before:h-96 before:-left-48 before:-top-48  before:rounded-full before:opacity-0 before:pointer-events-none before:transition-opacity before:duration-500 before:translate-x-[var(--mouse-x)] before:translate-y-[var(--mouse-y)] before:hover:opacity-20 before:z-30 before:blur-[100px] after:absolute after:inset-0 after:rounded-[inherit] after:opacity-0 after:transition-opacity after:duration-500 after:group-hover:opacity-100 after:z-10 overflow-hidden bg-[var(--container-border-initial)] p-[var(--container-border-size)] before:bg-[var(--container-gradient-color)] after:bg-[radial-gradient(250px_circle_at_var(--mouse-x)_var(--mouse-y),var(--container-border-active),transparent)]",
+          className,
         )}
       >
         <div
           className={twMerge(
-            "ContainerEffect h-full w-full rounded-[inherit] relative z-20 overflow-hidden bg-[var(--container-background)]"
+            "ContainerEffect h-full w-full rounded-[inherit] relative z-20 overflow-hidden bg-[var(--container-background)]",
           )}
         >
           {children}
@@ -784,10 +727,7 @@ export const HighlighterItem: React.FC<
 
 ```default|ts|example.tsx
 import ArrowHeading from "@registry/ui/ArrowHeading";
-import {
-  HighlighterItem,
-  HighlightGroup,
-} from "@registry/packages/primitives/containers/03/default-ts/Container";
+import { HighlighterItem, HighlightGroup } from "@registry/packages/primitives/containers/03/default-ts/Container";
 
 export default function ContainerImplementation() {
   return (
@@ -797,7 +737,7 @@ export default function ContainerImplementation() {
         <ArrowHeading text="Solo Button" className="mb-4" />
         <HighlightGroup className="h-full">
           <HighlighterItem className="rounded-full">
-            <button className="px-8 py-2 text-foreground text-sm md:text-base">
+            <button type="button" className="px-8 py-2 text-foreground text-sm md:text-base">
               Checkout the latest updates
             </button>
           </HighlighterItem>
@@ -807,24 +747,21 @@ export default function ContainerImplementation() {
         <ArrowHeading text="Solo Container" className="mb-4" />
         <HighlightGroup className="h-full ">
           <HighlighterItem>
-            <div className="min-h-60 min-w-60 md:min-h-80 md:min-w-80"></div>
+            <div className="min-h-60 min-w-60 md:min-h-80 md:min-w-80" />
           </HighlighterItem>
         </HighlightGroup>
       </div>
       <div className="w-full flex items-center flex-col">
-        <ArrowHeading
-          text="Multiple/Group Container"
-          className="mb-4 mx-auto"
-        />
+        <ArrowHeading text="Multiple/Group Container" className="mb-4 mx-auto" />
         <HighlightGroup className="w-full flex gap-6 flex-wrap justify-center items-center">
           <HighlighterItem>
-            <div className="min-h-60 min-w-60 md:min-h-80 md:min-w-80"></div>
+            <div className="min-h-60 min-w-60 md:min-h-80 md:min-w-80" />
           </HighlighterItem>
           <HighlighterItem>
-            <div className="min-h-60 min-w-60 md:min-h-80 md:min-w-80"></div>
+            <div className="min-h-60 min-w-60 md:min-h-80 md:min-w-80" />
           </HighlighterItem>{" "}
           <HighlighterItem>
-            <div className="min-h-60 min-w-60 md:min-h-80 md:min-w-80"></div>
+            <div className="min-h-60 min-w-60 md:min-h-80 md:min-w-80" />
           </HighlighterItem>
         </HighlightGroup>
       </div>
@@ -884,7 +821,7 @@ export const Primitives_containers_04 = lazy(() => import("@registry/packages/pr
 
 <Implementation>
 
-<TechnologyUsed technologies={["tailwindcss","tailwind-merge"]} />
+undefined
 <CodeBlock>
 
 ```default|js|Container.jsx
@@ -898,12 +835,10 @@ export function ConicGradientContainer({ children, direction = "clockwise" }) {
           "bg-[conic-gradient(var(--tw-gradient-stops))] absolute left-[-25%] top-[-25%] min-h-[150%] min-w-[150%] animate-border-spin-anticlockwise -z-[5]",
           direction === "clockwise"
             ? "from-transparent via-transparent to-blue-600/70 dark:to-blue-400/30 animate-border-spin-clockwise"
-            : "from-blue-600/70 dark:from-blue-400/30 via-transparent to-transparent animate-border-spin-anticlockwise"
+            : "from-blue-600/70 dark:from-blue-400/30 via-transparent to-transparent animate-border-spin-anticlockwise",
         )}
-      ></span>
-      <div className="min-w-full min-h-full z-20 rounded-[inherit] bg-background">
-        {children}
-      </div>
+      />
+      <div className="min-w-full min-h-full z-20 rounded-[inherit] bg-background">{children}</div>
     </div>
   );
 }
@@ -918,9 +853,7 @@ export default function ContainerImplementation() {
     <div>
       <ConicGradientContainer direction="clockwise">
         <div className="w-60 h-60 flex justify-center items-center text-center">
-          <h1 className="text-2xl font-semibold">
-            This is a rotating border container
-          </h1>
+          <h1 className="text-2xl font-semibold">This is a rotating border container</h1>
         </div>
       </ConicGradientContainer>
     </div>
@@ -937,8 +870,7 @@ const config = {
       animation: {
         // For @registry/packages/primitives/containers/04
         "border-spin-clockwise": "border-spin-clockwise 7s linear infinite",
-        "border-spin-anticlockwise":
-          "border-spin-anticlockwise 7s linear infinite",
+        "border-spin-anticlockwise": "border-spin-anticlockwise 7s linear infinite",
       },
       keyframes: {
         // For @registry/packages/primitives/containers/04
@@ -978,12 +910,10 @@ export function ConicGradientContainer({
           "bg-[conic-gradient(var(--tw-gradient-stops))] absolute left-[-25%] top-[-25%] min-h-[150%] min-w-[150%] animate-border-spin-anticlockwise -z-[5]",
           direction === "clockwise"
             ? "from-transparent via-transparent to-blue-600/70 dark:to-blue-400/30 animate-border-spin-clockwise"
-            : "from-blue-600/70 dark:from-blue-400/30 via-transparent to-transparent animate-border-spin-anticlockwise"
+            : "from-blue-600/70 dark:from-blue-400/30 via-transparent to-transparent animate-border-spin-anticlockwise",
         )}
-      ></span>
-      <div className="min-w-full min-h-full z-20 rounded-[inherit] bg-background">
-        {children}
-      </div>
+      />
+      <div className="min-w-full min-h-full z-20 rounded-[inherit] bg-background">{children}</div>
     </div>
   );
 }
@@ -998,9 +928,7 @@ export default function ContainerImplementation() {
     <div>
       <ConicGradientContainer direction="clockwise">
         <div className="w-60 h-60 flex justify-center items-center text-center">
-          <h1 className="text-2xl font-semibold">
-            This is a rotating border container
-          </h1>
+          <h1 className="text-2xl font-semibold">This is a rotating border container</h1>
         </div>
       </ConicGradientContainer>
     </div>
@@ -1019,8 +947,7 @@ const config: Config = {
       animation: {
         // For @registry/packages/primitives/containers/04
         "border-spin-clockwise": "border-spin-clockwise 7s linear infinite",
-        "border-spin-anticlockwise":
-          "border-spin-anticlockwise 7s linear infinite",
+        "border-spin-anticlockwise": "border-spin-anticlockwise 7s linear infinite",
       },
       keyframes: {
         // For @registry/packages/primitives/containers/04
@@ -1085,7 +1012,7 @@ export const Primitives_containers_05 = lazy(() => import("@registry/packages/pr
 
 <Implementation>
 
-<TechnologyUsed technologies={["tailwind-merge"]} />
+undefined
 <CodeBlock>
 
 ```default|js|Container.jsx
@@ -1096,13 +1023,13 @@ export function ConicGradientContainer({ children, className }) {
     <div
       className={twMerge(
         "relative flex rounded-md border border-outline-secondary bg-background text-foreground overflow-hidden",
-        className
+        className,
       )}
     >
       <div
         aria-hidden="true"
         className="left-1/2 right-1 top-0 w-[300px] sm:left-auto user-select-none center pointer-events-none absolute h-px max-w-full  -translate-y-1/2 bg-gradient-to-r from-transparent via-neutral-900 dark:via-neutral-400 to-transparent"
-      ></div>
+      />
       <div
         aria-hidden="true"
         className="hidden dark:block -top-1 left-1/2 right-1 h-[300px] w-[320px] sm:left-auto user-select-none center pointer-events-none absolute max-w-full -translate-y-1/2"
@@ -1110,7 +1037,7 @@ export function ConicGradientContainer({ children, className }) {
           background:
             "conic-gradient(from 90deg at 50% 50%, #00000000 50%, #000 50%),radial-gradient(rgba(200,200,200,0.1) 0%, transparent 80%)",
         }}
-      ></div>
+      />
       <div
         aria-hidden="true"
         className="dark:hidden -top-4 left-1/2 right-1 h-[300px] w-[320px] sm:left-auto user-select-none center pointer-events-none absolute max-w-full -translate-y-1/2"
@@ -1118,7 +1045,7 @@ export function ConicGradientContainer({ children, className }) {
           background:
             "conic-gradient(from 90deg at 50% 50%, #ffffff00 50%, #fff 50%),radial-gradient(#D6E1FF90 0%, transparent 80%)",
         }}
-      ></div>
+      />
       {children}
     </div>
   );
@@ -1134,11 +1061,8 @@ export default function ContainerImplementation() {
     <div>
       <ConicGradientContainer>
         <div className="px-10 py-20 text-secondary-foreground flex flex-col justify-center items-start gap-2 max-w-80 md:max-w-[30rem]">
-          <h1>
-            This entire component has been made with TailwindCSS and is a part
-            of Stratik UI Library.
-          </h1>
-          <button className="text-accent mt-4">
+          <h1>This entire component has been made with TailwindCSS and is a part of Stratik UI Library.</h1>
+          <button type="button" className="text-accent mt-4">
             Check out other components
           </button>
         </div>
@@ -1163,13 +1087,13 @@ export function ConicGradientContainer({
     <div
       className={twMerge(
         "relative flex rounded-md border border-outline-secondary bg-background text-foreground overflow-hidden",
-        className
+        className,
       )}
     >
       <div
         aria-hidden="true"
         className="left-1/2 right-1 top-0 w-[300px] sm:left-auto user-select-none center pointer-events-none absolute h-px max-w-full  -translate-y-1/2 bg-gradient-to-r from-transparent via-neutral-900 dark:via-neutral-400 to-transparent"
-      ></div>
+      />
       <div
         aria-hidden="true"
         className="hidden dark:block -top-1 left-1/2 right-1 h-[300px] w-[320px] sm:left-auto user-select-none center pointer-events-none absolute max-w-full -translate-y-1/2"
@@ -1177,7 +1101,7 @@ export function ConicGradientContainer({
           background:
             "conic-gradient(from 90deg at 50% 50%, #00000000 50%, #000 50%),radial-gradient(rgba(200,200,200,0.1) 0%, transparent 80%)",
         }}
-      ></div>
+      />
       <div
         aria-hidden="true"
         className="dark:hidden -top-4 left-1/2 right-1 h-[300px] w-[320px] sm:left-auto user-select-none center pointer-events-none absolute max-w-full -translate-y-1/2"
@@ -1185,7 +1109,7 @@ export function ConicGradientContainer({
           background:
             "conic-gradient(from 90deg at 50% 50%, #ffffff00 50%, #fff 50%),radial-gradient(#D6E1FF90 0%, transparent 80%)",
         }}
-      ></div>
+      />
       {children}
     </div>
   );
@@ -1201,11 +1125,8 @@ export default function ContainerImplementation() {
     <div>
       <ConicGradientContainer>
         <div className="px-10 py-20 text-secondary-foreground flex flex-col justify-center items-start gap-2 max-w-80 md:max-w-[30rem]">
-          <h1>
-            This entire component has been made with TailwindCSS and is a part
-            of Stratik UI Library.
-          </h1>
-          <button className="text-accent mt-4">
+          <h1>This entire component has been made with TailwindCSS and is a part of Stratik UI Library.</h1>
+          <button type="button" className="text-accent mt-4">
             Check out other components
           </button>
         </div>
@@ -1258,7 +1179,7 @@ export const Primitives_containers_06 = lazy(() => import("@registry/packages/pr
 
 <Implementation>
 
-<TechnologyUsed technologies={["tailwind-merge"]} />
+undefined
 <CodeBlock>
 
 ```default|js|container.jsx
@@ -1269,7 +1190,7 @@ export const ContainerGlassEffect = ({ children, className, ...props }) => {
     <div
       className={twMerge(
         "bg-neutral-100/30 dark:bg-neutral-900/40 backdrop-blur supports-[backdrop-filter]:bg-neutral-100/40 dark:supports-[backdrop-filter]:bg-neutral-900/40 z-50",
-        className
+        className,
       )}
       {...props}
     >
@@ -1288,18 +1209,13 @@ const ContainerImplementation = () => {
     <div className="w-full h-[25rem] relative overflow-hidden flex justify-center items-center">
       <ContainerGlassEffect className="rounded-lg border border-outline-secondary">
         <div className="px-10 py-20 text-foreground flex flex-col justify-center items-start gap-2 max-w-80 md:max-w-[30rem]">
-          <h1>
-            This entire component has been made with TailwindCSS and is a part
-            of Stratik UI Library.
-          </h1>
-          <button className="text-accent-secondary hover:text-accent mt-4">
+          <h1>This entire component has been made with TailwindCSS and is a part of Stratik UI Library.</h1>
+          <button type="button" className="text-accent-secondary hover:text-accent mt-4">
             Check out other components
           </button>
         </div>
       </ContainerGlassEffect>
-      <h1 className="absolute text-7xl text-foreground">
-        Sample text to see the effect in action
-      </h1>
+      <h1 className="absolute text-7xl text-foreground">Sample text to see the effect in action</h1>
     </div>
   );
 };
@@ -1311,22 +1227,17 @@ export default ContainerImplementation;
 ```default|ts|container.tsx
 import { twMerge } from "tailwind-merge";
 
-export interface ContainerGlassEffectProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export interface ContainerGlassEffectProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   className?: string;
 }
 
-export const ContainerGlassEffect = ({
-  children,
-  className,
-  ...props
-}: ContainerGlassEffectProps) => {
+export const ContainerGlassEffect = ({ children, className, ...props }: ContainerGlassEffectProps) => {
   return (
     <div
       className={twMerge(
         "bg-neutral-100/30 dark:bg-neutral-900/40 backdrop-blur supports-[backdrop-filter]:bg-neutral-100/40 dark:supports-[backdrop-filter]:bg-neutral-900/40 z-50",
-        className
+        className,
       )}
       {...props}
     >
@@ -1345,18 +1256,13 @@ const ContainerImplementation = () => {
     <div className="w-full h-[25rem] relative overflow-hidden flex justify-center items-center">
       <ContainerGlassEffect className="rounded-lg border border-outline-secondary">
         <div className="px-10 py-20 text-foreground flex flex-col justify-center items-start gap-2 max-w-80 md:max-w-[30rem]">
-          <h1>
-            This entire component has been made with TailwindCSS and is a part
-            of Stratik UI Library.
-          </h1>
-          <button className="mt-4 text-accent-secondary hover:text-accent">
+          <h1>This entire component has been made with TailwindCSS and is a part of Stratik UI Library.</h1>
+          <button type="button" className="mt-4 text-accent-secondary hover:text-accent">
             Check out other components
           </button>
         </div>
       </ContainerGlassEffect>
-      <h1 className="absolute text-7xl text-foreground">
-        Sample text to see the effect in action
-      </h1>
+      <h1 className="absolute text-7xl text-foreground">Sample text to see the effect in action</h1>
     </div>
   );
 };

@@ -1,7 +1,4 @@
-import {
-  BentoGrid,
-  BentoGridItem,
-} from "@registry/packages/primitives/bento-grid/01/default-js/BentoGrid";
+import { BentoGrid, BentoGridItem } from "@registry/packages/primitives/bento-grid/01/default-js/BentoGrid";
 
 export default function BentoGridImplementation() {
   return (
@@ -10,8 +7,7 @@ export default function BentoGridImplementation() {
         <BentoGridItem span={2} className="px-6 pt-7 flex flex-col  gap-4">
           <Grayscale />
           <p>
-            This is the best library to exist. It contains everything you need
-            to get started, and all at one place.
+            This is the best library to exist. It contains everything you need to get started, and all at one place.
           </p>
         </BentoGridItem>
         <BentoGridItem span={1} className="px-6 pt-7 flex flex-col  gap-4">
@@ -37,6 +33,6 @@ export default function BentoGridImplementation() {
 
 const Grayscale = () => {
   return (
-    <div className="w-full h-2/3 bg-gradient-to-br from-neutral-300 to-neutral-200 dark:from-neutral-900 dark:to-neutral-800 rounded-md"></div>
+    <div className="w-full h-2/3 bg-gradient-to-br from-neutral-300 to-neutral-200 dark:from-neutral-900 dark:to-neutral-800 rounded-md" />
   );
 };

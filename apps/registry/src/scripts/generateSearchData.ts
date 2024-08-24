@@ -1,5 +1,5 @@
-import fs from "fs";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
 import {
   createDirectory,
   getFoldersInDir,
@@ -9,7 +9,7 @@ import {
   terminalLink,
 } from "./helperFunctions";
 
-import { SearchIndividualProps, SearchProps } from "@web/data/Search";
+import type { SearchIndividualProps, SearchProps } from "@web/data/Search";
 
 // -----------------------------------------------------------------------------------------
 // This function will help to generate the log.tsx file in .stratik-ui folder of registry
@@ -21,38 +21,31 @@ function addBuildLog(
   state: "default" | "error" | "success" | "warning" | "event",
   message: string,
   functionCalled?: string,
-  folderPath?: string
+  folderPath?: string,
 ) {
   const folderPathData = folderPath ? `\n${folderPath}\n` : "\n";
-  const functionCalledData = functionCalled
-    ? `\nfunction - ${functionCalled}`
-    : "";
+  const functionCalledData = functionCalled ? `\nfunction - ${functionCalled}` : "";
   BUILD_LOG += "\n";
   switch (state) {
     case "default":
-      BUILD_LOG += "📄 " + message + functionCalledData + folderPathData;
+      BUILD_LOG += `📄 ${message}${functionCalledData}${folderPathData}`;
       break;
     case "error":
-      BUILD_LOG += "❌ " + message + functionCalledData + folderPathData;
+      BUILD_LOG += `❌ ${message}${functionCalledData}${folderPathData}`;
       break;
     case "success":
-      BUILD_LOG += "✅ " + message + functionCalledData + folderPathData;
+      BUILD_LOG += `✅ ${message}${functionCalledData}${folderPathData}`;
       break;
     case "warning":
-      BUILD_LOG += "⚠️ " + message + functionCalledData + folderPathData;
+      BUILD_LOG += `⚠️ ${message}${functionCalledData}${folderPathData}`;
       break;
-    case "event":
+    case "event": {
       const date = new Date();
-      BUILD_LOG +=
-        "📢 [" +
-        date.toLocaleString() +
-        "] " +
-        message +
-        functionCalledData +
-        folderPathData;
+      BUILD_LOG += `📢 [${date.toLocaleString()}] ${message}${functionCalledData}${folderPathData}`;
       break;
+    }
     default:
-      BUILD_LOG += "📄 " + message + functionCalledData + folderPathData;
+      BUILD_LOG += `📄 ${message}${functionCalledData}${folderPathData}`;
   }
 }
 
@@ -77,14 +70,12 @@ const FOLDER_NOMENCLATURE = {
   docs: "docs.md",
 };
 
-let SearchData: SearchProps = [];
+const SearchData: SearchProps = [];
 
 //   This function will help us find the target directory and package directory. It will return an object with the two directories. It will check all the necessary conditions and exit the process if any of them are not met.
 function DirPathFinder() {
   const currentDirectory = process.cwd();
-  const verifyOnlyOneRegistry = currentDirectory
-    .split(path.sep)
-    .filter((dir) => dir === "registry").length;
+  const verifyOnlyOneRegistry = currentDirectory.split(path.sep).filter((dir) => dir === "registry").length;
   if (verifyOnlyOneRegistry !== 1) {
     log({
       state: "error",
@@ -109,7 +100,6 @@ function extractData(folderPath: string): SearchIndividualProps | null {
   try {
     {
       // E.g. Default Text Input, Animated Text Input, etc (i.e. variants 01,02,03,etc)
-      let output: SearchIndividualProps;
 
       const DocsPath = path.join(folderPath, FOLDER_NOMENCLATURE.docs);
 
@@ -119,12 +109,7 @@ function extractData(folderPath: string): SearchIndividualProps | null {
           message:
             "No docs.md file found in the path to generate an example component. Either create docs.md file or rename it according to the rules if it exists. We consider the docs.md file as the default file to generate the documentation of the component.",
         });
-        addBuildLog(
-          "error",
-          `No docs.md file found in the path. Skipping the generation`,
-          "extractData",
-          folderPath
-        );
+        addBuildLog("error", "No docs.md file found in the path. Skipping the generation", "extractData", folderPath);
         return null;
       }
 
@@ -134,85 +119,58 @@ function extractData(folderPath: string): SearchIndividualProps | null {
       const match = DocsData.match(frontMatterRegex);
 
       if (!match) {
-        addBuildLog(
-          "error",
-          `No front matter found. Skipping the generation`,
-          "extractData",
-          folderPath
-        );
+        addBuildLog("error", "No front matter found. Skipping the generation", "extractData", folderPath);
         return null;
       }
       const frontMatterContent = match[1];
       const frontMatter: Record<string, string> = {};
 
-      frontMatterContent.split("\n").forEach((line) => {
+      for (const line of frontMatterContent.split("\n")) {
         const [key, ...value] = line.split(":");
         frontMatter[key.trim()] = value.join(":").trim();
-      });
+      }
 
       if (!frontMatter?.name) {
-        addBuildLog(
-          "error",
-          `Name not found in the front matter. Skipping the generation`,
-          "extractData",
-          folderPath
-        );
+        addBuildLog("error", "Name not found in the front matter. Skipping the generation", "extractData", folderPath);
       }
       if (!frontMatter?.description) {
         addBuildLog(
           "error",
-          `Description not found in the front matter. Skipping the generation`,
+          "Description not found in the front matter. Skipping the generation",
           "extractData",
-          folderPath
+          folderPath,
         );
       }
       if (!frontMatter?.version_included) {
         addBuildLog(
           "error",
-          `Version not found in the front matter. Skipping the generation`,
+          "Version not found in the front matter. Skipping the generation",
           "extractData",
-          folderPath
+          folderPath,
         );
       }
 
       const name = frontMatter?.name || "Name Not Found";
       const description = frontMatter?.description || "Description Not Found";
-      const flag = (frontMatter?.flag || "default") as
-        | "hidden"
-        | "default"
-        | "experimental"
-        | "deprecated"
-        | "beta";
+      const flag = (frontMatter?.flag || "default") as "hidden" | "default" | "experimental" | "deprecated" | "beta";
 
       if (flag === "hidden") {
-        addBuildLog(
-          "default",
-          `Flag - hidden added . Skipping it`,
-          "extractData",
-          folderPath
-        );
+        addBuildLog("default", "Flag - hidden added . Skipping it", "extractData", folderPath);
         return null;
       }
-      const relativePath = getPathWithReferenceFromPackages(
-        folderPath
-      ).replaceAll(path.sep, "/");
+      const relativePath = getPathWithReferenceFromPackages(folderPath).replaceAll(path.sep, "/");
       const pathArr: string[] = relativePath.split("/");
       const reqPath = pathArr.slice(0, pathArr.length - 1);
       const hashAddition = stringToDashedString(name);
-      const link = "docs/" + reqPath?.join("/") + "#" + hashAddition;
+      const link = `docs/${reqPath?.join("/")}#${hashAddition}`;
 
       const version_included = frontMatter?.version_included || "0.0.0";
-      const tags =
-        frontMatter?.tags
-          .replace("[", "")
-          .replace("]", "")
-          .replaceAll('"', "")
-          .split(",") || [];
+      const tags = frontMatter?.tags.replace("[", "").replace("]", "").replaceAll('"', "").split(",") || [];
 
       const category = pathArr[0];
       const group = pathArr[1];
 
-      output = {
+      const output: SearchIndividualProps = {
         name,
         description,
         tags,
@@ -222,12 +180,7 @@ function extractData(folderPath: string): SearchIndividualProps | null {
         category,
         group,
       };
-      addBuildLog(
-        "success",
-        `Item extracted - ${name}`,
-        "extractData",
-        folderPath
-      );
+      addBuildLog("success", `Item extracted - ${name}`, "extractData", folderPath);
 
       return output;
     }
@@ -236,12 +189,7 @@ function extractData(folderPath: string): SearchIndividualProps | null {
       state: "error",
       message: `SEARCH / Error generating the search for ${folderPath}. Error - ${error}`,
     });
-    addBuildLog(
-      "error",
-      `Error generating the search. Error - ${error}`,
-      "extractData",
-      folderPath
-    );
+    addBuildLog("error", `Error generating the search. Error - ${error}`, "extractData", folderPath);
     throw error;
   }
 }
@@ -251,38 +199,24 @@ function generateSearchSubHeadings(folderPath: string) {
     // E.g. Default Text Input, Animated Text Input, etc (i.e. variants 01,02,03,etc)
     const folders = getFoldersInDir(folderPath);
 
-    folders?.forEach((folder) => {
+    if (!folders) return;
+    for (const folder of folders) {
       const subFolderPath = path.join(folderPath, folder);
-      let children: SearchIndividualProps | null = extractData(subFolderPath);
+      const children: SearchIndividualProps | null = extractData(subFolderPath);
 
       if (!children) {
-        addBuildLog(
-          "default",
-          `children not extracted`,
-          "generateSearchSubHeadings",
-          folderPath
-        );
+        addBuildLog("default", "children not extracted", "generateSearchSubHeadings", folderPath);
         return;
       }
-      addBuildLog(
-        "success",
-        `Children Added - ${folder}`,
-        "generateSearchSubHeadings",
-        folderPath
-      );
+      addBuildLog("success", `Children Added - ${folder}`, "generateSearchSubHeadings", folderPath);
       SearchData.push(children);
-    });
+    }
   } catch (error) {
     log({
       state: "error",
       message: `SEARCH / Error generating the search for ${folderPath}. Error - ${error}`,
     });
-    addBuildLog(
-      "error",
-      `Error generating the search. Error - ${error}`,
-      "generateSearchSubHeadings",
-      folderPath
-    );
+    addBuildLog("error", `Error generating the search. Error - ${error}`, "generateSearchSubHeadings", folderPath);
     throw error;
   }
 }
@@ -292,22 +226,18 @@ function generateSearchHeadings(folderPath: string) {
     // E.g. input-text, input-number, etc
     const folders = getFoldersInDir(folderPath);
 
-    folders?.forEach((folder) => {
+    if (!folders) return;
+    for (const folder of folders) {
       const subFolderPath = path.join(folderPath, folder);
 
       generateSearchSubHeadings(subFolderPath);
-    });
+    }
   } catch (error) {
     log({
       state: "error",
       message: `SEARCH / Error generating the search for ${folderPath}. Error - ${error}`,
     });
-    addBuildLog(
-      "error",
-      `Error generating the search. Error - ${error}`,
-      "generateSearchHeadings",
-      folderPath
-    );
+    addBuildLog("error", `Error generating the search. Error - ${error}`, "generateSearchHeadings", folderPath);
     throw error;
   }
 }
@@ -319,21 +249,18 @@ export function generateSearch() {
   });
   addBuildLog("event", "Generating the search", "generateSearch");
   const level_1_folders_array = getFoldersInDir(packageDir);
-  level_1_folders_array?.forEach((folder) => {
+
+  if (!level_1_folders_array) return;
+  for (const folder of level_1_folders_array) {
     const folderPath = path.join(packageDir, folder);
     generateSearchHeadings(folderPath);
-  });
+  }
 
   if (!fs.existsSync(targetDir)) fs.mkdirSync(targetDir);
 
   const SearchPath = path.join(targetDir, "generated-search.ts");
 
-  const writeData =
-    'import { SearchProps } from "../Search";' +
-    "\n\n" +
-    "const Search: SearchProps = " +
-    JSON.stringify(SearchData, null, 2) +
-    "\nexport default Search";
+  const writeData = `import type { SearchProps } from "../Search";\n\nconst Search: SearchProps = ${JSON.stringify(SearchData, null, 2)}\nexport default Search`;
   fs.writeFileSync(SearchPath, writeData, "utf8");
   log({
     state: "success",
@@ -341,8 +268,7 @@ export function generateSearch() {
   });
   log({
     state: "success",
-    message:
-      "SEARCH / View the generated data " + terminalLink("here", SearchPath),
+    message: `SEARCH / View the generated data ${terminalLink("here", SearchPath)}`,
   });
   addBuildLog("event", "Generated the search", "generateSearch");
   publishBuildLog();

@@ -12,6 +12,7 @@ export const Logo = {
       viewBox="0 0 694 641"
       {...props}
     >
+      <title>Dark Logo</title>
       <image
         width="694"
         height="641"
@@ -30,6 +31,7 @@ export const Logo = {
       viewBox="0 0 734 679"
       {...props}
     >
+      <title>Light Logo</title>
       <image
         width="734"
         height="679"

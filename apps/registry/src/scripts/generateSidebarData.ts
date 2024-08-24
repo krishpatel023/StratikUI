@@ -1,5 +1,5 @@
-import fs from "fs";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
 import {
   compareVersions,
   createDirectory,
@@ -9,11 +9,7 @@ import {
   stringToDashedString,
   terminalLink,
 } from "./helperFunctions";
-import {
-  Sidebar_HeadingProps,
-  Sidebar_SubHeadingProps,
-  SidebarProps,
-} from "@web/data/Sidebar";
+import type { Sidebar_HeadingProps, Sidebar_SubHeadingProps, SidebarProps } from "@web/data/Sidebar";
 
 const FOLDER_NOMENCLATURE = {
   docs: "docs.md",
@@ -28,38 +24,31 @@ function addBuildLog(
   state: "default" | "error" | "success" | "warning" | "event",
   message: string,
   functionCalled?: string,
-  folderPath?: string
+  folderPath?: string,
 ) {
   const folderPathData = folderPath ? `\n${folderPath}\n` : "\n";
-  const functionCalledData = functionCalled
-    ? `\nfunction - ${functionCalled}`
-    : "";
+  const functionCalledData = functionCalled ? `\nfunction - ${functionCalled}` : "";
   BUILD_LOG += "\n";
   switch (state) {
     case "default":
-      BUILD_LOG += "📄 " + message + functionCalledData + folderPathData;
+      BUILD_LOG += `📄 ${message}${functionCalledData}${folderPathData}`;
       break;
     case "error":
-      BUILD_LOG += "❌ " + message + functionCalledData + folderPathData;
+      BUILD_LOG += `❌ ${message}${functionCalledData}${folderPathData}`;
       break;
     case "success":
-      BUILD_LOG += "✅ " + message + functionCalledData + folderPathData;
+      BUILD_LOG += `✅ ${message}${functionCalledData}${folderPathData}`;
       break;
     case "warning":
-      BUILD_LOG += "⚠️ " + message + functionCalledData + folderPathData;
+      BUILD_LOG += `⚠️ ${message}${functionCalledData}${folderPathData}`;
       break;
-    case "event":
+    case "event": {
       const date = new Date();
-      BUILD_LOG +=
-        "📢 [" +
-        date.toLocaleString() +
-        "] " +
-        message +
-        functionCalledData +
-        folderPathData;
+      BUILD_LOG += `📢 [${date.toLocaleString()}] ${message}${functionCalledData}${folderPathData}`;
       break;
+    }
     default:
-      BUILD_LOG += "📄 " + message + functionCalledData + folderPathData;
+      BUILD_LOG += `📄 ${message}${functionCalledData}${folderPathData}`;
   }
 }
 
@@ -85,9 +74,7 @@ let sidebar: SidebarProps = [];
 //   This function will help us find the target directory and package directory. It will return an object with the two directories. It will check all the necessary conditions and exit the process if any of them are not met.
 function DirPathFinder() {
   const currentDirectory = process.cwd();
-  const verifyOnlyOneRegistry = currentDirectory
-    .split(path.sep)
-    .filter((dir) => dir === "registry").length;
+  const verifyOnlyOneRegistry = currentDirectory.split(path.sep).filter((dir) => dir === "registry").length;
   if (verifyOnlyOneRegistry !== 1) {
     log({
       state: "error",
@@ -108,13 +95,9 @@ function DirPathFinder() {
 
 const { targetDir, packageDir } = DirPathFinder();
 
-function extractSubHeadingData(
-  folderPath: string
-): Sidebar_SubHeadingProps | null {
+function extractSubHeadingData(folderPath: string): Sidebar_SubHeadingProps | null {
   try {
     // E.g. Default Text Input, Animated Text Input, etc (i.e. variants 01,02,03,etc)
-    let output: Sidebar_SubHeadingProps;
-
     const DocsPath = path.join(folderPath, FOLDER_NOMENCLATURE.docs);
 
     if (!fs.existsSync(DocsPath)) {
@@ -125,9 +108,9 @@ function extractSubHeadingData(
       });
       addBuildLog(
         "error",
-        `No docs.md file found in the path. Skipping the generation`,
+        "No docs.md file found in the path. Skipping the generation",
         "extractSubHeadingData",
-        folderPath
+        folderPath,
       );
       return null;
     }
@@ -138,84 +121,62 @@ function extractSubHeadingData(
     const match = DocsData.match(frontMatterRegex);
 
     if (!match) {
-      addBuildLog(
-        "error",
-        `No front matter found. Skipping the generation`,
-        "extractSubHeadingData",
-        folderPath
-      );
+      addBuildLog("error", "No front matter found. Skipping the generation", "extractSubHeadingData", folderPath);
       return null;
     }
 
     const frontMatterContent = match[1];
     const frontMatter: Record<string, string> = {};
 
-    frontMatterContent.split("\n").forEach((line) => {
+    for (const line of frontMatterContent.split("\n")) {
       const [key, ...value] = line.split(":");
       frontMatter[key.trim()] = value.join(":").trim();
-    });
+    }
 
     if (!frontMatter?.name) {
       addBuildLog(
         "error",
-        `Name not found in the front matter. Skipping the generation`,
+        "Name not found in the front matter. Skipping the generation",
         "extractSubHeadingData",
-        folderPath
+        folderPath,
       );
     }
     if (!frontMatter?.description) {
       addBuildLog(
         "error",
-        `Description not found in the front matter. Skipping the generation`,
+        "Description not found in the front matter. Skipping the generation",
         "extractSubHeadingData",
-        folderPath
+        folderPath,
       );
     }
     if (!frontMatter?.version_included) {
       addBuildLog(
         "error",
-        `Version not found in the front matter. Skipping the generation`,
+        "Version not found in the front matter. Skipping the generation",
         "extractSubHeadingData",
-        folderPath
+        folderPath,
       );
     }
 
     const name = frontMatter?.name || "Name Not Found";
     const description = frontMatter?.description || "Description Not Found";
-    const flag = (frontMatter?.flag || "default") as
-      | "hidden"
-      | "default"
-      | "experimental"
-      | "deprecated"
-      | "beta";
+    const flag = (frontMatter?.flag || "default") as "hidden" | "default" | "experimental" | "deprecated" | "beta";
 
     if (flag === "hidden") {
-      addBuildLog(
-        "default",
-        `Flag - hidden added . Skipping it`,
-        "extractSubHeadingData",
-        folderPath
-      );
+      addBuildLog("default", "Flag - hidden added . Skipping it", "extractSubHeadingData", folderPath);
       return null;
     }
 
-    const relativePath = getPathWithReferenceFromPackages(
-      folderPath
-    ).replaceAll(path.sep, "/");
+    const relativePath = getPathWithReferenceFromPackages(folderPath).replaceAll(path.sep, "/");
     const pathArr: string[] = relativePath.split("/");
     const reqPath = pathArr.slice(0, pathArr.length - 1);
     const hashAddition = stringToDashedString(name);
-    const link = "docs/" + reqPath?.join("/") + "#" + hashAddition;
+    const link = `docs/${reqPath?.join("/")}#${hashAddition}`;
 
     const version_included = frontMatter?.version_included || "0.0.0";
-    const tags =
-      frontMatter?.tags
-        .replace("[", "")
-        .replace("]", "")
-        .replaceAll('"', "")
-        .split(",") || [];
+    const tags = frontMatter?.tags.replace("[", "").replace("]", "").replaceAll('"', "").split(",") || [];
 
-    output = {
+    const output: Sidebar_SubHeadingProps = {
       type: "sub-heading",
       name,
       description,
@@ -225,12 +186,7 @@ function extractSubHeadingData(
       flag,
     };
 
-    addBuildLog(
-      "success",
-      `Subheading children extracted - ${name}`,
-      "extractSubHeadingData",
-      folderPath
-    );
+    addBuildLog("success", `Subheading children extracted - ${name}`, "extractSubHeadingData", folderPath);
 
     return output;
   } catch (error) {
@@ -238,46 +194,30 @@ function extractSubHeadingData(
       state: "error",
       message: `SIDEBAR / Error generating the sidebar for ${folderPath}. Error - ${error}`,
     });
-    addBuildLog(
-      "error",
-      `Error generating the sidebar. Error - ${error}`,
-      "extractSubHeadingData",
-      folderPath
-    );
+    addBuildLog("error", `Error generating the sidebar. Error - ${error}`, "extractSubHeadingData", folderPath);
     throw error;
   }
 }
 
-function generateSidebarSubHeadings(
-  folderPath: string
-): Sidebar_SubHeadingProps[] {
+function generateSidebarSubHeadings(folderPath: string): Sidebar_SubHeadingProps[] {
   try {
     // E.g. Default Text Input, Animated Text Input, etc (i.e. variants 01,02,03,etc)
-    let output: Sidebar_SubHeadingProps[] = [];
+    const output: Sidebar_SubHeadingProps[] = [];
     const folders = getFoldersInDir(folderPath);
 
-    folders?.forEach((folder) => {
-      const subFolderPath = path.join(folderPath, folder);
-      let children: Sidebar_SubHeadingProps | null =
-        extractSubHeadingData(subFolderPath);
+    if (folders) {
+      for (const folder of folders) {
+        const subFolderPath = path.join(folderPath, folder);
+        const children: Sidebar_SubHeadingProps | null = extractSubHeadingData(subFolderPath);
 
-      if (!children) {
-        addBuildLog(
-          "default",
-          `Subheading children not extracted`,
-          "generateSidebarSubHeadings",
-          folderPath
-        );
-        return;
+        if (!children) {
+          addBuildLog("default", "Subheading children not extracted", "generateSidebarSubHeadings", folderPath);
+          break;
+        }
+        addBuildLog("success", "Subheading children extracted", "generateSidebarSubHeadings", folderPath);
+        output.push(children);
       }
-      addBuildLog(
-        "success",
-        `Subheading children extracted`,
-        "generateSidebarSubHeadings",
-        folderPath
-      );
-      output.push(children);
-    });
+    }
 
     return output;
   } catch (error) {
@@ -285,12 +225,7 @@ function generateSidebarSubHeadings(
       state: "error",
       message: `SIDEBAR / Error generating the sidebar for ${folderPath}. Error - ${error}`,
     });
-    addBuildLog(
-      "error",
-      `Error generating the sidebar. Error - ${error}`,
-      "generateSidebarSubHeadings",
-      folderPath
-    );
+    addBuildLog("error", `Error generating the sidebar. Error - ${error}`, "generateSidebarSubHeadings", folderPath);
     throw error;
   }
 }
@@ -299,82 +234,68 @@ function generateSidebarHeadings(folderPath: string): Sidebar_HeadingProps[] {
   try {
     // E.g. input-text, input-number, etc
     const folders = getFoldersInDir(folderPath);
-    let output: Sidebar_HeadingProps[] = [];
+    const output: Sidebar_HeadingProps[] = [];
 
-    folders?.forEach((folder) => {
-      const subFolderPath = path.join(folderPath, folder);
-      let children: Sidebar_SubHeadingProps[] =
-        generateSidebarSubHeadings(subFolderPath);
-      let greatestVersion = "0.0.0";
+    if (folders) {
+      for (const folder of folders) {
+        const subFolderPath = path.join(folderPath, folder);
+        const children: Sidebar_SubHeadingProps[] = generateSidebarSubHeadings(subFolderPath);
+        let greatestVersion = "0.0.0";
 
-      const flagCount = {
-        hidden: 0,
-        experimental: 0,
-        deprecated: 0,
-        beta: 0,
-        default: 0,
-      };
+        const flagCount = {
+          hidden: 0,
+          experimental: 0,
+          deprecated: 0,
+          beta: 0,
+          default: 0,
+        };
 
-      children?.forEach((child) => {
-        const isVerGreater = compareVersions(
-          child.version_included,
-          greatestVersion
-        );
-        if (isVerGreater) {
-          greatestVersion = child.version_included;
+        for (const child of children) {
+          const isVerGreater = compareVersions(child.version_included, greatestVersion);
+          if (isVerGreater) {
+            greatestVersion = child.version_included;
+          }
+
+          if (child.flag === "hidden") flagCount.hidden++;
+          else if (child.flag === "experimental") flagCount.experimental++;
+          else if (child.flag === "deprecated") flagCount.deprecated++;
+          else if (child.flag === "beta") flagCount.beta++;
+          else if (child.flag === "default") flagCount.default++;
         }
 
-        if (child.flag === "hidden") flagCount.hidden++;
-        else if (child.flag === "experimental") flagCount.experimental++;
-        else if (child.flag === "deprecated") flagCount.deprecated++;
-        else if (child.flag === "beta") flagCount.beta++;
-        else if (child.flag === "default") flagCount.default++;
-      });
+        let flag = "default";
 
-      let flag = "default";
+        if (flagCount.hidden === children.length) {
+          flag = "hidden";
+          addBuildLog(
+            "default",
+            `Flag - hidden added to ${folder}. Skipping it`,
+            "generateSidebarHeadings",
+            folderPath,
+          );
+          break;
+        }
+        if (flagCount.experimental === children.length) flag = "experimental";
+        else if (flagCount.deprecated === children.length) flag = "deprecated";
+        else if (flagCount.beta === children.length) flag = "beta";
 
-      if (flagCount.hidden === children.length) {
-        flag = "hidden";
-        addBuildLog(
-          "default",
-          `Flag - hidden added to ${folder}. Skipping it`,
-          "generateSidebarHeadings",
-          folderPath
-        );
-        return;
-      } else if (flagCount.experimental === children.length)
-        flag = "experimental";
-      else if (flagCount.deprecated === children.length) flag = "deprecated";
-      else if (flagCount.beta === children.length) flag = "beta";
+        const relativePath = getPathWithReferenceFromPackages(folderPath).replaceAll(path.sep, "/");
 
-      const relativePath = getPathWithReferenceFromPackages(
-        folderPath
-      ).replaceAll(path.sep, "/");
+        const link = `docs/${relativePath}/${folder}`;
 
-      const link = "docs/" + relativePath + "/" + folder;
+        const subOutput: Sidebar_HeadingProps = {
+          type: "heading",
+          name: folder,
+          link: link,
+          version_included: greatestVersion,
+          flag: flag as "hidden" | "experimental" | "deprecated" | "beta" | "default",
+          children: children,
+        };
+        output.push(subOutput);
+      }
+    }
 
-      const subOutput: Sidebar_HeadingProps = {
-        type: "heading",
-        name: folder,
-        link: link,
-        version_included: greatestVersion,
-        flag: flag as
-          | "hidden"
-          | "experimental"
-          | "deprecated"
-          | "beta"
-          | "default",
-        children: children,
-      };
-      output.push(subOutput);
-    });
-
-    addBuildLog(
-      "success",
-      `Heading children combined`,
-      "generateSidebarHeadings",
-      folderPath
-    );
+    addBuildLog("success", "Heading children combined", "generateSidebarHeadings", folderPath);
 
     return output;
   } catch (error) {
@@ -382,29 +303,24 @@ function generateSidebarHeadings(folderPath: string): Sidebar_HeadingProps[] {
       state: "error",
       message: `SIDEBAR / Error generating the sidebar for ${folderPath}. Error - ${error}`,
     });
-    addBuildLog(
-      "error",
-      `Error generating the sidebar. Error - ${error}`,
-      "generateSidebarHeadings",
-      folderPath
-    );
+    addBuildLog("error", `Error generating the sidebar. Error - ${error}`, "generateSidebarHeadings", folderPath);
     throw error;
   }
 }
 
 export function reArrangeSidebar(sidebar: SidebarProps): SidebarProps {
   const order = ["primitives", "components", "hooks"];
-  let returnSidebar: SidebarProps = [];
+  const returnSidebar: SidebarProps = [];
   let inputSidebar: SidebarProps = sidebar;
 
-  order.forEach((item) => {
-    inputSidebar.forEach((child) => {
+  for (const item of order) {
+    for (const child of inputSidebar) {
       if (child.name === item) {
         returnSidebar.push(child);
         inputSidebar = inputSidebar.filter((child) => child.name !== item);
       }
-    });
-  });
+    }
+  }
 
   returnSidebar.push(...inputSidebar);
 
@@ -418,30 +334,25 @@ export function generateSidebar() {
     message: "SIDEBAR / Generating...",
   });
   const level_1_folders_array = getFoldersInDir(packageDir);
-  level_1_folders_array?.forEach((folder) => {
+  for (const folder of level_1_folders_array ?? []) {
     const folderPath = path.join(packageDir, folder);
-    let children: Sidebar_HeadingProps[] = generateSidebarHeadings(folderPath);
+    const children: Sidebar_HeadingProps[] = generateSidebarHeadings(folderPath);
 
     const flagCount = {
       hidden: 0,
       default: 0,
     };
 
-    children?.forEach((child) => {
+    for (const child of children) {
       if (child.flag === "hidden") flagCount.hidden++;
       else if (child.flag === "default") flagCount.default++;
-    });
+    }
 
     let flag = "default";
 
     if (flagCount.hidden === children.length) {
       flag = "hidden";
-      addBuildLog(
-        "default",
-        `Flag - hidden added to ${folder}. Skipping it`,
-        "generateSidebar",
-        folderPath
-      );
+      addBuildLog("default", `Flag - hidden added to ${folder}. Skipping it`, "generateSidebar", folderPath);
       return;
     }
 
@@ -452,25 +363,15 @@ export function generateSidebar() {
       flag: flag as "hidden" | "default",
       children: children,
     });
-    addBuildLog(
-      "success",
-      `Folder - ${folder} added to the sidebar`,
-      "generateSidebar",
-      folderPath
-    );
-  });
+    addBuildLog("success", `Folder - ${folder} added to the sidebar`, "generateSidebar", folderPath);
+  }
 
   sidebar = reArrangeSidebar(sidebar);
 
   if (!fs.existsSync(targetDir)) fs.mkdirSync(targetDir);
   const sideBarPath = path.join(targetDir, "generated-sidebar.ts");
 
-  const writeData =
-    'import {SidebarProps} from "../Sidebar";' +
-    "\n\n" +
-    "const sidebar: SidebarProps = " +
-    JSON.stringify(sidebar, null, 2) +
-    "\nexport default sidebar";
+  const writeData = `import type {SidebarProps} from "../Sidebar";\n\nconst sidebar: SidebarProps = ${JSON.stringify(sidebar, null, 2)}\nexport default sidebar`;
   fs.writeFileSync(sideBarPath, writeData, "utf8");
   addBuildLog("event", "Generated the sidebar", "generateSidebar");
   log({
@@ -479,8 +380,7 @@ export function generateSidebar() {
   });
   log({
     state: "success",
-    message:
-      "SIDEBAR / View the generated data " + terminalLink("here", sideBarPath),
+    message: `SIDEBAR / View the generated data ${terminalLink("here", sideBarPath)}`,
   });
   publishBuildLog();
 }

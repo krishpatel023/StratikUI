@@ -11,36 +11,17 @@ export default function StatefulLinedInputComponent() {
 
       <span>
         <ArrowHeading text="Error" className="mb-2" />
-        <Input
-          name="Name"
-          type="text"
-          label="Name"
-          placeholder="Name"
-          state="isInvalid"
-        />
+        <Input name="Name" type="text" label="Name" placeholder="Name" state="isInvalid" />
       </span>
 
       <span>
         <ArrowHeading text="Disabled" className="mb-2" />
-        <Input
-          name="Name"
-          type="text"
-          label="Name"
-          placeholder="Name"
-          state="isDisabled"
-        />
+        <Input name="Name" type="text" label="Name" placeholder="Name" state="isDisabled" />
       </span>
 
       <span>
         <ArrowHeading text="ReadOnly" className="mb-2" />
-        <Input
-          name="Name"
-          type="text"
-          label="Name"
-          placeholder="Name"
-          isReadOnly
-          value={"John Doe"}
-        />
+        <Input name="Name" type="text" label="Name" placeholder="Name" isReadOnly value={"John Doe"} />
       </span>
     </div>
   );

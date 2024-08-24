@@ -18,11 +18,7 @@ export default function UseProcessExample() {
 
   return (
     <div className="flex justify-center items-center gap-6 text-center py-10">
-      <Button
-        onPress={handleAction}
-        className="w-40 flex justify-center items-center"
-        isProcessing={isProcessing}
-      >
+      <Button onPress={handleAction} className="w-40 flex justify-center items-center" isProcessing={isProcessing}>
         Click me
       </Button>
     </div>

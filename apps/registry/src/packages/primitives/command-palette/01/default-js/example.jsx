@@ -24,16 +24,9 @@ export default function CommandPaletteExample() {
 
   return (
     <>
-      <CommandPaletteTrigger
-        placeholder="Search"
-        setActive={setActive}
-        keys={["Control", "j"]}
-      />
+      <CommandPaletteTrigger placeholder="Search" setActive={setActive} keys={["Control", "j"]} />
       <CommandPalette isOpen={active} onOpenChange={(val) => setActive(val)}>
-        <CommandPaletteSearchBar
-          placeholder="Search for something"
-          onChange={(e) => simulateSearch(e)}
-        />
+        <CommandPaletteSearchBar placeholder="Search for something" onChange={(e) => simulateSearch(e)} />
         <CommandPaletteDivider />
         <CommandPaletteMenu isLoading={isLoading}>
           {/* This is a sample data. You can add dynamic data here and manage the loading & empty states accordingly */}

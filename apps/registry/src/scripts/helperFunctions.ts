@@ -1,5 +1,5 @@
-import fs from "fs";
-import path from "path";
+import fs from "node:fs";
+import path from "node:path";
 
 // This function will help us log the output to the console with color scheme
 export function log({
@@ -28,9 +28,7 @@ export function log({
 //   This function will help us find the target directory and package directory. It will return an object with the two directories. It will check all the necessary conditions and exit the process if any of them are not met.
 export function DirPathFinder() {
   const currentDirectory = process.cwd();
-  const verifyOnlyOneRegistry = currentDirectory
-    .split(path.sep)
-    .filter((dir) => dir === "registry").length;
+  const verifyOnlyOneRegistry = currentDirectory.split(path.sep).filter((dir) => dir === "registry").length;
   if (verifyOnlyOneRegistry !== 1) {
     log({
       state: "error",
@@ -41,13 +39,7 @@ export function DirPathFinder() {
   const replacedPath = currentDirectory.replace("registry", "web");
 
   // TARGET DIR - This is where the generated docs will be placed. i.e. web/src/app/docs/(generatedDocs)
-  const targetDir = path.join(
-    replacedPath,
-    "src",
-    "app",
-    "docs",
-    "(generatedDocs)"
-  );
+  const targetDir = path.join(replacedPath, "src", "app", "docs", "(generatedDocs)");
   // const targetDir = path.join(process.cwd(), "src", "(generatedDocs)");
 
   // PACKAGE DIR - This is where the packages are located. i.e. registry/src/packages
@@ -63,7 +55,7 @@ export function sanitizeFilePath(filePath: string): string {
 
   // Ensure the variable name does not start with a number
   if (/^[0-9]/.test(sanitizedPath)) {
-    sanitizedPath = "_" + sanitizedPath;
+    sanitizedPath = `_${sanitizedPath}`;
   }
 
   // Convert to lowercase and replace multiple underscores with a single underscore
@@ -71,7 +63,7 @@ export function sanitizeFilePath(filePath: string): string {
 
   // Ensure the first character is a valid letter or underscore
   if (!/^[a-zA-Z_$]/.test(sanitizedPath.charAt(0))) {
-    sanitizedPath = "_" + sanitizedPath;
+    sanitizedPath = `_${sanitizedPath}`;
   }
 
   return sanitizedPath;
@@ -123,17 +115,7 @@ export function getFilesInDir(path: string) {
 
 // This function gives the reference from the packages folder
 export function getPathWithReferenceFromPackages(folderPath: string) {
-  return folderPath.split(
-    path.sep +
-      "apps" +
-      path.sep +
-      "registry" +
-      path.sep +
-      "src" +
-      path.sep +
-      "packages" +
-      path.sep
-  )[1];
+  return folderPath.split(`${path.sep}apps${path.sep}registry${path.sep}src${path.sep}packages${path.sep}`)[1];
 }
 
 export function customLog(message: string) {
@@ -154,8 +136,8 @@ export function compareVersions(version1: string, version2: string) {
   const v2Parts = version2.split(".");
 
   for (let i = 0; i < v1Parts.length; i++) {
-    const v1Part = parseInt(v1Parts[i]);
-    const v2Part = parseInt(v2Parts[i]);
+    const v1Part = Number.parseInt(v1Parts[i]);
+    const v2Part = Number.parseInt(v2Parts[i]);
 
     if (v1Part > v2Part) {
       return true;

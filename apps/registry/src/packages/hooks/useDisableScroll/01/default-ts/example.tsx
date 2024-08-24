@@ -37,11 +37,7 @@ export default function UseDisableScrollExample() {
   return (
     <div className="min-h-[35rem] flex flex-col justify-center items-center gap-6 text-center">
       <h1 className="text-foreground">This is a scrollable div</h1>
-      <div
-        className="w-80 h-80 overflow-auto"
-        id="uniqueIdThatIsNotSoUnique"
-        ref={containerRef}
-      >
+      <div className="w-80 h-80 overflow-auto" id="uniqueIdThatIsNotSoUnique" ref={containerRef}>
         <div className="w-full min-h-[40rem] bg-primary">
           {Array.from({ length: 100 }).map((_, i) => (
             <h1 key={i} className="text-2xl text-foreground">
@@ -56,15 +52,9 @@ export default function UseDisableScrollExample() {
         {BodyPaused ? "Paused Body Scroll" : null}
       </h1>
       <div className="flex gap-4 flex-col md:flex-row">
-        <Button onPress={handleIdPaused}>
-          {IdPaused ? "Resume" : "Pause"} container By Id
-        </Button>
-        <Button onPress={handleRefPaused}>
-          {RefPaused ? "Resume" : "Pause"} container By Ref
-        </Button>
-        <Button onPress={handleBodyPaused}>
-          {BodyPaused ? "Resume" : "Pause"} Body
-        </Button>
+        <Button onPress={handleIdPaused}>{IdPaused ? "Resume" : "Pause"} container By Id</Button>
+        <Button onPress={handleRefPaused}>{RefPaused ? "Resume" : "Pause"} container By Ref</Button>
+        <Button onPress={handleBodyPaused}>{BodyPaused ? "Resume" : "Pause"} Body</Button>
       </div>
     </div>
   );

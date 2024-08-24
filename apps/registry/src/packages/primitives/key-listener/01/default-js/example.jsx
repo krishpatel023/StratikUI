@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  KeyListener,
-  KeyListenerDisplay,
-} from "@registry/packages/primitives/key-listener/01/default-js/KeyListener";
+import { KeyListener, KeyListenerDisplay } from "@registry/packages/primitives/key-listener/01/default-js/KeyListener";
 
 export default function KeyListenerImplementation() {
   const funcCall = () => {

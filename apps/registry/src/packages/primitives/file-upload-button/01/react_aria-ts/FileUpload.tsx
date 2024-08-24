@@ -1,10 +1,7 @@
 "use client";
 
-import {
-  Button,
-  ButtonProps,
-} from "@registry/packages/primitives/buttons/01/react_aria-ts/Button";
-import { FileTrigger, FileTriggerProps } from "react-aria-components";
+import { Button, type ButtonProps } from "@registry/packages/primitives/buttons/01/react_aria-ts/Button";
+import { FileTrigger, type FileTriggerProps } from "react-aria-components";
 
 interface FileUploadButtonProps extends FileTriggerProps {
   className?: string;
@@ -20,8 +17,8 @@ export function FileUploadButton({
   ...props
 }: FileUploadButtonProps) {
   function handleFileUpload(e: FileList | null) {
-    let files = Array.from(e as FileList);
-    getFiles && getFiles(files);
+    const files = Array.from(e as FileList);
+    getFiles?.(files);
   }
 
   return (

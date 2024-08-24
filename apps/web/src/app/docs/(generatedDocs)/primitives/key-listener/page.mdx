@@ -28,16 +28,13 @@ export const Primitives_key_listener_01 = lazy(() => import("@registry/packages/
 
 <Implementation>
 
-<TechnologyUsed technologies={["tailwind-merge"]} />
+undefined
 <CodeBlock>
 
 ```default|js|example.jsx
 "use client";
 
-import {
-  KeyListener,
-  KeyListenerDisplay,
-} from "@registry/packages/primitives/key-listener/01/default-js/KeyListener";
+import { KeyListener, KeyListenerDisplay } from "@registry/packages/primitives/key-listener/01/default-js/KeyListener";
 
 export default function KeyListenerImplementation() {
   const funcCall = () => {
@@ -55,15 +52,10 @@ export default function KeyListenerImplementation() {
 
 ```default|js|KeyListener.jsx
 "use client";
-import React, { useCallback, useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { twMerge } from "tailwind-merge";
 
-export const KeyListener = ({
-  keys,
-  onKeyDown,
-  children,
-  focusPermitted = true,
-}) => {
+export const KeyListener = ({ keys, onKeyDown, children, focusPermitted = true }) => {
   const handleKeyDown = useCallback(
     (event) => {
       const isCtrlPressed = event.ctrlKey || event.metaKey;
@@ -84,8 +76,8 @@ export const KeyListener = ({
         isShiftPressed && "Shift",
         isAltPressed && "Alt",
 
-        alphabetMatch && alphabetMatch[1].toLocaleLowerCase(),
-        digitsMatch && digitsMatch[1],
+        alphabetMatch?.[1].toLocaleLowerCase(),
+        digitsMatch?.[1],
         functionKeyMatch && `F${event.code.slice(1)}`,
 
         event.code === "Escape" && "Esc",
@@ -108,7 +100,7 @@ export const KeyListener = ({
         onKeyDown(event);
       }
     },
-    [keys, onKeyDown]
+    [keys, onKeyDown],
   );
 
   useEffect(() => {
@@ -117,7 +109,7 @@ export const KeyListener = ({
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [handleKeyDown]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [handleKeyDown, focusPermitted]);
 
   return <>{children}</>;
 };
@@ -199,7 +191,7 @@ export function KeyListenerDisplay({ keys, className }) {
           key={index}
           className={twMerge(
             "w-max text-xs rounded py-1 px-2 border border-outline bg-primary text-primary-foreground",
-            className
+            className,
           )}
         >
           {Icons[key] || key}
@@ -214,10 +206,7 @@ export function KeyListenerDisplay({ keys, className }) {
 ```default|ts|example.tsx
 "use client";
 
-import {
-  KeyListener,
-  KeyListenerDisplay,
-} from "@registry/packages/primitives/key-listener/01/default-ts/KeyListener";
+import { KeyListener, KeyListenerDisplay } from "@registry/packages/primitives/key-listener/01/default-ts/KeyListener";
 
 export default function KeyListenerImplementation() {
   const funcCall = () => {
@@ -235,7 +224,8 @@ export default function KeyListenerImplementation() {
 
 ```default|ts|KeyListener.tsx
 "use client";
-import React, { useCallback, useEffect } from "react";
+import type React from "react";
+import { useCallback, useEffect } from "react";
 import { twMerge } from "tailwind-merge";
 
 export type Key =
@@ -313,12 +303,7 @@ interface KeyListenerProps {
   focusPermitted?: boolean;
 }
 
-export const KeyListener: React.FC<KeyListenerProps> = ({
-  keys,
-  onKeyDown,
-  children,
-  focusPermitted = true,
-}) => {
+export const KeyListener: React.FC<KeyListenerProps> = ({ keys, onKeyDown, children, focusPermitted = true }) => {
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
       const isCtrlPressed = event.ctrlKey || event.metaKey;
@@ -339,8 +324,8 @@ export const KeyListener: React.FC<KeyListenerProps> = ({
         isShiftPressed && "Shift",
         isAltPressed && "Alt",
 
-        alphabetMatch && alphabetMatch[1].toLocaleLowerCase(),
-        digitsMatch && digitsMatch[1],
+        alphabetMatch?.[1].toLocaleLowerCase(),
+        digitsMatch?.[1],
         functionKeyMatch && `F${event.code.slice(1)}`,
 
         event.code === "Escape" && "Esc",
@@ -363,7 +348,7 @@ export const KeyListener: React.FC<KeyListenerProps> = ({
         onKeyDown(event);
       }
     },
-    [keys, onKeyDown]
+    [keys, onKeyDown],
   );
 
   useEffect(() => {
@@ -372,7 +357,7 @@ export const KeyListener: React.FC<KeyListenerProps> = ({
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [handleKeyDown]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [handleKeyDown, focusPermitted]);
 
   return <>{children}</>;
 };
@@ -464,7 +449,7 @@ export function KeyListenerDisplay({
           key={index}
           className={twMerge(
             "w-max text-xs rounded py-1 px-2 border border-outline bg-primary text-primary-foreground",
-            className
+            className,
           )}
         >
           {Icons[key] || key}

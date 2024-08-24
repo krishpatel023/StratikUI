@@ -12,9 +12,7 @@ export default function FileUploadButtonImplementation() {
         Choose a file
       </FileUploadButton>
       <div className="text-center flex flex-col ">
-        <h1 className="text-primary-foreground font-semibold underline underline-offset-1 mb-4">
-          Selected Files
-        </h1>
+        <h1 className="text-primary-foreground font-semibold underline underline-offset-1 mb-4">Selected Files</h1>
         {files.map((file, index) => (
           <span key={file.name + index}>{file.name}</span>
         ))}

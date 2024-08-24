@@ -3,9 +3,9 @@
 import {
   Dialog,
   DialogTrigger,
-  DialogTriggerProps,
+  type DialogTriggerProps,
   Popover as ReactAriaPopover,
-  PopoverProps as ReactAriaPopoverProps,
+  type PopoverProps as ReactAriaPopoverProps,
 } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
 
@@ -23,10 +23,10 @@ export function Popover({ children, className, ...props }: PopoverProps) {
       <Dialog
         className={twMerge(
           "bg-primary p-4 rounded border border-outline-secondary text-primary-foreground outline-none",
-          className as string
+          className as string,
         )}
       >
-        <>{children}</>
+        {children as React.ReactNode}
       </Dialog>
     </ReactAriaPopover>
   );

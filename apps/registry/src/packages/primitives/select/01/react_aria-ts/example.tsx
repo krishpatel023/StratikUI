@@ -10,10 +10,7 @@ import { Section } from "react-aria-components";
 
 export default function SelectImplementation() {
   return (
-    <Select
-      label="Ice cream flavor"
-      description="Select your favorite ice cream flavor"
-    >
+    <Select label="Ice cream flavor" description="Select your favorite ice cream flavor">
       <Section>
         <SelectHeader>Ice-cream flavor</SelectHeader>
         <SelectItem textValue="mint">Mint</SelectItem>

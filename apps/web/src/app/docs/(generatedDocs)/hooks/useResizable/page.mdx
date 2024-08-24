@@ -68,8 +68,6 @@ export default function ResizeImplementation() {
 
 ```default|js|Resizable.jsx
 "use client";
-
-import React from "react";
 import { twMerge } from "tailwind-merge";
 
 export function ResizeBoundingElement({ containerRef, className, children }) {
@@ -91,17 +89,9 @@ export function ResizableContainer({
 }) {
   return (
     <div className="w-max">
-      <Handle
-        direction="top"
-        directionArr={direction}
-        handleResize={handleResize}
-      />
+      <Handle direction="top" directionArr={direction} handleResize={handleResize} />
       <div className="h-full flex">
-        <Handle
-          direction="left"
-          directionArr={direction}
-          handleResize={handleResize}
-        />
+        <Handle direction="left" directionArr={direction} handleResize={handleResize} />
         <div
           ref={resizableRef}
           style={{
@@ -112,17 +102,9 @@ export function ResizableContainer({
         >
           {children}
         </div>
-        <Handle
-          direction="right"
-          directionArr={direction}
-          handleResize={handleResize}
-        />
+        <Handle direction="right" directionArr={direction} handleResize={handleResize} />
       </div>
-      <Handle
-        direction="bottom"
-        directionArr={direction}
-        handleResize={handleResize}
-      />
+      <Handle direction="bottom" directionArr={direction} handleResize={handleResize} />
     </div>
   );
 }
@@ -139,7 +121,7 @@ export function Handle({ direction, directionArr, handleResize }) {
               onMouseDown={(e) => handleResize(e, direction)}
               onTouchStart={(e) => handleResize(e, direction)}
             >
-              <div className="min-h-8 bg-foreground rounded-full min-w-[0.25rem]"></div>
+              <div className="min-h-8 bg-foreground rounded-full min-w-[0.25rem]" />
             </div>
           )}
           {(direction === "top" || direction === "bottom") && (
@@ -149,7 +131,7 @@ export function Handle({ direction, directionArr, handleResize }) {
               onMouseDown={(e) => handleResize(e, direction)}
               onTouchStart={(e) => handleResize(e, direction)}
             >
-              <div className="min-w-8 bg-foreground rounded-full min-h-[0.25rem]"></div>
+              <div className="min-w-8 bg-foreground rounded-full min-h-[0.25rem]" />
             </div>
           )}
         </>
@@ -181,7 +163,8 @@ const useResizable = (containerRef, resizableRef, options = {}) => {
   const handleValue = (value) => {
     if (value.includes("px")) {
       return Number(value.replace("px", ""));
-    } else if (value.includes("%")) {
+    }
+    if (value.includes("%")) {
       const percentage = Number(value.replace("%", ""));
       const containerRect = containerRef.current?.getBoundingClientRect();
       if (!containerRect) return 0;
@@ -249,40 +232,23 @@ const useResizable = (containerRef, resizableRef, options = {}) => {
 
     if (activeHandle === "bottom") {
       const deltaY = currentY - startY - initialHeight;
-      newHeight = Math.max(
-        initialHeight + deltaY,
-        boundingDimensions.minHeight
-      );
+      newHeight = Math.max(initialHeight + deltaY, boundingDimensions.minHeight);
     }
 
     if (activeHandle === "top") {
       const deltaY = startY - currentY;
-      newHeight = Math.max(
-        initialHeight + deltaY,
-        boundingDimensions.minHeight
-      );
+      newHeight = Math.max(initialHeight + deltaY, boundingDimensions.minHeight);
     }
 
-    const widthFinal = Math.min(
-      newWidth,
-      containerRef.current?.clientWidth || Infinity
-    );
-    const heightFinal = Math.min(
-      newHeight,
-      containerRef.current?.clientHeight || Infinity
-    );
+    const widthFinal = Math.min(newWidth, containerRef.current?.clientWidth || Number.POSITIVE_INFINITY);
+    const heightFinal = Math.min(newHeight, containerRef.current?.clientHeight || Number.POSITIVE_INFINITY);
 
     // This will prevent the bounding element from being expanded.
     if (!expandBoundingElement && containerRef.current) {
-      if (
-        widthFinal >= boundingDimensions.maxWidth ||
-        heightFinal >= boundingDimensions.maxHeight
-      )
-        return;
+      if (widthFinal >= boundingDimensions.maxWidth || heightFinal >= boundingDimensions.maxHeight) return;
     }
 
-    if (activeHandle === "right" || activeHandle === "left")
-      resizableRef.current.style.width = `${widthFinal}px`;
+    if (activeHandle === "right" || activeHandle === "left") resizableRef.current.style.width = `${widthFinal}px`;
     else if (activeHandle === "bottom" || activeHandle === "top")
       resizableRef.current.style.height = `${heightFinal}px`;
 
@@ -308,6 +274,7 @@ const useResizable = (containerRef, resizableRef, options = {}) => {
     startSelection();
   };
 
+  
   useEffect(() => {
     containerRef.current?.addEventListener("touchmove", handleMove, {
       passive: false,
@@ -324,6 +291,7 @@ const useResizable = (containerRef, resizableRef, options = {}) => {
       containerRef.current?.removeEventListener("mousemove", handleMove);
       containerRef.current?.removeEventListener("mouseup", stopResize);
     };
+    
   }, [handleMove, stopResize]);
 
   return {
@@ -394,7 +362,7 @@ export default function ResizeImplementation() {
 ```default|ts|Resizable.tsx
 "use client";
 
-import React from "react";
+import type React from "react";
 import { twMerge } from "tailwind-merge";
 
 export interface ResizableBoundingElementProps {
@@ -402,11 +370,7 @@ export interface ResizableBoundingElementProps {
   className?: string;
   children: React.ReactNode;
 }
-export function ResizeBoundingElement({
-  containerRef,
-  className,
-  children,
-}: ResizableBoundingElementProps) {
+export function ResizeBoundingElement({ containerRef, className, children }: ResizableBoundingElementProps) {
   return (
     <div ref={containerRef} className={twMerge("w-full", className)}>
       {children}
@@ -421,10 +385,8 @@ export interface ResizableContainerProps {
   direction: ("right" | "bottom" | "top" | "left")[];
   className?: string;
   handleResize: (
-    e:
-      | React.MouseEvent<HTMLDivElement, MouseEvent>
-      | React.TouchEvent<HTMLDivElement>,
-    direction: "right" | "bottom" | "top" | "left"
+    e: React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement>,
+    direction: "right" | "bottom" | "top" | "left",
   ) => void;
   resizableRef: React.RefObject<HTMLDivElement>;
 }
@@ -440,17 +402,9 @@ export function ResizableContainer({
 }: ResizableContainerProps) {
   return (
     <div className="w-max">
-      <Handle
-        direction="top"
-        directionArr={direction}
-        handleResize={handleResize}
-      />
+      <Handle direction="top" directionArr={direction} handleResize={handleResize} />
       <div className="h-full flex">
-        <Handle
-          direction="left"
-          directionArr={direction}
-          handleResize={handleResize}
-        />
+        <Handle direction="left" directionArr={direction} handleResize={handleResize} />
         <div
           ref={resizableRef}
           style={{
@@ -461,17 +415,9 @@ export function ResizableContainer({
         >
           {children}
         </div>
-        <Handle
-          direction="right"
-          directionArr={direction}
-          handleResize={handleResize}
-        />
+        <Handle direction="right" directionArr={direction} handleResize={handleResize} />
       </div>
-      <Handle
-        direction="bottom"
-        directionArr={direction}
-        handleResize={handleResize}
-      />
+      <Handle direction="bottom" directionArr={direction} handleResize={handleResize} />
     </div>
   );
 }
@@ -481,7 +427,7 @@ export interface HandleProps {
   directionArr: ("right" | "bottom" | "top" | "left")[];
   handleResize: (
     e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
-    directions: "right" | "left" | "top" | "bottom"
+    directions: "right" | "left" | "top" | "bottom",
   ) => void;
 }
 
@@ -497,7 +443,7 @@ export function Handle({ direction, directionArr, handleResize }: HandleProps) {
               onMouseDown={(e) => handleResize(e, direction)}
               onTouchStart={(e) => handleResize(e, direction)}
             >
-              <div className="min-h-8 bg-foreground rounded-full min-w-[0.25rem]"></div>
+              <div className="min-h-8 bg-foreground rounded-full min-w-[0.25rem]" />
             </div>
           )}
           {(direction === "top" || direction === "bottom") && (
@@ -507,7 +453,7 @@ export function Handle({ direction, directionArr, handleResize }: HandleProps) {
               onMouseDown={(e) => handleResize(e, direction)}
               onTouchStart={(e) => handleResize(e, direction)}
             >
-              <div className="min-w-8 bg-foreground rounded-full min-h-[0.25rem]"></div>
+              <div className="min-w-8 bg-foreground rounded-full min-h-[0.25rem]" />
             </div>
           )}
         </>
@@ -521,7 +467,7 @@ export function Handle({ direction, directionArr, handleResize }: HandleProps) {
 ```default|ts|useResizable.tsx
 "use client";
 
-import { RefObject, useEffect, useState } from "react";
+import { type RefObject, useEffect, useState } from "react";
 
 export interface ResizableOptions {
   minWidth?: string;
@@ -537,7 +483,7 @@ export interface ResizableOptions {
 const useResizable = (
   containerRef: RefObject<HTMLDivElement>,
   resizableRef: RefObject<HTMLDivElement>,
-  options: ResizableOptions = {}
+  options: ResizableOptions = {},
 ) => {
   const {
     minWidth,
@@ -554,7 +500,8 @@ const useResizable = (
   const handleValue = (value: string) => {
     if (value.includes("px")) {
       return Number(value.replace("px", ""));
-    } else if (value.includes("%")) {
+    }
+    if (value.includes("%")) {
       const percentage = Number(value.replace("%", ""));
       const containerRect = containerRef.current?.getBoundingClientRect();
       if (!containerRect) return 0;
@@ -575,9 +522,7 @@ const useResizable = (
     width: boundingDimensions.minWidth,
     height: boundingDimensions.minHeight,
   });
-  const [activeHandle, setActiveHandle] = useState<
-    "right" | "left" | "top" | "bottom" | null
-  >(null);
+  const [activeHandle, setActiveHandle] = useState<"right" | "left" | "top" | "bottom" | null>(null);
 
   const stopSelection = () => {
     if (containerRef.current) {
@@ -625,40 +570,23 @@ const useResizable = (
 
     if (activeHandle === "bottom") {
       const deltaY = currentY - startY - initialHeight;
-      newHeight = Math.max(
-        initialHeight + deltaY,
-        boundingDimensions.minHeight
-      );
+      newHeight = Math.max(initialHeight + deltaY, boundingDimensions.minHeight);
     }
 
     if (activeHandle === "top") {
       const deltaY = startY - currentY;
-      newHeight = Math.max(
-        initialHeight + deltaY,
-        boundingDimensions.minHeight
-      );
+      newHeight = Math.max(initialHeight + deltaY, boundingDimensions.minHeight);
     }
 
-    const widthFinal = Math.min(
-      newWidth,
-      containerRef.current?.clientWidth || Infinity
-    );
-    const heightFinal = Math.min(
-      newHeight,
-      containerRef.current?.clientHeight || Infinity
-    );
+    const widthFinal = Math.min(newWidth, containerRef.current?.clientWidth || Number.POSITIVE_INFINITY);
+    const heightFinal = Math.min(newHeight, containerRef.current?.clientHeight || Number.POSITIVE_INFINITY);
 
     // This will prevent the bounding element from being expanded.
     if (!expandBoundingElement && containerRef.current) {
-      if (
-        widthFinal >= boundingDimensions.maxWidth ||
-        heightFinal >= boundingDimensions.maxHeight
-      )
-        return;
+      if (widthFinal >= boundingDimensions.maxWidth || heightFinal >= boundingDimensions.maxHeight) return;
     }
 
-    if (activeHandle === "right" || activeHandle === "left")
-      resizableRef.current.style.width = `${widthFinal}px`;
+    if (activeHandle === "right" || activeHandle === "left") resizableRef.current.style.width = `${widthFinal}px`;
     else if (activeHandle === "bottom" || activeHandle === "top")
       resizableRef.current.style.height = `${heightFinal}px`;
 
@@ -672,7 +600,7 @@ const useResizable = (
 
   const handleResize = (
     e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>,
-    direction: "right" | "left" | "top" | "bottom"
+    direction: "right" | "left" | "top" | "bottom",
   ) => {
     setActiveHandle(direction);
     setIsResizing(true);
@@ -687,6 +615,7 @@ const useResizable = (
     startSelection();
   };
 
+  
   useEffect(() => {
     containerRef.current?.addEventListener("touchmove", handleMove, {
       passive: false,
@@ -703,6 +632,7 @@ const useResizable = (
       containerRef.current?.removeEventListener("mousemove", handleMove);
       containerRef.current?.removeEventListener("mouseup", stopResize);
     };
+    
   }, [handleMove, stopResize]);
 
   return {

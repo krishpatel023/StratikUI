@@ -11,9 +11,7 @@ export default function UseHashExample() {
   };
   return (
     <div className="text-center">
-      <h1 className="text-foreground mb-4">
-        Hash Value : {hash ? hash : "null"}
-      </h1>
+      <h1 className="text-foreground mb-4">Hash Value : {hash ? hash : "null"}</h1>
       <Button onPress={handleAddition}> Add Hash </Button>
     </div>
   );

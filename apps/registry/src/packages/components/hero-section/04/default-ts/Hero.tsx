@@ -3,17 +3,11 @@
 import { Button } from "@registry/packages/primitives/buttons/02/default-ts/Button";
 import { Logo } from "./Logo";
 import useMousePosition from "@registry/packages/hooks/useMousePosition/01/default-ts/useMousePosition";
-import { useEffect, useRef, useState } from "react";
-import {
-  Button as ReactAriaButton,
-  ButtonProps as ReactAriaButtonProps,
-} from "react-aria-components";
+import { type ReactNode, useEffect, useRef, useState } from "react";
+import { Button as ReactAriaButton, type ButtonProps as ReactAriaButtonProps } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
 
-export function BorderAnimationButton({
-  children,
-  className,
-}: ReactAriaButtonProps) {
+export function BorderAnimationButton({ children, className }: ReactAriaButtonProps) {
   const { x, y } = useMousePosition();
   const [relativeX, setRelativeX] = useState(0);
 
@@ -28,10 +22,9 @@ export function BorderAnimationButton({
       const rect = containerRef.current.getBoundingClientRect();
 
       const dist = x - rect.left;
-      if (y > rect.top && y < rect.bottom && dist > 0 && dist < rect.width)
-        setRelativeX(dist);
+      if (y > rect.top && y < rect.bottom && dist > 0 && dist < rect.width) setRelativeX(dist);
     }
-  }, [x]);
+  }, [x, y]);
 
   return (
     <ReactAriaButton
@@ -39,13 +32,8 @@ export function BorderAnimationButton({
       ref={containerRef}
       onHoverEnd={handleMouseLeave}
     >
-      <div
-        className={twMerge(
-          "z-10 bg-background relative rounded-[inherit]",
-          className as string
-        )}
-      >
-        <>{children}</>
+      <div className={twMerge("z-10 bg-background relative rounded-[inherit]", className as string)}>
+        {children as ReactNode}
       </div>
       <div
         className="z-0 m-1 mx-auto my-auto w-full h-full  absolute top-0 -left-1/2   bg-gradient-to-r from-transparent via-accent to-transparent opacity-40 group-hover:opacity-100 group-hover:transition-opacity hover:duration-500 transition-all duration-500"
@@ -66,8 +54,8 @@ export function HeroSection() {
           The best library for Tailwind Components.
         </h1>
         <span className="text-lg font-medium w-[30rem] max-w-[90%] text-secondary-foreground">
-          Beautifully designed components that you can copy and paste into your
-          apps. Accessible. Customizable. Developer Friendly.
+          Beautifully designed components that you can copy and paste into your apps. Accessible. Customizable.
+          Developer Friendly.
         </span>
         <div className="flex gap-8">
           <Button variant="accent">Create Free Account</Button>

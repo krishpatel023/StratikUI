@@ -1,42 +1,22 @@
-import Image, { ImageProps } from "next/image";
+import Image, { type ImageProps } from "next/image";
 import { twMerge } from "tailwind-merge";
 import { convertToDashed } from "@/utils/utils";
 import Link from "next/link";
 import { Icons } from "@/utils/icons";
 
-export const UL = ({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLUListElement>) => {
-  return (
-    <ul className={twMerge("my-6 ml-10 list-disc", className)} {...props} />
-  );
+export const UL = ({ className, ...props }: React.HTMLAttributes<HTMLUListElement>) => {
+  return <ul className={twMerge("my-6 ml-10 list-disc", className)} {...props} />;
 };
 
-export const OL = ({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLOListElement>) => {
-  return (
-    <ol className={twMerge("my-6 ml-10 list-decimal ", className)} {...props} />
-  );
+export const OL = ({ className, ...props }: React.HTMLAttributes<HTMLOListElement>) => {
+  return <ol className={twMerge("my-6 ml-10 list-decimal ", className)} {...props} />;
 };
 
-export const LI = ({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLElement>) => {
-  return (
-    <li
-      className={twMerge("mt-2 text-secondary-foreground", className)}
-      {...props}
-    />
-  );
+export const LI = ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => {
+  return <li className={twMerge("mt-2 text-secondary-foreground", className)} {...props} />;
 };
 
-export const BLOCK_QUOTE = ({
-  ...props
-}: React.HTMLAttributes<HTMLElement>) => {
+export const BLOCK_QUOTE = ({ ...props }: React.HTMLAttributes<HTMLElement>) => {
   const children = props.children as JSX.Element;
   const childrenArray = Array.isArray(children) ? children : [children];
 
@@ -48,14 +28,10 @@ export const BLOCK_QUOTE = ({
     <blockquote
       className={twMerge(
         "border-l-[3px] pl-6 border-neutral-700 bg-neutral-400/20 text-secondary-foreground py-2",
-        category === "error" &&
-          "border-error bg-red-500/20 text-red-950 dark:text-red-300",
-        category === "alert" &&
-          "border-alert-secondary text-yellow-900 dark:text-yellow-500 bg-yellow-300/20",
-        category === "success" &&
-          "border-success bg-green-300/20 text-green-900 dark:text-green-400",
-        category === "info" &&
-          "border-blue-600 bg-blue-500/20 text-blue-900 dark:text-blue-400"
+        category === "error" && "border-error bg-red-500/20 text-red-950 dark:text-red-300",
+        category === "alert" && "border-alert-secondary text-yellow-900 dark:text-yellow-500 bg-yellow-300/20",
+        category === "success" && "border-success bg-green-300/20 text-green-900 dark:text-green-400",
+        category === "info" && "border-blue-600 bg-blue-500/20 text-blue-900 dark:text-blue-400",
       )}
       {...props}
     >
@@ -69,28 +45,19 @@ export const HR = ({ ...props }: React.HTMLAttributes<HTMLHRElement>) => {
 };
 
 export function Break(height: number) {
-  return <div className="min-w-full" style={{ height: `${height}rem` }}></div>;
+  return <div className="min-w-full" style={{ height: `${height}rem` }} />;
 }
 
 export function Anchor({ ...props }) {
   return (
-    <a
-      {...props}
-      target="_blank"
-      rel="noreferrer"
-      className="text-primary-foreground underline underline-offset-2"
-    />
+    <a {...props} target="_blank" rel="noreferrer" className="text-primary-foreground underline underline-offset-2" />
   );
 }
 
 export function ImageComponent({ ...props }) {
   return (
     <>
-      <Image
-        sizes="100vw"
-        style={{ width: "100%", height: "auto" }}
-        {...(props as ImageProps)}
-      />
+      <Image sizes="100vw" style={{ width: "100%", height: "auto" }} {...(props as ImageProps)} />
     </>
   );
 }
@@ -105,7 +72,7 @@ export const Title = ({ children }: { children: React.ReactNode }) => {
       <span
         className={twMerge(
           "text-gray-800 dark:text-gray-200 hidden absolute top-[0.125rem] -left-8",
-          "group-hover/hashtag:inline-block"
+          "group-hover/hashtag:inline-block",
         )}
       >
         <Icons.link className="w-6 h-6" />
@@ -123,25 +90,15 @@ export const H1 = ({ children }: { children: React.ReactNode }) => {
 };
 
 export const H2 = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <p className="text-2xl text-primary-foreground font-semibold">{children}</p>
-  );
+  return <p className="text-2xl text-primary-foreground font-semibold">{children}</p>;
 };
 
 export const H3 = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <p className="text-secondary-foreground font-normal text-base">
-      {children}
-    </p>
-  );
+  return <p className="text-secondary-foreground font-normal text-base">{children}</p>;
 };
 
 export const TEXT = ({ ...props }) => {
-  return (
-    <p className="text-secondary-foreground font-normal text-base">
-      {props.children}
-    </p>
-  );
+  return <p className="text-secondary-foreground font-normal text-base">{props.children}</p>;
 };
 
 export const BACKTICK = ({ ...props }) => {

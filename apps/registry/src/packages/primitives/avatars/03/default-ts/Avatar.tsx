@@ -1,6 +1,6 @@
 "use client";
 
-import Image, { StaticImageData } from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import { twMerge } from "tailwind-merge";
 
 export interface AvatarProps {
@@ -22,17 +22,13 @@ export function Avatar({ src, alt, name, className, isDisabled }: AvatarProps) {
     <div
       className={twMerge(
         "size-12 rounded-full flex justify-center items-center group aria-disabled: bg-gradient-to-r from-blue-500 to-purple-500",
-        className
+        className,
       )}
       aria-disabled={isDisabled}
       aria-label="avatar"
     >
       {src ? (
-        <Image
-          src={src}
-          alt={alt || "avatar"}
-          className="rounded-[inherit] size-full"
-        />
+        <Image src={src} alt={alt || "avatar"} className="rounded-[inherit] size-full" />
       ) : (
         <h1 aria-label="initials" className="text-2xl text-primary-foreground">
           {initials}
@@ -47,11 +43,7 @@ export interface AvatarStackProps {
   limit?: number;
   withExtension?: boolean;
 }
-export function AvatarStack({
-  avatars,
-  limit = 5,
-  withExtension,
-}: AvatarStackProps) {
+export function AvatarStack({ avatars, limit = 5, withExtension }: AvatarStackProps) {
   const displayedAvatars = avatars.slice(0, limit);
   const remainingCount = avatars.length - limit;
 
@@ -63,11 +55,7 @@ export function AvatarStack({
         </div>
       )}
       {displayedAvatars.map((avatar, index) => (
-        <div
-          key={index}
-          className="-ml-4 last:ml-0"
-          style={{ zIndex: displayedAvatars.length - index }}
-        >
+        <div key={index} className="-ml-4 last:ml-0" style={{ zIndex: displayedAvatars.length - index }}>
           <Avatar {...avatar} />
         </div>
       ))}

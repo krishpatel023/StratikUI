@@ -28,7 +28,7 @@ export function Modal({
         "w-full h-full absolute top-0 left-0 right-0 z-50 ",
         !isBGBlur &&
           "bg-transparent dark:bg-transparent backdrop-blur-none supports-[backdrop-filter]:bg-transparent dark:supports-[backdrop-filter]:bg-transparent",
-        !isOpen && "hidden"
+        !isOpen && "hidden",
       )}
     >
       <KeyListener onKeyDown={() => setOpen(false)} keys={["Esc"]} />
@@ -37,8 +37,7 @@ export function Modal({
         className={twMerge(
           "hidden absolute rounded-md px-6 py-6 border border-outline-secondary bg-primary text-foreground",
           isOpen && "flex flex-col",
-          position === "center center" &&
-            "top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2",
+          position === "center center" && "top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2",
           position === "center top" && "top-6 left-1/2 -translate-x-1/2",
           position === "center bottom" && "bottom-6 left-1/2 -translate-x-1/2",
           position === "left top" && "top-6 left-6",
@@ -47,7 +46,7 @@ export function Modal({
           position === "right top" && "top-6 right-6",
           position === "right bottom" && "bottom-6 right-6",
           position === "right center" && "top-1/2 right-6 -translate-y-1/2",
-          className
+          className,
         )}
       >
         {children}

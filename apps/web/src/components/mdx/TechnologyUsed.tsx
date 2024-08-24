@@ -1,29 +1,22 @@
 import { Fragment } from "react";
-import { IconProps } from "../../utils/constants";
+import type { IconProps } from "../../utils/constants";
+
+// biome-ignore lint/style/useImportType: <explanation>
 import React from "react";
 
 const Icons = {
   tailwindcss: (props: IconProps) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 128 128"
-      {...props}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 128 128" {...props}>
+      <title>TailwindCSS Icon</title>
       <path
         fill="#38bdf8"
         d="M64.004 25.602c-17.067 0-27.73 8.53-32 25.597c6.398-8.531 13.867-11.73 22.398-9.597c4.871 1.214 8.352 4.746 12.207 8.66C72.883 56.629 80.145 64 96.004 64c17.066 0 27.73-8.531 32-25.602c-6.399 8.536-13.867 11.735-22.399 9.602c-4.87-1.215-8.347-4.746-12.207-8.66c-6.27-6.367-13.53-13.738-29.394-13.738zM32.004 64c-17.066 0-27.73 8.531-32 25.602C6.402 81.066 13.87 77.867 22.402 80c4.871 1.215 8.352 4.746 12.207 8.66c6.274 6.367 13.536 13.738 29.395 13.738c17.066 0 27.73-8.53 32-25.597c-6.399 8.531-13.867 11.73-22.399 9.597c-4.87-1.214-8.347-4.746-12.207-8.66C55.128 71.371 47.868 64 32.004 64zm0 0"
-      ></path>
+      />
     </svg>
   ),
   twMerge: (props: IconProps) => (
-    <svg
-      viewBox="0 0 66 45"
-      fill="#6366F1"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
+    <svg viewBox="0 0 66 45" fill="#6366F1" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <title>Tailwind Merge Icon</title>
       <path
         opacity="0.1"
         d="M39 12C31.8 12 27.3 15.6 25.5 22.8C28.2 19.2 31.35 17.85 34.95 18.75C37.004 19.263 38.472 20.754 40.097 22.403C42.744 25.09 45.808 28.2 52.5 28.2C59.7 28.2 64.2 24.6 66 17.4C63.3 21 60.15 22.35 56.55 21.45C54.496 20.937 53.028 19.446 51.403 17.797C48.756 15.11 45.692 12 39 12ZM25.5 28.2C18.3 28.2 13.8 31.8 12 39C14.7 35.4 17.85 34.05 21.45 34.95C23.504 35.464 24.972 36.954 26.597 38.603C29.244 41.29 32.308 44.4 39 44.4C46.2 44.4 50.7 40.8 52.5 33.6C49.8 37.2 46.65 38.55 43.05 37.65C40.996 37.137 39.528 35.646 37.903 33.997C35.256 31.31 32.192 28.2 25.5 28.2Z"
@@ -40,24 +33,14 @@ const Icons = {
     </svg>
   ),
   framerMotion: (props: IconProps) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
-      viewBox="0 0 24 24"
-      {...props}
-    >
-      <path fill="currentColor" d="M4 0h16v8h-8zm0 8h8l8 8H4zm0 8h8v8z"></path>
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}>
+      <title>Framer Motion Icon</title>
+      <path fill="currentColor" d="M4 0h16v8h-8zm0 8h8l8 8H4zm0 8h8v8z" />
     </svg>
   ),
   reactAria: (props: IconProps) => (
-    <svg
-      height="200"
-      width="200"
-      viewBox="0 0 20 20"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
+    <svg height="200" width="200" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <title>React Aria Icon</title>
       <path
         d="M20 1v18.001L12.607 1H20ZM7.399 1L0 19.001V1h7.399Zm2.604 6.265L14.713 19h-3.086l-1.41-3.419H6.77l3.233-8.316Z"
         fill="currentColor"
@@ -142,20 +125,19 @@ export const TechnologyUsed = ({
     <div>
       <h1 className="text-lg font-medium text-foreground">Technologies Used</h1>
       <div className="flex justify-start gap-8 mt-2 flex-wrap">
-        {techUsed &&
-          techUsed.map((item, i) => (
-            <Fragment key={i}>
-              <a
-                href={TECH_USED[item].link}
-                target="_blank"
-                className="flex justify-start items-center gap-2 text-sm text-foreground"
-                rel="nofollow"
-              >
-                {TECH_USED[item].logo}
-                {TECH_USED[item].name}
-              </a>
-            </Fragment>
-          ))}
+        {techUsed?.map((item, i) => (
+          <Fragment key={i}>
+            <a
+              href={TECH_USED[item].link}
+              target="_blank"
+              className="flex justify-start items-center gap-2 text-sm text-foreground"
+              rel="noreferrer nofollow"
+            >
+              {TECH_USED[item].logo}
+              {TECH_USED[item].name}
+            </a>
+          </Fragment>
+        ))}
       </div>
     </div>
   );

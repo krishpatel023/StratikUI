@@ -22,6 +22,7 @@ export const Header = () => {
   const hash = useHash();
   const scrollToSection = useScrollToSection();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: useless rerenders if scrollToSection is added
   useEffect(() => {
     if (hash) scrollToSection(hash);
   }, [hash]);
@@ -35,11 +36,7 @@ export const Header = () => {
         className="flex h-full items-center justify-center  font-semibold text-2xl text-foreground"
         aria-label="Home"
       >
-        {theme ? (
-          <Logo.dark className="h-16 w-16" />
-        ) : (
-          <Logo.light className="h-16 w-16" />
-        )}
+        {theme ? <Logo.dark className="h-16 w-16" /> : <Logo.light className="h-16 w-16" />}
         <span className=" sm:block text-xl">Stratik / UI</span>
         <span className="ml-4 bg-secondary text-sm font-light px-3 py-1 rounded border border-outline-secondary">
           beta
@@ -48,11 +45,7 @@ export const Header = () => {
 
       <div className="flex gap-6 items-center">
         {/* PLACEHOLDER */}
-        <SearchField
-          setSearchbar={setSearchbar}
-          searchbar={searchbar}
-          keys={["Control", "k"]}
-        />
+        <SearchField setSearchbar={setSearchbar} searchbar={searchbar} keys={["Control", "k"]} />
 
         <div className="hidden sm:flex justify-center items-center gap-4">
           <Button
@@ -92,11 +85,7 @@ export const Header = () => {
             aria-label="Toggle Theme"
             variant="ghost"
           >
-            {theme ? (
-              <Icons.moon className="w-6 h-6" />
-            ) : (
-              <Icons.sun className="w-6 h-6" />
-            )}
+            {theme ? <Icons.moon className="w-6 h-6" /> : <Icons.sun className="w-6 h-6" />}
           </Button>
         </div>
         <Button

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Fuse from "fuse.js";
-import SearchData, { SearchProps } from "@/data/Search";
+import SearchData, { type SearchProps } from "@/data/Search";
 
 type UseSearchResult = {
   isLoading: boolean;
@@ -47,7 +47,7 @@ export const useSearch = (): UseSearchResult => {
     } else {
       setMessage({
         state: "success",
-        msg: "Found " + items.length + " results.",
+        msg: `Found ${items.length} results.`,
       });
     }
     // Set loading state to false after search is complete

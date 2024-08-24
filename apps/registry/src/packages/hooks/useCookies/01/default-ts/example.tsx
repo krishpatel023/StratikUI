@@ -6,19 +6,11 @@ import { useEffect, useState } from "react";
 import Input from "@registry/ui/Input";
 
 export default function UseCookiesExample() {
-  const {
-    setCookie,
-    getCookie,
-    getAllCookies,
-    removeCookie,
-    resetCookiePreferences,
-  } = useCookies();
+  const { setCookie, getCookie, getAllCookies, removeCookie, resetCookiePreferences } = useCookies();
 
   const [cookieValue, setCookieValue] = useState("");
 
-  const [message, setMessage] = useState(
-    "Click any of the buttons to get started."
-  );
+  const [message, setMessage] = useState("Click any of the buttons to get started.");
   const [displayData, setDisplayData] = useState<{
     [key: string]: string;
   } | null>(null);
@@ -54,6 +46,7 @@ export default function UseCookiesExample() {
     setMessage("Cookie named 'demoCookie' removed");
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Only needed at the initial load
   useEffect(() => {
     resetPreferences();
   }, []);
@@ -64,11 +57,7 @@ export default function UseCookiesExample() {
         <h1>useCookie</h1>
       </div>
       <div>
-        <Input
-          label="Cookie Value"
-          placeholder="Cookie Value"
-          onChange={(e) => setCookieValue(e.target.value)}
-        />
+        <Input label="Cookie Value" placeholder="Cookie Value" onChange={(e) => setCookieValue(e.target.value)} />
       </div>
       <div className="flex gap-4 flex-col @md:flex-row">
         <Button onPress={handleSaveCookie}>Set Cookie</Button>

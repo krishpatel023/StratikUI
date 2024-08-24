@@ -19,18 +19,13 @@ export function Dropbox({
   function handleValidation(file) {
     // Size validation
     if (limitSize && file.size > limitSize * 1024 * 1024) {
-      setError(
-        error +
-          `File named ${file.name} is too large. Max size is ${limitSize}MB.`
-      );
+      setError(`${error}File named ${file.name} is too large. Max size is ${limitSize}MB.`);
       return false;
     }
 
     // Number of files validation
     if (limitNumberOfFiles && files.length >= limitNumberOfFiles) {
-      setError(
-        error + `You can only upload ${limitNumberOfFiles} files at a time.`
-      );
+      setError(`${error}You can only upload ${limitNumberOfFiles} files at a time.`);
       return false;
     }
 
@@ -69,8 +64,7 @@ export function Dropbox({
 
       if (retType === false) {
         setError(
-          error +
-            `File named ${file.name} is not allowed. Allowed types are ${allowedFileTypes.join(", ")} and the file you tried to upload is ${file.type}.`
+          `${error}File named ${file.name} is not allowed. Allowed types are ${allowedFileTypes.join(", ")} and the file you tried to upload is ${file.type}.`,
         );
         return false;
       }
@@ -85,9 +79,7 @@ export function Dropbox({
 
     // Validation
 
-    const validFilesArray = Array.from(droppedFiles).filter((file) =>
-      handleValidation(file)
-    );
+    const validFilesArray = Array.from(droppedFiles).filter((file) => handleValidation(file));
     setFiles((prevFiles) => [...prevFiles, ...validFilesArray]);
   }
 
@@ -107,6 +99,7 @@ export function Dropbox({
     }
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Necessary for the component to work
   useEffect(() => {
     if (getFiles) {
       getFiles(files);

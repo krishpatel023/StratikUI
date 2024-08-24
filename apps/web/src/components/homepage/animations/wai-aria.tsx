@@ -1,4 +1,4 @@
-import React, { CSSProperties, ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { twMerge } from "tailwind-merge";
 
 interface AnimatedShinyTextProps {
@@ -15,11 +15,7 @@ export default function WAI_ARIA() {
   );
 }
 
-function AnimatedShinyText({
-  children,
-  className,
-  shimmerWidth = 100,
-}: AnimatedShinyTextProps) {
+function AnimatedShinyText({ children, className, shimmerWidth = 100 }: AnimatedShinyTextProps) {
   return (
     <p
       className={twMerge(
@@ -29,7 +25,7 @@ function AnimatedShinyText({
 
         // Shimmer gradient
         "bg-gradient-to-r from-transparent via-black/80 via-50% to-transparent  dark:via-white/80",
-        className
+        className,
       )}
       style={
         {

@@ -1,5 +1,5 @@
 "use client";
-import { RefObject, useEffect, useState } from "react";
+import { type RefObject, useEffect, useState } from "react";
 
 interface UseScrollToProps {
   threshold?: number;
@@ -19,8 +19,7 @@ const useScrollTo = ({ threshold = 300 }: UseScrollToProps = {}) => {
   const scroll = (element: RefObject<HTMLElement | null> | string | null) => {
     let targetElem = null;
 
-    if (typeof element === "string")
-      targetElem = document.getElementById(element);
+    if (typeof element === "string") targetElem = document.getElementById(element);
     else if (typeof element === "object") targetElem = element?.current;
     else targetElem = null;
 
@@ -36,13 +35,14 @@ const useScrollTo = ({ threshold = 300 }: UseScrollToProps = {}) => {
     }
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Addition of others will cause the component to re-render many times
   useEffect(() => {
     window.addEventListener("scroll", toggleVisibility);
 
     return () => {
       window.removeEventListener("scroll", toggleVisibility);
     };
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   return { isVisible, scroll };
 };

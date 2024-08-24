@@ -9,8 +9,7 @@ export function Card() {
       <div className="w-full px-6 py-4 flex flex-col gap-2">
         <h1 className="text-2xl font-semibold">Title</h1>
         <h3 className="text-secondary-foreground">
-          This is something great. Design this according to your needs and make
-          it look great.
+          This is something great. Design this according to your needs and make it look great.
         </h3>
         <Link
           href="#"

@@ -10,7 +10,7 @@ export function Banner({ open, type = "default", children, className }) {
         type === "default" && (open ? "" : "absolute -top-full"),
         type === "sticky" && (open ? "sticky top-0" : "absolute -top-full"),
         type === "fixed" && (open ? "fixed top-0" : "absolute -top-full"),
-        className
+        className,
       )}
     >
       {children}

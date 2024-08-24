@@ -1,11 +1,10 @@
 "use client";
 
 import {
-  Button,
   OverlayArrow as OverlayArrowAria,
-  OverlayArrowProps as OverlayArrowPropsAria,
+  type OverlayArrowProps as OverlayArrowPropsAria,
   Tooltip as TooltipAria,
-  TooltipProps,
+  type TooltipProps,
   TooltipTrigger as TooltipTriggerAria,
 } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
@@ -16,10 +15,7 @@ export interface OverlayArrowProps extends OverlayArrowPropsAria {
   position: TooltipProps["placement"];
 }
 
-export function OverlayArrow({
-  position = "top",
-  ...props
-}: OverlayArrowProps) {
+export function OverlayArrow({ position = "top", ...props }: OverlayArrowProps) {
   return (
     <OverlayArrowAria {...props}>
       <svg
@@ -29,13 +25,11 @@ export function OverlayArrow({
         className={twMerge(
           (position as string)?.split(" ")[0] === "bottom" && "rotate-180",
           (position as string)?.split(" ")[0] === "left" && "-rotate-90",
-          (position as string)?.split(" ")[0] === "right" && "rotate-90"
+          (position as string)?.split(" ")[0] === "right" && "rotate-90",
         )}
       >
-        <path
-          d="M0 0 L4 4 L8 0"
-          className="fill-primary stroke-outline-secondary"
-        />
+        <title>Tooltip Arrow</title>
+        <path d="M0 0 L4 4 L8 0" className="fill-primary stroke-outline-secondary" />
       </svg>
     </OverlayArrowAria>
   );
@@ -51,7 +45,7 @@ export function Tooltip({ children, className, ...props }: TooltipProps) {
         (props.placement as string)?.split(" ")[0] === "bottom" && "mt-2",
         (props.placement as string)?.split(" ")[0] === "left" && "mr-2",
         (props.placement as string)?.split(" ")[0] === "right" && "ml-2",
-        className as string
+        className as string,
       )}
       {...props}
     >

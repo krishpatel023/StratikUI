@@ -1,13 +1,5 @@
 "use client";
-import {
-  Button,
-  FieldError,
-  Group,
-  Input,
-  Label,
-  NumberField,
-  Text,
-} from "react-aria-components";
+import { Button, FieldError, Group, Input, Label, NumberField, Text } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
 
 export const InputNumber = ({
@@ -26,15 +18,12 @@ export const InputNumber = ({
         className={twMerge(
           "border border-outline-secondary flex rounded h-10 text-foreground mb-1",
           "focus-within:outline-2 focus-within:outline-primary",
-          className
+          className,
         )}
       >
         <Button
           slot="decrement"
-          className={twMerge(
-            "px-2 border-r border-outline-secondary rounded-l-[inherit]",
-            !showButtons && "hidden"
-          )}
+          className={twMerge("px-2 border-r border-outline-secondary rounded-l-[inherit]", !showButtons && "hidden")}
           aria-hidden={!showButtons}
         >
           <Icons.minus className="h-4 w-4 m-auto" />
@@ -43,15 +32,12 @@ export const InputNumber = ({
           placeholder={placeholder}
           className={twMerge(
             "focus:outline-none py-1 px-2 bg-transparent placeholder:text-secondary-foreground",
-            !showButtons && "rounded"
+            !showButtons && "rounded",
           )}
         />
         <Button
           slot="increment"
-          className={twMerge(
-            "px-2 border-l border-outline-secondary rounded-r-[inherit]",
-            !showButtons && "hidden"
-          )}
+          className={twMerge("px-2 border-l border-outline-secondary rounded-r-[inherit]", !showButtons && "hidden")}
           aria-hidden={!showButtons}
         >
           <Icons.plus className="h-4 w-4 m-auto" />
@@ -69,13 +55,8 @@ export const InputNumber = ({
 
 const Icons = {
   plus: (props) => (
-    <svg
-      height="200"
-      width="200"
-      viewBox="0 0 16 16"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
+    <svg height="200" width="200" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <title>Plus</title>
       <path
         d="M8.25 3a.5.5 0 0 1 .5.5v3.75h3.75a.5.5 0 0 1 .5.5v.5a.5.5 0 0 1-.5.5H8.75v3.75a.5.5 0 0 1-.5.5h-.5a.5.5 0 0 1-.5-.5V8.75H3.5a.5.5 0 0 1-.5-.5v-.5a.5.5 0 0 1 .5-.5h3.75V3.5a.5.5 0 0 1 .5-.5z"
         fill="currentColor"
@@ -83,21 +64,9 @@ const Icons = {
     </svg>
   ),
   minus: (props) => (
-    <svg
-      height="200"
-      width="200"
-      viewBox="0 0 16 16"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
-      <rect
-        height="1.5"
-        width="10"
-        fill="currentColor"
-        rx=".5"
-        x="3"
-        y="7.25"
-      />
+    <svg height="200" width="200" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <title>Minus</title>
+      <rect height="1.5" width="10" fill="currentColor" rx=".5" x="3" y="7.25" />
     </svg>
   ),
 };

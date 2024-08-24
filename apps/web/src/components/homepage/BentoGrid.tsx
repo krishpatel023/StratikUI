@@ -24,17 +24,10 @@ export function BentoGrid() {
           <div className="w-full md:w-1/2 flex flex-col gap-4">
             <h1 className="text-3xl font-medium">Open Source</h1>
             <p>
-              We are open source and always looking for contributors. You can
-              contribute to our codebase and help us make this library even
-              better. Please leave a star on our Github repository if you like
-              our work.
+              We are open source and always looking for contributors. You can contribute to our codebase and help us
+              make this library even better. Please leave a star on our Github repository if you like our work.
             </p>
-            <ShineLink
-              className="w-max"
-              href={Links.stratikui.github}
-              target="_blank"
-              rel="noreferrer noopener"
-            >
+            <ShineLink className="w-max" href={Links.stratikui.github} target="_blank" rel="noreferrer noopener">
               View on Github
             </ShineLink>
           </div>
@@ -49,9 +42,7 @@ export function BentoGrid() {
               <span className="group-data-[visible=true]/bento-card:text-green-500 group-data-[visible=true]/bento-card:underline  group-hover/bento-card:text-green-500 group-hover/bento-card:underline underline-offset-2 transition-all duration-200 delay-300 ">
                 copy and paste
               </span>{" "}
-              {
-                "any component you like, and then customize it customize it as you wish. It's as easy as that!"
-              }
+              {"any component you like, and then customize it customize it as you wish. It's as easy as that!"}
             </p>
           </div>
         </BentoCard>
@@ -59,10 +50,9 @@ export function BentoGrid() {
           <div className="flex flex-col gap-4">
             <h1 className="text-2xl font-medium">No External Libraries</h1>
             <p>
-              Every primitive, component and hook is built from scratch, thus
-              eliminating the need for external libraries. There will be few
-              integrations with external libraries, but the will be under the
-              integrations section.
+              Every primitive, component and hook is built from scratch, thus eliminating the need for external
+              libraries. There will be few integrations with external libraries, but the will be under the integrations
+              section.
             </p>
           </div>
           <Imports />
@@ -72,8 +62,7 @@ export function BentoGrid() {
           <div className="flex flex-col gap-4">
             <h1 className="text-2xl font-medium">Accessibility</h1>
             <p>
-              There are variants of every primitive which are made using React
-              Aria and thus are accessible by default.
+              There are variants of every primitive which are made using React Aria and thus are accessible by default.
             </p>
           </div>
         </BentoCard>
@@ -81,19 +70,13 @@ export function BentoGrid() {
           <JSX_TSX />
           <div className="flex flex-col gap-4">
             <h1 className="text-2xl font-medium">JSX and TSX Support</h1>
-            <p>
-              We provide code for both JSX and TSX. Whatever you use, we support
-              it.
-            </p>
+            <p>We provide code for both JSX and TSX. Whatever you use, we support it.</p>
           </div>
         </BentoCard>
         <BentoCard span={1}>
           <div className="flex flex-col gap-4">
             <h1 className="text-2xl font-medium">Effortless Mode Switching</h1>
-            <p>
-              Switch between modes and everything will be automatically
-              adjusted.
-            </p>
+            <p>Switch between modes and everything will be automatically adjusted.</p>
           </div>
           <ModeToggle />
         </BentoCard>
@@ -121,10 +104,8 @@ function BentoCard({
     <HighlighterItem
       className={twMerge(
         "min-h-80 border dark:border-neutral-800",
-        span > 1
-          ? "col-span-3 md:[grid-column:var(--span-col)]"
-          : "col-span-3 md:col-span-1",
-        className
+        span > 1 ? "col-span-3 md:[grid-column:var(--span-col)]" : "col-span-3 md:col-span-1",
+        className,
       )}
       style={style}
     >

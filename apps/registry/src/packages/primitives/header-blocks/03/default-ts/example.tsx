@@ -14,19 +14,17 @@ export default function HeaderBlocksImplementation() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [prevActiveIndex, setPrevActiveIndex] = useState<number | null>(null);
 
-  const [openCounter, setOpenCounter] = useState(
-    Array.from({ length: 5 }).fill(false)
-  );
+  const [openCounter, setOpenCounter] = useState(Array.from({ length: 5 }).fill(false));
   const handleIndexChange = (index: number, open: boolean) => {
     if (open) {
       setPrevActiveIndex(activeIndex);
       setActiveIndex(index);
-      let newOpenCounter = openCounter;
+      const newOpenCounter = openCounter;
       newOpenCounter[index] = open;
       setOpenCounter(newOpenCounter);
       setOpen(true);
     } else {
-      let newOpenCounter = openCounter;
+      const newOpenCounter = openCounter;
       newOpenCounter[index] = open;
       setOpenCounter(newOpenCounter);
       if (newOpenCounter.every((el) => el === false)) {
@@ -54,22 +52,13 @@ export default function HeaderBlocksImplementation() {
             setIsMouseOver(true);
           }}
         >
-          <HeaderItem
-            className="hover:text-accent px-2"
-            onChange={(open) => handleIndexChange(0, open)}
-          >
+          <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(0, open)}>
             Home
           </HeaderItem>
-          <HeaderItem
-            className="hover:text-accent px-2"
-            onChange={(open) => handleIndexChange(1, open)}
-          >
+          <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(1, open)}>
             Pricing
           </HeaderItem>
-          <HeaderItem
-            className="hover:text-accent px-2"
-            onChange={(open) => handleIndexChange(2, open)}
-          >
+          <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(2, open)}>
             Products
             <HeaderDropdown className="flex flex-col items-start">
               <span>View Best Sellers</span>
@@ -92,10 +81,7 @@ export default function HeaderBlocksImplementation() {
               <span>Other Services</span>
             </HeaderDropdown>
           </HeaderItem>
-          <HeaderItem
-            className="hover:text-accent px-2"
-            onChange={(open) => handleIndexChange(4, open)}
-          >
+          <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(4, open)}>
             About
             <HeaderDropdown className="flex flex-col items-start">
               <span>About Us</span>

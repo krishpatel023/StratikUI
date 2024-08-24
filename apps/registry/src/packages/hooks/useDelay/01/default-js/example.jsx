@@ -36,9 +36,7 @@ export default function UseDelayExample() {
           <Button onPress={() => setActive(false)}>Close</Button>
         </span>
       </Modal>
-      <h1 className="text-2xl text-foreground">
-        {isDelaying ? "Delaying" : "Click to see the delayed action"}
-      </h1>
+      <h1 className="text-2xl text-foreground">{isDelaying ? "Delaying" : "Click to see the delayed action"}</h1>
       <div className="flex gap-4 flex-col @md:flex-row">
         <Button onPress={handleDelay}>Delay with Async</Button>
         <Button onPress={handleDelayWithAction}>Delay without Async</Button>

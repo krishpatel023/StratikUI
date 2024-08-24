@@ -28,7 +28,7 @@ export const Primitives_header_blocks_01 = lazy(() => import("@registry/packages
 
 <Implementation>
 
-<TechnologyUsed technologies={["tailwind-merge","react-aria-components"]} />
+undefined
 <CodeBlock>
 
 ```default|js|example.jsx
@@ -106,36 +106,37 @@ export function HeaderItem({
 }) {
   const [internalOpen, setInternalOpen] = useState(open);
 
+  
   useEffect(() => {
-    onChange && onChange(internalOpen);
-  }, [internalOpen]); // eslint-disable-line react-hooks/exhaustive-deps
+    onChange?.(internalOpen);
+  }, [internalOpen]);
 
   return (
     <Button
       className={twMerge(
         "relative flex flex-col justify-center text-center items-center gap-4 group/headerItem h-full text-foreground",
-        className
+        className,
       )}
       {...props}
       data-open={internalOpen}
       onPress={(e) => {
         setInternalOpen(!open);
-        onPress && onPress(e);
+        onPress?.(e);
       }}
       onHoverStart={(e) => {
-        onHoverStart && onHoverStart(e);
+        onHoverStart?.(e);
         setInternalOpen(true);
       }}
       onHoverEnd={(e) => {
-        onHoverEnd && onHoverEnd(e);
+        onHoverEnd?.(e);
         setInternalOpen(false);
       }}
       onFocus={(e) => {
-        onFocus && onFocus(e);
+        onFocus?.(e);
         setInternalOpen(true);
       }}
       onBlur={(e) => {
-        onBlur && onBlur(e);
+        onBlur?.(e);
         setInternalOpen(false);
       }}
     >
@@ -150,7 +151,7 @@ export function HeaderDropdown({ className, children, ...props }) {
       <div
         className={twMerge(
           "bg-primary text-primary-foreground p-4 rounded border border-outline-secondary mt-2",
-          className
+          className,
         )}
         {...props}
       >
@@ -211,18 +212,11 @@ export default function HeaderBlocksImplementation() {
 ```default|ts|HeaderBlocks.tsx
 "use client";
 
-import {
-  DetailedHTMLProps,
-  HTMLAttributes,
-  LegacyRef,
-  useEffect,
-  useState,
-} from "react";
-import { Button, ButtonProps } from "react-aria-components";
+import { type DetailedHTMLProps, type HTMLAttributes, type LegacyRef, useEffect, useState } from "react";
+import { Button, type ButtonProps } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
 
-export interface HeaderProps
-  extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> {}
+export interface HeaderProps extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> {}
 
 export function Header({ className, children, ...props }: HeaderProps) {
   return (
@@ -253,36 +247,37 @@ export function HeaderItem({
 }: HeaderItemProps) {
   const [internalOpen, setInternalOpen] = useState(open);
 
+  
   useEffect(() => {
-    onChange && onChange(internalOpen);
-  }, [internalOpen]); // eslint-disable-line react-hooks/exhaustive-deps
+    onChange?.(internalOpen);
+  }, [internalOpen]);
 
   return (
     <Button
       className={twMerge(
         "relative flex flex-col justify-center text-center items-center gap-4 group/headerItem h-full text-foreground",
-        className
+        className,
       )}
       {...props}
       data-open={internalOpen}
       onPress={(e) => {
         setInternalOpen(!open);
-        onPress && onPress(e);
+        onPress?.(e);
       }}
       onHoverStart={(e) => {
-        onHoverStart && onHoverStart(e);
+        onHoverStart?.(e);
         setInternalOpen(true);
       }}
       onHoverEnd={(e) => {
-        onHoverEnd && onHoverEnd(e);
+        onHoverEnd?.(e);
         setInternalOpen(false);
       }}
       onFocus={(e) => {
-        onFocus && onFocus(e);
+        onFocus?.(e);
         setInternalOpen(true);
       }}
       onBlur={(e) => {
-        onBlur && onBlur(e);
+        onBlur?.(e);
         setInternalOpen(false);
       }}
     >
@@ -291,20 +286,15 @@ export function HeaderItem({
   );
 }
 
-export interface HeaderDropdownProps
-  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}
+export interface HeaderDropdownProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}
 
-export function HeaderDropdown({
-  className,
-  children,
-  ...props
-}: HeaderDropdownProps) {
+export function HeaderDropdown({ className, children, ...props }: HeaderDropdownProps) {
   return (
     <div className="w-max transition-all duration-300 ease-linear group-data-[open=false]/headerItem:hidden absolute top-full">
       <div
         className={twMerge(
           "bg-primary text-primary-foreground p-4 rounded border border-outline-secondary mt-2",
-          className
+          className,
         )}
         {...props}
       >
@@ -382,7 +372,7 @@ export const Primitives_header_blocks_02 = lazy(() => import("@registry/packages
 
 <Implementation>
 
-<TechnologyUsed technologies={["tailwind-merge","react-aria-components"]} />
+undefined
 <CodeBlock>
 
 ```default|js|example.jsx
@@ -409,27 +399,19 @@ export default function HeaderBlocksImplementation() {
   const [shiftX, setShiftX] = useState(0);
 
   const changePosition = () => {
-    if (
-      open &&
-      activeIndex &&
-      containerRef &&
-      containerRef.current &&
-      dropdownRefs.current[activeIndex]
-    ) {
+    if (open && activeIndex && containerRef && containerRef.current && dropdownRefs.current[activeIndex]) {
       const outerBoxLength = containerRef.current.getBoundingClientRect();
-      const innerBoxLength =
-        dropdownRefs.current[activeIndex]?.getBoundingClientRect();
+      const innerBoxLength = dropdownRefs.current[activeIndex]?.getBoundingClientRect();
       if (!innerBoxLength) return;
 
-      setShiftX(
-        innerBoxLength.left + innerBoxLength.width / 2 - outerBoxLength.left
-      );
+      setShiftX(innerBoxLength.left + innerBoxLength.width / 2 - outerBoxLength.left);
     }
   };
 
+  
   useEffect(() => {
     changePosition();
-  }, [activeIndex]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [activeIndex]);
 
   return (
     <div className="w-full min-h-[25rem] flex justify-center items-center">
@@ -437,16 +419,10 @@ export default function HeaderBlocksImplementation() {
         className="flex justify-center items-center h-16 border border-outline px-10 rounded-lg"
         ref={containerRef}
       >
-        <HeaderItem
-          className="hover:text-accent px-2"
-          ref={dropdownRefs.current[0]}
-        >
+        <HeaderItem className="hover:text-accent px-2" ref={dropdownRefs.current[0]}>
           Home
         </HeaderItem>
-        <HeaderItem
-          className="hover:text-accent px-2"
-          ref={dropdownRefs.current[1]}
-        >
+        <HeaderItem className="hover:text-accent px-2" ref={dropdownRefs.current[1]}>
           Pricing
         </HeaderItem>
         <HeaderItem
@@ -458,10 +434,7 @@ export default function HeaderBlocksImplementation() {
           }}
         >
           Products
-          <HeaderDropdown
-            className="flex flex-col items-start"
-            style={{ transform: `translateX(${shiftX}px)` }}
-          >
+          <HeaderDropdown className="flex flex-col items-start" style={{ transform: `translateX(${shiftX}px)` }}>
             <span>View Best Sellers</span>
             <span>Electronics</span>
             <span>Clothing</span>
@@ -477,10 +450,7 @@ export default function HeaderBlocksImplementation() {
           }}
         >
           Services
-          <HeaderDropdown
-            className="flex flex-col items-start"
-            style={{ transform: `translateX(${shiftX}px)` }}
-          >
+          <HeaderDropdown className="flex flex-col items-start" style={{ transform: `translateX(${shiftX}px)` }}>
             <span>Web Design</span>
             <span>Web Development</span>
             <span>Mobile Development</span>
@@ -496,10 +466,7 @@ export default function HeaderBlocksImplementation() {
           }}
         >
           About
-          <HeaderDropdown
-            className="flex flex-col items-start"
-            style={{ transform: `translateX(${shiftX}px)` }}
-          >
+          <HeaderDropdown className="flex flex-col items-start" style={{ transform: `translateX(${shiftX}px)` }}>
             <span>About Us</span>
             <span>Careers</span>
             <span>Contact Us</span>
@@ -541,36 +508,37 @@ export function HeaderItem({
 }) {
   const [internalOpen, setInternalOpen] = useState(open);
 
+  
   useEffect(() => {
-    onChange && onChange(internalOpen);
-  }, [internalOpen]); // eslint-disable-line react-hooks/exhaustive-deps
+    onChange?.(internalOpen);
+  }, [internalOpen]);
 
   return (
     <Button
       className={twMerge(
         "relative flex flex-col justify-center text-center items-center gap-4 group/headerItem h-full text-foreground",
-        className
+        className,
       )}
       {...props}
       data-open={internalOpen}
       onPress={(e) => {
         setInternalOpen(!open);
-        onPress && onPress(e);
+        onPress?.(e);
       }}
       onHoverStart={(e) => {
-        onHoverStart && onHoverStart(e);
+        onHoverStart?.(e);
         setInternalOpen(true);
       }}
       onHoverEnd={(e) => {
-        onHoverEnd && onHoverEnd(e);
+        onHoverEnd?.(e);
         setInternalOpen(false);
       }}
       onFocus={(e) => {
-        onFocus && onFocus(e);
+        onFocus?.(e);
         setInternalOpen(true);
       }}
       onBlur={(e) => {
-        onBlur && onBlur(e);
+        onBlur?.(e);
         setInternalOpen(false);
       }}
     >
@@ -585,7 +553,7 @@ export function HeaderDropdown({ className, children, ...props }) {
       <div
         className={twMerge(
           "bg-primary text-primary-foreground p-4 rounded border border-outline-secondary mt-2",
-          className
+          className,
         )}
         {...props}
       >
@@ -600,7 +568,7 @@ export function HeaderDropdown({ className, children, ...props }) {
 ```default|ts|example.tsx
 "use client";
 
-import { LegacyRef, useEffect, useRef, useState } from "react";
+import { type LegacyRef, useEffect, useRef, useState } from "react";
 import {
   Header,
   HeaderDropdown,
@@ -621,27 +589,19 @@ export default function HeaderBlocksImplementation() {
   const [shiftX, setShiftX] = useState(0);
 
   const changePosition = () => {
-    if (
-      open &&
-      activeIndex &&
-      containerRef &&
-      containerRef.current &&
-      dropdownRefs.current[activeIndex]
-    ) {
+    if (open && activeIndex && containerRef && containerRef.current && dropdownRefs.current[activeIndex]) {
       const outerBoxLength = containerRef.current.getBoundingClientRect();
-      const innerBoxLength =
-        dropdownRefs.current[activeIndex]?.getBoundingClientRect();
+      const innerBoxLength = dropdownRefs.current[activeIndex]?.getBoundingClientRect();
       if (!innerBoxLength) return;
 
-      setShiftX(
-        innerBoxLength.left + innerBoxLength.width / 2 - outerBoxLength.left
-      );
+      setShiftX(innerBoxLength.left + innerBoxLength.width / 2 - outerBoxLength.left);
     }
   };
 
+  
   useEffect(() => {
     changePosition();
-  }, [activeIndex]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [activeIndex]);
 
   return (
     <div className="w-full min-h-[25rem] flex justify-center items-center">
@@ -649,16 +609,10 @@ export default function HeaderBlocksImplementation() {
         className="flex justify-center items-center h-16 border border-outline px-10 rounded-lg"
         ref={containerRef}
       >
-        <HeaderItem
-          className="hover:text-accent px-2"
-          ref={dropdownRefs.current[0] as LegacyRef<HTMLButtonElement>}
-        >
+        <HeaderItem className="hover:text-accent px-2" ref={dropdownRefs.current[0] as LegacyRef<HTMLButtonElement>}>
           Home
         </HeaderItem>
-        <HeaderItem
-          className="hover:text-accent px-2"
-          ref={dropdownRefs.current[1] as LegacyRef<HTMLButtonElement>}
-        >
+        <HeaderItem className="hover:text-accent px-2" ref={dropdownRefs.current[1] as LegacyRef<HTMLButtonElement>}>
           Pricing
         </HeaderItem>
         <HeaderItem
@@ -670,10 +624,7 @@ export default function HeaderBlocksImplementation() {
           }}
         >
           Products
-          <HeaderDropdown
-            className="flex flex-col items-start"
-            style={{ transform: `translateX(${shiftX}px)` }}
-          >
+          <HeaderDropdown className="flex flex-col items-start" style={{ transform: `translateX(${shiftX}px)` }}>
             <span>View Best Sellers</span>
             <span>Electronics</span>
             <span>Clothing</span>
@@ -689,10 +640,7 @@ export default function HeaderBlocksImplementation() {
           }}
         >
           Services
-          <HeaderDropdown
-            className="flex flex-col items-start"
-            style={{ transform: `translateX(${shiftX}px)` }}
-          >
+          <HeaderDropdown className="flex flex-col items-start" style={{ transform: `translateX(${shiftX}px)` }}>
             <span>Web Design</span>
             <span>Web Development</span>
             <span>Mobile Development</span>
@@ -708,10 +656,7 @@ export default function HeaderBlocksImplementation() {
           }}
         >
           About
-          <HeaderDropdown
-            className="flex flex-col items-start"
-            style={{ transform: `translateX(${shiftX}px)` }}
-          >
+          <HeaderDropdown className="flex flex-col items-start" style={{ transform: `translateX(${shiftX}px)` }}>
             <span>About Us</span>
             <span>Careers</span>
             <span>Contact Us</span>
@@ -727,18 +672,11 @@ export default function HeaderBlocksImplementation() {
 ```default|ts|HeaderBlocks.tsx
 "use client";
 
-import {
-  DetailedHTMLProps,
-  HTMLAttributes,
-  LegacyRef,
-  useEffect,
-  useState,
-} from "react";
-import { Button, ButtonProps } from "react-aria-components";
+import { type DetailedHTMLProps, type HTMLAttributes, type LegacyRef, useEffect, useState } from "react";
+import { Button, type ButtonProps } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
 
-export interface HeaderProps
-  extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> {}
+export interface HeaderProps extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> {}
 
 export function Header({ className, children, ...props }: HeaderProps) {
   return (
@@ -769,36 +707,37 @@ export function HeaderItem({
 }: HeaderItemProps) {
   const [internalOpen, setInternalOpen] = useState(open);
 
+  
   useEffect(() => {
-    onChange && onChange(internalOpen);
-  }, [internalOpen]); // eslint-disable-line react-hooks/exhaustive-deps
+    onChange?.(internalOpen);
+  }, [internalOpen]);
 
   return (
     <Button
       className={twMerge(
         "relative flex flex-col justify-center text-center items-center gap-4 group/headerItem h-full text-foreground",
-        className
+        className,
       )}
       {...props}
       data-open={internalOpen}
       onPress={(e) => {
         setInternalOpen(!open);
-        onPress && onPress(e);
+        onPress?.(e);
       }}
       onHoverStart={(e) => {
-        onHoverStart && onHoverStart(e);
+        onHoverStart?.(e);
         setInternalOpen(true);
       }}
       onHoverEnd={(e) => {
-        onHoverEnd && onHoverEnd(e);
+        onHoverEnd?.(e);
         setInternalOpen(false);
       }}
       onFocus={(e) => {
-        onFocus && onFocus(e);
+        onFocus?.(e);
         setInternalOpen(true);
       }}
       onBlur={(e) => {
-        onBlur && onBlur(e);
+        onBlur?.(e);
         setInternalOpen(false);
       }}
     >
@@ -807,20 +746,15 @@ export function HeaderItem({
   );
 }
 
-export interface HeaderDropdownProps
-  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}
+export interface HeaderDropdownProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}
 
-export function HeaderDropdown({
-  className,
-  children,
-  ...props
-}: HeaderDropdownProps) {
+export function HeaderDropdown({ className, children, ...props }: HeaderDropdownProps) {
   return (
     <div className="w-max transition-all duration-300 ease-linear group-data-[open=false]/headerItem:hidden absolute top-full">
       <div
         className={twMerge(
           "bg-primary text-primary-foreground p-4 rounded border border-outline-secondary mt-2",
-          className
+          className,
         )}
         {...props}
       >
@@ -898,7 +832,7 @@ export const Primitives_header_blocks_03 = lazy(() => import("@registry/packages
 
 <Implementation>
 
-<TechnologyUsed technologies={["framer-motion","tailwind-merge","react-aria-components"]} />
+undefined
 <CodeBlock>
 
 ```default|js|example.jsx
@@ -918,20 +852,18 @@ export default function HeaderBlocksImplementation() {
   const [activeIndex, setActiveIndex] = useState(null);
   const [prevActiveIndex, setPrevActiveIndex] = useState(null);
 
-  const [openCounter, setOpenCounter] = useState(
-    Array.from({ length: 5 }).fill(false)
-  );
+  const [openCounter, setOpenCounter] = useState(Array.from({ length: 5 }).fill(false));
 
   const handleIndexChange = (index, open) => {
     if (open) {
       setPrevActiveIndex(activeIndex);
       setActiveIndex(index);
-      let newOpenCounter = openCounter;
+      const newOpenCounter = openCounter;
       newOpenCounter[index] = open;
       setOpenCounter(newOpenCounter);
       setOpen(true);
     } else {
-      let newOpenCounter = openCounter;
+      const newOpenCounter = openCounter;
       newOpenCounter[index] = open;
       setOpenCounter(newOpenCounter);
       if (newOpenCounter.every((el) => el === false)) {
@@ -959,22 +891,13 @@ export default function HeaderBlocksImplementation() {
             setIsMouseOver(true);
           }}
         >
-          <HeaderItem
-            className="hover:text-accent px-2"
-            onChange={(open) => handleIndexChange(0, open)}
-          >
+          <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(0, open)}>
             Home
           </HeaderItem>
-          <HeaderItem
-            className="hover:text-accent px-2"
-            onChange={(open) => handleIndexChange(1, open)}
-          >
+          <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(1, open)}>
             Pricing
           </HeaderItem>
-          <HeaderItem
-            className="hover:text-accent px-2"
-            onChange={(open) => handleIndexChange(2, open)}
-          >
+          <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(2, open)}>
             Products
             <HeaderDropdown className="flex flex-col items-start">
               <span>View Best Sellers</span>
@@ -997,10 +920,7 @@ export default function HeaderBlocksImplementation() {
               <span>Other Services</span>
             </HeaderDropdown>
           </HeaderItem>
-          <HeaderItem
-            className="hover:text-accent px-2"
-            onChange={(open) => handleIndexChange(4, open)}
-          >
+          <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(4, open)}>
             About
             <HeaderDropdown className="flex flex-col items-start">
               <span>About Us</span>
@@ -1033,11 +953,7 @@ export function Header({ className, children, ...props }) {
 
 function useExtractHeaderDropdowns(children) {
   const dropdowns = [];
-  const dropdownRefs = useRef(
-    Array.isArray(children)
-      ? new Array(children.length).fill({ current: null })
-      : []
-  );
+  const dropdownRefs = useRef(Array.isArray(children) ? new Array(children.length).fill({ current: null }) : []);
 
   const newChildren = React.Children.map(children, (child, index) => {
     if (React.isValidElement(child) && child.type === HeaderItem) {
@@ -1048,16 +964,13 @@ function useExtractHeaderDropdowns(children) {
         child,
         {},
         React.Children.map(child.props.children, (subChild) => {
-          if (
-            React.isValidElement(subChild) &&
-            subChild.type === HeaderDropdown
-          ) {
+          if (React.isValidElement(subChild) && subChild.type === HeaderDropdown) {
             extractedDropdown = subChild;
             dropdownFound = true;
             return null;
           }
           return subChild;
-        })
+        }),
       );
 
       dropdowns.push(extractedDropdown); // This will be null if no dropdown was found
@@ -1077,16 +990,8 @@ function useExtractHeaderDropdowns(children) {
   return [newChildren, dropdowns, dropdownRefs];
 }
 
-export function HeaderAnimationWrapper({
-  className,
-  children,
-  activeIndex,
-  prevActiveIndex,
-  open,
-  ...props
-}) {
-  const [newChildren, dropdown, dropdownRefs] =
-    useExtractHeaderDropdowns(children);
+export function HeaderAnimationWrapper({ className, children, activeIndex, prevActiveIndex, open, ...props }) {
+  const [newChildren, dropdown, dropdownRefs] = useExtractHeaderDropdowns(children);
 
   const containerRef = useRef(null);
 
@@ -1094,49 +999,34 @@ export function HeaderAnimationWrapper({
   const [prevShiftX, setPrevShiftX] = useState(0);
 
   const changePosition = () => {
-    if (
-      open &&
-      activeIndex &&
-      containerRef &&
-      containerRef.current &&
-      dropdownRefs?.current[activeIndex]
-    ) {
+    if (open && activeIndex && containerRef && containerRef.current && dropdownRefs?.current[activeIndex]) {
       const outerBoxLength = containerRef.current.getBoundingClientRect();
-      const innerBoxLength =
-        dropdownRefs.current[activeIndex]?.getBoundingClientRect();
+      const innerBoxLength = dropdownRefs.current[activeIndex]?.getBoundingClientRect();
       if (!innerBoxLength) return;
 
-      const val =
-        innerBoxLength.left + innerBoxLength.width / 2 - outerBoxLength.left;
+      const val = innerBoxLength.left + innerBoxLength.width / 2 - outerBoxLength.left;
 
       setShiftX(val);
       if (!prevShiftX) setPrevShiftX(val);
     }
   };
 
+  
   useEffect(() => {
     setPrevShiftX(shiftX);
     changePosition();
     if (!activeIndex) setPrevShiftX(0);
-  }, [activeIndex]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [activeIndex]);
 
   return (
     <div
       ref={containerRef}
-      className={twMerge(
-        "h-full w-max flex justify-center items-center gap-2 relative",
-        className
-      )}
+      className={twMerge("h-full w-max flex justify-center items-center gap-2 relative", className)}
       {...props}
     >
       {newChildren}
       <>
-        {open &&
-        activeIndex &&
-        dropdown &&
-        dropdown[activeIndex] &&
-        shiftX !== 0 &&
-        prevShiftX !== 0 ? (
+        {open && activeIndex && dropdown && dropdown[activeIndex] && shiftX !== 0 && prevShiftX !== 0 ? (
           <motion.div
             className="absolute top-full flex left-0 justify-center group/headerItem"
             initial={{ x: prevShiftX }}
@@ -1157,60 +1047,50 @@ export function HeaderAnimationWrapper({
 
 export const HeaderItem = forwardRef(
   (
-    {
-      open = false,
-      onChange,
-      className,
-      children,
-      onPress,
-      onHoverStart,
-      onHoverEnd,
-      onFocus,
-      onBlur,
-      ...props
-    },
-    ref
+    { open = false, onChange, className, children, onPress, onHoverStart, onHoverEnd, onFocus, onBlur, ...props },
+    ref,
   ) => {
     const [internalOpen, setInternalOpen] = useState(open);
 
+    
     useEffect(() => {
-      onChange && onChange(internalOpen);
-    }, [internalOpen]); // eslint-disable-line react-hooks/exhaustive-deps
+      onChange?.(internalOpen);
+    }, [internalOpen]);
 
     return (
       <Button
         ref={ref}
         className={twMerge(
           "relative flex flex-col justify-center text-center items-center gap-4 group/headerItem h-full text-foreground",
-          className
+          className,
         )}
         {...props}
         data-open={internalOpen}
         onPress={(e) => {
-          onPress && onPress(e);
+          onPress?.(e);
           setInternalOpen(!open);
         }}
         onHoverStart={(e) => {
-          onHoverStart && onHoverStart(e);
+          onHoverStart?.(e);
           setInternalOpen(true);
         }}
         onHoverEnd={(e) => {
-          onHoverEnd && onHoverEnd(e);
+          onHoverEnd?.(e);
           setInternalOpen(false);
         }}
         onFocus={(e) => {
-          onFocus && onFocus(e);
+          onFocus?.(e);
           setInternalOpen(true);
         }}
         onBlur={(e) => {
-          onBlur && onBlur(e);
+          onBlur?.(e);
           setInternalOpen(false);
         }}
       >
         {children}
       </Button>
     );
-  }
+  },
 );
 
 HeaderItem.displayName = "HeaderItem";
@@ -1219,10 +1099,7 @@ export function HeaderDropdown({ className, children, ...props }) {
   return (
     <div className="w-max transition-all duration-300 ease-linear group-data-[open=false]/headerItem:hidden absolute top-full">
       <div
-        className={twMerge(
-          "bg-primary text-primary-foreground p-4 rounded border border-outline-secondary",
-          className
-        )}
+        className={twMerge("bg-primary text-primary-foreground p-4 rounded border border-outline-secondary", className)}
         {...props}
       >
         {children}
@@ -1250,19 +1127,17 @@ export default function HeaderBlocksImplementation() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [prevActiveIndex, setPrevActiveIndex] = useState<number | null>(null);
 
-  const [openCounter, setOpenCounter] = useState(
-    Array.from({ length: 5 }).fill(false)
-  );
+  const [openCounter, setOpenCounter] = useState(Array.from({ length: 5 }).fill(false));
   const handleIndexChange = (index: number, open: boolean) => {
     if (open) {
       setPrevActiveIndex(activeIndex);
       setActiveIndex(index);
-      let newOpenCounter = openCounter;
+      const newOpenCounter = openCounter;
       newOpenCounter[index] = open;
       setOpenCounter(newOpenCounter);
       setOpen(true);
     } else {
-      let newOpenCounter = openCounter;
+      const newOpenCounter = openCounter;
       newOpenCounter[index] = open;
       setOpenCounter(newOpenCounter);
       if (newOpenCounter.every((el) => el === false)) {
@@ -1290,22 +1165,13 @@ export default function HeaderBlocksImplementation() {
             setIsMouseOver(true);
           }}
         >
-          <HeaderItem
-            className="hover:text-accent px-2"
-            onChange={(open) => handleIndexChange(0, open)}
-          >
+          <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(0, open)}>
             Home
           </HeaderItem>
-          <HeaderItem
-            className="hover:text-accent px-2"
-            onChange={(open) => handleIndexChange(1, open)}
-          >
+          <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(1, open)}>
             Pricing
           </HeaderItem>
-          <HeaderItem
-            className="hover:text-accent px-2"
-            onChange={(open) => handleIndexChange(2, open)}
-          >
+          <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(2, open)}>
             Products
             <HeaderDropdown className="flex flex-col items-start">
               <span>View Best Sellers</span>
@@ -1328,10 +1194,7 @@ export default function HeaderBlocksImplementation() {
               <span>Other Services</span>
             </HeaderDropdown>
           </HeaderItem>
-          <HeaderItem
-            className="hover:text-accent px-2"
-            onChange={(open) => handleIndexChange(4, open)}
-          >
+          <HeaderItem className="hover:text-accent px-2" onChange={(open) => handleIndexChange(4, open)}>
             About
             <HeaderDropdown className="flex flex-col items-start">
               <span>About Us</span>
@@ -1350,20 +1213,12 @@ export default function HeaderBlocksImplementation() {
 ```default|ts|HeaderBlocks.tsx
 "use client";
 import { motion } from "framer-motion";
-import {
-  DetailedHTMLProps,
-  forwardRef,
-  HTMLAttributes,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import { Button, ButtonProps } from "react-aria-components";
+import { type DetailedHTMLProps, forwardRef, type HTMLAttributes, useEffect, useRef, useState } from "react";
+import { Button, type ButtonProps } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
-import React, { ReactElement } from "react";
+import React, { type ReactElement } from "react";
 
-export interface HeaderProps
-  extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> {}
+export interface HeaderProps extends DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> {}
 
 export function Header({ className, children, ...props }: HeaderProps) {
   return (
@@ -1374,17 +1229,11 @@ export function Header({ className, children, ...props }: HeaderProps) {
 }
 
 function useExtractHeaderDropdowns(
-  children: React.ReactNode
-): [
-  React.ReactNode,
-  (ReactElement | null)[],
-  React.MutableRefObject<(HTMLButtonElement | null)[]>,
-] {
+  children: React.ReactNode,
+): [React.ReactNode, (ReactElement | null)[], React.MutableRefObject<(HTMLButtonElement | null)[]>] {
   const dropdowns: (ReactElement | null)[] = [];
   const dropdownRefs = useRef<(HTMLButtonElement | null)[]>(
-    Array.isArray(children)
-      ? new Array(children.length).fill({ current: null })
-      : []
+    Array.isArray(children) ? new Array(children.length).fill({ current: null }) : [],
   );
 
   const newChildren = React.Children.map(children, (child, index) => {
@@ -1396,16 +1245,13 @@ function useExtractHeaderDropdowns(
         child as ReactElement,
         {},
         React.Children.map(child.props.children, (subChild) => {
-          if (
-            React.isValidElement(subChild) &&
-            subChild.type === HeaderDropdown
-          ) {
+          if (React.isValidElement(subChild) && subChild.type === HeaderDropdown) {
             extractedDropdown = subChild;
             dropdownFound = true;
             return null;
           }
           return subChild;
-        })
+        }),
       );
 
       dropdowns.push(extractedDropdown); // This will be null if no dropdown was found
@@ -1425,8 +1271,7 @@ function useExtractHeaderDropdowns(
   return [newChildren, dropdowns, dropdownRefs];
 }
 
-export interface HeaderAnimationWrapperProps
-  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+export interface HeaderAnimationWrapperProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   activeIndex: number | null;
   prevActiveIndex: number | null;
   open: boolean;
@@ -1440,8 +1285,7 @@ export function HeaderAnimationWrapper({
   open,
   ...props
 }: HeaderAnimationWrapperProps) {
-  const [newChildren, dropdown, dropdownRefs] =
-    useExtractHeaderDropdowns(children);
+  const [newChildren, dropdown, dropdownRefs] = useExtractHeaderDropdowns(children);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -1449,49 +1293,34 @@ export function HeaderAnimationWrapper({
   const [prevShiftX, setPrevShiftX] = useState(0);
 
   const changePosition = () => {
-    if (
-      open &&
-      activeIndex &&
-      containerRef &&
-      containerRef.current &&
-      dropdownRefs?.current[activeIndex]
-    ) {
+    if (open && activeIndex && containerRef && containerRef.current && dropdownRefs?.current[activeIndex]) {
       const outerBoxLength = containerRef.current.getBoundingClientRect();
-      const innerBoxLength =
-        dropdownRefs.current[activeIndex]?.getBoundingClientRect();
+      const innerBoxLength = dropdownRefs.current[activeIndex]?.getBoundingClientRect();
       if (!innerBoxLength) return;
 
-      const val =
-        innerBoxLength.left + innerBoxLength.width / 2 - outerBoxLength.left;
+      const val = innerBoxLength.left + innerBoxLength.width / 2 - outerBoxLength.left;
 
       setShiftX(val);
       if (!prevShiftX) setPrevShiftX(val);
     }
   };
 
+  
   useEffect(() => {
     setPrevShiftX(shiftX);
     changePosition();
     if (!activeIndex) setPrevShiftX(0);
-  }, [activeIndex]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [activeIndex]);
 
   return (
     <div
       ref={containerRef}
-      className={twMerge(
-        "h-full w-max flex justify-center items-center gap-2 relative",
-        className
-      )}
+      className={twMerge("h-full w-max flex justify-center items-center gap-2 relative", className)}
       {...props}
     >
       {newChildren}
       <>
-        {open &&
-        activeIndex &&
-        dropdown &&
-        dropdown[activeIndex] &&
-        shiftX !== 0 &&
-        prevShiftX !== 0 ? (
+        {open && activeIndex && dropdown && dropdown[activeIndex] && shiftX !== 0 && prevShiftX !== 0 ? (
           <motion.div
             className="absolute top-full flex left-0 justify-center group/headerItem"
             initial={{ x: prevShiftX }}
@@ -1518,79 +1347,61 @@ export interface HeaderItemProps extends ButtonProps {
 
 export const HeaderItem = forwardRef<HTMLButtonElement, HeaderItemProps>(
   (
-    {
-      open = false,
-      onChange,
-      className,
-      children,
-      onPress,
-      onHoverStart,
-      onHoverEnd,
-      onFocus,
-      onBlur,
-      ...props
-    },
-    ref
+    { open = false, onChange, className, children, onPress, onHoverStart, onHoverEnd, onFocus, onBlur, ...props },
+    ref,
   ) => {
     const [internalOpen, setInternalOpen] = useState(open);
 
+    
     useEffect(() => {
-      onChange && onChange(internalOpen);
-    }, [internalOpen]); // eslint-disable-line react-hooks/exhaustive-deps
+      onChange?.(internalOpen);
+    }, [internalOpen]);
 
     return (
       <Button
         ref={ref}
         className={twMerge(
           "relative flex flex-col justify-center text-center items-center gap-4 group/headerItem h-full text-foreground",
-          className
+          className,
         )}
         {...props}
         data-open={internalOpen}
         onPress={(e) => {
-          onPress && onPress(e);
+          onPress?.(e);
           setInternalOpen(!open);
         }}
         onHoverStart={(e) => {
-          onHoverStart && onHoverStart(e);
+          onHoverStart?.(e);
           setInternalOpen(true);
         }}
         onHoverEnd={(e) => {
-          onHoverEnd && onHoverEnd(e);
+          onHoverEnd?.(e);
           setInternalOpen(false);
         }}
         onFocus={(e) => {
-          onFocus && onFocus(e);
+          onFocus?.(e);
           setInternalOpen(true);
         }}
         onBlur={(e) => {
-          onBlur && onBlur(e);
+          onBlur?.(e);
           setInternalOpen(false);
         }}
       >
         {children}
       </Button>
     );
-  }
+  },
 );
 
 HeaderItem.displayName = "HeaderItem";
 
-export interface HeaderDropdownProps
-  extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}
+export interface HeaderDropdownProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {}
 
-export function HeaderDropdown({
-  className,
-  children,
-  ...props
-}: HeaderDropdownProps) {
+export function HeaderDropdown({ className, children, ...props }: HeaderDropdownProps) {
   return (
     <div className="w-max transition-all duration-300 ease-linear group-data-[open=false]/headerItem:hidden absolute top-full">
       <div
-        className={twMerge(
-          "bg-primary text-primary-foreground p-4 rounded border border-outline-secondary",
-          className
-        )}
+        className={twMerge("bg-primary text-primary-foreground p-4 rounded border border-outline-secondary", className)}
         {...props}
       >
         {children}

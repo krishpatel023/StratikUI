@@ -1,5 +1,6 @@
 "use client";
-import React, { useCallback, useEffect } from "react";
+import type React from "react";
+import { useCallback, useEffect } from "react";
 import { twMerge } from "tailwind-merge";
 
 export type Key =
@@ -77,12 +78,7 @@ interface KeyListenerProps {
   focusPermitted?: boolean;
 }
 
-export const KeyListener: React.FC<KeyListenerProps> = ({
-  keys,
-  onKeyDown,
-  children,
-  focusPermitted = true,
-}) => {
+export const KeyListener: React.FC<KeyListenerProps> = ({ keys, onKeyDown, children, focusPermitted = true }) => {
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
       const isCtrlPressed = event.ctrlKey || event.metaKey;
@@ -103,8 +99,8 @@ export const KeyListener: React.FC<KeyListenerProps> = ({
         isShiftPressed && "Shift",
         isAltPressed && "Alt",
 
-        alphabetMatch && alphabetMatch[1].toLocaleLowerCase(),
-        digitsMatch && digitsMatch[1],
+        alphabetMatch?.[1].toLocaleLowerCase(),
+        digitsMatch?.[1],
         functionKeyMatch && `F${event.code.slice(1)}`,
 
         event.code === "Escape" && "Esc",
@@ -127,7 +123,7 @@ export const KeyListener: React.FC<KeyListenerProps> = ({
         onKeyDown(event);
       }
     },
-    [keys, onKeyDown]
+    [keys, onKeyDown],
   );
 
   useEffect(() => {
@@ -136,7 +132,7 @@ export const KeyListener: React.FC<KeyListenerProps> = ({
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [handleKeyDown]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [handleKeyDown, focusPermitted]);
 
   return <>{children}</>;
 };
@@ -228,7 +224,7 @@ export function KeyListenerDisplay({
           key={index}
           className={twMerge(
             "w-max text-xs rounded py-1 px-2 border border-outline bg-primary text-primary-foreground",
-            className
+            className,
           )}
         >
           {Icons[key] || key}

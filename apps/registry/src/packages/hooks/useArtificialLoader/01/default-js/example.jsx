@@ -4,8 +4,7 @@ import Button from "@registry/ui/Button";
 import useArtificialLoader from "@registry/packages/hooks/useArtificialLoader/01/default-js/useArtificialLoader";
 
 const Loader = () => {
-  const { isLoading, progress, startLoader, stopLoader } =
-    useArtificialLoader();
+  const { isLoading, progress, startLoader, stopLoader } = useArtificialLoader();
 
   const handleStart = () => {
     startLoader({
@@ -24,24 +23,15 @@ const Loader = () => {
           <div
             style={{ width: `${progress}%` }}
             className="min-h-full bg-accent rounded-full transition-all duration-300"
-          ></div>
+          />
         </div>
-        <span className="text-sm flex text-primary-foreground">
-          {progress} %
-        </span>
+        <span className="text-sm flex text-primary-foreground">{progress} %</span>
       </div>
       <div className="flex gap-4">
-        <Button
-          onPress={() => handleStart()}
-          isDisabled={isLoading || progress > 0}
-        >
+        <Button onPress={() => handleStart()} isDisabled={isLoading || progress > 0}>
           Start
         </Button>
-        <Button
-          onPress={handleStop}
-          isDisabled={!isLoading && progress === 0}
-          variant="outline"
-        >
+        <Button onPress={handleStop} isDisabled={!isLoading && progress === 0} variant="outline">
           Reset
         </Button>
       </div>

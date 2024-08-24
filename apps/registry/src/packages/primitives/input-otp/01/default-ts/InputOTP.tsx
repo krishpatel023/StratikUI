@@ -1,6 +1,7 @@
 "use client";
 
-import React, { Dispatch, SetStateAction, useEffect, useRef } from "react";
+import type React from "react";
+import { type Dispatch, type SetStateAction, useEffect, useRef } from "react";
 
 export interface OTPInputProps {
   length: number;
@@ -8,11 +9,7 @@ export interface OTPInputProps {
   partition?: number[];
 }
 
-export const OTPInput: React.FC<OTPInputProps> = ({
-  length,
-  setOTP,
-  partition = [length],
-}) => {
+export const OTPInput: React.FC<OTPInputProps> = ({ length, setOTP, partition = [length] }) => {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   // Set focus on load
@@ -21,13 +18,11 @@ export const OTPInput: React.FC<OTPInputProps> = ({
   }, []);
 
   // It checks if it is a number only. If yes than set focus on next input.
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    index: number
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const value = e.target.value;
+    if (!inputRefs.current[index]) return;
     if (/^[0-9]*$/.test(value)) {
-      inputRefs.current[index]!.value = value;
+      inputRefs.current[index].value = value;
       setOTP(null);
       if (value.length === 1 && index < length - 1) {
         inputRefs.current[index + 1]?.focus();
@@ -37,21 +32,20 @@ export const OTPInput: React.FC<OTPInputProps> = ({
         setOTP(otp);
       }
     } else {
-      inputRefs.current[index]!.value = "";
+      inputRefs.current[index].value = "";
     }
   };
 
   // It is responsible for backspace and arrow keys functionality.
-  const handleKeyDown = (
-    e: React.KeyboardEvent<HTMLInputElement>,
-    index: number
-  ) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
     if (e.key === "Backspace" && !inputRefs.current[index]?.value) {
       e.preventDefault();
 
       if (index > 0) {
-        inputRefs.current[index - 1]!.value = "";
-        inputRefs.current[index - 1]?.focus();
+        const val = index - 1;
+        if (!inputRefs.current || !inputRefs.current[val] || val < 0) return;
+        inputRefs.current[val].value = "";
+        inputRefs.current[val]?.focus();
       } else {
         inputRefs.current[index]?.focus();
       }
@@ -68,7 +62,8 @@ export const OTPInput: React.FC<OTPInputProps> = ({
     const pastedData = e.clipboardData.getData("text/plain");
     if (/^[0-9]*$/.test(pastedData) && pastedData.length === length) {
       pastedData.split("").forEach((char, index) => {
-        inputRefs.current[index]!.value = char;
+        if (!inputRefs.current[index]) return;
+        inputRefs.current[index].value = char;
       });
       inputRefs.current[length - 1]?.focus();
       setOTP(pastedData);
@@ -96,13 +91,12 @@ export const OTPInput: React.FC<OTPInputProps> = ({
   const getPosition = (partitionIndex: number, index: number) => {
     if (partitionIndex === 0) {
       return index;
-    } else {
-      var place = 0;
-      for (var k = 0; k < partitionIndex; k++) {
-        place = place + partition[k];
-      }
-      return place + index;
     }
+    let place = 0;
+    for (let k = 0; k < partitionIndex; k++) {
+      place = place + partition[k];
+    }
+    return place + index;
   };
 
   return (
@@ -116,6 +110,7 @@ export const OTPInput: React.FC<OTPInputProps> = ({
                 key={position}
                 type="text"
                 maxLength={1}
+                // biome-ignore lint/suspicious/noAssignInExpressions: ref is necessary to be set for the input first then include it in the ref array
                 ref={(ref) => (inputRefs.current[position] = ref) as any}
                 onChange={(e) => handleChange(e, position)}
                 onKeyDown={(e) => handleKeyDown(e, position)}
