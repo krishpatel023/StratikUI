@@ -81,9 +81,11 @@ function publishBuildLog() {
   fs.writeFileSync(logPath, newData, "utf8");
 }
 
-function CodeBlockGenerator(folderPath: string) {
+function CodeBlockGenerator(variant: string, folderPath: string) {
   try {
     let codeBlock = "";
+
+    const variantProcessed = variant.toLowerCase().replaceAll(" ", "-");
 
     //   get folders
     const folders = getFoldersInDir(folderPath);
@@ -221,7 +223,7 @@ function CodeBlockGenerator(folderPath: string) {
       }
     }
 
-    codeBlock = `\n<CodeBlock>\n${codeBlock}\n</CodeBlock>\n`;
+    codeBlock = `\n<CodeBlock variant="${variantProcessed}">\n${codeBlock}\n</CodeBlock>\n`;
     return codeBlock;
   } catch (err) {
     const refPath = `@/packages/${getPathWithReferenceFromPackages(folderPath)}`;
@@ -512,7 +514,7 @@ function addTechnologyUsed(codeBlock: string, folderPath: string) {
         for (const importItem of importsMade ?? []) {
           if (importItem.includes(tech) && !techUsed.includes(tech)) {
             techUsed.push(tech);
-            return;
+            break;
           }
         }
       }
@@ -547,10 +549,6 @@ function generateIndividualDocument(folderPath: string) {
     {
       let individualDocument = "";
 
-      const codeBlock = CodeBlockGenerator(folderPath);
-      if (!codeBlock)
-        addBuildLog("default", "No code block found in the path", "generateIndividualDocument", folderPath);
-
       const value = addDisplayElement(folderPath);
       if (!value)
         addBuildLog("default", "No display element found in the path.", "generateIndividualDocument", folderPath);
@@ -563,6 +561,11 @@ function generateIndividualDocument(folderPath: string) {
       const docs = addDocumentationData(folderPath);
       const frontMatter = docs?.frontMatter;
       const otherData = docs?.otherData || "";
+
+      const codeBlock = CodeBlockGenerator(frontMatter?.name ?? "", folderPath);
+      if (!codeBlock)
+        addBuildLog("default", "No code block found in the path", "generateIndividualDocument", folderPath);
+
       const techUsed = addTechnologyUsed(codeBlock ?? "", folderPath);
       if (!techUsed)
         addBuildLog("default", "No tech used found in the path.", "generateIndividualDocument", folderPath);

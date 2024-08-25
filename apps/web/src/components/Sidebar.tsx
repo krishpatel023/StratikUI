@@ -2,6 +2,7 @@
 
 import SidebarData from "@/data/Sidebar";
 import { useTheme } from "@/hooks/Theme";
+import { useInternalPostHog } from "@/hooks/useInternalPostHog";
 import { useInternalState } from "@/hooks/useInternalState";
 import type { IconProps } from "@/utils/constants";
 import { capitalize } from "@/utils/helper";
@@ -84,6 +85,8 @@ function SidebarSmall({
     }
   }
 
+  const { VisitedSocials } = useInternalPostHog();
+
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     sidebarSidebar();
@@ -113,6 +116,7 @@ function SidebarSmall({
             aria-label="Twitter"
             target="_blank"
             rel="noopener noreferrer"
+            onPress={() => VisitedSocials("twitter", "personal", "sidebar")}
           >
             <Icons.twitter className="w-4 h-4" />
           </Link>
@@ -122,6 +126,7 @@ function SidebarSmall({
             aria-label="GitHub"
             target="_blank"
             rel="noopener noreferrer"
+            onPress={() => VisitedSocials("github", "stratikui", "sidebar")}
           >
             <Icons.gitHub className="w-5 h-5" />
           </Link>
