@@ -15,6 +15,8 @@ const PostHogPageView = dynamic(() => import("../utils/PosthogPageView"), {
   ssr: false,
 });
 
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
 declare module "react-aria-components" {
   interface RouterConfig {
     routerOptions: NonNullable<Parameters<ReturnType<typeof useRouter>["push"]>[1]>;
@@ -41,6 +43,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   return (
     <RouterProvider navigate={router.push}>
+      <SpeedInsights />
       <PostHogProvider client={posthog}>
         <PostHogPageView />
         <InternalStateProvider>
