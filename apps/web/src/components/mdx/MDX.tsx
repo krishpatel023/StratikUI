@@ -62,16 +62,19 @@ export function ImageComponent({ ...props }) {
   );
 }
 
-export const Title = ({ children }: { children: React.ReactNode }) => {
+export const Title = ({ children, className }: { children: React.ReactNode; className?: string }) => {
   return (
     <Link
       href={`#${convertToDashed(children as string)}`}
-      className="text-xl font-medium text-foreground group/hashtag flex gap-2 relative transition-all duration-300 ease-linear"
+      className={twMerge(
+        "text-xl font-medium text-foreground group/hashtag flex gap-2 relative transition-all duration-300 ease-linear",
+        className,
+      )}
     >
       {children}
       <span
         className={twMerge(
-          "text-gray-800 dark:text-gray-200 hidden absolute top-[0.125rem] -left-8",
+          "text-gray-800 dark:text-gray-200 hidden absolute my-auto -left-8",
           "group-hover/hashtag:inline-block",
         )}
       >

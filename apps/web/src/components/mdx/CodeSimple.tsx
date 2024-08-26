@@ -27,7 +27,7 @@ export function CODE({
   return (
     <div className="w-full rounded-lg border border-outline-secondary">
       <div className="rounded-t-[inherit] bg-primary px-5 py-2 flex justify-between items-center">
-        <h1 className="text-base text-primary-foreground">{name}</h1>
+        <h1 className="text-sm text-primary-foreground">{name}</h1>
         <CopyButton text={code} className="" />
       </div>
       <CodeHighlight
