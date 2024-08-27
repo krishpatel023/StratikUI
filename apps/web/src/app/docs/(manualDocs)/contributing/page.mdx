@@ -1,5 +1,6 @@
 import { CODE } from "@/components/mdx/CodeSimple";
 import {Title, PARTITION} from "@/components/mdx/MDXServerImports";
+import { FileTreeStructure } from "@/components/mdx/FileTreeStructure";
 
 # Contributing
 
@@ -61,3 +62,8 @@ turbo dev
 </PARTITION>
 
 This will start two servers the first one will be on [Port 3000](http://localhost:3000) if no other server is running and the other one will be on [Port 3001](http://localhost:3001). The post 3000 runs the internal registry where you can test all the components you create and the port 3001 will be the main website of Stratik UI.
+
+
+<Title className="text-3xl mt-8 mb-6">File Structure</Title>
+
+<FileTreeStructure />

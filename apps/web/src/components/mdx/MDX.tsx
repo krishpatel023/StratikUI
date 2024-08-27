@@ -67,18 +67,18 @@ export const Title = ({ children, className }: { children: React.ReactNode; clas
     <Link
       href={`#${convertToDashed(children as string)}`}
       className={twMerge(
-        "text-xl font-medium text-foreground group/hashtag flex gap-2 relative transition-all duration-300 ease-linear",
+        "text-2xl font-medium text-foreground group/hashtag flex gap-2 relative transition-all duration-300 ease-linear",
         className,
       )}
     >
       {children}
       <span
         className={twMerge(
-          "text-gray-800 dark:text-gray-200 hidden absolute my-auto -left-8",
-          "group-hover/hashtag:inline-block",
+          "text-gray-800 dark:text-gray-200 hidden absolute h-full justify-center items-center -left-8",
+          "group-hover/hashtag:flex",
         )}
       >
-        <Icons.link className="w-6 h-6" />
+        <Icons.link className="size-6" />
       </span>
     </Link>
   );

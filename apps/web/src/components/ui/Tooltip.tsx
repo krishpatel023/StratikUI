@@ -39,7 +39,7 @@ export function Tooltip({ children, className, ...props }: TooltipProps) {
   return (
     <TooltipAria
       className={twMerge(
-        "p-2 rounded border border-outline-secondary bg-primary text-primary-foreground text-sm",
+        "p-2 rounded border border-outline-secondary bg-primary text-primary-foreground text-sm animate-entry",
         !(props.placement as string)?.split(" ")[0] && "mb-2",
         (props.placement as string)?.split(" ")[0] === "top" && "mb-2",
         (props.placement as string)?.split(" ")[0] === "bottom" && "mt-2",
