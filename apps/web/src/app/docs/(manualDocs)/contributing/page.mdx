@@ -72,3 +72,69 @@ import { FileTreeStructure } from "@/components/mdx/FileTreeStructure";
     <Title className="text-3xl mb-6">File Structure</Title>
     <FileTreeStructure />
 </PARTITION>
+
+<PARTITION className="mt-10 flex flex-col gap-4">
+    <Title className="text-3xl mb-2">Generating the docs</Title>
+
+    The generation of the documentation means generating the various aspects of the application using custon scripts. There are four commands in total and I'll explain each one in detail -
+
+    <PARTITION className="flex flex-col gap-4">
+        ## Generating the Docs 
+
+        This is executed by the `apps/registry/src/scripts/generateDocs.ts` and the output directory is `apps/web/src/app/docs/(generatedDocs)/` . It's main role is to generate the entire documentation from the registry in a particular order and without any error. 
+
+        Reasoning : It becomes difficult to maintain the documentation at scale and is even tougher to maintain the code block for it. For example, if there is a minor change in the code of the component then you will need to find that in the documentation and fix it there also. This will create a lot of difficulty in maintaining the codebase and might result into negligence to change the code block. In the current implementation, you don't need to maintain the entire documentation. Just write the necessary documentation individually as shown in the above section and let the code and other formatting be handled by a script. This prevents lots of errors and is highly maintainable at scale.
+
+        The command for the following is : 
+
+        <CODE>
+        ```bash|bash
+        npm run generate:docs
+        ```
+        </CODE>
+    </PARTITION>
+
+    <PARTITION className="flex flex-col gap-4">
+        ## Generating the Sidebar Data
+
+        This is executed by the `apps/registry/src/scripts/generateSidebarData.ts` and the output file is `apps/web/src/data/generated/generated-sidebar.ts` . It's main role is to generate the sidebar data and maintain it properly.
+
+        Reasoning: When adding or removing a category/group from the package you need to also maintain the sidebar and this results into a lot of things to take care of. This can be used by removing the need to maintain it manually and by running the following script you can maintain an up to date data for the sidebar.
+
+        The command for the following is : 
+
+        <CODE>
+        ```bash|bash
+        npm run generate:sidebar
+        ```
+        </CODE>
+    </PARTITION>
+
+    <PARTITION className="flex flex-col gap-4">
+        ## Generating the Search Data
+
+        This is executed by the `apps/registry/src/scripts/generateSearchData.ts` and the output file is `apps/web/src/data/generated/generated-search.ts` . It's main role is to generate the search data for the search functionality.
+
+        For the searching, we use [fuse.js](https://www.fusejs.io/) and thus we need to have a data file in which the search can be done and hence we generate that using this script.
+
+        The command for the following is :
+
+        <CODE>
+        ```bash|bash
+        npm run generate:search
+        ```
+        </CODE>
+    </PARTITION>
+
+    <PARTITION className="flex flex-col gap-4">
+        ## Generating all three at once
+
+        This command helps to run all three at once and eliminates the need to run them individually. It does nothing different as behind the scenes, it runs all three scripts in one command. It's just for convenience.
+
+        <CODE>
+        ```bash|bash
+        npm run generate:data
+        ```
+        </CODE>
+    </PARTITION>
+</PARTITION>
