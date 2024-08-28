@@ -74,6 +74,181 @@ import { FileTreeStructure } from "@/components/mdx/FileTreeStructure";
 </PARTITION>
 
 <PARTITION className="mt-10 flex flex-col gap-4">
+    <Title className="text-3xl mb-2">Developing and Adding the component</Title>
+
+    The development process takes place entirely in the `registry` workspace. Let's walk through the process of creating a component and the rules that are needed to be followed.
+
+    <PARTITION className="flex flex-col gap-4">
+        ## Step 1: Deciding the category
+
+        The packages folder is divided on the basis of the category of the component you are developing. The `primitives` will contain all the building block components like inputs, buttons, command-palette, header-blocks, etc. The next category is `components`, which contains more complex UI which are comprised of one or more primitives like hero section, authentication, etc. Lastly, the `hooks` are what the name suggests, hooks that perform various tasks. 
+
+        Decide which category does it belong to and then look if there is particular group that exists. For the example let's stick with primitives, but this is applicable for each category.
+    </PARTITION>
+    <PARTITION className="flex flex-col gap-4">
+
+        ## Step 2: Deciding the group
+
+        After the category is decided, there comes the group. Group contains different types of components that belong together like switch, input, avatars, etc. This is to make sure that all the variants are placed accurately. For the example, lets say input-text is the group we want. So now we have primitives/input.
+    </PARTITION>
+    <PARTITION className="flex flex-col gap-4">
+
+        ## Step 3: Creating the variant
+
+        In this step view the variants present and then follow it up by incrementing the counter. For example, if the group created is new then add a folder named 01, otherwise if there are 4 variants then there should be folders named 01,02,03,04. Now, just add another folder named 05. This is done for maintaining the  order of the variants, avoiding large names for the folder and avoiding name collisions. 
+    </PARTITION>
+    <PARTITION className="flex flex-col gap-4">
+
+        ## Step 4: Creating the variant based on the provider and language used.
+
+        We have two providers - default and react aria. This is followed by the two languages we support - javascript and typescript. Now, lets say we want to create in both the providers. The naming we follow is `provider-language`. This means it either will be among the four - `default-ts`, `default-js`, `react_aria-ts` or `react_aria-js`.
+
+        <PARTITION className="flex flex-col pb-0">
+            Things to remember
+            - It is compulsory to create a variant in both the languages. It is advised to also create it in both the providers but if not possible, it should have in both the languages. For example, if you only create default version than create it for both javascript and typescript. 
+            - The folder naming should be amount the four only and in this particular manner - `default-ts`, `default-js`, `react_aria-ts` or `react_aria-js`. Even if you are using tsx do not write as default-tsx. 
+        </PARTITION>
+    </PARTITION>
+    <PARTITION className="flex flex-col gap-8 pb-0">
+
+        ## Step 5: Developing the variant
+
+        Let's say you start by developing the default variant with typescript as the language. Create the folder `default-ts` and then create the required file. Here, input.tsx and example.tsx. One thing to keep in mind is the display example you want needs to be in the file named `example` only and the main component needs to be default exported.
+        So here you'll add:
+
+        <CODE>
+        ```input.tsx|tsx
+        export function Input() {
+            return(
+                // Logic
+            )
+        }
+        ```
+        </CODE>
+        <CODE>
+        ```example.tsx|tsx
+        import { Input } from "@registry/packages/primitives/input-text/05/default-ts/input" // [!code highlight]
+
+        export default function Example() {
+            return(
+                <Input />
+            )
+        }
+        ```
+        </CODE>
+
+        > Here one thing that you will notice different is, using @registry instead of @. This is the alias that we have used here as this example will be directly imported to the web application and by using @, it causes unexpected errors. This is because the web uses @registry as the alias to use this examples, now when there are some internal imports with @ it will consider it's own alias and find that file in the apps/web directory. Thus always use @registry to avoid any conflicts.
+
+        Now that we have written the code, we need to see how it's being displayed. Head to the [playground](http://localhost:3000/playground).  Here you can import the example and see how it works. There is a different display layout that we use for components. Thus you can adjust it by changing the category prop in the playground.
+
+        <CODE>
+        ```registry/src/app/playground/page.tsx|tsx
+        import Playground from "@/ui/Playground";
+        import Example from "@registry/packages/primitives/input-text/05/default-ts/example"
+
+        export default function Page() {
+            return (
+                <Playground category="primitives"> // [!code highlight]
+                    <Example />
+                </Playground>
+            );
+        }
+        ```
+        </CODE>
+
+        > In case of components, if seen carefully, the layout changes when the display drawer element is resized. This can't be achieved without using the Tailwind Container Queries. This enables us to achieve this functionality by using the container media query tags (@md, @sm, etc.) instead of the normal media query tags (md, sm, etc.). It all works the same and will be removed automatically when the code is displayed for copying. But, you need to use the container query tags for the components instead of the regular ones.
+
+        Another thing that will be helpful is knowing certain tags. There are 3 tags available for you to have more control on what to generate in the code block. These flags are needed to be in the initial line of the file to be considered. 
+
+        <PARTITION className="flex flex-col gap-4 px-10 py-1">
+            <h3 className="text-primary-foreground text-lg mb-4">1. Skip File Generation</h3>
+            This flag will alert the generation script to ignore the file and proceed to the next in the folder. This is only needed if there is any file you want to skip.
+            <CODE>
+            ```example.tsx|tsx
+            // !skip-generation: true // [!code highlight]
+            export default function Example() {
+                return (
+                // logic
+                )
+            }
+            ```
+            </CODE>
+
+            This file won't be generated and will be ignored.
+        </PARTITION>
+        <PARTITION className="flex flex-col gap-4 px-10 py-1">
+            <h3 className="text-primary-foreground text-lg mb-4">2. Skip Line in generation</h3>
+            This flag will alert the script to skip the line from the codeblock. This is done done for ignoring any line that you want like unwanted comments, etc.
+            <CODE>
+            ```example.tsx|tsx
+            // !skip-lines: [2,3-5] // [!code highlight]
+            export default function Example() {
+                return (
+                // logic
+                )
+            }
+            ```
+            </CODE>
+
+            This will remove the first line and the lines between 3 to 5. Make sure to follow the format. You can write a single line [1] or a range of lines [1-5].
+
+            > All the biome linting ignore comments are skipped by default so don't need to include it.
+
+        </PARTITION>
+        <PARTITION className="flex flex-col gap-4 px-10 py-1">
+            <h3 className="text-primary-foreground text-lg mb-4">3. Highlight the lines</h3>
+
+            It highlights the lines specified in the same format as the skip lines one. This is helpful if we want to throw some focus on any part of the code. 
+
+            <CODE>
+            ```example.tsx|tsx
+            // !code-highlight: [2,4-5] // [!code highlight]
+            export default function Example() {
+                return (
+                // logic
+                )
+            }
+            ```
+            </CODE>
+
+            This will highlight the 2nd line and the 4th and 5th line.  Make sure to follow the format. You can write a single line [1] or a range of lines [1-5].
+        </PARTITION>
+    </PARTITION>
+    <PARTITION className="flex flex-col gap-8 pb-0">
+
+        ## Step 6: Writing the documentation
+
+        After all the variants are developed successfully, you need to write the documentation for it. This involves the name, description, tags, etc.
+
+        Now we first need to create a main docs folder. This will be created in the variants folder itself and is named `docs.md` . It is necessary to name it the following. This will contain all the common documentation between the variants as some of the properties won't change. You need to follow the following format in the file.
+
+        <CODE>
+        ```docs.md|md
+        ---
+        name: Default Input
+        description: This is a default input variant
+        tags: [input, field, label, error]
+        version_included: 0.2.0
+        ---
+
+        Other common documentation
+        ```
+        </CODE>
+
+        The `version_included` can be found next to the logo in the header of the playground
+        
+        This frontmatter format needs to be followed. There is another property in the frontmatter named `flag`. There are four values that a flag can have
+
+        - `flag:experimental` - This will add the experimental tag above the component in the documentation so that it clear to the users.
+        - `flag:hidden` - This will skip the entire variant from being generated. It is an easy way to hide a variant if its not ready.
+        - `flag:deprecated` - This means that the component is deprecated and will appear at last. It will also have a deprecated tag above the component.
+        - `flag:beta` - This allows addition of components that are not fully developed yet or are missing some features but you want it to be in the docs so that people can us and review it.
+
+        Now, in case of the react_aria specific properties that are left to be nemtioned will be in `docs-react_aria.md` and the default specific will be in `docs-default.md`. This enables that only that properties are shown to the users that they require. If a user is viewing the default variant then the default one's will be visible in addition to the ones in `docs.md` and similar goes for react aria variant. The switching is maintained by the scripts. Do not include the front matter in the `dos-default.md` and `docs-react_aria.md` file.
+    </PARTITION>
+</PARTITION>
+
+<PARTITION className="mt-10 flex flex-col gap-4">
     <Title className="text-3xl mb-2">Generating the docs</Title>
 
     The generation of the documentation means generating the various aspects of the application using custon scripts. There are four commands in total and I'll explain each one in detail -
