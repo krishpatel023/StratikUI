@@ -5,65 +5,70 @@ import { FileTreeStructure } from "@/components/mdx/FileTreeStructure";
 # Contributing
 
 <PARTITION className="flex flex-col gap-4">
-This contributing doc contains every thing that you require to setup the codebase on your machine to how it is structured. It describes every aspects of the codebase, the choice of the technologies, the structure of codebase and the reasoning behind it. 
+    This contributing doc contains every thing that you require to setup the codebase on your machine to how it is structured. It describes every aspects of the codebase, the choice of the technologies, the structure of codebase and the reasoning behind it. 
 
-I thank each and every contributors that have and will contribute to the project.
-</PARTITION>
-
-<Title className="text-3xl mt-8 mb-6">Installation</Title>
-
-To begin with the installation we use the turborepo for maintaining the entire monorepo. Additional details of the file structure are described below in the file structure section.
-
-<PARTITION className="mt-6 p-0 pb-0">
-Follow the following steps to install and run the project steadily:
+    I thank each and every contributors that have and will contribute to the project.
 </PARTITION>
 
 <PARTITION className="mt-4 flex flex-col gap-4">
-<span className="text-primary-foreground text-lg">Step 1: Clone the repository</span>
-<CODE>
-```bash|bash
-git clone https://github.com/krishpatel023/StratikUI.git
-```
-</CODE>
+    <Title className="text-3xl mb-4">Installation</Title>
+
+    To begin with the installation we use the turborepo for maintaining the entire monorepo. Additional details of the file structure are described below in the file structure section.
+    Follow the following steps to install and run the project steadily:
+
+    <span className="text-primary-foreground text-lg">Step 1: Clone the repository</span>
+    <CODE>
+    ```bash|bash
+    git clone https://github.com/krishpatel023/StratikUI.git
+    ```
+    </CODE>
+
+    <span className="text-primary-foreground text-lg mt-4">Step 2: Install it like a normal repo</span>
+    <CODE>
+    ```bash|bash
+    npm install
+    ```
+    </CODE>
+
+    <span className="text-primary-foreground text-lg mt-4">Step 3: Setup the env variables</span>
+
+    Go the apps/web/ and create `.env.local` and copy the following there
+
+    <CODE>
+    ```apps/web/.env.local|bash
+    NODE_ENV=development
+    NEXT_PUBLIC_NODE_ENV=development
+    NEXT_PUBLIC_POSTHOG_KEY=test_key
+    NEXT_PUBLIC_POSTHOG_HOST=https://posthog.com
+    ```
+    </CODE>
+
+    <span className="text-primary-foreground text-lg mt-4">Step 4: Run the dev command</span>
+
+    <CODE>
+    ```bash|bash
+    turbo dev
+    ```
+    </CODE>
+    This will start two servers the first one will be on [Port 3000](http://localhost:3000) if no other server is running and the other one will be on [Port 3001](http://localhost:3001). The post 3000 runs the internal registry where you can test all the components you create and the port 3001 will be the main website of Stratik UI.
 </PARTITION>
 
-<PARTITION className="flex flex-col gap-4">
-<span className="text-primary-foreground text-lg">Step 2: Install it like a normal repo</span>
-<CODE>
-```bash|bash
-npm install
-```
-</CODE>
+<PARTITION className="mt-10 flex flex-col gap-4">
+    <Title className="text-3xl mb-4">Technology used </Title>
+
+    We use turborepo to manage our monorepo. There are mainly two applications:
+    ## Registry
+
+    It is built using Next 14.2 along with tailwind and typescript. The `src/packages` folder contains the source code of the components that are present in the Stratik UI Library.
+    It uses tsx for running custom scripts with ES6 module system than CommanJS module system.
+
+    ## Web
+
+    The web contains the entire documentation website and the homepage as well. It uses Next 14.2, TailwindCSS, MDX, and Posthog for analytics. It also contains framer-motion, container-queries, fuse.js for searching, shiki for code highlighting and much more.  
+
 </PARTITION>
 
-<PARTITION className="flex flex-col gap-4">
-<span className="text-primary-foreground text-lg">Step 3: Setup the env variables</span>
-
-Go the apps/web/ and create `.env.local` and copy the following there
-
-<CODE>
-```apps/web/.env.local|bash
-NODE_ENV=development
-NEXT_PUBLIC_NODE_ENV=development
-NEXT_PUBLIC_POSTHOG_KEY=test_key
-NEXT_PUBLIC_POSTHOG_HOST=https://posthog.com
-```
-</CODE>
+<PARTITION className="mt-10 flex flex-col gap-4">
+    <Title className="text-3xl mb-6">File Structure</Title>
+    <FileTreeStructure />
 </PARTITION>
-
-<PARTITION className="flex flex-col gap-4">
-<span className="text-primary-foreground text-lg">Step 4: Run the dev command</span>
-
-<CODE>
-```bash|bash
-turbo dev
-```
-</CODE>
-</PARTITION>
-
-This will start two servers the first one will be on [Port 3000](http://localhost:3000) if no other server is running and the other one will be on [Port 3001](http://localhost:3001). The post 3000 runs the internal registry where you can test all the components you create and the port 3001 will be the main website of Stratik UI.
-
-
-<Title className="text-3xl mt-8 mb-6">File Structure</Title>
-
-<FileTreeStructure />
