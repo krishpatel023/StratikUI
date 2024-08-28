@@ -64,6 +64,14 @@ const defaultSidebar: SidebarProps = [
         flag: "default",
         children: [],
       },
+      {
+        type: "heading",
+        name: "Contributing",
+        link: "docs/contributing",
+        version_included: "1.0.0",
+        flag: "default",
+        children: [],
+      },
     ],
   },
 ];

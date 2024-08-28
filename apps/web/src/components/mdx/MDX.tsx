@@ -5,11 +5,11 @@ import Link from "next/link";
 import { Icons } from "@/utils/icons";
 
 export const UL = ({ className, ...props }: React.HTMLAttributes<HTMLUListElement>) => {
-  return <ul className={twMerge("my-6 ml-10 list-disc", className)} {...props} />;
+  return <ul className={twMerge("ml-10 list-disc", className)} {...props} />;
 };
 
 export const OL = ({ className, ...props }: React.HTMLAttributes<HTMLOListElement>) => {
-  return <ol className={twMerge("my-6 ml-10 list-decimal ", className)} {...props} />;
+  return <ol className={twMerge("ml-10 list-decimal ", className)} {...props} />;
 };
 
 export const LI = ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => {
@@ -20,6 +20,7 @@ export const BLOCK_QUOTE = ({ ...props }: React.HTMLAttributes<HTMLElement>) => 
   const children = props.children as JSX.Element;
   const childrenArray = Array.isArray(children) ? children : [children];
 
+  if (typeof childrenArray[1].props.children !== "string") return;
   const msg = childrenArray[1].props.children.split("|");
   const category = msg.length > 1 ? msg[0].toLowerCase() : "";
   const content = category !== "" ? msg[1] : msg[0];
@@ -27,7 +28,7 @@ export const BLOCK_QUOTE = ({ ...props }: React.HTMLAttributes<HTMLElement>) => 
   return (
     <blockquote
       className={twMerge(
-        "border-l-[3px] pl-6 border-neutral-700 bg-neutral-400/20 text-secondary-foreground py-2",
+        "border-l-[3px] pl-6 pr-4 border-neutral-700 bg-neutral-400/20 text-secondary-foreground py-3",
         category === "error" && "border-error bg-red-500/20 text-red-950 dark:text-red-300",
         category === "alert" && "border-alert-secondary text-yellow-900 dark:text-yellow-500 bg-yellow-300/20",
         category === "success" && "border-success bg-green-300/20 text-green-900 dark:text-green-400",
@@ -62,20 +63,23 @@ export function ImageComponent({ ...props }) {
   );
 }
 
-export const Title = ({ children }: { children: React.ReactNode }) => {
+export const Title = ({ children, className }: { children: React.ReactNode; className?: string }) => {
   return (
     <Link
       href={`#${convertToDashed(children as string)}`}
-      className="text-xl font-medium text-foreground group/hashtag flex gap-2 relative transition-all duration-300 ease-linear"
+      className={twMerge(
+        "text-2xl font-medium text-foreground group/hashtag flex gap-2 relative transition-all duration-300 ease-linear",
+        className,
+      )}
     >
       {children}
       <span
         className={twMerge(
-          "text-gray-800 dark:text-gray-200 hidden absolute top-[0.125rem] -left-8",
-          "group-hover/hashtag:inline-block",
+          "text-gray-800 dark:text-gray-200 hidden absolute h-full justify-center items-center -left-8",
+          "group-hover/hashtag:flex",
         )}
       >
-        <Icons.link className="w-6 h-6" />
+        <Icons.link className="size-6" />
       </span>
     </Link>
   );

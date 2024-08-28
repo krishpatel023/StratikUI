@@ -17,7 +17,7 @@ StratikUI is a collection of accessible, composable, and performant React compon
 
 ## Contributions are welcome!
 
-[Contributing Guidelines - Coming Soon]()
+[Contributing Guidelines](https://www.stratikui.com/docs/contributing)
 
 ## Links
 

@@ -76,6 +76,10 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       animation: {
+        // For all
+        entry: "entry var(--duration,0.3s) ease-in-out forwards",
+        exit: "exit var(--duration,0.3s) ease-in-out forwards",
+
         circleGrow: "circleGrow 0.5s ease-in-out",
         buttonPress: "buttonPress 0.5s ease-in-out forwards",
         shimmer: "shimmer 8s forwards",
@@ -87,6 +91,29 @@ const config: Config = {
         "modal-zoom": "modal-zoom 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
       },
       keyframes: {
+        // For all
+        entry: {
+          "0%": {
+            opacity: "0",
+            // transform: "scale(0.95)",
+          },
+          "100%": {
+            opacity: "1",
+            // transform: "scale(1)",
+          },
+        },
+        exit: {
+          "0%": {
+            opacity: "1",
+            // transform: "scale(1)",
+          },
+          "100%": {
+            opacity: "0",
+            // transform: "scale(0.95)",
+          },
+        },
+
+        // For button presses
         press: {
           "0%, 100%": {
             transform: "scale(1)",
