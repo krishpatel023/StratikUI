@@ -1287,3 +1287,184 @@ export default ContainerImplementation;
 </Implementation>
 </WrapperToggle>
 </Wrapper>
+
+{/*
+// ------------------------------------------------------------------------------------
+    //	The text below is generated from "@/registry/primitives/containers/07"
+//------------------------------------------------------------------------------------
+*/}
+
+<Wrapper>
+<Title>Mouse Tracking Gradient Container</Title>
+### A React component that displays a moving gradient effect based on the mouse position within the container.
+
+<WrapperToggle >
+<Preview>
+
+export const Primitives_containers_07 = lazy(() => import("@registry/packages/primitives/containers/07/default-ts/example"));
+
+
+<Suspense fallback={<Skeleton className="h-60 rounded-lg" />}>
+<Display>
+<Primitives_containers_07 />
+</Display>
+</Suspense>
+
+</Preview>
+
+<Implementation>
+
+<TechnologyUsed technologies={["tailwind-merge"]} />
+<CodeBlock variant="mouse-tracking-gradient-container">
+
+```default|js|container.jsx
+"use client";
+
+import useMousePosition from "@/packages/hooks/useMousePosition/01/default-js/useMousePosition";
+import { useEffect, useRef, useState } from "react";
+import { twMerge } from "tailwind-merge";
+
+export function Container({ children, className, movingGradientClassName, ...props }) {
+  const { x, y } = useMousePosition();
+  const [relativeX, setRelativeX] = useState(0);
+
+  const containerRef = useRef(null);
+
+  function handleMouseLeave() {
+    setRelativeX(0);
+  }
+
+  useEffect(() => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+
+      const dist = x - rect.left;
+      if (y > rect.top && y < rect.bottom && dist > 0 && dist < rect.width) setRelativeX(dist);
+    }
+  }, [x, y]);
+
+  return (
+    <div
+      className="group relative  rounded-md text-foreground overflow-hidden p-0.5"
+      ref={containerRef}
+      onMouseLeave={handleMouseLeave}
+      {...props}
+    >
+      <div className={twMerge("z-10 bg-background relative rounded-[inherit]", className)}>
+        {children}
+      </div>
+      <div
+        className={twMerge(
+          "z-0 m-1 mx-auto my-auto w-full h-full  absolute top-0 -left-1/2   bg-gradient-to-r from-transparent via-accent to-transparent opacity-40 group-hover:opacity-100 group-hover:transition-opacity hover:duration-500 transition-all duration-500",
+          movingGradientClassName,
+        )}
+        style={{ translate: relativeX ? `${relativeX}px` : "50%" }}
+      />
+    </div>
+  );
+}
+
+```
+
+```default|js|example.jsx
+import { Container } from "./container";
+
+export default function Example() {
+  return (
+    <div className="h-60 flex justify-center items-center">
+      <Container>
+        <button type="button" className="w-80 h-10 rounded border border-outline-secondary">
+          Move the mouse over me
+        </button>
+      </Container>
+    </div>
+  );
+}
+
+```
+
+```default|ts|container.tsx
+"use client";
+
+import useMousePosition from "@/packages/hooks/useMousePosition/01/default-ts/useMousePosition";
+import { useEffect, useRef, useState } from "react";
+import { twMerge } from "tailwind-merge";
+
+export interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
+  movingGradientClassName?: string;
+}
+
+export function Container({ children, className, movingGradientClassName, ...props }: ContainerProps) {
+  const { x, y } = useMousePosition();
+  const [relativeX, setRelativeX] = useState(0);
+
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  function handleMouseLeave() {
+    setRelativeX(0);
+  }
+
+  useEffect(() => {
+    if (containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+
+      const dist = x - rect.left;
+      if (y > rect.top && y < rect.bottom && dist > 0 && dist < rect.width) setRelativeX(dist);
+    }
+  }, [x, y]);
+
+  return (
+    <div
+      className="group relative  rounded-md text-foreground overflow-hidden p-0.5"
+      ref={containerRef}
+      onMouseLeave={handleMouseLeave}
+      {...props}
+    >
+      <div className={twMerge("z-10 bg-background relative rounded-[inherit]", className)}>
+        {children as React.ReactNode}
+      </div>
+      <div
+        className={twMerge(
+          "z-0 m-1 mx-auto my-auto w-full h-full  absolute top-0 -left-1/2   bg-gradient-to-r from-transparent via-accent to-transparent opacity-40 group-hover:opacity-100 group-hover:transition-opacity hover:duration-500 transition-all duration-500",
+          movingGradientClassName,
+        )}
+        style={{ translate: relativeX ? `${relativeX}px` : "50%" }}
+      />
+    </div>
+  );
+}
+
+```
+
+```default|ts|example.tsx
+import { Container } from "./container";
+
+export default function Example() {
+  return (
+    <div className="h-60 flex justify-center items-center">
+      <Container>
+        <button type="button" className="w-80 h-10 rounded border border-outline-secondary">
+          Move the mouse over me
+        </button>
+      </Container>
+    </div>
+  );
+}
+
+```
+
+</CodeBlock>
+<Details>
+
+
+| Name                   | Type                                 | Default | Description                                                                     |
+| ---------------------- | ------------------------------------ | ------- | ------------------------------------------------------------------------------- |
+| children               | `React.ReactNode`                    | -       | The content to be rendered inside the container.                                |
+| className              | `string`                             | -       | Additional classes to apply to the main container.                              |
+| movingGradientClassName | `string`                             | -       | Additional classes to apply to the moving gradient element.                     |
+| ...props               | `React.HTMLAttributes<HTMLDivElement>` | -     | Any other props will be passed to the main container element.                   |
+
+</Details>
+</Implementation>
+</WrapperToggle>
+</Wrapper>
