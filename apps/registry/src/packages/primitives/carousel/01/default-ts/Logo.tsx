@@ -1,4 +1,11 @@
-export const Logo = [
+import type { IconProps } from "@registry/utils/types";
+
+export type LogoProps = {
+  name: string;
+  logo: (props: IconProps) => JSX.Element;
+};
+
+export const Logo: LogoProps[] = [
   {
     name: "Apple",
     logo: (props) => (

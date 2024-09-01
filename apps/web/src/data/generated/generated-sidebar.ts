@@ -95,6 +95,25 @@ const sidebar: SidebarProps = [
       },
       {
         type: "heading",
+        name: "carousel",
+        link: "docs/primitives/carousel",
+        version_included: "0.2.0",
+        flag: "default",
+        children: [
+          {
+            type: "sub-heading",
+            name: "Carousel",
+            description:
+              "This is an infinite Carousel developed using only tailwind. It has a direction attribute that controls the direction of the animation where the default is left. It also has a pauseOnHover attribute that pauses the animation when the user hovers over the carousel.",
+            tags: [""],
+            link: "docs/primitives/carousel#carousel",
+            version_included: "0.2.0",
+            flag: "default",
+          },
+        ],
+      },
+      {
+        type: "heading",
         name: "check-box",
         link: "docs/primitives/check-box",
         version_included: "0.2.0",
@@ -1095,25 +1114,6 @@ const sidebar: SidebarProps = [
       },
       {
         type: "heading",
-        name: "carousel",
-        link: "docs/components/carousel",
-        version_included: "0.2.0",
-        flag: "default",
-        children: [
-          {
-            type: "sub-heading",
-            name: "Logo Carousel",
-            description:
-              "This is an infinite logo Carousel developed using only tailwind. It has a direction attribute that controls the direction of the animation where the default is left.",
-            tags: [""],
-            link: "docs/components/carousel#logo-carousel",
-            version_included: "0.2.0",
-            flag: "default",
-          },
-        ],
-      },
-      {
-        type: "heading",
         name: "cookie-consent",
         link: "docs/components/cookie-consent",
         version_included: "0.1.0",
@@ -1450,6 +1450,16 @@ const sidebar: SidebarProps = [
               "A grid of cards with testimonials where you can display your most important feedback at the center and rest around it. It's glassy background looks great with abstract backgrounds.",
             tags: ["Testimonials", " Cards", " Grid"],
             link: "docs/components/testimonials#grid-testimonial-cards",
+            version_included: "0.2.0",
+            flag: "default",
+          },
+          {
+            type: "sub-heading",
+            name: "Testimonial Carousel",
+            description:
+              "This carousel component for displaying testimonials is a great way to showcase your team's achievements and highlight their contributions to your business. It has a simple and elegant design that makes it easy to use and customize.",
+            tags: ["testimonial", " carousel"],
+            link: "docs/components/testimonials#testimonial-carousel",
             version_included: "0.2.0",
             flag: "default",
           },

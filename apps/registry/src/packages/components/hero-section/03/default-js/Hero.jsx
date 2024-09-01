@@ -6,7 +6,8 @@ import { useEffect, useRef, useState } from "react";
 import { Button as ReactAriaButton } from "react-aria-components";
 import { twMerge } from "tailwind-merge";
 import { Button } from "@registry/packages/primitives/buttons/02/default-js/Button";
-import { Carousel } from "@registry/packages/components/carousel/01/default-js/Carousel";
+import { Carousel } from "@registry/packages/primitives/carousel/01/default-js/carousel";
+import { Logo } from "./Logo";
 
 export function Background() {
   return (
@@ -75,7 +76,11 @@ export function HeroSection() {
         </div>
         <div>
           <h1 className="text-primary-foreground font-semibold text-2xl mt-8">Meet Our Partners</h1>
-          <Carousel />
+          <Carousel direction="left" className="[--gap:8rem]" pauseOnHover cornerBlur>
+            {Logo.map((item, i) => (
+              <item.logo key={i} className="w-10 h-10 text-primary-foreground" />
+            ))}
+          </Carousel>
         </div>
       </div>
       <Background />
