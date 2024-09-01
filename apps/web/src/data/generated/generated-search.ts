@@ -230,17 +230,6 @@ const Search: SearchProps = [
     group: "cards",
   },
   {
-    name: "Logo Carousel",
-    description:
-      "This is an infinite logo Carousel developed using only tailwind. It has a direction attribute that controls the direction of the animation where the default is left.",
-    tags: [""],
-    link: "docs/components/carousel#logo-carousel",
-    version_included: "0.2.0",
-    flag: "default",
-    category: "components",
-    group: "carousel",
-  },
-  {
     name: "Default Cookie Consent",
     description:
       "This component is paired up with useCookies hook. It uses the useCookies hook to be familiar with the categories of the cookie the user has accepted. This component is a cookie consent prompt and with the `useCookies` hook, you can add the cookies according to the category that the user has accepted. If the user has not accepted that cookie category, it won't be used.",
@@ -765,6 +754,17 @@ const Search: SearchProps = [
     flag: "default",
     category: "primitives",
     group: "buttons",
+  },
+  {
+    name: "Carousel",
+    description:
+      "This is an infinite Carousel developed using only tailwind. It has a direction attribute that controls the direction of the animation where the default is left. It also has a pauseOnHover attribute that pauses the animation when the user hovers over the carousel.",
+    tags: [""],
+    link: "docs/primitives/carousel#carousel",
+    version_included: "0.2.0",
+    flag: "default",
+    category: "primitives",
+    group: "carousel",
   },
   {
     name: "Default Checkbox",

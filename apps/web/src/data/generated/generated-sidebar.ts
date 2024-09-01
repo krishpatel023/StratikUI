@@ -95,6 +95,25 @@ const sidebar: SidebarProps = [
       },
       {
         type: "heading",
+        name: "carousel",
+        link: "docs/primitives/carousel",
+        version_included: "0.2.0",
+        flag: "default",
+        children: [
+          {
+            type: "sub-heading",
+            name: "Carousel",
+            description:
+              "This is an infinite Carousel developed using only tailwind. It has a direction attribute that controls the direction of the animation where the default is left. It also has a pauseOnHover attribute that pauses the animation when the user hovers over the carousel.",
+            tags: [""],
+            link: "docs/primitives/carousel#carousel",
+            version_included: "0.2.0",
+            flag: "default",
+          },
+        ],
+      },
+      {
+        type: "heading",
         name: "check-box",
         link: "docs/primitives/check-box",
         version_included: "0.2.0",
@@ -1088,25 +1107,6 @@ const sidebar: SidebarProps = [
             description: "This is a contact card that can be used as workforce introduction.",
             tags: ["Cards", " Product", " Contact"],
             link: "docs/components/cards#contact-card",
-            version_included: "0.2.0",
-            flag: "default",
-          },
-        ],
-      },
-      {
-        type: "heading",
-        name: "carousel",
-        link: "docs/components/carousel",
-        version_included: "0.2.0",
-        flag: "default",
-        children: [
-          {
-            type: "sub-heading",
-            name: "Logo Carousel",
-            description:
-              "This is an infinite logo Carousel developed using only tailwind. It has a direction attribute that controls the direction of the animation where the default is left.",
-            tags: [""],
-            link: "docs/components/carousel#logo-carousel",
             version_included: "0.2.0",
             flag: "default",
           },
