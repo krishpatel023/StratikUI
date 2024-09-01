@@ -537,6 +537,17 @@ const Search: SearchProps = [
     group: "testimonials",
   },
   {
+    name: "Testimonial Carousel",
+    description:
+      "This carousel component for displaying testimonials is a great way to showcase your team's achievements and highlight their contributions to your business. It has a simple and elegant design that makes it easy to use and customize.",
+    tags: ["testimonial", " carousel"],
+    link: "docs/components/testimonials#testimonial-carousel",
+    version_included: "0.2.0",
+    flag: "default",
+    category: "components",
+    group: "testimonials",
+  },
+  {
     name: "useArtificialLoader",
     description:
       "This hooks increases the value from 0 to 100 randomly in a given time. This helps us to give the loading effects and the increase is random thus making it more realistic. You can use it in various website loaders as well as loading page elements like top loading bars.",

@@ -7,3 +7,14 @@ export function DashedBackground({ className }: { className?: string }) {
     </div>
   );
 }
+
+export function SimpleDashedBackground({ className }: { className?: string }) {
+  return (
+    <div
+      className={twMerge(
+        "bg-[linear-gradient(45deg,rgba(0,0,0,.05)_7.14%,transparent_7.14%,transparent_50%,rgba(0,0,0,.05)_50%,rgba(0,0,0,.05)_57.14%,transparent_57.14%,transparent);] dark:bg-[linear-gradient(45deg,rgba(0,0,0,.4)_7.14%,transparent_7.14%,transparent_50%,rgba(0,0,0,.4)_50%,rgba(0,0,0,.4)_57.14%,transparent_57.14%,transparent);] bg-[length:10px_10px]",
+        className,
+      )}
+    />
+  );
+}
