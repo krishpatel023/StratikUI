@@ -10,6 +10,7 @@ import {
   TEXT,
   H3,
   BACKTICK,
+  BOLD,
 } from "@/components/mdx/MDX";
 import { TABLE, TD, TH, TR } from "@/components/mdx/Table";
 import type { MDXComponents } from "mdx/types";
@@ -37,6 +38,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     blockquote: (props) => <BLOCK_QUOTE {...props} />,
     a: (props) => Anchor(props),
     code: (props) => <BACKTICK {...props} />,
+    strong: (props) => <BOLD {...props} />,
     ...components,
   };
 }

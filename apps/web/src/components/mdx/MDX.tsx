@@ -13,7 +13,7 @@ export const OL = ({ className, ...props }: React.HTMLAttributes<HTMLOListElemen
 };
 
 export const LI = ({ className, ...props }: React.HTMLAttributes<HTMLElement>) => {
-  return <li className={twMerge("mt-2 text-secondary-foreground", className)} {...props} />;
+  return <li className={twMerge("my-1 text-secondary-foreground", className)} {...props} />;
 };
 
 export const BLOCK_QUOTE = ({ ...props }: React.HTMLAttributes<HTMLElement>) => {
@@ -58,7 +58,7 @@ export function Anchor({ ...props }) {
 export function ImageComponent({ ...props }) {
   return (
     <>
-      <Image sizes="100vw" style={{ width: "100%", height: "auto" }} {...(props as ImageProps)} />
+      <Image sizes="100%" style={{ width: "100%", height: "auto" }} {...(props as ImageProps)} />
     </>
   );
 }
@@ -68,7 +68,7 @@ export const Title = ({ children, className }: { children: React.ReactNode; clas
     <Link
       href={`#${convertToDashed(children as string)}`}
       className={twMerge(
-        "text-2xl font-medium text-foreground group/hashtag flex gap-2 relative transition-all duration-300 ease-linear",
+        "text-2xl font-medium text-foreground group/hashtag flex gap-2 relative transition-all duration-300 ease-linear hover:underline underline-offset-1",
         className,
       )}
     >
@@ -87,14 +87,14 @@ export const Title = ({ children, className }: { children: React.ReactNode; clas
 
 export const H1 = ({ children }: { children: React.ReactNode }) => {
   return (
-    <h1 className="text-4xl font-medium text-foreground group/hashtag flex gap-2 relative transition-all duration-300 ease-linear">
+    <Title className="text-4xl font-medium text-foreground group/hashtag flex gap-2 relative transition-all duration-300 ease-linear">
       {children}
-    </h1>
+    </Title>
   );
 };
 
 export const H2 = ({ children }: { children: React.ReactNode }) => {
-  return <p className="text-2xl text-primary-foreground font-semibold">{children}</p>;
+  return <Title className="text-2xl text-primary-foreground font-semibold mt-10 mb-4">{children}</Title>;
 };
 
 export const H3 = ({ children }: { children: React.ReactNode }) => {
@@ -112,4 +112,8 @@ export const BACKTICK = ({ ...props }) => {
       {...props}
     />
   );
+};
+
+export const BOLD = ({ ...props }) => {
+  return <strong className="font-bold text-primary-foreground" {...props} />;
 };
