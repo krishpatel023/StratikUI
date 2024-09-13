@@ -25,8 +25,8 @@ export default function Sidebar() {
   }
 
   const path = usePathname();
-  const sidebarVisibilityCondition =
-    path !== "/" && (path.split("/").length > 2 ? path.split("/")[1] !== "blogs" : true);
+  const sidebarVisibilityCondition = path !== "/" && path.split("/")[1] !== "blogs";
+
   return (
     <>
       {/* Large Screen */}
