@@ -64,9 +64,10 @@ export function ImageComponent({ ...props }) {
 }
 
 export const Title = ({ children, className }: { children: React.ReactNode; className?: string }) => {
+  const title = convertToDashed(typeof children === "string" ? children : "");
   return (
     <Link
-      href={`#${convertToDashed(children as string)}`}
+      href={`#${title}`}
       className={twMerge(
         "text-2xl font-medium text-foreground group/hashtag flex gap-2 relative transition-all duration-300 ease-linear hover:underline underline-offset-1",
         className,

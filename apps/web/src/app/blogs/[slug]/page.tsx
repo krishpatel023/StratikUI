@@ -59,7 +59,7 @@ export default async function BlogPage({ params }: { params: { slug: string } })
   );
 }
 
-export const CheveronLeft = (props: IconProps) => (
+const CheveronLeft: React.FC<IconProps> = (props) => (
   <svg height="200" width="200" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" {...props}>
     <title>Cheveron Left Icon</title>
     <path d="M7.05 9.293L6.343 10L12 15.657l1.414-1.414L9.172 10l4.242-4.243L12 4.343z" fill="currentColor" />
