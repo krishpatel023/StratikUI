@@ -12,7 +12,7 @@ version_included: 0.2.0
 | copy | `text: string`, `callback?: () => void` | Copies the provided text to the clipboard and optionally executes a callback on success. |
 | read | -                                       | Reads and returns the current text from the clipboard.                                   |
 
-## Parameters Table for `copy`
+## Copy parameters
 
 | Name     | Type         | Default | Description                                                       |
 | -------- | ------------ | ------- | ----------------------------------------------------------------- |

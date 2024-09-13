@@ -25,10 +25,12 @@ export default function Sidebar() {
   }
 
   const path = usePathname();
+  const sidebarVisibilityCondition = path !== "/" && path.split("/")[1] !== "blogs";
+
   return (
     <>
       {/* Large Screen */}
-      {path !== "/" && (
+      {sidebarVisibilityCondition && (
         <>
           <div
             className={twMerge(
