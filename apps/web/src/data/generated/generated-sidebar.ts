@@ -1153,6 +1153,25 @@ const sidebar: SidebarProps = [
       },
       {
         type: "heading",
+        name: "decrypt-animation",
+        link: "docs/components/decrypt-animation",
+        version_included: "0.2.0",
+        flag: "default",
+        children: [
+          {
+            type: "sub-heading",
+            name: "Decrypt Animation",
+            description:
+              "A customizable text animation component that simulates a `decrypting` effect by progressively revealing text with randomized characters.",
+            tags: ["animation", " text", " react", " decrypt"],
+            link: "docs/components/decrypt-animation#decrypt-animation",
+            version_included: "0.2.0",
+            flag: "default",
+          },
+        ],
+      },
+      {
+        type: "heading",
         name: "file-upload",
         link: "docs/components/file-upload",
         version_included: "0.2.0",

@@ -1,0 +1,322 @@
+import React, { Suspense, lazy } from 'react';
+import { Implementation, Preview, WrapperToggle, TechnologyUsed, Wrapper, Skeleton, PARTITION, Details, Provider, Title } from "@/components/mdx/MDXServerImports"
+import { CodeBlock, ResizableDisplay } from "@/components/mdx/MDXClientImports"
+
+{/*
+// ------------------------------------------------------------------------------------
+    //	The text below is generated from "@/registry/components/decrypt-animation/01"
+//------------------------------------------------------------------------------------
+*/}
+
+<Wrapper>
+<Title>Decrypt Animation</Title>
+### A customizable text animation component that simulates a `decrypting` effect by progressively revealing text with randomized characters.
+<WrapperToggle>
+<Preview>
+
+export const Components_decrypt_animation_01 = lazy(() => import("@registry/packages/components/decrypt-animation/01/default-ts/example"));
+
+
+<Suspense fallback={<Skeleton className="h-[800px] rounded-lg" />}>
+<ResizableDisplay>
+<Components_decrypt_animation_01 />
+</ResizableDisplay>
+</Suspense>
+
+</Preview><Implementation>
+<TechnologyUsed technologies={["tailwind-merge"]} />
+<CodeBlock variant="decrypt-animation">
+
+```default|js|DecryptAnimation.jsx
+"use client";
+
+import { useState, useEffect } from "react";
+import { twMerge } from "tailwind-merge";
+
+export default function DecryptAnimation({
+  text = "Default Text",
+  characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+",
+  interval = 50,
+  reanimate = false,
+  setReanimate,
+  className,
+  animateStyle = "progress",
+  iteration = 1,
+}) {
+  const [displayText, setDisplayText] = useState(text);
+
+  function progress() {
+    if (!text) return;
+
+    let iteration_flag = 0;
+    const phase = setInterval(() => {
+      setDisplayText((prevText) => {
+        const newText = text
+          .split("")
+          .map((char, index) => {
+            if (index < iteration_flag) {
+              return text[index];
+            }
+            return characters[Math.floor(Math.random() * characters.length)];
+          })
+          .join("");
+        return newText;
+      });
+
+      if (iteration_flag >= text.length) {
+        clearInterval(phase);
+      }
+
+      iteration_flag += iteration;
+    }, interval);
+
+    if (reanimate && setReanimate) {
+      setReanimate(false);
+    }
+    return () => clearInterval(phase);
+  }
+
+  function linear() {
+    const limit = 15;
+    if (!text) return;
+
+    let iteration_flag = 0;
+    const phase = setInterval(() => {
+      setDisplayText((prevText) => {
+        const newText = text
+          .split("")
+          .map((char, index) => {
+            if (iteration_flag >= limit) {
+              return text[index];
+            }
+            return characters[Math.floor(Math.random() * characters.length)];
+          })
+          .join("");
+        return newText;
+      });
+
+      if (iteration_flag >= limit) {
+        clearInterval(phase);
+      }
+
+      iteration_flag += iteration;
+    }, interval);
+
+    if (reanimate && setReanimate) {
+      setReanimate(false);
+    }
+    return () => clearInterval(phase);
+  }
+
+  
+  useEffect(() => {
+    if (animateStyle === "progress") progress();
+    else if (animateStyle === "linear") linear();
+  }, [text, characters, interval, reanimate, setReanimate, animateStyle]);
+
+  return (
+    <div className={twMerge("text-wrap font-mono text-2xl text-foreground", className)}>
+      {displayText || "No text provided"}
+    </div>
+  );
+}
+
+```
+
+```default|js|example.jsx
+"use client";
+
+import { useState } from "react";
+import DecryptAnimation from "./DecryptAnimation";
+import Button from "@registry/ui/Button";
+import Message from "@registry/ui/Message";
+
+export default function Example() {
+  const [reanimate, setReanimate] = useState(false);
+  const [animationStyle, setAnimationStyle] = useState("progress");
+
+  return (
+    <div className="flex flex-col items-center justify-center gap-10 min-h-80 py-10">
+      <Message> Use this animation with text whose length is less. Avoid using this with long text. </Message>
+      <DecryptAnimation
+        text="Hello World"
+        reanimate={reanimate}
+        setReanimate={setReanimate}
+        className="text-5xl"
+        animateStyle={animationStyle}
+      />
+      <Button type="button" onPress={() => setReanimate(true)}>
+        Reanimate
+      </Button>
+      <Button type="button" onPress={() => setAnimationStyle((prev) => (prev === "progress" ? "linear" : "progress"))}>
+        Animation Style: {animationStyle}
+      </Button>
+    </div>
+  );
+}
+
+```
+
+```default|ts|DecryptAnimation.tsx
+"use client";
+
+import { useState, useEffect } from "react";
+import type React from "react";
+import { twMerge } from "tailwind-merge";
+
+type DecryptAnimationProps = {
+  text?: string;
+  characters?: string;
+  interval?: number;
+  reanimate?: boolean;
+  setReanimate?: React.Dispatch<React.SetStateAction<boolean>>;
+  className?: string;
+  animateStyle?: "progress" | "linear";
+  iteration?: number;
+};
+
+export default function DecryptAnimation({
+  text = "Default Text",
+  characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+",
+  interval = 50,
+  reanimate = false,
+  setReanimate,
+  className,
+  animateStyle = "progress",
+  iteration = 1,
+}: DecryptAnimationProps) {
+  const [displayText, setDisplayText] = useState(text);
+
+  function progress() {
+    if (!text) return;
+
+    let iteration_flag = 0;
+    const phase = setInterval(() => {
+      setDisplayText((prevText) => {
+        const newText = text
+          .split("")
+          .map((char, index) => {
+            if (index < iteration_flag) {
+              return text[index];
+            }
+            return characters[Math.floor(Math.random() * characters.length)];
+          })
+          .join("");
+        return newText;
+      });
+
+      if (iteration_flag >= text.length) {
+        clearInterval(phase);
+      }
+
+      iteration_flag += iteration;
+    }, interval);
+
+    if (reanimate && setReanimate) {
+      setReanimate(false);
+    }
+    return () => clearInterval(phase);
+  }
+
+  function linear() {
+    const limit = 15;
+    if (!text) return;
+
+    let iteration_flag = 0;
+    const phase = setInterval(() => {
+      setDisplayText((prevText) => {
+        const newText = text
+          .split("")
+          .map((char, index) => {
+            if (iteration_flag >= limit) {
+              return text[index];
+            }
+            return characters[Math.floor(Math.random() * characters.length)];
+          })
+          .join("");
+        return newText;
+      });
+
+      if (iteration_flag >= limit) {
+        clearInterval(phase);
+      }
+
+      iteration_flag += iteration;
+    }, interval);
+
+    if (reanimate && setReanimate) {
+      setReanimate(false);
+    }
+    return () => clearInterval(phase);
+  }
+
+  
+  useEffect(() => {
+    if (animateStyle === "progress") progress();
+    else if (animateStyle === "linear") linear();
+  }, [text, characters, interval, reanimate, setReanimate, animateStyle]);
+
+  return (
+    <div className={twMerge("text-wrap font-mono text-2xl text-foreground", className)}>
+      {displayText || "No text provided"}
+    </div>
+  );
+}
+
+```
+
+```default|ts|example.tsx
+"use client";
+
+import { useState } from "react";
+import DecryptAnimation from "./DecryptAnimation";
+import Button from "@registry/ui/Button";
+import Message from "@registry/ui/Message";
+
+export default function Example() {
+  const [reanimate, setReanimate] = useState<boolean>(false);
+  const [animationStyle, setAnimationStyle] = useState<"progress" | "linear">("progress");
+
+  return (
+    <div className="flex flex-col items-center justify-center gap-10 min-h-80 py-10">
+      <Message> Use this animation with text whose length is less. Avoid using this with long text. </Message>
+      <DecryptAnimation
+        text="Hello World"
+        reanimate={reanimate}
+        setReanimate={setReanimate}
+        className="text-5xl"
+        animateStyle={animationStyle}
+      />
+      <Button type="button" onPress={() => setReanimate(true)}>
+        Reanimate
+      </Button>
+      <Button type="button" onPress={() => setAnimationStyle((prev) => (prev === "progress" ? "linear" : "progress"))}>
+        Animation Style: {animationStyle}
+      </Button>
+    </div>
+  );
+}
+
+```
+
+</CodeBlock>
+<Details>
+
+
+## DecryptAnimation Props
+
+| Name          | Type                               | Default                                                   | Description                                                                                                                                  |
+| ------------- | ---------------------------------- | --------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| text          | `string`                           | `"Default Text"`                                           | The text to be animated.                                                                                                                      |
+| characters    | `string`                           | - | The set of characters used to randomize the text during the animation.                                                                        |
+| interval      | `number`                           | `50`                                                      | The speed of the animation in milliseconds.                                                                                                   |
+| reanimate     | `boolean`                          | `false`                                                   | If true, the animation will replay when this prop changes.                                                                                     |
+| setReanimate  | `React.Dispatch<React.SetStateAction<boolean>>` | `undefined`                                                | A setter function to manually trigger the reanimation.                                                                                        |
+| className     | `string`                           | `undefined`                                               | Additional CSS classes for custom styling.                                                                                                    |
+| animateStyle  | `"progress" \| "linear"`           | `"progress"`                                              | The style of animation. "progress" iterates over the text, while "linear" uses a fixed limit to stop randomization.                            |
+| iteration     | `number`                           | `1`                                                       | The number of characters to reveal in each iteration of the animation.                                                                         |
+
+</Details>
+</Implementation>
+</WrapperToggle>
+</Wrapper>
