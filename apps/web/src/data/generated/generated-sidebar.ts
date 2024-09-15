@@ -1168,6 +1168,16 @@ const sidebar: SidebarProps = [
             version_included: "0.2.0",
             flag: "default",
           },
+          {
+            type: "sub-heading",
+            name: "Decrypt Animation 2.0",
+            description:
+              "A customizable text animation component that simulates a `decrypting` effect by progressively revealing text with randomized characters. This effect is different to the above animation as it can handle large texts.",
+            tags: ["animation", " decrypt"],
+            link: "docs/components/decrypt-animation#decrypt-animation-2.0",
+            version_included: "0.2.0",
+            flag: "default",
+          },
         ],
       },
       {

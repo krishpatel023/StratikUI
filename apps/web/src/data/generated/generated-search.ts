@@ -274,6 +274,17 @@ const Search: SearchProps = [
     group: "decrypt-animation",
   },
   {
+    name: "Decrypt Animation 2.0",
+    description:
+      "A customizable text animation component that simulates a `decrypting` effect by progressively revealing text with randomized characters. This effect is different to the above animation as it can handle large texts.",
+    tags: ["animation", " decrypt"],
+    link: "docs/components/decrypt-animation#decrypt-animation-2.0",
+    version_included: "0.2.0",
+    flag: "default",
+    category: "components",
+    group: "decrypt-animation",
+  },
+  {
     name: "Default File Upload",
     description:
       "This is a default file upload component that can be used to upload files. It supports drag and drop, file selection, file type validation, and file size limit. It uses `Dropbox` and `File Upload Button` primitives to implement the file upload functionality.",
