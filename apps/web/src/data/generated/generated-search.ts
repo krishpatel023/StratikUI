@@ -570,6 +570,17 @@ const Search: SearchProps = [
     group: "testimonials",
   },
   {
+    name: "Testimonial Panel",
+    description:
+      "This testimonial panel helps displaying the client testimonials in a very efficient and an eye catching way.",
+    tags: ["testimonial", " colorful"],
+    link: "docs/components/testimonials#testimonial-panel",
+    version_included: "0.2.0",
+    flag: "default",
+    category: "components",
+    group: "testimonials",
+  },
+  {
     name: "useArtificialLoader",
     description:
       "This hooks increases the value from 0 to 100 randomly in a given time. This helps us to give the loading effects and the increase is random thus making it more realistic. You can use it in various website loaders as well as loading page elements like top loading bars.",
