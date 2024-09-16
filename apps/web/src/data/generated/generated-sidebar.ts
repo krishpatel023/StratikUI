@@ -1492,6 +1492,16 @@ const sidebar: SidebarProps = [
             version_included: "0.2.0",
             flag: "default",
           },
+          {
+            type: "sub-heading",
+            name: "Testimonial Panel",
+            description:
+              "This testimonial panel helps displaying the client testimonials in a very efficient and an eye catching way.",
+            tags: ["testimonial", " colorful"],
+            link: "docs/components/testimonials#testimonial-panel",
+            version_included: "0.2.0",
+            flag: "default",
+          },
         ],
       },
     ],
