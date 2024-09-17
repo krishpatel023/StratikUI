@@ -29,7 +29,9 @@ export default function useMousePosition(element?: React.RefObject<HTMLElement> 
       if (elementExtracted) {
         const elemRect = elementExtracted.getBoundingClientRect();
         x = event.clientX - elemRect.left;
+        if (elemRect.right < event.clientX) x = -1;
         y = event.clientY - elemRect.top;
+        if (elemRect.bottom < event.clientY) y = -1;
       } else {
         x = event.clientX;
         y = event.clientY;
