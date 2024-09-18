@@ -1030,7 +1030,7 @@ const sidebar: SidebarProps = [
         type: "heading",
         name: "cards",
         link: "docs/components/cards",
-        version_included: "0.2.0",
+        version_included: "0.3.0",
         flag: "default",
         children: [
           {
@@ -1108,6 +1108,16 @@ const sidebar: SidebarProps = [
             tags: ["Cards", " Product", " Contact"],
             link: "docs/components/cards#contact-card",
             version_included: "0.2.0",
+            flag: "default",
+          },
+          {
+            type: "sub-heading",
+            name: "Evervault Card",
+            description:
+              "This is an evervault card recreation from Aceternity UI that is done using React and TailwindCSS. The design credits go to Aceternity UI.",
+            tags: ["evervault", " card"],
+            link: "docs/components/cards#evervault-card",
+            version_included: "0.3.0",
             flag: "default",
           },
         ],
