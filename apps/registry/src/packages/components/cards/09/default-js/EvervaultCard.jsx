@@ -1,23 +1,17 @@
 "use client";
 
-import useMousePosition from "@registry/packages/hooks/useMousePosition/01/default-ts/useMousePosition";
+import useMousePosition from "@registry/packages/hooks/useMousePosition/01/default-js/useMousePosition";
 import { useEffect, useRef, useState } from "react";
 
-type WordProps = {
-  x: number;
-  y: number;
-  length: number;
-};
-
 export default function EvervaultCard() {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef(null);
   const { x, y } = useMousePosition(ref);
   return (
     <div ref={ref} className="group w-max px-6 py-6 rounded-lg border border-outline-secondary">
       <div className="size-[20rem] overflow-hidden rounded-lg relative">
         <Word x={x > 0 && y > 0 ? x : 0} y={x > 0 && y > 0 ? y : 0} length={1000} />
         <div
-          style={{ "--mouseX": `${x}px`, "--mouseY": `${y}px` } as React.CSSProperties}
+          style={{ "--mouseX": `${x}px`, "--mouseY": `${y}px` }}
           className="size-full absolute left-0 top-0 inset-0 group-hover:bg-[radial-gradient(250px_circle_at_var(--mouseX)__var(--mouseY),transparent,black)] z-40 duration-500"
         />
         <div className="size-full absolute top-0 left-0 bg-gradient-to-r from-green-700/70 to-blue-600/70 opacity-0 group-hover:opacity-100" />
@@ -37,8 +31,8 @@ export default function EvervaultCard() {
   );
 }
 
-function Word({ x, y, length }: WordProps) {
-  const [displayText, setDisplayText] = useState<string>("");
+function Word({ x, y, length }) {
+  const [displayText, setDisplayText] = useState("");
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
 
   function randomize() {
